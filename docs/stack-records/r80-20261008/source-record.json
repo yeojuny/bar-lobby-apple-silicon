@@ -1,0 +1,1646 @@
+{
+  "schema": 1,
+  "checkpoint": "R80",
+  "components": [
+    {
+      "name": "engine",
+      "repository": "https://github.com/beyond-all-reason/RecoilEngine",
+      "base_commit": "694e9df7cf5068aef2cdebbf5e6587d539344001",
+      "upstream_archive_sha256": "979c9a7c015b029b83a428e28215216c65867a85f51e52c8e6c9343a7e881c39",
+      "upstream_archive_url": "https://codeload.github.com/beyond-all-reason/RecoilEngine/tar.gz/694e9df7cf5068aef2cdebbf5e6587d539344001",
+      "source_inventory_sha256": "89e0d3b0b2e311f77c2f65c0432c06c65c2c3a8aa7cb0a36e1af297f075e8251",
+      "upstream_files_checked": 3745,
+      "changed_files": [
+        {
+          "path": "AI/Interfaces/C/CMakeLists.txt",
+          "base_sha256": "83901d7e3bc6745fa41a7fbecbf33e1ae9e8338eb9533f466af0280d38adc5e3",
+          "target_sha256": "95eb0cbb39e6ab54b761bca287af8e6e0eb962ad790a6da8fd9d78dcff65bc3a",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "CMakeLists.txt",
+          "base_sha256": "01ec89bd29122e2ee0d2b5f6c3b9f3a89933ec4e6fd6e0c00806a174aac78909",
+          "target_sha256": "0a92b9d0ce55a52abc221eee482ab17f13833ef706514a3b5958bcefd2318bf3",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "VERSION",
+          "base_sha256": null,
+          "target_sha256": "3bccb544c7f8db3e1018760ea0288ad89cccecc2be1c4a2f27974fbbfe2ff3af",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "rts/Game/Camera.cpp",
+          "base_sha256": "91cd9111eb7e9d24a6db924ff51dc0c39bbbee5c820065a3633684f10f8f966b",
+          "target_sha256": "b12f9be36a786c821dd9f3b134486cb5a4752b228d58b39524561f132aef554c",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "rts/Game/UI/GuiHandler.cpp",
+          "base_sha256": "16c61661c4d075c40be8fc39615fb067259f69628b87e1a77672ac9427875c96",
+          "target_sha256": "1a384cb09157ce3aa7224ade6f998d76cc8aefe291d2f746b779f734c998016c",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "rts/Game/UI/MiniMap.cpp",
+          "base_sha256": "eec5144b826acada10411a6313cd4167305255fb57ac79a30ac84ac24d0b23d5",
+          "target_sha256": "d7624cf91d1aca346d17ba2f48a6030ddaffb96bd7fbc37961bf3d7355eac98f",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "rts/Game/UI/MouseHandler.cpp",
+          "base_sha256": "105b4c911d1fcf518911c1847599ac89e712a0688f08507b87d13d1b0074dbc2",
+          "target_sha256": "88ad0a13514adbbcb157a6fc3efbee646e13297be3ecacfb2e4ada7eecbcb603",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "rts/Lua/LuaDebugExtra.cpp",
+          "base_sha256": "f592527def168d0eeded544370882ebd81c4698f39e92bbae2d93d896e807b3b",
+          "target_sha256": "2a0634fa3c9b56ed36870d23f8747391a11ab123f9c276ac93701f44c6554c7b",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "rts/Lua/LuaOpenGL.cpp",
+          "base_sha256": "9725f38e1331810af78d791e366ea92f8e095dd50675a7bac9e1199d056d14c9",
+          "target_sha256": "4f21194db4a6de94a221321c802f70a2e568cb508265b8d207846fcb04c1b3b1",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "rts/Lua/LuaShaders.cpp",
+          "base_sha256": "b1682bed707323b815d478da642a9b77318f7f2d93418b7c26510abf1d31199f",
+          "target_sha256": "e6866fc61be6701c09e21c8f6eddfa465babac07706d09f8648e03b5e5ec1d51",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "rts/Lua/LuaVAOImpl.cpp",
+          "base_sha256": "0ff972be1f120689c9893f2ac1cb30a67a8cd8c76d5c78261df469c56645e4f5",
+          "target_sha256": "e6ee8bcbe00b9e0f016386c7775c04458b9e30ee0759141d644644bab5550fbf",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "rts/Lua/LuaVAOImpl.h",
+          "base_sha256": "7a8cb56bdf1f6f9b8e1c9adcf91063a0a02db0d497d97c3741d5c172f4abac8a",
+          "target_sha256": "81e9915ce4ed51bb34b5a9cc87a2a473fa2726f295e5b436cab174c6bd75ae0f",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "rts/Lua/LuaVBOImpl.cpp",
+          "base_sha256": "760cf9f18834cadf01e1e13c466a1c53085f387682f96232e86d7b0fbd4ea302",
+          "target_sha256": "cb84ba8de9a41f7987b76b5db7efe4a0d46d5ff4ffe32cb05eae852223d99233",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "rts/Lua/LuaVBOImpl.h",
+          "base_sha256": "d88ad096bdbb50cc412365dc67ba7b91de8ec1e030000ec423b3f103ac954a85",
+          "target_sha256": "6b02d63d8373cd8baea47583f49141fdc2eb6cef6c8213b975ff74c96984da01",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "rts/Menu/SelectMenu.cpp",
+          "base_sha256": "5b9f306247651d06663640f0e06a66d3c8af8f598d68f1f73cd10d5bd0eac94e",
+          "target_sha256": "3a17f1f8fbe7386e2d56b20b1bd10b5241f1f1ffc4dbddef93d1e6102e3acc38",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "rts/Rendering/CommandDrawer.cpp",
+          "base_sha256": "d0f73f47ca34ec2c1faa84953494c9b7cba2d13c80b7ec4b307f6e59bd7b919e",
+          "target_sha256": "3051a34b23cff4cf53970cbcd5e72e419084b5062b93ef8735ba448b1efa2eed",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "rts/Rendering/Common/ModelDrawerData.h",
+          "base_sha256": "1995e924aa6d35b16d64b91a333e96f412e40ae5f3038f585a7a01d7a6e8b25a",
+          "target_sha256": "3ab75e19531d38cef0b70b5e8d9ea0721ab309d944a4d9de09813c53f3a03791",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "rts/Rendering/Common/UpdateList.cpp",
+          "base_sha256": "a514aaf6decf05298e0a83472868595889c01436d032407c125ea5475d2b22c3",
+          "target_sha256": "6fc126bcb3c59547ef89d3950a6b3420adba281d33511865fb4591f1634f15e6",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "rts/Rendering/Common/UpdateList.h",
+          "base_sha256": "07c5a83f07c2ffbf3fc952caaf2923c0552f1cc0db40192177d4862bf9e43ec3",
+          "target_sha256": "4ef21cde9aae14fba65d30d4f637c2680a55522e43a26a6fe3c3ac4cd863a714",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "rts/Rendering/Fonts/CFontTexture.cpp",
+          "base_sha256": "c4cf648d7c61be213fcfd24fbfaeddb7adc0498d1c3309372c3e9314520db543",
+          "target_sha256": "cde1da63b3ccb03d23b8e047879eda98e77173b858fde42af46d53b3090d53ec",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "rts/Rendering/Fonts/CFontTexture.h",
+          "base_sha256": "9f2ee8009dd6bb8df771aa05bccc9babba6eabe04f0b81f9d4c26e837f8565f9",
+          "target_sha256": "3ddda9e039b951ce1910bae2337c9e40e392c68fa862dafc0a1089c6dc327130",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "rts/Rendering/GL/IndexBufferRestartState.h",
+          "base_sha256": null,
+          "target_sha256": "f66972cb9df5d5702c86458822b68265da14c15e1ac76bc204ce5f6c22058b32",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "rts/Rendering/GL/StreamBuffer.cpp",
+          "base_sha256": "d3409e6be7dcea9b49ca5f777d76014c6f195dd9cbb8f07ae291800ddd9813c6",
+          "target_sha256": "295770af88f8acec1335dfc5517fc0a37350613c686fee13286b938605328c8d",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "rts/Rendering/GL/StreamBuffer.h",
+          "base_sha256": "2357f1fab9ba60de1fbed6da9c984ba63e557c26b0bb6217b5f78c0e889b73c1",
+          "target_sha256": "0be518866c031f0c87e6827ddf3c39625b83fee181e2ded5abc3d66a72ea0640",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "rts/Rendering/GL/myGL.cpp",
+          "base_sha256": "3b6f7c54a2441f93227497abb66dbd24ade6719c6f3ad2cd7c83665a310e95b6",
+          "target_sha256": "743615326cd456e8fe405c04cabfa0320354b1f5346e887721138c9326c3fe8b",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "rts/Rendering/GlobalRendering.cpp",
+          "base_sha256": "47225e7a0936d7ca84bd456881a26e191072a304a466f7c33e47646cfcb7de9f",
+          "target_sha256": "ca8bca806f9bc12e40a517f6d84d6f3babb3f1066f8e6a11620e114ef7fcf906",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "rts/Rendering/GlobalRendering.h",
+          "base_sha256": "0b39ab969194af7ce7a04ceab983c8624105008523114a2740bf86ffb3367980",
+          "target_sha256": "ac4e92c2a3a5b4eeed76a2e51a19b1510c18020703970ab72e3eea9521c9709a",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "rts/Rendering/Models/3DModelVAO.cpp",
+          "base_sha256": "c508a60931a1af1adbd3b248a9a7b642f33c8d9ec943517491d1054d3c4f5a1c",
+          "target_sha256": "7cade309279a9efa57989b2bb94a72b86e7d95be13efab2430d5e0a2b36babf5",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "rts/Rendering/Models/3DModelVAO.hpp",
+          "base_sha256": "80fc76a1e3e0993f61008239933ed9e8c89464ac9ccc005e98a9263cfef63425",
+          "target_sha256": "37ed1ed2abeba360a1379645c01b26275870ffc4a68dab193bc387a0acf0a8b5",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "rts/Rendering/Models/AssIO.h",
+          "base_sha256": "f3d76d8eae0aba6be992e1072452dd75516cb90e0e72051e11ef2676c3de05f1",
+          "target_sha256": "6260ff1775ddc7db542b04b94548180341b30b0bbdec75b606390419c5942c2b",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "rts/Rendering/Models/ModelsMemStorage.cpp",
+          "base_sha256": "92abc6d58b7ff05ceed7c383fb62c812f7f3cf7685375b922ca0a3ade2bbb9c9",
+          "target_sha256": "cc0d8ac8f4f0b2ea61dca4fc8c0fd0af7bac80f18032f62cf9a44909d4c96fd7",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "rts/Rendering/Models/ModelsMemStorage.h",
+          "base_sha256": "d8608e3ed641cf3f9bbacc156d35fc84154f619e9acf8f65927216daf878a04b",
+          "target_sha256": "657f530a7b763ab0bd6eec31e63b018bf51dbfc1773a3b19a66111a4c2837d71",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "rts/Rendering/ModelsDataUploader.cpp",
+          "base_sha256": "5cb864396fbde96bc64e36e4edf3a3dde2bebfcf3b168881594f3c8ff46a5165",
+          "target_sha256": "ed1cd502b6941bb4df7546f9af5c4d789a561608e576356cc18ab0d4a21adf24",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "rts/Rml/Backends/RmlUi_Backend.cpp",
+          "base_sha256": "85974d50fb2173f5222126374e45987188d169f66ab3de44ddccec80dce41611",
+          "target_sha256": "8035cb6261572b95add764d240afcce3efbbd80fd6de0e8720ad84f5b5430030",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "rts/Rml/Backends/RmlUi_SystemInterface.cpp",
+          "base_sha256": "45bc956df3db97e72c9610c4a9156f7bc9b1e1e5d2724b267d4738bff46b23e7",
+          "target_sha256": "bb522c4a6c57a8963cf6fc492934d42f41382810b1e29ab58539344daefd8040",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "rts/System/CMakeLists.txt",
+          "base_sha256": "3cc3d7e575d9f2b909ae53322ea03c9ff32bcecf278aa08351a1a34a5467a055",
+          "target_sha256": "9fd1a23b5ac4a3fb993bcc14cb5f8d8683aa6c9b3b5199f6cce1ae05bb114b2b",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "rts/System/Input/KeyInput.cpp",
+          "base_sha256": "afbc70719aa005db2d71884ec3820e870acb9e21cd889fe868be9bbe194fd832",
+          "target_sha256": "54b0d372708f2779145f991a742a01d4f00a7d0d7fcb118a439c80843139d598",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "rts/System/Input/MouseInput.cpp",
+          "base_sha256": "b0cf51c5e1c526cc45571ba1ee98cc63045ad2f42eca9e3f2a0580d52bdaa916",
+          "target_sha256": "050659561982bcb21518ff1504b22772461e4630f005ba7cd5dbd87a4f88e80d",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "rts/System/MemPoolTypes.h",
+          "base_sha256": "84870bf4798d82cefb51d8b9a274a08e98be309aa84575af0a39770042a92b21",
+          "target_sha256": "ed9682891bf32cd5ae98db1fed3bb7a65410698ccaa2a0664b58a7896191a623",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "rts/System/Platform/Mac/CpuTopology.cpp",
+          "base_sha256": null,
+          "target_sha256": "8b1794d1b57888fa5ac7e0a947a5b599e129dd6ef19c79e7382d73ae3a91f032",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "rts/System/Platform/Mac/MacSDL3EGLBridge.h",
+          "base_sha256": null,
+          "target_sha256": "6a240e760e3eb0cca075a52fc9f4713860f2f8f1a18aff6f9fef8c146d76f227",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "rts/System/Platform/Mac/MacSDL3EGLBridge.mm",
+          "base_sha256": null,
+          "target_sha256": "bcf4e3dcf243743c127df87622a06603c2b9cb8d0bbd36b6a29b43e9fdf7c54e",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "rts/System/Platform/Mac/ThreadSupport.cpp",
+          "base_sha256": null,
+          "target_sha256": "9d00b01182a2b104eaf7c9cb904e63a29d5236521241ae04f51279cc76bdb6e3",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "rts/System/Platform/ThreadAffinityGuard.cpp",
+          "base_sha256": "5d1c41d0e3c3a7e6ccacb365c0ae6f012234e9f1076cf57acbe96333a98117bf",
+          "target_sha256": "47a07b85b53e83253a5bd87ce384ff098e46558df7c5d3cc19a8d05cae9f47b1",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "rts/System/Platform/ThreadAffinityGuard.h",
+          "base_sha256": "ed541e8c3c035d5988627018bb9a9b703c4ec6fb4b1d186bcc7c00e4c47d9b87",
+          "target_sha256": "5f3a700da69bf820d0b9ab4f5fb1861e92fca1015e4eabc3c3fadae4efed80d7",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "rts/System/SDLCompat/SDL.h",
+          "base_sha256": null,
+          "target_sha256": "36ed258ca7941e39fb4fd7d985839c338059769d78049c9161640620716443e2",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "rts/System/SDLCompat/SDL2/SDL_keyboard.h",
+          "base_sha256": null,
+          "target_sha256": "1d17defd943bd0b985d599c5c2d609ba00fc475a09a2d6d71a7dbfbf8496e8df",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "rts/System/SDLCompat/SDL2/SDL_mouse.h",
+          "base_sha256": null,
+          "target_sha256": "e3365465902aa86cf29cbebb512fa1c94c92f25510832bfe3abb377f0032610e",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "rts/System/SDLCompat/SDL2/SDL_rect.h",
+          "base_sha256": null,
+          "target_sha256": "23ce977f5dabd757b9644321f6d9c6adf130d9cafdc56b931dac74b4f7fc07b1",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "rts/System/SDLCompat/SDLRecoilCompat.h",
+          "base_sha256": null,
+          "target_sha256": "23ee40d3a07873801b1ca631b64e2deeae739260355088521f72da7d73ac25b3",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "rts/System/SDLCompat/SDL_clipboard.h",
+          "base_sha256": null,
+          "target_sha256": "36ed258ca7941e39fb4fd7d985839c338059769d78049c9161640620716443e2",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "rts/System/SDLCompat/SDL_config.h",
+          "base_sha256": null,
+          "target_sha256": "36ed258ca7941e39fb4fd7d985839c338059769d78049c9161640620716443e2",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "rts/System/SDLCompat/SDL_events.h",
+          "base_sha256": null,
+          "target_sha256": "36ed258ca7941e39fb4fd7d985839c338059769d78049c9161640620716443e2",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "rts/System/SDLCompat/SDL_hints.h",
+          "base_sha256": null,
+          "target_sha256": "36ed258ca7941e39fb4fd7d985839c338059769d78049c9161640620716443e2",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "rts/System/SDLCompat/SDL_keyboard.h",
+          "base_sha256": null,
+          "target_sha256": "36ed258ca7941e39fb4fd7d985839c338059769d78049c9161640620716443e2",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "rts/System/SDLCompat/SDL_keycode.h",
+          "base_sha256": null,
+          "target_sha256": "36ed258ca7941e39fb4fd7d985839c338059769d78049c9161640620716443e2",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "rts/System/SDLCompat/SDL_mouse.h",
+          "base_sha256": null,
+          "target_sha256": "36ed258ca7941e39fb4fd7d985839c338059769d78049c9161640620716443e2",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "rts/System/SDLCompat/SDL_rect.h",
+          "base_sha256": null,
+          "target_sha256": "36ed258ca7941e39fb4fd7d985839c338059769d78049c9161640620716443e2",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "rts/System/SDLCompat/SDL_scancode.h",
+          "base_sha256": null,
+          "target_sha256": "36ed258ca7941e39fb4fd7d985839c338059769d78049c9161640620716443e2",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "rts/System/SDLCompat/SDL_stdinc.h",
+          "base_sha256": null,
+          "target_sha256": "36ed258ca7941e39fb4fd7d985839c338059769d78049c9161640620716443e2",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "rts/System/SDLCompat/SDL_syswm.h",
+          "base_sha256": null,
+          "target_sha256": "67f6b7d70fbf3d68c1177d21aaf3ed2f56207704c550c4cf914290e5d802ad25",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "rts/System/SDLCompat/SDL_version.h",
+          "base_sha256": null,
+          "target_sha256": "36ed258ca7941e39fb4fd7d985839c338059769d78049c9161640620716443e2",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "rts/System/SDLCompat/SDL_video.h",
+          "base_sha256": null,
+          "target_sha256": "36ed258ca7941e39fb4fd7d985839c338059769d78049c9161640620716443e2",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "rts/System/Sound/OpenAL/Sound.cpp",
+          "base_sha256": "87753817a598cc5c2e7087a5f0c0243c04cfe2b178fafa713517dd6bc7c5b72c",
+          "target_sha256": "7c56df915cc2f0d7c200e8b6e2adf798c594ed8ac31972e856f0da0ad1698b61",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "rts/System/SpringApp.cpp",
+          "base_sha256": "74b20d52804919986d6999bcbc5d0000ea43da8c388f052a1e952a7d0a40b2de",
+          "target_sha256": "3d57fb4fadd9dcf126645f8cccfb9993747f2197f37274ace36f9334aaac6b4e",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "rts/System/SpringMath.cpp",
+          "base_sha256": "5f21530d8292c84a4ac42c26ad56fafb72b0b0eee7b834f861e162fcf248600b",
+          "target_sha256": "c41f9cebb8a3ad1c7ed157417532ce6f54df2707c1428a227eeee07d248ca66e",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "rts/System/Threading/ThreadPool.cpp",
+          "base_sha256": "1a38e7ceb6b4107ba569a8fec98208f8bc8bc778d8d8ebda8b124b06f826d551",
+          "target_sha256": "c409e2289476b0ad3efe033977554f5d2739611cbb97f31c6950830bafa8f334",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "rts/aGui/LineEdit.cpp",
+          "base_sha256": "ac5f850da6c87a5d277294885ba06b5ba3989b65e70ca4d553d3bbaa773df859",
+          "target_sha256": "4d04dc0d91ff2cd6b2b4e7c52ecdc7905bbbdf09ad054b1d2ba005bf212990dc",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "rts/aGui/List.cpp",
+          "base_sha256": "93879b3706cc72016605f65eaa71738829f7aea254c50be8dd77c238d22aaf04",
+          "target_sha256": "e89bfa78b861d57add9af7ff560e46e8bba0db54def20fd71d55bb9a957a9f9e",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "rts/aGui/Window.cpp",
+          "base_sha256": "c3f7bb8829702fc9ce1f965548a3421d23846ce54b94c45b5dc2230d2b83ae83",
+          "target_sha256": "b4b1ccb0d55a47ebf3ad2349c7b6e616a36f6e3c0e04a60142fcc4e72e80fcb8",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "rts/build/cmake/FindLibunwind.cmake",
+          "base_sha256": "44c138ec22bb90c65f8ae048195a5dcbf3f6907ed36bf473e50df9fff82e50bc",
+          "target_sha256": "6d1c09458140727ac5fb8038e76efde02cc4bad83adf0484fc213ffa881398e2",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "rts/build/cmake/FindMesaEGL.cmake",
+          "base_sha256": null,
+          "target_sha256": "4eb357f859c580cf12d4ce6934cf46d435d5231702dc03997e70f44384d991de",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "rts/build/cmake/FindSDL2.cmake",
+          "base_sha256": "1fab406700e14187fd9f137a3555d2e217e67ee672d9a5f97edc13828e3a63e1",
+          "target_sha256": "72de0e0dc7e81a1303f02964170714ccd4e6a210402e884a87b8318a2c0e3325",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "rts/build/cmake/FindSDL3.cmake",
+          "base_sha256": null,
+          "target_sha256": "925b37cf3716ef80266e0fbe80001e9392902a12c37ccd2540a0e326e3d10acb",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "rts/builds/legacy/CMakeLists.txt",
+          "base_sha256": "44b33f8c2bb940949565b5084760c014936a89298741ca7f09588760fd549058",
+          "target_sha256": "1866ef15545d2f723e427eaa3a32f424b684166f9261481f6849e3b9ab4fef77",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "rts/lib/assimp/include/assimp/types.h",
+          "base_sha256": "a29cbce242a14f6a5d0accd77323baca22a9c7becbe2b0f50f31e8f7a57bfe68",
+          "target_sha256": "302642c2b4d1747c6f5bd80e05cf187e7c2b3f30b24acf8c1d954a0f9aaaf8e8",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "rts/lib/smmalloc/smmalloc.h",
+          "base_sha256": "a7e56c81f6dbdcc29538550bef60159fc4c3f617fbf88b89d5e60e2f5bb99dfb",
+          "target_sha256": "3694fd72e0ce88579b73b71387fd8ba064158da0cd970037ffca535d87e31adb",
+          "mode": "0o100644",
+          "type": "file"
+        }
+      ],
+      "upstream_paths_not_in_build_manifest": [],
+      "patch": "patches/engine-r80.patch",
+      "patch_sha256": "76b259c8e017ca5019fa0766416a2f80eefea036643c58393e02e20d46038a6e",
+      "patch_bytes": 193686,
+      "patch_apply_and_byte_comparison": "passed",
+      "checkout_path": "."
+    },
+    {
+      "name": "mesa",
+      "repository": "https://gitlab.freedesktop.org/mesa/mesa",
+      "base_commit": "45019c28811991cc02f87f0360235b8e4c369155",
+      "upstream_archive_sha256": "df09398b15a94991e551e2affb6cba5bb1e9648290a0a1a47ebfa1d2c719d203",
+      "upstream_archive_url": "https://gitlab.freedesktop.org/mesa/mesa/-/archive/45019c28811991cc02f87f0360235b8e4c369155/mesa-45019c28811991cc02f87f0360235b8e4c369155.tar.gz",
+      "source_inventory_sha256": "14c89c76bbc4909ae1d9d884a9b52f529e5aae97ea39163a52c23ef5ece23824",
+      "upstream_files_checked": 12909,
+      "changed_files": [
+        {
+          "path": "src/compiler/nir/nir_search.c",
+          "base_sha256": "cee0d6eb71571c09648eca6e17705726223d206e2d29b15773365e06f9f964ff",
+          "target_sha256": "dd78aa17f01b1ef721a23ff5391f10d88895c55253a193bbea62d5f33466202d",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "src/egl/drivers/dri2/egl_dri2.c",
+          "base_sha256": "7f58fb49db70f75e9c6656caba182868630a738a5eafb48b90697c593ef06cad",
+          "target_sha256": "43bcddba8a990424d5cca58a07d35ec66ff64679911890f9440ab7855e41cf3b",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "src/egl/drivers/dri2/egl_dri2.h",
+          "base_sha256": "b09c6121dd8b9e08e5d7a725d9ceb410b890b191c5c61d39cdfacae52b353f71",
+          "target_sha256": "6951aea89da63b3077f61df146009b02ffe6a320f50b9112797f7ccc68ea57f2",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "src/egl/drivers/dri2/platform_surfaceless.c",
+          "base_sha256": "e990f157398ee1cb5067fc7a5c7f452c2f0becb9edab8c58d9b14940db576645",
+          "target_sha256": "f0a58fe9a55553fc1accc4af9ff1b431bebf1c2b72734c25afe5b4ce5e7fd889",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "src/egl/main/egldisplay.c",
+          "base_sha256": "3be21251b6bf7ef5df61992daf680271dfa6b4bb3c2e93d1c58802d45ec7068a",
+          "target_sha256": "117877ddeee875d99f865b0059af101beb0435a66bf99eaf50b3584597fcdab6",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "src/egl/main/egldisplay.h",
+          "base_sha256": "51a062d62f7ab2b65ddaf4f0cd66585b803c81fb8bab94d69d1ec7cab3526036",
+          "target_sha256": "96c2c840e84cd0bca05306d80fff61fa7c84b3f9783ae87bb3836ad8fb4ab773",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "src/gallium/auxiliary/indices/u_primconvert.c",
+          "base_sha256": "4759b731c25033a13c04e4a33fde8ca3352f5a0466532dd3c087703383730e41",
+          "target_sha256": "b63ab8a3c5b9d5b7e944cb2c25a02337f03c2b78d0cb266b24ef292d8ee2d437",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "src/gallium/auxiliary/nir/tgsi_to_nir.c",
+          "base_sha256": "755f85617fa4f38923c759d1f27029c078c2bc47aead66abbb79130fea3f9b17",
+          "target_sha256": "10114bba63e75b3c26bc1e64f8f9c2927d829b18725af4181473e380c710e392",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "src/gallium/auxiliary/pipe-loader/pipe_loader_sw.c",
+          "base_sha256": "485e76e96baab4e2743bb631a966398d870c024f940f8f9995d170a6503c5583",
+          "target_sha256": "bbdc45c9fd584896fac542026e91cbbe0edbc81df64605bfdcbae6bc1e40d1ab",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "src/gallium/auxiliary/util/u_prim_restart.c",
+          "base_sha256": "5ec0046faea3c92fcc4d5c148d01e8cc99716d6195d2b20761b92286041b33d5",
+          "target_sha256": "b60c3b871bec6591aea686239926d6300177ec7374ab94077060880cf30af76d",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "src/gallium/auxiliary/util/u_prim_restart.h",
+          "base_sha256": "7618e128175206fece2baed3bfdbd76afcd0d305f269eec34e8f24196c1a625f",
+          "target_sha256": "fb3e3f240a5e8e2361d5a61e3371d866c52ca82df597ac4ab4f641c4c904dfa1",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "src/gallium/auxiliary/util/u_range.h",
+          "base_sha256": "26a8aee3a8ec0aa919b1b69903186106404a7d3a5628c9b9cec75afe0a878697",
+          "target_sha256": "9c8baa2d78e218c997266de7e8cbfc2a9dc301935a879de16e84bc6b7817be15",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "src/gallium/drivers/zink/zink_context.c",
+          "base_sha256": "75a14ded04d9d8e3aaf5b482fae9da20a841c7b51a1b4dd14d5bf6031a7abcbf",
+          "target_sha256": "63fef46d518099a6a62d2130e5dcfa30a66afcf117b44a2ae56576775b5c26cf",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "src/gallium/drivers/zink/zink_context.h",
+          "base_sha256": "7c991ac8083e709c24d0d5f83391cf4f9e37d86bcfaef0579cce81aab1958825",
+          "target_sha256": "fb2f1c70706a9d26edfcb171439044f4df3ca521de25a8b1bbd9b385abfae66f",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "src/gallium/drivers/zink/zink_device_info.py",
+          "base_sha256": "77aba859a5280b28c091957ec1eca50793376601d40962a71eb95dd80ad2fea9",
+          "target_sha256": "05fcfd69d13f2b85283b36d9ff781332bc260b1609d08288552c5d01737b9b7c",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "src/gallium/drivers/zink/zink_draw.cpp",
+          "base_sha256": "73c6e882b6d63109419be5297e36c99da3a8ad54ad7ba40ad4b1e384e5c05eb4",
+          "target_sha256": "76c7ea11650338fe93bddf91c763e147b07b9375acc5924e7bb484cea6af1213",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "src/gallium/drivers/zink/zink_instance.py",
+          "base_sha256": "2e8b8e7470b863bdeac71a0b5d1b9cdab85bb2752aa9dc487408fb19fd2f90c8",
+          "target_sha256": "962bb251d8e80c6657e8bcdbd6378f8f542256320876910f0afb58d140f206cf",
+          "mode": "0o100755",
+          "type": "file"
+        },
+        {
+          "path": "src/gallium/drivers/zink/zink_kopper.c",
+          "base_sha256": "53d1b514d0ce409aa775d59426387003f81c9d0f2d3cc9d9dfb172f99d83dc04",
+          "target_sha256": "ce328b2988daed1028bd409f372250079d03dbae95a4bdae23a8abe5f0e6c877",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "src/gallium/drivers/zink/zink_kopper.h",
+          "base_sha256": "626c18cd95046f8b4d6da35a53ba2ddfbe0c7a88aabd4566f3541f2d8a311424",
+          "target_sha256": "1f480178afd19e46daf47ca39cd772891fe9d88e1ff6fc4772eb5dab8ea554e4",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "src/gallium/drivers/zink/zink_screen.c",
+          "base_sha256": "11dd7bc279f09df81bd53f847fab86f29433843a2efd46de85a84c326665933e",
+          "target_sha256": "32685704c94aa7fa971d17c8a280d9d09c1960c3fbe03ea3f105fba4256ff385",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "src/gallium/drivers/zink/zink_types.h",
+          "base_sha256": "a006d5af5eb231c5ee0f0d381853b3c98237f6844abf827b9543cf72530393dd",
+          "target_sha256": "dce274f0e32190e23dfdef0e9f1a87dd8ac29c8ef3de00ed66157afe157d2ee4",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "src/mesa/main/draw.c",
+          "base_sha256": "b7c46e2fb3464e3b11dad73e144c3a69d7b14105883142148e0334094cb9db4d",
+          "target_sha256": "8074a0cacedeaed482f1f0e6256bdfe5a62f91e7ed9f33f7872743f9662d87e6",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "src/mesa/main/format_utils.c",
+          "base_sha256": "26fa275e4f43e6da2c0c6b9419a9d391c5d5a1b75981c157337a482112a20c8e",
+          "target_sha256": "fe2fd1819627a750d4635242d546495f81d28974e4341e05a6a973471f2efb12",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "src/mesa/state_tracker/st_draw.c",
+          "base_sha256": "9f04bfc1eff4a7221fb5ae3fe171c3d6802fca80e0d736e26f42337fadfd3110",
+          "target_sha256": "8d48fd92c3bfc15dce6c86c3e38d927bb4ea0de039e2050a955578dadb7914b4",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "src/mesa/state_tracker/st_draw.h",
+          "base_sha256": "f8ff82a50796a7bf7e09f19aded144677ef19fd61aadf9272fa9c5138eab91b9",
+          "target_sha256": "e82398f048894ae612f78d5c72a7ab6e6eea46b42f18748b9153496f0eb796cd",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "src/mesa/state_tracker/st_draw_feedback.c",
+          "base_sha256": "8408143d7fbdd903705de85e74ce8c830179c52b9715ae1788c5d616232b7253",
+          "target_sha256": "bd6a76b8e79df558ed42f73a97132e8a4e167e9dd95cc278ad3d8eeec1c4549b",
+          "mode": "0o100644",
+          "type": "file"
+        }
+      ],
+      "upstream_paths_not_in_build_manifest": [],
+      "patch": "patches/mesa-r80.patch",
+      "patch_sha256": "729f92940ae5ad44c4ae10c172bdf748133e92e3d376207496850b59b317d838",
+      "patch_bytes": 68437,
+      "patch_apply_and_byte_comparison": "passed",
+      "checkout_path": "."
+    },
+    {
+      "name": "mvk",
+      "repository": "https://github.com/KhronosGroup/MoltenVK",
+      "base_commit": "52aa21f54d7a84c5c441fc26359692b0980b384c",
+      "upstream_archive_sha256": "87cdf909fffe9c3f92c6920a88d7969cda0852084c837dc3b817b09bb1793cc7",
+      "upstream_archive_url": "https://codeload.github.com/KhronosGroup/MoltenVK/tar.gz/52aa21f54d7a84c5c441fc26359692b0980b384c",
+      "source_inventory_sha256": "5747de0779418d7ec0f4a7dcefa98d25f4ba527e5e21c2ca1df383a19fdd54f2",
+      "upstream_files_checked": 273,
+      "changed_files": [
+        {
+          "path": "ExternalRevisions/SPIRV-Headers_repo_revision",
+          "base_sha256": "bfd51eac9a0c25939c3de412280765cc1d403d8d54bc6e1abe5bfc8efb3e8df5",
+          "target_sha256": "0f86df7bf5e22bcf8456ba6fb72a94d5c94db31a4103574db8a29c0f46f1b4d4",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "ExternalRevisions/SPIRV-Tools_repo_revision",
+          "base_sha256": "524e8e3496557e168e34e6a70ccf4f4a8a1da28833aeeb303b1154373bb116e7",
+          "target_sha256": "2522c68d7e614d5a2416030cca721f22c270785dfbf41f6a6281b9d2a2eb1ff2",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "ExternalRevisions/Vulkan-Headers_repo_revision",
+          "base_sha256": "ea88d2dbb28b9535ad0b60960ec63c8f7129f4c8cd6dd7b00d51116da4708269",
+          "target_sha256": "42dbfec76b7105160571842b79e16e546a1a8353b131d7ecdc3fe778a48b4844",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "MoltenVK/CMakeLists.txt",
+          "base_sha256": "33972b7557584525f84c9ca810f800a2c40d8eec101afc4bb83953add25cc01b",
+          "target_sha256": "56d7db96624782651f8cb6e8b9a9d406c69661ed51c1f701667595ee00c094a5",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "MoltenVK/MoltenVK/Commands/MVKCmdDispatch.h",
+          "base_sha256": "530973dc14e347801213dec1b100ac82990c412f4e23c08bc8597f428d04f284",
+          "target_sha256": "6fdd9222a5c7b2e188f0f1b77cb67c14dcccf947546422ce42651eeaef50d911",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "MoltenVK/MoltenVK/Commands/MVKCmdDispatch.mm",
+          "base_sha256": "b0dfff9af04273a886e60e35146d98248deb95cbb8a150b6bf4032b3492efe60",
+          "target_sha256": "e78a2a691394a86aeed19c7e50ac5825aae7bb8c9c57d7033c4d18edb26f9554",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "MoltenVK/MoltenVK/Commands/MVKCmdDraw.h",
+          "base_sha256": "ff64771b45bc32b3ef0f7c6d1a3642807cb6d0c238378b534c2f2fde3239eec9",
+          "target_sha256": "05a9866dbdf5cac51d0c9ee2a51179bf90df79ac0d0f7f89b2813574dbb85483",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "MoltenVK/MoltenVK/Commands/MVKCmdDraw.mm",
+          "base_sha256": "0795395e5c9457e18550526470f5ab478f40229ee4adac4929fcdc8ecfe1a748",
+          "target_sha256": "6127af5074a1a81f4fe967d856237e217be74dd4ecc924919ed2618f4a173a49",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "MoltenVK/MoltenVK/Commands/MVKCmdPipeline.h",
+          "base_sha256": "9a808aea47821c9e817e75f67193ed60cad1149354421ba65e5a8376254f8985",
+          "target_sha256": "c455678600f0b57c8acecd3e5096a7de666fdbf23f1cd5e8b6d60bba3e86ea31",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "MoltenVK/MoltenVK/Commands/MVKCmdPipeline.mm",
+          "base_sha256": "ce920957f37d9f263b8a43294fcb7f0cd8014bafdf92509d5695e646a82c91ba",
+          "target_sha256": "adde0ef491d1c3a59adcf911c0c647f2b49376cb88b4a7c3908afcf0bfb7e124",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "MoltenVK/MoltenVK/Commands/MVKCmdQueries.mm",
+          "base_sha256": "c84144f42e9add7913fa59d0cb91428903d6744c5a495d53d507c30f0fe4e482",
+          "target_sha256": "e7e2878c5cd8c720a29eca73975c3f5ecff0c8912ec6f4a107a3d14f51582571",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "MoltenVK/MoltenVK/Commands/MVKCmdRendering.h",
+          "base_sha256": "2a8dbb96897a1dfc5a4094a2e8f71883489b74e1d8446f8a1f82bedfea006d07",
+          "target_sha256": "bf42109e593825ec4fd76f4ccb11f9794723394e4a5299378a91cc68918c9d62",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "MoltenVK/MoltenVK/Commands/MVKCmdRendering.mm",
+          "base_sha256": "4a5be583269c65396828b25e2dfc47581e45713958a50ae1379434d651b40a58",
+          "target_sha256": "75ac965eda63fb386337ff3f664d2c9f27785d1c3ad43d5d1982c348aca7d2ee",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "MoltenVK/MoltenVK/Commands/MVKCmdTransfer.h",
+          "base_sha256": "ee7728365796eb419d5445f6b6843fb5cce4c3229c61db300340dae2c3c860be",
+          "target_sha256": "06a4fb96cc1b81f5b74310e273494c4b20d3bdac9484d3367760157ba73b06f5",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "MoltenVK/MoltenVK/Commands/MVKCmdTransfer.mm",
+          "base_sha256": "7c050a2724cc75170b789557d826ac3614e08bd129b00b1dcf49a0a375e75e70",
+          "target_sha256": "4d1396927d9713a235ebef5349e757c166e9360b090af1d95b8703a15b0f3ddd",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "MoltenVK/MoltenVK/Commands/MVKCommand.h",
+          "base_sha256": "699474a9513fecf9a7eb1df9c86dd63b9203c8c14788e66defbb9f36904013e0",
+          "target_sha256": "0a6c77ed88a0ba39abea288c6db08d73f5957d210f9cced336b94ef1afbbc00f",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "MoltenVK/MoltenVK/Commands/MVKCommandBuffer.h",
+          "base_sha256": "7578f1e3bec6fa677eac81df39e70cce200cb61ac649ea8c311c280491aa4757",
+          "target_sha256": "51dbb9e03fae5d5c416689c404f48d76b6d801ae1d781f927050b9e71d1190e2",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "MoltenVK/MoltenVK/Commands/MVKCommandBuffer.mm",
+          "base_sha256": "694ae8e20d6f45d5dfce8409d7d961e1b18ac34d2d7bd2dd65f2073f08af5d33",
+          "target_sha256": "684c07d971a43af5aa48f68112c81a4ba03f964e91ea330d3e725537a93ea60d",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "MoltenVK/MoltenVK/Commands/MVKCommandEncoderState.h",
+          "base_sha256": "198d81e4f3f87486168b284c994687d195d5db2ca52f247201d0f16da484d007",
+          "target_sha256": "dac7a20c3963887d5f054322a2bf7884d347271768dd0a124649f7d25862dade",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "MoltenVK/MoltenVK/Commands/MVKCommandEncoderState.mm",
+          "base_sha256": "ef587f2f3d5e821625232b178b6475b8f4fd1693024e69de429325f070f6f4be",
+          "target_sha256": "63f46ba96c82f484c65973c1d0b23a0036cdf99c0e28ca351efb133054e14f95",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "MoltenVK/MoltenVK/Commands/MVKCommandEncodingPool.h",
+          "base_sha256": "9dd482578dbdd3b3fe38ef355df6dbb37fd657862869765a0d379a492a869caa",
+          "target_sha256": "912785b89634098f603da6cf79879219594c5c31322649a6b053d9ddfafa1da2",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "MoltenVK/MoltenVK/Commands/MVKCommandEncodingPool.mm",
+          "base_sha256": "a6e3f806e8481d742cd5ca07f9533df56d59b5efa5845f630c5c08be0841a0d2",
+          "target_sha256": "0350097ceeaca2fe97cac56c39decadca5e2a978c3e5950c063fca9b1e93fb9f",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "MoltenVK/MoltenVK/Commands/MVKCommandPipelineStateFactoryShaderSource.h",
+          "base_sha256": "a20d8aeaee56e14dbc769ee9913e1b66bf075af3fa1db64baed64159160205b8",
+          "target_sha256": "358670ae9228e18b4c269705820421e6d406434f9ef35f005f68d9f35e8d67a0",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "MoltenVK/MoltenVK/Commands/MVKCommandPool.h",
+          "base_sha256": "19ab3892138ac41f52faf0116c214f407f2f18f65e3f8547be83562be348de07",
+          "target_sha256": "4a853dda6c4f7fbd521ad1947356c64bf0ed351f4229687d468cf8fb94f87090",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "MoltenVK/MoltenVK/Commands/MVKCommandResourceFactory.h",
+          "base_sha256": "e4ea31ef5cc63b51cfb962b845dfe2c652a904770cca87ad2331a66f0c4b5d86",
+          "target_sha256": "133926855aceca17f68b0deca09cb7d971c9db25ede9915bdacc5f244221d0a1",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "MoltenVK/MoltenVK/Commands/MVKCommandResourceFactory.mm",
+          "base_sha256": "01e68365abc068afaca0f2f4790c39951cf98b0d309577641d4a347ef86cd951",
+          "target_sha256": "72914a2956e93d4347dfbb45acccf19b1fd560e5adc5092da8adc1c8f5b9e363",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "MoltenVK/MoltenVK/Commands/MVKMTLResourceBindings.h",
+          "base_sha256": "1282071b234f28e123fc6d1df129b1b2cd4ed77a110bc45af45cc099e7c3fa7a",
+          "target_sha256": "f862b183f39ff6e26f4fc84c4a0dfbc787fd8dd40d9d238e733e3cb697e8a8ac",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "MoltenVK/MoltenVK/Commands/MVKMetal4ArgumentTable.h",
+          "base_sha256": null,
+          "target_sha256": "5c384246248d634381f2530a636f2c7c86d917ce62111564edaac9917ca8a6f2",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "MoltenVK/MoltenVK/Commands/MVKMetal4ArgumentTable.mm",
+          "base_sha256": null,
+          "target_sha256": "e0cace2976b83bf3a57ea5eb00b1d1eb786c3431a1069a8776b06a45b2c949db",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "MoltenVK/MoltenVK/Commands/MVKMetal4DependencyScopes.h",
+          "base_sha256": null,
+          "target_sha256": "23eb82a647ea1632fcf3bcad7a330a53f42ab9d51cf04145722ea331b8530128",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "MoltenVK/MoltenVK/Commands/MVKMetal4DrawPlan.h",
+          "base_sha256": null,
+          "target_sha256": "e814cdeb168c7930ddb16aac434c3f36288d8ec3eb27b099824699837d8a5792",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "MoltenVK/MoltenVK/Commands/MVKMetal4QueryDependencies.h",
+          "base_sha256": null,
+          "target_sha256": "2233a9b891c797a381b9fdadb587743d958331b08483a0a32d569191bf685493",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "MoltenVK/MoltenVK/Commands/MVKMetal4TextureRegistrationCache.h",
+          "base_sha256": null,
+          "target_sha256": "82e29ed1c8b979abb0abeb8f2e1e6f845479707a03db0aa0623b740e3ff7bf9c",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "MoltenVK/MoltenVK/GPUObjects/MVKBackendTimeline.cpp",
+          "base_sha256": null,
+          "target_sha256": "4576d16efc9067a7ab05a505fc864da6e4ffb9ecc9d05f8bf777b439e80d2e12",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "MoltenVK/MoltenVK/GPUObjects/MVKBackendTimeline.h",
+          "base_sha256": null,
+          "target_sha256": "3ad566769494b48bcd7a1a925a385c3432b6555d6afd7142a91e2bbd275dd1ab",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "MoltenVK/MoltenVK/GPUObjects/MVKBuffer.mm",
+          "base_sha256": "77bba0ba4d44ec5d601414fbc481d116d1d9ba527c21c7eb45e82fba33c93f1e",
+          "target_sha256": "6c8b302eba3332522a01809186359fc15d70d3afb9d10f13aff52b6a83cd7862",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "MoltenVK/MoltenVK/GPUObjects/MVKDescriptorSet.h",
+          "base_sha256": "59d97c67ae5661836a6dc9f92691ff928d35ac4c94801030c131bf436866d3b0",
+          "target_sha256": "9f3b9d16ea1150886fbabd326ca4ad55648480d8661f392de6f7ff9312b6b9c1",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "MoltenVK/MoltenVK/GPUObjects/MVKDescriptorSet.mm",
+          "base_sha256": "2de15a308b5953b1f62a150ab3f8bc6456669cccf785bcd0580ec05f7ce9b9a0",
+          "target_sha256": "9935732fedde6c7cffede91384230015c1b3547d6d3be0024ca6cacf08acff88",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "MoltenVK/MoltenVK/GPUObjects/MVKDevice.h",
+          "base_sha256": "826deb7e9d223d2bdabb68b347dcffbce969586c804335bd2b5e293bdd0571c8",
+          "target_sha256": "dfa43fcfd4c280b2d8ae0d32dfd78ac0b13d0cdb2c5baccb31d551516c812caa",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "MoltenVK/MoltenVK/GPUObjects/MVKDevice.mm",
+          "base_sha256": "1502093a5eac2751a143070c2675c82690f6d7b7435c684ba3b3d716124cbd75",
+          "target_sha256": "0d0985dcecd5ec9e728425a1635ccfb9df9c5fb1f7e3f8d86b4c7fa6eb1545e1",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "MoltenVK/MoltenVK/GPUObjects/MVKDeviceMemory.h",
+          "base_sha256": "be892d423c00e16b95b969e9ea99329cfe053f466cf0cddf2898c8dd83966777",
+          "target_sha256": "a110df4b9538c90b13679603d1d158a8e8d5b783a73ef68518dcb16df5317802",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "MoltenVK/MoltenVK/GPUObjects/MVKDeviceMemory.mm",
+          "base_sha256": "63b57daf86230f1e1c35041a3810f2addbf00fdd01d78b412755a2b7fbc47422",
+          "target_sha256": "849c4a24345ec41ec4535dde43fac4428470ec82fd2675450b5825236f154c88",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "MoltenVK/MoltenVK/GPUObjects/MVKImage.h",
+          "base_sha256": "24e4fdaf440642c0fe4d9d04d436c89f603411349cf84288dd54878a34cb5c4b",
+          "target_sha256": "10061ddebb517af1879b229719438999fde7f5affdfd9afe7dfd42da9ed302da",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "MoltenVK/MoltenVK/GPUObjects/MVKImage.mm",
+          "base_sha256": "363cbc89ab5a4977868fdcaf2dc09776b6f47c5280ba9cef78e432f8cb9ca1f0",
+          "target_sha256": "b0af01dbb52a90ed44bafc2f66f14e39c3b71f6ffa57510b75a90940d458fa94",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "MoltenVK/MoltenVK/GPUObjects/MVKInstance.h",
+          "base_sha256": "60c2bf5f4ac741ada24896fd4664f04f661ee0e7d3bfa0e607ac64d0fe5a6c36",
+          "target_sha256": "fca15adf11b560b3c0671fd1defac772416f617834dceaf17657e63f3dab07ac",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "MoltenVK/MoltenVK/GPUObjects/MVKInstance.mm",
+          "base_sha256": "35cebc3755157b332a3886be1d1f7d0546c54f6d288da4a5f11949bab24d8157",
+          "target_sha256": "1125b1cd52f72b83ad5618b5e8b064fc38ebd3e3101dec7ce5148575dfe78945",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "MoltenVK/MoltenVK/GPUObjects/MVKMetal4AllocationLifetime.h",
+          "base_sha256": null,
+          "target_sha256": "1708989e5deb4a438646bbfa61e22d4dae7fc407be09784affc19fa7608102ad",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "MoltenVK/MoltenVK/GPUObjects/MVKMetal4ClippedPath.h",
+          "base_sha256": null,
+          "target_sha256": "78441603966fdff0f898a6cf658a710a77cbb8d7c1a20dbfcf3713231707ac20",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "MoltenVK/MoltenVK/GPUObjects/MVKMetal4InvariantDiagnostics.h",
+          "base_sha256": null,
+          "target_sha256": "380e521a0e47f949ea9ead634f8179f045bc3ce62f5c3656dfd1b3a32b8cc94e",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "MoltenVK/MoltenVK/GPUObjects/MVKMetal4PreparedResource.h",
+          "base_sha256": null,
+          "target_sha256": "00c0dff47aac3d2d1972ef6dcb47707f72991c03928b5e55c68c44978d887243",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "MoltenVK/MoltenVK/GPUObjects/MVKMetal4PrimitiveBatch.h",
+          "base_sha256": null,
+          "target_sha256": "088cf818e126ec3a8de4870aa27c8d7860ad9ef57a2bb669cb7299ca5cc570eb",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "MoltenVK/MoltenVK/GPUObjects/MVKMetal4PrimitiveInvariant.h",
+          "base_sha256": null,
+          "target_sha256": "016aa45de9741f7c93eea5cedccf4679f0c49adf2306a3ccbfe53244b26175c5",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "MoltenVK/MoltenVK/GPUObjects/MVKMetal4Submission.h",
+          "base_sha256": null,
+          "target_sha256": "e9f980ba8ecc964d7b8bbe679deba55dd68b49d19cbfd9474a6c503006ae3ecf",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "MoltenVK/MoltenVK/GPUObjects/MVKMetal4Submission.mm",
+          "base_sha256": null,
+          "target_sha256": "9d37fe144f95b5f95c955e2bcd62a8aa6ac0d875aa0221c874486392e94a3756",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "MoltenVK/MoltenVK/GPUObjects/MVKPipeline.h",
+          "base_sha256": "e7dceaa2e63ad2b1e01d5a476408bdfb7662a48dbbb846dcd1583426f90ffdbf",
+          "target_sha256": "aad8ee804ef963d234f815841b400f6c826491aa9478428e687fc8e869bca140",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "MoltenVK/MoltenVK/GPUObjects/MVKPipeline.mm",
+          "base_sha256": "d7bf86e0a20e88423a3ee772775a83bc45dda40c84c2b7e1b94c7642a572f345",
+          "target_sha256": "aaa8e9f7c9e8ddaab644d08bce02138b60254cb21aa4f2107541ebe3c0f440ba",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "MoltenVK/MoltenVK/GPUObjects/MVKQueryPool.h",
+          "base_sha256": "aa9baa23f878d04039cf1ad5ca98ee0526f79d4b20aa1c8468e854ded1bf4f4b",
+          "target_sha256": "1f8bd25d68e0a10eb953cd958fdabd1beb578d41ebfeb8a68075ade89bca5d0e",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "MoltenVK/MoltenVK/GPUObjects/MVKQueryPool.mm",
+          "base_sha256": "4181debddee33cd0a76c9163065900b0558793536678d6b1d5b91bd35261bd49",
+          "target_sha256": "84d709786d3b1900cb1044578dc64097727a1774a51aad925481ac26b70c6912",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "MoltenVK/MoltenVK/GPUObjects/MVKQueue.h",
+          "base_sha256": "c5bf61e138a77f16eff08a58e2a88d188b5ed397a05642a67b9503fad2a991b3",
+          "target_sha256": "e69e9e2ce212d226e44932ce1bf461499fb6c96ba1218f4c36961070327cce7a",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "MoltenVK/MoltenVK/GPUObjects/MVKQueue.mm",
+          "base_sha256": "7a6228015634567e6fe7425f95358430e64022ca71946bbfc0cba566444d242e",
+          "target_sha256": "8163aa3a44ad389f8e7f8a7b1ea467f0a9edfc9bf45e25e1d5927a47f340791f",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "MoltenVK/MoltenVK/GPUObjects/MVKRenderPass.h",
+          "base_sha256": "64f9cfb62dd152243f522c0728c10bf42483cd9da55b145be859701f85ba1925",
+          "target_sha256": "12d96adb474ace60aa5a746eaa5cf922d54f6e32c154f3ecc4f864f7fc5b8984",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "MoltenVK/MoltenVK/GPUObjects/MVKRenderPass.mm",
+          "base_sha256": "3ecc62a77baee0e460a029b709a2e4fd07e3c76043914f23d7eb79596350c9a5",
+          "target_sha256": "8b6ce3de27c32d931dd5b9de39b31e96745389a25bd549f92b08fccc8ed45f14",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "MoltenVK/MoltenVK/GPUObjects/MVKShaderModule.mm",
+          "base_sha256": "21ec8c9291111bf78320f4eabaa3165432065be02b19e5250eee39f469d13bac",
+          "target_sha256": "619b2c2ea9166a066f31a9f87e4d93903e2811bc3fbc196af5c4a71440567d42",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "MoltenVK/MoltenVK/GPUObjects/MVKSync.h",
+          "base_sha256": "fd5d7772a48cc3032044433aaf4a60e06e3256869cc3dbefb9b7f710525d7a7c",
+          "target_sha256": "228b4994a293c17ca298cab70b46e0dfc4517591b20c71efd77af426057020b6",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "MoltenVK/MoltenVK/GPUObjects/MVKSync.mm",
+          "base_sha256": "56f2e8797ed91929028eeb59575533660fa70bd71e14baee741d8e6eaff67558",
+          "target_sha256": "551e8e175769a36f7c3b424f1ab1d586b4cb11a0668004b951a5ac72ae59138f",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "MoltenVK/MoltenVK/Utility/MVKBaseObject.h",
+          "base_sha256": "75c49fb56a38f7c1c160b856edf4607266756aab58b04ef7cb87d10d446a5c0f",
+          "target_sha256": "4139ccd11e0ae6ac4eb174b61949a42fc90d78552e8bbd716e68763a4e05b18e",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "MoltenVK/MoltenVK/Utility/MVKStateTracking.h",
+          "base_sha256": "5c5cc44970a44e4db435bb4a7190737db89b68b0b67fc4150637868fc2780354",
+          "target_sha256": "8aca4520b86dd650cb6daabfdd7682da50d6fe6cbb29ce23bb3f864489e539d2",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "MoltenVK/MoltenVK/Vulkan/mvk_api.mm",
+          "base_sha256": "7b78436dc444a93d712967f992d09613fad9246f9d520db054295e928d59c575",
+          "target_sha256": "c8aefde58a5467cfa4a3eed9a6b87032875a1e71e0623dc7a4eeab994d5238f9",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "MoltenVK/MoltenVK/Vulkan/vulkan.mm",
+          "base_sha256": "13d877687bcb73cf095f563204925f56e5ee6e516907cfa24add3909b18b11e1",
+          "target_sha256": "0a93c883e9d4549af9f3de6413c0666b753c654bbca689cf8246222922254935",
+          "mode": "0o100644",
+          "type": "file"
+        }
+      ],
+      "upstream_paths_not_in_build_manifest": [],
+      "patch": "patches/mvk-r80.patch",
+      "patch_sha256": "d5d3eaf158b9e80f87bcec45d98a88b061ba937b6ae83fe6e4996e17f08a8519",
+      "patch_bytes": 890659,
+      "patch_apply_and_byte_comparison": "passed",
+      "checkout_path": "."
+    },
+    {
+      "name": "engine-dep-AI_Skirmish_BARb",
+      "repository": "https://github.com/rlcevg/CircuitAI",
+      "base_commit": "e6b33037dfbe81f2b0eb289f884ed90a1718eec0",
+      "upstream_archive_sha256": "93bca8fb1fec5ec94126532d1237343e798ab740a971479fa8843b693c927ab2",
+      "upstream_archive_url": "https://codeload.github.com/rlcevg/CircuitAI/tar.gz/e6b33037dfbe81f2b0eb289f884ed90a1718eec0",
+      "source_inventory_sha256": "89e0d3b0b2e311f77c2f65c0432c06c65c2c3a8aa7cb0a36e1af297f075e8251",
+      "upstream_files_checked": 652,
+      "changed_files": [
+        {
+          "path": "src/circuit/module/EconomyManager.h",
+          "base_sha256": "9f6ab36a86f549fa87d87a623d728cf408c2e3e72465d9872d437720c00f8c70",
+          "target_sha256": "7bfcca10fa8807f38f175e83682358ded88089b0329c2082a271ca6e98f1952c",
+          "mode": "0o100644",
+          "type": "file"
+        }
+      ],
+      "upstream_paths_not_in_build_manifest": [],
+      "patch": "patches/engine-dep-AI_Skirmish_BARb-r80.patch",
+      "patch_sha256": "3f10cc977ea9d57a913f344974286e6abc632b961d7919d34a4db64d27e10eec",
+      "patch_bytes": 560,
+      "patch_apply_and_byte_comparison": "passed",
+      "checkout_path": "AI/Skirmish/BARb"
+    },
+    {
+      "name": "engine-dep-AI_Skirmish_CircuitAI",
+      "repository": "https://github.com/rlcevg/CircuitAI",
+      "base_commit": "edc74149c281e2140f28c091ed74310c11611cc7",
+      "upstream_archive_sha256": "19838aea5605b2bb5712eb5f3dce260eef73c4f2ef09e24d5bfb28deee3dab98",
+      "upstream_archive_url": "https://codeload.github.com/rlcevg/CircuitAI/tar.gz/edc74149c281e2140f28c091ed74310c11611cc7",
+      "source_inventory_sha256": "89e0d3b0b2e311f77c2f65c0432c06c65c2c3a8aa7cb0a36e1af297f075e8251",
+      "upstream_files_checked": 534,
+      "changed_files": [
+        {
+          "path": "src/lib/angelscript/source/as_callfunc_arm64_xcode.S",
+          "base_sha256": "50103e768eb25fab92cbc925bdb1c01f3bd95899618a21778cd02bd1a29daf60",
+          "target_sha256": "9856fc5bdbd5d45da6c1ed966e409894f09c4fb9fb943106be10bd2305f465d2",
+          "mode": "0o100644",
+          "type": "file"
+        }
+      ],
+      "upstream_paths_not_in_build_manifest": [],
+      "patch": "patches/engine-dep-AI_Skirmish_CircuitAI-r80.patch",
+      "patch_sha256": "c8511c9bcd3f26afb618df172f11520f899f4a17a5e354c5af143c6ed6c17d67",
+      "patch_bytes": 2945,
+      "patch_apply_and_byte_comparison": "passed",
+      "checkout_path": "AI/Skirmish/CircuitAI"
+    },
+    {
+      "name": "engine-dep-rts_lib_RmlUi",
+      "repository": "https://github.com/mikke89/RmlUi",
+      "base_commit": "2230d1a6e8e0848ed87a5761e2a5160b2a175ba4",
+      "upstream_archive_sha256": "56ca8df800f4fbdce04517501116d9b091f5084b4397694016935180459cb4c9",
+      "upstream_archive_url": "https://codeload.github.com/mikke89/RmlUi/tar.gz/2230d1a6e8e0848ed87a5761e2a5160b2a175ba4",
+      "source_inventory_sha256": "89e0d3b0b2e311f77c2f65c0432c06c65c2c3a8aa7cb0a36e1af297f075e8251",
+      "upstream_files_checked": 1145,
+      "changed_files": [],
+      "upstream_paths_not_in_build_manifest": [],
+      "patch_apply_and_byte_comparison": "no changes",
+      "checkout_path": "rts/lib/RmlUi"
+    },
+    {
+      "name": "engine-dep-rts_lib_cereal",
+      "repository": "https://github.com/USCiLab/cereal",
+      "base_commit": "d1fcec807b372f04e4c1041b3058e11c12853e6e",
+      "upstream_archive_sha256": "d44b37a945fc22836f62e6625269b865f3fc059bb78d25d75aab9c1f8aff3267",
+      "upstream_archive_url": "https://codeload.github.com/USCiLab/cereal/tar.gz/d1fcec807b372f04e4c1041b3058e11c12853e6e",
+      "source_inventory_sha256": "89e0d3b0b2e311f77c2f65c0432c06c65c2c3a8aa7cb0a36e1af297f075e8251",
+      "upstream_files_checked": 209,
+      "changed_files": [],
+      "upstream_paths_not_in_build_manifest": [],
+      "patch_apply_and_byte_comparison": "no changes",
+      "checkout_path": "rts/lib/cereal"
+    },
+    {
+      "name": "engine-dep-rts_lib_entt",
+      "repository": "https://github.com/skypjack/entt",
+      "base_commit": "b4e58bdd364ad72246c123a0c28538eab3252672",
+      "upstream_archive_sha256": "3e996cf255b09527faf995c7c36e3daf92cefa0fb37540a4b9c359af557e19cd",
+      "upstream_archive_url": "https://codeload.github.com/skypjack/entt/tar.gz/b4e58bdd364ad72246c123a0c28538eab3252672",
+      "source_inventory_sha256": "89e0d3b0b2e311f77c2f65c0432c06c65c2c3a8aa7cb0a36e1af297f075e8251",
+      "upstream_files_checked": 308,
+      "changed_files": [],
+      "upstream_paths_not_in_build_manifest": [],
+      "patch_apply_and_byte_comparison": "no changes",
+      "checkout_path": "rts/lib/entt"
+    },
+    {
+      "name": "engine-dep-rts_lib_fastgltf",
+      "repository": "https://github.com/spnda/fastgltf",
+      "base_commit": "eebda658317cd907d6cdf9c9ed7e40b96e8453dd",
+      "upstream_archive_sha256": "822fcf75246e1c3c1ee10acd2ace0cdc824c491faaa1cac1c8c95685eb3b0b73",
+      "upstream_archive_url": "https://codeload.github.com/spnda/fastgltf/tar.gz/eebda658317cd907d6cdf9c9ed7e40b96e8453dd",
+      "source_inventory_sha256": "89e0d3b0b2e311f77c2f65c0432c06c65c2c3a8aa7cb0a36e1af297f075e8251",
+      "upstream_files_checked": 63,
+      "changed_files": [],
+      "upstream_paths_not_in_build_manifest": [],
+      "patch_apply_and_byte_comparison": "no changes",
+      "checkout_path": "rts/lib/fastgltf"
+    },
+    {
+      "name": "engine-dep-rts_lib_fmt",
+      "repository": "https://github.com/fmtlib/fmt",
+      "base_commit": "407c905e45ad75fc29bf0f9bb7c5c2fd3475976f",
+      "upstream_archive_sha256": "2bc1fe4a5b6d5d6a614239b4ca1d520e66e152a02d3d262684d26dfd6ab3438a",
+      "upstream_archive_url": "https://codeload.github.com/fmtlib/fmt/tar.gz/407c905e45ad75fc29bf0f9bb7c5c2fd3475976f",
+      "source_inventory_sha256": "89e0d3b0b2e311f77c2f65c0432c06c65c2c3a8aa7cb0a36e1af297f075e8251",
+      "upstream_files_checked": 128,
+      "changed_files": [],
+      "upstream_paths_not_in_build_manifest": [],
+      "patch_apply_and_byte_comparison": "no changes",
+      "checkout_path": "rts/lib/fmt"
+    },
+    {
+      "name": "engine-dep-rts_lib_gflags",
+      "repository": "https://github.com/gflags/gflags",
+      "base_commit": "33bb3461e10864b5406353d3a1fb7ff34c2314b8",
+      "upstream_archive_sha256": "ec66ba8898506f54d374121f962711e177126322e1b50eb56d84d76d8e7b6c15",
+      "upstream_archive_url": "https://codeload.github.com/gflags/gflags/tar.gz/33bb3461e10864b5406353d3a1fb7ff34c2314b8",
+      "source_inventory_sha256": "89e0d3b0b2e311f77c2f65c0432c06c65c2c3a8aa7cb0a36e1af297f075e8251",
+      "upstream_files_checked": 62,
+      "changed_files": [],
+      "upstream_paths_not_in_build_manifest": [],
+      "patch_apply_and_byte_comparison": "no changes",
+      "checkout_path": "rts/lib/gflags"
+    },
+    {
+      "name": "engine-dep-rts_lib_lunasvg",
+      "repository": "https://github.com/sammycage/lunasvg",
+      "base_commit": "f8aabfb444bb37f69df7290790f57e4a27730a93",
+      "upstream_archive_sha256": "65a70e5908e31715ea9a990bf73abbc2583703dac4242cd4dcbd38d93e1afef5",
+      "upstream_archive_url": "https://codeload.github.com/sammycage/lunasvg/tar.gz/f8aabfb444bb37f69df7290790f57e4a27730a93",
+      "source_inventory_sha256": "89e0d3b0b2e311f77c2f65c0432c06c65c2c3a8aa7cb0a36e1af297f075e8251",
+      "upstream_files_checked": 34,
+      "changed_files": [],
+      "upstream_paths_not_in_build_manifest": [],
+      "patch_apply_and_byte_comparison": "no changes",
+      "checkout_path": "rts/lib/lunasvg"
+    },
+    {
+      "name": "engine-dep-rts_lib_lunasvg_plutovg",
+      "repository": "https://github.com/sammycage/plutovg",
+      "base_commit": "5e4712cf873b0c7829a4a6157763e2ad3ac49164",
+      "upstream_archive_sha256": "556c3a1da41154516340f987bffe872dde7b596a4908e29b3b29489d349fa234",
+      "upstream_archive_url": "https://codeload.github.com/sammycage/plutovg/tar.gz/5e4712cf873b0c7829a4a6157763e2ad3ac49164",
+      "source_inventory_sha256": "89e0d3b0b2e311f77c2f65c0432c06c65c2c3a8aa7cb0a36e1af297f075e8251",
+      "upstream_files_checked": 35,
+      "changed_files": [],
+      "upstream_paths_not_in_build_manifest": [],
+      "patch_apply_and_byte_comparison": "no changes",
+      "checkout_path": "rts/lib/lunasvg/plutovg"
+    },
+    {
+      "name": "engine-dep-rts_lib_mimalloc",
+      "repository": "https://github.com/microsoft/mimalloc",
+      "base_commit": "7b7fca4b7013d77e356d96e055fec309cb3cbbd6",
+      "upstream_archive_sha256": "ea786c6bb35377c1649d8afa36dd930b0bb74a5ad2828f5735dc2271df9243b4",
+      "upstream_archive_url": "https://codeload.github.com/microsoft/mimalloc/tar.gz/7b7fca4b7013d77e356d96e055fec309cb3cbbd6",
+      "source_inventory_sha256": "89e0d3b0b2e311f77c2f65c0432c06c65c2c3a8aa7cb0a36e1af297f075e8251",
+      "upstream_files_checked": 358,
+      "changed_files": [],
+      "upstream_paths_not_in_build_manifest": [],
+      "patch_apply_and_byte_comparison": "no changes",
+      "checkout_path": "rts/lib/mimalloc"
+    },
+    {
+      "name": "engine-dep-rts_lib_nowide",
+      "repository": "https://github.com/boostorg/nowide",
+      "base_commit": "de3bb558ebe3dd6d22a03b4beb92fbe05470ca1c",
+      "upstream_archive_sha256": "586bf8c63eb1d9f63c6d7fb717fe854568c00d9eb64bdb3b7ebb0158cf4bff8e",
+      "upstream_archive_url": "https://codeload.github.com/boostorg/nowide/tar.gz/de3bb558ebe3dd6d22a03b4beb92fbe05470ca1c",
+      "source_inventory_sha256": "89e0d3b0b2e311f77c2f65c0432c06c65c2c3a8aa7cb0a36e1af297f075e8251",
+      "upstream_files_checked": 69,
+      "changed_files": [],
+      "upstream_paths_not_in_build_manifest": [],
+      "patch_apply_and_byte_comparison": "no changes",
+      "checkout_path": "rts/lib/nowide"
+    },
+    {
+      "name": "engine-dep-rts_lib_simdjson",
+      "repository": "https://github.com/simdjson/simdjson",
+      "base_commit": "0c0ce1bd48baa0677dc7c0945ea7cd1e8b52b297",
+      "upstream_archive_sha256": "6e995e9bc23dff6d1e0d4428d2d1626d4a6e8f63a939d9a1da46a8d181aa93c5",
+      "upstream_archive_url": "https://codeload.github.com/simdjson/simdjson/tar.gz/0c0ce1bd48baa0677dc7c0945ea7cd1e8b52b297",
+      "source_inventory_sha256": "89e0d3b0b2e311f77c2f65c0432c06c65c2c3a8aa7cb0a36e1af297f075e8251",
+      "upstream_files_checked": 607,
+      "changed_files": [],
+      "upstream_paths_not_in_build_manifest": [],
+      "patch_apply_and_byte_comparison": "no changes",
+      "checkout_path": "rts/lib/simdjson"
+    },
+    {
+      "name": "engine-dep-rts_lib_sse2neon",
+      "repository": "https://github.com/DLTcollab/sse2neon",
+      "base_commit": "8721e9799e0d01b80ba8e8e34636cb49997560c2",
+      "upstream_archive_sha256": "501636269118ac1d8e32ebdf43f755fe08e008e10abdcd946227e5f2a401f14c",
+      "upstream_archive_url": "https://codeload.github.com/DLTcollab/sse2neon/tar.gz/8721e9799e0d01b80ba8e8e34636cb49997560c2",
+      "source_inventory_sha256": "89e0d3b0b2e311f77c2f65c0432c06c65c2c3a8aa7cb0a36e1af297f075e8251",
+      "upstream_files_checked": 25,
+      "changed_files": [],
+      "upstream_paths_not_in_build_manifest": [],
+      "patch_apply_and_byte_comparison": "no changes",
+      "checkout_path": "rts/lib/sse2neon"
+    },
+    {
+      "name": "engine-dep-rts_lib_streflop",
+      "repository": "https://github.com/RecoilEngine/streflop",
+      "base_commit": "570f86fb616a20179914aa7fc9645e683a3f5b4d",
+      "upstream_archive_sha256": "0a0b2f9eb3a635b0b880c0616c11bce073b2fbb1d93e64ec6146a43dcafa9fd6",
+      "upstream_archive_url": "https://codeload.github.com/RecoilEngine/streflop/tar.gz/570f86fb616a20179914aa7fc9645e683a3f5b4d",
+      "source_inventory_sha256": "89e0d3b0b2e311f77c2f65c0432c06c65c2c3a8aa7cb0a36e1af297f075e8251",
+      "upstream_files_checked": 269,
+      "changed_files": [
+        {
+          "path": "streflop_cond.h",
+          "base_sha256": "2c882f0d7e77862fd99ca9a96a0191561a3961e1689e87199afe4fc349082ec3",
+          "target_sha256": "d5743c328f687a7bba428666c232bf79555465abe1590cb0a6fdc6acfa1366d1",
+          "mode": "0o100644",
+          "type": "file"
+        }
+      ],
+      "upstream_paths_not_in_build_manifest": [],
+      "patch": "patches/engine-dep-rts_lib_streflop-r80.patch",
+      "patch_sha256": "434732417f90d4a1c5951991100da239efbabc615d30c0eefeb50a3cb6871ff7",
+      "patch_bytes": 652,
+      "patch_apply_and_byte_comparison": "passed",
+      "checkout_path": "rts/lib/streflop"
+    },
+    {
+      "name": "engine-dep-rts_lib_tracy",
+      "repository": "https://github.com/wolfpld/tracy",
+      "base_commit": "5d542dc09f3d9378d005092a4ad446bd405f819a",
+      "upstream_archive_sha256": "ab47dbd7c7f1364015f0fb2e5afe767bb86997783bbfdd6cb6d366b47f0a94ac",
+      "upstream_archive_url": "https://codeload.github.com/wolfpld/tracy/tar.gz/5d542dc09f3d9378d005092a4ad446bd405f819a",
+      "source_inventory_sha256": "89e0d3b0b2e311f77c2f65c0432c06c65c2c3a8aa7cb0a36e1af297f075e8251",
+      "upstream_files_checked": 475,
+      "changed_files": [],
+      "upstream_paths_not_in_build_manifest": [],
+      "patch_apply_and_byte_comparison": "no changes",
+      "checkout_path": "rts/lib/tracy"
+    },
+    {
+      "name": "engine-dep-tools_pr-downloader",
+      "repository": "https://github.com/beyond-all-reason/pr-downloader",
+      "base_commit": "185cfba7fda4dc683acec8b2ecbd15838d3022f5",
+      "upstream_archive_sha256": "5d3b2dbc8b1570478be1cebf05dfc96f20baaca8a91051493151c383f24cf816",
+      "upstream_archive_url": "https://codeload.github.com/beyond-all-reason/pr-downloader/tar.gz/185cfba7fda4dc683acec8b2ecbd15838d3022f5",
+      "source_inventory_sha256": "89e0d3b0b2e311f77c2f65c0432c06c65c2c3a8aa7cb0a36e1af297f075e8251",
+      "upstream_files_checked": 199,
+      "changed_files": [],
+      "upstream_paths_not_in_build_manifest": [],
+      "patch_apply_and_byte_comparison": "no changes",
+      "checkout_path": "tools/pr-downloader"
+    },
+    {
+      "name": "engine-dep-tools_pr-downloader_src_lib_readerwriterqueue",
+      "repository": "https://github.com/cameron314/readerwriterqueue",
+      "base_commit": "8e7627d18c2108aca178888d88514179899a044f",
+      "upstream_archive_sha256": "cce1ad69d2e0fdbfed9fab6f60f62bbd1f521317e0af5e205159e056d8cf47cd",
+      "upstream_archive_url": "https://codeload.github.com/cameron314/readerwriterqueue/tar.gz/8e7627d18c2108aca178888d88514179899a044f",
+      "source_inventory_sha256": "89e0d3b0b2e311f77c2f65c0432c06c65c2c3a8aa7cb0a36e1af297f075e8251",
+      "upstream_files_checked": 47,
+      "changed_files": [],
+      "upstream_paths_not_in_build_manifest": [],
+      "patch_apply_and_byte_comparison": "no changes",
+      "checkout_path": "tools/pr-downloader/src/lib/readerwriterqueue"
+    },
+    {
+      "name": "engine-dep-tools_unitsync_python",
+      "repository": "https://github.com/spring/pyunitsync",
+      "base_commit": "8dfe0bcb867150c4d83e6f691e44dc7a55fda21c",
+      "upstream_archive_sha256": "cf210fa39c0310cdf8d7d105551184f9f9866530663009927b9dd499d60807e1",
+      "upstream_archive_url": "https://codeload.github.com/spring/pyunitsync/tar.gz/8dfe0bcb867150c4d83e6f691e44dc7a55fda21c",
+      "source_inventory_sha256": "89e0d3b0b2e311f77c2f65c0432c06c65c2c3a8aa7cb0a36e1af297f075e8251",
+      "upstream_files_checked": 42,
+      "changed_files": [],
+      "upstream_paths_not_in_build_manifest": [],
+      "patch_apply_and_byte_comparison": "no changes",
+      "checkout_path": "tools/unitsync/python"
+    },
+    {
+      "name": "mvk-dep-SPIRV-Cross",
+      "repository": "https://github.com/KhronosGroup/SPIRV-Cross",
+      "base_commit": "aa217aeb6c9f0ace7a0ab233b28807edf45eb165",
+      "upstream_archive_sha256": "b99db6ee6182dbeb102257e755bf6d4978c23dcfd3329033304779279bc27212",
+      "upstream_archive_url": "https://codeload.github.com/KhronosGroup/SPIRV-Cross/tar.gz/aa217aeb6c9f0ace7a0ab233b28807edf45eb165",
+      "source_inventory_sha256": "5747de0779418d7ec0f4a7dcefa98d25f4ba527e5e21c2ca1df383a19fdd54f2",
+      "upstream_files_checked": 4871,
+      "changed_files": [
+        {
+          "path": "reference/opt/shaders-msl/asm/frag/bitcast-ptr-vec.argument-tier-1.msl23.asm.frag",
+          "base_sha256": "134c52fcbad1b951f19e07587538d9d557c05951cbc64fe2266989ad2faad8e7",
+          "target_sha256": "0ada7a7cb9aed68b030dc72e61df5d36f418687115ac38f4648f6d0a3a4a138a",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "reference/shaders-msl-no-opt/asm/comp/bda-aliasing.msl23.asm.comp",
+          "base_sha256": null,
+          "target_sha256": "5d89eadfb5c0278c5bd026bb40a0be99ac5c63608cbdcda35525af02e22ff0e6",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "reference/shaders-msl-no-opt/asm/comp/ptr-access-chain-custom-array-stride.asm.msl23.comp",
+          "base_sha256": "a55bde1e51ca8f9c566bb1a898560b20f4ad022a6f274a9aeffcbaaf7662d0ad",
+          "target_sha256": "7abd2db6845e54c13f55d6c3eaf6090e1b2e01565ee43da6c6bce455c8a976dd",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "reference/shaders-msl/asm/frag/bitcast-ptr-vec.argument-tier-1.msl23.asm.frag",
+          "base_sha256": "134c52fcbad1b951f19e07587538d9d557c05951cbc64fe2266989ad2faad8e7",
+          "target_sha256": "0ada7a7cb9aed68b030dc72e61df5d36f418687115ac38f4648f6d0a3a4a138a",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "reference/shaders-msl/comp/buffer_device_address-packed-vec-and-cast-to-and-from-uvec2.msl23.comp",
+          "base_sha256": "949f4a5d49b1942eb94201ae7d8ebdc8647c9b41de259f041c97088353be684f",
+          "target_sha256": "e04a68e138573e939d51523241f5bbdbbebfcd21319a6e87ebab5a386c50cd91",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "shaders-msl-no-opt/asm/comp/bda-aliasing.msl23.asm.comp",
+          "base_sha256": null,
+          "target_sha256": "01ff8eaf1593f7c404f263a199f15d68372637d18a4af88437bae454b47b5f83",
+          "mode": "0o100644",
+          "type": "file"
+        },
+        {
+          "path": "spirv_msl.cpp",
+          "base_sha256": "06a4116322c64a2406e14f46da71ae16a9df8cd402e4ae4edff934befab8478a",
+          "target_sha256": "98d3a9ef64004796014bab6b5325a389756f0ba571c0a86793c6513e3fa90ff7",
+          "mode": "0o100644",
+          "type": "file"
+        }
+      ],
+      "upstream_paths_not_in_build_manifest": [],
+      "patch": "patches/mvk-dep-SPIRV-Cross-r80.patch",
+      "patch_sha256": "875df561c8c7476177f82a08cb6dc738e0b0e1bbde49f8e114eac6619034d38e",
+      "patch_bytes": 8747,
+      "patch_apply_and_byte_comparison": "passed",
+      "checkout_path": "External/SPIRV-Cross"
+    },
+    {
+      "name": "mvk-dep-SPIRV-Tools",
+      "repository": "https://github.com/KhronosGroup/SPIRV-Tools",
+      "base_commit": "ba9a9e32160e2500ce1e48cc563a8fedaf596e6e",
+      "upstream_archive_sha256": "a9a1c9a2d5bf3a843bff7db1a672d6cd2cdb5509591493cc1468a9201338501f",
+      "upstream_archive_url": "https://codeload.github.com/KhronosGroup/SPIRV-Tools/tar.gz/ba9a9e32160e2500ce1e48cc563a8fedaf596e6e",
+      "source_inventory_sha256": "5747de0779418d7ec0f4a7dcefa98d25f4ba527e5e21c2ca1df383a19fdd54f2",
+      "upstream_files_checked": 1753,
+      "changed_files": [],
+      "upstream_paths_not_in_build_manifest": [],
+      "patch_apply_and_byte_comparison": "no changes",
+      "checkout_path": "External/SPIRV-Tools"
+    },
+    {
+      "name": "mvk-dep-SPIRV-Headers",
+      "repository": "https://github.com/KhronosGroup/SPIRV-Headers",
+      "base_commit": "2b7475f6d664efbad4d4315c94ecec9640831e5b",
+      "upstream_archive_sha256": "c6b662f240c60cfa9d2548a58de76c6d4991b2c29bb4fa23bfbc687c08ff1db3",
+      "upstream_archive_url": "https://codeload.github.com/KhronosGroup/SPIRV-Headers/tar.gz/2b7475f6d664efbad4d4315c94ecec9640831e5b",
+      "source_inventory_sha256": "5747de0779418d7ec0f4a7dcefa98d25f4ba527e5e21c2ca1df383a19fdd54f2",
+      "upstream_files_checked": 121,
+      "changed_files": [],
+      "upstream_paths_not_in_build_manifest": [],
+      "patch_apply_and_byte_comparison": "no changes",
+      "checkout_path": "External/SPIRV-Headers"
+    },
+    {
+      "name": "mvk-dep-cereal",
+      "repository": "https://github.com/USCiLab/cereal",
+      "base_commit": "a56bad8bbb770ee266e930c95d37fff2a5be7fea",
+      "upstream_archive_sha256": "12e10fb541270632f6683286ce8c7e8c321fe4addb53fa91ed498b95c1758f93",
+      "upstream_archive_url": "https://codeload.github.com/USCiLab/cereal/tar.gz/a56bad8bbb770ee266e930c95d37fff2a5be7fea",
+      "source_inventory_sha256": "5747de0779418d7ec0f4a7dcefa98d25f4ba527e5e21c2ca1df383a19fdd54f2",
+      "upstream_files_checked": 210,
+      "changed_files": [],
+      "upstream_paths_not_in_build_manifest": [],
+      "patch_apply_and_byte_comparison": "no changes",
+      "checkout_path": "External/cereal"
+    }
+  ]
+}

@@ -1,0 +1,1749 @@
+diff --git a/src/compiler/nir/nir_search.c b/src/compiler/nir/nir_search.c
+index b4443cd..de3a122 100644
+--- a/src/compiler/nir/nir_search.c
++++ b/src/compiler/nir/nir_search.c
+@@ -31,6 +31,14 @@
+ /* This should be the same as nir_search_max_comm_ops in nir_algebraic.py. */
+ #define NIR_SEARCH_MAX_COMM_OPS 8
+ 
++/* Match variables aren't instruction sources, so they don't need nir_src's
++ * parent and use-link bookkeeping.
++ */
++struct match_variable {
++   nir_def *def;
++   uint8_t swizzle[NIR_MAX_VEC_COMPONENTS];
++};
++
+ struct match_state {
+    unsigned fp_math_ctrl;
+    uint8_t comm_op_direction;
+@@ -41,7 +49,7 @@ struct match_state {
+    const struct per_op_table *pass_op_table;
+    const nir_algebraic_table *table;
+ 
+-   nir_alu_src variables[NIR_SEARCH_MAX_VARIABLES];
++   struct match_variable variables[NIR_SEARCH_MAX_VARIABLES];
+    const nir_search_state *state;
+ };
+ 
+@@ -201,6 +209,9 @@ match_value(const nir_algebraic_table *table,
+             unsigned num_components, const uint8_t *swizzle,
+             struct match_state *state)
+ {
++   if (num_components == 0)
++      return false;
++
+    uint8_t new_swizzle[NIR_MAX_VEC_COMPONENTS];
+ 
+    /* If the source is an explicitly sized source, then we need to reset
+@@ -211,14 +222,19 @@ match_value(const nir_algebraic_table *table,
+       swizzle = identity_swizzle;
+    }
+ 
+-   for (unsigned i = 0; i < num_components; ++i)
+-      new_swizzle[i] = instr->src[src].swizzle[swizzle[i]];
+-
+    /* If the value has a specific bit size and it doesn't match, bail */
+    if (value->bit_size > 0 &&
+        nir_src_bit_size(instr->src[src].src) != value->bit_size)
+       return false;
+ 
++   /* This is usually scalar.  Avoid a zero-trip check for the first loop
++    * iteration while retaining the same path for scalar and vector values.
++    */
++   unsigned i = 0;
++   do {
++      new_swizzle[i] = instr->src[src].swizzle[swizzle[i]];
++   } while (++i < num_components);
++
+    switch (value->type) {
+    case nir_search_value_expression:
+       if (!nir_src_is_alu(instr->src[src].src))
+@@ -241,17 +257,23 @@ match_value(const nir_algebraic_table *table,
+          return false;
+ 
+       if (state->variables_seen & (1 << var->variable)) {
+-         if (state->variables[var->variable].src.ssa != instr->src[src].src.ssa)
++         if (state->variables[var->variable].def != instr->src[src].src.ssa)
+             return false;
+ 
+          return !memcmp(state->variables[var->variable].swizzle, new_swizzle, num_components);
+       } else {
+          state->variables_seen |= (1 << var->variable);
+-         nir_alu_src *dst = &state->variables[var->variable];
+-         dst->src = instr->src[src].src;
+-
+-         memcpy(dst->swizzle, new_swizzle, num_components);
+-         memset(dst->swizzle + num_components, 0, NIR_MAX_VEC_COMPONENTS - num_components);
++         struct match_variable *dst = &state->variables[var->variable];
++         dst->def = instr->src[src].src.ssa;
++
++         if (num_components == 1) {
++            dst->swizzle[0] = new_swizzle[0];
++            memset(dst->swizzle + 1, 0, NIR_MAX_VEC_COMPONENTS - 1);
++         } else {
++            memcpy(dst->swizzle, new_swizzle, num_components);
++            memset(dst->swizzle + num_components, 0,
++                   NIR_MAX_VEC_COMPONENTS - num_components);
++         }
+ 
+          return true;
+       }
+@@ -391,7 +413,7 @@ replace_bitsize(const nir_search_value *value, unsigned search_bitsize,
+    if (value->bit_size > 0)
+       return value->bit_size;
+    if (value->bit_size < 0)
+-      return nir_src_bit_size(state->variables[-value->bit_size - 1].src);
++      return state->variables[-value->bit_size - 1].def->bit_size;
+    return search_bitsize;
+ }
+ 
+@@ -474,7 +496,7 @@ construct_value(nir_builder *build,
+       assert(state->variables_seen & (1 << var->variable));
+ 
+       nir_alu_src val = { NIR_SRC_INIT };
+-      nir_alu_src_copy(&val, &state->variables[var->variable]);
++      val.src = nir_src_for_ssa(state->variables[var->variable].def);
+       assert(!var->is_constant);
+ 
+       for (unsigned i = 0; i < NIR_MAX_VEC_COMPONENTS; i++)
+diff --git a/src/egl/drivers/dri2/egl_dri2.c b/src/egl/drivers/dri2/egl_dri2.c
+index b5b9774..5473ddc 100644
+--- a/src/egl/drivers/dri2/egl_dri2.c
++++ b/src/egl/drivers/dri2/egl_dri2.c
+@@ -915,6 +915,9 @@ dri2_initialize(_EGLDisplay *disp)
+    loader_set_logger(_eglLog);
+ 
+    switch (disp->Platform) {
++   case _EGL_PLATFORM_COCOA:
++      ret = dri2_initialize_cocoa(disp);
++      break;
+    case _EGL_PLATFORM_SURFACELESS:
+       ret = dri2_initialize_surfaceless(disp);
+       break;
+@@ -1008,6 +1011,8 @@ dri2_display_destroy(_EGLDisplay *disp)
+ #endif
+ 
+    switch (disp->Platform) {
++   case _EGL_PLATFORM_COCOA:
++      break;
+    case _EGL_PLATFORM_X11:
+    case _EGL_PLATFORM_XCB:
+       dri2_teardown_x11(dri2_dpy);
+diff --git a/src/egl/drivers/dri2/egl_dri2.h b/src/egl/drivers/dri2/egl_dri2.h
+index aa5692a..fe289d0 100644
+--- a/src/egl/drivers/dri2/egl_dri2.h
++++ b/src/egl/drivers/dri2/egl_dri2.h
+@@ -573,6 +573,9 @@ dri2_initialize_android(_EGLDisplay *disp)
+ EGLBoolean
+ dri2_initialize_surfaceless(_EGLDisplay *disp);
+ 
++EGLBoolean
++dri2_initialize_cocoa(_EGLDisplay *disp);
++
+ EGLBoolean
+ dri2_initialize_device(_EGLDisplay *disp);
+ static inline void
+diff --git a/src/egl/drivers/dri2/platform_surfaceless.c b/src/egl/drivers/dri2/platform_surfaceless.c
+index 8fbb9a6..2be3321 100644
+--- a/src/egl/drivers/dri2/platform_surfaceless.c
++++ b/src/egl/drivers/dri2/platform_surfaceless.c
+@@ -25,6 +25,7 @@
+ 
+ #include <dlfcn.h>
+ #include <fcntl.h>
++#include <stdint.h>
+ #include <stdio.h>
+ #include <stdlib.h>
+ #include <string.h>
+@@ -37,6 +38,7 @@
+ #include "egl_dri2.h"
+ #include "eglglobals.h"
+ #include "kopper_interface.h"
++#include <vulkan/vulkan_metal.h>
+ #include "loader.h"
+ #include "loader_dri_helper.h"
+ #include "dri_util.h"
+@@ -220,6 +222,98 @@ static const __DRIextension *kopper_loader_extensions[] = {
+    &image_lookup_extension.base, NULL,
+ };
+ 
++#define BARONMVK_COCOA_EGL_SURFACE_MAGIC 0x434f4341u
++#define BARONMVK_COCOA_EGL_SURFACE_VERSION 1u
++
++struct baronmvk_cocoa_egl_surface {
++   uint32_t magic;
++   uint32_t version;
++   void *metal_layer;
++   uint32_t width;
++   uint32_t height;
++};
++
++static bool
++cocoa_config_format_supported(enum pipe_format format)
++{
++   switch (format) {
++   case PIPE_FORMAT_BGRA8888_UNORM:
++   case PIPE_FORMAT_BGRA8888_SRGB:
++   case PIPE_FORMAT_BGRX8888_UNORM:
++   case PIPE_FORMAT_BGRX8888_SRGB:
++      return true;
++   default:
++      return false;
++   }
++}
++
++static bool
++cocoa_native_surface_valid(const struct baronmvk_cocoa_egl_surface *native)
++{
++   return native &&
++          native->magic == BARONMVK_COCOA_EGL_SURFACE_MAGIC &&
++          native->version == BARONMVK_COCOA_EGL_SURFACE_VERSION &&
++          native->metal_layer &&
++          native->width > 0 &&
++          native->height > 0;
++}
++
++static void
++cocoa_update_surface_size(struct dri2_egl_surface *dri2_surf)
++{
++   const struct baronmvk_cocoa_egl_surface *native =
++      dri2_surf->base.NativeSurface;
++
++   if (!cocoa_native_surface_valid(native))
++      return;
++
++   dri2_surf->base.Width = native->width;
++   dri2_surf->base.Height = native->height;
++}
++
++static void
++cocoa_kopper_set_surface_create_info(void *_draw,
++                                     struct kopper_loader_info *out)
++{
++   struct dri2_egl_surface *dri2_surf = _draw;
++   const struct baronmvk_cocoa_egl_surface *native =
++      dri2_surf->base.NativeSurface;
++   VkMetalSurfaceCreateInfoEXT *metal =
++      (VkMetalSurfaceCreateInfoEXT *)&out->bos;
++
++   memset(out, 0, sizeof(*out));
++   metal->sType = VK_STRUCTURE_TYPE_METAL_SURFACE_CREATE_INFO_EXT;
++   metal->pNext = NULL;
++   metal->flags = 0;
++   metal->pLayer = cocoa_native_surface_valid(native) ?
++      (const CAMetalLayer *)native->metal_layer : NULL;
++   out->has_alpha = true;
++   out->present_opaque = dri2_surf->base.PresentOpaque;
++}
++
++static void
++cocoa_kopper_get_drawable_info(struct dri_drawable *draw, int *w, int *h,
++                               void *loaderPrivate)
++{
++   struct dri2_egl_surface *dri2_surf = loaderPrivate;
++
++   cocoa_update_surface_size(dri2_surf);
++   *w = dri2_surf->base.Width;
++   *h = dri2_surf->base.Height;
++}
++
++static const __DRIkopperLoaderExtension cocoa_kopper_loader_extension = {
++   .base = {__DRI_KOPPER_LOADER, 1},
++   .SetSurfaceCreateInfo = cocoa_kopper_set_surface_create_info,
++   .GetDrawableInfo = cocoa_kopper_get_drawable_info,
++};
++
++static const __DRIextension *cocoa_kopper_loader_extensions[] = {
++   &cocoa_kopper_loader_extension.base,
++   &image_lookup_extension.base,
++   NULL,
++};
++
+ static bool
+ surfaceless_probe_device(_EGLDisplay *disp, bool swrast, bool zink)
+ {
+@@ -289,7 +383,9 @@ surfaceless_probe_device(_EGLDisplay *disp, bool swrast, bool zink)
+       if (dri2_dpy->driver_name) {
+          dri2_detect_swrast_kopper(disp);
+          if (dri2_dpy->kopper)
+-            dri2_dpy->loader_extensions = kopper_loader_extensions;
++            dri2_dpy->loader_extensions =
++               disp->Platform == _EGL_PLATFORM_COCOA ?
++                  cocoa_kopper_loader_extensions : kopper_loader_extensions;
+          else if (swrast)
+             dri2_dpy->loader_extensions = swrast_loader_extensions;
+          else
+@@ -361,7 +457,9 @@ surfaceless_probe_device_sw(_EGLDisplay *disp)
+    dri2_detect_swrast_kopper(disp);
+ 
+    if (dri2_dpy->kopper)
+-      dri2_dpy->loader_extensions = kopper_loader_extensions;
++      dri2_dpy->loader_extensions =
++         disp->Platform == _EGL_PLATFORM_COCOA ?
++            cocoa_kopper_loader_extensions : kopper_loader_extensions;
+    else
+       dri2_dpy->loader_extensions = swrast_loader_extensions;
+ 
+@@ -377,6 +475,132 @@ surfaceless_probe_device_sw(_EGLDisplay *disp)
+    return true;
+ }
+ 
++static _EGLSurface *
++dri2_cocoa_create_window_surface(_EGLDisplay *disp, _EGLConfig *conf,
++                                 void *native_window,
++                                 const EGLint *attrib_list)
++{
++   struct dri2_egl_config *dri2_conf = dri2_egl_config(conf);
++   struct dri2_egl_surface *dri2_surf;
++   const struct dri_config *config;
++   const struct baronmvk_cocoa_egl_surface *native = native_window;
++
++   if (!cocoa_native_surface_valid(native)) {
++      _eglError(EGL_BAD_NATIVE_WINDOW, "eglCreateWindowSurface");
++      return NULL;
++   }
++
++   dri2_surf = calloc(1, sizeof *dri2_surf);
++   if (!dri2_surf) {
++      _eglError(EGL_BAD_ALLOC, "eglCreateWindowSurface");
++      return NULL;
++   }
++
++   if (!dri2_init_surface(&dri2_surf->base, disp, EGL_WINDOW_BIT, conf,
++                          attrib_list, false, native_window)) {
++      free(dri2_surf);
++      return NULL;
++   }
++
++   cocoa_update_surface_size(dri2_surf);
++
++   config = dri2_get_dri_config(dri2_conf, EGL_WINDOW_BIT,
++                                dri2_surf->base.GLColorspace);
++   if (!config) {
++      _eglError(EGL_BAD_MATCH,
++                "Unsupported window surfacetype/colorspace configuration");
++      goto cleanup_surface;
++   }
++
++   if (!dri2_create_drawable(dri2_egl_display(disp), config, dri2_surf,
++                             dri2_surf))
++      goto cleanup_surface;
++
++   return &dri2_surf->base;
++
++cleanup_surface:
++   dri2_fini_surface(&dri2_surf->base);
++   free(dri2_surf);
++   return NULL;
++}
++
++static EGLBoolean
++dri2_cocoa_swap_interval(_EGLDisplay *disp, _EGLSurface *surf,
++                         EGLint interval)
++{
++   struct dri2_egl_surface *dri2_surf = dri2_egl_surface(surf);
++
++   kopperSetSwapInterval(dri2_surf->dri_drawable, interval);
++   return EGL_TRUE;
++}
++
++static EGLBoolean
++dri2_cocoa_swap_buffers_with_damage(_EGLDisplay *disp, _EGLSurface *draw,
++                                    const EGLint *rects, EGLint n_rects)
++{
++   struct dri2_egl_surface *dri2_surf = dri2_egl_surface(draw);
++
++   cocoa_update_surface_size(dri2_surf);
++   if (n_rects) {
++      kopperSwapBuffersWithDamage(dri2_surf->dri_drawable,
++                                  __DRI2_FLUSH_CONTEXT |
++                                     __DRI2_FLUSH_INVALIDATE_ANCILLARY,
++                                  n_rects, rects);
++   } else {
++      kopperSwapBuffers(dri2_surf->dri_drawable,
++                        __DRI2_FLUSH_CONTEXT |
++                           __DRI2_FLUSH_INVALIDATE_ANCILLARY);
++   }
++
++   kopperQuerySurfaceSize(dri2_surf->dri_drawable,
++                          &dri2_surf->base.Width,
++                          &dri2_surf->base.Height);
++   return EGL_TRUE;
++}
++
++static EGLBoolean
++dri2_cocoa_swap_buffers(_EGLDisplay *disp, _EGLSurface *draw)
++{
++   return dri2_cocoa_swap_buffers_with_damage(disp, draw, NULL, 0);
++}
++
++static EGLint
++dri2_cocoa_query_buffer_age(_EGLDisplay *disp, _EGLSurface *surf)
++{
++   struct dri2_egl_surface *dri2_surf = dri2_egl_surface(surf);
++
++   return kopperQueryBufferAge(dri2_surf->dri_drawable);
++}
++
++static const struct dri2_egl_display_vtbl dri2_cocoa_display_vtbl = {
++   .create_window_surface = dri2_cocoa_create_window_surface,
++   .create_pbuffer_surface = dri2_surfaceless_create_pbuffer_surface,
++   .destroy_surface = surfaceless_destroy_surface,
++   .create_image = dri2_create_image_khr,
++   .swap_interval = dri2_cocoa_swap_interval,
++   .swap_buffers = dri2_cocoa_swap_buffers,
++   .swap_buffers_with_damage = dri2_cocoa_swap_buffers_with_damage,
++   .query_buffer_age = dri2_cocoa_query_buffer_age,
++   .get_dri_drawable = dri2_surface_get_dri_drawable,
++};
++
++static void
++dri2_cocoa_add_configs_for_visuals(_EGLDisplay *disp)
++{
++   struct dri2_egl_display *dri2_dpy = dri2_egl_display(disp);
++
++   for (unsigned i = 0; dri2_dpy->driver_configs[i] != NULL; i++) {
++      const struct gl_config *gl_config =
++         (const struct gl_config *)dri2_dpy->driver_configs[i];
++
++      if (!cocoa_config_format_supported(gl_config->color_format))
++         continue;
++
++      dri2_add_config(disp, dri2_dpy->driver_configs[i],
++                      EGL_WINDOW_BIT | EGL_PBUFFER_BIT, NULL);
++   }
++}
++
+ EGLBoolean
+ dri2_initialize_surfaceless(_EGLDisplay *disp)
+ {
+@@ -418,3 +642,45 @@ dri2_initialize_surfaceless(_EGLDisplay *disp)
+ cleanup:
+    return _eglError(EGL_NOT_INITIALIZED, err);
+ }
++
++EGLBoolean
++dri2_initialize_cocoa(_EGLDisplay *disp)
++{
++   const char *err;
++   bool driver_loaded = false;
++   struct dri2_egl_display *dri2_dpy = dri2_egl_display(disp);
++
++   driver_loaded = surfaceless_probe_device(disp, disp->Options.ForceSoftware,
++                                            disp->Options.Zink);
++   if (!driver_loaded &&
++       (disp->Options.ForceSoftware || disp->Options.Zink)) {
++      _eglLog(_EGL_DEBUG, "Falling back to cocoa zink/kopper without DRM.");
++      driver_loaded = surfaceless_probe_device_sw(disp);
++   }
++
++   if (!driver_loaded) {
++      err = "DRI2: failed to load driver";
++      goto cleanup;
++   }
++
++   if (!dri2_dpy->kopper) {
++      err = "DRI2: Cocoa platform requires zink/kopper";
++      goto cleanup;
++   }
++
++   dri2_setup_screen(disp);
++#ifdef HAVE_WAYLAND_PLATFORM
++   dri2_dpy->device_name =
++      loader_get_device_name_for_fd(dri2_dpy->fd_render_gpu);
++#endif
++   dri2_set_WL_bind_wayland_display(disp);
++
++   dri2_cocoa_add_configs_for_visuals(disp);
++
++   dri2_dpy->vtbl = &dri2_cocoa_display_vtbl;
++
++   return EGL_TRUE;
++
++cleanup:
++   return _eglError(EGL_NOT_INITIALIZED, err);
++}
+diff --git a/src/egl/main/egldisplay.c b/src/egl/main/egldisplay.c
+index ef653aa..f2438c8 100644
+--- a/src/egl/main/egldisplay.c
++++ b/src/egl/main/egldisplay.c
+@@ -84,6 +84,7 @@ static const struct {
+    {_EGL_PLATFORM_SURFACELESS, "surfaceless"},
+    {_EGL_PLATFORM_DEVICE, "device"},
+    {_EGL_PLATFORM_WINDOWS, "windows"},
++   {_EGL_PLATFORM_COCOA, "cocoa"},
+ };
+ 
+ /**
+diff --git a/src/egl/main/egldisplay.h b/src/egl/main/egldisplay.h
+index 6178140..ddfc636 100644
+--- a/src/egl/main/egldisplay.h
++++ b/src/egl/main/egldisplay.h
+@@ -55,6 +55,7 @@ enum _egl_platform_type {
+    _EGL_PLATFORM_SURFACELESS,
+    _EGL_PLATFORM_DEVICE,
+    _EGL_PLATFORM_WINDOWS,
++   _EGL_PLATFORM_COCOA,
+ 
+    _EGL_NUM_PLATFORMS,
+    _EGL_INVALID_PLATFORM = -1
+diff --git a/src/gallium/auxiliary/indices/u_primconvert.c b/src/gallium/auxiliary/indices/u_primconvert.c
+index 3e6afc9..b8ec10d 100644
+--- a/src/gallium/auxiliary/indices/u_primconvert.c
++++ b/src/gallium/auxiliary/indices/u_primconvert.c
+@@ -260,10 +260,25 @@ primconvert_init_draw(struct primconvert_context *pc,
+ 
+       if (pc->cfg.fixed_prim_restart && new_info->primitive_restart) {
+          new_info->restart_index = (1ull << (new_info->index_size * 8)) - 1;
+-         if (info->restart_index != new_info->restart_index)
+-            util_translate_prim_restart_data(new_info->index_size, dst, dst,
+-                                             new_draw->count,
+-                                             info->restart_index);
++         if (info->restart_index != new_info->restart_index) {
++            bool list = new_info->mode == MESA_PRIM_POINTS ||
++                        new_info->mode == MESA_PRIM_LINES ||
++                        new_info->mode == MESA_PRIM_TRIANGLES;
++            if (list && (new_info->index_size == 2 || new_info->index_size == 4)) {
++               /* This newly generated range is already being normalized on
++                * the CPU. Check the final values in that same pass, including
++                * pre-existing fixed-index collisions, before disabling restart.
++                */
++               new_info->primitive_restart =
++                  util_translate_prim_restart_data_and_check(new_info->index_size,
++                                                            dst, dst, new_draw->count,
++                                                            info->restart_index);
++            } else {
++               util_translate_prim_restart_data(new_info->index_size, dst, dst,
++                                               new_draw->count,
++                                               info->restart_index);
++            }
++         }
+       }
+    }
+    else {
+diff --git a/src/gallium/auxiliary/nir/tgsi_to_nir.c b/src/gallium/auxiliary/nir/tgsi_to_nir.c
+index 366996c..b77ea5a 100644
+--- a/src/gallium/auxiliary/nir/tgsi_to_nir.c
++++ b/src/gallium/auxiliary/nir/tgsi_to_nir.c
+@@ -1018,7 +1018,7 @@ get_sampler_var(struct ttn_compile *c, int binding,
+       const struct glsl_type *type =
+          glsl_sampler_type(dim, is_shadow, is_array, base_type);
+       var = nir_variable_create(c->build.shader, nir_var_uniform, type,
+-                                "sampler");
++                                "texSampler");
+       var->data.binding = binding;
+       var->data.explicit_binding = true;
+ 
+diff --git a/src/gallium/auxiliary/pipe-loader/pipe_loader_sw.c b/src/gallium/auxiliary/pipe-loader/pipe_loader_sw.c
+index f57bf55..958ec11 100644
+--- a/src/gallium/auxiliary/pipe-loader/pipe_loader_sw.c
++++ b/src/gallium/auxiliary/pipe-loader/pipe_loader_sw.c
+@@ -333,18 +333,28 @@ pipe_loader_sw_release(struct pipe_loader_device **dev)
+    pipe_loader_base_release(dev);
+ }
+ 
++#ifdef HAVE_ZINK
++static const driOptionDescription zink_driconf[] = {
++      #include "gallium/drivers/zink/driinfo_zink.h"
++};
++#endif
++
+ static const struct driOptionDescription *
+ pipe_loader_sw_get_driconf(struct pipe_loader_device *dev, unsigned *count)
+ {
++#ifdef HAVE_ZINK
++   /* Make zink driconf options visible when zink is loaded through the SW
++    * pipe-loader path, such as EGL/surfaceless macOS embedders.
++    */
++   *count = ARRAY_SIZE(zink_driconf);
++   return zink_driconf;
++#else
+    *count = 0;
+    return NULL;
++#endif
+ }
+ 
+ #if defined(HAVE_DRI) && defined(HAVE_ZINK)
+-static const driOptionDescription zink_driconf[] = {
+-      #include "gallium/drivers/zink/driinfo_zink.h"
+-};
+-
+ static const struct driOptionDescription *
+ pipe_loader_vk_get_driconf(struct pipe_loader_device *dev, unsigned *count)
+ {
+diff --git a/src/gallium/auxiliary/util/u_prim_restart.c b/src/gallium/auxiliary/util/u_prim_restart.c
+index 07164cc..145654e 100644
+--- a/src/gallium/auxiliary/util/u_prim_restart.c
++++ b/src/gallium/auxiliary/util/u_prim_restart.c
+@@ -90,6 +90,37 @@ util_translate_prim_restart_data(unsigned index_size,
+    }
+ }
+ 
++bool
++util_translate_prim_restart_data_and_check(unsigned index_size,
++                                         void *src_map, void *dst_map,
++                                         unsigned count, unsigned restart_index)
++{
++   bool has_restart = false;
++   if (index_size == 2) {
++      const uint16_t *src = (const uint16_t *) src_map;
++      uint16_t *dst = (uint16_t *) dst_map;
++      for (unsigned i = 0; i < count; i++) {
++         uint16_t value = (src[i] == restart_index) ? 0xffff : src[i];
++         dst[i] = value;
++         has_restart |= value == 0xffff;
++      }
++   } else if (index_size == 4) {
++      const uint32_t *src = (const uint32_t *) src_map;
++      uint32_t *dst = (uint32_t *) dst_map;
++      for (unsigned i = 0; i < count; i++) {
++         uint32_t value = (src[i] == restart_index) ? 0xffffffff : src[i];
++         dst[i] = value;
++         has_restart |= value == 0xffffffff;
++      }
++   } else {
++      /* Preserve the old width-conversion contract without claiming a proof. */
++      util_translate_prim_restart_data(index_size, src_map, dst_map, count,
++                                      restart_index);
++      return true;
++   }
++   return has_restart;
++}
++
+ /** Helper structs for util_draw_vbo_without_prim_restart() */
+ 
+ struct range_info {
+diff --git a/src/gallium/auxiliary/util/u_prim_restart.h b/src/gallium/auxiliary/util/u_prim_restart.h
+index 45038d4..b541885 100644
+--- a/src/gallium/auxiliary/util/u_prim_restart.h
++++ b/src/gallium/auxiliary/util/u_prim_restart.h
+@@ -46,6 +46,14 @@ util_translate_prim_restart_data(unsigned index_size,
+                                  void *src_map, void *dst_map,
+                                  unsigned count, unsigned restart_index);
+ 
++/* Translate as above and report whether the final 16/32-bit output contains
++ * the fixed restart index. Other widths conservatively report true.
++ */
++bool
++util_translate_prim_restart_data_and_check(unsigned index_size,
++                                         void *src_map, void *dst_map,
++                                         unsigned count, unsigned restart_index);
++
+ struct pipe_draw_start_count_bias *
+ util_prim_restart_convert_to_direct(const void *index_map,
+                                     const struct pipe_draw_info *info,
+diff --git a/src/gallium/auxiliary/util/u_range.h b/src/gallium/auxiliary/util/u_range.h
+index 7270ca7..bfafb1f 100644
+--- a/src/gallium/auxiliary/util/u_range.h
++++ b/src/gallium/auxiliary/util/u_range.h
+@@ -76,6 +76,21 @@ util_range_add(struct pipe_resource *resource, struct util_range *range,
+    }
+ }
+ 
++static inline void
++u_range_copy(struct pipe_resource *resource, struct util_range *dst, struct util_range *src)
++{
++   if (resource->flags & PIPE_RESOURCE_FLAG_SINGLE_THREAD_USE ||
++       p_atomic_read(&resource->screen->num_contexts) == 1) {
++      dst->start = src->start;
++      dst->end = src->end;
++   } else {
++      simple_mtx_lock(&src->write_mutex);
++      dst->start = src->start;
++      dst->end = src->end;
++      simple_mtx_unlock(&src->write_mutex);
++   }
++}
++
+ static inline bool
+ util_ranges_intersect(const struct util_range *range,
+                       unsigned start, unsigned end)
+diff --git a/src/gallium/drivers/zink/zink_context.c b/src/gallium/drivers/zink/zink_context.c
+index e178150..28c4d1b 100644
+--- a/src/gallium/drivers/zink/zink_context.c
++++ b/src/gallium/drivers/zink/zink_context.c
+@@ -54,6 +54,7 @@
+ #include "util/strndup.h"
+ #include "nir.h"
+ #include "nir_builder.h"
++#include "util/detect_os.h"
+ 
+ #include "vk_format.h"
+ 
+@@ -156,8 +157,12 @@ zink_context_destroy(struct pipe_context *pctx)
+    if (ctx->blitter)
+       util_blitter_destroy(ctx->blitter);
+ 
++   pipe_resource_reference(&ctx->dummy_vertex_buffer, NULL);
+    pipe_resource_reference(&ctx->dummy_xfb_buffer, NULL);
+ 
++   for (unsigned i = 0; i < ARRAY_SIZE(ctx->dummy_fb_buffers); i++)
++      pipe_resource_reference(&ctx->dummy_fb_buffers[i], NULL);
++
+    zink_descriptors_deinit_bindless(ctx);
+ 
+    u_upload_destroy(pctx->stream_uploader);
+@@ -165,6 +170,11 @@ zink_context_destroy(struct pipe_context *pctx)
+    struct zink_batch_state *bs = ctx->batch_states;
+    while (bs) {
+       struct zink_batch_state *bs_next = bs->next;
++      /* A failed submit can leave the current state in the submitted list.
++       * Transfer it only once: appending it again below can create a cycle.
++       */
++      if (bs == ctx->bs)
++         ctx->bs = NULL;
+       zink_clear_batch_state(ctx, bs);
+       bs->ctx = NULL;
+       /* restore link as we insert them into the screens free_batch_states
+@@ -715,7 +725,9 @@ update_descriptor_state_ubo_lazy(struct zink_context *ctx, mesa_shader_stage sha
+       }
+ #endif
+    } else {
+-      ctx->di.t.ubos[shader][slot].buffer = VK_NULL_HANDLE;
++      bool have_null_descriptors = screen->info.rb2_feats.nullDescriptor && !(zink_debug & ZINK_DEBUG_DUMMYDES);
++      VkBuffer null_buffer = zink_resource(ctx->dummy_vertex_buffer)->obj->buffer;
++      ctx->di.t.ubos[shader][slot].buffer = have_null_descriptors ? VK_NULL_HANDLE : null_buffer;
+       ctx->di.t.ubos[shader][slot].range = VK_WHOLE_SIZE;
+    }
+    return res;
+@@ -738,13 +750,16 @@ update_descriptor_state_ssbo_db(struct zink_context *ctx, mesa_shader_stage shad
+ ALWAYS_INLINE static struct zink_resource *
+ update_descriptor_state_ssbo_lazy(struct zink_context *ctx, mesa_shader_stage shader, unsigned slot, struct zink_resource *res)
+ {
++   struct zink_screen *screen = zink_screen(ctx->base.screen);
+    ctx->di.t.ssbos[shader][slot].offset = ctx->ssbos[shader][slot].buffer_offset;
+    ctx->di.descriptor_res[ZINK_DESCRIPTOR_TYPE_SSBO][shader][slot] = res;
+    if (res) {
+       ctx->di.t.ssbos[shader][slot].buffer = res->obj->buffer;
+       ctx->di.t.ssbos[shader][slot].range = ctx->ssbos[shader][slot].buffer_size;
+    } else {
+-      ctx->di.t.ssbos[shader][slot].buffer = VK_NULL_HANDLE;
++      bool have_null_descriptors = screen->info.rb2_feats.nullDescriptor && !(zink_debug & ZINK_DEBUG_DUMMYDES);
++      VkBuffer null_buffer = zink_resource(ctx->dummy_vertex_buffer)->obj->buffer;
++      ctx->di.t.ssbos[shader][slot].buffer = have_null_descriptors ? VK_NULL_HANDLE : null_buffer;
+       ctx->di.t.ssbos[shader][slot].range = VK_WHOLE_SIZE;
+    }
+    return res;
+@@ -761,6 +776,7 @@ ALWAYS_INLINE static struct zink_resource *
+ update_descriptor_state_sampler(struct zink_context *ctx, mesa_shader_stage shader, unsigned slot, struct zink_resource *res)
+ {
+    struct zink_screen *screen = zink_screen(ctx->base.screen);
++   bool have_null_descriptors = screen->info.rb2_feats.nullDescriptor && !(zink_debug & ZINK_DEBUG_DUMMYDES);
+    const enum zink_descriptor_type type = ZINK_DESCRIPTOR_TYPE_SAMPLER_VIEW;
+    ctx->di.descriptor_res[type][shader][slot] = res;
+    if (res) {
+@@ -791,13 +807,22 @@ update_descriptor_state_sampler(struct zink_context *ctx, mesa_shader_stage shad
+          }
+       }
+    } else {
+-      ctx->di.textures[shader][slot].imageView = VK_NULL_HANDLE;
+-      ctx->di.textures[shader][slot].imageLayout = VK_IMAGE_LAYOUT_UNDEFINED;
+-      if (zink_descriptor_mode == ZINK_DESCRIPTOR_MODE_DB) {
+-         ctx->di.db.tbos[shader][slot].address = 0;
+-         ctx->di.db.tbos[shader][slot].range = VK_WHOLE_SIZE;
++      if (likely(have_null_descriptors)) {
++         ctx->di.textures[shader][slot].imageView = VK_NULL_HANDLE;
++         ctx->di.textures[shader][slot].imageLayout = VK_IMAGE_LAYOUT_UNDEFINED;
++         if (zink_descriptor_mode == ZINK_DESCRIPTOR_MODE_DB) {
++            ctx->di.db.tbos[shader][slot].address = 0;
++            ctx->di.db.tbos[shader][slot].range = VK_WHOLE_SIZE;
++         } else {
++            ctx->di.t.tbos[shader][slot] = VK_NULL_HANDLE;
++         }
+       } else {
+-         ctx->di.t.tbos[shader][slot] = VK_NULL_HANDLE;
++         assert(zink_descriptor_mode != ZINK_DESCRIPTOR_MODE_DB);
++         struct zink_surface *null_surface = zink_get_dummy_surface(ctx, 0);
++         struct zink_buffer_view *null_bufferview = ctx->dummy_bufferview;
++         ctx->di.textures[shader][slot].imageView = null_surface->image_view;
++         ctx->di.textures[shader][slot].imageLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
++         ctx->di.t.tbos[shader][slot] = null_bufferview->buffer_view;
+       }
+    }
+    return res;
+@@ -814,6 +839,7 @@ ALWAYS_INLINE static struct zink_resource *
+ update_descriptor_state_image(struct zink_context *ctx, mesa_shader_stage shader, unsigned slot, struct zink_resource *res)
+ {
+    struct zink_screen *screen = zink_screen(ctx->base.screen);
++   bool have_null_descriptors = screen->info.rb2_feats.nullDescriptor && !(zink_debug & ZINK_DEBUG_DUMMYDES);
+    const enum zink_descriptor_type type = ZINK_DESCRIPTOR_TYPE_IMAGE;
+    ctx->di.descriptor_res[type][shader][slot] = res;
+    if (res) {
+@@ -833,12 +859,21 @@ update_descriptor_state_image(struct zink_context *ctx, mesa_shader_stage shader
+          ctx->di.images[shader][slot].imageView = surface->image_view;
+       }
+    } else {
+-      memset(&ctx->di.images[shader][slot], 0, sizeof(ctx->di.images[shader][slot]));
+-      if (zink_descriptor_mode == ZINK_DESCRIPTOR_MODE_DB) {
+-         ctx->di.db.texel_images[shader][slot].address = 0;
+-         ctx->di.db.texel_images[shader][slot].range = VK_WHOLE_SIZE;
++      if (likely(have_null_descriptors)) {
++         memset(&ctx->di.images[shader][slot], 0, sizeof(ctx->di.images[shader][slot]));
++         if (zink_descriptor_mode == ZINK_DESCRIPTOR_MODE_DB) {
++            ctx->di.db.texel_images[shader][slot].address = 0;
++            ctx->di.db.texel_images[shader][slot].range = VK_WHOLE_SIZE;
++         } else {
++            ctx->di.t.texel_images[shader][slot] = VK_NULL_HANDLE;
++         }
+       } else {
+-         ctx->di.t.texel_images[shader][slot] = VK_NULL_HANDLE;
++         assert(zink_descriptor_mode != ZINK_DESCRIPTOR_MODE_DB);
++         struct zink_surface *null_surface = zink_get_dummy_surface(ctx, 0);
++         struct zink_buffer_view *null_bufferview = ctx->dummy_bufferview;
++         ctx->di.images[shader][slot].imageView = null_surface->image_view;
++         ctx->di.images[shader][slot].imageLayout = VK_IMAGE_LAYOUT_GENERAL;
++         ctx->di.t.texel_images[shader][slot] = null_bufferview->buffer_view;
+       }
+    }
+    return res;
+@@ -2606,17 +2641,36 @@ zink_delete_texture_handle(struct pipe_context *pctx, uint64_t handle)
+ static void
+ zero_bindless_descriptor(struct zink_context *ctx, uint32_t handle, bool is_buffer, bool is_image)
+ {
+-   if (is_buffer) {
+-      if (zink_descriptor_mode == ZINK_DESCRIPTOR_MODE_DB) {
+-         ctx->di.bindless[is_image].db.buffer_infos[handle].address = 0;
+-         ctx->di.bindless[is_image].db.buffer_infos[handle].range = 0;
++   if (likely(zink_screen(ctx->base.screen)->info.rb2_feats.nullDescriptor && !(zink_debug & ZINK_DEBUG_DUMMYDES))) {
++      if (is_buffer) {
++         if (zink_descriptor_mode == ZINK_DESCRIPTOR_MODE_DB) {
++            ctx->di.bindless[is_image].db.buffer_infos[handle].address = 0;
++            ctx->di.bindless[is_image].db.buffer_infos[handle].range = 0;
++         } else {
++            VkBufferView *bv = &ctx->di.bindless[is_image].t.buffer_infos[handle];
++            *bv = VK_NULL_HANDLE;
++         }
+       } else {
+-         VkBufferView *bv = &ctx->di.bindless[is_image].t.buffer_infos[handle];
+-         *bv = VK_NULL_HANDLE;
++         VkDescriptorImageInfo *ii = &ctx->di.bindless[is_image].img_infos[handle];
++         memset(ii, 0, sizeof(*ii));
+       }
+    } else {
+-      VkDescriptorImageInfo *ii = &ctx->di.bindless[is_image].img_infos[handle];
+-      memset(ii, 0, sizeof(*ii));
++      if (is_buffer) {
++         if (zink_descriptor_mode == ZINK_DESCRIPTOR_MODE_DB) {
++            ctx->di.bindless[is_image].db.buffer_infos[handle].address = zink_resource(ctx->dummy_bufferview->pres)->obj->bda;
++            ctx->di.bindless[is_image].db.buffer_infos[handle].range = 1;
++         } else {
++            VkBufferView *bv = &ctx->di.bindless[is_image].t.buffer_infos[handle];
++            struct zink_buffer_view *null_bufferview = ctx->dummy_bufferview;
++            *bv = null_bufferview->buffer_view;
++         }
++      } else {
++         struct zink_surface *null_surface = zink_get_dummy_surface(ctx, 0);
++         VkDescriptorImageInfo *ii = &ctx->di.bindless[is_image].img_infos[handle];
++         ii->sampler = VK_NULL_HANDLE;
++         ii->imageView = null_surface->image_view;
++         ii->imageLayout = VK_IMAGE_LAYOUT_GENERAL;
++      }
+    }
+ }
+ 
+@@ -2933,13 +2987,15 @@ bool
+ zink_update_fbfetch(struct zink_context *ctx)
+ {
+    const bool had_fbfetch = ctx->di.fbfetch.imageLayout == VK_IMAGE_LAYOUT_GENERAL;
++   bool have_null_descriptors = zink_screen(ctx->base.screen)->info.rb2_feats.nullDescriptor && !(zink_debug & ZINK_DEBUG_DUMMYDES);
+    if (!ctx->gfx_stages[MESA_SHADER_FRAGMENT] ||
+        !ctx->gfx_stages[MESA_SHADER_FRAGMENT]->info.fs.uses_fbfetch_output) {
+       if (!had_fbfetch)
+          return false;
+       zink_batch_no_rp(ctx);
+       ctx->di.fbfetch.imageLayout = VK_IMAGE_LAYOUT_UNDEFINED;
+-      ctx->di.fbfetch.imageView = VK_NULL_HANDLE;
++      ctx->di.fbfetch.imageView = have_null_descriptors ? VK_NULL_HANDLE :
++                                  zink_get_dummy_surface(ctx, 0)->image_view;
+       ctx->invalidate_descriptor_state(ctx, MESA_SHADER_FRAGMENT, ZINK_DESCRIPTOR_TYPE_UBO, 0, 1);
+       ctx->dynamic_fb.flags[0].flags &= ~VK_RENDERING_ATTACHMENT_INPUT_ATTACHMENT_FEEDBACK_BIT_KHR;
+       return true;
+@@ -2960,7 +3016,8 @@ zink_update_fbfetch(struct zink_context *ctx)
+          zink_set_fs_base_key(ctx)->fbfetch_ms = fbfetch_ms;
+       ctx->dynamic_fb.flags[0].flags |= VK_RENDERING_ATTACHMENT_INPUT_ATTACHMENT_FEEDBACK_BIT_KHR;
+    } else {
+-      ctx->di.fbfetch.imageView = VK_NULL_HANDLE;
++      ctx->di.fbfetch.imageView = have_null_descriptors ? VK_NULL_HANDLE :
++                                  zink_get_dummy_surface(ctx, 0)->image_view;
+       ctx->dynamic_fb.flags[0].flags &= ~VK_RENDERING_ATTACHMENT_INPUT_ATTACHMENT_FEEDBACK_BIT_KHR;
+    }
+    bool ret = false;
+@@ -3473,7 +3530,6 @@ begin_rendering(struct zink_context *ctx, bool check_attachment_shadow)
+             zink_resource_reference(&ctx->fb_resolve[i], NULL);
+             continue;
+          }
+-         zink_batch_resource_usage_set(ctx->bs, res, true, false);
+          bool is_depth = util_format_is_depth_or_stencil(res->base.b.format);
+          enum pipe_format format = res->base.b.format;
+          if (!ctx->fb_state.resolve)
+@@ -3493,6 +3549,8 @@ begin_rendering(struct zink_context *ctx, bool check_attachment_shadow)
+                return 0;
+             }
+          }
++         /* Batch usage consumes the acquire semaphore and requires a valid image index. */
++         zink_batch_resource_usage_set(ctx->bs, res, true, false);
+          VkImageViewCreateInfo ivci = create_ivci(screen, res, &tmpl, ctx->dynamic_fb.info.layerCount > 1 ? PIPE_TEXTURE_2D_ARRAY : PIPE_TEXTURE_2D);
+          struct zink_surface *surf = zink_get_surface(ctx, &tmpl, &ivci);
+          VkImageLayout layout = is_depth ? VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL : VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL;
+@@ -4042,7 +4100,7 @@ zink_reset_ds3_states(struct zink_context *ctx)
+ }
+ 
+ static void
+-flush_batch(struct zink_context *ctx, bool sync)
++flush_batch(struct zink_context *ctx, bool sync, bool wait_current_submit)
+ {
+    assert(!ctx->unordered_blitting);
+    if (ctx->clears_enabled)
+@@ -4053,6 +4111,19 @@ flush_batch(struct zink_context *ctx, bool sync)
+    util_queue_fence_wait(&ctx->unsync_fence);
+    util_queue_fence_reset(&ctx->flush_fence);
+    zink_end_batch(ctx);
++#if DETECT_OS_APPLE
++   {
++      struct zink_screen *screen = zink_screen(ctx->base.screen);
++      if (!sync && wait_current_submit && screen->threaded_submit &&
++          !debug_get_bool_option("BAR_ZINK_MVK_DISABLE_ASYNC_WAIT", false) &&
++          zink_driverid(screen) == VK_DRIVER_ID_MOLTENVK) {
++         /* BAR on MoltenVK can starve at 0/1 FPS if async flush returns
++          * before the current threaded submit has completed.
++          */
++         util_queue_fence_wait(&ctx->bs->flush_completed);
++      }
++   }
++#endif
+    ctx->deferred_fence = NULL;
+ 
+    if (sync)
+@@ -4097,7 +4168,7 @@ flush_batch(struct zink_context *ctx, bool sync)
+ void
+ zink_flush_queue(struct zink_context *ctx)
+ {
+-   flush_batch(ctx, true);
++   flush_batch(ctx, true, false);
+ }
+ 
+ static void
+@@ -4392,7 +4463,7 @@ zink_set_framebuffer_state(struct pipe_context *pctx,
+ 
+    /* this is an ideal time to oom flush since it won't split a renderpass */
+    if (ctx->oom_flush && !ctx->unordered_blitting)
+-      flush_batch(ctx, false);
++      flush_batch(ctx, false, false);
+    else
+       update_layered_rendering_state(ctx);
+ 
+@@ -4535,7 +4606,7 @@ zink_flush(struct pipe_context *pctx,
+       if (deferred && !(flags & PIPE_FLUSH_FENCE_FD) && pfence)
+          deferred_fence = true;
+       else
+-         flush_batch(ctx, false);
++         flush_batch(ctx, false, flags & PIPE_FLUSH_ASYNC);
+    }
+ 
+    if (pfence) {
+@@ -4598,7 +4669,7 @@ zink_wait_on_batch(struct zink_context *ctx, uint64_t batch_id)
+    struct zink_batch_state *bs;
+    if (!batch_id) {
+       /* not submitted yet */
+-      flush_batch(ctx, true);
++      flush_batch(ctx, true, false);
+       bs = ctx->last_batch_state;
+       assert(bs);
+       batch_id = bs->fence.batch_id;
+@@ -5334,7 +5405,7 @@ zink_copy_image_buffer(struct zink_context *ctx, struct zink_resource *dst, stru
+    }
+ 
+    if (ctx->oom_flush && !ctx->in_rp && !ctx->unordered_blitting && !unsync)
+-      flush_batch(ctx, false);
++      flush_batch(ctx, false, false);
+ }
+ 
+ static void
+@@ -5539,7 +5610,7 @@ zink_resource_copy_region(struct pipe_context *pctx,
+       zink_copy_image_buffer(ctx, dst, src, buffer_offset, 0, 0, level, &box, 0);
+    }
+    if (ctx->oom_flush && !ctx->in_rp && !ctx->unordered_blitting)
+-      flush_batch(ctx, false);
++      flush_batch(ctx, false, false);
+ }
+ 
+ static bool
+@@ -5743,8 +5814,12 @@ zink_context_replace_buffer_storage(struct pipe_context *pctx, struct pipe_resou
+    zink_batch_reference_resource(ctx, d);
+    /* don't be too creative */
+    zink_resource_object_reference(screen, &d->obj, s->obj);
+-   d->valid_buffer_range = s->valid_buffer_range;
++
++   /* don't miss range expansion from the tc thread on the source buffer */
++   util_range_set_empty(&d->valid_buffer_range);
+    s->real_buffer_range = &d->valid_buffer_range;
++   u_range_copy(src, &d->valid_buffer_range, &s->valid_buffer_range);
++
+    zink_resource_copies_reset(d);
+    /* force counter buffer reset */
+    d->so_valid = false;
+@@ -5801,6 +5876,68 @@ zink_emit_string_marker(struct pipe_context *pctx,
+    free(temp);
+ }
+ 
++static struct pipe_resource *
++zink_create_dummy_fbbuf(struct zink_context *ctx, enum pipe_texture_target target, unsigned width, unsigned height, unsigned samples)
++{
++   struct pipe_resource *pres;
++   struct pipe_resource templ = {0};
++   templ.width0 = width;
++   templ.height0 = height;
++   templ.depth0 = 1;
++   templ.format = PIPE_FORMAT_R8G8B8A8_UNORM;
++   templ.target = target;
++   templ.bind = PIPE_BIND_RENDER_TARGET | PIPE_BIND_SAMPLER_VIEW;
++   if (samples < 2)
++      templ.bind |= PIPE_BIND_SHADER_IMAGE;
++   templ.nr_samples = samples;
++
++   pres = ctx->base.screen->resource_create(ctx->base.screen, &templ);
++   if (!pres)
++      return NULL;
++
++   return pres;
++}
++
++static struct pipe_resource *
++zink_get_dummy_fbbuf(struct zink_context *ctx, int samples_index)
++{
++   unsigned size = calc_max_dummy_fbo_size(ctx);
++   bool needs_null_init = false;
++   if (ctx->dummy_fb_buffers[samples_index]) {
++      struct zink_resource *res = zink_resource(ctx->dummy_fb_buffers[samples_index]);
++      if (res->base.b.width0 < size || res->base.b.height0 < size) {
++         pipe_resource_reference(&ctx->dummy_fb_buffers[samples_index], NULL);
++         needs_null_init = !samples_index && ctx->di.null_fbfetch_init;
++         if (!samples_index)
++            ctx->di.null_fbfetch_init = false;
++      }
++   }
++   if (!ctx->dummy_fb_buffers[samples_index]) {
++      ctx->dummy_fb_buffers[samples_index] = zink_create_dummy_fbbuf(ctx, PIPE_TEXTURE_2D, size, size, BITFIELD_BIT(samples_index));
++      assert(ctx->dummy_fb_buffers[samples_index]);
++      if (!samples_index) {
++         union pipe_color_union color = {0};
++         struct pipe_box box;
++         u_box_2d(0, 0, size, size, &box);
++         ctx->base.clear_texture(&ctx->base, ctx->dummy_fb_buffers[samples_index], 0, &box, &color);
++      }
++   }
++   if (needs_null_init)
++      init_null_fbfetch(ctx);
++   return ctx->dummy_fb_buffers[samples_index];
++}
++
++struct zink_surface *
++zink_get_dummy_surface(struct zink_context *ctx, int samples_index)
++{
++   struct pipe_surface templ = {0};
++
++   templ.format = PIPE_FORMAT_R8G8B8A8_UNORM;
++   templ.nr_samples = 0;
++   templ.texture = zink_get_dummy_fbbuf(ctx, samples_index);
++   return zink_create_fb_surface(&ctx->base, &templ);
++}
++
+ static void
+ zink_tc_parse_dsa(void *state, struct tc_renderpass_info *info)
+ {
+@@ -6035,12 +6172,20 @@ zink_context_create(struct pipe_screen *pscreen, void *priv, unsigned flags)
+ 
+    const uint32_t data[] = {0};
+    if (!is_copy_only) {
++      ctx->dummy_vertex_buffer = pipe_buffer_create(&screen->base,
++         PIPE_BIND_VERTEX_BUFFER | PIPE_BIND_SHADER_IMAGE, PIPE_USAGE_IMMUTABLE, sizeof(data));
++      if (!ctx->dummy_vertex_buffer)
++         goto fail;
+       ctx->dummy_xfb_buffer = pipe_buffer_create(&screen->base,
+          PIPE_BIND_STREAM_OUTPUT, PIPE_USAGE_IMMUTABLE, sizeof(data));
+       if (!ctx->dummy_xfb_buffer)
+          goto fail;
+    }
+    if (!is_copy_only) {
++      ctx->dummy_bufferview = get_buffer_view(ctx, zink_resource(ctx->dummy_vertex_buffer), PIPE_FORMAT_R8G8B8A8_UNORM, 0, sizeof(data));
++      if (!ctx->dummy_bufferview)
++         goto fail;
++
+       if (!zink_descriptors_init(ctx))
+          goto fail;
+    }
+@@ -6097,6 +6242,7 @@ zink_context_create(struct pipe_screen *pscreen, void *priv, unsigned flags)
+    else
+       ctx->invalidate_descriptor_state = zink_context_invalidate_descriptor_state;
+    if (!is_copy_only && !is_compute_only) {
++      pipe_buffer_write_nooverlap(&ctx->base, ctx->dummy_vertex_buffer, 0, sizeof(data), data);
+       pipe_buffer_write_nooverlap(&ctx->base, ctx->dummy_xfb_buffer, 0, sizeof(data), data);
+       if (screen->info.have_EXT_color_write_enable)
+          reapply_color_write(ctx);
+diff --git a/src/gallium/drivers/zink/zink_context.h b/src/gallium/drivers/zink/zink_context.h
+index 4945d2c..ca7c49a 100644
+--- a/src/gallium/drivers/zink/zink_context.h
++++ b/src/gallium/drivers/zink/zink_context.h
+@@ -303,6 +303,9 @@ zink_clamp_void_swizzle(const struct util_format_description *desc, enum pipe_sw
+ bool
+ zink_resource_rebind(struct zink_context *ctx, struct zink_resource *res);
+ 
++struct zink_surface *
++zink_get_dummy_surface(struct zink_context *ctx, int samples_index);
++
+ void
+ zink_set_null_fs(struct zink_context *ctx);
+ 
+diff --git a/src/gallium/drivers/zink/zink_device_info.py b/src/gallium/drivers/zink/zink_device_info.py
+index 4a6a1c4..bf46f78 100644
+--- a/src/gallium/drivers/zink/zink_device_info.py
++++ b/src/gallium/drivers/zink/zink_device_info.py
+@@ -191,7 +191,7 @@ EXTENSIONS = [
+               alias="rb2",
+               properties=True,
+               features=True,
+-              conditions=["$feats.nullDescriptor"]),
++              conditions=["($feats.nullDescriptor && !(zink_debug & ZINK_DEBUG_DUMMYDES))"]),
+     Extension("VK_EXT_image_robustness",
+               alias="rb_image",
+               features=True),
+diff --git a/src/gallium/drivers/zink/zink_draw.cpp b/src/gallium/drivers/zink/zink_draw.cpp
+index 996a034..01c8fb8 100644
+--- a/src/gallium/drivers/zink/zink_draw.cpp
++++ b/src/gallium/drivers/zink/zink_draw.cpp
+@@ -698,8 +698,13 @@ zink_draw(struct pipe_context *pctx,
+    if (have_streamout && ctx->dirty_so_targets)
+       zink_emit_stream_output_targets(pctx);
+ 
++   /* Static vertex-input layout changes must reach the pipeline hash update. */
++   const bool vertex_pipeline_changed = DYNAMIC_STATE != ZINK_DYNAMIC_VERTEX_INPUT2 &&
++                                        DYNAMIC_STATE != ZINK_DYNAMIC_VERTEX_INPUT &&
++                                        ctx->vertex_state_changed;
++
+    bool pipeline_changed = false;
+-   if (ctx->gfx_pipeline_state.dirty || rp_state != ctx->gfx_pipeline_state.rp_state || ctx->gfx_dirty || ctx->dirty_gfx_stages || prim_changed || BATCH_CHANGED) {
++   if (ctx->gfx_pipeline_state.dirty || rp_state != ctx->gfx_pipeline_state.rp_state || ctx->gfx_dirty || ctx->dirty_gfx_stages || prim_changed || vertex_pipeline_changed || BATCH_CHANGED) {
+       if (!update_gfx_pipeline<DYNAMIC_STATE, BATCH_CHANGED>(ctx, bs, mode, &pipeline_changed))
+          return;
+    }
+diff --git a/src/gallium/drivers/zink/zink_instance.py b/src/gallium/drivers/zink/zink_instance.py
+index 234d0ec..7538f70 100755
+--- a/src/gallium/drivers/zink/zink_instance.py
++++ b/src/gallium/drivers/zink/zink_instance.py
+@@ -48,6 +48,7 @@ EXTENSIONS = [
+     Extension("VK_KHR_wayland_surface"),
+     Extension("VK_KHR_xcb_surface"),
+     Extension("VK_KHR_win32_surface"),
++    Extension("VK_EXT_metal_surface"),
+     Extension("VK_EXT_swapchain_colorspace"),
+ ]
+ 
+diff --git a/src/gallium/drivers/zink/zink_kopper.c b/src/gallium/drivers/zink/zink_kopper.c
+index 60eb9ef..ded3340 100644
+--- a/src/gallium/drivers/zink/zink_kopper.c
++++ b/src/gallium/drivers/zink/zink_kopper.c
+@@ -65,6 +65,11 @@ init_dt_type(struct kopper_displaytarget *cdt)
+ {
+    VkStructureType type = cdt->info.bos.sType;
+    switch (type) {
++#ifdef VK_USE_PLATFORM_METAL_EXT
++   case VK_STRUCTURE_TYPE_METAL_SURFACE_CREATE_INFO_EXT:
++      cdt->type = KOPPER_METAL;
++      break;
++#endif
+ #ifdef VK_USE_PLATFORM_XCB_KHR
+    case VK_STRUCTURE_TYPE_XCB_SURFACE_CREATE_INFO_KHR:
+       cdt->type = KOPPER_X11;
+@@ -94,6 +99,13 @@ kopper_CreateSurface(struct zink_screen *screen, struct kopper_displaytarget *cd
+    init_dt_type(cdt);
+    VkStructureType type = cdt->info.bos.sType;
+    switch (type) {
++#ifdef VK_USE_PLATFORM_METAL_EXT
++   case VK_STRUCTURE_TYPE_METAL_SURFACE_CREATE_INFO_EXT: {
++      VkMetalSurfaceCreateInfoEXT *metal = (VkMetalSurfaceCreateInfoEXT *)&cdt->info.bos;
++      error = VKSCR(CreateMetalSurfaceEXT)(screen->instance, metal, NULL, &surface);
++      break;
++   }
++#endif
+ #ifdef VK_USE_PLATFORM_XCB_KHR
+    case VK_STRUCTURE_TYPE_XCB_SURFACE_CREATE_INFO_KHR: {
+ #ifdef GLX_USE_APPLEGL
+@@ -222,6 +234,13 @@ find_dt_entry(struct zink_screen *screen, const struct kopper_displaytarget *cdt
+ {
+    struct hash_entry *he = NULL;
+    switch (cdt->type) {
++#ifdef VK_USE_PLATFORM_METAL_EXT
++   case KOPPER_METAL: {
++      VkMetalSurfaceCreateInfoEXT *metal = (VkMetalSurfaceCreateInfoEXT *)&cdt->info.bos;
++      he = _mesa_hash_table_search(&screen->dts, (void *)metal->pLayer);
++      break;
++   }
++#endif
+ #ifdef VK_USE_PLATFORM_XCB_KHR
+    case KOPPER_X11: {
+       VkXcbSurfaceCreateInfoKHR *xcb = (VkXcbSurfaceCreateInfoKHR *)&cdt->info.bos;
+@@ -319,6 +338,7 @@ kopper_CreateSwapchain(struct zink_screen *screen, struct kopper_displaytarget *
+ 
+    /* different display platforms have, by vulkan spec, different sizing methodologies */
+    switch (cdt->type) {
++   case KOPPER_METAL:
+    case KOPPER_X11:
+    case KOPPER_WIN32:
+       /* With Xcb, minImageExtent, maxImageExtent, and currentExtent must always equal the window size.
+@@ -421,7 +441,7 @@ update_swapchain(struct zink_screen *screen, struct kopper_displaytarget *cdt, u
+    if (!cswap)
+       return error;
+    prune_old_swapchains(screen, cdt, false);
+-   for (struct kopper_swapchain **pswap = &cdt->old_swapchain; *pswap; *pswap = (*pswap)->next) {
++   for (struct kopper_swapchain **pswap = &cdt->old_swapchain; *pswap; pswap = &(*pswap)->next) {
+       if (!(*pswap)->next) {
+          (*pswap)->next = cdt->swapchain;
+          break;
+@@ -454,6 +474,7 @@ zink_kopper_displaytarget_create(struct zink_screen *screen, unsigned tex_usage,
+          case KOPPER_X11:
+             _mesa_hash_table_init(&screen->dts, screen, NULL, _mesa_key_pointer_equal);
+             break;
++         case KOPPER_METAL:
+          case KOPPER_WAYLAND:
+          case KOPPER_WIN32:
+             _mesa_hash_table_init(&screen->dts, screen, _mesa_hash_pointer, _mesa_key_pointer_equal);
+@@ -507,6 +528,13 @@ zink_kopper_displaytarget_create(struct zink_screen *screen, unsigned tex_usage,
+ 
+    simple_mtx_lock(&screen->dt_lock);
+    switch (cdt->type) {
++#ifdef VK_USE_PLATFORM_METAL_EXT
++   case KOPPER_METAL: {
++      VkMetalSurfaceCreateInfoEXT *metal = (VkMetalSurfaceCreateInfoEXT *)&cdt->info.bos;
++      _mesa_hash_table_insert(&screen->dts, (void *)metal->pLayer, cdt);
++      break;
++   }
++#endif
+ #ifdef VK_USE_PLATFORM_XCB_KHR
+    case KOPPER_X11: {
+       VkXcbSurfaceCreateInfoKHR *xcb = (VkXcbSurfaceCreateInfoKHR *)&cdt->info.bos;
+diff --git a/src/gallium/drivers/zink/zink_kopper.h b/src/gallium/drivers/zink/zink_kopper.h
+index d1971ec..54d4558 100644
+--- a/src/gallium/drivers/zink/zink_kopper.h
++++ b/src/gallium/drivers/zink/zink_kopper.h
+@@ -74,7 +74,8 @@ struct kopper_swapchain {
+ enum kopper_type {
+    KOPPER_X11,
+    KOPPER_WAYLAND,
+-   KOPPER_WIN32
++   KOPPER_WIN32,
++   KOPPER_METAL
+ };
+ 
+ struct kopper_displaytarget
+diff --git a/src/gallium/drivers/zink/zink_screen.c b/src/gallium/drivers/zink/zink_screen.c
+index 8e92a9d..49ba57d 100644
+--- a/src/gallium/drivers/zink/zink_screen.c
++++ b/src/gallium/drivers/zink/zink_screen.c
+@@ -121,6 +121,7 @@ zink_debug_options[] = {
+    { "rploads", ZINK_DEBUG_RPLOADS, "Zap renderpass loads for DONT_CARE" },
+    { "nogeneral", ZINK_DEBUG_NOGENERAL, "Disable GENERAL layout usage for supported hardware" },
+    { "rpstores", ZINK_DEBUG_RPSTORES, "Zap renderpass stores for DONT_CARE" },
++   { "dummydes", ZINK_DEBUG_DUMMYDES, "Use dummy descriptors even if nullDescriptor is available" },
+    DEBUG_NAMED_VALUE_END
+ };
+ 
+@@ -2979,6 +2980,7 @@ init_driver_workarounds(struct zink_screen *screen)
+    case VK_DRIVER_ID_MESA_NVK:
+    case VK_DRIVER_ID_MESA_KOSMICKRISP:
+    case VK_DRIVER_ID_QUALCOMM_PROPRIETARY:
++   case VK_DRIVER_ID_MOLTENVK:
+       screen->driver_workarounds.implicit_sync = false;
+       break;
+    default:
+@@ -3156,6 +3158,7 @@ init_driver_workarounds(struct zink_screen *screen)
+    case VK_DRIVER_ID_ARM_PROPRIETARY:
+    case VK_DRIVER_ID_MESA_HONEYKRISP:
+    case VK_DRIVER_ID_MESA_KOSMICKRISP:
++   case VK_DRIVER_ID_MOLTENVK:
+       screen->driver_workarounds.track_renderpasses = true; //screen->info.primgen_feats.primitivesGeneratedQueryWithRasterizerDiscard
+       break;
+    default:
+@@ -3571,11 +3574,6 @@ zink_internal_create_screen(const struct pipe_screen_config *config, int64_t dev
+       goto fail;
+    }
+ 
+-   if (!screen->info.rb2_feats.nullDescriptor) {
+-      mesa_loge("Zink requires the nullDescriptor feature of KHR/EXT robustness2.");
+-      goto fail;
+-   }
+-
+    if (zink_set_driver_strings(screen)) {
+       mesa_loge("ZINK: failed to set driver strings\n");
+       goto fail;
+@@ -3813,6 +3811,14 @@ zink_internal_create_screen(const struct pipe_screen_config *config, int64_t dev
+          }
+          can_db = false;
+       }
++      if (!screen->info.rb2_feats.nullDescriptor || (zink_debug & ZINK_DEBUG_DUMMYDES)) {
++         if (zink_descriptor_mode == ZINK_DESCRIPTOR_MODE_DB) {
++            if (!screen->driver_name_is_inferred)
++               mesa_loge("Cannot use db descriptor mode without robustness2.nullDescriptor");
++            goto fail;
++         }
++         can_db = false;
++      }
+       if (ZINK_FBFETCH_DESCRIPTOR_SIZE < screen->info.db_props.inputAttachmentDescriptorSize) {
+          if (zink_descriptor_mode == ZINK_DESCRIPTOR_MODE_DB) {
+             if (!screen->driver_name_is_inferred)
+diff --git a/src/gallium/drivers/zink/zink_types.h b/src/gallium/drivers/zink/zink_types.h
+index 9c461cf..58b7464 100644
+--- a/src/gallium/drivers/zink/zink_types.h
++++ b/src/gallium/drivers/zink/zink_types.h
+@@ -264,6 +264,7 @@ enum zink_debug {
+    ZINK_DEBUG_NOGENERAL = (1<<22),
+    ZINK_DEBUG_RPSTORES = (1<<23),
+    ZINK_DEBUG_PERFINFO = (1<<24),
++   ZINK_DEBUG_DUMMYDES = (1<<25),
+ };
+ 
+ enum zink_pv_emulation_primitive {
+@@ -1898,7 +1899,10 @@ struct zink_context {
+       uint64_t render_passes;
+    } hud;
+ 
++   struct pipe_resource *dummy_vertex_buffer;
+    struct pipe_resource *dummy_xfb_buffer;
++   struct pipe_resource *dummy_fb_buffers[7];
++   struct zink_buffer_view *dummy_bufferview;
+ 
+    unsigned buffer_rebind_counter;
+    unsigned image_rebind_counter;
+diff --git a/src/mesa/main/draw.c b/src/mesa/main/draw.c
+index a1d4e6a..90c00da 100644
+--- a/src/mesa/main/draw.c
++++ b/src/mesa/main/draw.c
+@@ -1542,24 +1542,6 @@ dump_element_buffer(struct gl_context *ctx, GLenum type)
+ }
+ #endif
+ 
+-static bool
+-validate_index_bounds(struct gl_context *ctx, struct pipe_draw_info *info,
+-                      const struct pipe_draw_start_count_bias *draws,
+-                      unsigned num_draws)
+-{
+-   assert(info->index_size);
+-
+-   /* Get index bounds for user buffers. */
+-   if (!info->index_bounds_valid && ctx->st->draw_needs_minmax_index) {
+-      /* Return if this fails, which means all draws have count == 0. */
+-      if (!vbo_get_minmax_indices_gallium(ctx, info, draws, num_draws))
+-         return false;
+-
+-      info->index_bounds_valid = true;
+-   }
+-   return true;
+-}
+-
+ /**
+  * Inner support for both _mesa_DrawElements and _mesa_DrawRangeElements.
+  * Do the rendering for a glDrawElements or glDrawRangeElements call after
+@@ -1605,27 +1587,38 @@ _mesa_validated_drawrangeelements(struct gl_context *ctx,
+       }
+    }
+ 
+-   /* Fast path for a very common DrawElements case:
+-    * - there are no user indices here (always true with glthread)
+-    * - DrawGallium is st_draw_gallium (regular render mode, almost always
+-    *   true), which only calls cso_context::draw_vbo
+-    * - the threaded context is enabled while u_vbuf is bypassed (cso_context
+-    *   always calls tc_draw_vbo, which is always true with glthread if all
+-    *   vertex formats are also supported by the driver)
+-    * - DrawID is 0 (true if glthread isn't unrolling an indirect multi draw,
+-    *   which is almost always true)
++   /* This fast path is almost always taken with glthread because:
++    *
++    * - index_bo is non-NULL, which is always true with glthread.
++    * - ctx->Driver.DrawGallium is st_draw_gallium, which is usually true
++    *   for regular render modes.
++    * - st_prepare_draw(..) switches cso_context::draw_vbo between
++    *   tc_draw_vbo and u_vbuf_draw_vbo. With threaded context enabled and
++    *   u_vbuf bypassed, this is tc_draw_vbo.
++    * - ctx->DrawID is 0, except when glthread unrolls an indirect multidraw.
++    *
++    * This bypasses ctx->Driver.DrawGallium and writes the draw directly into
++    * the threaded context when cso_context::draw_vbo is tc_draw_vbo. Otherwise,
++    * the draw continues through st_draw_gallium_prepared(..), since
++    * st_prepare_draw(..) has already been called. The draw must not be
++    * prepared a second time.
++    *
++    * The cso_context::draw_vbo test has to happen after st_prepare_draw(..),
++    * because that is what switches it between tc_draw_vbo and
++    * u_vbuf_draw_vbo.
+     *
+-    * This bypasses ctx->Driver.DrawGallium, so we must prepare here.
+-    * All other paths call the hook, which prepares internally.  The
+-    * cso_context::draw_vbo test has to be done after st_prepare_draw(),
+-    * because that's what switches it between tc_draw_vbo and u_vbuf_draw_vbo.
++    * Index bounds are prepared by the state tracker draw hooks after
++    * st_prepare_draw(..), rather than here.
+     */
+    struct st_context *st = st_context(ctx);
++   bool prepared = false;
++
+    if (index_bo && ctx->Driver.DrawGallium == st_draw_gallium &&
+        ctx->DrawID == 0) {
+       st_prepare_stipple_input_prim(ctx->st, mode);
+       ST_PIPELINE_RENDER_STATE_MASK(mask);
+       st_prepare_draw(ctx, mask);
++      prepared = true;
+ 
+       if (st->cso_context->draw_vbo == tc_draw_vbo) {
+          assert(!st->draw_needs_minmax_index);
+@@ -1694,10 +1687,10 @@ _mesa_validated_drawrangeelements(struct gl_context *ctx,
+    info.max_index = end;
+    draw.count = count;
+ 
+-   if (!validate_index_bounds(ctx, &info, &draw, 1))
+-      return;
+-
+-   ctx->Driver.DrawGallium(ctx, &info, ctx->DrawID, NULL, &draw, 1);
++   if (prepared)
++      st_draw_gallium_prepared(ctx, &info, ctx->DrawID, NULL, &draw, 1);
++   else
++      ctx->Driver.DrawGallium(ctx, &info, ctx->DrawID, NULL, &draw, 1);
+ 
+    if (MESA_DEBUG_FLAGS & DEBUG_ALWAYS_FLUSH) {
+       _mesa_flush(ctx);
+@@ -2102,9 +2095,6 @@ _mesa_validated_multidrawelements(struct gl_context *ctx,
+          }
+       }
+ 
+-      if (!validate_index_bounds(ctx, &info, draw, primcount))
+-         return;
+-
+       ctx->Driver.DrawGallium(ctx, &info, 0, NULL, draw, primcount);
+    } else {
+       /* draw[i].start would overflow. Draw one at a time. */
+@@ -2117,16 +2107,11 @@ _mesa_validated_multidrawelements(struct gl_context *ctx,
+          if (!count[i])
+             continue;
+ 
+-         /* Reset these, because the callee can change them. */
+-         info.index_bounds_valid = false;
+          info.index.user = indices[i];
+          draw.start = 0;
+          draw.index_bias = basevertex ? basevertex[i] : 0;
+          draw.count = count[i];
+ 
+-         if (!draw.count || !validate_index_bounds(ctx, &info, &draw, 1))
+-            continue;
+-
+          ctx->Driver.DrawGallium(ctx, &info, i, NULL, &draw, 1);
+       }
+    }
+@@ -2548,7 +2533,7 @@ _mesa_MultiDrawElementsIndirect(GLenum mode, GLenum type,
+          draw.count = cmd->count;
+          draw.index_bias = cmd->baseVertex;
+ 
+-         if (!draw.count || !validate_index_bounds(ctx, &info, &draw, 1))
++         if (!draw.count)
+             continue;
+ 
+          ctx->Driver.DrawGallium(ctx, &info, i, NULL, &draw, 1);
+diff --git a/src/mesa/main/format_utils.c b/src/mesa/main/format_utils.c
+index e8947eb..76ae21d 100644
+--- a/src/mesa/main/format_utils.c
++++ b/src/mesa/main/format_utils.c
+@@ -29,6 +29,7 @@
+ #include "glformats.h"
+ #include "format_pack.h"
+ #include "format_unpack.h"
++#include "util/detect_arch.h"
+ 
+ const mesa_array_format RGBA32_FLOAT =
+    MESA_ARRAY_FORMAT(MESA_ARRAY_FORMAT_BASE_FORMAT_RGBA_VARIANTS,
+@@ -195,6 +196,152 @@ _mesa_compute_rgba2base2rgba_component_mapping(GLenum baseFormat, uint8_t *map)
+  * Special case conversion function to swap r/b channels from the source
+  * image to the dest image.
+  */
++#if DETECT_ARCH_AARCH64 && !defined(NO_FORMAT_ASM) && !defined(__SOFTFP__)
++#include <arm_neon.h>
++
++static void
++convert_ubyte_rgba_to_bgra(size_t width, size_t height,
++                           const uint8_t *src, size_t src_stride,
++                           uint8_t *dst, size_t dst_stride)
++{
++   /* shuffle table for RGBA -> BGRA */
++   static const uint8_t tbl_data[16] = {
++      2, 1, 0, 3,    /* B←R, G←G, R←B, A←A */
++      6, 5, 4, 7,
++      10, 9, 8, 11,
++      14, 13, 12, 15
++   };
++   uint8x16_t shuffle_tbl = vld1q_u8(tbl_data);
++
++   const size_t vec_width_16 = width & ~15u;  /* 16 pixels per iteration */
++   const size_t vec_width_4 = width & ~3u;    /* 4 pixels per iteration */
++
++   for (size_t row = 0; row < height; row++) {
++      const uint8_t *s = src;
++      uint8_t *d = dst;
++      size_t x;
++
++      /* process 16 pixels (64 bytes) at a time */
++      for (x = 0; x < vec_width_16; x += 16) {
++         uint8x16_t rgba0 = vld1q_u8(s);
++         uint8x16_t rgba1 = vld1q_u8(s + 16);
++         uint8x16_t rgba2 = vld1q_u8(s + 32);
++         uint8x16_t rgba3 = vld1q_u8(s + 48);
++
++         uint8x16_t bgra0 = vqtbl1q_u8(rgba0, shuffle_tbl);
++         uint8x16_t bgra1 = vqtbl1q_u8(rgba1, shuffle_tbl);
++         uint8x16_t bgra2 = vqtbl1q_u8(rgba2, shuffle_tbl);
++         uint8x16_t bgra3 = vqtbl1q_u8(rgba3, shuffle_tbl);
++
++         vst1q_u8(d, bgra0);
++         vst1q_u8(d + 16, bgra1);
++         vst1q_u8(d + 32, bgra2);
++         vst1q_u8(d + 48, bgra3);
++
++         s += 64;
++         d += 64;
++      }
++
++      /* process remaining 4-pixel chunks */
++      for (; x < vec_width_4; x += 4) {
++         uint8x16_t rgba = vld1q_u8(s);
++         uint8x16_t bgra = vqtbl1q_u8(rgba, shuffle_tbl);
++         vst1q_u8(d, bgra);
++         s += 16;
++         d += 16;
++      }
++
++      /* scalar tail for 1-3 remaining pixels */
++      for (; x < width; x++) {
++         uint32_t pixel = ((const uint32_t *)s)[0];
++         ((uint32_t *)d)[0] = (pixel & 0xff00ff00) |
++                              ((pixel & 0xff) << 16) |
++                              ((pixel & 0xff0000) >> 16);
++         s += 4;
++         d += 4;
++      }
++
++      src += src_stride;
++      dst += dst_stride;
++   }
++}
++#elif DETECT_ARCH_ARM && !defined(NO_FORMAT_ASM) && !defined(__SOFTFP__)
++#include <arm_neon.h>
++
++/* armhf builds default to vfp, not neon, and refuses to compile neon intrinsics
++ * unless you tell it "no really".
++ */
++#if defined(__clang__)
++__attribute__((target("neon")))
++#else
++__attribute__((target("fpu=neon")))
++#endif
++static void
++convert_ubyte_rgba_to_bgra(size_t width, size_t height,
++                           const uint8_t *src, size_t src_stride,
++                           uint8_t *dst, size_t dst_stride)
++{
++   /* shuffle table for RGBA -> BGRA */
++   static const uint8_t tbl_data[8] = {
++      2, 1, 0, 3,    /* pixel 0: B←R, G←G, R←B, A←A */
++      6, 5, 4, 7
++   };
++   uint8x8_t shuffle_tbl = vld1_u8(tbl_data);
++
++   const size_t vec_width_8 = width & ~7u;   /* 8 pixels per iteration */
++   const size_t vec_width_2 = width & ~1u;   /* 2 pixels per iteration */
++
++   for (size_t row = 0; row < height; row++) {
++      const uint8_t *s = src;
++      uint8_t *d = dst;
++      size_t x;
++
++      /* process 8 pixels (32 bytes) at a time */
++      for (x = 0; x < vec_width_8; x += 8) {
++         uint8x8_t rgba0 = vld1_u8(s);
++         uint8x8_t rgba1 = vld1_u8(s + 8);
++         uint8x8_t rgba2 = vld1_u8(s + 16);
++         uint8x8_t rgba3 = vld1_u8(s + 24);
++
++         uint8x8_t bgra0 = vtbl1_u8(rgba0, shuffle_tbl);
++         uint8x8_t bgra1 = vtbl1_u8(rgba1, shuffle_tbl);
++         uint8x8_t bgra2 = vtbl1_u8(rgba2, shuffle_tbl);
++         uint8x8_t bgra3 = vtbl1_u8(rgba3, shuffle_tbl);
++
++         vst1_u8(d, bgra0);
++         vst1_u8(d + 8, bgra1);
++         vst1_u8(d + 16, bgra2);
++         vst1_u8(d + 24, bgra3);
++
++         s += 32;
++         d += 32;
++      }
++
++      /* process remaining 2-pixel chunks */
++      for (; x < vec_width_2; x += 2) {
++         uint8x8_t rgba = vld1_u8(s);
++         uint8x8_t bgra = vtbl1_u8(rgba, shuffle_tbl);
++         vst1_u8(d, bgra);
++         s += 8;
++         d += 8;
++      }
++
++      /* scalar tail for remaining pixel */
++      for (; x < width; x++) {
++         uint32_t pixel = ((const uint32_t *)s)[0];
++         ((uint32_t *)d)[0] = (pixel & 0xff00ff00) |
++                              ((pixel & 0xff) << 16) |
++                              ((pixel & 0xff0000) >> 16);
++         s += 4;
++         d += 4;
++      }
++
++      src += src_stride;
++      dst += dst_stride;
++   }
++}
++
++#else
+ static void
+ convert_ubyte_rgba_to_bgra(size_t width, size_t height,
+                            const uint8_t *src, size_t src_stride,
+@@ -245,7 +392,7 @@ convert_ubyte_rgba_to_bgra(size_t width, size_t height,
+       }
+    }
+ }
+-
++#endif
+ 
+ /**
+  * This can be used to convert between most color formats.
+diff --git a/src/mesa/state_tracker/st_draw.c b/src/mesa/state_tracker/st_draw.c
+index 68449cf..044aa15 100644
+--- a/src/mesa/state_tracker/st_draw.c
++++ b/src/mesa/state_tracker/st_draw.c
+@@ -139,6 +139,46 @@ st_prepare_draw(struct gl_context *ctx, const st_state_bitset state_mask)
+    st_context_add_work(st);
+ }
+ 
++const struct pipe_draw_info *
++st_prepare_index_bounds(struct gl_context *ctx,
++                        const struct pipe_draw_info *info,
++                        struct pipe_draw_info *tmp,
++                        const struct pipe_draw_indirect_info *indirect,
++                        const struct pipe_draw_start_count_bias *draws,
++                        unsigned num_draws)
++{
++   if (likely(!info->index_size || info->index_bounds_valid || indirect ||
++              !ctx->st->draw_needs_minmax_index))
++      return info;
++
++   /* Get index bounds for user buffers. */
++   *tmp = *info;
++   /* Return if this fails, which means all draws have count == 0. */
++   if (!vbo_get_minmax_indices_gallium(ctx, tmp, draws, num_draws))
++      return NULL;
++
++   tmp->index_bounds_valid = true;
++   return tmp;
++}
++
++void
++st_draw_gallium_prepared(struct gl_context *ctx,
++                         const struct pipe_draw_info *info,
++                         unsigned drawid_offset,
++                         const struct pipe_draw_indirect_info *indirect,
++                         const struct pipe_draw_start_count_bias *draws,
++                         unsigned num_draws)
++{
++   struct st_context *st = st_context(ctx);
++   struct pipe_draw_info tmp;
++
++   info = st_prepare_index_bounds(ctx, info, &tmp, indirect, draws, num_draws);
++   if (!info)
++      return;
++
++   cso_draw_vbo(st->cso_context, info, drawid_offset, indirect, draws, num_draws);
++}
++
+ void
+ st_draw_gallium(struct gl_context *ctx,
+                 const struct pipe_draw_info *info,
+@@ -149,12 +189,10 @@ st_draw_gallium(struct gl_context *ctx,
+ {
+    MESA_TRACE_FUNC();
+ 
+-   struct st_context *st = st_context(ctx);
+-
+    ST_PIPELINE_RENDER_STATE_MASK(mask);
+    st_prepare_draw(ctx, mask);
+ 
+-   cso_draw_vbo(st->cso_context, info, drawid_offset, indirect, draws, num_draws);
++   st_draw_gallium_prepared(ctx, info, drawid_offset, indirect, draws, num_draws);
+ }
+ 
+ static void
+@@ -476,11 +514,17 @@ st_hw_select_draw_gallium(struct gl_context *ctx,
+ {
+    struct st_context *st = st_context(ctx);
+    struct pipe_resource *releasebuf = NULL;
+-   enum mesa_prim old_mode = info->mode;
++   struct pipe_draw_info tmp;
+ 
+    ST_PIPELINE_RENDER_STATE_MASK(mask);
+    st_prepare_draw(ctx, mask);
+ 
++   info = st_prepare_index_bounds(ctx, info, &tmp, indirect, draws, num_draws);
++   if (!info)
++      return;
++
++   enum mesa_prim old_mode = info->mode;
++
+    if (st_draw_hw_select_prepare_common(ctx, &releasebuf) &&
+        /* Removing "const" is fine because we restore the changed mode
+         * at the end. */
+diff --git a/src/mesa/state_tracker/st_draw.h b/src/mesa/state_tracker/st_draw.h
+index ca419a0..71d5e20 100644
+--- a/src/mesa/state_tracker/st_draw.h
++++ b/src/mesa/state_tracker/st_draw.h
+@@ -82,6 +82,22 @@ pointer_to_offset(const void *ptr)
+ void
+ st_prepare_draw(struct gl_context *ctx, const st_state_bitset state_mask);
+ 
++const struct pipe_draw_info *
++st_prepare_index_bounds(struct gl_context *ctx,
++                        const struct pipe_draw_info *info,
++                        struct pipe_draw_info *tmp,
++                        const struct pipe_draw_indirect_info *indirect,
++                        const struct pipe_draw_start_count_bias *draws,
++                        unsigned num_draws);
++
++void
++st_draw_gallium_prepared(struct gl_context *ctx,
++                         const struct pipe_draw_info *info,
++                         unsigned drawid_offset,
++                         const struct pipe_draw_indirect_info *indirect,
++                         const struct pipe_draw_start_count_bias *draws,
++                         unsigned num_draws);
++
+ void
+ st_draw_gallium(struct gl_context *ctx,
+                 const struct pipe_draw_info *info,
+diff --git a/src/mesa/state_tracker/st_draw_feedback.c b/src/mesa/state_tracker/st_draw_feedback.c
+index 1e9c8ab..07e4697 100644
+--- a/src/mesa/state_tracker/st_draw_feedback.c
++++ b/src/mesa/state_tracker/st_draw_feedback.c
+@@ -117,6 +117,11 @@ st_feedback_draw_vbo(struct gl_context *ctx,
+    ST_PIPELINE_RENDER_STATE_MASK(mask);
+    st_prepare_draw(ctx, mask);
+ 
++   struct pipe_draw_info tmp;
++   info = st_prepare_index_bounds(ctx, info, &tmp, indirect, draws, num_draws);
++   if (!info)
++      return;
++
+    /* must get these after state validation! */
+    struct st_common_variant_key key = {
+       .st = st,

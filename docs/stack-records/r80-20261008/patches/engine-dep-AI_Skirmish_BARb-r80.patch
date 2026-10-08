@@ -1,0 +1,13 @@
+diff --git a/src/circuit/module/EconomyManager.h b/src/circuit/module/EconomyManager.h
+index 5bd20c6..960fc80 100644
+--- a/src/circuit/module/EconomyManager.h
++++ b/src/circuit/module/EconomyManager.h
+@@ -262,7 +262,7 @@ private:
+ 		float pull;
+ 		int mex;
+ 		float fraction;
+-		inline bool operator< (const SPullMtoS& rhs) { return mex < rhs.mex; }
++		inline bool operator< (const SPullMtoS& rhs) const { return mex < rhs.mex; }
+ 		inline bool operator() (const SPullMtoS& lhs, const int rhs) { return lhs.mex < rhs; }
+ 	};
+ 	std::vector<SPullMtoS> mspInfos;

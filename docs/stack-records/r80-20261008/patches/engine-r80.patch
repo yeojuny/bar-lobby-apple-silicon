@@ -1,0 +1,5259 @@
+diff --git a/AI/Interfaces/C/CMakeLists.txt b/AI/Interfaces/C/CMakeLists.txt
+index 5b2d4b5..eaa7d30 100644
+--- a/AI/Interfaces/C/CMakeLists.txt
++++ b/AI/Interfaces/C/CMakeLists.txt
+@@ -43,6 +43,13 @@ macro    (configure_native_skirmish_ai mySourceDirRel_var additionalSources_var
+ 
+ 		# Create a list of all the AIs own source files
+ 		get_native_sources_recursive(mySources "${mySourceDir}" "${myDir}")
++		if    (APPLE AND CMAKE_OSX_ARCHITECTURES MATCHES "arm64|aarch64")
++			set(appleArm64AngelScriptCallfunc "${mySourceDir}/lib/angelscript/source/as_callfunc_arm64_xcode.S")
++			if    (EXISTS "${appleArm64AngelScriptCallfunc}")
++				enable_language(ASM)
++				list(APPEND mySources "${appleArm64AngelScriptCallfunc}")
++			endif (EXISTS "${appleArm64AngelScriptCallfunc}")
++		endif (APPLE AND CMAKE_OSX_ARCHITECTURES MATCHES "arm64|aarch64")
+ 
+ 		# Compile the library
+ 		add_library(${myTarget} MODULE ${mySources} ${additionalSources} ${myVersionDepFile})
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 49e7b0a..656be7a 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -297,6 +297,8 @@ if    (USE_ASAN)
+ 	endif (MSVC)
+ endif (USE_ASAN)
+ 
++option(RECOIL_MACOS_SDL3_EGL "Use project-local SDL3 Cocoa windowing and Mesa Cocoa EGL/Zink on macOS" ${APPLE})
++
+ ### Tracy related stuff
+ option(RECOIL_DETAILED_TRACY_ZONING "Enable additional detailed tracy zones (only enable this for testing/debugging)" FALSE)
+ if    (RECOIL_DETAILED_TRACY_ZONING)
+@@ -307,7 +309,12 @@ endif (RECOIL_DETAILED_TRACY_ZONING)
+ 
+ # Note the missing REQUIRED, as headless & dedi may not depend on those.
+ #  So req. checks are done in the build target's CMakeLists.txt.
+-find_package(SDL2 MODULE)
++if (APPLE AND RECOIL_MACOS_SDL3_EGL)
++	find_package(SDL2 MODULE)
++	find_package(MesaEGL MODULE)
++else()
++	find_package(SDL2 MODULE)
++endif()
+ 
+ find_package_static(DevIL 1.8.0 REQUIRED)
+ 
+diff --git a/b/VERSION b/VERSION
+new file mode 100644
+index 0000000..1986a57
+--- /dev/null
++++ b/VERSION
+@@ -0,0 +1 @@
++2026.09.10-0-g694e9df7 run91-macos
+diff --git a/rts/Game/Camera.cpp b/rts/Game/Camera.cpp
+index 921c1b9..8b16b5b 100644
+--- a/rts/Game/Camera.cpp
++++ b/rts/Game/Camera.cpp
+@@ -299,7 +299,7 @@ void CCamera::LoadMatrices() const
+ void CCamera::LoadViewport() const
+ {
+ 	RECOIL_DETAILED_TRACY_ZONE;
+-	glViewport(viewport[0], viewport[1], viewport[2], viewport[3]);
++	globalRendering->LoadDefaultFramebufferViewport(viewport[0], viewport[1], viewport[2], viewport[3]);
+ }
+ 
+ 
+diff --git a/rts/Game/UI/GuiHandler.cpp b/rts/Game/UI/GuiHandler.cpp
+index 6cf530a..060dfb9 100644
+--- a/rts/Game/UI/GuiHandler.cpp
++++ b/rts/Game/UI/GuiHandler.cpp
+@@ -3663,15 +3663,26 @@ void CGuiHandler::DrawMapStuff(bool onMiniMap)
+ 							DrawArea(innerPos, radius, color);
+ 						} else {
+ 							glColor4f(color[0], color[1], color[2], 0.5f);
+-							glBegin(GL_TRIANGLE_FAN);
+ 
+ 							constexpr int divs = 256;
+-							for (int i = 0; i <= divs; ++i) {
++							const float baseRadians = 0.0f;
++							float3 basePoint(innerPos.x, 0.0f, innerPos.z);
++							basePoint.x += (fastmath::sin(baseRadians) * radius);
++							basePoint.z += (fastmath::cos(baseRadians) * radius);
++
++							glBegin(GL_TRIANGLES);
++							for (int i = 1; i < divs; ++i) {
+ 								const float radians = math::TWOPI * (float)i / (float)divs;
+-								float3 p(innerPos.x, 0.0f, innerPos.z);
+-								p.x += (fastmath::sin(radians) * radius);
+-								p.z += (fastmath::cos(radians) * radius);
+-								glVertexf3(p);
++								const float nextRadians = math::TWOPI * (float)(i + 1) / (float)divs;
++								float3 p0(innerPos.x, 0.0f, innerPos.z);
++								float3 p1(innerPos.x, 0.0f, innerPos.z);
++								p0.x += (fastmath::sin(radians) * radius);
++								p0.z += (fastmath::cos(radians) * radius);
++								p1.x += (fastmath::sin(nextRadians) * radius);
++								p1.z += (fastmath::cos(nextRadians) * radius);
++								glVertexf3(basePoint);
++								glVertexf3(p0);
++								glVertexf3(p1);
+ 							}
+ 							glEnd();
+ 						}
+@@ -4065,13 +4076,17 @@ void CGuiHandler::DrawArea(float3 pos, float radius, const float* color)
+ 
+ 	glDisable(GL_DEPTH_TEST);
+ 	glDisable(GL_FOG);
+-	glBegin(GL_TRIANGLE_FAN);
+-		glVertexf3(pos);
+-		for(int a=0;a<=40;++a){
+-			float3 p(fastmath::cos(a * math::TWOPI / 40.0f) * radius, 0.0f, fastmath::sin(a * math::TWOPI / 40.0f) * radius);
+-			p+=pos;
+-			p.y=CGround::GetHeightAboveWater(p.x, p.z, false);
+-			glVertexf3(p);
++	glBegin(GL_TRIANGLES);
++		for (int a = 0; a < 40; ++a) {
++			float3 p0(fastmath::cos(a * math::TWOPI / 40.0f) * radius, 0.0f, fastmath::sin(a * math::TWOPI / 40.0f) * radius);
++			float3 p1(fastmath::cos((a + 1) * math::TWOPI / 40.0f) * radius, 0.0f, fastmath::sin((a + 1) * math::TWOPI / 40.0f) * radius);
++			p0 += pos;
++			p1 += pos;
++			p0.y = CGround::GetHeightAboveWater(p0.x, p0.z, false);
++			p1.y = CGround::GetHeightAboveWater(p1.x, p1.z, false);
++			glVertexf3(pos);
++			glVertexf3(p0);
++			glVertexf3(p1);
+ 		}
+ 	glEnd();
+ 	glEnable(GL_DEPTH_TEST);
+@@ -4434,4 +4449,3 @@ void CGuiHandler::DrawSelectCircle(const float3& pos, float radius,
+ 
+ 	glEnable(GL_FOG);
+ }
+-
+diff --git a/rts/Game/UI/MiniMap.cpp b/rts/Game/UI/MiniMap.cpp
+index 0f4c893..939aaf8 100644
+--- a/rts/Game/UI/MiniMap.cpp
++++ b/rts/Game/UI/MiniMap.cpp
+@@ -322,12 +322,12 @@ void CMiniMap::SetAspectRatioGeometry(const float& viewSizeX, const float& viewS
+ 
+ void CMiniMap::LoadDualViewport() const {
+ 	glEnable(GL_SCISSOR_TEST);
+-	glScissor(globalRendering->dualViewPosX, globalRendering->dualViewPosY, globalRendering->dualViewSizeX, globalRendering->dualViewSizeY);
++	globalRendering->LoadDefaultFramebufferScissor(globalRendering->dualViewPosX, globalRendering->dualViewPosY, globalRendering->dualViewSizeX, globalRendering->dualViewSizeY);
+ 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+ 	glClear(GL_COLOR_BUFFER_BIT);
+ 	glDisable(GL_SCISSOR_TEST);
+ 
+-	glViewport(curPos.x, curPos.y, curDim.x, curDim.y);
++	globalRendering->LoadDefaultFramebufferViewport(curPos.x, curPos.y, curDim.x, curDim.y);
+ }
+ 
+ 
+@@ -2077,4 +2077,3 @@ void CMiniMap::SetClipPlanes(const bool lua) const
+ 
+ 
+ /******************************************************************************/
+-
+diff --git a/rts/Game/UI/MouseHandler.cpp b/rts/Game/UI/MouseHandler.cpp
+index 7c14c9e..6f25e12 100644
+--- a/rts/Game/UI/MouseHandler.cpp
++++ b/rts/Game/UI/MouseHandler.cpp
+@@ -246,9 +246,36 @@ void CMouseHandler::WindowLeave()
+ 
+ /******************************************************************************/
+ 
++#if defined(RECOIL_MACOS_SDL3_EGL)
++// Window-space coordinates include the notch strip; game-space coordinates do not.
++// Keep this at the local presentation/input boundary, outside synced game logic.
++static bool ClampMacPresentationMousePosition(int& x, int& y)
++{
++	if (globalRendering == nullptr || !globalRendering->active ||
++		!globalRendering->fullScreen || globalRendering->dualScreenMode ||
++		globalRendering->viewSizeX <= 0 || globalRendering->viewSizeY <= 0)
++		return false;
++
++	const int minX = globalRendering->viewPosX;
++	const int minY = globalRendering->viewWindowOffsetY;
++	const int maxX = minX + globalRendering->viewSizeX - 1;
++	const int maxY = minY + globalRendering->viewSizeY - 1;
++	const int clampedX = x < minX ? minX : (x > maxX ? maxX : x);
++	const int clampedY = y < minY ? minY : (y > maxY ? maxY : y);
++	const bool constrained = x != clampedX || y != clampedY;
++	x = clampedX;
++	y = clampedY;
++	return constrained;
++}
++#endif
++
+ void CMouseHandler::MouseMove(int x, int y, int dx, int dy)
+ {
+ 	RECOIL_DETAILED_TRACY_ZONE;
++#if defined(RECOIL_MACOS_SDL3_EGL)
++	if (!hideCursor && ClampMacPresentationMousePosition(x, y))
++		SDL_WarpMouseInWindow(globalRendering->GetWindow(), x, y);
++#endif
+ 	// FIXME: don't update if locked?
+ 	lastx = x;
+ 	// Origin for mousecursor on internal coordinates is top border of view screen
+@@ -335,6 +362,9 @@ void CMouseHandler::ClearEmulatedButtons()
+ void CMouseHandler::MousePress(int x, int y, int button)
+ {
+ 	RECOIL_DETAILED_TRACY_ZONE;
++#if defined(RECOIL_MACOS_SDL3_EGL)
++	ClampMacPresentationMousePosition(x, y);
++#endif
+ 	if (button > NUM_BUTTONS)
+ 		return;
+ 
+@@ -525,6 +555,9 @@ void CMouseHandler::GetSelectionBoxCoeff(
+ void CMouseHandler::MouseRelease(int x, int y, int button)
+ {
+ 	RECOIL_DETAILED_TRACY_ZONE;
++#if defined(RECOIL_MACOS_SDL3_EGL)
++	ClampMacPresentationMousePosition(x, y);
++#endif
+ 	const CUnit *_lastClicked = lastClicked;
+ 	lastClicked = nullptr;
+ 
+@@ -830,7 +863,11 @@ void CMouseHandler::WarpMouse(int x, int y)
+ 
+ 	// WarpPos temporarily hides the SDL cursor on Wayland. Rebind the hardware
+ 	// cursor during the next update, after SDL has processed the warp.
++#if defined(RECOIL_MACOS_SDL3_EGL)
++	rebindCursorAfterWarp |= mouseInput->SetWarpPos({lastx, lasty + globalRendering->viewWindowOffsetY});
++#else
+ 	rebindCursorAfterWarp |= mouseInput->SetWarpPos({lastx, lasty});
++#endif
+ }
+ 
+ 
+@@ -842,7 +879,11 @@ void CMouseHandler::ShowMouse()
+ 
+ 	hideCursor = false;
+ 
++#if defined(RECOIL_MACOS_SDL3_EGL)
++	SDL_SetWindowRelativeMouseMode(globalRendering->GetWindow(), false);
++#else
+ 	SDL_SetRelativeMouseMode(SDL_FALSE);
++#endif
+ 
+ 	// don't use SDL_ShowCursor here since it would cause flickering with hwCursor
+ 	// (by switching between default cursor and later the real one, e.g. `attack`)
+@@ -866,7 +907,11 @@ void CMouseHandler::HideMouse()
+ 	// this way the mouse position will never change so it is also unnecessary to call
+ 	// SDL_WarpMouseInWindow and handle the associated wart of filtering motion events
+ 	// technically supersedes SDL_ShowCursor as well
++#if defined(RECOIL_MACOS_SDL3_EGL)
++	SDL_SetWindowRelativeMouseMode(globalRendering->GetWindow(), true);
++#else
+ 	SDL_SetRelativeMouseMode(SDL_TRUE);
++#endif
+ 
+ 	const int2 viewMouseCenter = GetViewMouseCenter();
+ 
+diff --git a/rts/Lua/LuaDebugExtra.cpp b/rts/Lua/LuaDebugExtra.cpp
+index 1c1a353..126be16 100644
+--- a/rts/Lua/LuaDebugExtra.cpp
++++ b/rts/Lua/LuaDebugExtra.cpp
+@@ -74,7 +74,7 @@ static int emulateKey(lua_State* L, bool pressed)
+ 	const int scanCode = CScanCodes::GetNormalizedSymbol(sc);
+ 
+ 	int numKeys = 0;
+-	const uint8_t* kbState = SDL_GetKeyboardState(&numKeys);
++	const auto* kbState = SDL_GetKeyboardState(&numKeys);
+ 	const bool physicalDown = ((int)sc < numKeys && kbState[sc] != 0);
+ 
+ 	// effective (physical-or-emulated) state before this call
+@@ -220,7 +220,7 @@ void LuaDebugExtra::ClearEmulatedInput(bool fireReleases)
+ 
+ 	if (fireReleases && activeController != nullptr) {
+ 		int numKeys = 0;
+-		const uint8_t* kbState = SDL_GetKeyboardState(&numKeys);
++		const auto* kbState = SDL_GetKeyboardState(&numKeys);
+ 
+ 		// the store holds raw SDL2 keycodes; the event side wants the normalized code
+ 		for (const int rawKey: keyCodes) {
+diff --git a/rts/Lua/LuaOpenGL.cpp b/rts/Lua/LuaOpenGL.cpp
+index 0b70abb..43a00f2 100644
+--- a/rts/Lua/LuaOpenGL.cpp
++++ b/rts/Lua/LuaOpenGL.cpp
+@@ -45,6 +45,7 @@
+ #include "Map/BaseGroundDrawer.h"
+ #include "Map/MapInfo.h"
+ #include "Map/ReadMap.h"
++#include "Rendering/Fonts/CFontTexture.h"
+ #include "Rendering/Fonts/glFont.h"
+ #include "Rendering/GlobalRendering.h"
+ #include "Rendering/LineDrawer.h"
+@@ -834,6 +835,8 @@ void LuaOpenGL::EnableDrawScreenCommon()
+ 	EnableCommon(DRAW_SCREEN);
+ 	resetMatrixFunc = ResetScreenMatrices;
+ 
++	glMatrixMode(GL_TEXTURE);
++	glLoadIdentity();
+ 	SetupScreenMatrices();
+ 	SetupScreenLighting();
+ 	ResetGLState();
+@@ -2941,8 +2944,9 @@ int LuaOpenGL::TexRect(lua_State* L)
+ 	const float x2 = luaL_checkfloat(L, 3);
+ 	const float y2 = luaL_checkfloat(L, 4);
+ 
+-	// Spring's textures get loaded with a vertical flip
+-	// We change that for the default settings.
++	// Legacy Lua textured-quad helper, not GL_TEXTURE_RECTANGLE semantics:
++	// 4/6-arg calls use normalized coords with Spring's default vertical flip,
++	// while 8-arg calls pass explicit caller-provided coords through unchanged.
+ 
+ 	if (args <= 6) {
+ 		float s1 = 0.0f;
+@@ -3269,7 +3273,7 @@ int LuaOpenGL::Scissor(lua_State* L)
+ 		const GLsizei h = (GLsizei)luaL_checkint(L, 4);
+ 		if (w < 0) luaL_argerror(L, 3, "<width> must be greater than or equal zero!");
+ 		if (h < 0) luaL_argerror(L, 4, "<height> must be greater than or equal zero!");
+-		glScissor(x + globalRendering->viewPosX, y + globalRendering->viewPosY, w, h);
++		globalRendering->LoadDefaultFramebufferScissor(x + globalRendering->viewPosX, y + globalRendering->viewPosY, w, h);
+ 	}
+ 	else {
+ 		luaL_error(L, "Incorrect arguments to gl.Scissor()");
+@@ -3297,7 +3301,7 @@ int LuaOpenGL::Viewport(lua_State* L)
+ 	if (w < 0) luaL_argerror(L, 3, "<width> must be greater than or equal zero!");
+ 	if (h < 0) luaL_argerror(L, 4, "<height> must be greater than or equal zero!");
+ 
+-	glViewport(x, y, w, h);
++	globalRendering->LoadDefaultFramebufferViewport(x, y, w, h);
+ 	return 0;
+ }
+ 
+@@ -4440,9 +4444,6 @@ int LuaOpenGL::CopyToTexture(lua_State* L)
+ 	if (tex == nullptr)
+ 		return 0;
+ 
+-	glBindTexture(tex->target, tex->id);
+-	glEnable(tex->target); // leave it bound and enabled
+-
+ 	const auto xoff = (GLint)luaL_checknumber(L, 2);
+ 	const auto yoff = (GLint)luaL_checknumber(L, 3);
+ 	const auto x = (GLint)luaL_checknumber(L, 4);
+@@ -4452,10 +4453,9 @@ int LuaOpenGL::CopyToTexture(lua_State* L)
+ 	const auto target = (GLenum)luaL_optnumber(L, 8, tex->target);
+ 	const auto level  = (GLenum)luaL_optnumber(L, 9, 0);
+ 
++	const auto texBind = GL::TexBind(tex->target, tex->id);
+ 	glCopyTexSubImage2D(target, level, xoff, yoff, x, y, w, h);
+ 
+-	if (tex->target != GL_TEXTURE_2D) {glDisable(tex->target);}
+-
+ 	return 0;
+ }
+ 
+@@ -4611,9 +4611,7 @@ int LuaOpenGL::RenderToTexture(lua_State* L)
+ 		return 0;
+ 
+ 	GLint currentFBO = 0;
+-	if (drawMode == DRAW_WORLD_SHADOW) {
+-		glGetIntegerv(GL_FRAMEBUFFER_BINDING_EXT, &currentFBO);
+-	}
++	glGetIntegerv(GL_FRAMEBUFFER_BINDING_EXT, &currentFBO);
+ 
+ 	glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, tex->fbo);
+ 
+@@ -6362,6 +6360,7 @@ int LuaOpenGL::CreateList(lua_State* L)
+ 	SMatrixStateData matData = GetLuaContextData(L)->glMatrixTracker.GetMatrixState();
+ 	GetLuaContextData(L)->glMatrixTracker.PopMatrixState(prevMSD, false);
+ 	glEndList();
++	CFontTexture::UploadPendingGlyphAtlasTextures();
+ 
+ 	if (error != 0) {
+ 		glDeleteLists(list, 1);
+diff --git a/rts/Lua/LuaShaders.cpp b/rts/Lua/LuaShaders.cpp
+index acaeda8..b57abf9 100644
+--- a/rts/Lua/LuaShaders.cpp
++++ b/rts/Lua/LuaShaders.cpp
+@@ -1030,7 +1030,7 @@ namespace {
+ 		if (o == nullptr)
+ 			luaL_error(L, "gl.%s() Invalid %s id (%d)", func, &spring::TypeToCStr<T>()[1], id);
+ 
+-		ModelUniformData& uni = modelUniformsStorage.GetObjUniformsArray(o);
++		const size_t objectOffset = modelUniformsStorage.GetObjOffset(o);
+ 
+ 		std::array<float, ModelUniformData::MAX_MODEL_UD_UNIFORMS> floatArray = {0};
+ 		int size = LuaUtils::ParseFloatArray(L, 2, floatArray.data(), ModelUniformData::MAX_MODEL_UD_UNIFORMS);
+@@ -1043,7 +1043,7 @@ namespace {
+ 			return 1;
+ 		}
+ 
+-		std::copy(floatArray.cbegin(), floatArray.cbegin() + size, std::begin(uni.userDefined) + offset);
++		modelUniformsStorage.UpdateUserDefinedUniforms(objectOffset, floatArray.data(), offset, size);
+ 
+ 		lua_pushnumber(L, size);
+ 		return 1;
+diff --git a/rts/Lua/LuaVAOImpl.cpp b/rts/Lua/LuaVAOImpl.cpp
+index d350a8f..ac53d1c 100644
+--- a/rts/Lua/LuaVAOImpl.cpp
++++ b/rts/Lua/LuaVAOImpl.cpp
+@@ -1,3 +1,5 @@
++/* This file is part of the Spring engine (GPL v2 or later), see LICENSE.html */
++
+ #include "LuaVAOImpl.h"
+ 
+ #include <algorithm>
+@@ -223,15 +225,18 @@ void LuaVAOImpl::CheckDrawPrimitiveType(GLenum mode) const
+ 
+ void LuaVAOImpl::CondInitVAO()
+ {
+-	if (vao &&
+-		(vertLuaVBO && vertLuaVBO->GetId() == oldVertVBOId) &&
+-		(indxLuaVBO && indxLuaVBO->GetId() == oldIndxVBOId) &&
+-		(instLuaVBO && instLuaVBO->GetId() == oldInstVBOId))
+-		return; //already init and all VBOs still have same IDs
++	const auto bufferUnchanged = [](const auto& buffer, uint32_t previousId) {
++		return buffer ? previousId != 0u && buffer->GetId() == previousId : previousId == 0u;
++	};
++
++	if (vao && bufferUnchanged(vertLuaVBO, oldVertVBOId) &&
++		bufferUnchanged(indxLuaVBO, oldIndxVBOId) && bufferUnchanged(instLuaVBO, oldInstVBOId))
++		return; // Optional buffers may be absent; all existing bindings are unchanged.
+ 
+ 	vao = nullptr;
+ 	vao = std::make_unique<VAO>();
+ 	vao->Bind();
++	oldVertVBOId = oldIndxVBOId = oldInstVBOId = 0u;
+ 
+ 	if (vertLuaVBO) {
+ 		vertLuaVBO->vbo->Bind(GL_ARRAY_BUFFER); //type is needed cause same buffer could have been rebounded as something else using LuaVBOs functions
+@@ -317,6 +322,9 @@ LuaVAOImpl::DrawCheckResult LuaVAOImpl::DrawCheck(GLenum mode, const DrawCheckIn
+ 
+ 		indxLuaVBO->UpdateModelsVBOElementCount(); //need to update elements count because underlyiing VBO could have been updated
+ 
++		if (result.baseIndex > indxLuaVBO->elementsCount)
++			LuaUtils::SolLuaError("[LuaVAOImpl::%s]: Index offset %d exceeds buffer size %u", __func__, result.baseIndex, indxLuaVBO->elementsCount);
++
+ 		result.baseVertex = std::max(inputs.baseVertex.value_or(0), 0); //can't be checked easily
+ 		result.drawCount = inputs.drawCount.value_or(indxLuaVBO->elementsCount);
+ 		if (!inputs.drawCount.has_value() || inputs.drawCount.value() <= 0)
+@@ -336,6 +344,9 @@ LuaVAOImpl::DrawCheckResult LuaVAOImpl::DrawCheck(GLenum mode, const DrawCheckIn
+ 			result.drawCount = inputs.drawCount.value();
+ 		}
+ 		else {
++			if (result.baseIndex > vertLuaVBO->elementsCount)
++				LuaUtils::SolLuaError("[LuaVAOImpl::%s]: Vertex offset %d exceeds buffer size %u", __func__, result.baseIndex, vertLuaVBO->elementsCount);
++
+ 			result.drawCount = inputs.drawCount.value_or(vertLuaVBO->elementsCount);
+ 
+ 			if (!inputs.drawCount.has_value())
+@@ -350,6 +361,9 @@ LuaVAOImpl::DrawCheckResult LuaVAOImpl::DrawCheck(GLenum mode, const DrawCheckIn
+ 	result.instCount = std::max(inputs.instCount.value_or(0), 0); // 0 - forces ordinary version, while 1 - calls *Instanced()
+ 
+ 	if (result.instCount > 0) {
++		if (instLuaVBO && result.baseInstance > instLuaVBO->elementsCount)
++			LuaUtils::SolLuaError("[LuaVAOImpl::%s]: Instance offset %d exceeds buffer size %u", __func__, result.baseInstance, instLuaVBO->elementsCount);
++
+ 		if (instLuaVBO && (result.instCount > instLuaVBO->elementsCount - result.baseInstance))
+ 			LuaUtils::SolLuaError("[LuaVAOImpl::%s]: Requested number of instances %d with offset %d exceeds buffer size %u", __func__, result.instCount, result.baseInstance, instLuaVBO->elementsCount);
+ 	}
+@@ -402,6 +416,22 @@ void LuaVAOImpl::DrawArrays(GLenum mode, sol::optional<int> vertCountOpt, sol::o
+ }
+ 
+ 
++bool LuaVAOImpl::UsesPrimitiveRestart(GLenum mode) const
++{
++	// Lists may contain custom restart indices as well. Only omit restart
++	// for a borrowed model IBO whose uploaded indices prove it unnecessary.
++	switch (mode) {
++		case GL_POINTS:
++		case GL_LINES:
++		case GL_TRIANGLES:
++		case GL_LINES_ADJACENCY:
++		case GL_TRIANGLES_ADJACENCY:
++			return !S3DModelVAO::IsValid() || !S3DModelVAO::GetInstance().CanSkipPrimitiveRestart(indxLuaVBO->vbo, indxLuaVBO->primitiveRestartIndex);
++		default:
++			return true;
++	}
++}
++
+ /***
+  *
+  * @function VAO:DrawElements
+@@ -429,8 +459,13 @@ void LuaVAOImpl::DrawElements(GLenum mode, sol::optional<int> indCountOpt, sol::
+ 
+ 	const auto indexType = indxLuaVBO->bufferAttribDefsVec[0].second.type;
+ 
+-	glEnable(GL_PRIMITIVE_RESTART);
+-	glPrimitiveRestartIndex(indxLuaVBO->primitiveRestartIndex);
++	const bool useRestart = UsesPrimitiveRestart(mode);
++	if (useRestart) {
++		glEnable(GL_PRIMITIVE_RESTART);
++		glPrimitiveRestartIndex(indxLuaVBO->primitiveRestartIndex);
++	} else {
++		glDisable(GL_PRIMITIVE_RESTART);
++	}
+ 
+ 	vao->Bind();
+ 
+@@ -454,7 +489,8 @@ void LuaVAOImpl::DrawElements(GLenum mode, sol::optional<int> indCountOpt, sol::
+ 
+ 	vao->Unbind();
+ 
+-	glDisable(GL_PRIMITIVE_RESTART);
++	if (useRestart)
++		glDisable(GL_PRIMITIVE_RESTART);
+ }
+ 
+ void LuaVAOImpl::ClearSubmission()
+@@ -536,12 +572,18 @@ void LuaVAOImpl::RemoveFromSubmission(int idx)
+  */
+ void LuaVAOImpl::Submit()
+ {
+-	glEnable(GL_PRIMITIVE_RESTART);
+-	glPrimitiveRestartIndex(indxLuaVBO->primitiveRestartIndex);
++	const bool useRestart = UsesPrimitiveRestart(GL_TRIANGLES);
++	if (useRestart) {
++		glEnable(GL_PRIMITIVE_RESTART);
++		glPrimitiveRestartIndex(indxLuaVBO->primitiveRestartIndex);
++	} else {
++		glDisable(GL_PRIMITIVE_RESTART);
++	}
+ 
+ 	vao->Bind();
+ 	glMultiDrawElementsIndirect(GL_TRIANGLES, GL_UNSIGNED_INT, submitCmds.data(), submitCmds.size(), sizeof(SDrawElementsIndirectCommand));
+ 	vao->Unbind();
+ 
+-	glDisable(GL_PRIMITIVE_RESTART);
++	if (useRestart)
++		glDisable(GL_PRIMITIVE_RESTART);
+ }
+diff --git a/rts/Lua/LuaVAOImpl.h b/rts/Lua/LuaVAOImpl.h
+index 39cb050..be25e69 100644
+--- a/rts/Lua/LuaVAOImpl.h
++++ b/rts/Lua/LuaVAOImpl.h
+@@ -1,7 +1,6 @@
+ /* This file is part of the Spring engine (GPL v2 or later), see LICENSE.html */
+ 
+-#ifndef LUA_VAO_IMPL_H
+-#define LUA_VAO_IMPL_H
++#pragma once
+ 
+ #include <map>
+ #include <string>
+@@ -72,6 +71,7 @@ private:
+ 	[[maybe_unused]] DrawCheckResult DrawCheck(GLenum mode, const DrawCheckInput& inputs, bool indexed);
+ 	void CondInitVAO();
+ 	void CheckDrawPrimitiveType(GLenum mode) const;
++	bool UsesPrimitiveRestart(GLenum mode) const;
+ 	void AttachBufferImpl(const std::shared_ptr<LuaVBOImpl>& luaVBO, std::shared_ptr<LuaVBOImpl>& thisLuaVBO, GLenum reqTarget);
+ private:
+ 	template <typename TObj>
+@@ -99,4 +99,3 @@ private:
+ 	std::vector<SDrawElementsIndirectCommand> submitCmds;
+ };
+ 
+-#endif //LUA_VAO_IMPL_H
+\ No newline at end of file
+diff --git a/rts/Lua/LuaVBOImpl.cpp b/rts/Lua/LuaVBOImpl.cpp
+index 0cf3ad0..187b26c 100644
+--- a/rts/Lua/LuaVBOImpl.cpp
++++ b/rts/Lua/LuaVBOImpl.cpp
+@@ -1,5 +1,8 @@
++/* This file is part of the Spring engine (GPL v2 or later), see LICENSE.html */
++
+ #include "LuaVBOImpl.h"
+ 
++#include <array>
+ #include <unordered_map>
+ #include <algorithm>
+ #include <sstream>
+@@ -579,7 +582,7 @@ void LuaVBOImpl::Define(const int elementsCount, const sol::optional<sol::object
+ 	}
+ 
+ 	CopyAttrMapToVec();
+-	AllocGLBuffer(elemSizeInBytes * elementsCount);
++	AllocGLBuffer(static_cast<size_t>(elemSizeInBytes) * elementsCount);
+ }
+ 
+ /***
+@@ -637,6 +640,22 @@ size_t LuaVBOImpl::Upload(const sol::stack_table& luaTblData, sol::optional<int>
+ 
+ 	const uint32_t luaTblDataSize = luaTblData.size();
+ 
++	// Lua's __len callback may delete or redefine this buffer. Validate the
++	// current storage and layout before converting into its CPU shadow.
++	VBOExistenceCheck(vbo, __func__);
++	if (!vboOwner) {
++		LuaUtils::SolLuaError("[LuaVBOImpl::%s] Engine-owned buffers cannot be uploaded", __func__);
++	}
++	if (!bufferData || bufferAttribDefsVec.empty()) {
++		LuaUtils::SolLuaError("[LuaVBOImpl::%s] Buffer definition has no upload storage", __func__);
++	}
++	if (elemOffset >= elementsCount) {
++		LuaUtils::SolLuaError("[LuaVBOImpl::%s] Invalid elemOffset [%u] >= elementsCount [%u]", __func__, elemOffset, elementsCount);
++	}
++	if (attribIdx != -1 && bufferAttribDefs.find(attribIdx) == bufferAttribDefs.cend()) {
++		LuaUtils::SolLuaError("[LuaVBOImpl::%s] attribIdx is not found in bufferAttribDefs", __func__);
++	}
++
+ 	const uint32_t luaStartIndex = static_cast<uint32_t>(std::max(luaStartIndexOpt.value_or(1), 1));
+ 	if (luaStartIndex > luaTblDataSize) {
+ 		LuaUtils::SolLuaError("[LuaVBOImpl::%s] Invalid luaStartIndex [%u] exceeds table size [%u]", __func__, luaStartIndex, luaTblDataSize);
+@@ -651,15 +670,28 @@ size_t LuaVBOImpl::Upload(const sol::stack_table& luaTblData, sol::optional<int>
+ 		LuaUtils::SolLuaError("[LuaVBOImpl::%s] Invalid luaStartIndex [%u] is greater than luaFinishIndex [%u]", __func__, luaStartIndex, luaFinishIndex);
+ 	}
+ 
+-	std::vector<lua_Number> dataVec;
+-	dataVec.resize(luaFinishIndex - luaStartIndex + 1);
++	// Raw numeric reads do not invoke Lua metamethods. Keep the same zero
++	// fallback while converting directly into the existing CPU shadow.
++	struct LuaNumberIterator {
++		const sol::stack_table* table;
++		uint64_t index;
+ 
+-	constexpr auto defaultValue = static_cast<lua_Number>(0);
+-	for (auto k = 0; k < dataVec.size(); ++k) {
+-		dataVec[k] = luaTblData.raw_get_or<lua_Number>(luaStartIndex + k, defaultValue);
+-	}
++		lua_Number operator*() const {
++			constexpr auto defaultValue = static_cast<lua_Number>(0);
++			return table->raw_get_or<lua_Number>(index, defaultValue);
++		}
++		LuaNumberIterator& operator++() { ++index; return *this; }
++		bool operator<(const LuaNumberIterator& other) const { return index < other.index; }
++		int64_t operator-(const LuaNumberIterator& other) const {
++			return static_cast<int64_t>(index) - static_cast<int64_t>(other.index);
++		}
++	};
+ 
+-	return UploadImpl<lua_Number>(dataVec, elemOffset, attribIdx);
++	return UploadImpl<lua_Number>(
++		LuaNumberIterator{&luaTblData, luaStartIndex},
++		LuaNumberIterator{&luaTblData, static_cast<uint64_t>(luaFinishIndex) + 1},
++		elemOffset, [attribIdx](int attrID) { return attribIdx == -1 || attribIdx == attrID; }
++	);
+ }
+ 
+ 
+@@ -697,9 +729,21 @@ sol::as_table_t<std::vector<lua_Number>> LuaVBOImpl::Download(sol::optional<int>
+ 
+ 	const bool forceGPURead = forceGPUReadOpt.value_or(false);
+ 	GLubyte* mappedBuf = nullptr;
++	GLint previousElementArrayBuffer = 0;
++
++	const auto finishGPURead = [&]() {
++		vbo->UnmapBuffer();
++		vbo->Unbind();
++
++		if (defTarget == GL_ELEMENT_ARRAY_BUFFER)
++			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, static_cast<GLuint>(previousElementArrayBuffer));
++	};
+ 
+ 	const int mappedBufferSizeInBytes = bufferSizeInBytes - bufferOffsetInBytes;
+ 	if (forceGPURead) {
++		if (defTarget == GL_ELEMENT_ARRAY_BUFFER)
++			glGetIntegerv(GL_ELEMENT_ARRAY_BUFFER_BINDING, &previousElementArrayBuffer);
++
+ 		vbo->Bind();
+ 		mappedBuf = vbo->MapBuffer(bufferOffsetInBytes, mappedBufferSizeInBytes, GL_MAP_READ_BIT);
+ 	}
+@@ -707,6 +751,7 @@ sol::as_table_t<std::vector<lua_Number>> LuaVBOImpl::Download(sol::optional<int>
+ 		mappedBuf = reinterpret_cast<GLubyte*>(bufferData) + bufferOffsetInBytes;
+ 	}
+ 
++	auto* const mappedBufferStart = mappedBuf;
+ 	int bytesRead = 0;
+ 
+ 	for (int e = 0; e < elemCount; ++e) {
+@@ -714,6 +759,10 @@ sol::as_table_t<std::vector<lua_Number>> LuaVBOImpl::Download(sol::optional<int>
+ 			const int   attrID = va.first;
+ 			const auto& attrDef = va.second;
+ 
++			// Use the same attribute offsets and record stride as the VAO.
++			bytesRead = e * elemSizeInBytes + attrDef.pointer;
++			mappedBuf = mappedBufferStart + bytesRead;
++
+ 			int basicTypeSize = attrDef.size;
+ 
+ 			//vec4, uvec4, ivec4, mat4, etc...
+@@ -728,8 +777,7 @@ sol::as_table_t<std::vector<lua_Number>> LuaVBOImpl::Download(sol::optional<int>
+ 			#define TRANSFORM_AND_READ(T) { \
+ 				if (!TransformAndRead<T>(bytesRead, mappedBuf, mappedBufferSizeInBytes, basicTypeSize, dataVec, copyData)) { \
+ 					if (forceGPURead) { \
+-						vbo->UnmapBuffer(); \
+-						vbo->Unbind(); \
++						finishGPURead(); \
+ 					} \
+ 					return sol::as_table(dataVec); \
+ 				} \
+@@ -768,8 +816,7 @@ sol::as_table_t<std::vector<lua_Number>> LuaVBOImpl::Download(sol::optional<int>
+ 	}
+ 
+ 	if (forceGPURead) {
+-		vbo->UnmapBuffer();
+-		vbo->Unbind();
++		finishGPURead();
+ 	}
+ 	return sol::as_table(dataVec);
+ }
+@@ -778,6 +825,9 @@ void LuaVBOImpl::Clear()
+ {
+ 	VBOExistenceCheck(vbo, __func__);
+ 
++	if (S3DModelVAO::IsValid())
++		S3DModelVAO::GetInstance().InvalidateIndexRestartProof(vbo);
++
+ 	GLubyte val = 0;
+ 	vbo->Bind();
+ 	glClearBufferData(defTarget, GL_R8UI, GL_RED_INTEGER, GL_UNSIGNED_BYTE, &val);
+@@ -930,11 +980,10 @@ size_t LuaVBOImpl::ModelsVBOImpl()
+ 	return bufferSizeInBytes;
+ }
+ 
+-template<typename Iterable>
+-size_t LuaVBOImpl::MatrixDataFromProjectileIDsImpl(const Iterable& ids, int attrID, sol::optional<int> elemOffsetOpt, const char* func)
++template<typename GetID>
++size_t LuaVBOImpl::MatrixDataFromProjectileIDsImpl(size_t idsSize, GetID getID, int attrID, sol::optional<int> elemOffsetOpt, const char* func)
+ {
+-	const size_t idsSize = ids.size();
+-	if (idsSize == 0u) //empty Iterable
++	if (idsSize == 0u)
+ 		return 0u;
+ 
+ 	//do basic sanity check
+@@ -978,14 +1027,18 @@ size_t LuaVBOImpl::MatrixDataFromProjectileIDsImpl(const Iterable& ids, int attr
+ 
+ 	const uint32_t elemOffset = elemOffsetOpt.value_or(0u);
+ 
+-	if (idsSize > elementsCount - elemOffset)
++	if (elemOffset >= elementsCount || idsSize > elementsCount - elemOffset)
+ 		LuaUtils::SolLuaError("[LuaVBOImpl::%s] Too many elements in Lua table", func);
+ 
++	std::array<float, 16> singleMatrix;
+ 	static std::vector<float> matDataVec;
+-	matDataVec.resize(16 * idsSize); //16 floats (matrix) per projectile id
++	if (idsSize > 1)
++		matDataVec.resize(16 * idsSize);
++	float* const matData = idsSize == 1 ? singleMatrix.data() : matDataVec.data();
+ 
+-	size_t idx = 0;
+-	for (const auto id : ids) {
++	// Resolve every ID before committing any bytes to the VBO's CPU shadow.
++	for (size_t idx = 0; idx < idsSize; ++idx) {
++		const int id = getID(idx);
+ 		const CProjectile* p = LuaUtils::SolIdToObject<CProjectile>(id, __func__);
+ 		const CWeaponProjectile* wp = p->weapon ? static_cast<const CWeaponProjectile*>(p) : nullptr;
+ 		const bool doOffset = wp && wp->GetProjectileType() == WEAPON_MISSILE_PROJECTILE;
+@@ -994,15 +1047,13 @@ size_t LuaVBOImpl::MatrixDataFromProjectileIDsImpl(const Iterable& ids, int attr
+ 			p->GetTransformMatrix(doOffset) :
+ 			CMatrix44f::Zero();
+ 
+-		memcpy(&matDataVec[16 * idx], &trMat, sizeof(CMatrix44f));
+-
+-		++idx;
++		static_assert(sizeof(CMatrix44f) == sizeof(singleMatrix));
++		memcpy(&matData[16 * idx], &trMat, sizeof(CMatrix44f));
+ 	}
+ 
+-	if (attr0.type == GL_FLOAT)
+-		return UploadImpl<float>(matDataVec, elemOffset, { attrID + 0, attrID + 1, attrID + 2, attrID + 3 });
+-	else
+-		return UploadImpl<float>(matDataVec, elemOffset, attrID);
++	return UploadImpl<float>(matData, matData + 16 * idsSize, elemOffset, [attrID, &attr0](int id) {
++		return attr0.type == GL_FLOAT ? (id >= attrID && id <= attrID + 3) : id == attrID;
++	});
+ }
+ 
+ template<typename TObj>
+@@ -1044,14 +1095,10 @@ size_t LuaVBOImpl::InstanceDataFromImpl(int id, int attrID, uint16_t defPaletteI
+ 	const uint32_t elemOffset = elemOffsetOpt.value_or(0u);
+ 	const SInstanceData instanceData = InstanceDataFromGetData<TObj>(id, attrID, defPaletteIndex);
+ 
+-	if (elemOffset + 1 > elementsCount || elemOffset < 0)
++	if (elemOffset >= elementsCount)
+ 		LuaUtils::SolLuaError("[LuaVBOImpl::%s] Element offset (%u) is too big or negative", __func__, elemOffset);
+ 
+-	static std::vector<uint32_t> instanceDataVec(4);
+-
+-	memcpy(instanceDataVec.data(), &instanceData, sizeof(SInstanceData));
+-
+-	return UploadImpl<uint32_t>(instanceDataVec, elemOffset, attrID);
++	return UploadInstanceData(&instanceData, 1, elemOffset, attrID);
+ }
+ 
+ template<typename TObj>
+@@ -1064,37 +1111,82 @@ size_t LuaVBOImpl::InstanceDataFromImpl(const sol::stack_table& ids, int attrID,
+ 	if (idsSize == 0u) //empty array
+ 		return 0u;
+ 
++	// Lua's length metamethod can delete or redefine this VBO. Validate the
++	// current uint4 layout again before using the direct-copy upload path.
++	InstanceBufferCheckAndFormatCheck(attrID, __func__);
++
+ 	const uint32_t elemOffset = elemOffsetOpt.value_or(0u);
+ 
+-	if (idsSize > elementsCount - elemOffset)
++	if (elemOffset >= elementsCount || idsSize > elementsCount - elemOffset)
+ 		LuaUtils::SolLuaError("[LuaVBOImpl::%s] Too many elements in Lua table", __func__);
+ 
+-	static std::vector<uint32_t> instanceDataVec;
+-	instanceDataVec.resize(4 * idsSize);
++	SInstanceData singleInstance;
++	static std::vector<SInstanceData> instanceDataVec;
++	if (idsSize > 1)
++		instanceDataVec.resize(idsSize);
++	SInstanceData* const data = idsSize == 1 ? &singleInstance : instanceDataVec.data();
+ 
++	// Keep the transaction buffer: a later invalid ID must not alter the shadow.
+ 	constexpr auto defaultValue = static_cast<lua_Number>(0);
+ 	for (std::size_t i = 0u; i < idsSize; ++i) {
+ 		lua_Number idLua = ids.raw_get_or<lua_Number>(i + 1, defaultValue);
+ 		int id = spring::SafeCast<int, lua_Number>(idLua);
+-		const SInstanceData instanceData = InstanceDataFromGetData<TObj>(id, attrID, defPaletteIndex);
+-		memcpy(&instanceDataVec[4 * i], &instanceData, sizeof(SInstanceData));
++		data[i] = InstanceDataFromGetData<TObj>(id, attrID, defPaletteIndex);
++	}
++
++	return UploadInstanceData(data, idsSize, elemOffset, attrID);
++}
++
++size_t LuaVBOImpl::UploadInstanceData(const SInstanceData* data, size_t count, uint32_t elemOffset, int attrID)
++{
++	static_assert(sizeof(SInstanceData) == 4 * sizeof(uint32_t));
++	static_assert(std::is_trivially_copyable_v<SInstanceData>);
++	assert(count > 0 && elemOffset < elementsCount && count <= elementsCount - elemOffset);
++
++	// Callers have validated a uint4 attribute and resolved all object IDs.
++	const auto& attr = bufferAttribDefs.at(attrID);
++	const uint32_t bufferOffset = elemOffset * elemSizeInBytes;
++	auto* const bufferStart = static_cast<uint8_t*>(bufferData) + bufferOffset;
++	if (elemSizeInBytes == sizeof(SInstanceData)) {
++		assert(attr.pointer == 0);
++		memcpy(bufferStart, data, count * sizeof(SInstanceData));
++	} else {
++		for (size_t i = 0; i < count; ++i)
++			memcpy(bufferStart + i * elemSizeInBytes + attr.pointer, &data[i], sizeof(SInstanceData));
+ 	}
+ 
+-	return UploadImpl<uint32_t>(instanceDataVec, elemOffset, attrID);
++	// Match UploadImpl's span, including untouched attributes but excluding the
++	// final record's trailing alignment padding. Preserve CPU Download contents.
++	const auto& lastAttr = bufferAttribDefsVec.back().second;
++	const size_t bytesWritten = (count - 1) * elemSizeInBytes + lastAttr.pointer + lastAttr.size * lastAttr.typeSizeInBytes;
++	if (S3DModelVAO::IsValid())
++		S3DModelVAO::GetInstance().InvalidateIndexRestartProof(vbo);
++	vbo->Bind();
++	vbo->SetBufferSubData(bufferOffset, bytesWritten, bufferStart);
++	vbo->Unbind();
++	return bytesWritten;
+ }
+ 
+-template<typename TIn, typename AttribTestFunc>
+-size_t LuaVBOImpl::UploadImpl(const std::vector<TIn>& dataVec, uint32_t elemOffset, AttribTestFunc attribTestFunc)
++template<typename TIn, typename TIter, typename AttribTestFunc>
++size_t LuaVBOImpl::UploadImpl(TIter dataBegin, TIter dataEnd, uint32_t elemOffset, AttribTestFunc attribTestFunc)
+ {
+-	if (dataVec.empty())
++	if (dataEnd - dataBegin == 0)
++		return 0u;
++
++	if (elemOffset >= elementsCount) {
++		LOG_L(L_ERROR, "[LuaVBOImpl::%s] Upload element offset exceeds buffer bounds", __func__);
+ 		return 0u;
++	}
+ 
+ 	const uint32_t bufferOffsetInBytes = elemOffset * elemSizeInBytes;
+ 	const int mappedBufferSizeInBytes = bufferSizeInBytes - bufferOffsetInBytes;
+ 
+-	auto buffDataWithOffset = static_cast<uint8_t*>(bufferData) + bufferOffsetInBytes;
++	auto* const bufferStart = static_cast<uint8_t*>(bufferData) + bufferOffsetInBytes;
++	auto buffDataWithOffset = bufferStart;
+ 
+ 	const auto uploadToGPU = [this, buffDataWithOffset, bufferOffsetInBytes, mappedBufferSizeInBytes](int bytesWritten) -> int {
++		if (S3DModelVAO::IsValid())
++			S3DModelVAO::GetInstance().InvalidateIndexRestartProof(vbo);
+ 		vbo->Bind();
+ #if 1
+ 		vbo->SetBufferSubData(bufferOffsetInBytes, bytesWritten, buffDataWithOffset);
+@@ -1112,11 +1204,21 @@ size_t LuaVBOImpl::UploadImpl(const std::vector<TIn>& dataVec, uint32_t elemOffs
+ 
+ 	int bytesWritten = 0;
+ 
+-	for (auto bdvIter = dataVec.cbegin(); bdvIter < dataVec.cend();) {
++	auto bdvIter = dataBegin;
++	for (uint32_t element = elemOffset; bdvIter < dataEnd; ++element) {
++		if (element >= elementsCount) {
++			LOG_L(L_ERROR, "[LuaVBOImpl::%s] Upload array contains too much data", __func__);
++			return uploadToGPU(bytesWritten);
++		}
++
+ 		for (const auto& va : bufferAttribDefsVec) {
+ 			const int   attrID = va.first;
+ 			const auto& attrDef = va.second;
+ 
++			// Padding belongs to the buffer layout, not to the Lua value array.
++			bytesWritten = (element - elemOffset) * elemSizeInBytes + attrDef.pointer;
++			buffDataWithOffset = bufferStart + bytesWritten;
++
+ 			int basicTypeSize = attrDef.size;
+ 
+ 			//vec4, uvec4, ivec4, mat4, etc...
+@@ -1129,7 +1231,7 @@ size_t LuaVBOImpl::UploadImpl(const std::vector<TIn>& dataVec, uint32_t elemOffs
+ 			bool copyData = attribTestFunc(attrID);
+ 
+ 			#define TRANSFORM_AND_WRITE(T) { \
+-				if (!TransformAndWrite<TIn, T>(bytesWritten, buffDataWithOffset, mappedBufferSizeInBytes, basicTypeSize, bdvIter, dataVec.cend(), copyData)) { \
++				if (!TransformAndWrite<TIn, T>(bytesWritten, buffDataWithOffset, mappedBufferSizeInBytes, basicTypeSize, bdvIter, dataEnd, copyData)) { \
+ 					return uploadToGPU(bytesWritten); \
+ 				} \
+ 			}
+@@ -1346,23 +1448,15 @@ size_t LuaVBOImpl::InstanceDataFromFeatureIDs(const sol::stack_table& ids, int a
+  */
+ size_t LuaVBOImpl::MatrixDataFromProjectileIDs(int id, int attrID, sol::optional<int> elemOffsetOpt)
+ {
+-	return MatrixDataFromProjectileIDsImpl(std::initializer_list<int>{id}, attrID, elemOffsetOpt, __func__);
++	return MatrixDataFromProjectileIDsImpl(1, [id](size_t) { return id; }, attrID, elemOffsetOpt, __func__);
+ }
+ 
+ size_t LuaVBOImpl::MatrixDataFromProjectileIDs(const sol::stack_table& ids, int attrID, sol::optional<int> elemOffsetOpt)
+ {
+-	std::size_t idsSize = ids.size();
+-
+-	static std::vector<int> idsVec;
+-	idsVec.resize(idsSize);
+-
+-	constexpr auto defaultValue = static_cast<lua_Number>(0);
+-	for (std::size_t i = 0u; i < idsSize; ++i) {
+-		lua_Number idLua = ids.raw_get_or<lua_Number>(i + 1, defaultValue);
+-		int id = spring::SafeCast<int, lua_Number>(idLua);
+-		idsVec[i] = id;
+-	}
+-	return MatrixDataFromProjectileIDsImpl(idsVec, attrID, elemOffsetOpt, __func__);
++	return MatrixDataFromProjectileIDsImpl(ids.size(), [&ids](size_t i) {
++		constexpr auto defaultValue = static_cast<lua_Number>(0);
++		return spring::SafeCast<int, lua_Number>(ids.raw_get_or<lua_Number>(i + 1, defaultValue));
++	}, attrID, elemOffsetOpt, __func__);
+ }
+ 
+ int LuaVBOImpl::BindBufferRangeImpl(GLuint bindingIndex,  const sol::optional<int> elemOffsetOpt, const sol::optional<int> elemCountOpt, const sol::optional<GLenum> targetOpt, bool bind)
+@@ -1403,6 +1497,8 @@ int LuaVBOImpl::BindBufferRangeImpl(GLuint bindingIndex,  const sol::optional<in
+ 
+ 	bool result = false;
+ 	if (bind) {
++		if (defTarget == GL_SHADER_STORAGE_BUFFER && S3DModelVAO::IsValid())
++			S3DModelVAO::GetInstance().InvalidateIndexRestartProof(vbo);
+ 		result = vbo->BindBufferRange(defTarget, bindingIndex, bufferOffsetInBytes, boundBufferSizeInBytes);
+ 	} else {
+ 		result = vbo->UnbindBufferRange(defTarget, bindingIndex, bufferOffsetInBytes, boundBufferSizeInBytes);
+@@ -1460,6 +1556,10 @@ void LuaVBOImpl::DumpDefinition()
+ {
+ 	VBOExistenceCheck(vbo, __func__);
+ 
++	// DumpDefinition exposes the raw ID too; preserve restart after escape.
++	if (S3DModelVAO::IsValid())
++		S3DModelVAO::GetInstance().InvalidateIndexRestartProof(vbo);
++
+ 	std::ostringstream ss;
+ 	ss << fmt::format("Definition information on LuaVBOs. OpenGL Buffer ID={}:\n", vbo->GetId());
+ 	for (const auto& kv : bufferAttribDefs) { //guaranteed increasing order of key
+@@ -1491,6 +1591,9 @@ bool LuaVBOImpl::CopyTo(const std::shared_ptr<LuaVBOImpl>& destVBO, int copySize
+ 	if (!wasBound)
+ 		vbo->Bind();
+ 
++	if (S3DModelVAO::IsValid())
++		S3DModelVAO::GetInstance().InvalidateIndexRestartProof(destVBO->vbo);
++
+ 	auto result = vbo->CopyTo(*destVBO->vbo, static_cast<GLsizeiptr>(copySizeInBytes));
+ 
+ 	// VBO::CopyTo only moves GPU->GPU. We need to also copy over the CPU-side bufferData.
+@@ -1519,17 +1622,19 @@ bool LuaVBOImpl::CopyTo(const std::shared_ptr<LuaVBOImpl>& destVBO, int copySize
+ uint32_t LuaVBOImpl::GetID() const
+ {
+ 	VBOExistenceCheck(vbo, __func__);
++	if (S3DModelVAO::IsValid())
++		S3DModelVAO::GetInstance().InvalidateIndexRestartProof(vbo);
+ 	return vbo->GetId();
+ }
+ 
+ void LuaVBOImpl::AllocGLBuffer(size_t byteSize)
+ {
+-	if (defTarget == GL_UNIFORM_BUFFER && bufferSizeInBytes > UBO_SAFE_SIZE_BYTES) {
+-		LuaUtils::SolLuaError("[LuaVBOImpl::%s] Exceeded [%u] safe UBO buffer size limit of [%u] bytes", __func__, bufferSizeInBytes, LuaVBOImpl::UBO_SAFE_SIZE_BYTES);
++	if (defTarget == GL_UNIFORM_BUFFER && byteSize > UBO_SAFE_SIZE_BYTES) {
++		LuaUtils::SolLuaError("[LuaVBOImpl::%s] Exceeded [%zu] safe UBO buffer size limit of [%u] bytes", __func__, byteSize, LuaVBOImpl::UBO_SAFE_SIZE_BYTES);
+ 	}
+ 
+-	if (bufferSizeInBytes > BUFFER_SANE_LIMIT_BYTES) {
+-		LuaUtils::SolLuaError("[LuaVBOImpl::%s] Exceeded [%u] sane buffer size limit of [%u] bytes", __func__, bufferSizeInBytes, LuaVBOImpl::BUFFER_SANE_LIMIT_BYTES);
++	if (byteSize > BUFFER_SANE_LIMIT_BYTES) {
++		LuaUtils::SolLuaError("[LuaVBOImpl::%s] Exceeded [%zu] sane buffer size limit of [%u] bytes", __func__, byteSize, LuaVBOImpl::BUFFER_SANE_LIMIT_BYTES);
+ 	}
+ 
+ 	bufferSizeInBytes = static_cast<uint32_t>(byteSize); //be strict here and don't account for possible increase of size on GPU due to alignment requirements
+@@ -1577,12 +1682,14 @@ bool LuaVBOImpl::TransformAndWrite(int& bytesWritten, GLubyte*& mappedBuf, const
+ 	}
+ 
+ 	if (copyData) {
+-		for (int n = 0; n < count; ++n) {
+-			if (bdvIter == bdvIterEnd) {
+-				LOG_L(L_ERROR, "[LuaVBOImpl::%s] Upload array contains too few data to fill the attribute", __func__);
+-				return false;
+-			}
++		// Reject an incomplete attribute before changing its CPU shadow. Otherwise
++		// those bytes would be omitted from the upload span on the error return.
++		if (bdvIterEnd - bdvIter < count) {
++			LOG_L(L_ERROR, "[LuaVBOImpl::%s] Upload array contains too few data to fill the attribute", __func__);
++			return false;
++		}
+ 
++		for (int n = 0; n < count; ++n) {
+ 			const auto outVal = spring::SafeCast<TOut, TIn>(*bdvIter);
+ 			memcpy(mappedBuf, &outVal, outValSize);
+ 			mappedBuf += outValSize;
+diff --git a/rts/Lua/LuaVBOImpl.h b/rts/Lua/LuaVBOImpl.h
+index e2eb2ca..6ad8e8b 100644
+--- a/rts/Lua/LuaVBOImpl.h
++++ b/rts/Lua/LuaVBOImpl.h
+@@ -1,7 +1,6 @@
+ /* This file is part of the Spring engine (GPL v2 or later), see LICENSE.html */
+ 
+-#ifndef LUA_VBO_IMPL_H
+-#define LUA_VBO_IMPL_H
++#pragma once
+ 
+ #include <map>
+ #include <vector>
+@@ -89,11 +88,18 @@ private:
+ 	template<typename TObj>
+ 	size_t InstanceDataFromImpl(const sol::stack_table& ids, int attrID, uint16_t defPaletteIndex, const sol::optional<int>& elemOffsetOpt);
+ 
+-	template<typename Iterable>
+-	size_t MatrixDataFromProjectileIDsImpl(const Iterable& ids, int attrID, sol::optional<int> elemOffsetOpt, const char* func);
++	size_t UploadInstanceData(const SInstanceData* data, size_t count, uint32_t elemOffset, int attrID);
++
++	template<typename GetID>
++	size_t MatrixDataFromProjectileIDsImpl(size_t idsSize, GetID getID, int attrID, sol::optional<int> elemOffsetOpt, const char* func);
+ 
+ 	template<typename TIn, typename AttribTestFunc>
+-	size_t UploadImpl(const std::vector<TIn>& dataVec, uint32_t elemOffset, AttribTestFunc attribTestFunc);
++	size_t UploadImpl(const std::vector<TIn>& dataVec, uint32_t elemOffset, AttribTestFunc attribTestFunc) {
++		return UploadImpl<TIn>(dataVec.cbegin(), dataVec.cend(), elemOffset, attribTestFunc);
++	}
++
++	template<typename TIn, typename TIter, typename AttribTestFunc>
++	size_t UploadImpl(TIter dataBegin, TIter dataEnd, uint32_t elemOffset, AttribTestFunc attribTestFunc);
+ 
+ 	template<typename TIn>
+ 	size_t UploadImpl(const std::vector<TIn>& dataVec, uint32_t elemOffset, int attribIdx) {
+@@ -155,12 +161,12 @@ private:
+ private:
+ 	static constexpr uint32_t VA_NUMBER_OF_ATTRIBUTES = 16u;
+ 	static constexpr uint32_t UBO_SAFE_SIZE_BYTES = 0x4000u; //16 KB
+-	static constexpr uint32_t BUFFER_SANE_LIMIT_BYTES = 0x1000000u; //16 MB
++	// Official BuildSquare GL4 reserves 262144 * 72 bytes (18 MiB).
++	// Keep a finite allocation guard without rejecting this normal workload.
++	static constexpr uint32_t BUFFER_SANE_LIMIT_BYTES = 0x2000000u; //32 MiB
+ 	static constexpr GLenum DEFAULT_VERT_ATTR_TYPE = GL_FLOAT;
+ 	static constexpr GLenum DEFAULT_BUFF_ATTR_TYPE = GL_FLOAT_VEC4;
+ 	static constexpr GLenum DEFAULT_INDX_ATTR_TYPE = GL_UNSIGNED_SHORT;
+ };
+ 
+ 
+-
+-#endif //LUA_VBO_IMPL_H
+diff --git a/rts/Menu/SelectMenu.cpp b/rts/Menu/SelectMenu.cpp
+index 36f1560..f18b336 100644
+--- a/rts/Menu/SelectMenu.cpp
++++ b/rts/Menu/SelectMenu.cpp
+@@ -364,10 +364,18 @@ bool SelectMenu::HandleEventSelf(const SDL_Event& ev)
+ {
+ 	switch (ev.type) {
+ 		case SDL_KEYDOWN: {
++#if defined(RECOIL_MACOS_SDL3_EGL)
++			if (ev.key.key == SDLK_ESCAPE) {
++#else
+ 			if (ev.key.keysym.sym == SDLK_ESCAPE) {
++#endif
+ 				LOG("[SelectMenu] user exited");
+ 				Quit();
++#if defined(RECOIL_MACOS_SDL3_EGL)
++			} else if (ev.key.key == SDLK_RETURN) {
++#else
+ 			} else if (ev.key.keysym.sym == SDLK_RETURN) {
++#endif
+ 				Single();
+ 				return true;
+ 			}
+diff --git a/rts/Rendering/CommandDrawer.cpp b/rts/Rendering/CommandDrawer.cpp
+index 323449f..3992060 100644
+--- a/rts/Rendering/CommandDrawer.cpp
++++ b/rts/Rendering/CommandDrawer.cpp
+@@ -675,18 +675,29 @@ void CommandDrawer::DrawQuedBuildingSquares(const CBuilderCAI* cai) const
+ 		uwaterCommands += (bi.pos.y < CGround::GetWaterLevel(bi.pos.x, bi.pos.z));
+ 	}
+ 
+-	// worst case - 2 squares per building (when underwater) - 8 vertices * 3 floats
+-	std::vector<GLfloat>   quadVerts(buildCommands * 12);
+-	std::vector<GLfloat> uwquadVerts(buildCommands * 12); // underwater
++	// worst case - 2 squares per building (when underwater) - 8 line vertices * 3 floats
++	std::vector<GLfloat>   squareLineVerts(buildCommands * 24);
++	std::vector<GLfloat> uwsquareLineVerts(buildCommands * 24); // underwater
+ 	// 4 vertical lines
+ 	std::vector<GLfloat> lineVerts(uwaterCommands * 24);
+ 	// colors for lines
+ 	std::vector<GLfloat> lineColors(uwaterCommands * 48);
+ 
+-	unsigned int   quadcounter = 0;
+-	unsigned int uwquadcounter = 0;
++	unsigned int   squareLineCounter = 0;
++	unsigned int uwsquareLineCounter = 0;
+ 	unsigned int   linecounter = 0;
+ 
++	const auto addSquareLines = [](std::vector<GLfloat>& verts, unsigned int& counter, float x1, float y, float z1, float x2, float z2) {
++		verts[counter++] = x1; verts[counter++] = y; verts[counter++] = z1;
++		verts[counter++] = x1; verts[counter++] = y; verts[counter++] = z2;
++		verts[counter++] = x1; verts[counter++] = y; verts[counter++] = z2;
++		verts[counter++] = x2; verts[counter++] = y; verts[counter++] = z2;
++		verts[counter++] = x2; verts[counter++] = y; verts[counter++] = z2;
++		verts[counter++] = x2; verts[counter++] = y; verts[counter++] = z1;
++		verts[counter++] = x2; verts[counter++] = y; verts[counter++] = z1;
++		verts[counter++] = x1; verts[counter++] = y; verts[counter++] = z1;
++	};
++
+ 	for (const Command& c: commandQue) {
+ 		if (buildOptions.find(c.GetID()) == buildOptions.end())
+ 			continue;
+@@ -707,18 +718,7 @@ void CommandDrawer::DrawQuedBuildingSquares(const CBuilderCAI* cai) const
+ 		const float x2 = bi.pos.x + xsize;
+ 		const float z2 = bi.pos.z + zsize;
+ 
+-		quadVerts[quadcounter++] = x1;
+-		quadVerts[quadcounter++] = h + 1;
+-		quadVerts[quadcounter++] = z1;
+-		quadVerts[quadcounter++] = x1;
+-		quadVerts[quadcounter++] = h + 1;
+-		quadVerts[quadcounter++] = z2;
+-		quadVerts[quadcounter++] = x2;
+-		quadVerts[quadcounter++] = h + 1;
+-		quadVerts[quadcounter++] = z2;
+-		quadVerts[quadcounter++] = x2;
+-		quadVerts[quadcounter++] = h + 1;
+-		quadVerts[quadcounter++] = z1;
++		addSquareLines(squareLineVerts, squareLineCounter, x1, h + 1, z1, x2, z2);
+ 
+ 		if (bi.pos.y >= 0.0f)
+ 			continue;
+@@ -728,18 +728,7 @@ void CommandDrawer::DrawQuedBuildingSquares(const CBuilderCAI* cai) const
+ 			0.0f, 0.5f, 1.0f, 1.0f, // end color
+ 		};
+ 
+-		uwquadVerts[uwquadcounter++] = x1;
+-		uwquadVerts[uwquadcounter++] = 0.0f;
+-		uwquadVerts[uwquadcounter++] = z1;
+-		uwquadVerts[uwquadcounter++] = x1;
+-		uwquadVerts[uwquadcounter++] = 0.0f;
+-		uwquadVerts[uwquadcounter++] = z2;
+-		uwquadVerts[uwquadcounter++] = x2;
+-		uwquadVerts[uwquadcounter++] = 0.0f;
+-		uwquadVerts[uwquadcounter++] = z2;
+-		uwquadVerts[uwquadcounter++] = x2;
+-		uwquadVerts[uwquadcounter++] = 0.0f;
+-		uwquadVerts[uwquadcounter++] = z1;
++		addSquareLines(uwsquareLineVerts, uwsquareLineCounter, x1, 0.0f, z1, x2, z2);
+ 
+ 		for (int i = 0; i < 4; ++i) {
+ 			std::copy(col, col + 8, lineColors.begin() + linecounter * 2 + i * 8);
+@@ -774,17 +763,16 @@ void CommandDrawer::DrawQuedBuildingSquares(const CBuilderCAI* cai) const
+ 		lineVerts[linecounter++] = z2;
+ 	}
+ 
+-	if (quadcounter > 0) {
++	if (squareLineCounter > 0) {
+ 		glEnableClientState(GL_VERTEX_ARRAY);
+-		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+-		glVertexPointer(3, GL_FLOAT, 0, &quadVerts[0]);
+-		glDrawArrays(GL_QUADS, 0, quadcounter / 3);
++		glVertexPointer(3, GL_FLOAT, 0, &squareLineVerts[0]);
++		glDrawArrays(GL_LINES, 0, squareLineCounter / 3);
+ 
+ 		if (linecounter > 0) {
+ 			glPushAttrib(GL_CURRENT_BIT);
+ 			glColor4f(0.0f, 0.5f, 1.0f, 1.0f); // same as end color of lines
+-			glVertexPointer(3, GL_FLOAT, 0, &uwquadVerts[0]);
+-			glDrawArrays(GL_QUADS, 0, uwquadcounter / 3);
++			glVertexPointer(3, GL_FLOAT, 0, &uwsquareLineVerts[0]);
++			glDrawArrays(GL_LINES, 0, uwsquareLineCounter / 3);
+ 			glPopAttrib();
+ 
+ 			glEnableClientState(GL_COLOR_ARRAY);
+@@ -797,4 +785,3 @@ void CommandDrawer::DrawQuedBuildingSquares(const CBuilderCAI* cai) const
+ 		glDisableClientState(GL_VERTEX_ARRAY);
+ 	}
+ }
+-
+diff --git a/rts/Rendering/Common/ModelDrawerData.h b/rts/Rendering/Common/ModelDrawerData.h
+index dff614f..3003770 100644
+--- a/rts/Rendering/Common/ModelDrawerData.h
++++ b/rts/Rendering/Common/ModelDrawerData.h
+@@ -1,3 +1,5 @@
++/* This file is part of the Spring engine (GPL v2 or later), see LICENSE.html */
++
+ #pragma once
+ 
+ #include <vector>
+@@ -203,18 +205,7 @@ inline void CModelDrawerDataBase<T>::UpdateObjectTrasform(const T* o)
+ template<typename T>
+ inline void CModelDrawerDataBase<T>::UpdateObjectUniforms(const T* o)
+ {
+-	auto& uni = modelUniformsStorage.GetObjUniformsArray(o);
+-	uni.drawFlag = o->drawFlag;
+-
+-	if (gu->spectatingFullView || o->IsInLosForAllyTeam(gu->myAllyTeam)) {
+-		uni.id = o->id;
+-		uni.teamID = o->team;
+-		// TODO remove drawPos, replace with pos
+-		uni.drawPos = float4{ o->drawPos, o->heading * math::PI / SPRING_MAX_HEADING };
+-		uni.speed = o->speed;
+-		uni.maxHealth = o->maxHealth;
+-		uni.health = o->health;
+-	}
++	modelUniformsStorage.UpdateObjectUniforms(o, gu->spectatingFullView || o->IsInLosForAllyTeam(gu->myAllyTeam));
+ }
+ 
+ template<typename T>
+@@ -228,4 +219,4 @@ inline void CModelDrawerDataBase<T>::UpdateCommon(T* o)
+ 		UpdateObjectTrasform(o);
+ 
+ 	UpdateObjectUniforms(o);
+-}
+\ No newline at end of file
++}
+diff --git a/rts/Rendering/Common/UpdateList.cpp b/rts/Rendering/Common/UpdateList.cpp
+index fb4de50..e82f346 100644
+--- a/rts/Rendering/Common/UpdateList.cpp
++++ b/rts/Rendering/Common/UpdateList.cpp
+@@ -1,5 +1,9 @@
++/* This file is part of the Spring engine (GPL v2 or later), see LICENSE.html */
++
+ #include "UpdateList.h"
+ 
++#include <atomic>
++
+ CR_BIND(UpdateList, )
+ CR_REG_METADATA(UpdateList, (
+ 	CR_MEMBER(TypedTrue),
+@@ -7,6 +11,17 @@ CR_REG_METADATA(UpdateList, (
+ 	CR_MEMBER(changed)
+ ))
+ 
++void UpdateList::MarkChanged()
++{
++	// Keep the serialized bool layout. All other accesses occur after the worker
++	// batch ends, when none of these short-lived atomic_refs remain.
++	static_assert(std::atomic_ref<bool>::required_alignment <= alignof(bool));
++	static_assert(std::atomic_ref<bool>::is_always_lock_free);
++	std::atomic_ref<bool> pending(changed);
++	if (!pending.load(std::memory_order_relaxed))
++		pending.store(true, std::memory_order_relaxed);
++}
++
+ void UpdateList::SetNeedUpdateAll()
+ {
+ 	RECOIL_DETAILED_TRACY_ZONE;
+@@ -55,7 +70,7 @@ void UpdateList::SetUpdate(const IteratorPair& it)
+ {
+ 	RECOIL_DETAILED_TRACY_ZONE;
+ 	std::fill(it.first, it.second, TypedTrue);
+-	changed = true;
++	MarkChanged();
+ }
+ 
+ void UpdateList::SetUpdate(size_t offset)
+@@ -63,7 +78,7 @@ void UpdateList::SetUpdate(size_t offset)
+ 	RECOIL_DETAILED_TRACY_ZONE;
+ 	assert(offset < updateList.size());
+ 	updateList[offset] = TypedTrue;
+-	changed = true;
++	MarkChanged();
+ }
+ 
+ void UpdateList::DecrementUpdate(size_t first, size_t count)
+@@ -77,12 +92,20 @@ void UpdateList::DecrementUpdate(size_t first, size_t count)
+ }
+ 
+ void UpdateList::DecrementUpdate(IteratorPair itPair)
++{
++	DecrementUpdateAndCheckRemaining(itPair);
++}
++
++bool UpdateList::DecrementUpdateAndCheckRemaining(IteratorPair itPair)
+ {
+ 	RECOIL_DETAILED_TRACY_ZONE;
++	bool pending = false;
+ 	for (auto it = itPair.first; it != itPair.second; ++it) {
+ 		*it = spring::SafeCast<ValueT>(*it - ValueT{ 1 });
+-		changed |= (*it != TypedFalse);
++		pending |= (*it != TypedFalse);
+ 	}
++	changed |= pending;
++	return pending;
+ }
+ 
+ void UpdateList::DecrementUpdate(size_t offset)
+@@ -162,4 +185,4 @@ std::pair<size_t, size_t> UpdateList::GetOffsetAndSize(const IteratorPair& it)
+ 		std::distance(updateList.begin(), it.first),
+ 		std::distance(it.first, it.second)
+ 	);
+-}
+\ No newline at end of file
++}
+diff --git a/rts/Rendering/Common/UpdateList.h b/rts/Rendering/Common/UpdateList.h
+index a313bb4..fda363d 100644
+--- a/rts/Rendering/Common/UpdateList.h
++++ b/rts/Rendering/Common/UpdateList.h
+@@ -1,3 +1,5 @@
++/* This file is part of the Spring engine (GPL v2 or later), see LICENSE.html */
++
+ #pragma once
+ 
+ #include <cstdint>
+@@ -13,6 +15,9 @@
+ class UpdateList {
+ 	CR_DECLARE_STRUCT(UpdateList)
+ public:
++	// SetUpdate may run concurrently only for disjoint, already allocated ranges.
++	// Structural changes, consumption and serialization require all producers to
++	// have finished. The counters themselves are owned by their range's producer.
+ 	using ValueT = uint8_t;
+ 	using ConstIterator = typename std::vector<ValueT>::const_iterator;
+ 	using ConstIteratorPair = std::pair<ConstIterator, ConstIterator>;
+@@ -41,6 +46,7 @@ public:
+ 
+ 	void Trim(size_t newLessThanOrEqualSize);
+ 	void Resize(size_t newSize) { updateList.resize(newSize); SetNeedUpdateAll(); }
++	void ResizePreservingUpdates(size_t newSize) { updateList.resize(newSize, TypedFalse); }
+ 	void Reserve(size_t reservedSize) { updateList.reserve(reservedSize); }
+ 	void Clear() { *this = std::move(UpdateList()); }
+ 
+@@ -51,6 +57,14 @@ public:
+ 	void DecrementUpdate(size_t first, size_t count);
+ 	void DecrementUpdate(IteratorPair it);
+ 	void DecrementUpdate(size_t offset);
++	bool DecrementUpdateAndCheckRemaining(IteratorPair it);
++	// Only after an exclusive pass has consumed every nonzero range and completed
++	// the upload/bind/rotation. Until then, retain the conservative changed flag.
++	void FinishUpdatePass(bool pending) { changed = pending; }
++	// Model snapshot consumers may keep the completed binding instead of rotating
++	// through idle frames. Acknowledge only after all ranges and bind/swap succeed;
++	// retain counters so the next requested upload also repairs its older slot.
++	void FinishSnapshotUpdatePass() { changed = false; }
+ 
+ 	void SetNeedUpdateAll();
+ 	void ResetNeedUpdateAll();
+@@ -67,6 +81,7 @@ public:
+ 	std::pair<size_t, size_t> GetOffsetAndSize(const ConstIteratorPair& it) const;
+ 	std::pair<size_t, size_t> GetOffsetAndSize(const IteratorPair& it);
+ private:
++	void MarkChanged();
+ 	ValueT TypedTrue;
+ 	static constexpr ValueT TypedFalse = ValueT{ 0 };
+ 	std::vector<ValueT> updateList;
+diff --git a/rts/Rendering/Fonts/CFontTexture.cpp b/rts/Rendering/Fonts/CFontTexture.cpp
+index 3c6ac36..b0fe252 100644
+--- a/rts/Rendering/Fonts/CFontTexture.cpp
++++ b/rts/Rendering/Fonts/CFontTexture.cpp
+@@ -1000,6 +1000,20 @@ void CFontTexture::Update() {
+ 		eventHandler.FontsChanged();
+ }
+ 
++void CFontTexture::UploadPendingGlyphAtlasTextures() {
++	assert(CFontTexture::sync.GetThreadSafety() || Threading::IsMainThread());
++	auto lock = CFontTexture::sync.GetScopedLock();
++
++	for (const auto& font : allFonts) {
++		auto lf = font.lock();
++		if (!lf)
++			continue;
++
++		if (lf->GlyphAtlasTextureNeedsUpload())
++			lf->UploadGlyphAtlasTexture();
++	}
++}
++
+ const GlyphInfo& CFontTexture::GetGlyph(char32_t ch)
+ {
+ 	RECOIL_DETAILED_TRACY_ZONE;
+diff --git a/rts/Rendering/Fonts/CFontTexture.h b/rts/Rendering/Fonts/CFontTexture.h
+index bca4192..6a5f8f5 100644
+--- a/rts/Rendering/Fonts/CFontTexture.h
++++ b/rts/Rendering/Fonts/CFontTexture.h
+@@ -113,6 +113,7 @@ public:
+ 	static void InitFonts();
+ 	static void KillFonts();
+ 	static void Update();
++	static void UploadPendingGlyphAtlasTextures();
+ 	static bool AddFallbackFont(const std::string& fontfile);
+ 	static void ClearFallbackFonts();
+ 	static bool ClearAllGlyphs();
+diff --git a/b/rts/Rendering/GL/IndexBufferRestartState.h b/rts/Rendering/GL/IndexBufferRestartState.h
+new file mode 100644
+index 0000000..3b39698
+--- /dev/null
++++ b/rts/Rendering/GL/IndexBufferRestartState.h
+@@ -0,0 +1,28 @@
++/* This file is part of the Spring engine (GPL v2 or later), see LICENSE.html */
++#pragma once
++
++#include <algorithm>
++#include <cstdint>
++#include <span>
++
++// Model index uploads establish this proof once. Unknown writes or raw buffer
++// exposure invalidate it for every Lua wrapper borrowing the same model IBO.
++class IndexBufferRestartState {
++public:
++	void IncludeUpload(std::span<const uint32_t> indices)
++	{
++		if (indices.empty())
++			return;
++		maxIndex = std::max(maxIndex, *std::max_element(indices.begin(), indices.end()));
++		hasUpload = true;
++	}
++	void Invalidate() { externallyMutable = true; }
++	bool CanSkip(uint32_t restartIndex) const
++	{
++		return hasUpload && !externallyMutable && maxIndex < restartIndex;
++	}
++private:
++	uint32_t maxIndex = 0;
++	bool hasUpload = false;
++	bool externallyMutable = false;
++};
+diff --git a/rts/Rendering/GL/StreamBuffer.cpp b/rts/Rendering/GL/StreamBuffer.cpp
+index 5216e10..63f11ae 100644
+--- a/rts/Rendering/GL/StreamBuffer.cpp
++++ b/rts/Rendering/GL/StreamBuffer.cpp
+@@ -1,8 +1,12 @@
++/* This file is part of the Spring engine (GPL v2 or later), see LICENSE.html */
++
+ #include "StreamBuffer.h"
+ 
+ #include "VBO.h"
+ 
+-#include "System/ContainerUtil.h"
++#include <algorithm>
++#include <cstdlib>
++
+ #include "System/Log/ILog.h"
+ #include "Rendering/GlobalRendering.h"
+ #include "Rendering/GlobalRenderingInfo.h"
+@@ -23,15 +27,30 @@ void IStreamBufferConcept::PutBufferLocks()
+ 	if (lockList.empty())
+ 		return;
+ 
+-	spring::VectorSortUnique(lockList);
+-
+-	for (auto& so : lockList) {
+-		if (glIsSync(*so))
+-			glDeleteSync(*so);
++	for (auto* fence : lockList)
++		PutBufferLock(*fence);
++	lockList.clear();
++}
+ 
+-		*so = glFenceSync(GL_SYNC_GPU_COMMANDS_COMPLETE, 0);
++void IStreamBufferConcept::PutBufferLock(BufferFence& fence)
++{
++	const GLsync sync = glFenceSync(GL_SYNC_GPU_COMMANDS_COMPLETE, 0);
++	if (sync == nullptr) {
++		LOG_L(L_FATAL, "[IStreamBuffer::PutBufferLock] Failed to fence GPU buffer use");
++		std::abort();
+ 	}
+-	lockList.clear();
++	if (fence.sync != nullptr)
++		glDeleteSync(fence.sync);
++	fence.sync = sync;
++	fence.queued = false;
++}
++
++void IStreamBufferConcept::CancelBufferLock(BufferFence& fence)
++{
++	if (!fence.queued)
++		return;
++	std::erase(lockList, &fence);
++	fence.queued = false;
+ }
+ 
+ IStreamBufferConcept::IStreamBufferConcept(StreamBufferCreationParams p, std::string_view bufferTypeName)
+@@ -49,28 +68,78 @@ IStreamBufferConcept::IStreamBufferConcept(StreamBufferCreationParams p, std::st
+ 		LOG_L(L_INFO, "[StreamBuffer::%s] Created StreamBuffer name %s type %s", __func__, name.c_str(), bufferTypeName.data());
+ }
+ 
+-void IStreamBufferConcept::QueueLockBuffer(GLsync& syncObj) const
++IStreamBufferConcept::~IStreamBufferConcept()
++{
++	// Derived Kill has already waited for the GPU. No reservation may outlive
++	// its host storage, even when initialization failed or no frame was swapped.
++	ClearBufferFences();
++}
++
++void IStreamBufferConcept::InitBufferFences(uint32_t count)
++{
++	assert(fences.empty());
++	assert(count > 0);
++	fences.resize(count);
++	allocIdx = 0;
++	boundIdx = INVALID_BUFFER_IDX;
++	// Fresh storage has no GPU reader; fences are queued only when used.
++}
++
++void IStreamBufferConcept::ClearBufferFences()
++{
++	for (auto& fence : fences) {
++		CancelBufferLock(fence);
++		assert(fence.sync == nullptr);
++	}
++	fences.clear();
++	allocIdx = 0;
++	boundIdx = INVALID_BUFFER_IDX;
++}
++
++void IStreamBufferConcept::QueueLockBuffer(BufferFence& fence) const
+ {
+ 	RECOIL_DETAILED_TRACY_ZONE;
+-	lockList.emplace_back(&syncObj);
++	if (fence.queued)
++		return;
++	lockList.emplace_back(&fence);
++	fence.queued = true;
+ }
+ 
+-void IStreamBufferConcept::WaitBuffer(GLsync& syncObj) const
++void IStreamBufferConcept::WaitBuffer(BufferFence& fence) const
+ {
+ 	RECOIL_DETAILED_TRACY_ZONE;
+-	if (!glIsSync(syncObj))
++	if (fence.queued) {
++		// A slot can wrap or be destroyed before the frame-end fence pass.
++		// Cover its latest issued reads before granting the CPU write access.
++		CancelBufferLock(fence);
++		PutBufferLock(fence);
++	}
++	if (fence.sync == nullptr)
+ 		return;
+ 
++	// Keep the fence ownership rule; allow the driver to block instead of
++	// repeatedly crossing the translation stack with a 1 ns timeout.
++	#ifdef __APPLE__
++	constexpr GLuint64 WAIT_TIMEOUT_NS = 250000;
++	#else
++	constexpr GLuint64 WAIT_TIMEOUT_NS = 1;
++	#endif
+ 	uint32_t gWaitCount = 0;
+ 	while (true) {
+-		GLenum waitReturn = glClientWaitSync(syncObj, GL_SYNC_FLUSH_COMMANDS_BIT, 1);
++		GLenum waitReturn = glClientWaitSync(fence.sync, GL_SYNC_FLUSH_COMMANDS_BIT, WAIT_TIMEOUT_NS);
+ 		if (waitReturn == GL_ALREADY_SIGNALED || waitReturn == GL_CONDITION_SATISFIED)
+ 			break;
+ 
++		if (waitReturn != GL_TIMEOUT_EXPIRED) {
++			// Completion is unknown. Never delete this fence and let Map reuse
++			// GPU-owned storage, and do not throw through buffer destructors.
++			LOG_L(L_FATAL, "[IStreamBuffer::WaitBuffer] Fence wait failed (0x%x) for buffer %u (%s)", waitReturn, id, name.c_str());
++			std::abort();
++		}
+ 		gWaitCount++;
+ 	}
+-	glDeleteSync(syncObj);
+-	syncObj = {};
++	glDeleteSync(fence.sync);
++	fence.sync = nullptr;
+ 
+ 	if (gWaitCount > 0)
+ 		LOG_L(L_DEBUG, "[IStreamBuffer::WaitBuffer] Detected non-zero (%u) wait spins on stream buffer (%u, %s). Consider increasing numBuffers", gWaitCount, id, name.c_str());
+@@ -132,10 +201,19 @@ void IStreamBufferConcept::BindBufferRange(GLuint index, uint32_t bindTarget) co
+ {
+ 	RECOIL_DETAILED_TRACY_ZONE;
+ 	glBindBufferRange(bindTarget > 0 ? bindTarget : this->target, index, id, allocIdx * this->byteSize, this->byteSize);
++	boundIdx = allocIdx;
++	MarkBoundBufferUsed();
+ }
+ 
+ void IStreamBufferConcept::UnbindBufferRange(GLuint index, uint32_t bindTarget) const
+ {
+ 	RECOIL_DETAILED_TRACY_ZONE;
+ 	glBindBufferRange(bindTarget > 0 ? bindTarget : this->target, index, 0u, allocIdx * this->byteSize, this->byteSize);
+-}
+\ No newline at end of file
++	boundIdx = INVALID_BUFFER_IDX;
++}
++
++void IStreamBufferConcept::MarkBoundBufferUsed() const
++{
++	if (boundIdx < fences.size())
++		QueueLockBuffer(fences[boundIdx]);
++}
+diff --git a/rts/Rendering/GL/StreamBuffer.h b/rts/Rendering/GL/StreamBuffer.h
+index 8ede153..8ee0d9e 100644
+--- a/rts/Rendering/GL/StreamBuffer.h
++++ b/rts/Rendering/GL/StreamBuffer.h
+@@ -1,3 +1,5 @@
++/* This file is part of the Spring engine (GPL v2 or later), see LICENSE.html */
++
+ #pragma once
+ 
+ #include "myGL.h"
+@@ -45,7 +47,7 @@ public:
+ 	static void PutBufferLocks();
+ 
+ 	IStreamBufferConcept(IStreamBufferConcept::StreamBufferCreationParams p, std::string_view bufferTypeName);
+-	virtual ~IStreamBufferConcept() {}
++	virtual ~IStreamBufferConcept();
+ 
+ 	uint32_t GetAlignedByteSize(uint32_t byteSizeRaw);
+ 
+@@ -54,6 +56,9 @@ public:
+ 
+ 	void BindBufferRange(GLuint index, uint32_t bindTarget = 0) const;
+ 	void UnbindBufferRange(GLuint index, uint32_t bindTarget = 0) const;
++	// Indexed bindings can keep reading a slot after SwapBuffer advances the
++	// write cursor. Call each draw frame that reuses the unchanged binding.
++	void MarkBoundBufferUsed() const;
+ 
+ 	uint32_t GetID() const { return id; }
+ 	uint32_t GetTarget() const { return target; }
+@@ -61,11 +66,21 @@ public:
+ 
+ 	virtual IStreamBufferConcept::Types GetBufferImplementation() const = 0;
+ protected:
++	struct BufferFence {
++		GLsync sync = nullptr;
++		bool queued = false;
++	};
++
+ 	void CreateBuffer(uint32_t byteBufferSize, uint32_t newUsage);
+ 	void CreateBufferStorage(uint32_t byteBufferSize, uint32_t flags);
+ 	void DeleteBuffer();
+-	void QueueLockBuffer(GLsync& syncObj) const;
+-	void WaitBuffer(GLsync& syncObj) const;
++	void InitBufferFences(uint32_t count);
++	void ClearBufferFences();
++	void QueueLockBuffer(BufferFence& fence) const;
++	void WaitBuffer(BufferFence& fence) const;
++private:
++	static void PutBufferLock(BufferFence& fence);
++	static void CancelBufferLock(BufferFence& fence);
+ protected:
+ 	const std::string name;
+ 	uint32_t target;
+@@ -76,9 +91,12 @@ protected:
+ 	uint32_t mapElemOffet;
+ 	uint32_t mapElemCount;
+ 	bool optimizeForStreaming;
++	mutable uint32_t boundIdx = INVALID_BUFFER_IDX;
++	mutable std::vector<BufferFence> fences;
+ protected:
+ 	inline static bool reportType = false;
+-	inline static std::vector<GLsync*> lockList = {};
++	inline static std::vector<BufferFence*> lockList = {};
++	static constexpr uint32_t INVALID_BUFFER_IDX = UINT32_MAX;
+ public:
+ 	static constexpr uint32_t DEFAULT_NUM_BUFFERS = 3;
+ };
+@@ -333,15 +351,16 @@ public:
+ 		this->CreateBufferStorage(numBuffers * this->byteSize,
+ 			GL_MAP_WRITE_BIT | GL_CLIENT_STORAGE_BIT);
+ 
+-		fences.resize(numBuffers);
+-		for (auto& fence : fences)
+-			this->QueueLockBuffer(fence);
++		this->InitBufferFences(numBuffers);
+ 	}
+ 
+ 	void Kill(bool deleteBuffer) override {
+-		for (auto& fence : fences)
++		if (this->id == 0)
++			return;
++		for (auto& fence : this->fences)
+ 			this->WaitBuffer(fence);
+ 		glFinish(); //just in case
++		this->ClearBufferFences();
+ 
+ 		this->DeleteBuffer(); //delete regardless because of immutability
+ 	}
+@@ -350,7 +369,7 @@ public:
+ 	T* Map(const T* clientPtr, uint32_t elemOffset, uint32_t elemCount) override {
+ 		IStreamBuffer<T>::Map(clientPtr, elemOffset, elemCount);
+ 
+-		this->WaitBuffer(fences[this->allocIdx]);
++		this->WaitBuffer(this->fences[this->allocIdx]);
+ 
+ 		this->Bind();
+ 		T* ptr = reinterpret_cast<T*>(glMapBufferRange(
+@@ -378,17 +397,16 @@ public:
+ 	}
+ 
+ 	uint32_t BufferElemOffset() const override {
+-		return this->allocIdx * this->numElements;
++		return this->allocIdx * (this->byteSize / sizeof(T));
+ 	}
+ 
+ 	void SwapBuffer() override {
+-		this->QueueLockBuffer(fences[this->allocIdx]);
++		this->QueueLockBuffer(this->fences[this->allocIdx]);
+ 		this->allocIdx = (this->allocIdx + 1) % numBuffers;
+ 	};
+ private:
+ 	uint32_t numBuffers;
+ 	const bool coherent;
+-	std::vector<GLsync> fences;
+ };
+ 
+ template<typename T>
+@@ -418,22 +436,24 @@ public:
+ 			numBuffers * this->byteSize,
+ 			GL_MAP_WRITE_BIT | GL_MAP_UNSYNCHRONIZED_BIT | GL_MAP_PERSISTENT_BIT | mix(GL_MAP_FLUSH_EXPLICIT_BIT, GL_MAP_COHERENT_BIT, coherent)
+ 		));
+-		assert(ptrBase);
+ 		this->Unbind();
+ 
+-		fences.resize(numBuffers);
+-		for (auto& fence : fences)
+-			this->QueueLockBuffer(fence);
++		this->InitBufferFences(numBuffers);
+ 	}
+ 
+ 	void Kill(bool deleteBuffer) override {
+-		for (auto& fence : fences)
++		if (this->id == 0)
++			return;
++		for (auto& fence : this->fences)
+ 			this->WaitBuffer(fence);
+ 		glFinish(); //just in case
++		this->ClearBufferFences();
+ 
+-		this->Bind();
+-		glUnmapBuffer(this->target);
+-		this->Unbind();
++		if (ptrBase != nullptr) {
++			this->Bind();
++			glUnmapBuffer(this->target);
++			this->Unbind();
++		}
+ 
+ 		this->DeleteBuffer(); //delete regardless because of immutability
+ 		ptrBase = nullptr;
+@@ -448,9 +468,9 @@ public:
+ 		IStreamBuffer<T>::Map(clientPtr, elemOffset, elemCount);
+ 		assert(ptrBase);
+ 
+-		this->WaitBuffer(fences[this->allocIdx]);
++		this->WaitBuffer(this->fences[this->allocIdx]);
+ 
+-		T* ptr = ptrBase + this->allocIdx * this->numElements + this->mapElemOffet;
++		T* ptr = reinterpret_cast<T*>(reinterpret_cast<uint8_t*>(ptrBase) + this->allocIdx * this->byteSize) + this->mapElemOffet;
+ 
+ 		return ptr;
+ 	}
+@@ -469,18 +489,17 @@ public:
+ 	}
+ 
+ 	uint32_t BufferElemOffset() const override {
+-		return this->allocIdx * this->numElements;
++		return this->allocIdx * (this->byteSize / sizeof(T));
+ 	}
+ 
+ 	void SwapBuffer() override {
+-		this->QueueLockBuffer(fences[this->allocIdx]);
++		this->QueueLockBuffer(this->fences[this->allocIdx]);
+ 		this->allocIdx = (this->allocIdx + 1) % numBuffers;
+ 	};
+ private:
+ 	uint32_t numBuffers;
+ 	T* ptrBase;
+ 	const bool coherent;
+-	std::vector<GLsync> fences;
+ };
+ 
+ template<typename T>
+@@ -509,16 +528,17 @@ public:
+ 
+ 		this->Bind();
+ 
+-		fences.resize(numBuffers);
+-		for (auto& fence : fences)
+-			IStreamBufferConcept::QueueLockBuffer(fence);
++		this->InitBufferFences(numBuffers);
+ 	}
+ 	void Kill(bool deleteBuffer) override {
+-		for (auto& fence : fences)
++		if (this->id == 0)
++			return;
++		for (auto& fence : this->fences)
+ 			this->WaitBuffer(fence);
+ 
+ 		this->Unbind();
+ 		glFinish();
++		this->ClearBufferFences();
+ 
+ 		this->DeleteBuffer();
+ 		recoil::aligned_free(ptrBase);
+@@ -530,26 +550,25 @@ public:
+ 		IStreamBuffer<T>::Map(clientPtr, elemOffset, elemCount);
+ 		assert(ptrBase);
+ 
+-		this->WaitBuffer(fences[this->allocIdx]);
++		this->WaitBuffer(this->fences[this->allocIdx]);
+ 
+-		T* ptr = ptrBase + this->allocIdx * this->numElements + this->mapElemOffet;
++		T* ptr = reinterpret_cast<T*>(reinterpret_cast<uint8_t*>(ptrBase) + this->allocIdx * this->byteSize) + this->mapElemOffet;
+ 		return ptr;
+ 	}
+ 
+ 	void Unmap() override {}
+ 
+ 	uint32_t BufferElemOffset() const override {
+-		return this->allocIdx * this->numElements;
++		return this->allocIdx * (this->byteSize / sizeof(T));
+ 	}
+ 
+ 	void SwapBuffer() override {
+-		this->QueueLockBuffer(fences[this->allocIdx]);
++		this->QueueLockBuffer(this->fences[this->allocIdx]);
+ 		this->allocIdx = (this->allocIdx + 1) % numBuffers;
+ 	};
+ private:
+ 	uint32_t numBuffers;
+ 	T* ptrBase;
+-	std::vector<GLsync> fences;
+ 
+ 	static constexpr uint32_t ALIGN_PINNED_MEMORY_SIZE = 4096;
+ };
+@@ -600,4 +619,4 @@ inline std::unique_ptr<IStreamBuffer<T>> IStreamBuffer<T>::CreateInstance(IStrea
+ 	//seems like sensible default
+ 	p.type = SB_BUFFERSUBDATA;
+ 	return CreateInstance(p);
+-}
+\ No newline at end of file
++}
+diff --git a/rts/Rendering/GL/myGL.cpp b/rts/Rendering/GL/myGL.cpp
+index 6e43965..572636c 100644
+--- a/rts/Rendering/GL/myGL.cpp
++++ b/rts/Rendering/GL/myGL.cpp
+@@ -52,8 +52,8 @@ bool CheckAvailableVideoModes()
+ 	// Get available fullscreen/hardware modes
+ 	const int numDisplays = SDL_GetNumVideoDisplays();
+ 
+-	SDL_DisplayMode ddm = {0, 0, 0, 0, nullptr};
+-	SDL_DisplayMode cdm = {0, 0, 0, 0, nullptr};
++	SDL_DisplayMode ddm = {};
++	SDL_DisplayMode cdm = {};
+ 
+ 	// ddm is virtual, contains all displays in multi-monitor setups
+ 	// for fullscreen windows with non-native resolutions, ddm holds
+@@ -78,8 +78,8 @@ bool CheckAvailableVideoModes()
+ 			continue;
+ 		}
+ 
+-		SDL_DisplayMode cm = {0, 0, 0, 0, nullptr};
+-		SDL_DisplayMode pm = {0, 0, 0, 0, nullptr};
++		SDL_DisplayMode cm = {};
++		SDL_DisplayMode pm = {};
+ 		SDL_Rect db;
+ 		SDL_GetDisplayBounds(k, &db);
+ 		const std::string dn = SDL_GetDisplayName(k);
+@@ -97,16 +97,16 @@ bool CheckAvailableVideoModes()
+ 			if (cm.w == pm.w && cm.h == pm.h && (SDL_BPP(cm.format) < SDL_BPP(pm.format) || cm.refresh_rate < pm.refresh_rate))
+ 				continue;
+ 
+-			globalRenderingInfo.availableVideoModes.emplace_back(GlobalRenderingInfo::AvailableVideoMode{
+-				dn,
+-				k + 1,
+-				cm.w,
+-				cm.h,
+-				static_cast<int32_t>(SDL_BPP(cm.format)),
+-				cm.refresh_rate
+-			});
++				globalRenderingInfo.availableVideoModes.emplace_back(GlobalRenderingInfo::AvailableVideoMode{
++					dn,
++					k + 1,
++					cm.w,
++					cm.h,
++					static_cast<int32_t>(SDL_BPP(cm.format)),
++					static_cast<int32_t>(cm.refresh_rate)
++				});
+ 
+-			LOG("\t\t[%2i] %ix%ix%ibpp@%iHz", int(i + 1), cm.w, cm.h, SDL_BPP(cm.format), cm.refresh_rate);
++				LOG("\t\t[%2i] %ix%ix%ibpp@%iHz", int(i + 1), cm.w, cm.h, SDL_BPP(cm.format), static_cast<int>(cm.refresh_rate));
+ 			pm = cm;
+ 		}
+ 	}
+@@ -740,4 +740,4 @@ void glClearErrors(const char* cls, const char* fnc, bool verbose)
+ 	} else {
+ 		for (int count = 0; (glGetError() != GL_NO_ERROR) && (count < 10000); count++);
+ 	}
+-}
+\ No newline at end of file
++}
+diff --git a/rts/Rendering/GlobalRendering.cpp b/rts/Rendering/GlobalRendering.cpp
+index 75cd716..ad424f1 100644
+--- a/rts/Rendering/GlobalRendering.cpp
++++ b/rts/Rendering/GlobalRendering.cpp
+@@ -1,8 +1,11 @@
+ /* This file is part of the Spring engine (GPL v2 or later), see LICENSE.html */
+ 
++#include <algorithm>
++#include <cstdint>
+ #include <string>
+ #include <sstream>
+ #include <iomanip>
++#include <limits>
+ 
+ #include <SDL.h>
+ 
+@@ -33,6 +36,9 @@
+ #include "System/Platform/SharedLib.h"
+ #include "System/Platform/WindowManagerHelper.h"
+ #include "System/Platform/errorhandler.h"
++#if defined(__APPLE__) && defined(RECOIL_MACOS_SDL3_EGL)
++#include "System/Platform/Mac/MacSDL3EGLBridge.h"
++#endif
+ #include "System/ScopedResource.h"
+ #include "System/QueueToMain.h"
+ #include "System/creg/creg_cond.h"
+@@ -57,6 +63,9 @@ CONFIG(int, ForceDisableExplicitAttribLocs).defaultValue(0).minimumValue(0).maxi
+ CONFIG(int, ForceDisableClipCtrl).defaultValue(0).minimumValue(0).maximumValue(1);
+ //CONFIG(int, ForceDisableShaders).defaultValue(0).minimumValue(0).maximumValue(1);
+ CONFIG(int, ForceDisableGL4).defaultValue(0).safemodeValue(1).minimumValue(0).maximumValue(1);
++CONFIG(int, ZinkMoltenVKCustomBorderColorUnsafe).defaultValue(-1).minimumValue(-1).maximumValue(1).description("Central macOS/Zink/MoltenVK custom border color risk hook. -1 runtime detect, 0 force safe, 1 force unsafe.");
++CONFIG(int, ZinkMoltenVKLogicOpUnsafe).defaultValue(-1).minimumValue(-1).maximumValue(1).description("Central macOS/Zink/MoltenVK logic-op risk hook. -1 runtime detect, 0 force safe, 1 force unsafe.");
++CONFIG(int, GeometryShadersUnsupported).defaultValue(-1).minimumValue(-1).maximumValue(1).description("Central GS-free backend hook. -1 runtime detect, 0 force allowed, 1 force unsupported.");
+ 
+ CONFIG(int, ForceCoreContext).defaultValue(0).minimumValue(0).maximumValue(1);
+ CONFIG(int, ForceSwapBuffers).defaultValue(1).minimumValue(0).maximumValue(1);
+@@ -70,16 +79,16 @@ CONFIG(bool, TeamNanoSpray).defaultValue(true).headlessValue(false);
+ 
+ CONFIG(int, MinimizeOnFocusLoss).defaultValue(0).minimumValue(0).maximumValue(1).description("When set to 1 minimize Window if it loses key focus when in fullscreen mode.");
+ 
+-CONFIG(bool, Fullscreen).defaultValue(true).headlessValue(false).description("Sets whether the game will run in fullscreen, as opposed to a window. For Windowed Fullscreen of Borderless Window, set this to 0, WindowBorderless to 1, and WindowPosX and WindowPosY to 0.");
+-CONFIG(bool, WindowBorderless).defaultValue(false).description("When set and Fullscreen is 0, will put the game in Borderless Window mode, also known as Windowed Fullscreen. When using this, it is generally best to also set WindowPosX and WindowPosY to 0");
++CONFIG(bool, Fullscreen).defaultValue(true).headlessValue(false).description("Logical-resolution-first fullscreen/windowed policy. Uses a logical-safe area by default; physical mode is kept as an advanced/explicit option.");
++CONFIG(bool, WindowBorderless).defaultValue(false).description("Windowed fullscreen on supported backends (logical-safe full-screen style). Pair with Fullscreen=0, WindowPosX=0, WindowPosY=0 for default borderless behavior.");
+ CONFIG(bool, BlockCompositing).defaultValue(false).safemodeValue(true).description("Disables kwin compositing to fix tearing, possible fixes low FPS in windowed mode, too.");
+ // setting this as default 0 for now is because if the frame were to be dropped for being late, DWMFlush will force the compositor to use the framebuffer. This can result in blocking until the framebuffer can be composited (up to 1 frame) and may not be desirable for all use cases (specifically with vsync set to off). However, only more widespread testing and investigation across various hardware/os configs would tell us what advantage DWMFlush would bring.
+ CONFIG(int, DWMFlush).defaultValue(0).description("Force Windows Desktop Compositors DWMFlush before each SDL_GL_SwapWindow, preventing dropped frames (use nVidias FrameView to validate dropped frames, or BARs Jitter Timer widget). Value of 1 does DWMFlush before SwapBuffers, value of 2 does DWMFlush after swapbuffers.");
+ 
+-CONFIG(int, XResolution).defaultValue(0).headlessValue(8).minimumValue(0).description("Sets the width of the game screen. If set to 0 Spring will autodetect the current resolution of your desktop.");
+-CONFIG(int, YResolution).defaultValue(0).headlessValue(8).minimumValue(0).description("Sets the height of the game screen. If set to 0 Spring will autodetect the current resolution of your desktop.");
+-CONFIG(int, XResolutionWindowed).defaultValue(0).headlessValue(8).minimumValue(0).description("See XResolution, just for windowed.");
+-CONFIG(int, YResolutionWindowed).defaultValue(0).headlessValue(8).minimumValue(0).description("See YResolution, just for windowed.");
++CONFIG(int, XResolution).defaultValue(0).headlessValue(8).minimumValue(0).description("Sets logical fullscreen/windowed width. If 0, Spring auto-detects the current logical-safe display width.");
++CONFIG(int, YResolution).defaultValue(0).headlessValue(8).minimumValue(0).description("Sets logical fullscreen/windowed height. If 0, Spring auto-detects the current logical-safe display height.");
++CONFIG(int, XResolutionWindowed).defaultValue(0).headlessValue(8).minimumValue(0).description("See XResolution. Used when Fullscreen=0.");
++CONFIG(int, YResolutionWindowed).defaultValue(0).headlessValue(8).minimumValue(0).description("See YResolution. Used when Fullscreen=0.");
+ CONFIG(int, WindowPosX).defaultValue(0 ).description("Sets the horizontal position of the game window, if Fullscreen is 0. When WindowBorderless is set, this should usually be 0.");
+ CONFIG(int, WindowPosY).defaultValue(32).description("Sets the vertical position of the game window, if Fullscreen is 0. When WindowBorderless is set, this should usually be 0.");
+ 
+@@ -194,6 +203,9 @@ CR_REG_METADATA(CGlobalRendering, (
+ 	CR_IGNORED(supportClipSpaceControl),
+ 	CR_IGNORED(supportSeamlessCubeMaps),
+ 	CR_IGNORED(supportFragDepthLayout),
++	CR_IGNORED(zinkMoltenVKCustomBorderColorUnsafe),
++	CR_IGNORED(zinkMoltenVKLogicOpUnsafe),
++	CR_IGNORED(geometryShadersUnsupported),
+ 	CR_IGNORED(haveGL4),
+ 	CR_IGNORED(glslMaxVaryings),
+ 	CR_IGNORED(glslMaxAttributes),
+@@ -324,6 +336,9 @@ CGlobalRendering::CGlobalRendering()
+ 	, supportClipSpaceControl(false)
+ 	, supportSeamlessCubeMaps(false)
+ 	, supportFragDepthLayout(false)
++	, zinkMoltenVKCustomBorderColorUnsafe(false)
++	, zinkMoltenVKLogicOpUnsafe(false)
++	, geometryShadersUnsupported(false)
+ 	, haveGL4(false)
+ 
+ 	, glslMaxVaryings(0)
+@@ -425,10 +440,34 @@ SDL_Window* CGlobalRendering::CreateSDLWindow(const char* title) const
+ 	//   SDL_WINDOW_FULLSCREEN_DESKTOP for "fake" fullscreen that takes the size of the desktop;
+ 	//   and 0 for windowed mode.
+ 
+-	uint32_t sdlFlags  = (SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE);
+-	         sdlFlags |= (borderless_ ? SDL_WINDOW_FULLSCREEN_DESKTOP : SDL_WINDOW_FULLSCREEN) * fullScreen_;
+-	         sdlFlags |= (SDL_WINDOW_BORDERLESS * borderless_);
++	uint32_t sdlFlags = SDL_WINDOW_RESIZABLE;
++#if defined(__APPLE__) && defined(RECOIL_MACOS_SDL3_EGL)
++	sdlFlags |= SDL_WINDOW_HIGH_PIXEL_DENSITY;
++	sdlFlags |= (SDL_WINDOW_BORDERLESS * (borderless_ || fullScreen_));
++#else
++	sdlFlags |= SDL_WINDOW_OPENGL;
++	sdlFlags |= (borderless_ ? SDL_WINDOW_FULLSCREEN_DESKTOP : SDL_WINDOW_FULLSCREEN) * fullScreen_;
++	sdlFlags |= (SDL_WINDOW_BORDERLESS * borderless_);
++#endif
+ 
++#if defined(__APPLE__) && defined(RECOIL_MACOS_SDL3_EGL)
++	SDL_Rect safeBounds = {winPosX_, winPosY_, newRes.x, newRes.y};
++	if (fullScreen_ || borderless_) {
++		MacSDL3EGL::DisplayGeometry initialGeometry = MacSDL3EGL::QueryDisplayGeometry(nullptr);
++		safeBounds = initialGeometry.safeBounds;
++		winPosX_ = safeBounds.x;
++		winPosY_ = safeBounds.y;
++		newRes = {safeBounds.w, safeBounds.h};
++	}
++
++	if ((newWindow = SDL_CreateWindow(title, newRes.x, newRes.y, sdlFlags)) == nullptr) {
++		LOG_L(L_WARNING, frmts[0], __func__, SDL_GetError(), 0, 24);
++	} else {
++		SDL_SetWindowPosition(newWindow, winPosX_, winPosY_);
++		LOG(frmts[1], __func__, 0, 24, wpfName = SDL_GetPixelFormatName(SDL_GetWindowPixelFormat(newWindow)));
++		MacSDL3EGL::LogDisplayGeometry(newWindow, "after-sdl3-window-create");
++	}
++#else
+ 	for (size_t i = 0; i < (aaLvls.size()) && (newWindow == nullptr); i++) {
+ 		if (i > 0 && aaLvls[i] == aaLvls[i - 1])
+ 			break;
+@@ -447,6 +486,7 @@ SDL_Window* CGlobalRendering::CreateSDLWindow(const char* title) const
+ 			LOG(frmts[1], __func__, aaLvls[i], zbBits[j], wpfName = SDL_GetPixelFormatName(SDL_GetWindowPixelFormat(newWindow)));
+ 		}
+ 	}
++#endif
+ 
+ 	if (newWindow == nullptr) {
+ 		auto buf = fmt::sprintf("[GR::%s] could not create SDL-window\n", __func__);
+@@ -461,6 +501,15 @@ SDL_Window* CGlobalRendering::CreateSDLWindow(const char* title) const
+ 
+ SDL_GLContext CGlobalRendering::CreateGLContext(const int2& minCtx)
+ {
++#if defined(__APPLE__) && defined(RECOIL_MACOS_SDL3_EGL)
++	if (macSDL3EGLBridge == nullptr)
++		macSDL3EGLBridge = std::make_unique<MacSDL3EGL::Bridge>();
++
++	if (!macSDL3EGLBridge->Initialize(sdlWindow, minCtx.x, minCtx.y, forceCoreContext != 0))
++		return nullptr;
++
++	return reinterpret_cast<SDL_GLContext>(macSDL3EGLBridge->GetContextOpaque());
++#else
+ 	SDL_GLContext newContext = nullptr;
+ 
+ 	constexpr int2 glCtxs[] = {{2, 0}, {2, 1},  {3, 0}, {3, 1}, {3, 2}, {3, 3},  {4, 0}, {4, 1}, {4, 2}, {4, 3}, {4, 4}, {4, 5}, {4, 6}};
+@@ -513,11 +562,17 @@ SDL_GLContext CGlobalRendering::CreateGLContext(const int2& minCtx)
+ 
+ 	// should never fail at this point
+ 	return (newContext = SDL_GL_CreateContext(sdlWindow));
++#endif
+ }
+ 
+ bool CGlobalRendering::CreateWindowAndContext(const char* title)
+ {
++#if defined(__APPLE__) && defined(RECOIL_MACOS_SDL3_EGL)
++	SDL_SetHint(SDL_HINT_VIDEO_DRIVER, "cocoa");
++	if (!SDL_Init(SDL_INIT_VIDEO)) {
++#else
+ 	if (SDL_Init(SDL_INIT_VIDEO) == -1) {
++#endif
+ 		LOG_L(L_FATAL, "[GR::%s] error \"%s\" initializing SDL", __func__, SDL_GetError());
+ 		return false;
+ 	}
+@@ -587,12 +642,28 @@ bool CGlobalRendering::CreateWindowAndContext(const char* title)
+ 	if ((glContext = CreateGLContext(minCtx)) == nullptr)
+ 		return false;
+ 
++#if defined(__APPLE__) && defined(RECOIL_MACOS_SDL3_EGL)
++	const int gladStatus = gladLoadGLLoader(MacSDL3EGL::GetGLProcAddress);
++	LOG("[GR::%s] gladLoadGLLoader via Mesa EGL returned %d", __func__, gladStatus);
++	if (gladStatus == 0) {
++		LOG_L(L_FATAL, "[GR::%s] gladLoadGLLoader via Mesa EGL failed", __func__);
++		return false;
++	}
++#else
+ 	gladLoadGL();
++#endif
++#if defined(__APPLE__) && defined(RECOIL_MACOS_SDL3_EGL)
++	macSDL3EGLBridge->LogContextDiagnostics("after-glad-load");
++#endif
+ 	GLX::Load(sdlWindow);
+ 
+ 	if (!CheckGLContextVersion(minCtx)) {
+ 		int ctxProfile = 0;
++#if defined(__APPLE__) && defined(RECOIL_MACOS_SDL3_EGL)
++		ctxProfile = globalRenderingInfo.glContextIsCore ? SDL_GL_CONTEXT_PROFILE_CORE : SDL_GL_CONTEXT_PROFILE_COMPATIBILITY;
++#else
+ 		SDL_GL_GetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, &ctxProfile);
++#endif
+ 
+ 		const std::string errStr = fmt::format("current OpenGL version {}.{}(core={}) is less than required {}.{}(core={}), aborting",
+ 			globalRenderingInfo.glContextVersion.x, globalRenderingInfo.glContextVersion.y, globalRenderingInfo.glContextIsCore,
+@@ -610,7 +681,12 @@ bool CGlobalRendering::CreateWindowAndContext(const char* title)
+ 
+ 
+ void CGlobalRendering::MakeCurrentContext(bool clear) const {
++#if defined(__APPLE__) && defined(RECOIL_MACOS_SDL3_EGL)
++	if (macSDL3EGLBridge != nullptr)
++		macSDL3EGLBridge->MakeCurrent(clear);
++#else
+ 	SDL_GL_MakeCurrent(sdlWindow, clear ? nullptr : glContext);
++#endif
+ }
+ 
+ 
+@@ -621,12 +697,19 @@ void CGlobalRendering::DestroyWindowAndContext() {
+ 	WindowManagerHelper::SetIconSurface(sdlWindow, nullptr);
+ 	SetWindowInputGrabbing(false);
+ 
++#if defined(__APPLE__) && defined(RECOIL_MACOS_SDL3_EGL)
++	if (macSDL3EGLBridge != nullptr)
++		macSDL3EGLBridge->Destroy();
++#else
+ 	SDL_GL_MakeCurrent(sdlWindow, nullptr);
++#endif
+ 	SDL_DestroyWindow(sdlWindow);
+ 
+ 	#if !defined(HEADLESS)
++#if !defined(__APPLE__) || !defined(RECOIL_MACOS_SDL3_EGL)
+ 	if (glContext)
+ 		SDL_GL_DeleteContext(glContext);
++#endif
+ 	#endif
+ 
+ 	sdlWindow = nullptr;
+@@ -700,7 +783,27 @@ void CGlobalRendering::SwapBuffers(bool allowSwapBuffers, bool clearErrors)
+ 			}
+ 		#endif
+ 		
++#if defined(__APPLE__) && defined(RECOIL_MACOS_SDL3_EGL)
++		// Run65 contract: the native fullscreen drawable includes the notch,
++		// but the game viewport does not. Preserve caller state when clearing it.
++		const int safeViewportTop = viewPosY + viewSizeY;
++		if (fullScreen && !dualScreenMode && safeViewportTop < winSizeY) {
++			GLint previousDrawFramebuffer = 0;
++			glGetIntegerv(GL_DRAW_FRAMEBUFFER_BINDING, &previousDrawFramebuffer);
++			glPushAttrib(GL_COLOR_BUFFER_BIT | GL_SCISSOR_BIT);
++			glBindFramebuffer(GL_DRAW_FRAMEBUFFER_EXT, 0);
++			glEnable(GL_SCISSOR_TEST);
++			LoadDefaultFramebufferScissor(0, safeViewportTop, winSizeX, winSizeY - safeViewportTop);
++			glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
++			glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
++			glClear(GL_COLOR_BUFFER_BIT);
++			glPopAttrib();
++			glBindFramebuffer(GL_DRAW_FRAMEBUFFER_EXT, previousDrawFramebuffer);
++		}
++		macSDL3EGLBridge->SwapBuffers();
++#else
+ 		SDL_GL_SwapWindow(sdlWindow);
++#endif
+ 
+ 		#ifdef _WIN32
+ 			if (forceDWMFlush == 2){ 
+@@ -828,6 +931,7 @@ void CGlobalRendering::SetGLSupportFlags()
+ 	haveIntel  = (  glVendor.find(  "intel") != std::string::npos);
+ 	haveNvidia = (  glVendor.find("nvidia ") != std::string::npos);
+ 	haveMesa   = (glRenderer.find("mesa ") != std::string::npos) || (glRenderer.find("gallium ") != std::string::npos) || (glVersion.find(" mesa ") != std::string::npos);
++	const bool haveZinkMoltenVK = haveMesa && glRenderer.find("zink") != std::string::npos && glRenderer.find("moltenvk") != std::string::npos;
+ 
+ 	if (haveAMD) {
+ 		globalRenderingInfo.gpuName   = globalRenderingInfo.glRenderer;
+@@ -908,6 +1012,13 @@ void CGlobalRendering::SetGLSupportFlags()
+ 	//supportFragDepthLayout = ((globalRenderingInfo.glContextVersion.x * 10 + globalRenderingInfo.glContextVersion.y) >= 42);
+ 	supportFragDepthLayout = GLAD_GL_ARB_conservative_depth; //stick to the theory that reported = exist
+ 
++	const int customBorderCfg = configHandler->GetInt("ZinkMoltenVKCustomBorderColorUnsafe");
++	const int logicOpCfg = configHandler->GetInt("ZinkMoltenVKLogicOpUnsafe");
++	const int geometryShaderCfg = configHandler->GetInt("GeometryShadersUnsupported");
++	zinkMoltenVKCustomBorderColorUnsafe = customBorderCfg > 0 || (customBorderCfg < 0 && haveZinkMoltenVK);
++	zinkMoltenVKLogicOpUnsafe = logicOpCfg > 0 || (logicOpCfg < 0 && haveZinkMoltenVK);
++	geometryShadersUnsupported = geometryShaderCfg > 0 || (geometryShaderCfg < 0 && haveZinkMoltenVK);
++
+ 	//stick to the theory that reported = exist
+ 	//supportMSAAFrameBuffer &= ((globalRenderingInfo.glContextVersion.x * 10 + globalRenderingInfo.glContextVersion.y) >= 32);
+ 
+@@ -1002,7 +1113,26 @@ void CGlobalRendering::QueryVersionInfo(char (&sdlVersionStr)[64], char (&glVidM
+ 		sdlVC.major, sdlVC.minor, sdlVC.patch
+ 	);
+ 
+-	if (!GetAvailableVideoRAM(&grInfo.gpuMemorySize.x, grInfo.glVendor))
++	bool haveVideoRAM = GetAvailableVideoRAM(&grInfo.gpuMemorySize.x, grInfo.glVendor);
++#if defined(__APPLE__) && defined(RECOIL_MACOS_SDL3_EGL)
++	if (!haveVideoRAM && macSDL3EGLBridge != nullptr) {
++		const uint64_t metalWorkingSetBytes = macSDL3EGLBridge->GetRecommendedMaxWorkingSetSizeBytes();
++		const uint64_t metalWorkingSetKiB = metalWorkingSetBytes / 1024;
++
++		if (metalWorkingSetKiB > 0) {
++			const uint64_t clampedWorkingSetKiB = std::min<uint64_t>(
++				metalWorkingSetKiB,
++				static_cast<uint64_t>(std::numeric_limits<GLint>::max())
++			);
++
++			grInfo.gpuMemorySize.x = static_cast<GLint>(clampedWorkingSetKiB);
++			grInfo.gpuMemorySize.y = grInfo.gpuMemorySize.x;
++			haveVideoRAM = true;
++		}
++	}
++#endif
++
++	if (!haveVideoRAM)
+ 		return;
+ 
+ 	const GLint totalMemMB = grInfo.gpuMemorySize.x / 1024;
+@@ -1023,10 +1153,19 @@ void CGlobalRendering::LogVersionInfo(const char* sdlVersionStr, const char* glV
+ 	LOG("\tGPU memory  : %s", glVidMemStr);
+ 	LOG("\tSDL swap-int: %d", SDL_GL_GetSwapInterval());
+ 	LOG("\tSDL driver  : %s", globalRenderingInfo.sdlDriverName);
++#if defined(__APPLE__) && defined(RECOIL_MACOS_SDL3_EGL)
++	if (macSDL3EGLBridge != nullptr) {
++		macSDL3EGLBridge->LogRuntimeEnvironment();
++		macSDL3EGLBridge->LogGeometry("LogVersionInfo");
++	}
++#endif
+ 	LOG("\t");
+ 	LOG("\tInitialized OpenGL Context: %i.%i (%s)", globalRenderingInfo.glContextVersion.x, globalRenderingInfo.glContextVersion.y, globalRenderingInfo.glContextIsCore ? "Core" : "Compat");
+ 	LOG("\tGLSL shader support       : %i", true);
+ 	LOG("\tGL4 support               : %i", haveGL4);
++	LOG("\tZink/MoltenVK custom border unsafe: %i", zinkMoltenVKCustomBorderColorUnsafe);
++	LOG("\tZink/MoltenVK logic-op unsafe      : %i", zinkMoltenVKLogicOpUnsafe);
++	LOG("\tgeometry shaders unsupported       : %i", geometryShadersUnsupported);
+ 	LOG("\tFBO extension support     : %i", FBO::IsSupported());
+ 	LOG("\tNVX GPU mem-info support  : %i", IsExtensionSupported("GL_NVX_gpu_memory_info"));
+ 	LOG("\tATI GPU mem-info support  : %i", IsExtensionSupported("GL_ATI_meminfo"));
+@@ -1151,8 +1290,8 @@ void CGlobalRendering::LogVersionInfo(const char* sdlVersionStr, const char* glV
+ void CGlobalRendering::LogDisplayMode(SDL_Window* window) const
+ {
+ 	// print final mode (call after SetupViewportGeometry, which updates viewSizeX/Y)
+-	SDL_DisplayMode dmode;
+-	SDL_GetWindowDisplayMode(window, &dmode);
++	SDL_DisplayMode dmode = {};
++	const int displayModeStatus = SDL_GetWindowDisplayMode(window, &dmode);
+ 
+ 	constexpr const std::array names = {
+ 		"windowed::decorated",       // fs=0,bl=0
+@@ -1164,7 +1303,27 @@ void CGlobalRendering::LogDisplayMode(SDL_Window* window) const
+ 	const int fs = fullScreen;
+ 	const int bl = borderless;
+ 
+-	LOG("[GR::%s] display-mode set to %ix%ix%ibpp@%iHz (%s)", __func__, viewSizeX, viewSizeY, SDL_BITSPERPIXEL(dmode.format), dmode.refresh_rate, names[fs * 2 + bl]);
++	if (displayModeStatus == 0) {
++		LOG("[GR::%s] display-mode set to %ix%ix%ibpp@%iHz (%s)", __func__, viewSizeX, viewSizeY, SDL_BITSPERPIXEL(dmode.format), static_cast<int>(dmode.refresh_rate), names[fs * 2 + bl]);
++		return;
++	}
++
++#if defined(__APPLE__) && defined(RECOIL_MACOS_SDL3_EGL)
++	const MacSDL3EGL::DisplayGeometry displayGeometry = MacSDL3EGL::QueryDisplayGeometry(window);
++	LOG("[GR::%s] display-mode set to %ix%i (%s), SDL mode unavailable: display=%s drawable=%ix%i scale={sdl=%.3f,cocoa=%.3f}",
++		__func__,
++		viewSizeX,
++		viewSizeY,
++		names[fs * 2 + bl],
++		displayGeometry.displayName != nullptr ? displayGeometry.displayName : "unknown",
++		displayGeometry.drawableWidth,
++		displayGeometry.drawableHeight,
++		displayGeometry.sdlScale,
++		displayGeometry.cocoaScale
++	);
++#else
++	LOG_L(L_WARNING, "[GR::%s] display-mode unavailable, using viewport %ix%i (%s)", __func__, viewSizeX, viewSizeY, names[fs * 2 + bl]);
++#endif
+ }
+ 
+ void CGlobalRendering::GetAllDisplayBounds(SDL_Rect& r) const
+@@ -1232,8 +1391,67 @@ void CGlobalRendering::SetWindowAttributes(SDL_Window* window)
+ 	const int2 maxRes = GetMaxWinRes();
+ 	      int2 newRes = GetCfgWinRes();
+ 
++#if defined(__APPLE__) && defined(RECOIL_MACOS_SDL3_EGL)
++	SDL_Rect displayBounds;
++	GetDisplayBounds(displayBounds);
++	SDL_Rect safeBounds = MacSDL3EGL::GetSafeDisplayBounds(window);
++	if (fullScreen) {
++		const int2 requestedRes = newRes;
++		const int displayIndex = GetCurrentDisplayIndex();
++		const int baseTopInset = std::max(0, displayBounds.h - safeBounds.h);
++		SDL_DisplayMode selectedMode = {};
++		bool modeSelected = false;
++
++		const int modeCount = SDL_GetNumDisplayModes(displayIndex);
++		for (int modeIndex = 0; modeIndex < modeCount; ++modeIndex) {
++			SDL_DisplayMode candidate = {};
++			if (SDL_GetDisplayMode(displayIndex, modeIndex, &candidate) != 0)
++				continue;
++			if (candidate.w != requestedRes.x)
++				continue;
++
++			const int scaledTopInset = (displayBounds.h > 0)
++				? ((baseTopInset * candidate.h + (displayBounds.h / 2)) / displayBounds.h)
++				: 0;
++			const int candidateSafeHeight = candidate.h - scaledTopInset;
++			const bool exactFullMode = candidate.h == requestedRes.y;
++			const bool matchingSafeMode = std::abs(candidateSafeHeight - requestedRes.y) <= 2;
++
++			if (exactFullMode || (matchingSafeMode && !modeSelected)) {
++				selectedMode = candidate;
++				modeSelected = true;
++				if (exactFullMode)
++					break;
++			}
++		}
++
++		if (!modeSelected)
++			modeSelected = (SDL_GetDesktopDisplayMode(displayIndex, &selectedMode) == 0);
++
++		if (modeSelected) {
++			if (!SDL_SetWindowFullscreenMode(window, &selectedMode))
++				LOG("[GR::%s][macOS fullscreen mode] SDL_SetWindowFullscreenMode err=\"%s\"", __func__, SDL_GetError());
++			newRes = {selectedMode.w, selectedMode.h};
++		}
++
++		winPosX = displayBounds.x;
++		winPosY = displayBounds.y;
++		LOG("[GR::%s][macOS fullscreen mode] requestedRender=<%d,%d> container=<%d,%d> safe=<%d,%d>",
++			__func__, requestedRes.x, requestedRes.y, newRes.x, newRes.y, safeBounds.w, safeBounds.h);
++	} else if (borderless) {
++		winPosX = safeBounds.x;
++		winPosY = safeBounds.y;
++		newRes = {safeBounds.w, safeBounds.h};
++	}
++#endif
++
+ 	LOG("[GR::%s][1] cfgFullScreen=%d numDisplays=%d winPos=<%d,%d> newRes=<%d,%d>", __func__, fullScreen, numDisplays, winPosX, winPosY, newRes.x, newRes.y);
++#if defined(__APPLE__) && defined(RECOIL_MACOS_SDL3_EGL)
++	if (!fullScreen)
++		GetWindowPosSizeBounded(winPosX, winPosY, newRes.x, newRes.y);
++#else
+ 	GetWindowPosSizeBounded(winPosX, winPosY, newRes.x, newRes.y);
++#endif
+ 	LOG("[GR::%s][2] cfgFullScreen=%d numDisplays=%d winPos=<%d,%d> newRes=<%d,%d>", __func__, fullScreen, numDisplays, winPosX, winPosY, newRes.x, newRes.y);
+ 
+ //	if (SDL_SetWindowFullscreen(window, 0) != 0)
+@@ -1245,12 +1463,27 @@ void CGlobalRendering::SetWindowAttributes(SDL_Window* window)
+ 	SDL_SetWindowPosition(window, winPosX, winPosY);
+ 	SDL_SetWindowSize(window, newRes.x, newRes.y);
+ 
++#if defined(__APPLE__) && defined(RECOIL_MACOS_SDL3_EGL)
++	SDL_SetHint("SDL_VIDEO_MAC_FULLSCREEN_SPACES", "1");
++	if (SDL_SetWindowFullscreen(window, fullScreen ? SDL_WINDOW_FULLSCREEN : 0) != 0)
++		LOG("[GR::%s][4][SDL_SetWindowFullscreen] err=\"%s\"", __func__, SDL_GetError());
++	if (!fullScreen)
++		SDL_SetWindowBordered(window, borderless ? SDL_FALSE : SDL_TRUE);
++	if (macSDL3EGLBridge != nullptr)
++		macSDL3EGLBridge->UpdateDrawableSize("SetWindowAttributes");
++	MacSDL3EGL::LogDisplayGeometry(window, "SetWindowAttributes");
++#else
+ 	if (SDL_SetWindowFullscreen(window, (borderless ? SDL_WINDOW_FULLSCREEN_DESKTOP : SDL_WINDOW_FULLSCREEN) * fullScreen) != 0)
+ 		LOG("[GR::%s][4][SDL_SetWindowFullscreen] err=\"%s\"", __func__, SDL_GetError());
+ 
+ 	SDL_SetWindowBordered(window, borderless ? SDL_FALSE : SDL_TRUE);
++#endif
+ 
+-	if (newRes == maxRes)
++	if (newRes == maxRes
++#if defined(__APPLE__) && defined(RECOIL_MACOS_SDL3_EGL)
++		&& !fullScreen && !borderless
++#endif
++	)
+ 		SDL_MaximizeWindow(window);
+ 
+ 	WindowManagerHelper::SetWindowResizable(window, !borderless && !fullScreen);
+@@ -1366,9 +1599,14 @@ bool CGlobalRendering::SetWindowPosHelper(int displayIdx, int winRPosX, int winR
+ }
+ 
+ int2 CGlobalRendering::GetMaxWinRes() const {
++#if defined(__APPLE__) && defined(RECOIL_MACOS_SDL3_EGL)
++	SDL_Rect safeBounds = MacSDL3EGL::GetSafeDisplayBounds(sdlWindow);
++	return {safeBounds.w, safeBounds.h};
++#else
+ 	SDL_DisplayMode dmode;
+ 	SDL_GetDesktopDisplayMode(GetCurrentDisplayIndex(), &dmode);
+ 	return {dmode.w, dmode.h};
++#endif
+ }
+ 
+ int2 CGlobalRendering::GetCfgWinRes() const
+@@ -1399,6 +1637,12 @@ void CGlobalRendering::GetDisplayBounds(SDL_Rect& r, const int* di) const
+ 
+ void CGlobalRendering::GetUsableDisplayBounds(SDL_Rect& r, const int* di) const
+ {
++#if defined(__APPLE__) && defined(RECOIL_MACOS_SDL3_EGL)
++	if (di == nullptr) {
++		r = MacSDL3EGL::GetSafeDisplayBounds(sdlWindow);
++		return;
++	}
++#endif
+ 	const int displayIndex = di ? *di : GetCurrentDisplayIndex();
+ 	SDL_GetDisplayUsableBounds(displayIndex, &r);
+ }
+@@ -1436,6 +1680,27 @@ void CGlobalRendering::UpdateViewPortGeometry()
+ 	viewSizeY = winSizeY;
+ 	viewWindowOffsetY = 0;
+ 
++#if defined(__APPLE__) && defined(RECOIL_MACOS_SDL3_EGL)
++	if (fullScreen && !dualScreenMode && macSDL3EGLBridge != nullptr) {
++		const MacSDL3EGL::DisplayGeometry geometry = MacSDL3EGL::QueryDisplayGeometry(sdlWindow);
++		const int safeOffsetX = std::max(0, geometry.safeBounds.x - geometry.displayBounds.x);
++		const int safeOffsetY = std::max(0, geometry.safeBounds.y - geometry.displayBounds.y);
++
++		if (geometry.safeBounds.w > 0 && geometry.safeBounds.h > 0 &&
++			winSizeX >= safeOffsetX + geometry.safeBounds.w &&
++			winSizeY >= safeOffsetY + geometry.safeBounds.h) {
++			viewPosX = safeOffsetX;
++			viewPosY = std::max(0, winSizeY - (safeOffsetY + geometry.safeBounds.h));
++			viewSizeX = geometry.safeBounds.w;
++			viewSizeY = geometry.safeBounds.h;
++			viewWindowOffsetY = safeOffsetY;
++			LOG("[GR::%s][macOS safe viewport] window=%dx%d view=<%d,%d %dx%d> mouseTopOffset=%d",
++				__func__, winSizeX, winSizeY, viewPosX, viewPosY, viewSizeX, viewSizeY, viewWindowOffsetY);
++			return;
++		}
++	}
++#endif
++
+ 	if (!dualScreenMode) {
+ 		viewPosX = 0;
+ 		viewSizeX = winSizeX;
+@@ -1570,6 +1835,11 @@ void CGlobalRendering::ReadWindowPosAndSize()
+ 
+ 	SDL_GetWindowSize(sdlWindow, &winSizeX, &winSizeY);
+ 	SDL_GetWindowPosition(sdlWindow, &winPosX, &winPosY);
++#if defined(__APPLE__) && defined(RECOIL_MACOS_SDL3_EGL)
++	if (macSDL3EGLBridge != nullptr)
++		macSDL3EGLBridge->UpdateDrawableSize("ReadWindowPosAndSize");
++	MacSDL3EGL::LogDisplayGeometry(sdlWindow, "ReadWindowPosAndSize");
++#endif
+ 
+ 	//enforce >=0 https://github.com/beyond-all-reason/spring/issues/23
+ 	//winPosX = std::max(winPosX, 0);
+@@ -2015,12 +2285,84 @@ bool CGlobalRendering::ToggleGLDebugOutput(unsigned int msgSrceIdx, unsigned int
+ 	return true;
+ }
+ 
++static GLint ScaleDefaultFramebufferCoord(int value, float scale)
++{
++	return static_cast<GLint>((static_cast<float>(value) * scale) + (value >= 0 ? 0.5f : -0.5f));
++}
++
++static GLsizei ScaleDefaultFramebufferSize(int value, float scale)
++{
++	return static_cast<GLsizei>((static_cast<float>(value) * scale) + 0.5f);
++}
++
++void CGlobalRendering::LoadDefaultFramebufferViewport(int px, int py, int sx, int sy) const
++{
++#if defined(__APPLE__) && defined(RECOIL_MACOS_SDL3_EGL)
++	if (sdlWindow != nullptr) {
++		GLint drawFramebuffer = 0;
++		glGetIntegerv(GL_DRAW_FRAMEBUFFER_BINDING, &drawFramebuffer);
++		if (drawFramebuffer != 0) {
++			glViewport(px, py, sx, sy);
++			return;
++		}
++
++		const MacSDL3EGL::DisplayGeometry displayGeometry = MacSDL3EGL::QueryDisplayGeometry(sdlWindow);
++		const float scaleX =
++			(displayGeometry.logicalWindowWidth > 0 && displayGeometry.drawableWidth > 0)?
++				(static_cast<float>(displayGeometry.drawableWidth) / static_cast<float>(displayGeometry.logicalWindowWidth)): 1.0f;
++		const float scaleY =
++			(displayGeometry.logicalWindowHeight > 0 && displayGeometry.drawableHeight > 0)?
++				(static_cast<float>(displayGeometry.drawableHeight) / static_cast<float>(displayGeometry.logicalWindowHeight)): 1.0f;
++
++		glViewport(
++			ScaleDefaultFramebufferCoord(px, scaleX),
++			ScaleDefaultFramebufferCoord(py, scaleY),
++			ScaleDefaultFramebufferSize(sx, scaleX),
++			ScaleDefaultFramebufferSize(sy, scaleY)
++		);
++		return;
++	}
++#endif
++	glViewport(px, py, sx, sy);
++}
++
++void CGlobalRendering::LoadDefaultFramebufferScissor(int px, int py, int sx, int sy) const
++{
++#if defined(__APPLE__) && defined(RECOIL_MACOS_SDL3_EGL)
++	if (sdlWindow != nullptr) {
++		GLint drawFramebuffer = 0;
++		glGetIntegerv(GL_DRAW_FRAMEBUFFER_BINDING, &drawFramebuffer);
++		if (drawFramebuffer != 0) {
++			glScissor(px, py, sx, sy);
++			return;
++		}
++
++		const MacSDL3EGL::DisplayGeometry displayGeometry = MacSDL3EGL::QueryDisplayGeometry(sdlWindow);
++		const float scaleX =
++			(displayGeometry.logicalWindowWidth > 0 && displayGeometry.drawableWidth > 0)?
++				(static_cast<float>(displayGeometry.drawableWidth) / static_cast<float>(displayGeometry.logicalWindowWidth)): 1.0f;
++		const float scaleY =
++			(displayGeometry.logicalWindowHeight > 0 && displayGeometry.drawableHeight > 0)?
++				(static_cast<float>(displayGeometry.drawableHeight) / static_cast<float>(displayGeometry.logicalWindowHeight)): 1.0f;
++
++		glScissor(
++			ScaleDefaultFramebufferCoord(px, scaleX),
++			ScaleDefaultFramebufferCoord(py, scaleY),
++			ScaleDefaultFramebufferSize(sx, scaleX),
++			ScaleDefaultFramebufferSize(sy, scaleY)
++		);
++		return;
++	}
++#endif
++	glScissor(px, py, sx, sy);
++}
++
+ void CGlobalRendering::LoadViewport()
+ {
+-	glViewport(viewPosX, viewPosY, viewSizeX, viewSizeY);
++	LoadDefaultFramebufferViewport(viewPosX, viewPosY, viewSizeX, viewSizeY);
+ }
+ 
+ void CGlobalRendering::LoadDualViewport()
+ {
+-	glViewport(dualViewPosX, dualViewPosY, dualViewSizeX, dualViewSizeY);
++	LoadDefaultFramebufferViewport(dualViewPosX, dualViewPosY, dualViewSizeX, dualViewSizeY);
+ }
+diff --git a/rts/Rendering/GlobalRendering.h b/rts/Rendering/GlobalRendering.h
+index 0406b8b..acc3212 100644
+--- a/rts/Rendering/GlobalRendering.h
++++ b/rts/Rendering/GlobalRendering.h
+@@ -14,10 +14,22 @@
+ #include "System/type2.h"
+ 
+ class SharedLib;
++
+ struct SDL_version;
+ struct SDL_Rect;
+ struct SDL_Window;
++#if !defined(SDL_video_h_)
++#if defined(__APPLE__) && defined(RECOIL_MACOS_SDL3_EGL)
++struct SDL_GLContextState;
++typedef SDL_GLContextState* SDL_GLContext;
++#else
+ typedef void* SDL_GLContext;
++#endif
++#endif
++
++#if defined(__APPLE__) && defined(RECOIL_MACOS_SDL3_EGL)
++namespace MacSDL3EGL { class Bridge; }
++#endif
+ 
+ /**
+  * @brief Globally accessible unsynced, rendering related data
+@@ -98,6 +110,8 @@ public:
+ 
+ 	void LoadViewport();
+ 	void LoadDualViewport();
++	void LoadDefaultFramebufferViewport(int px, int py, int sx, int sy) const;
++	void LoadDefaultFramebufferScissor(int px, int py, int sx, int sy) const;
+ 
+ 	void UpdateWindowBorders(SDL_Window* window) const;
+ 
+@@ -329,6 +343,9 @@ public:
+ 	bool supportClipSpaceControl;
+ 	bool supportSeamlessCubeMaps;
+ 	bool supportFragDepthLayout;
++	bool zinkMoltenVKCustomBorderColorUnsafe;
++	bool zinkMoltenVKLogicOpUnsafe;
++	bool geometryShadersUnsupported;
+ 
+ 	/**
+ 	 * Shader capabilities
+@@ -383,6 +400,9 @@ public:
+ public:
+ 	SDL_Window* sdlWindow;
+ 	SDL_GLContext glContext;
++#if defined(__APPLE__) && defined(RECOIL_MACOS_SDL3_EGL)
++	std::unique_ptr<MacSDL3EGL::Bridge> macSDL3EGLBridge;
++#endif
+ public:
+ 	/**
+ 	* @brief maximum texture unit number
+@@ -425,4 +445,3 @@ private:
+ extern CGlobalRendering* globalRendering;
+ 
+ #endif /* _GLOBAL_RENDERING_H */
+-
+diff --git a/rts/Rendering/Models/3DModelVAO.cpp b/rts/Rendering/Models/3DModelVAO.cpp
+index ae9d82d..9c7a39b 100644
+--- a/rts/Rendering/Models/3DModelVAO.cpp
++++ b/rts/Rendering/Models/3DModelVAO.cpp
+@@ -183,6 +183,9 @@ void S3DModelVAO::UploadVBOs()
+ 		const size_t reqSize = AlignUp(std::max(indxData.size(), S3DModelVAO::INDX_SIZE0) * sizeof(   uint32_t), MEM_STEP);
+ 		reinitVAO |= (reqSize > indxVBO.GetSize());
+ 		indxVBO.Resize(reqSize, GL_STATIC_DRAW); //noop if size hasn't changed, will copy data if changed
++		#ifdef __APPLE__
++		indexRestartState.IncludeUpload(std::span<const uint32_t>(indxData).subspan(indxUploadIndex));
++		#endif
+ 		indxVBO.SetBufferSubData(indxUploadIndex * sizeof(   uint32_t), (indxData.size() - indxUploadIndex) * sizeof(   uint32_t), indxData.data() + indxUploadIndex);
+ 		indxVBO.Unbind();
+ 		indxUploadIndex = indxData.size();
+diff --git a/rts/Rendering/Models/3DModelVAO.hpp b/rts/Rendering/Models/3DModelVAO.hpp
+index e64f3fb..dc16d6d 100644
+--- a/rts/Rendering/Models/3DModelVAO.hpp
++++ b/rts/Rendering/Models/3DModelVAO.hpp
+@@ -5,6 +5,7 @@
+ 
+ #include "Rendering/Models/VertexData.hpp"
+ #include "Rendering/GL/myGL.h"
++#include "Rendering/GL/IndexBufferRestartState.h"
+ #include "Rendering/GL/VBO.h"
+ #include "Rendering/GL/VAO.h"
+ 
+@@ -86,6 +87,20 @@ public:
+ 	const VBO* GetIndxVBO() const { return &indxVBO; }
+ 	      VBO* GetIndxVBO()       { return &indxVBO; }
+ 
++	bool CanSkipPrimitiveRestart(const VBO* buffer, uint32_t restartIndex) const
++	{
++		#ifdef __APPLE__
++		return buffer == &indxVBO && indexRestartState.CanSkip(restartIndex);
++		#else
++		return false;
++		#endif
++	}
++	void InvalidateIndexRestartProof(const VBO* buffer)
++	{
++		if (buffer == &indxVBO)
++			indexRestartState.Invalidate();
++	}
++
+ 	auto GetVertElemCount() const { return vertUploadSize; }
+ 	auto GetIndxElemCount() const { return indxUploadSize; }
+ private:
+@@ -122,6 +137,7 @@ private:
+ 	static std::unique_ptr<S3DModelVAO> instance;
+ private:
+ 	bool safeToDeleteVectors = false;
++	IndexBufferRestartState indexRestartState;
+ 
+ 	uint32_t batchedBaseInstance   = 0;
+ 	uint32_t immediateBaseInstance = 0; //note relative index
+diff --git a/rts/Rendering/Models/AssIO.h b/rts/Rendering/Models/AssIO.h
+index 0f29cf0..3720bdb 100644
+--- a/rts/Rendering/Models/AssIO.h
++++ b/rts/Rendering/Models/AssIO.h
+@@ -3,6 +3,8 @@
+ #ifndef ASS_IO_H
+ #define ASS_IO_H
+ 
++#include <cmath>
++
+ // assimp public headers modify #pragma pack across includes (clang -Wpragma-pack)
+ #ifdef __clang__
+ #pragma clang diagnostic push
+diff --git a/rts/Rendering/Models/ModelsMemStorage.cpp b/rts/Rendering/Models/ModelsMemStorage.cpp
+index cef7203..97439aa 100644
+--- a/rts/Rendering/Models/ModelsMemStorage.cpp
++++ b/rts/Rendering/Models/ModelsMemStorage.cpp
+@@ -1,4 +1,11 @@
++/* This file is part of the Spring engine (GPL v2 or later), see LICENSE.html */
++
+ #include "ModelsMemStorage.h"
++
++#include <atomic>
++#include <bit>
++
++#include "Sim/Objects/SolidObject.h"
+ #include "Sim/Objects/WorldObject.h"
+ 
+ #include "System/Misc/TracyDefs.h"
+@@ -102,6 +109,73 @@ ModelUniformsStorage::MyType& ModelUniformsStorage::GetObjUniformsArray(const CW
+ 	return storage[offset];
+ }
+ 
++namespace {
++	bool SameFloatBits(float lhs, float rhs)
++	{
++		return std::bit_cast<uint32_t>(lhs) == std::bit_cast<uint32_t>(rhs);
++	}
++
++	bool SameFloatBits(const float4& lhs, const float4& rhs)
++	{
++		return SameFloatBits(lhs.x, rhs.x) && SameFloatBits(lhs.y, rhs.y)
++			&& SameFloatBits(lhs.z, rhs.z) && SameFloatBits(lhs.w, rhs.w);
++	}
++}
++
++void ModelUniformsStorage::UpdateObjectUniforms(const CSolidObject* o, bool visible)
++{
++	RECOIL_DETAILED_TRACY_ZONE;
++	const size_t offset = GetObjOffset(o);
++	// FreeListMap's mutable operator[] may resize; producers only access elements.
++	auto& uni = storage.GetData()[offset];
++
++	if (!visible) {
++		if (uni.drawFlag != o->drawFlag) {
++			uni.drawFlag = o->drawFlag;
++			updateList.SetUpdate(offset);
++		}
++		return;
++	}
++
++	const uint16_t id = o->id;
++	const uint8_t teamID = o->team;
++	const float4 drawPos{ o->drawPos, o->heading * math::PI / SPRING_MAX_HEADING };
++	if (uni.drawFlag == o->drawFlag
++		&& SameFloatBits(uni.drawPos, drawPos)
++		&& SameFloatBits(uni.speed, o->speed)
++		&& uni.id == id && uni.teamID == teamID
++		&& SameFloatBits(uni.maxHealth, o->maxHealth)
++		&& SameFloatBits(uni.health, o->health))
++		return;
++
++	uni.drawFlag = o->drawFlag;
++	uni.id = id;
++	uni.teamID = teamID;
++	uni.drawPos = drawPos;
++	uni.speed = o->speed;
++	uni.maxHealth = o->maxHealth;
++	uni.health = o->health;
++	updateList.SetUpdate(offset);
++}
++
++void ModelUniformsStorage::UpdateUserDefinedUniforms(size_t objectOffset, const float* values, size_t offset, size_t count)
++{
++	RECOIL_DETAILED_TRACY_ZONE;
++	assert(objectOffset < storage.size());
++	assert(offset <= MyType::MAX_MODEL_UD_UNIFORMS);
++	assert(count <= MyType::MAX_MODEL_UD_UNIFORMS - offset);
++	if (count == 0)
++		return;
++
++	auto* target = storage.GetData()[objectOffset].userDefined + offset;
++	const auto equalBits = [](float lhs, float rhs) { return SameFloatBits(lhs, rhs); };
++	if (std::equal(values, values + count, target, equalBits))
++		return;
++
++	std::copy(values, values + count, target);
++	updateList.SetUpdate(objectOffset);
++}
++
+ ////////////////////////////////////////////////////////////////////
+ 
+ TransformsMemStorage::TransformsMemStorage()
+@@ -120,8 +194,12 @@ size_t TransformsMemStorage::Allocate(size_t numElems)
+ {
+ 	auto lock = CModelsLock::GetScopedLock();
+ 
++	// Pair the caller's completed-producer observation before relocating storage.
++	std::atomic_thread_fence(std::memory_order_acquire);
+ 	auto res = storage.Allocate(numElems);
+-	updateList.Resize(storage.GetSize());
++	updateList.ResizePreservingUpdates(storage.GetSize());
++	if (numElems > 0)
++		updateList.SetUpdate(res, numElems);
+ 
+ 	return res;
+ }
+@@ -130,6 +208,8 @@ void TransformsMemStorage::Free(size_t firstElem, size_t numElems, const MyType*
+ {
+ 	auto lock = CModelsLock::GetScopedLock();
+ 
++	// Pair the caller's completed-producer observation before modifying storage.
++	std::atomic_thread_fence(std::memory_order_acquire);
+ 	storage.Free(firstElem, numElems, T0);
+ 	updateList.SetUpdate(firstElem, numElems);
+ 	updateList.Trim(storage.GetSize());
+@@ -140,4 +220,4 @@ const TransformsMemStorage::MyType& TransformsMemStorage::operator[](std::size_t
+ 	auto lock = CModelsLock::GetScopedLock();
+ 
+ 	return storage[idx];
+-}
+\ No newline at end of file
++}
+diff --git a/rts/Rendering/Models/ModelsMemStorage.h b/rts/Rendering/Models/ModelsMemStorage.h
+index b7b64ac..f9992f2 100644
+--- a/rts/Rendering/Models/ModelsMemStorage.h
++++ b/rts/Rendering/Models/ModelsMemStorage.h
+@@ -1,3 +1,5 @@
++/* This file is part of the Spring engine (GPL v2 or later), see LICENSE.html */
++
+ #pragma once
+ 
+ #include <memory>
+@@ -153,6 +155,7 @@ private:
+ ////////////////////////////////////////////////////////////////////
+ 
+ class CWorldObject;
++class CSolidObject;
+ class ModelUniformsStorage {
+ private:
+ 	using MyType = ModelUniformData;
+@@ -166,6 +169,10 @@ public:
+ 	const MyType& GetObjUniformsArray(const CWorldObject* o) const;
+ 	MyType& GetObjUniformsArray(const CWorldObject* o);
+ 	void   DelObject(const CWorldObject* o);
++	// Already registered, disjoint objects during the producer batch. Structural
++	// storage changes and snapshot consumption remain outside that batch.
++	void UpdateObjectUniforms(const CSolidObject* o, bool visible);
++	void UpdateUserDefinedUniforms(size_t objectOffset, const float* values, size_t offset, size_t count);
+ 
+ 	size_t AddObject(const SolidObjectDef* o) { return INVALID_INDEX; }
+ 	size_t GetObjOffset(const SolidObjectDef* o) { return INVALID_INDEX; }
+diff --git a/rts/Rendering/ModelsDataUploader.cpp b/rts/Rendering/ModelsDataUploader.cpp
+index 12947a6..d1b217d 100644
+--- a/rts/Rendering/ModelsDataUploader.cpp
++++ b/rts/Rendering/ModelsDataUploader.cpp
+@@ -1,8 +1,12 @@
++/* This file is part of the Spring engine (GPL v2 or later), see LICENSE.html */
++
+ #include "ModelsDataUploader.h"
+ 
+ #include <limits>
+ #include <cassert>
++#include <atomic>
+ 
++#include "System/Config/ConfigHandler.h"
+ #include "System/float4.h"
+ #include "System/Matrix44f.h"
+ #include "System/Log/ILog.h"
+@@ -31,8 +35,20 @@
+ 
+ ////////////////////////////////////////////////////////////////////
+ 
++#ifdef __APPLE__
++CONFIG(int, MacModelUploadBuffers).defaultValue(6).minimumValue(3).maximumValue(8)
++	.description("macOS model data upload slots. Applied when upload buffers are initialized.");
++#endif
++
+ namespace Impl {
+-	static constexpr uint32_t PERSISTENT_MAPPING_BUFFERING = 3u;
++	static uint32_t GetModelUploadBufferCount()
++	{
++		#ifdef __APPLE__
++		return std::clamp(configHandler->GetInt("MacModelUploadBuffers"), 3, 8);
++		#else
++		return 3u;
++		#endif
++	}
+ 
+ 	template<
+ 		typename DataType,
+@@ -42,6 +58,9 @@ namespace Impl {
+ 	>
+ 	void UpdateCommon(Uploader& uploader, std::unique_ptr<SSBO>& ssbo, MemStorage& memStorage, const char* className, const char* funcName)
+ 	{
++		// The normal frame path has observed completion of the producer task groups.
++		// Pair that observation with their release RMWs before reading CPU snapshots.
++		std::atomic_thread_fence(std::memory_order_acquire);
+ 		auto& ul = memStorage.GetUpdateList();
+ 
+ 		if (!ssbo || !ssbo->IsValid()) {
+@@ -83,8 +102,11 @@ namespace Impl {
+ 			ul.SetNeedUpdateAll();
+ 		}
+ 
+-		if (!ul.NeedUpdate())
++		if (!ul.NeedUpdate()) {
++			// No upload or rotation, but draws still read the last bound slot.
++			ssbo->MarkBoundBufferUsed();
+ 			return;
++		}
+ 
+ 		// may have been already unbound above, not a big deal
+ 		ssbo->UnbindBufferRange(uploader.GetBindingIdx());
+@@ -92,24 +114,35 @@ namespace Impl {
+ 		// get the data
+ 		const auto* clientPtr = memStorage.GetData().data();
+ 
+-		// iterate over contiguous regions of values that need update on the GPU
+-		for (auto itPair = ul.GetNext(); itPair.has_value(); itPair = ul.GetNext(itPair)) {
++		// Both model uploaders use coherent persistent storage. Map that write slot
++		// once, then copy only its pending ranges; other implementations retain their
++		// range-specific uploads. Never pass count 0 (which means remaining capacity).
++		auto itPair = ul.GetNext();
++		const bool mapSnapshot = itPair.has_value() && storageElemCount > 0
++			&& ssbo->GetBufferImplementation() == IStreamBufferConcept::Types::SB_PERSISTENTMAP;
++		auto* snapshotPtr = mapSnapshot ? ssbo->Map(clientPtr, 0, storageElemCount) : nullptr;
++		for (; itPair.has_value(); itPair = ul.GetNext(itPair)) {
+ 			auto [idxOffset, idxSize] = ul.GetOffsetAndSize(itPair.value());
+ 
+-			auto* mappedPtr = ssbo->Map(clientPtr, idxOffset, idxSize);
++			auto* mappedPtr = mapSnapshot ? snapshotPtr + idxOffset : ssbo->Map(clientPtr, idxOffset, idxSize);
+ 
+ 			if (!ssbo->HasClientPtr())
+ 				std::copy(clientPtr + idxOffset, clientPtr + idxOffset + idxSize, mappedPtr);
+ 
+ 			ul.DecrementUpdate(itPair.value());
+ 
+-			ssbo->Unmap();
++			if (!mapSnapshot)
++				ssbo->Unmap();
+ 		}
++		if (mapSnapshot)
++			ssbo->Unmap();
+ 
+ 		ssbo->BindBufferRange(uploader.GetBindingIdx());
+ 		ssbo->SwapBuffer();
+ 
+-		ul.CalcNeedUpdateAll();
++		// This binding is complete. Unvisited slots keep their pending counters,
++		// but only a new CPU change or storage recreation requires another upload.
++		ul.FinishSnapshotUpdatePass();
+ 	}
+ 
+ 	template <
+@@ -154,6 +187,10 @@ namespace Impl {
+ 			ssbo = std::move(IStreamBuffer<DataType>::CreateInstance(p));
+ 		}
+ 
++		// Counts and initialization refer to actual CPU elements, not reserved
++		// capacity (the initial transform list can exceed its empty storage).
++		ul.ResizePreservingUpdates(memStorage.GetSize());
++		ul.SetNeedUpdateAll();
+ 		ssbo->BindBufferRange(bindingIdx);
+ 	}
+ 
+@@ -185,7 +222,7 @@ void TransformsUploader::Init()
+ 		ssbo,
+ 		transformsMemStorage,
+ 		MATRIX_SSBO_BINDING_IDX, ELEM_COUNT0, ELEM_COUNTI,
+-		sbType, true, Impl::PERSISTENT_MAPPING_BUFFERING,
++		sbType, true, (sbType == IStreamBufferConcept::Types::SB_PERSISTENTMAP ? Impl::GetModelUploadBufferCount() : 1u),
+ 		className
+ 	);
+ }
+@@ -202,7 +239,9 @@ void TransformsUploader::Update()
+ 
+ 	SCOPED_TIMER("TransformsUploader::Update");
+ 
+-	//auto lock = CModelsLock::GetScopedLock();
++	// Late model preloads can still mutate storage outside the foreground batch.
++	// Keep the snapshot and its update acknowledgement under their existing lock.
++	auto lock = CModelsLock::GetScopedLock();
+ 
+ 	Impl::UpdateCommon<MyDataType>(
+ 		*this,
+@@ -331,11 +370,21 @@ void ModelUniformsUploader::Init()
+ 	if (!globalRendering->haveGL4)
+ 		return;
+ 
++	#ifdef __APPLE__
++	const auto sbType = globalRendering->supportPersistentMapping
++		? IStreamBufferConcept::Types::SB_PERSISTENTMAP
++		: IStreamBufferConcept::Types::SB_BUFFERSUBDATA;
++	const uint32_t numBuffers = (sbType == IStreamBufferConcept::Types::SB_PERSISTENTMAP ? Impl::GetModelUploadBufferCount() : 1u);
++	#else
++	const auto sbType = IStreamBufferConcept::Types::SB_BUFFERSUBDATA;
++	const uint32_t numBuffers = 1u;
++	#endif
++
+ 	Impl::InitCommon<MyDataType>(
+ 		ssbo,
+ 		modelUniformsStorage,
+ 		MATUNI_SSBO_BINDING_IDX, ELEM_COUNT0, ELEM_COUNTI,
+-		IStreamBufferConcept::Types::SB_BUFFERSUBDATA, true, 1,
++		sbType, true, numBuffers,
+ 		className
+ 	);
+ }
+diff --git a/rts/Rml/Backends/RmlUi_Backend.cpp b/rts/Rml/Backends/RmlUi_Backend.cpp
+index a46ae11..0f9a091 100644
+--- a/rts/Rml/Backends/RmlUi_Backend.cpp
++++ b/rts/Rml/Backends/RmlUi_Backend.cpp
+@@ -565,6 +565,16 @@ bool processContextEvent(Rml::Context* context, const SDL_Event& event)
+ 		case SDL_TEXTINPUT:
+ 			return true;  // handled elsewhere
+ 
++#if defined(RECOIL_MACOS_SDL3_EGL)
++		case SDL_WINDOWEVENT_SIZE_CHANGED: {
++			auto x = event.window.data1;
++			auto y = event.window.data2;
++
++			state->render_interface.SetViewport(x, y);
++			state->winX = x;
++			state->winY = y;
++		} break;
++#else
+ 		case SDL_WINDOWEVENT: {
+ 			if (event.window.event == SDL_WINDOWEVENT_SIZE_CHANGED) {
+ 				auto x = event.window.data1;
+@@ -575,6 +585,7 @@ bool processContextEvent(Rml::Context* context, const SDL_Event& event)
+ 				state->winY = y;
+ 			}
+ 		} break;
++#endif
+ 
+ 		default:
+ 			break;
+diff --git a/rts/Rml/Backends/RmlUi_SystemInterface.cpp b/rts/Rml/Backends/RmlUi_SystemInterface.cpp
+index adac2bf..303e7c6 100644
+--- a/rts/Rml/Backends/RmlUi_SystemInterface.cpp
++++ b/rts/Rml/Backends/RmlUi_SystemInterface.cpp
+@@ -193,16 +193,34 @@ bool RmlSDLRecoil::InputEventHandler(Rml::Context* context, const SDL_Event& ev)
+ 			result = context->ProcessMouseWheel(float(-ev.wheel.y), GetKeyModifierState());
+ 			break;
+ 		case SDL_KEYDOWN:
++#if defined(RECOIL_MACOS_SDL3_EGL)
++			result = context->ProcessKeyDown(ConvertKey(ev.key.key), GetKeyModifierState());
++			if (ev.key.key == SDLK_RETURN || ev.key.key == SDLK_KP_ENTER)
++#else
+ 			result = context->ProcessKeyDown(ConvertKey(ev.key.keysym.sym), GetKeyModifierState());
+ 			if (ev.key.keysym.sym == SDLK_RETURN || ev.key.keysym.sym == SDLK_KP_ENTER)
++#endif
+ 				result &= context->ProcessTextInput('\n');
+ 			break;
+ 		case SDL_KEYUP:
++#if defined(RECOIL_MACOS_SDL3_EGL)
++			result = context->ProcessKeyUp(ConvertKey(ev.key.key), GetKeyModifierState());
++#else
+ 			result = context->ProcessKeyUp(ConvertKey(ev.key.keysym.sym), GetKeyModifierState());
++#endif
+ 			break;
+ 		case SDL_TEXTINPUT:
+ 			result = context->ProcessTextInput(Rml::String(&ev.text.text[0]));
+ 			break;
++#if defined(RECOIL_MACOS_SDL3_EGL)
++		case SDL_WINDOWEVENT_SIZE_CHANGED: {
++			Rml::Vector2i dimensions(ev.window.data1, ev.window.data2);
++			context->SetDimensions(dimensions);
++		} break;
++		case SDL_WINDOWEVENT_LEAVE:
++			context->ProcessMouseLeave();
++			break;
++#else
+ 		case SDL_WINDOWEVENT: {
+ 			switch (ev.window.event) {
+ 				case SDL_WINDOWEVENT_SIZE_CHANGED: {
+@@ -214,6 +232,7 @@ bool RmlSDLRecoil::InputEventHandler(Rml::Context* context, const SDL_Event& ev)
+ 					break;
+ 			}
+ 		} break;
++#endif
+ 		default:
+ 			break;
+ 	}
+diff --git a/rts/System/CMakeLists.txt b/rts/System/CMakeLists.txt
+index 00022fa..bdbb832 100644
+--- a/rts/System/CMakeLists.txt
++++ b/rts/System/CMakeLists.txt
+@@ -143,10 +143,10 @@ set(sources_engine_System_Platform_Mac
+ 		"${CMAKE_CURRENT_SOURCE_DIR}/Platform/Linux/Hardware.cpp"
+ 		"${CMAKE_CURRENT_SOURCE_DIR}/Platform/Linux/SoLib.cpp"
+ 		"${CMAKE_CURRENT_SOURCE_DIR}/Platform/Mac/MessageBox.cpp"
+-		"${CMAKE_CURRENT_SOURCE_DIR}/Platform/Mac/CrashHandler.cpp"
+-		"${CMAKE_CURRENT_SOURCE_DIR}/Platform/Mac/WindowManagerHelper.cpp"
+-		"${CMAKE_CURRENT_SOURCE_DIR}/Platform/Linux/ThreadSupport.cpp"
+-	)
++			"${CMAKE_CURRENT_SOURCE_DIR}/Platform/Mac/CrashHandler.cpp"
++			"${CMAKE_CURRENT_SOURCE_DIR}/Platform/Mac/MacSDL3EGLBridge.mm"
++			"${CMAKE_CURRENT_SOURCE_DIR}/Platform/Mac/WindowManagerHelper.cpp"
++		)
+ set(sources_engine_System_Platform_Windows
+ 		"${CMAKE_CURRENT_SOURCE_DIR}/Platform/Win/CrashHandler.cpp"
+ 		"${CMAKE_CURRENT_SOURCE_DIR}/Platform/Win/Hardware.cpp"
+@@ -158,6 +158,8 @@ set(sources_engine_System_Platform_Windows
+ 
+ set(sources_engine_System_Threading_Mac
+ 		"${CMAKE_CURRENT_SOURCE_DIR}/Platform/Mac/Signal.cpp"
++		"${CMAKE_CURRENT_SOURCE_DIR}/Platform/Mac/CpuTopology.cpp"
++		"${CMAKE_CURRENT_SOURCE_DIR}/Platform/Mac/ThreadSupport.cpp"
+ 	)
+ set(sources_engine_System_Threading_Linux
+ 		"${CMAKE_CURRENT_SOURCE_DIR}/Platform/Linux/CpuTopology.cpp"
+diff --git a/rts/System/Input/KeyInput.cpp b/rts/System/Input/KeyInput.cpp
+index c759955..92cff49 100644
+--- a/rts/System/Input/KeyInput.cpp
++++ b/rts/System/Input/KeyInput.cpp
+@@ -117,7 +117,7 @@ namespace KeyInput {
+ 	void Update(int fakeMetaKey)
+ 	{
+ 		int numKeys = 0;
+-		const uint8_t* kbState = SDL_GetKeyboardState(&numKeys);
++		const auto* kbState = SDL_GetKeyboardState(&numKeys);
+ 
+ 		keyMods = SDL_GetModState();
+ 
+@@ -187,10 +187,17 @@ namespace KeyInput {
+ 
+ 			SDL_Event event;
+ 			event.type = event.key.type = SDL_KEYUP;
++#if defined(RECOIL_MACOS_SDL3_EGL)
++			event.key.down = false;
++			event.key.key = keycode;
++			event.key.mod = SDL_KMOD_NONE;
++			event.key.scancode = scancode;
++#else
+ 			event.key.state = SDL_RELEASED;
+ 			event.key.keysym.sym = keycode;
+ 			event.key.keysym.mod = 0;
+ 			event.key.keysym.scancode = scancode;
++#endif
+ 			SDL_PushEvent(&event);
+ 		}
+ 	}
+diff --git a/rts/System/Input/MouseInput.cpp b/rts/System/Input/MouseInput.cpp
+index c76f45a..0a9e086 100644
+--- a/rts/System/Input/MouseInput.cpp
++++ b/rts/System/Input/MouseInput.cpp
+@@ -92,6 +92,21 @@ bool IMouseInput::HandleSDLMouseEvent(const SDL_Event& event)
+ 				mouse->MouseWheel(event.wheel.y);
+ 
+ 		} break;
++#if defined(RECOIL_MACOS_SDL3_EGL)
++		case SDL_WINDOWEVENT_ENTER: {
++			if (mouse != nullptr)
++				mouse->WindowEnter();
++		} break;
++		case SDL_WINDOWEVENT_LEAVE: {
++			mousepos = {
++				globalRendering->viewPosX          + (globalRendering->viewSizeX >> 1),
++				globalRendering->viewWindowOffsetY + (globalRendering->viewSizeY >> 1)
++			};
++
++			if (mouse != nullptr)
++				mouse->WindowLeave();
++		} break;
++#else
+ 		case SDL_WINDOWEVENT: {
+ 			switch (event.window.event) {
+ 				case SDL_WINDOWEVENT_ENTER: {
+@@ -110,6 +125,7 @@ bool IMouseInput::HandleSDLMouseEvent(const SDL_Event& event)
+ 				} break;
+ 			}
+ 		} break;
++#endif
+ 	}
+ 
+ 	return false;
+@@ -262,4 +278,3 @@ void IMouseInput::FreeInstance(IMouseInput* mouseInp) {
+ 	memset(mouseInputMem, 0, sizeof(mouseInputMem));
+ 	mouseInput = nullptr;
+ }
+-
+diff --git a/rts/System/MemPoolTypes.h b/rts/System/MemPoolTypes.h
+index af15588..f72839a 100644
+--- a/rts/System/MemPoolTypes.h
++++ b/rts/System/MemPoolTypes.h
+@@ -5,6 +5,7 @@
+ 
+ #include <cassert>
+ #include <cstddef>
++#include <cstdint>
+ #include <cstring> // memset
+ #include <cmath>
+ #include <algorithm>
+@@ -559,4 +560,3 @@ inline void StablePosAllocator<T>::Free(size_t firstElem, size_t numElems, const
+ }
+ 
+ #endif
+-
+diff --git a/b/rts/System/Platform/Mac/CpuTopology.cpp b/rts/System/Platform/Mac/CpuTopology.cpp
+new file mode 100644
+index 0000000..1c53d3f
+--- /dev/null
++++ b/rts/System/Platform/Mac/CpuTopology.cpp
+@@ -0,0 +1,190 @@
++/* This file is part of the Recoil engine (GPL v2 or later), see LICENSE.html */
++
++/**
++ * macOS-specific CPU topology detection using sysctl APIs.
++ *
++ * Apple Silicon (M1/M2/M3/M4) uses a big.LITTLE architecture with
++ * Performance (P) cores and Efficiency (E) cores. This implementation
++ * queries the hw.perflevel* sysctl keys to detect core types and cache
++ * topology.
++ *
++ * LIMITATION: macOS does not support pthread_setaffinity_np(). Thread
++ * placement on P-cores vs E-cores is controlled indirectly via QoS
++ * classes (e.g. QOS_CLASS_USER_INTERACTIVE for P-cores,
++ * QOS_CLASS_BACKGROUND for E-cores). The masks returned here are
++ * informational -- they follow the convention that P-cores occupy the
++ * low CPU indices and E-cores occupy the high indices, matching the
++ * logical numbering exposed by macOS on Apple Silicon.
++ */
++
++#if defined(__APPLE__)
++
++#include "System/Platform/CpuTopology.h"
++#include "System/Log/ILog.h"
++
++#include <algorithm>
++#include <cstdint>
++#include <sys/sysctl.h>
++#include <unistd.h>
++
++namespace cpu_topology {
++
++#define MAX_CPUS 32  // Maximum logical CPUs (matches Linux/Windows limit)
++
++// Query an integer value via sysctlbyname. Returns true on success.
++static bool SysctlInt(const char* name, int* out) {
++	size_t size = sizeof(*out);
++	if (sysctlbyname(name, out, &size, nullptr, 0) != 0)
++		return false;
++	return true;
++}
++
++// Query a 64-bit value via sysctlbyname. Returns true on success.
++static bool SysctlInt64(const char* name, int64_t* out) {
++	size_t size = sizeof(*out);
++	if (sysctlbyname(name, out, &size, nullptr, 0) != 0)
++		return false;
++	return true;
++}
++
++ProcessorMasks GetProcessorMasks() {
++	ProcessorMasks masks;
++
++	int nperflevels = 0;
++	if (!SysctlInt("hw.nperflevels", &nperflevels) || nperflevels < 1) {
++		// Fallback: no performance level info (Intel Mac or very old macOS).
++		// Treat every logical CPU as a performance core.
++		int ncpu = 0;
++		if (!SysctlInt("hw.ncpu", &ncpu))
++			ncpu = static_cast<int>(sysconf(_SC_NPROCESSORS_CONF));
++
++		if (ncpu > MAX_CPUS)
++			ncpu = MAX_CPUS;
++
++		for (int i = 0; i < ncpu; ++i)
++			masks.performanceCoreMask |= (1u << i);
++
++		LOG("macOS CpuTopology: no perflevel info, treating all %d CPUs as performance cores.", ncpu);
++		return masks;
++	}
++
++	// Apple Silicon with big.LITTLE:
++	// perflevel0 = Performance cores (highest perf level)
++	// perflevel1 = Efficiency cores
++	int pcores = 0;
++	int ecores = 0;
++	SysctlInt("hw.perflevel0.physicalcpu", &pcores);
++	if (nperflevels >= 2)
++		SysctlInt("hw.perflevel1.physicalcpu", &ecores);
++
++	// Clamp to MAX_CPUS.
++	const int totalCores = pcores + ecores;
++	if (totalCores > MAX_CPUS) {
++		LOG_L(L_WARNING, "macOS CpuTopology: total cores (%d) exceeds MAX_CPUS (%d), clamping.", totalCores, MAX_CPUS);
++		if (pcores > MAX_CPUS) pcores = MAX_CPUS;
++		ecores = std::min(ecores, MAX_CPUS - pcores);
++	}
++
++	// Convention: P-cores occupy logical CPU indices [0, pcores),
++	// E-cores occupy [pcores, pcores + ecores).
++	for (int i = 0; i < pcores; ++i)
++		masks.performanceCoreMask |= (1u << i);
++
++	for (int i = pcores; i < pcores + ecores; ++i)
++		masks.efficiencyCoreMask |= (1u << i);
++
++	// Apple Silicon has no SMT / hyperthreading.
++	masks.hyperThreadLowMask  = 0;
++	masks.hyperThreadHighMask = 0;
++
++	LOG("macOS CpuTopology: %d P-cores, %d E-cores (perflevels=%d).", pcores, ecores, nperflevels);
++	return masks;
++}
++
++ProcessorCaches GetProcessorCache() {
++	ProcessorCaches caches;
++
++	int nperflevels = 0;
++	SysctlInt("hw.nperflevels", &nperflevels);
++
++	int pcores = 0;
++	int ecores = 0;
++
++	if (nperflevels >= 1)
++		SysctlInt("hw.perflevel0.physicalcpu", &pcores);
++	if (nperflevels >= 2)
++		SysctlInt("hw.perflevel1.physicalcpu", &ecores);
++
++	// Clamp.
++	if (pcores + ecores > MAX_CPUS) {
++		if (pcores > MAX_CPUS) pcores = MAX_CPUS;
++		ecores = std::min(ecores, MAX_CPUS - pcores);
++	}
++
++	// macOS does not expose per-cluster cache sharing maps, so treat all
++	// P-cores as one group and all E-cores as another.
++	auto addGroup = [&](int startCpu, int count, const char* l2Key) {
++		if (count <= 0)
++			return;
++
++		ProcessorGroupCaches group;
++		for (int i = startCpu; i < startCpu + count && i < MAX_CPUS; ++i)
++			group.groupMask |= (1u << i);
++
++		int64_t l2Size = 0;
++		if (l2Key && SysctlInt64(l2Key, &l2Size))
++			group.cacheSizes[1] = static_cast<uint32_t>(l2Size);
++
++		int64_t l3Size = 0;
++		if (startCpu == 0 && SysctlInt64("hw.l3cachesize", &l3Size))
++			group.cacheSizes[2] = static_cast<uint32_t>(l3Size);
++
++		caches.groupCaches.push_back(group);
++	};
++
++	if (nperflevels >= 1)
++		addGroup(0, pcores, "hw.perflevel0.l2cachesize");
++	if (nperflevels >= 2)
++		addGroup(pcores, ecores, "hw.perflevel1.l2cachesize");
++
++	if (caches.groupCaches.empty()) {
++		// Fallback for Intel Macs or missing perflevel data.
++		int ncpu = 0;
++		if (!SysctlInt("hw.ncpu", &ncpu))
++			ncpu = static_cast<int>(sysconf(_SC_NPROCESSORS_CONF));
++		if (ncpu > MAX_CPUS) ncpu = MAX_CPUS;
++
++		ProcessorGroupCaches group;
++		for (int i = 0; i < ncpu; ++i)
++			group.groupMask |= (1u << i);
++
++		int64_t l2 = 0;
++		if (SysctlInt64("hw.l2cachesize", &l2))
++			group.cacheSizes[1] = static_cast<uint32_t>(l2);
++
++		int64_t l3 = 0;
++		if (SysctlInt64("hw.l3cachesize", &l3))
++			group.cacheSizes[2] = static_cast<uint32_t>(l3);
++
++		caches.groupCaches.push_back(group);
++	}
++
++	std::ranges::stable_sort(
++		caches.groupCaches,
++		[](const auto& lh, const auto& rh) {
++			return lh.cacheSizes[1] > rh.cacheSizes[1];
++		});
++
++	return caches;
++}
++
++ThreadPinPolicy GetThreadPinPolicy() {
++	// macOS cannot pin threads to specific cores (no pthread_setaffinity_np).
++	// ANY_PERF_CORE lets the scheduler choose among the performance cores,
++	// which aligns with using QoS_CLASS_USER_INTERACTIVE at the caller level.
++	return THREAD_PIN_POLICY_ANY_PERF_CORE;
++}
++
++} // namespace cpu_topology
++
++#endif // __APPLE__
+diff --git a/b/rts/System/Platform/Mac/MacSDL3EGLBridge.h b/rts/System/Platform/Mac/MacSDL3EGLBridge.h
+new file mode 100644
+index 0000000..66c850c
+--- /dev/null
++++ b/rts/System/Platform/Mac/MacSDL3EGLBridge.h
+@@ -0,0 +1,69 @@
++/* This file is part of the Spring engine (GPL v2 or later), see LICENSE.html */
++
++#ifndef MAC_SDL3_EGL_BRIDGE_H
++#define MAC_SDL3_EGL_BRIDGE_H
++
++#include <cstdint>
++
++#include <SDL_rect.h>
++
++struct SDL_Window;
++
++namespace MacSDL3EGL {
++
++struct DisplayGeometry {
++	int displayIndex = 0;
++	const char* displayName = "unknown";
++
++	SDL_Rect displayBounds = {0, 0, 0, 0};
++	SDL_Rect usableBounds = {0, 0, 0, 0};
++	SDL_Rect safeBounds = {0, 0, 0, 0};
++
++	int logicalWindowWidth = 0;
++	int logicalWindowHeight = 0;
++	int drawableWidth = 0;
++	int drawableHeight = 0;
++	float sdlScale = 1.0f;
++	float cocoaScale = 1.0f;
++
++	bool m4Pro14NotchPolicy = false;
++	bool m4Pro14NotchPolicyForced = false;
++};
++
++DisplayGeometry QueryDisplayGeometry(SDL_Window* window);
++SDL_Rect GetSafeDisplayBounds(SDL_Window* window);
++void LogDisplayGeometry(SDL_Window* window, const char* phase);
++void* GetGLProcAddress(const char* name);
++
++class Bridge {
++public:
++	Bridge();
++	~Bridge();
++
++	Bridge(const Bridge&) = delete;
++	Bridge& operator=(const Bridge&) = delete;
++
++	bool Initialize(SDL_Window* window, int requestMajor, int requestMinor, bool requestCoreProfile);
++	void Destroy();
++
++	bool MakeCurrent(bool clear) const;
++	bool SwapBuffers();
++	void UpdateDrawableSize(const char* reason);
++
++	void* GetContextOpaque() const;
++	bool IsInitialized() const;
++	int GetSwapInterval() const;
++	uint64_t GetRecommendedMaxWorkingSetSizeBytes() const;
++
++	void LogRuntimeEnvironment() const;
++	void LogContextDiagnostics(const char* phase) const;
++	void LogGeometry(const char* phase) const;
++
++private:
++	struct Impl;
++	Impl* impl;
++};
++
++} // namespace MacSDL3EGL
++
++#endif // MAC_SDL3_EGL_BRIDGE_H
+diff --git a/b/rts/System/Platform/Mac/MacSDL3EGLBridge.mm b/rts/System/Platform/Mac/MacSDL3EGLBridge.mm
+new file mode 100644
+index 0000000..eb8162d
+--- /dev/null
++++ b/rts/System/Platform/Mac/MacSDL3EGLBridge.mm
+@@ -0,0 +1,707 @@
++/* This file is part of the Spring engine (GPL v2 or later), see LICENSE.html */
++
++#include "System/Platform/Mac/MacSDL3EGLBridge.h"
++
++#import <Cocoa/Cocoa.h>
++#import <Metal/Metal.h>
++#import <QuartzCore/CAMetalLayer.h>
++
++#include <SDL.h>
++#include <SDL3/SDL_properties.h>
++
++#include <EGL/egl.h>
++#include <EGL/eglext.h>
++
++#include <algorithm>
++#include <cmath>
++#include <cstdlib>
++#include <cstring>
++#include <vector>
++
++#include "System/Config/ConfigHandler.h"
++#include "System/Log/ILog.h"
++
++namespace {
++
++static constexpr uint32_t BAR_ON_MVK_COCOA_EGL_SURFACE_MAGIC = 0x434f4341u;
++static constexpr uint32_t BAR_ON_MVK_COCOA_EGL_SURFACE_VERSION = 1u;
++
++struct BarOnMVKPrivateCocoaSurface {
++	uint32_t magic = BAR_ON_MVK_COCOA_EGL_SURFACE_MAGIC;
++	uint32_t version = BAR_ON_MVK_COCOA_EGL_SURFACE_VERSION;
++	void* metalLayer = nullptr;
++	uint32_t width = 0;
++	uint32_t height = 0;
++};
++
++using PFNGLGETSTRINGPROC_LOCAL = const unsigned char* (*)(unsigned int name);
++
++static constexpr unsigned int GL_VENDOR_LOCAL = 0x1F00;
++static constexpr unsigned int GL_RENDERER_LOCAL = 0x1F01;
++static constexpr unsigned int GL_VERSION_LOCAL = 0x1F02;
++static constexpr unsigned int GL_SHADING_LANGUAGE_VERSION_LOCAL = 0x8B8C;
++
++static const char* EnvValue(const char* name)
++{
++	const char* value = std::getenv(name);
++	return value != nullptr ? value : "<unset>";
++}
++
++static bool EnvEnabled(const char* name)
++{
++	const char* value = std::getenv(name);
++	return value != nullptr && value[0] != '\0' && std::strcmp(value, "0") != 0;
++}
++
++static float CocoaBackingScale(NSWindow* window)
++{
++	if (window != nil && window.backingScaleFactor > 0.0)
++		return static_cast<float>(window.backingScaleFactor);
++
++	if (NSScreen.mainScreen != nil && NSScreen.mainScreen.backingScaleFactor > 0.0)
++		return static_cast<float>(NSScreen.mainScreen.backingScaleFactor);
++
++	return 1.0f;
++}
++
++static NSWindow* GetNSWindow(SDL_Window* window)
++{
++	if (window == nullptr)
++		return nil;
++
++	SDL_PropertiesID props = SDL_GetWindowProperties(window);
++	return (__bridge NSWindow*)SDL_GetPointerProperty(props, SDL_PROP_WINDOW_COCOA_WINDOW_POINTER, nullptr);
++}
++
++static CGFloat NativeCocoaDrawableScale(NSWindow* nsWindow)
++{
++	const char* scaleEnv = std::getenv("BAR_NATIVE_COCOA_DRAWABLE_SCALE");
++	if (scaleEnv != nullptr && scaleEnv[0] != '\0') {
++		if (std::strcmp(scaleEnv, "native") == 0 || std::strcmp(scaleEnv, "retina") == 0)
++			return CocoaBackingScale(nsWindow);
++
++		char* endPtr = nullptr;
++		const float requestedScale = std::strtof(scaleEnv, &endPtr);
++		if (endPtr != scaleEnv && std::isfinite(requestedScale) && requestedScale > 0.0f)
++			return static_cast<CGFloat>(requestedScale);
++	}
++
++	return 1.0;
++}
++
++static CGSize CurrentLayerDrawableSize(NSWindow* nsWindow)
++{
++	if (nsWindow == nil || nsWindow.contentView == nil || nsWindow.contentView.layer == nil)
++		return CGSizeMake(0.0, 0.0);
++
++	CALayer* layer = nsWindow.contentView.layer;
++	if (![layer isKindOfClass:[CAMetalLayer class]])
++		return CGSizeMake(0.0, 0.0);
++
++	return ((CAMetalLayer*)layer).drawableSize;
++}
++
++static CGSize UpdateLayerDrawableSize(NSWindow* nsWindow, NSView* view, CAMetalLayer* layer, const char* reason)
++{
++	const CGFloat cocoaScale = CocoaBackingScale(nsWindow);
++	const CGFloat drawableScale = NativeCocoaDrawableScale(nsWindow);
++	const NSRect bounds = view != nil ? view.bounds : NSMakeRect(0, 0, 0, 0);
++	const CGSize drawableSize = CGSizeMake(bounds.size.width * drawableScale, bounds.size.height * drawableScale);
++	const CGSize previousDrawableSize = layer.drawableSize;
++	const CGFloat previousScale = layer.contentsScale;
++	const bool sizeChanged =
++		std::abs(static_cast<double>(previousDrawableSize.width - drawableSize.width)) > 0.5 ||
++		std::abs(static_cast<double>(previousDrawableSize.height - drawableSize.height)) > 0.5 ||
++		std::abs(static_cast<double>(previousScale - drawableScale)) > 0.001;
++	const bool quietPreSwap = (reason != nullptr && std::strcmp(reason, "pre-swap") == 0);
++
++	layer.contentsScale = drawableScale;
++	if (sizeChanged)
++		layer.drawableSize = drawableSize;
++
++	if (sizeChanged || !quietPreSwap) {
++		LOG("[MacSDL3EGL::%s] reason=%s logicalView=%.1fx%.1f drawable=%.1fx%.1f cocoaScale=%.3f drawableScale=%.3f changed=%d",
++			__func__, reason,
++			static_cast<double>(bounds.size.width),
++			static_cast<double>(bounds.size.height),
++			static_cast<double>(drawableSize.width),
++			static_cast<double>(drawableSize.height),
++			static_cast<double>(cocoaScale),
++			static_cast<double>(drawableScale),
++			static_cast<int>(sizeChanged)
++		);
++	}
++
++	return drawableSize;
++}
++
++static const char* PixelFormatName(MTLPixelFormat pixelFormat)
++{
++	switch (pixelFormat) {
++		case MTLPixelFormatBGRA8Unorm: return "MTLPixelFormatBGRA8Unorm";
++		case MTLPixelFormatBGRA8Unorm_sRGB: return "MTLPixelFormatBGRA8Unorm_sRGB";
++		default: return "unknown";
++	}
++}
++
++static EGLContext CreateContext(EGLDisplay display, EGLConfig config, int major, int minor, bool coreProfile)
++{
++	const EGLint contextAttribs[] = {
++		EGL_CONTEXT_MAJOR_VERSION, major,
++		EGL_CONTEXT_MINOR_VERSION, minor,
++		EGL_NONE
++	};
++
++	EGLContext context = eglCreateContext(display, config, EGL_NO_CONTEXT, contextAttribs);
++	if (context != EGL_NO_CONTEXT) {
++		LOG("[MacSDL3EGL::%s] eglCreateContext requested=%d.%d core=%d result=success",
++			__func__, major, minor, int(coreProfile));
++		return context;
++	}
++
++	LOG_L(L_WARNING, "[MacSDL3EGL::%s] eglCreateContext requested=%d.%d core=%d failed eglGetError=0x%04x; trying default context",
++		__func__, major, minor, int(coreProfile), eglGetError());
++
++	const EGLint fallbackAttribs[] = {EGL_NONE};
++	context = eglCreateContext(display, config, EGL_NO_CONTEXT, fallbackAttribs);
++	if (context != EGL_NO_CONTEXT)
++		LOG("[MacSDL3EGL::%s] eglCreateContext requested=fallback result=success", __func__);
++	else
++		LOG_L(L_ERROR, "[MacSDL3EGL::%s] eglCreateContext requested=fallback failed eglGetError=0x%04x", __func__, eglGetError());
++
++	return context;
++}
++
++static bool TryChooseExactConfig(
++	EGLDisplay display,
++	EGLConfig* outConfig,
++	int samples,
++	int depthSize,
++	int stencilSize,
++	int configuredSamples,
++	int requestedSamples
++) {
++	const EGLint attributes[] = {
++		EGL_SURFACE_TYPE, EGL_WINDOW_BIT,
++		EGL_RENDERABLE_TYPE, EGL_OPENGL_BIT,
++		EGL_RED_SIZE, 8,
++		EGL_GREEN_SIZE, 8,
++		EGL_BLUE_SIZE, 8,
++		EGL_ALPHA_SIZE, 8,
++		EGL_SAMPLE_BUFFERS, samples > 0 ? 1 : 0,
++		EGL_SAMPLES, samples,
++		EGL_DEPTH_SIZE, depthSize,
++		EGL_STENCIL_SIZE, stencilSize,
++		EGL_NONE
++	};
++
++	EGLint count = 0;
++	if (!eglChooseConfig(display, attributes, nullptr, 0, &count) || count <= 0) {
++		LOG_L(L_WARNING,
++			"[MacSDL3EGL::%s] configured=%d requested=%d candidate=%d depth=%d stencil=%d unavailable count=%d eglGetError=0x%04x",
++			__func__, configuredSamples, requestedSamples, samples, depthSize, stencilSize, count, eglGetError());
++		return false;
++	}
++
++	std::vector<EGLConfig> configs(count);
++	if (!eglChooseConfig(display, attributes, configs.data(), count, &count) || count <= 0) {
++		LOG_L(L_WARNING,
++			"[MacSDL3EGL::%s] configured=%d requested=%d candidate=%d config enumeration failed count=%d eglGetError=0x%04x",
++			__func__, configuredSamples, requestedSamples, samples, count, eglGetError());
++		return false;
++	}
++
++	for (int i = 0; i < count; ++i) {
++		EGLint actualSamples = 0;
++		EGLint actualSampleBuffers = 0;
++		EGLint actualDepth = 0;
++		EGLint actualStencil = 0;
++		if (!eglGetConfigAttrib(display, configs[i], EGL_SAMPLES, &actualSamples))
++			continue;
++		if (!eglGetConfigAttrib(display, configs[i], EGL_SAMPLE_BUFFERS, &actualSampleBuffers))
++			continue;
++		if (!eglGetConfigAttrib(display, configs[i], EGL_DEPTH_SIZE, &actualDepth))
++			continue;
++		if (!eglGetConfigAttrib(display, configs[i], EGL_STENCIL_SIZE, &actualStencil))
++			continue;
++
++		const int expectedSampleBuffers = samples > 0 ? 1 : 0;
++		if (actualSamples != samples || actualSampleBuffers != expectedSampleBuffers)
++			continue;
++		if (actualDepth < depthSize || actualStencil < stencilSize)
++			continue;
++
++		*outConfig = configs[i];
++		LOG("[MacSDL3EGL::%s] configured=%d requested=%d selected=%d sampleBuffers=%d depth=%d stencil=%d",
++			__func__, configuredSamples, requestedSamples, actualSamples, actualSampleBuffers, actualDepth, actualStencil);
++		return true;
++	}
++
++	LOG_L(L_WARNING,
++		"[MacSDL3EGL::%s] configured=%d requested=%d candidate=%d returned no exact sample-count match",
++		__func__, configuredSamples, requestedSamples, samples);
++	return false;
++}
++
++// RUN64_DYNAMIC_MSAA: honor BAR's MSAALevel instead of silently forcing 4x.
++static bool ChooseConfig(EGLDisplay display, EGLConfig* outConfig)
++{
++	const int configuredSamples = configHandler->GetInt("MSAALevel");
++	const int requestedSamples = configuredSamples >= 4 ? 4 : (configuredSamples >= 2 ? 2 : 0);
++
++	int candidates[3] = {requestedSamples, 0, 0};
++	int candidateCount = 1;
++	if (requestedSamples == 4) {
++		candidates[1] = 2;
++		candidates[2] = 0;
++		candidateCount = 3;
++	} else if (requestedSamples == 2) {
++		candidates[1] = 0;
++		candidateCount = 2;
++	}
++
++	for (int i = 0; i < candidateCount; ++i) {
++		if (TryChooseExactConfig(
++				display,
++				outConfig,
++				candidates[i],
++				24,
++				8,
++				configuredSamples,
++				requestedSamples
++			)) {
++			return true;
++		}
++	}
++
++	LOG_L(L_WARNING,
++		"[MacSDL3EGL::%s] configured=%d requested=%d has no depth/stencil config; trying color-only non-MSAA fallback",
++		__func__, configuredSamples, requestedSamples);
++
++	if (TryChooseExactConfig(display, outConfig, 0, 0, 0, configuredSamples, requestedSamples))
++		return true;
++
++	LOG_L(L_ERROR,
++		"[MacSDL3EGL::%s] configured=%d requested=%d failed to select any exact EGL sample-count config",
++		__func__, configuredSamples, requestedSamples);
++	return false;
++}
++
++static bool LooksLikeM4Pro14Panel(const MacSDL3EGL::DisplayGeometry& geometry)
++{
++	const char* name = geometry.displayName != nullptr ? geometry.displayName : "";
++	const bool builtinName =
++		std::strstr(name, "Built-in") != nullptr ||
++		std::strstr(name, "Liquid Retina") != nullptr ||
++		std::strstr(name, "Color LCD") != nullptr;
++	bool exposesKnownPanelMode = false;
++	const int modeCount = SDL_GetNumDisplayModes(geometry.displayIndex);
++	for (int modeIndex = 0; modeIndex < modeCount; ++modeIndex) {
++		SDL_DisplayMode mode = {};
++		if (SDL_GetDisplayMode(geometry.displayIndex, modeIndex, &mode) != 0)
++			continue;
++		if ((mode.w == 3024 && mode.h == 1964) || (mode.w == 1512 && mode.h == 982)) {
++			exposesKnownPanelMode = true;
++			break;
++		}
++	}
++
++	return builtinName && exposesKnownPanelMode;
++}
++
++static int DetectDisplayIndexFromMouse()
++{
++	const int numDisplays = SDL_GetNumVideoDisplays();
++	if (numDisplays <= 1)
++		return 0;
++
++	float mouseX = 0.0f;
++	float mouseY = 0.0f;
++	SDL_GetGlobalMouseState(&mouseX, &mouseY);
++
++	const SDL_Point mousePoint{static_cast<int>(mouseX), static_cast<int>(mouseY)};
++	SDL_Rect bounds;
++
++	for (int displayIndex = 0; displayIndex < numDisplays; ++displayIndex) {
++		if (SDL_GetDisplayBounds(displayIndex, &bounds) != 0)
++			continue;
++		if (SDL_PointInRect(&mousePoint, &bounds))
++			return displayIndex;
++	}
++
++	return 0;
++}
++
++static void ApplyNotchPolicy(MacSDL3EGL::DisplayGeometry* geometry)
++{
++	const int scaledTopInset = std::max(1, (32 * geometry->displayBounds.h + 491) / 982);
++	geometry->safeBounds.x = geometry->displayBounds.x;
++	geometry->safeBounds.w = geometry->displayBounds.w;
++	geometry->safeBounds.h = std::max(1, geometry->displayBounds.h - scaledTopInset);
++	geometry->safeBounds.y = geometry->displayBounds.y + scaledTopInset;
++	geometry->m4Pro14NotchPolicy = true;
++}
++
++} // namespace
++
++namespace MacSDL3EGL {
++
++struct Bridge::Impl {
++	SDL_Window* window = nullptr;
++	NSWindow* nsWindow = nil;
++	NSView* contentView = nil;
++	CAMetalLayer* metalLayer = nil;
++	id<MTLDevice> metalDevice = nil;
++
++	BarOnMVKPrivateCocoaSurface privateSurface;
++
++	EGLDisplay display = EGL_NO_DISPLAY;
++	EGLConfig config = nullptr;
++	EGLContext context = EGL_NO_CONTEXT;
++	EGLSurface surface = EGL_NO_SURFACE;
++	bool initialized = false;
++};
++
++DisplayGeometry QueryDisplayGeometry(SDL_Window* window)
++{
++	DisplayGeometry geometry;
++
++	geometry.displayIndex = window != nullptr ? SDL_GetWindowDisplayIndex(window) : DetectDisplayIndexFromMouse();
++	geometry.displayName = SDL_GetDisplayName(geometry.displayIndex);
++	SDL_GetDisplayBounds(geometry.displayIndex, &geometry.displayBounds);
++	SDL_GetDisplayUsableBounds(geometry.displayIndex, &geometry.usableBounds);
++	geometry.safeBounds = geometry.usableBounds.w > 0 && geometry.usableBounds.h > 0 ? geometry.usableBounds : geometry.displayBounds;
++
++	if (window != nullptr) {
++		SDL_GetWindowSize(window, &geometry.logicalWindowWidth, &geometry.logicalWindowHeight);
++		SDL_GetWindowSizeInPixels(window, &geometry.drawableWidth, &geometry.drawableHeight);
++		geometry.sdlScale = SDL_GetWindowDisplayScale(window);
++		NSWindow* nsWindow = GetNSWindow(window);
++		geometry.cocoaScale = CocoaBackingScale(nsWindow);
++
++		const CGSize layerDrawable = CurrentLayerDrawableSize(nsWindow);
++		if (layerDrawable.width > 0.0 && layerDrawable.height > 0.0) {
++			geometry.drawableWidth = static_cast<int>(std::max(0.0, static_cast<double>(layerDrawable.width)));
++			geometry.drawableHeight = static_cast<int>(std::max(0.0, static_cast<double>(layerDrawable.height)));
++		} else {
++			const CGFloat drawableScale = NativeCocoaDrawableScale(nsWindow);
++			geometry.drawableWidth = static_cast<int>(std::max(0.0, static_cast<double>(geometry.logicalWindowWidth * drawableScale)));
++			geometry.drawableHeight = static_cast<int>(std::max(0.0, static_cast<double>(geometry.logicalWindowHeight * drawableScale)));
++		}
++	}
++
++	geometry.m4Pro14NotchPolicyForced = EnvEnabled("RECOIL_MACOS_FORCE_M4_14_NOTCH_POLICY");
++	if (geometry.m4Pro14NotchPolicyForced || LooksLikeM4Pro14Panel(geometry))
++		ApplyNotchPolicy(&geometry);
++
++	return geometry;
++}
++
++SDL_Rect GetSafeDisplayBounds(SDL_Window* window)
++{
++	return QueryDisplayGeometry(window).safeBounds;
++}
++
++void LogDisplayGeometry(SDL_Window* window, const char* phase)
++{
++	const DisplayGeometry g = QueryDisplayGeometry(window);
++	LOG("[MacSDL3EGL::%s] phase=%s displayIndex=%d displayName=\"%s\" displayBounds=%d,%d %dx%d usableBounds=%d,%d %dx%d safeBounds=%d,%d %dx%d m4Pro14NotchPolicy=%d forced=%d logicalWindow=%dx%d drawable=%dx%d sdlScale=%.3f cocoaScale=%.3f policy=nativeFullscreen_scaledNotchSafeViewport_1xDrawable",
++		__func__, phase,
++		g.displayIndex,
++		g.displayName != nullptr ? g.displayName : "unknown",
++		g.displayBounds.x, g.displayBounds.y, g.displayBounds.w, g.displayBounds.h,
++		g.usableBounds.x, g.usableBounds.y, g.usableBounds.w, g.usableBounds.h,
++		g.safeBounds.x, g.safeBounds.y, g.safeBounds.w, g.safeBounds.h,
++		int(g.m4Pro14NotchPolicy),
++		int(g.m4Pro14NotchPolicyForced),
++		g.logicalWindowWidth, g.logicalWindowHeight,
++		g.drawableWidth, g.drawableHeight,
++		g.sdlScale,
++		g.cocoaScale
++	);
++}
++
++void* GetGLProcAddress(const char* name)
++{
++	return reinterpret_cast<void*>(eglGetProcAddress(name));
++}
++
++Bridge::Bridge()
++	: impl(new Impl())
++{
++}
++
++Bridge::~Bridge()
++{
++	Destroy();
++	delete impl;
++	impl = nullptr;
++}
++
++bool Bridge::Initialize(SDL_Window* window, int requestMajor, int requestMinor, bool requestCoreProfile)
++{
++	if (impl->initialized)
++		return true;
++
++	impl->window = window;
++	LogRuntimeEnvironment();
++
++	if (std::getenv("EGL_PLATFORM") == nullptr) {
++		setenv("EGL_PLATFORM", "cocoa", 0);
++		LOG("[MacSDL3EGL::%s] EGL_PLATFORM was unset; set to cocoa for project-local Mesa bridge", __func__);
++	}
++
++	impl->nsWindow = GetNSWindow(window);
++	if (impl->nsWindow == nil || impl->nsWindow.contentView == nil) {
++		LOG_L(L_ERROR, "[MacSDL3EGL::%s] SDL Cocoa NSWindow/contentView unavailable via %s",
++			__func__, SDL_PROP_WINDOW_COCOA_WINDOW_POINTER);
++		return false;
++	}
++
++	impl->contentView = impl->nsWindow.contentView;
++	impl->metalDevice = MTLCreateSystemDefaultDevice();
++	if (impl->metalDevice == nil) {
++		LOG_L(L_ERROR, "[MacSDL3EGL::%s] MTLCreateSystemDefaultDevice returned nil", __func__);
++		return false;
++	}
++
++	impl->metalLayer = [[CAMetalLayer layer] retain];
++	impl->metalLayer.device = impl->metalDevice;
++	impl->metalLayer.pixelFormat = MTLPixelFormatBGRA8Unorm;
++	impl->metalLayer.framebufferOnly = YES;
++	impl->metalLayer.opaque = YES;
++	impl->metalLayer.displaySyncEnabled = YES;
++	impl->metalLayer.presentsWithTransaction = NO;
++	impl->metalLayer.delegate = static_cast<id<CALayerDelegate>>(impl->contentView);
++	impl->contentView.wantsLayer = YES;
++	impl->contentView.layer = impl->metalLayer;
++
++	UpdateDrawableSize("initial-owned-layer");
++	LOG("[MacSDL3EGL::%s] cocoa nswindow=%p nsview=%p metalDevice=\"%s\" cametallayer=%p pixelFormat=%s(%lu) appOwned=true",
++		__func__,
++		(__bridge void*)impl->nsWindow,
++		(__bridge void*)impl->contentView,
++		impl->metalDevice.name.UTF8String,
++		(__bridge void*)impl->metalLayer,
++		PixelFormatName(impl->metalLayer.pixelFormat),
++		static_cast<unsigned long>(impl->metalLayer.pixelFormat)
++	);
++
++	impl->display = eglGetDisplay(EGL_DEFAULT_DISPLAY);
++	if (impl->display == EGL_NO_DISPLAY) {
++		LOG_L(L_ERROR, "[MacSDL3EGL::%s] eglGetDisplay(EGL_DEFAULT_DISPLAY) failed eglGetError=0x%04x", __func__, eglGetError());
++		return false;
++	}
++
++	EGLint eglMajor = 0;
++	EGLint eglMinor = 0;
++	if (!eglInitialize(impl->display, &eglMajor, &eglMinor)) {
++		LOG_L(L_ERROR, "[MacSDL3EGL::%s] eglInitialize failed eglGetError=0x%04x", __func__, eglGetError());
++		return false;
++	}
++
++	LOG("[MacSDL3EGL::%s] EGL_VERSION=%d.%d EGL_VENDOR=\"%s\" EGL_VERSION_STRING=\"%s\"",
++		__func__, eglMajor, eglMinor,
++		eglQueryString(impl->display, EGL_VENDOR),
++		eglQueryString(impl->display, EGL_VERSION)
++	);
++
++	if (!eglBindAPI(EGL_OPENGL_API)) {
++		LOG_L(L_ERROR, "[MacSDL3EGL::%s] eglBindAPI(EGL_OPENGL_API) failed eglGetError=0x%04x", __func__, eglGetError());
++		return false;
++	}
++
++	if (!ChooseConfig(impl->display, &impl->config))
++		return false;
++
++	impl->context = CreateContext(impl->display, impl->config, requestMajor, requestMinor, requestCoreProfile);
++	if (impl->context == EGL_NO_CONTEXT)
++		return false;
++
++	impl->surface = eglCreateWindowSurface(
++		impl->display,
++		impl->config,
++		reinterpret_cast<EGLNativeWindowType>(&impl->privateSurface),
++		nullptr
++	);
++
++	if (impl->surface == EGL_NO_SURFACE) {
++		LOG_L(L_ERROR, "[MacSDL3EGL::%s] eglCreateWindowSurface target=BarOnMVKPrivateCocoaSurface failed eglGetError=0x%04x",
++			__func__, eglGetError());
++		return false;
++	}
++
++	LOG("[MacSDL3EGL::%s] eglCreateWindowSurface target=BarOnMVKPrivateCocoaSurface surface=%p privateSurface=%p magic=0x%08x version=%u layer=%p size=%ux%u",
++		__func__,
++		impl->surface,
++		&impl->privateSurface,
++		impl->privateSurface.magic,
++		impl->privateSurface.version,
++		impl->privateSurface.metalLayer,
++		impl->privateSurface.width,
++		impl->privateSurface.height
++	);
++
++	if (!MakeCurrent(false))
++		return false;
++
++	impl->initialized = true;
++	LogContextDiagnostics("after-egl-current-before-glad");
++	LogGeometry("after-egl-current");
++	return true;
++}
++
++void Bridge::Destroy()
++{
++	if (impl == nullptr)
++		return;
++
++	if (impl->display != EGL_NO_DISPLAY)
++		eglMakeCurrent(impl->display, EGL_NO_SURFACE, EGL_NO_SURFACE, EGL_NO_CONTEXT);
++
++	if (impl->display != EGL_NO_DISPLAY && impl->surface != EGL_NO_SURFACE) {
++		eglDestroySurface(impl->display, impl->surface);
++		impl->surface = EGL_NO_SURFACE;
++	}
++
++	if (impl->display != EGL_NO_DISPLAY && impl->context != EGL_NO_CONTEXT) {
++		eglDestroyContext(impl->display, impl->context);
++		impl->context = EGL_NO_CONTEXT;
++	}
++
++	if (impl->display != EGL_NO_DISPLAY) {
++		eglTerminate(impl->display);
++		impl->display = EGL_NO_DISPLAY;
++	}
++
++	if (impl->contentView != nil && impl->contentView.layer == impl->metalLayer)
++		impl->contentView.layer = nil;
++
++	if (impl->metalLayer != nil) {
++		[impl->metalLayer release];
++		impl->metalLayer = nil;
++	}
++
++	if (impl->metalDevice != nil) {
++		[impl->metalDevice release];
++		impl->metalDevice = nil;
++	}
++
++	impl->privateSurface = {};
++	impl->window = nullptr;
++	impl->nsWindow = nil;
++	impl->contentView = nil;
++	impl->initialized = false;
++}
++
++bool Bridge::MakeCurrent(bool clear) const
++{
++	if (impl->display == EGL_NO_DISPLAY)
++		return false;
++
++	const EGLSurface draw = clear ? EGL_NO_SURFACE : impl->surface;
++	const EGLSurface read = clear ? EGL_NO_SURFACE : impl->surface;
++	const EGLContext context = clear ? EGL_NO_CONTEXT : impl->context;
++
++	if (eglMakeCurrent(impl->display, draw, read, context))
++		return true;
++
++	LOG_L(L_ERROR, "[MacSDL3EGL::%s] eglMakeCurrent(clear=%d) failed eglGetError=0x%04x", __func__, int(clear), eglGetError());
++	return false;
++}
++
++bool Bridge::SwapBuffers()
++{
++	UpdateDrawableSize("pre-swap");
++	if (eglSwapBuffers(impl->display, impl->surface))
++		return true;
++
++	LOG_L(L_ERROR, "[MacSDL3EGL::%s] eglSwapBuffers failed eglGetError=0x%04x", __func__, eglGetError());
++	return false;
++}
++
++void Bridge::UpdateDrawableSize(const char* reason)
++{
++	if (impl->metalLayer == nil)
++		return;
++
++	const CGSize drawable = UpdateLayerDrawableSize(impl->nsWindow, impl->contentView, impl->metalLayer, reason);
++	impl->privateSurface.magic = BAR_ON_MVK_COCOA_EGL_SURFACE_MAGIC;
++	impl->privateSurface.version = BAR_ON_MVK_COCOA_EGL_SURFACE_VERSION;
++	impl->privateSurface.metalLayer = (__bridge void*)impl->metalLayer;
++	impl->privateSurface.width = static_cast<uint32_t>(std::max(0.0, static_cast<double>(drawable.width)));
++	impl->privateSurface.height = static_cast<uint32_t>(std::max(0.0, static_cast<double>(drawable.height)));
++}
++
++void* Bridge::GetContextOpaque() const
++{
++	return impl->context;
++}
++
++bool Bridge::IsInitialized() const
++{
++	return impl->initialized;
++}
++
++int Bridge::GetSwapInterval() const
++{
++	return SDL_GL_GetSwapInterval();
++}
++
++uint64_t Bridge::GetRecommendedMaxWorkingSetSizeBytes() const
++{
++	if (impl == nullptr || impl->metalDevice == nil)
++		return 0;
++
++	return static_cast<uint64_t>(impl->metalDevice.recommendedMaxWorkingSetSize);
++}
++
++void Bridge::LogRuntimeEnvironment() const
++{
++	LOG("[MacSDL3EGL::%s] SDL3 Cocoa + Mesa EGL runtime env VK_DRIVER_FILES=%s MESA_LOADER_DRIVER_OVERRIDE=%s GALLIUM_DRIVER=%s EGL_PLATFORM=%s MESA_GL_VERSION_OVERRIDE=%s MESA_GLSL_VERSION_OVERRIDE=%s VK_ICD_FILENAMES=%s VK_ADD_DRIVER_FILES=%s DYLD_LIBRARY_PATH=%s DYLD_FALLBACK_LIBRARY_PATH=%s",
++		__func__,
++		EnvValue("VK_DRIVER_FILES"),
++		EnvValue("MESA_LOADER_DRIVER_OVERRIDE"),
++		EnvValue("GALLIUM_DRIVER"),
++		EnvValue("EGL_PLATFORM"),
++		EnvValue("MESA_GL_VERSION_OVERRIDE"),
++		EnvValue("MESA_GLSL_VERSION_OVERRIDE"),
++		EnvValue("VK_ICD_FILENAMES"),
++		EnvValue("VK_ADD_DRIVER_FILES"),
++		EnvValue("DYLD_LIBRARY_PATH"),
++		EnvValue("DYLD_FALLBACK_LIBRARY_PATH")
++	);
++	LOG("[MacSDL3EGL::%s] nullDescriptorBypassRisk=present_feasibility_only privateCocoaEGLBridge=BarOnMVKPrivateCocoaSurface", __func__);
++}
++
++void Bridge::LogContextDiagnostics(const char* phase) const
++{
++	if (impl->display != EGL_NO_DISPLAY) {
++		LOG("[MacSDL3EGL::%s] phase=%s EGL_VENDOR=\"%s\" EGL_VERSION=\"%s\" EGL_EXTENSIONS=\"%s\"",
++			__func__, phase,
++			eglQueryString(impl->display, EGL_VENDOR),
++			eglQueryString(impl->display, EGL_VERSION),
++			eglQueryString(impl->display, EGL_EXTENSIONS)
++		);
++	}
++
++	PFNGLGETSTRINGPROC_LOCAL glGetStringLocal =
++		reinterpret_cast<PFNGLGETSTRINGPROC_LOCAL>(eglGetProcAddress("glGetString"));
++	if (glGetStringLocal == nullptr)
++		return;
++
++	LOG("[MacSDL3EGL::%s] phase=%s GL_VENDOR=\"%s\" GL_RENDERER=\"%s\" GL_VERSION=\"%s\" GL_SHADING_LANGUAGE_VERSION=\"%s\"",
++		__func__, phase,
++		reinterpret_cast<const char*>(glGetStringLocal(GL_VENDOR_LOCAL)),
++		reinterpret_cast<const char*>(glGetStringLocal(GL_RENDERER_LOCAL)),
++		reinterpret_cast<const char*>(glGetStringLocal(GL_VERSION_LOCAL)),
++		reinterpret_cast<const char*>(glGetStringLocal(GL_SHADING_LANGUAGE_VERSION_LOCAL))
++	);
++}
++
++void Bridge::LogGeometry(const char* phase) const
++{
++	LogDisplayGeometry(impl->window, phase);
++}
++
++} // namespace MacSDL3EGL
+diff --git a/b/rts/System/Platform/Mac/ThreadSupport.cpp b/rts/System/Platform/Mac/ThreadSupport.cpp
+new file mode 100644
+index 0000000..38def95
+--- /dev/null
++++ b/rts/System/Platform/Mac/ThreadSupport.cpp
+@@ -0,0 +1,47 @@
++/* This file is part of the Recoil engine (GPL v2 or later), see LICENSE.html */
++
++#include "System/Platform/Threading.h"
++
++#include <memory>
++#include <pthread/qos.h>
++
++namespace Threading {
++
++void SetupCurrentThreadControls(std::shared_ptr<ThreadControls>& threadCtls)
++{
++	threadCtls.reset(new Threading::ThreadControls());
++	threadCtls->handle = pthread_self();
++
++	// macOS has no pthread_setaffinity_np equivalent. Scheduling locality is
++	// expressed with QoS hints instead; this asks Apple Silicon to prefer the
++	// performance cluster for worker threads that enter through ThreadStart.
++	pthread_set_qos_class_self_np(QOS_CLASS_USER_INTERACTIVE, 0);
++}
++
++void ThreadStart(
++	std::function<void()> taskFunc,
++	std::shared_ptr<ThreadControls>* threadCtls,
++	ThreadControls* tempCtls
++) {
++	if (threadCtls != nullptr)
++		SetupCurrentThreadControls(*threadCtls);
++
++	{
++		std::lock_guard<spring::mutex> lock(tempCtls->mutSuspend);
++		tempCtls->condInitialized.notify_one();
++	}
++
++	taskFunc();
++}
++
++SuspendResult ThreadControls::Suspend()
++{
++	return Threading::THREADERR_NOT_RUNNING;
++}
++
++SuspendResult ThreadControls::Resume()
++{
++	return Threading::THREADERR_NONE;
++}
++
++} // namespace Threading
+diff --git a/rts/System/Platform/ThreadAffinityGuard.cpp b/rts/System/Platform/ThreadAffinityGuard.cpp
+index 713b7b5..d946541 100644
+--- a/rts/System/Platform/ThreadAffinityGuard.cpp
++++ b/rts/System/Platform/ThreadAffinityGuard.cpp
+@@ -3,22 +3,22 @@
+ #include "System/Log/ILog.h"
+ #ifdef _WIN32
+ #include <windows.h>
+-#else
++#elif defined(__linux__)
+ #include <sched.h>
+ #include <unistd.h>
+-#include <syscall.h>
++#include <sys/syscall.h>
+ #endif
+ 
+ // Constructor: Saves the current thread's affinity
+ ThreadAffinityGuard::ThreadAffinityGuard() : affinitySaved(false) {
+-#ifdef _WIN32
++	#ifdef _WIN32
+ 	threadHandle = GetCurrentThread();  // Get the current thread handle
+ 	savedAffinity = SetThreadAffinityMask(threadHandle, ~0);
+ 	affinitySaved = ( savedAffinity != 0 );
+ 	if (!affinitySaved) {
+ 		LOG_L(L_WARNING, "GetThreadAffinityMask failed with error code: %lu", GetLastError());
+ 	}
+-#else
++	#elif defined(__linux__)
+ 	tid = syscall(SYS_gettid);  // Get thread ID
+ 	CPU_ZERO(&savedAffinity);
+ 	if (sched_getaffinity(tid, sizeof(cpu_set_t), &savedAffinity) == 0) {
+@@ -26,20 +26,22 @@ ThreadAffinityGuard::ThreadAffinityGuard() : affinitySaved(false) {
+ 	} else {
+ 		LOG_L(L_WARNING, "Failed to save thread affinity.");
+ 	}
+-#endif
++	#else
++	affinitySaved = false;
++	#endif
+ }
+ 
+ // Destructor: Restores the saved affinity if it was successfully stored
+ ThreadAffinityGuard::~ThreadAffinityGuard() {
+ 	if (affinitySaved) {
+-#ifdef _WIN32
++	#ifdef _WIN32
+ 		if (!SetThreadAffinityMask(threadHandle, savedAffinity)) {
+ 			LOG_L(L_WARNING, "SetThreadAffinityMask failed with error code: %lu", GetLastError());
+ 		}
+-#else
++	#elif defined(__linux__)
+ 		if (sched_setaffinity(tid, sizeof(cpu_set_t), &savedAffinity) != 0) {
+ 			LOG_L(L_WARNING, "Failed to restore thread affinity.");
+ 		}
+-#endif
++	#endif
+ 	}
+ }
+diff --git a/rts/System/Platform/ThreadAffinityGuard.h b/rts/System/Platform/ThreadAffinityGuard.h
+index 2e456c5..7c684e3 100644
+--- a/rts/System/Platform/ThreadAffinityGuard.h
++++ b/rts/System/Platform/ThreadAffinityGuard.h
+@@ -3,8 +3,9 @@
+ 
+ #ifdef _WIN32
+ #include <windows.h>
+-#else
++#elif defined(__linux__)
+ #include <sched.h>
++#include <sys/types.h>
+ #endif
+ 
+ class ThreadAffinityGuard {
+@@ -12,7 +13,7 @@ private:
+ #ifdef _WIN32
+ 	DWORD_PTR savedAffinity;
+ 	HANDLE threadHandle;
+-#else
++#elif defined(__linux__)
+ 	cpu_set_t savedAffinity;
+ 	pid_t tid;
+ #endif
+diff --git a/b/rts/System/SDLCompat/SDL.h b/rts/System/SDLCompat/SDL.h
+new file mode 100644
+index 0000000..698be56
+--- /dev/null
++++ b/rts/System/SDLCompat/SDL.h
+@@ -0,0 +1 @@
++#include "SDLRecoilCompat.h"
+diff --git a/b/rts/System/SDLCompat/SDL2/SDL_keyboard.h b/rts/System/SDLCompat/SDL2/SDL_keyboard.h
+new file mode 100644
+index 0000000..8589c64
+--- /dev/null
++++ b/rts/System/SDLCompat/SDL2/SDL_keyboard.h
+@@ -0,0 +1 @@
++#include "../SDL_keyboard.h"
+diff --git a/b/rts/System/SDLCompat/SDL2/SDL_mouse.h b/rts/System/SDLCompat/SDL2/SDL_mouse.h
+new file mode 100644
+index 0000000..238ad81
+--- /dev/null
++++ b/rts/System/SDLCompat/SDL2/SDL_mouse.h
+@@ -0,0 +1 @@
++#include "../SDL_mouse.h"
+diff --git a/b/rts/System/SDLCompat/SDL2/SDL_rect.h b/rts/System/SDLCompat/SDL2/SDL_rect.h
+new file mode 100644
+index 0000000..3986dd7
+--- /dev/null
++++ b/rts/System/SDLCompat/SDL2/SDL_rect.h
+@@ -0,0 +1 @@
++#include "../SDL_rect.h"
+diff --git a/b/rts/System/SDLCompat/SDLRecoilCompat.h b/rts/System/SDLCompat/SDLRecoilCompat.h
+new file mode 100644
+index 0000000..afcf1ca
+--- /dev/null
++++ b/rts/System/SDLCompat/SDLRecoilCompat.h
+@@ -0,0 +1,364 @@
++/* This file is part of the Spring engine (GPL v2 or later), see LICENSE.html */
++
++#ifndef RECOIL_SDL_RECOIL_COMPAT_H
++#define RECOIL_SDL_RECOIL_COMPAT_H
++
++#if defined(RECOIL_MACOS_SDL3_EGL)
++
++#ifndef SDL_ENABLE_OLD_NAMES
++#define SDL_ENABLE_OLD_NAMES 1
++#endif
++
++#if defined(camera)
++#define RECOIL_SDL_COMPAT_RESTORE_CAMERA_MACRO 1
++#pragma push_macro("camera")
++#undef camera
++#endif
++
++#include <SDL3/SDL.h>
++
++#if defined(RECOIL_SDL_COMPAT_RESTORE_CAMERA_MACRO)
++#pragma pop_macro("camera")
++#undef RECOIL_SDL_COMPAT_RESTORE_CAMERA_MACRO
++#endif
++
++typedef struct SDL_version {
++	int major;
++	int minor;
++	int patch;
++} SDL_version;
++
++static inline void SDLCompat_VersionFromNumber(int version, SDL_version* outVersion)
++{
++	if (outVersion == NULL)
++		return;
++
++	outVersion->major = version / 1000000;
++	outVersion->minor = (version / 1000) % 1000;
++	outVersion->patch = version % 1000;
++}
++
++static inline void SDLCompat_GetCompiledVersion(SDL_version* outVersion)
++{
++	if (outVersion == NULL)
++		return;
++
++	outVersion->major = SDL_MAJOR_VERSION;
++	outVersion->minor = SDL_MINOR_VERSION;
++	outVersion->patch = SDL_MICRO_VERSION;
++}
++
++static inline void SDLCompat_GetLinkedVersion(SDL_version* outVersion)
++{
++	SDLCompat_VersionFromNumber(SDL_GetVersion(), outVersion);
++}
++
++#undef SDL_VERSION
++#define SDL_VERSION(outVersion) SDLCompat_GetCompiledVersion(outVersion)
++#define SDL_GetVersion(outVersion) SDLCompat_GetLinkedVersion(outVersion)
++
++#ifndef SDL_BPP
++#define SDL_BPP(format) SDL_BITSPERPIXEL(format)
++#endif
++
++#ifndef SDL_QUERY
++#define SDL_QUERY   -1
++#endif
++#ifndef SDL_DISABLE
++#define SDL_DISABLE  0
++#endif
++#ifndef SDL_ENABLE
++#define SDL_ENABLE   1
++#endif
++#ifndef SDL_HINT_MOUSE_RELATIVE_MODE_WARP
++#define SDL_HINT_MOUSE_RELATIVE_MODE_WARP "SDL_MOUSE_RELATIVE_MODE_WARP"
++#endif
++
++static inline SDL_DisplayID SDLCompat_GetDisplayIDFromIndex(int displayIndex)
++{
++	int count = 0;
++	SDL_DisplayID* displays = SDL_GetDisplays(&count);
++	if (displays == NULL || count <= 0)
++		return 0;
++
++	const int boundedIndex = displayIndex < 0 ? 0 : (displayIndex >= count ? count - 1 : displayIndex);
++	const SDL_DisplayID displayID = displays[boundedIndex];
++	SDL_free(displays);
++	return displayID;
++}
++
++static inline int SDLCompat_GetNumVideoDisplays()
++{
++	int count = 0;
++	SDL_DisplayID* displays = SDL_GetDisplays(&count);
++	SDL_free(displays);
++	return count;
++}
++
++static inline int SDLCompat_GetDisplayBounds(int displayIndex, SDL_Rect* rect)
++{
++	return SDL_GetDisplayBounds(SDLCompat_GetDisplayIDFromIndex(displayIndex), rect) ? 0 : -1;
++}
++
++static inline int SDLCompat_GetDisplayUsableBounds(int displayIndex, SDL_Rect* rect)
++{
++	return SDL_GetDisplayUsableBounds(SDLCompat_GetDisplayIDFromIndex(displayIndex), rect) ? 0 : -1;
++}
++
++static inline const char* SDLCompat_GetDisplayName(int displayIndex)
++{
++	const char* name = SDL_GetDisplayName(SDLCompat_GetDisplayIDFromIndex(displayIndex));
++	return name != NULL ? name : "unknown";
++}
++
++static inline int SDLCompat_GetNumDisplayModes(int displayIndex)
++{
++	int count = 0;
++	SDL_DisplayMode** modes = SDL_GetFullscreenDisplayModes(SDLCompat_GetDisplayIDFromIndex(displayIndex), &count);
++	SDL_free(modes);
++	return count;
++}
++
++static inline int SDLCompat_CopyDisplayMode(const SDL_DisplayMode* mode, SDL_DisplayMode* outMode)
++{
++	if (mode == NULL || outMode == NULL)
++		return -1;
++
++	*outMode = *mode;
++	return 0;
++}
++
++static inline int SDLCompat_GetDisplayMode(int displayIndex, int modeIndex, SDL_DisplayMode* outMode)
++{
++	int count = 0;
++	SDL_DisplayMode** modes = SDL_GetFullscreenDisplayModes(SDLCompat_GetDisplayIDFromIndex(displayIndex), &count);
++	if (modes == NULL || modeIndex < 0 || modeIndex >= count) {
++		SDL_free(modes);
++		return -1;
++	}
++
++	const int result = SDLCompat_CopyDisplayMode(modes[modeIndex], outMode);
++	SDL_free(modes);
++	return result;
++}
++
++static inline int SDLCompat_GetDesktopDisplayMode(int displayIndex, SDL_DisplayMode* outMode)
++{
++	return SDLCompat_CopyDisplayMode(SDL_GetDesktopDisplayMode(SDLCompat_GetDisplayIDFromIndex(displayIndex)), outMode);
++}
++
++static inline int SDLCompat_GetCurrentDisplayMode(int displayIndex, SDL_DisplayMode* outMode)
++{
++	return SDLCompat_CopyDisplayMode(SDL_GetCurrentDisplayMode(SDLCompat_GetDisplayIDFromIndex(displayIndex)), outMode);
++}
++
++static inline int SDLCompat_GetWindowDisplayMode(SDL_Window* window, SDL_DisplayMode* outMode)
++{
++	if (window == NULL || outMode == NULL)
++		return -1;
++
++	const SDL_DisplayMode* fullscreenMode = SDL_GetWindowFullscreenMode(window);
++	if (fullscreenMode != NULL)
++		return SDLCompat_CopyDisplayMode(fullscreenMode, outMode);
++
++	const SDL_DisplayID windowDisplay = SDL_GetDisplayForWindow(window);
++	const SDL_DisplayID displayID = windowDisplay != 0 ? windowDisplay : SDLCompat_GetDisplayIDFromIndex(0);
++	return SDLCompat_CopyDisplayMode(SDL_GetCurrentDisplayMode(displayID), outMode);
++}
++
++static inline int SDLCompat_GetWindowDisplayIndex(SDL_Window* window)
++{
++	const SDL_DisplayID windowDisplay = SDL_GetDisplayForWindow(window);
++	int count = 0;
++	SDL_DisplayID* displays = SDL_GetDisplays(&count);
++	if (displays == NULL)
++		return 0;
++
++	int index = 0;
++	for (int i = 0; i < count; ++i) {
++		if (displays[i] == windowDisplay) {
++			index = i;
++			break;
++		}
++	}
++
++	SDL_free(displays);
++	return index;
++}
++
++static inline int SDLCompat_SetWindowFullscreen(SDL_Window* window, Uint32 flags)
++{
++	return SDL_SetWindowFullscreen(window, flags != 0) ? 0 : -1;
++}
++
++static inline SDL_Window* SDLCompat_CreateWindow4(const char* title, int w, int h, SDL_WindowFlags flags)
++{
++	return SDL_CreateWindow(title, w, h, flags);
++}
++
++static inline SDL_Window* SDLCompat_CreateWindow6(const char* title, int x, int y, int w, int h, Uint32 flags)
++{
++	SDL_Window* window = SDL_CreateWindow(title, w, h, (SDL_WindowFlags)flags);
++	if (window != NULL)
++		SDL_SetWindowPosition(window, x, y);
++	return window;
++}
++
++static inline void SDLCompat_SetWindowGrab(SDL_Window* window, bool grabbed)
++{
++	SDL_SetWindowMouseGrab(window, grabbed);
++}
++
++static inline bool SDLCompat_GetWindowGrab(SDL_Window* window)
++{
++	return SDL_GetWindowMouseGrab(window);
++}
++
++static inline int SDLCompat_GL_SetSwapInterval(int interval)
++{
++	return SDL_GL_SetSwapInterval(interval) ? 0 : -1;
++}
++
++static inline int SDLCompat_GL_GetSwapInterval()
++{
++	int interval = 0;
++	if (!SDL_GL_GetSwapInterval(&interval))
++		return 0;
++	return interval;
++}
++
++static inline int SDLCompat_ShowCursor(int toggle)
++{
++	if (toggle == SDL_QUERY)
++		return SDL_CursorVisible() ? SDL_ENABLE : SDL_DISABLE;
++
++	const bool result = (toggle == SDL_ENABLE) ? SDL_ShowCursor() : SDL_HideCursor();
++	return result ? SDL_ENABLE : SDL_DISABLE;
++}
++
++static inline int SDLCompat_PauseAudioDevice(SDL_AudioDeviceID deviceID, int pauseOn)
++{
++	return (pauseOn ? SDL_PauseAudioDevice(deviceID) : SDL_ResumeAudioDevice(deviceID)) ? 0 : -1;
++}
++
++static inline bool SDLCompat_StartTextInput0()
++{
++	SDL_Window* window = SDL_GetKeyboardFocus();
++	return window != NULL ? SDL_StartTextInput(window) : false;
++}
++
++static inline bool SDLCompat_StartTextInput1(SDL_Window* window)
++{
++	return SDL_StartTextInput(window);
++}
++
++static inline bool SDLCompat_StopTextInput0()
++{
++	SDL_Window* window = SDL_GetKeyboardFocus();
++	return window != NULL ? SDL_StopTextInput(window) : false;
++}
++
++static inline bool SDLCompat_StopTextInput1(SDL_Window* window)
++{
++	return SDL_StopTextInput(window);
++}
++
++static inline bool SDLCompat_SetTextInputRect(const SDL_Rect* rect)
++{
++	SDL_Window* window = SDL_GetKeyboardFocus();
++	return window != NULL ? SDL_SetTextInputArea(window, rect, 0) : false;
++}
++
++static inline SDL_Surface* SDLCompat_CreateRGBSurfaceFrom(void* pixels, int width, int height, int depth, int pitch, Uint32 Rmask, Uint32 Gmask, Uint32 Bmask, Uint32 Amask)
++{
++	const SDL_PixelFormat format = SDL_GetPixelFormatForMasks(depth, Rmask, Gmask, Bmask, Amask);
++	if (format == SDL_PIXELFORMAT_UNKNOWN)
++		return NULL;
++
++	return SDL_CreateSurfaceFrom(width, height, format, pixels, pitch);
++}
++
++static inline SDL_MouseButtonFlags SDLCompat_GetMouseState(int* x, int* y)
++{
++	float xf = 0.0f;
++	float yf = 0.0f;
++	const SDL_MouseButtonFlags buttons = SDL_GetMouseState(&xf, &yf);
++
++	if (x != NULL)
++		*x = static_cast<int>(xf);
++	if (y != NULL)
++		*y = static_cast<int>(yf);
++
++	return buttons;
++}
++
++static inline SDL_Keycode SDLCompat_GetKeyFromScancode(SDL_Scancode scancode)
++{
++	return SDL_GetKeyFromScancode(scancode, SDL_KMOD_NONE, false);
++}
++
++static inline SDL_Scancode SDLCompat_GetScancodeFromKey(SDL_Keycode keycode)
++{
++	SDL_Keymod modstate = SDL_KMOD_NONE;
++	return SDL_GetScancodeFromKey(keycode, &modstate);
++}
++
++#undef SDL_GetNumVideoDisplays
++#undef SDL_GetDisplayBounds
++#undef SDL_GetDisplayUsableBounds
++#undef SDL_GetDisplayName
++#undef SDL_GetNumDisplayModes
++#undef SDL_GetDisplayMode
++#undef SDL_GetDesktopDisplayMode
++#undef SDL_GetCurrentDisplayMode
++#undef SDL_GetWindowDisplayMode
++#undef SDL_GetWindowDisplayIndex
++#undef SDL_CreateWindow
++#undef SDL_SetWindowFullscreen
++#undef SDL_SetWindowGrab
++#undef SDL_GetWindowGrab
++#undef SDL_GL_SetSwapInterval
++#undef SDL_GL_GetSwapInterval
++#undef SDL_ShowCursor
++#undef SDL_PauseAudioDevice
++#undef SDL_StartTextInput
++#undef SDL_StopTextInput
++#undef SDL_SetTextInputRect
++#undef SDL_CreateRGBSurfaceFrom
++#undef SDL_GetMouseState
++#undef SDL_GetKeyFromScancode
++#undef SDL_GetScancodeFromKey
++
++#define SDL_GetNumVideoDisplays() SDLCompat_GetNumVideoDisplays()
++#define SDL_GetDisplayBounds(displayIndex, rect) SDLCompat_GetDisplayBounds(displayIndex, rect)
++#define SDL_GetDisplayUsableBounds(displayIndex, rect) SDLCompat_GetDisplayUsableBounds(displayIndex, rect)
++#define SDL_GetDisplayName(displayIndex) SDLCompat_GetDisplayName(displayIndex)
++#define SDL_GetNumDisplayModes(displayIndex) SDLCompat_GetNumDisplayModes(displayIndex)
++#define SDL_GetDisplayMode(displayIndex, modeIndex, outMode) SDLCompat_GetDisplayMode(displayIndex, modeIndex, outMode)
++#define SDL_GetDesktopDisplayMode(displayIndex, outMode) SDLCompat_GetDesktopDisplayMode(displayIndex, outMode)
++#define SDL_GetCurrentDisplayMode(displayIndex, outMode) SDLCompat_GetCurrentDisplayMode(displayIndex, outMode)
++#define SDL_GetWindowDisplayMode(window, outMode) SDLCompat_GetWindowDisplayMode(window, outMode)
++#define SDL_GetWindowDisplayIndex(window) SDLCompat_GetWindowDisplayIndex(window)
++#define SDLCompat_CreateWindowSelect(_1, _2, _3, _4, _5, _6, NAME, ...) NAME
++#define SDL_CreateWindow(...) SDLCompat_CreateWindowSelect(__VA_ARGS__, SDLCompat_CreateWindow6, SDLCompat_CreateWindow5_unsupported, SDLCompat_CreateWindow4)(__VA_ARGS__)
++#define SDL_SetWindowFullscreen(window, flags) SDLCompat_SetWindowFullscreen(window, flags)
++#define SDL_SetWindowGrab(window, grabbed) SDLCompat_SetWindowGrab(window, grabbed)
++#define SDL_GetWindowGrab(window) SDLCompat_GetWindowGrab(window)
++#define SDL_GL_SetSwapInterval(interval) SDLCompat_GL_SetSwapInterval(interval)
++#define SDL_GL_GetSwapInterval() SDLCompat_GL_GetSwapInterval()
++#define SDL_ShowCursor(toggle) SDLCompat_ShowCursor(toggle)
++#define SDL_PauseAudioDevice(deviceID, pauseOn) SDLCompat_PauseAudioDevice(deviceID, pauseOn)
++#define SDLCompat_TextInputSelect(_0, _1, NAME, ...) NAME
++#define SDL_StartTextInput(...) SDLCompat_TextInputSelect(_, ##__VA_ARGS__, SDLCompat_StartTextInput1, SDLCompat_StartTextInput0)(__VA_ARGS__)
++#define SDL_StopTextInput(...) SDLCompat_TextInputSelect(_, ##__VA_ARGS__, SDLCompat_StopTextInput1, SDLCompat_StopTextInput0)(__VA_ARGS__)
++#define SDL_SetTextInputRect(rect) SDLCompat_SetTextInputRect(rect)
++#define SDL_CreateRGBSurfaceFrom(pixels, width, height, depth, pitch, Rmask, Gmask, Bmask, Amask) SDLCompat_CreateRGBSurfaceFrom(pixels, width, height, depth, pitch, Rmask, Gmask, Bmask, Amask)
++#define SDL_GetMouseState(x, y) SDLCompat_GetMouseState(x, y)
++#define SDL_GetKeyFromScancode(scancode) SDLCompat_GetKeyFromScancode(scancode)
++#define SDL_GetScancodeFromKey(keycode) SDLCompat_GetScancodeFromKey(keycode)
++
++#else
++#include <SDL.h>
++#endif
++
++#endif // RECOIL_SDL_RECOIL_COMPAT_H
+diff --git a/b/rts/System/SDLCompat/SDL_clipboard.h b/rts/System/SDLCompat/SDL_clipboard.h
+new file mode 100644
+index 0000000..698be56
+--- /dev/null
++++ b/rts/System/SDLCompat/SDL_clipboard.h
+@@ -0,0 +1 @@
++#include "SDLRecoilCompat.h"
+diff --git a/b/rts/System/SDLCompat/SDL_config.h b/rts/System/SDLCompat/SDL_config.h
+new file mode 100644
+index 0000000..698be56
+--- /dev/null
++++ b/rts/System/SDLCompat/SDL_config.h
+@@ -0,0 +1 @@
++#include "SDLRecoilCompat.h"
+diff --git a/b/rts/System/SDLCompat/SDL_events.h b/rts/System/SDLCompat/SDL_events.h
+new file mode 100644
+index 0000000..698be56
+--- /dev/null
++++ b/rts/System/SDLCompat/SDL_events.h
+@@ -0,0 +1 @@
++#include "SDLRecoilCompat.h"
+diff --git a/b/rts/System/SDLCompat/SDL_hints.h b/rts/System/SDLCompat/SDL_hints.h
+new file mode 100644
+index 0000000..698be56
+--- /dev/null
++++ b/rts/System/SDLCompat/SDL_hints.h
+@@ -0,0 +1 @@
++#include "SDLRecoilCompat.h"
+diff --git a/b/rts/System/SDLCompat/SDL_keyboard.h b/rts/System/SDLCompat/SDL_keyboard.h
+new file mode 100644
+index 0000000..698be56
+--- /dev/null
++++ b/rts/System/SDLCompat/SDL_keyboard.h
+@@ -0,0 +1 @@
++#include "SDLRecoilCompat.h"
+diff --git a/b/rts/System/SDLCompat/SDL_keycode.h b/rts/System/SDLCompat/SDL_keycode.h
+new file mode 100644
+index 0000000..698be56
+--- /dev/null
++++ b/rts/System/SDLCompat/SDL_keycode.h
+@@ -0,0 +1 @@
++#include "SDLRecoilCompat.h"
+diff --git a/b/rts/System/SDLCompat/SDL_mouse.h b/rts/System/SDLCompat/SDL_mouse.h
+new file mode 100644
+index 0000000..698be56
+--- /dev/null
++++ b/rts/System/SDLCompat/SDL_mouse.h
+@@ -0,0 +1 @@
++#include "SDLRecoilCompat.h"
+diff --git a/b/rts/System/SDLCompat/SDL_rect.h b/rts/System/SDLCompat/SDL_rect.h
+new file mode 100644
+index 0000000..698be56
+--- /dev/null
++++ b/rts/System/SDLCompat/SDL_rect.h
+@@ -0,0 +1 @@
++#include "SDLRecoilCompat.h"
+diff --git a/b/rts/System/SDLCompat/SDL_scancode.h b/rts/System/SDLCompat/SDL_scancode.h
+new file mode 100644
+index 0000000..698be56
+--- /dev/null
++++ b/rts/System/SDLCompat/SDL_scancode.h
+@@ -0,0 +1 @@
++#include "SDLRecoilCompat.h"
+diff --git a/b/rts/System/SDLCompat/SDL_stdinc.h b/rts/System/SDLCompat/SDL_stdinc.h
+new file mode 100644
+index 0000000..698be56
+--- /dev/null
++++ b/rts/System/SDLCompat/SDL_stdinc.h
+@@ -0,0 +1 @@
++#include "SDLRecoilCompat.h"
+diff --git a/b/rts/System/SDLCompat/SDL_syswm.h b/rts/System/SDLCompat/SDL_syswm.h
+new file mode 100644
+index 0000000..e5ac382
+--- /dev/null
++++ b/rts/System/SDLCompat/SDL_syswm.h
+@@ -0,0 +1,30 @@
++#include "SDLRecoilCompat.h"
++
++#if !defined(SDL_SYSWM_TYPE)
++typedef enum SDL_SYSWM_TYPE {
++	SDL_SYSWM_UNKNOWN,
++	SDL_SYSWM_WINDOWS,
++	SDL_SYSWM_X11,
++	SDL_SYSWM_WAYLAND,
++	SDL_SYSWM_COCOA
++} SDL_SYSWM_TYPE;
++#endif
++
++typedef struct SDL_SysWMinfo {
++	SDL_version version;
++	SDL_SYSWM_TYPE subsystem;
++	struct {
++		struct {
++			void* window;
++		} win;
++		struct {
++			void* display;
++			void* window;
++		} x11;
++	} info;
++} SDL_SysWMinfo;
++
++static inline int SDL_GetWindowWMInfo(SDL_Window*, SDL_SysWMinfo*)
++{
++	return 0;
++}
+diff --git a/b/rts/System/SDLCompat/SDL_version.h b/rts/System/SDLCompat/SDL_version.h
+new file mode 100644
+index 0000000..698be56
+--- /dev/null
++++ b/rts/System/SDLCompat/SDL_version.h
+@@ -0,0 +1 @@
++#include "SDLRecoilCompat.h"
+diff --git a/b/rts/System/SDLCompat/SDL_video.h b/rts/System/SDLCompat/SDL_video.h
+new file mode 100644
+index 0000000..698be56
+--- /dev/null
++++ b/rts/System/SDLCompat/SDL_video.h
+@@ -0,0 +1 @@
++#include "SDLRecoilCompat.h"
+diff --git a/rts/System/Sound/OpenAL/Sound.cpp b/rts/System/Sound/OpenAL/Sound.cpp
+index 832f506..90bd7c2 100644
+--- a/rts/System/Sound/OpenAL/Sound.cpp
++++ b/rts/System/Sound/OpenAL/Sound.cpp
+@@ -130,7 +130,9 @@ void CSound::Cleanup() {
+ 	if (hasAlcSoftLoopBack && sdlDeviceID != 0) {
+ 		LOG("[Sound::%s][SDL_CloseAudioDevice(%d)]", __func__, sdlDeviceID);
+ 		SDL_CloseAudioDevice(sdlDeviceID);
++#if !defined(RECOIL_MACOS_SDL3_EGL)
+ 		SDL_CloseAudio();
++#endif
+ 		SDL_QuitSubSystem(SDL_INIT_AUDIO);
+ 
+ 		sdlDeviceID = -1;
+@@ -348,6 +350,10 @@ bool CSound::Mute()
+ void CSound::DeviceChanged(uint32_t sdlDeviceIndex)
+ {
+ 	// handles SDL_AUDIODEVICEREMOVED and SDL_AUDIODEVICEADDED
++#if defined(RECOIL_MACOS_SDL3_EGL)
++	LOG("[Sound::%s] SDL3 audio device change observed for device=%u; SDL audio stream migration is deferred for Thread 11+", __func__, sdlDeviceIndex);
++	return;
++#endif
+ 
+ 	if (!hasAlcSoftLoopBack || sdlDeviceIndex != sdlDeviceID)
+ 		return;
+@@ -490,6 +496,12 @@ static const char* TypeName(ALCenum type)
+ 
+ bool CSound::OpenSdlDevice(const std::string& deviceName, SDL_AudioSpec& obtainedSpec)
+ {
++#if defined(RECOIL_MACOS_SDL3_EGL)
++	(void)deviceName;
++	(void)obtainedSpec;
++	LOG("[Sound::%s] SDL3 audio stream migration deferred in Thread 10; falling back to openal-soft backends", __func__);
++	return false;
++#else
+ 	if (SDL_InitSubSystem(SDL_INIT_AUDIO) != 0) {
+ 		LOG("[Sound::%s] failed to initialize SDL audio, error:  \"%s\"", __func__, SDL_GetError());
+ 		return false;
+@@ -561,6 +573,7 @@ bool CSound::OpenSdlDevice(const std::string& deviceName, SDL_AudioSpec& obtaine
+ 	}
+ 
+ 	return true;
++#endif
+ }
+ 
+ void CSound::OpenLoopbackDevice(const std::string& deviceName)
+@@ -614,13 +627,15 @@ void CSound::OpenLoopbackDevice(const std::string& deviceName)
+ 
+ 	attrs[2] = ALC_FORMAT_TYPE_SOFT;
+ 
+-	switch (obtainedSpec.format) {
+-		case AUDIO_U8    : { attrs[3] = ALC_UNSIGNED_BYTE_SOFT ; } break;
+-		case AUDIO_S8    : { attrs[3] = ALC_BYTE_SOFT          ; } break;
+-		case AUDIO_U16SYS: { attrs[3] = ALC_UNSIGNED_SHORT_SOFT; } break;
+-		case AUDIO_S16SYS: { attrs[3] = ALC_SHORT_SOFT         ; } break;
+-		case AUDIO_F32   : { attrs[3] = ALC_FLOAT_SOFT         ; } break;
+-		default: {
++		switch (obtainedSpec.format) {
++			case AUDIO_U8    : { attrs[3] = ALC_UNSIGNED_BYTE_SOFT ; } break;
++			case AUDIO_S8    : { attrs[3] = ALC_BYTE_SOFT          ; } break;
++#ifdef AUDIO_U16SYS
++			case AUDIO_U16SYS: { attrs[3] = ALC_UNSIGNED_SHORT_SOFT; } break;
++#endif
++			case AUDIO_S16SYS: { attrs[3] = ALC_SHORT_SOFT         ; } break;
++			case AUDIO_F32   : { attrs[3] = ALC_FLOAT_SOFT         ; } break;
++			default: {
+ 			LOG("[Sound::%s] unhandled SDL format: 0x%04x", __func__, obtainedSpec.format);
+ 			Cleanup();
+ 			return;
+diff --git a/rts/System/SpringApp.cpp b/rts/System/SpringApp.cpp
+index fd0a928..b15c100 100644
+--- a/rts/System/SpringApp.cpp
++++ b/rts/System/SpringApp.cpp
+@@ -1075,8 +1075,24 @@ void SpringApp::Kill(bool fromRun)
+ bool SpringApp::MainEventHandler(const SDL_Event& event)
+ {
+ 	switch (event.type) {
++#if defined(RECOIL_MACOS_SDL3_EGL)
++		case SDL_WINDOWEVENT_MOVED:
++		case SDL_WINDOWEVENT_SIZE_CHANGED:
++		case SDL_WINDOWEVENT_MAXIMIZED:
++		case SDL_WINDOWEVENT_RESTORED:
++		case SDL_WINDOWEVENT_SHOWN:
++		case SDL_WINDOWEVENT_MINIMIZED:
++		case SDL_WINDOWEVENT_HIDDEN:
++		case SDL_WINDOWEVENT_FOCUS_GAINED:
++		case SDL_WINDOWEVENT_FOCUS_LOST:
++		case SDL_WINDOWEVENT_DISPLAY_CHANGED:
++		case SDL_WINDOWEVENT_CLOSE: {
++			const auto recoilWindowEvent = event.type;
++#else
+ 		case SDL_WINDOWEVENT: {
+-			switch (event.window.event) {
++			const auto recoilWindowEvent = event.window.event;
++#endif
++			switch (recoilWindowEvent) {
+ 				case SDL_WINDOWEVENT_MOVED: {
+ 					LOG("[SpringApp::%s][SDL_WINDOWEVENT_MOVED][1] di=%d, ssx=%d, ssy=%d, wsx=%d, wsy=%d, wpx=%d, wpy=%d"
+ 						, __func__
+@@ -1203,7 +1219,11 @@ bool SpringApp::MainEventHandler(const SDL_Event& event)
+ 
+ 							SDL_Event event;
+ 							event.type = event.button.type = SDL_MOUSEBUTTONUP;
++#if defined(RECOIL_MACOS_SDL3_EGL)
++							event.button.down = false;
++#else
+ 							event.button.state = SDL_RELEASED;
++#endif
+ 							event.button.which = 0;
+ 							event.button.button = i;
+ 							event.button.x = -1;
+@@ -1220,7 +1240,11 @@ bool SpringApp::MainEventHandler(const SDL_Event& event)
+ 					globalRendering->SetWindowInputGrabbing(false);
+ 				} break;
+ 				// replace with normal SDL_WINDOWEVENT_DISPLAY_CHANGED when our Linux SDL2 is updated
++#if defined(RECOIL_MACOS_SDL3_EGL)
++				case SDL_WINDOWEVENT_DISPLAY_CHANGED: {
++#else
+ 				case RECOIL_SDL_WINDOWEVENT_DISPLAY_CHANGED: {
++#endif
+ 					LOG("[SpringApp::%s][SDL_WINDOWEVENT_DISPLAY_CHANGED] to display %d\n", __func__, event.window.data1);
+ 					// try to reinit GL context
+ 					globalRendering->MakeCurrentContext(false);
+@@ -1232,11 +1256,19 @@ bool SpringApp::MainEventHandler(const SDL_Event& event)
+ 			};
+ 		} break;
+ 		case SDL_AUDIODEVICEREMOVED: {
++#if defined(RECOIL_MACOS_SDL3_EGL)
++			LOG("[SpringApp::%s][SDL_AUDIODEVICEREMOVED][1] type=%u, which=%u, recording=%u", __func__, event.adevice.type, event.adevice.which, static_cast<uint32_t>(event.adevice.recording));
++#else
+ 			LOG("[SpringApp::%s][SDL_AUDIODEVICEREMOVED][1] type=%u, which=%u, iscapture=%u", __func__, event.adevice.type, event.adevice.which, static_cast<uint32_t>(event.adevice.iscapture));
++#endif
+ 			sound->DeviceChanged(event.adevice.which);
+ 		} break;
+ 		case SDL_AUDIODEVICEADDED: {
++#if defined(RECOIL_MACOS_SDL3_EGL)
++			LOG("[SpringApp::%s][SDL_AUDIODEVICEADDED][1] type=%u, which=%u, recording=%u", __func__, event.adevice.type, event.adevice.which, static_cast<uint32_t>(event.adevice.recording));
++#else
+ 			LOG("[SpringApp::%s][SDL_AUDIODEVICEADDED][1] type=%u, which=%u, iscapture=%u", __func__, event.adevice.type, event.adevice.which, static_cast<uint32_t>(event.adevice.iscapture));
++#endif
+ 			sound->DeviceChanged(event.adevice.which);
+ 		} break;
+ 		case SDL_QUIT: {
+@@ -1256,13 +1288,20 @@ bool SpringApp::MainEventHandler(const SDL_Event& event)
+ 			KeyInput::Update(keyBindings.GetFakeMetaKey());
+ 
+ 			if (activeController != nullptr) {
+-				int keyCode = CKeyCodes::GetNormalizedSymbol(event.key.keysym.sym);
+-				int scanCode = CScanCodes::GetNormalizedSymbol(event.key.keysym.scancode);
++#if defined(RECOIL_MACOS_SDL3_EGL)
++				const auto rawKeyCode = event.key.key;
++				const auto rawScanCode = event.key.scancode;
++#else
++				const auto rawKeyCode = event.key.keysym.sym;
++				const auto rawScanCode = event.key.keysym.scancode;
++#endif
++				int keyCode = CKeyCodes::GetNormalizedSymbol(rawKeyCode);
++				int scanCode = CScanCodes::GetNormalizedSymbol(rawScanCode);
+ 
+ 				// if the key is already held via input emulation the effective
+ 				// state is already down, so the real press is not a new edge
+ 				// (the emulated store is keyed by raw SDL2 keycode, like keyVec)
+-				if (!KeyInput::IsKeyEmulated(event.key.keysym.sym))
++				if (!KeyInput::IsKeyEmulated(rawKeyCode))
+ 					activeController->KeyPressed(keyCode, scanCode, event.key.repeat);
+ 			}
+ 
+@@ -1272,11 +1311,18 @@ bool SpringApp::MainEventHandler(const SDL_Event& event)
+ 
+ 			if (activeController != nullptr) {
+ 				gameTextInput.ignoreNextChar = false;
+-				int keyCode = CKeyCodes::GetNormalizedSymbol(event.key.keysym.sym);
+-				int scanCode = CScanCodes::GetNormalizedSymbol(event.key.keysym.scancode);
++#if defined(RECOIL_MACOS_SDL3_EGL)
++				const auto rawKeyCode = event.key.key;
++				const auto rawScanCode = event.key.scancode;
++#else
++				const auto rawKeyCode = event.key.keysym.sym;
++				const auto rawScanCode = event.key.keysym.scancode;
++#endif
++				int keyCode = CKeyCodes::GetNormalizedSymbol(rawKeyCode);
++				int scanCode = CScanCodes::GetNormalizedSymbol(rawScanCode);
+ 
+ 				// emulation still holds it down, so the real release is not an edge
+-				if (!KeyInput::IsKeyEmulated(event.key.keysym.sym))
++				if (!KeyInput::IsKeyEmulated(rawKeyCode))
+ 					activeController->KeyReleased(keyCode, scanCode);
+ 			}
+ 		} break;
+diff --git a/rts/System/SpringMath.cpp b/rts/System/SpringMath.cpp
+index 4bd235b..2197351 100644
+--- a/rts/System/SpringMath.cpp
++++ b/rts/System/SpringMath.cpp
+@@ -51,6 +51,8 @@ void SpringMath::Init()
+ 	if (checksum == HEADING_CHECKSUM)
+ 		return;
+ 
++	LOG_L(L_ERROR, "[%s] Invalid headingToVectorTable checksum: got 0x%08x, expected 0x%08x", __func__, checksum, HEADING_CHECKSUM);
++
+ 	throw unsupported_error(
+ 		"Invalid headingToVectorTable checksum. Most likely"
+ 		" your streflop library was not compiled with the correct"
+diff --git a/rts/System/Threading/ThreadPool.cpp b/rts/System/Threading/ThreadPool.cpp
+index a9b5dcd..3921ad6 100644
+--- a/rts/System/Threading/ThreadPool.cpp
++++ b/rts/System/Threading/ThreadPool.cpp
+@@ -27,6 +27,10 @@
+ #include <functional>
+ #include <cinttypes>
+ 
++#if defined(__APPLE__) && !defined(UNIT_TEST)
++#include <pthread/qos.h>
++#endif
++
+ #define USE_TASK_STATS_TRACKING
+ 
+ // not in mingwlibs
+@@ -44,7 +48,11 @@
+ CONFIG(int, WorkerThreadCount).defaultValue(-1).safemodeValue(0).minimumValue(-1).description("Number of workers (including the main thread!) used by ThreadPool.");
+ #endif
+ 
+-
++#if defined(__APPLE__) && !defined(UNIT_TEST)
++CONFIG(int, MacWorkerQos).defaultValue(1).minimumValue(0).maximumValue(1)
++	.description("macOS synchronous pool workers request USER_INITIATED QoS. Applied to newly created workers; async workers are unchanged.");
++static std::atomic_bool macWorkerQos{true};
++#endif
+ 
+ struct ThreadStats {
+ 	uint64_t numTasksRun;
+@@ -245,6 +253,18 @@ static void WorkerLoop(int tid, bool async)
+ 	Threading::SetThreadName(IntToString(tid, "worker%i"));
+ 	#endif
+ 
++	#if defined(__APPLE__) && !defined(UNIT_TEST)
++	if (!async && macWorkerQos.load(std::memory_order_relaxed)) {
++		const auto inheritedQos = qos_class_self();
++		// Shared-GL loading helpers can already enter with higher QoS.
++		if (inheritedQos != QOS_CLASS_USER_INTERACTIVE && inheritedQos != QOS_CLASS_USER_INITIATED) {
++			const int error = pthread_set_qos_class_self_np(QOS_CLASS_USER_INITIATED, 0);
++			if (error != 0)
++				LOG_L(L_WARNING, "[ThreadPool] Worker %d QoS request failed (%d)", tid, error);
++		}
++	}
++	#endif
++
+ 	// make first worker spin a while before sleeping/waiting on the thread signal
+ 	// this increases the chance that at least one worker is awake when a new task
+ 	// is inserted, which can then take over the job of waking up sleeping workers
+@@ -540,6 +560,11 @@ void SetThreadCount(int wantedNumThreads)
+ 	#endif
+ 
+ 	if (curNumThreads < wtdNumThreads) {
++		#if defined(__APPLE__) && !defined(UNIT_TEST)
++		// Unitsync starts its pool before creating configHandler. Shutdown
++		// must not need configuration either (including failed startup).
++		macWorkerQos.store(configHandler != nullptr && configHandler->GetInt("MacWorkerQos") != 0, std::memory_order_relaxed);
++		#endif
+ 		SpawnThreads(wtdNumThreads, curNumThreads);
+ 	} else {
+ 		KillThreads(wtdNumThreads, curNumThreads);
+@@ -738,4 +763,3 @@ void ClearExtJobs() {
+ }
+ 
+ #endif
+-
+diff --git a/rts/aGui/LineEdit.cpp b/rts/aGui/LineEdit.cpp
+index cc9cb60..7f8a4fa 100644
+--- a/rts/aGui/LineEdit.cpp
++++ b/rts/aGui/LineEdit.cpp
+@@ -100,7 +100,13 @@ bool LineEdit::HandleEventSelf(const SDL_Event& ev)
+ 			if (!hasFocus) {
+ 				break;
+ 			}
+-			switch(ev.key.keysym.sym)
++			const int key =
++#if defined(RECOIL_MACOS_SDL3_EGL)
++				ev.key.key;
++#else
++				ev.key.keysym.sym;
++#endif
++			switch(key)
+ 			{
+ 				case SDLK_BACKSPACE: {
+ 					if (cursorPos > 0) {
+diff --git a/rts/aGui/List.cpp b/rts/aGui/List.cpp
+index f3a9569..2f1ea52 100644
+--- a/rts/aGui/List.cpp
++++ b/rts/aGui/List.cpp
+@@ -341,12 +341,18 @@ bool List::HandleEventSelf(const SDL_Event& ev)
+ 		case SDL_KEYDOWN: {
+ 			if (!hasFocus)
+ 				break;
+-			if(ev.key.keysym.sym == SDLK_ESCAPE)
++			const int key =
++#if defined(RECOIL_MACOS_SDL3_EGL)
++				ev.key.key;
++#else
++				ev.key.keysym.sym;
++#endif
++			if(key == SDLK_ESCAPE)
+ 			{
+ 				hasFocus = false;
+ 				break;
+ 			}
+-			return KeyPressed(ev.key.keysym.sym, false);
++			return KeyPressed(key, false);
+ 		}
+ 	}
+ 	return false;
+diff --git a/rts/aGui/Window.cpp b/rts/aGui/Window.cpp
+index 0a809c8..1b7e1a8 100644
+--- a/rts/aGui/Window.cpp
++++ b/rts/aGui/Window.cpp
+@@ -103,7 +103,13 @@ bool Window::HandleEventSelf(const SDL_Event& ev)
+ 			break;
+ 		}
+ 		case SDL_KEYDOWN: {
+-			if (ev.key.keysym.sym == SDLK_ESCAPE)
++			const int key =
++#if defined(RECOIL_MACOS_SDL3_EGL)
++				ev.key.key;
++#else
++				ev.key.keysym.sym;
++#endif
++			if (key == SDLK_ESCAPE)
+ 			{
+ 				WantClose();
+ 				return true;
+diff --git a/rts/build/cmake/FindLibunwind.cmake b/rts/build/cmake/FindLibunwind.cmake
+index 2b16699..3efd2ee 100644
+--- a/rts/build/cmake/FindLibunwind.cmake
++++ b/rts/build/cmake/FindLibunwind.cmake
+@@ -36,9 +36,19 @@ find_path(LIBUNWIND_PKGCONFIG_DIR libunwind.pc
+ )
+ 
+ if (APPLE AND LIBUNWIND_INCLUDE_DIR)
+-  # FIXME: OS X 10.10 doesn't have static libunwind.a only dynamic libunwind.dylib;
+-  #        link with "-framework Cocoa"
+-  set(LIBUNWIND_LIBRARY "-framework Cocoa")
++  find_library(LIBUNWIND_LIBRARY
++               NAMES unwind
++               PATHS
++                   "${CMAKE_OSX_SYSROOT}/usr/lib/system"
++                   "${CMAKE_OSX_SYSROOT}/usr/lib"
++                   /usr/lib/system
++                   /usr/lib
++               NO_DEFAULT_PATH
++  )
++
++  if (NOT LIBUNWIND_LIBRARY)
++    find_library(LIBUNWIND_LIBRARY Cocoa REQUIRED)
++  endif()
+ else ()
+   find_library(LIBUNWIND_LIBRARY NAMES unwind ${LIB_STD_ARGS})
+ endif ()
+diff --git a/b/rts/build/cmake/FindMesaEGL.cmake b/rts/build/cmake/FindMesaEGL.cmake
+new file mode 100644
+index 0000000..0b0fb5f
+--- /dev/null
++++ b/rts/build/cmake/FindMesaEGL.cmake
+@@ -0,0 +1,15 @@
++# Explicit runtime input for the isolated macOS development engine.
++find_path(MesaEGL_INCLUDE_DIR NAMES EGL/egl.h
++	PATHS "${MESA_EGL_ROOT}" "${MesaEGL_ROOT}" "$ENV{MESA_EGL_ROOT}"
++	PATH_SUFFIXES include NO_DEFAULT_PATH)
++find_library(MesaEGL_LIBRARY NAMES EGL libEGL.1.dylib
++	PATHS "${MESA_EGL_ROOT}" "${MesaEGL_ROOT}" "$ENV{MESA_EGL_ROOT}"
++	PATH_SUFFIXES lib NO_DEFAULT_PATH)
++include(FindPackageHandleStandardArgs)
++find_package_handle_standard_args(MesaEGL DEFAULT_MSG MesaEGL_INCLUDE_DIR MesaEGL_LIBRARY)
++if(MesaEGL_FOUND AND NOT TARGET MesaEGL::EGL)
++	add_library(MesaEGL::EGL UNKNOWN IMPORTED)
++	set_target_properties(MesaEGL::EGL PROPERTIES
++		INTERFACE_INCLUDE_DIRECTORIES "${MesaEGL_INCLUDE_DIR}"
++		IMPORTED_LOCATION "${MesaEGL_LIBRARY}")
++endif()
+diff --git a/rts/build/cmake/FindSDL2.cmake b/rts/build/cmake/FindSDL2.cmake
+index 465e270..caf7dbf 100644
+--- a/rts/build/cmake/FindSDL2.cmake
++++ b/rts/build/cmake/FindSDL2.cmake
+@@ -2,6 +2,22 @@
+ # and doesn't provide a proper config file.
+ # We need to create imported targets for the config
+ 
++if (APPLE AND RECOIL_MACOS_SDL3_EGL)
++  find_package(SDL3 MODULE REQUIRED)
++
++  if (SDL3_FOUND AND NOT TARGET SDL2::SDL2)
++    add_library(SDL2_SDL3Compat INTERFACE)
++    add_library(SDL2::SDL2 ALIAS SDL2_SDL3Compat)
++    target_link_libraries(SDL2_SDL3Compat INTERFACE SDL3::SDL3)
++    target_include_directories(SDL2_SDL3Compat BEFORE INTERFACE "${CMAKE_SOURCE_DIR}/rts/System/SDLCompat")
++    target_compile_definitions(SDL2_SDL3Compat INTERFACE RECOIL_MACOS_SDL3_EGL=1 SDL_ENABLE_OLD_NAMES=1)
++  endif()
++
++  set(SDL2_FOUND ${SDL3_FOUND})
++  set(SDL2_LIBRARIES SDL2::SDL2)
++  return()
++endif()
++
+ find_package(SDL2 QUIET CONFIG)
+ 
+ find_library(SDL2_LIBRARY
+diff --git a/b/rts/build/cmake/FindSDL3.cmake b/rts/build/cmake/FindSDL3.cmake
+new file mode 100644
+index 0000000..8f4466b
+--- /dev/null
++++ b/rts/build/cmake/FindSDL3.cmake
+@@ -0,0 +1,4 @@
++# Do not fall back to a historical thread runtime or a system SDL installation.
++find_package(SDL3 CONFIG REQUIRED
++	PATHS "${SDL3_ROOT}" "${SDL3_DIR}" "$ENV{SDL3_ROOT}"
++	PATH_SUFFIXES lib/cmake/SDL3 NO_DEFAULT_PATH)
+diff --git a/rts/builds/legacy/CMakeLists.txt b/rts/builds/legacy/CMakeLists.txt
+index f1d19ed..fd05379 100644
+--- a/rts/builds/legacy/CMakeLists.txt
++++ b/rts/builds/legacy/CMakeLists.txt
+@@ -24,15 +24,16 @@ target_link_libraries(Game PRIVATE
+ ### Assemble libraries
+ find_package(SDL2 MODULE REQUIRED)
+ 
+-
+-
+-
+-
+ set(engineLibraries SDL2::SDL2)
+ 
+-set(OpenGL_GL_PREFERENCE LEGACY)
+-find_package_static(OpenGL 3.0 REQUIRED)
+-list(APPEND engineLibraries OpenGL::GL)
++if (APPLE AND RECOIL_MACOS_SDL3_EGL)
++	find_package(MesaEGL MODULE REQUIRED)
++	list(APPEND engineLibraries MesaEGL::EGL)
++else()
++	set(OpenGL_GL_PREFERENCE LEGACY)
++	find_package_static(OpenGL 3.0 REQUIRED)
++	list(APPEND engineLibraries OpenGL::GL)
++endif()
+ 
+ find_fontconfig_hack()
+ find_package_static(Fontconfig 2.11 REQUIRED)
+@@ -84,6 +85,21 @@ include_directories(${engineIncludes})
+ add_executable(engine-legacy ${EXE_FLAGS} ${engineSources} ${ENGINE_ICON} ${engineHeaders})
+ target_link_libraries(engine-legacy ${engineLibraries} Game)
+ 
++if (APPLE AND RECOIL_MACOS_SDL3_EGL)
++	target_compile_definitions(engine-legacy PRIVATE RECOIL_MACOS_SDL3_EGL=1 SDL_ENABLE_OLD_NAMES=1)
++	target_include_directories(engine-legacy BEFORE PRIVATE "${ENGINE_SRC_ROOT_DIR}/System/SDLCompat")
++	target_link_options(engine-legacy PRIVATE
++		"SHELL:-framework Cocoa"
++		"SHELL:-framework Foundation"
++		"SHELL:-framework QuartzCore"
++		"SHELL:-framework Metal"
++	)
++	set_target_properties(engine-legacy PROPERTIES
++		BUILD_RPATH "${CMAKE_BUILD_RPATH}"
++		INSTALL_RPATH "@loader_path/lib;@loader_path/../../runtime/sdl3/lib;@loader_path/../../runtime/mesa-zink/lib;@loader_path/../../runtime/vulkan-loader/lib;@loader_path/../../runtime/moltenvk-pr2746/lib;@loader_path/../../runtime/audio/lib;@loader_path/../../runtime/deps/lib"
++	)
++endif()
++
+ # Export symbols for plugin access (replaces CMP0065 OLD behavior)
+ set_target_properties(engine-legacy PROPERTIES ENABLE_EXPORTS TRUE)
+ 
+diff --git a/rts/lib/assimp/include/assimp/types.h b/rts/lib/assimp/include/assimp/types.h
+index b083fbf..58ca88f 100644
+--- a/rts/lib/assimp/include/assimp/types.h
++++ b/rts/lib/assimp/include/assimp/types.h
+@@ -65,6 +65,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ #include "quaternion.h"
+ 
+ #ifdef __cplusplus
++#include <cmath>
+ #include <cstring>
+ #include <new>      // for std::nothrow_t
+ #include <string>   // for aiString::Set(const std::string&)
+diff --git a/rts/lib/smmalloc/smmalloc.h b/rts/lib/smmalloc/smmalloc.h
+index 4bc0786..05fe34e 100644
+--- a/rts/lib/smmalloc/smmalloc.h
++++ b/rts/lib/smmalloc/smmalloc.h
+@@ -24,10 +24,12 @@
+ #include <algorithm>
+ #include <array>
+ #include <atomic>
++#include <cstdlib>
+ #include <cstring>
+ #include <initializer_list>
+ #include <memory>
+ #include <stdint.h>
++#include <type_traits>
+ 
+ //#define SMMALLOC_STATS_SUPPORT
+ 

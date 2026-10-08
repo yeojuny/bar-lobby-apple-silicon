@@ -1,0 +1,13 @@
+--- a/runtime/fontconfig/fonts.conf
++++ b/runtime/fontconfig/fonts.conf
+@@ -12,6 +12,10 @@
+   <dir prefix="xdg">fonts</dir>
+   <dir>~/.fonts</dir>
+ 
++  <!-- Recoil changes cwd to its writable data directory before font init.
++       Home access can be disabled, including XDG cache lookup in Fontconfig.
++       Supply the engine's existing local cache before any implicit init. -->
++  <cachedir>fontcache</cachedir>
+   <cachedir prefix="xdg">fontconfig</cachedir>
+   <cachedir>~/.fontconfig</cachedir>
+ 

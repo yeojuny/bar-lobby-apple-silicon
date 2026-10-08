@@ -1,0 +1,21 @@
+{
+  "r80": {
+    "native_vulkan_packaged_checks_passed": 112,
+    "memoryless_timestamp_depth_stencil_MSAA_query_ring_configurations_passed": 12,
+    "hidden_game_runs_in_same_cohort": 7,
+    "r80_M3_M4_LuaVBO_checks_total_passed": 18,
+    "whole_stack_FPS_gain_M3_vs_RUN95_percent": 26.92,
+    "game_acceptance_scope": "bounded scene and actual VBO/readback/VAO/FBO cases; not exhaustive visual parity or cross-platform multiplayer certification"
+  },
+  "source_export": {
+    "patched_files_verified": 182,
+    "method": "each cumulative patch applied to corresponding exact upstream file preimages; resulting bytes matched pinned R80 source inventory; ancillary source code dependencies compared separately; no engine rebuild or game execution"
+  },
+  "r81_font_candidate": {
+    "status": "implemented, CPU-validated, independently reviewed; not built into R80",
+    "cpu_assertions": 53,
+    "cache_parsing_cases": 4,
+    "sanitizer": "ASan/UBSan caller fixture passed; packaged libraries uninstrumented",
+    "independent_review": "Astra XHigh; no actionable new defect in reviewed two-file scope"
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "status": "CPU and independent review only; not part of R80 binaries or measurements",
+  "files": [
+    {
+      "patch": "patches/r81-engine-font.patch",
+      "application_root": "RecoilEngine after engine-r80.patch",
+      "path": "rts/Rendering/Fonts/CFontTexture.cpp",
+      "base_sha256": "cde1da63b3ccb03d23b8e047879eda98e77173b858fde42af46d53b3090d53ec",
+      "target_sha256": "18d830a7580560e038f2f83c49b2ec7ffce4c56a6658fa8045abc77b5e0f3610",
+      "patch_sha256": "868a7d429bbdbd17b6f65c318aad7b50e1a563ffff7945e92967369bff08ed41",
+      "patch_application": "passed"
+    },
+    {
+      "patch": "patches/r81-runtime-fontconfig.patch",
+      "application_root": "bundled-assets",
+      "path": "runtime/fontconfig/fonts.conf",
+      "base_sha256": "063a46df830a24925a169661a37cef791405ed9a2e7de4118f20e08e2012b9e6",
+      "target_sha256": "6c5bd7a3301f33f40321f727d275248936dc167b3a4947b7064d0da8dedd3536",
+      "patch_sha256": "866deba303fbc745b6d7d38f92195c4e485881773198e35e06b8dc20b9328b87",
+      "patch_application": "passed"
+    }
+  ]
+}

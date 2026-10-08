@@ -1,0 +1,73 @@
+{
+  "date": "2026-10-07",
+  "power": "AC connected, low-power mode enabled",
+  "thermal_state": 0,
+  "scene": "Seths Ravine Remake 1.3.1",
+  "content": "test-31479-433a460",
+  "seed": 7654321,
+  "quality": "Ultra / CUS GL4 / 4x MSAA / VSync off / 1432x902",
+  "measurement": "frame 240 through 1140; 900 simulation frames; approximately 30 seconds",
+  "cache": "new empty dedicated Mesa cache per arm; OS Metal cache not cleared",
+  "runs_per_arm": 1,
+  "order": "listed order",
+  "exclusions": 0,
+  "columns": [
+    "version",
+    "backend",
+    "average_fps",
+    "p95_ms",
+    "p99_ms"
+  ],
+  "rows": [
+    [
+      "RUN95+VBO",
+      "Metal3",
+      36.6598,
+      34.013,
+      41.897
+    ],
+    [
+      "r58",
+      "Metal3",
+      43.524,
+      42.646,
+      49.159
+    ],
+    [
+      "r58",
+      "Metal4",
+      36.6486,
+      48.394,
+      55.878
+    ],
+    [
+      "r78",
+      "Metal3",
+      46.5778,
+      28.809,
+      42.0
+    ],
+    [
+      "r78",
+      "Metal4",
+      41.4821,
+      30.61,
+      48.842
+    ],
+    [
+      "r80",
+      "Metal3",
+      46.5279,
+      29.055,
+      42.886
+    ],
+    [
+      "r80",
+      "Metal4",
+      42.0438,
+      30.405,
+      47.153
+    ]
+  ],
+  "scope": "whole stack comparison; not per-patch attribution or statistical proof"
+}

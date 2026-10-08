@@ -1,0 +1,248 @@
+{
+  "workspace_placeholder": "${WORKSPACE}: original workspace root; commands are historical inputs, not an automated clean-machine recipe",
+  "r80_packaged_engine_sha256": {
+    "chobby": "03ad431b7bd161fdb10e01d84db03c433e39097735a960df8b64e680e6d7211e",
+    "lobby": "393927f89891b3daa8e3f0bd2371791ebb58ecb853e081690120a180931afade"
+  },
+  "r80_packaged_mvk_sha256": "72286a519827703a9ec8372f114aaf95c2be56269b9b37110f8ba4eb8e38dc3e",
+  "mvk_build_digest": "1824bdaababe14e72929f87e9e1d3a7c35cd5fa2dfd4e6074127cee0d83bf7d4",
+  "mesa_content_digest_not_git_commit": "95e64e515a507f6536b7be30a39aee1cc1e443ca31338916ac7150afcf24151a",
+  "mesa40962Included": false,
+  "sharedRuntimeBothLanes": true,
+  "metal4_enable_env": {
+    "MVK_CONFIG_USE_METAL4": "1"
+  },
+  "mvk_configure_arguments": [
+    "/opt/homebrew/bin/cmake",
+    "-S",
+    "${WORKSPACE}/build/run66-moltenvk-src-20260903",
+    "-B",
+    "${WORKSPACE}/build/metal4-mvk-20261002",
+    "-G",
+    "Ninja",
+    "-DCMAKE_BUILD_TYPE=Release",
+    "-DCMAKE_OSX_ARCHITECTURES=arm64",
+    "-DCMAKE_OSX_DEPLOYMENT_TARGET=27.0",
+    "-DCMAKE_INSTALL_NAME_DIR=@rpath",
+    "-DCMAKE_INSTALL_PREFIX=${WORKSPACE}/artifacts/validation/metal4-direct-backend-implementation-20261002/runtime",
+    "-DMVK_BUILD_METAL4_FOUNDATION=ON",
+    "-DMVK_USE_METAL_PRIVATE_API=ON",
+    "-DMVK_GIT_REV=1824bdaa",
+    "-DSPIRV_SKIP_TESTS=ON",
+    "-DSPIRV_SKIP_EXECUTABLES=ON",
+    "-DCPM_LOCAL_PACKAGES_ONLY=ON",
+    "-DBUILD_TESTS=OFF",
+    "-DCPM_SPIRV-Cross_SOURCE=${WORKSPACE}/build/run66-moltenvk-src-20260903/External/SPIRV-Cross",
+    "-DCPM_SPIRV-Tools_SOURCE=${WORKSPACE}/build/run66-moltenvk-src-20260903/External/SPIRV-Tools",
+    "-DCPM_SPIRV-Headers_SOURCE=${WORKSPACE}/build/run66-moltenvk-src-20260903/External/SPIRV-Headers",
+    "-DCPM_cereal_SOURCE=${WORKSPACE}/build/run66-moltenvk-src-20260903/External/cereal",
+    "-DCPM_Vulkan-Headers_SOURCE=${WORKSPACE}/build/run66-vulkan-headers-src-20260903"
+  ],
+  "mvk_toolchain": {
+    "xcode": "Xcode 27.0\nBuild version 27A266a",
+    "clang": "Apple clang version 21.0.0 (clang-2100.3.34.2)",
+    "sdkBuild": "26A425"
+  },
+  "mesa_meson_options": [
+    "--buildtype=release",
+    "--prefix=${WORKSPACE}/artifacts/runtime/metal4-mesa-20261005/r60-present-semaphore/runtime/mesa-zink",
+    "--libdir=lib",
+    "-Dplatforms=macos",
+    "-Dgallium-drivers=zink",
+    "-Dvulkan-drivers=",
+    "-Dglx=disabled",
+    "-Degl=enabled",
+    "-Dgles1=disabled",
+    "-Dgles2=disabled",
+    "-Dllvm=disabled",
+    "-Dshared-llvm=disabled",
+    "-Dgbm=disabled",
+    "-Dxmlconfig=disabled",
+    "-Dzstd=disabled",
+    "-Dzlib=enabled",
+    "-Dbuild-tests=false",
+    "-Dtools=",
+    "-Dmoltenvk-dir=${WORKSPACE}/artifacts/runtime/run95-stack-update-20261002/runtime/moltenvk-pr2746",
+    "-Dvulkan-loader-rpath=@loader_path/../../vulkan-loader/lib"
+  ],
+  "engine_source_and_dependencies": {
+    "engine": {
+      "repository": "beyond-all-reason/RecoilEngine",
+      "branch": "master",
+      "commit": "694e9df7cf5068aef2cdebbf5e6587d539344001"
+    },
+    "version": "2026.09.10-0-g694e9df7 run91-macos",
+    "versionMeaning": "Local candidate build date and upstream hash; not an official release or git-describe distance",
+    "dependencyPolicy": "Use the exact dependency commits recorded by this Recoil master, not unrelated floating dependency heads",
+    "dependencies": [
+      {
+        "path": "AI/Skirmish/BARb",
+        "repository": "rlcevg/CircuitAI",
+        "commit": "e6b33037dfbe81f2b0eb289f884ed90a1718eec0",
+        "archive": "archives/AI_Skirmish_BARb-e6b33037dfbe.tar.gz"
+      },
+      {
+        "path": "AI/Skirmish/CircuitAI",
+        "repository": "rlcevg/CircuitAI",
+        "commit": "edc74149c281e2140f28c091ed74310c11611cc7",
+        "archive": "archives/AI_Skirmish_CircuitAI-edc74149c281.tar.gz"
+      },
+      {
+        "path": "rts/lib/RmlUi",
+        "repository": "mikke89/RmlUi",
+        "commit": "2230d1a6e8e0848ed87a5761e2a5160b2a175ba4",
+        "archive": "archives/rts_lib_RmlUi-2230d1a6e8e0.tar.gz"
+      },
+      {
+        "path": "rts/lib/cereal",
+        "repository": "USCiLab/cereal",
+        "commit": "d1fcec807b372f04e4c1041b3058e11c12853e6e",
+        "archive": "archives/rts_lib_cereal-d1fcec807b37.tar.gz"
+      },
+      {
+        "path": "rts/lib/entt",
+        "repository": "skypjack/entt",
+        "commit": "b4e58bdd364ad72246c123a0c28538eab3252672",
+        "archive": "archives/rts_lib_entt-b4e58bdd364a.tar.gz"
+      },
+      {
+        "path": "rts/lib/fastgltf",
+        "repository": "spnda/fastgltf",
+        "commit": "eebda658317cd907d6cdf9c9ed7e40b96e8453dd",
+        "archive": "archives/rts_lib_fastgltf-eebda658317c.tar.gz"
+      },
+      {
+        "path": "rts/lib/fmt",
+        "repository": "fmtlib/fmt",
+        "commit": "407c905e45ad75fc29bf0f9bb7c5c2fd3475976f",
+        "archive": "archives/rts_lib_fmt-407c905e45ad.tar.gz"
+      },
+      {
+        "path": "rts/lib/gflags",
+        "repository": "gflags/gflags",
+        "commit": "33bb3461e10864b5406353d3a1fb7ff34c2314b8",
+        "archive": "archives/rts_lib_gflags-33bb3461e108.tar.gz"
+      },
+      {
+        "path": "rts/lib/lunasvg",
+        "repository": "sammycage/lunasvg",
+        "commit": "f8aabfb444bb37f69df7290790f57e4a27730a93",
+        "archive": "archives/rts_lib_lunasvg-f8aabfb444bb.tar.gz"
+      },
+      {
+        "path": "rts/lib/lunasvg/plutovg",
+        "repository": "sammycage/plutovg",
+        "commit": "5e4712cf873b0c7829a4a6157763e2ad3ac49164",
+        "archive": "archives/rts_lib_lunasvg_plutovg-5e4712cf873b.tar.gz"
+      },
+      {
+        "path": "rts/lib/mimalloc",
+        "repository": "microsoft/mimalloc",
+        "commit": "7b7fca4b7013d77e356d96e055fec309cb3cbbd6",
+        "archive": "archives/rts_lib_mimalloc-7b7fca4b7013.tar.gz"
+      },
+      {
+        "path": "rts/lib/nowide",
+        "repository": "boostorg/nowide",
+        "commit": "de3bb558ebe3dd6d22a03b4beb92fbe05470ca1c",
+        "archive": "archives/rts_lib_nowide-de3bb558ebe3.tar.gz"
+      },
+      {
+        "path": "rts/lib/simdjson",
+        "repository": "simdjson/simdjson",
+        "commit": "0c0ce1bd48baa0677dc7c0945ea7cd1e8b52b297",
+        "archive": "archives/rts_lib_simdjson-0c0ce1bd48ba.tar.gz"
+      },
+      {
+        "path": "rts/lib/sse2neon",
+        "repository": "DLTcollab/sse2neon",
+        "commit": "8721e9799e0d01b80ba8e8e34636cb49997560c2",
+        "archive": "archives/rts_lib_sse2neon-8721e9799e0d.tar.gz"
+      },
+      {
+        "path": "rts/lib/streflop",
+        "repository": "RecoilEngine/streflop",
+        "commit": "570f86fb616a20179914aa7fc9645e683a3f5b4d",
+        "archive": "archives/rts_lib_streflop-570f86fb616a.tar.gz"
+      },
+      {
+        "path": "rts/lib/tracy",
+        "repository": "wolfpld/tracy",
+        "commit": "5d542dc09f3d9378d005092a4ad446bd405f819a",
+        "archive": "archives/rts_lib_tracy-5d542dc09f3d.tar.gz"
+      },
+      {
+        "path": "tools/pr-downloader",
+        "repository": "beyond-all-reason/pr-downloader",
+        "commit": "185cfba7fda4dc683acec8b2ecbd15838d3022f5",
+        "archive": "archives/tools_pr-downloader-185cfba7fda4.tar.gz"
+      },
+      {
+        "path": "tools/pr-downloader/src/lib/readerwriterqueue",
+        "repository": "cameron314/readerwriterqueue",
+        "commit": "8e7627d18c2108aca178888d88514179899a044f",
+        "archive": "archives/tools_pr-downloader_src_lib_readerwriterqueue-8e7627d18c21.tar.gz"
+      },
+      {
+        "path": "tools/unitsync/python",
+        "repository": "spring/pyunitsync",
+        "commit": "8dfe0bcb867150c4d83e6f691e44dc7a55fda21c",
+        "archive": "archives/tools_unitsync_python-8dfe0bcb8671.tar.gz"
+      }
+    ],
+    "retainedPatches": [
+      "retained-macos-port.patch",
+      "run85-buffer-corrections.patch",
+      "master-port-reconciliation.patch",
+      "run65-native-fullscreen-safe-viewport.patch"
+    ],
+    "excluded": [
+      "Run88 speculative depth-write changes",
+      "legacy local ARM64/streflop math port",
+      "already-upstream archive scanner, GLX and macOS crash-symbolication patches"
+    ],
+    "reconciledUpstream": [
+      "dirent const callback",
+      "sol lua_nil aliases",
+      "thread naming",
+      "thread ID conversion",
+      "X11 exclusion",
+      "official SIMD compatibility"
+    ],
+    "nativeFullscreenRestoration": {
+      "contract": "Run65",
+      "patch": "run65-native-fullscreen-safe-viewport.patch",
+      "patchSha256": "54d8d7d7d62c1cb1d64370ffd7027858f3f68841d882f894cd29cbc181a488f3",
+      "gameAcceptance": "pending"
+    }
+  },
+  "mvk_dependency_commits": {
+    "SPIRV-Cross": "aa217aeb6c9f0ace7a0ab233b28807edf45eb165",
+    "SPIRV-Tools": "ba9a9e32160e2500ce1e48cc563a8fedaf596e6e",
+    "SPIRV-Headers": "2b7475f6d664efbad4d4315c94ecec9640831e5b",
+    "Vulkan-Headers": "c46850864f4661461b0f6cb9922c058ffea4915e",
+    "cereal": "a56bad8bbb770ee266e930c95d37fff2a5be7fea"
+  },
+  "additional_runtime_commits": {
+    "SDL": "4a17e772ea9a4ff77dd10fa6ea6f45fc6731eb01",
+    "Vulkan-Headers": "c46850864f4661461b0f6cb9922c058ffea4915e",
+    "Vulkan-Loader": "b82e310e99c20bfac8dd3123c9e939f81ce54b89"
+  },
+  "engine_build_flags_reference": {
+    "architecture": "arm64",
+    "macOS_deployment_target": "27.0",
+    "language": "c++23",
+    "definitions": [
+      "RECOIL_MACOS_SDL3_EGL=1",
+      "STREFLOP_NEON",
+      "SYNCCHECK",
+      "SYNC_HISTORY",
+      "USE_FONTCONFIG"
+    ],
+    "fp_flags": [
+      "-ffp-contract=off",
+      "-frounding-math",
+      "-fno-strict-aliasing"
+    ]
+  }
+}

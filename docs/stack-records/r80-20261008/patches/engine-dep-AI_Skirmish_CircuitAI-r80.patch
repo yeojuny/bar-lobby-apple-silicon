@@ -1,0 +1,103 @@
+diff --git a/src/lib/angelscript/source/as_callfunc_arm64_xcode.S b/src/lib/angelscript/source/as_callfunc_arm64_xcode.S
+index 14c0254..1ee0470 100644
+--- a/src/lib/angelscript/source/as_callfunc_arm64_xcode.S
++++ b/src/lib/angelscript/source/as_callfunc_arm64_xcode.S
+@@ -33,7 +33,7 @@
+ // Written by Max Waine in July 2020, based on as_callfunc_arm_msvc.asm,
+ // with assistance & guidance provided by Sir Kane
+ 
+-// Compile with GCC/GAS
++// Compile with GCC/GAS. Run91: Mach-O-local labels for call-frame records.
+ 
+ #if !defined(AS_MAX_PORTABILITY)
+ 
+@@ -49,7 +49,7 @@
+ .global _CallARM64
+ 
+ _GetHFAReturnDouble:
+-    adr     x9, populateDoubles
++    adr     x9, LBL_populateDoubles
+     sub     x9, x9, x1, lsr 1 // x9 -= returnSize >> 1; (/2 because double is 2x instruction size)
+     br      x9
+ 
+@@ -57,12 +57,12 @@ _GetHFAReturnDouble:
+     str     d2, [x0, #0x10]
+     str     d1, [x1]
+     str     d0, [x0]
+-populateDoubles:
++LBL_populateDoubles:
+ 
+     ret
+ 
+ _GetHFAReturnFloat:
+-    adr     x9, populateFloats
++    adr     x9, LBL_populateFloats
+     sub     x9, x9, x2 // x9 -= returnSize; (already 4 bytes per return)
+     br      x9
+ 
+@@ -70,7 +70,7 @@ _GetHFAReturnFloat:
+     str     s2, [x1]
+     str     s1, [x0, #0x4]
+     str     s0, [x0]
+-populateFloats:
++LBL_populateFloats:
+ 
+     ret
+ 
+@@ -95,7 +95,7 @@ _CallARM64:
+ 
+     mov     x20, #0
+ 
+-    cbz     x5, stackArgsLoopEnd
++    cbz     x5, LBL_stackArgsLoopEnd
+ 
+     // Align count to 2, then multiply by 8, resulting in a size aligned to 16
+     add x20, x5,  #1
+@@ -104,15 +104,15 @@ _CallARM64:
+     // Multiply count by 8
+     lsl x10, x5, #3
+     sub sp, sp, x20
+-stackArgsLoopStart:
++LBL_stackArgsLoopStart:
+     ldp     x9,x11, [x4],#16
+     stp     x9,x11, [sp],#16
+     subs    x10, x10, #16
+-    bgt     stackArgsLoopStart
+-stackArgsLoopEnd:
++    bgt     LBL_stackArgsLoopStart
++LBL_stackArgsLoopEnd:
+ 
+     // Calculate amount to jump forward, avoiding pointless instructions
+-    adr     x9, populateFloatRegisterArgsEnd
++    adr     x9, LBL_populateFloatRegisterArgsEnd
+     sub     x9, x9, x3, lsl 2 // x9 -= numFloatRegArgs * 4
+     br      x9
+ 
+@@ -124,11 +124,11 @@ stackArgsLoopEnd:
+     ldr     d2, [x2, #0x10]
+     ldr     d1, [x2, #0x08]
+     ldr     d0, [x2]
+-populateFloatRegisterArgsEnd:
++LBL_populateFloatRegisterArgsEnd:
+ 
+     mov     x15, x6
+     // Calculate amount to jump forward, avoiding pointless instructions
+-    adr     x9, populateGPRegisterArgsEnd
++    adr     x9, LBL_populateGPRegisterArgsEnd
+     sub     x9, x9, x1, lsl 2 // x9 -= numGPRegArgs * 4
+     br      x9
+ 
+@@ -140,7 +140,7 @@ populateFloatRegisterArgsEnd:
+     ldr     x2, [x0, #0x10]
+     ldr     x1, [x0, #0x08]
+     ldr     x0, [x0]
+-populateGPRegisterArgsEnd:
++LBL_populateGPRegisterArgsEnd:
+ 
+     // Actually call function
+     sub     sp, sp, x20
+@@ -212,4 +212,3 @@ _CallARM64RetInMemory:
+ #endif /* __aarch64__ */
+ 
+ #endif /* !AS_MAX_PORTABILITY */
+-
