@@ -20,7 +20,8 @@ import { LuaOptionSection } from "@main/content/game/lua-options";
 import { Scenario } from "@main/content/game/scenario";
 import { SdpFileMeta, SdpFile } from "@main/content/game/sdp";
 import { PrDownloaderAPI } from "@main/content/pr-downloader";
-import { getRapidIndexPath, getPackagePath, getPoolPath, getGamePaths, SCENARIO_IMAGE_PATH } from "@main/config/app";
+import { getAssetsPath, getRapidIndexPath, getPackagePath, getPoolPath, getGamePaths, SCENARIO_IMAGE_PATH } from "@main/config/app";
+import { publishContentMetadata } from "@main/content/content-write-coordinator";
 import { PoolCdnDownloader } from "@main/content/game/pool-cdn";
 import { fileExists } from "@main/utils/file";
 import { engineContentAPI } from "@main/content/engine/engine-content";
@@ -96,8 +97,7 @@ export class GameContentAPI extends PrDownloaderAPI<string, GameVersion> {
             this.indexRapidVersions(versions.toString().trim());
 
             const versionsGzPath = path.join(getRapidIndexPath(), contentSources.rapid.host, contentSources.rapid.game, "versions.gz");
-            await fs.promises.mkdir(path.dirname(versionsGzPath), { recursive: true });
-            await fs.promises.writeFile(versionsGzPath, versionsGz);
+            await publishContentMetadata(getAssetsPath(), versionsGzPath, versionsGz);
         } catch (err) {
             log.warn(`Couldn't refresh rapid lookup tables from remote: ${err}`);
         }

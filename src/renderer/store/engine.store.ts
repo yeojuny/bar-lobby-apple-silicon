@@ -2,7 +2,6 @@
 //
 // SPDX-License-Identifier: MIT
 
-import { DEFAULT_ENGINE_VERSION } from "@main/config/default-versions";
 import { EngineVersion } from "@main/content/engine/engine-version";
 import { notificationsApi } from "@renderer/api/notifications";
 import { computed, reactive } from "vue";
@@ -24,8 +23,10 @@ export const enginesStore: {
 export const installedEngineVersions = computed(() => enginesStore.availableEngineVersions.filter((e) => e.installed));
 
 export async function refreshEnginesStore() {
-    enginesStore.availableEngineVersions = await window.engine.listAvailableVersions();
-    enginesStore.selectedEngineVersion = enginesStore.availableEngineVersions.find((e) => e.id === DEFAULT_ENGINE_VERSION);
+    const [versions, info] = await Promise.all([window.engine.listAvailableVersions(), window.info.getInfo()]);
+    enginesStore.availableEngineVersions = versions;
+    enginesStore.selectedEngineVersion = versions.find((e) => e.id === info.defaultEngineVersion);
+    return info.defaultEngineVersion;
 }
 
 export async function downloadEngine(engineString: string) {
@@ -50,10 +51,9 @@ export async function initEnginesStore() {
         enginesStore.availableEngineVersions = await window.engine.listAvailableVersions();
     });
 
-    enginesStore.availableEngineVersions = await window.engine.listAvailableVersions();
-    enginesStore.selectedEngineVersion = enginesStore.availableEngineVersions.find((e) => e.id === DEFAULT_ENGINE_VERSION);
+    const defaultEngineVersion = await refreshEnginesStore();
     if (!enginesStore.selectedEngineVersion) {
-        console.warn(`Default engine version ${DEFAULT_ENGINE_VERSION} not found in available versions — engine download required.`);
+        console.warn(`Default engine version ${defaultEngineVersion} not found in available versions — engine download required.`);
     }
 
     enginesStore.isInitialized = true;

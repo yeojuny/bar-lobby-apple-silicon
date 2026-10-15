@@ -88,3 +88,60 @@ describe("App.vue", () => {
         expect(wrapper.findComponent({ name: "Error" }).exists()).toBe(true);
     });
 });
+
+describe("Renderer engine initialization", () => {
+    it.each([
+        ["darwin", "2026.09.10-0-g694e9df7"],
+        ["linux", "2026.06.08"],
+        ["win32", "2026.06.08"],
+    ])("awaits canonical main-process info for %s and refreshes it", async (_platform, defaultEngineVersion) => {
+        const names = ["engine", "info", "downloads"] as const;
+        const previous = names.map((name) => [name, Object.getOwnPropertyDescriptor(window, name)] as const);
+        let completeInfo!: (value: { defaultEngineVersion: string }) => void;
+        const delayedInfo = new Promise<{ defaultEngineVersion: string }>((resolve) => {
+            completeInfo = resolve;
+        });
+        const getInfo = vi.fn().mockReturnValueOnce(delayedInfo);
+        const versions = [
+            { id: "2026.06.08", ais: [], installed: true },
+            { id: "2026.09.10-0-g694e9df7", ais: [], installed: true },
+        ];
+        const listAvailableVersions = vi.fn().mockResolvedValue(versions);
+        Object.defineProperty(window, "engine", { configurable: true, value: { listAvailableVersions } });
+        Object.defineProperty(window, "info", { configurable: true, value: { getInfo } });
+        Object.defineProperty(window, "downloads", {
+            configurable: true,
+            value: { onDownloadEngineComplete: vi.fn(), onDownloadEngineFail: vi.fn() },
+        });
+        const { enginesStore, initEnginesStore, refreshEnginesStore } = await import("@renderer/store/engine.store");
+        enginesStore.isInitialized = false;
+        enginesStore.availableEngineVersions = [];
+        enginesStore.selectedEngineVersion = undefined;
+        try {
+            const initialized = initEnginesStore();
+            expect(getInfo).toHaveBeenCalledOnce();
+            await Promise.resolve();
+            expect(enginesStore.isInitialized).toBe(false);
+            expect(enginesStore.selectedEngineVersion).toBeUndefined();
+            completeInfo({ defaultEngineVersion });
+            await initialized;
+            expect(enginesStore.isInitialized).toBe(true);
+            expect(enginesStore.selectedEngineVersion).toMatchObject({ id: defaultEngineVersion });
+
+            const next = defaultEngineVersion === "2026.06.08" ? "2026.09.10-0-g694e9df7" : "2026.06.08";
+            getInfo.mockResolvedValue({ defaultEngineVersion: next });
+            await refreshEnginesStore();
+            expect(getInfo).toHaveBeenCalledTimes(2);
+            expect(listAvailableVersions).toHaveBeenCalledTimes(2);
+            expect(enginesStore.selectedEngineVersion).toMatchObject({ id: next });
+        } finally {
+            enginesStore.isInitialized = false;
+            enginesStore.availableEngineVersions = [];
+            enginesStore.selectedEngineVersion = undefined;
+            for (const [name, descriptor] of previous) {
+                if (descriptor) Object.defineProperty(window, name, descriptor);
+                else Reflect.deleteProperty(window, name);
+            }
+        }
+    });
+});

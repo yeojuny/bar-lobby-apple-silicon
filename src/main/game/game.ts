@@ -4,9 +4,9 @@
 
 import type { ChildProcess } from "child_process";
 import { spawn } from "child_process";
+import { randomUUID } from "crypto";
 import { app } from "electron";
 import * as fs from "fs";
-import * as net from "net";
 import { Signal } from "$/jaz-ts-utils/signal";
 import * as path from "path";
 import * as zlib from "zlib";
@@ -16,7 +16,7 @@ import { applyDefaultSpringsettings } from "@main/game/springsettings";
 import { startScriptConverter } from "@main/utils/start-script-converter";
 import { logger } from "@main/utils/logger";
 import { gameContentAPI } from "@main/content/game/game-content";
-import { WRITE_DATA_PATH, REPLAYS_PATH, BUNDLED_ASSETS_PATH, getAssetsPath, getCaCertPath, getRapidIndexPath, getPackagePath, getPoolPath } from "@main/config/app";
+import { WRITE_DATA_PATH, REPLAYS_PATH, LOGS_PATH, BUNDLED_ASSETS_PATH, getAssetsPath, getCaCertPath, getRapidIndexPath, getPackagePath, getPoolPath } from "@main/config/app";
 import { BattleWithMetadata } from "@main/game/battle/battle-types";
 import { Replay } from "@main/content/replays/replay";
 import {
@@ -31,80 +31,18 @@ import {
     MACOS_NATIVE_ENGINE_ENV_DIAGNOSTIC_PROBE,
     resolveNativeEngineRunner,
     resolvePrDownloaderPath,
-    syncMacOSLuaUIOverlayToWritableDataDir,
+    prepareMacOSLuaUIOverlayForLaunch,
 } from "@main/config/native-engine-runner";
 import type { NativeEngineRunner } from "@main/config/native-engine-runner";
 import { CHOBBY_MULTIPLAYER_GAME_RAPID_ALIAS, ChobbyMultiplayerProfile, resolveChobbyMultiplayerProfile } from "@main/game/chobby-multiplayer-profile";
 import { ChobbyLauncherLoopback, CONNECTION_FILE_NAME } from "@main/game/chobby-launcher-loopback";
 import { CHOBBY_LOOPBACK_HELPER_ARG, CHOBBY_LOOPBACK_HELPER_OPTIONS_ENV } from "@main/game/chobby-loopback-helper";
+import { createEngineLobbyLogMirror } from "@main/game/engine-log-mirror";
+import { createEngineStderrLog } from "@main/game/engine-stderr-log";
+import { waitForContentWriterClose, withContentWrite } from "@main/content/content-write-coordinator";
 
 const log = logger("main/game/game.ts");
 const engineLogger = logger("[RECOIL ENGINE]", { separator: "\n", level: "info" });
-
-const ENGINE_LOBBY_LOG_MIRROR_LIMIT_BYTES = 256 * 1024;
-const ENGINE_LOBBY_LOG_MIRROR_LIMIT_LINES = 1200;
-
-interface EngineLobbyLogMirrorState {
-    mirroredBytes: number;
-    mirroredLines: number;
-    suppressedBytes: number;
-    suppressedLines: number;
-    suppressedChunks: number;
-    limitNoticeLogged: boolean;
-}
-
-function createEngineLobbyLogMirrorState(): EngineLobbyLogMirrorState {
-    return {
-        mirroredBytes: 0,
-        mirroredLines: 0,
-        suppressedBytes: 0,
-        suppressedLines: 0,
-        suppressedChunks: 0,
-        limitNoticeLogged: false,
-    };
-}
-
-function countEngineLogLines(text: string) {
-    return Math.max(1, text.split(/\r?\n/).filter(Boolean).length);
-}
-
-function mirrorEngineOutputToLobbyLog(data: Buffer, level: "info" | "error", state: EngineLobbyLogMirrorState) {
-    const text = data.toString();
-    const byteLength = Buffer.byteLength(text);
-    const lineCount = countEngineLogLines(text);
-    const wouldExceedLimit = state.mirroredBytes + byteLength > ENGINE_LOBBY_LOG_MIRROR_LIMIT_BYTES || state.mirroredLines + lineCount > ENGINE_LOBBY_LOG_MIRROR_LIMIT_LINES;
-
-    if (!wouldExceedLimit) {
-        engineLogger[level](text);
-        state.mirroredBytes += byteLength;
-        state.mirroredLines += lineCount;
-        return;
-    }
-
-    state.suppressedBytes += byteLength;
-    state.suppressedLines += lineCount;
-    state.suppressedChunks += 1;
-
-    if (!state.limitNoticeLogged) {
-        state.limitNoticeLogged = true;
-        engineLogger.warn(
-            [
-                "macOS engine output mirror reached the lobby log limit.",
-                `Further engine output is suppressed in lobby log; full engine log remains at ${path.join(WRITE_DATA_PATH, "infolog.txt")}.`,
-                `limits bytes=${ENGINE_LOBBY_LOG_MIRROR_LIMIT_BYTES} lines=${ENGINE_LOBBY_LOG_MIRROR_LIMIT_LINES}`,
-            ].join(" ")
-        );
-    }
-}
-
-function logEngineOutputSuppressionSummary(state: EngineLobbyLogMirrorState) {
-    if (state.suppressedChunks === 0) {
-        return;
-    }
-    log.info(
-        `Suppressed ${state.suppressedChunks} engine output chunks from lobby log mirror (${state.suppressedLines} lines, ${state.suppressedBytes} bytes). Full engine log: ${path.join(WRITE_DATA_PATH, "infolog.txt")}`
-    );
-}
 
 export interface ScriptLaunchSettings {
     engineVersion: string;
@@ -137,7 +75,9 @@ interface NativeEngineLaunchSettings {
     includeBundledAssetsInSpringDataDir?: boolean;
     includeBundledEngineSupportInSpringDataDir?: boolean;
     includeBundledMacOSLuaUIOverlayInSpringDataDir?: boolean;
+    macOSLuaUIOverlayLane?: "bar-chobby" | "bar-lobby";
     onExit?: () => void;
+    onDetachedSpawn?: (child: ChildProcess) => Promise<void>;
 }
 
 interface ChobbyLauncherConnectionFile {
@@ -145,6 +85,12 @@ interface ChobbyLauncherConnectionFile {
     _sl_port?: number;
     _sl_write_path?: string;
     _sl_helper_pid?: number;
+    _sl_engine_pid?: number;
+}
+
+interface DetachedChobbyLauncherHelper {
+    process: ChildProcess;
+    connection: ChobbyLauncherConnectionFile;
 }
 
 const DEFAULT_CHOBBY_MENU = "rapid://byar-chobby:test";
@@ -171,6 +117,7 @@ export class GameAPI {
 
     protected gameProcess: ChildProcess | null = null;
     private chobbyLauncherLoopback: ChobbyLauncherLoopback | null = null;
+    private detachedChobbyHelper: ChildProcess | null = null;
 
     public async launchBattle(battle: BattleWithMetadata): Promise<void> {
         const script = startScriptConverter.generateScriptStr(battle);
@@ -216,6 +163,7 @@ export class GameAPI {
     }
 
     public async launchChobby({ engineVersion, menu = DEFAULT_CHOBBY_MENU }: ChobbyLaunchSettings = {}) {
+        if (this.gameProcess) throw new Error("An engine process is still owned by this launcher");
         const profile = await resolveChobbyMultiplayerProfile(engineVersion);
         log.info(
             `Launching Chobby multiplayer compatibility mode with engine: ${profile.engineVersion}, game: ${profile.gameVersion ?? profile.gameRapidAlias}, profileSource: ${profile.source}, menu: ${menu}`
@@ -226,26 +174,36 @@ export class GameAPI {
         await this.ensureChobbyMenuArchive({ engineVersion: profile.engineVersion, menu });
         await this.ensureChobbyMultiplayerGameContent(profile);
         await this.ensureChobbyEngineVersionAlias({ engineVersion: profile.engineVersion, menu });
+        let detachedHelper: DetachedChobbyLauncherHelper | undefined;
         if (process.platform === "darwin") {
-            await this.prepareDetachedChobbyLauncherLoopback(profile.engineVersion);
+            detachedHelper = await this.prepareDetachedChobbyLauncherLoopback(profile.engineVersion);
         } else {
             await this.prepareChobbyLauncherLoopback(profile.engineVersion);
         }
-        return this.launchNativeEngine({
-            engineVersion: profile.engineVersion,
-            args: ["--write-dir", WRITE_DATA_PATH, "--isolation", "--menu", menu],
-            resolveOnSpawn: true,
-            quitLobbyAfterSpawn: process.platform === "darwin",
-            includeBundledAssetsInSpringDataDir: false,
-            includeBundledEngineSupportInSpringDataDir: true,
-            includeBundledMacOSLuaUIOverlayInSpringDataDir: true,
-            onExit: () => {
-                this.stopChobbyLauncherLoopback().catch((err: unknown) => log.warn(`Failed to stop Chobby launcher loopback: ${err instanceof Error ? err.message : String(err)}`));
-            },
-        });
+        try {
+            return await this.launchNativeEngine({
+                engineVersion: profile.engineVersion,
+                args: ["--write-dir", WRITE_DATA_PATH, "--isolation", "--menu", menu],
+                resolveOnSpawn: true,
+                quitLobbyAfterSpawn: process.platform === "darwin",
+                includeBundledAssetsInSpringDataDir: false,
+                includeBundledEngineSupportInSpringDataDir: true,
+                includeBundledMacOSLuaUIOverlayInSpringDataDir: true,
+                macOSLuaUIOverlayLane: "bar-chobby",
+                onDetachedSpawn: detachedHelper ? (child) => this.publishDetachedChobbyEngineOwner(detachedHelper!, child) : undefined,
+                onExit: () => {
+                    if (detachedHelper) this.stopDetachedChobbyHelper(detachedHelper.process);
+                    else this.stopChobbyLauncherLoopback().catch((err: unknown) => log.warn(`Failed to stop Chobby launcher loopback: ${err instanceof Error ? err.message : String(err)}`));
+                },
+            });
+        } catch (err) {
+            if (detachedHelper) this.stopDetachedChobbyHelper(detachedHelper.process);
+            throw err;
+        }
     }
 
     private async prepareDetachedChobbyLauncherLoopback(engineVersion: string) {
+        if (this.detachedChobbyHelper) throw new Error("A detached Chobby helper is still owned by this launcher");
         const connectionFilePath = path.join(WRITE_DATA_PATH, CONNECTION_FILE_NAME);
         await fs.promises.mkdir(WRITE_DATA_PATH, { recursive: true });
         await fs.promises.rm(connectionFilePath, { force: true });
@@ -256,6 +214,7 @@ export class GameAPI {
             ...(BUNDLED_ASSETS_PATH && { bundledAssetsPath: BUNDLED_ASSETS_PATH }),
             writeDataPath: WRITE_DATA_PATH,
             platform: process.platform,
+            startupOwnerPID: String(process.pid),
         };
         const helperProcess = spawn(process.execPath, this.getChobbyLoopbackHelperArgs(), {
             detached: true,
@@ -265,11 +224,64 @@ export class GameAPI {
                 [CHOBBY_LOOPBACK_HELPER_OPTIONS_ENV]: JSON.stringify(helperOptions),
             },
         });
+        this.detachedChobbyHelper = helperProcess;
+        let startupError: Error | undefined;
+        const forgetHelper = () => {
+            if (this.detachedChobbyHelper === helperProcess) this.detachedChobbyHelper = null;
+        };
+        helperProcess.on("error", (err) => {
+            startupError = err;
+            if (!helperProcess.pid) forgetHelper();
+            log.warn(`Detached Chobby helper process error: ${err.message}`);
+        });
+        helperProcess.once("exit", forgetHelper);
+        helperProcess.once("close", forgetHelper);
         helperProcess.unref();
         log.info(`Spawned detached Chobby loopback helper pid=${helperProcess.pid ?? "<unknown>"}`);
 
-        const connection = await this.waitForChobbyLauncherConnection(connectionFilePath);
-        log.info(`Detached Chobby loopback helper ready at ${connection._sl_address}:${connection._sl_port}, pid=${connection._sl_helper_pid ?? helperProcess.pid ?? "<unknown>"}`);
+        try {
+            const connection = await this.waitForChobbyLauncherConnection(connectionFilePath, helperProcess, () => startupError);
+            log.info(`Detached Chobby loopback helper ready at ${connection._sl_address}:${connection._sl_port}, pid=${connection._sl_helper_pid}`);
+            return { process: helperProcess, connection };
+        } catch (err) {
+            this.stopDetachedChobbyHelper(helperProcess);
+            throw err;
+        }
+    }
+
+    private stopDetachedChobbyHelper(helper: ChildProcess) {
+        if (!helper.pid || helper.exitCode !== null || helper.signalCode !== null || helper.killed) return;
+        try {
+            helper.kill("SIGTERM");
+        } catch (err) {
+            log.warn(`Failed to request owned Chobby helper shutdown: ${err instanceof Error ? err.message : String(err)}`);
+        }
+        // A sent signal is not an observed exit; keep ownership until exit/close.
+    }
+
+    private async publishDetachedChobbyEngineOwner(helper: DetachedChobbyLauncherHelper, child: ChildProcess) {
+        if (!child.pid || child.pid === helper.process.pid || child.pid === process.pid || helper.process !== this.detachedChobbyHelper) {
+            throw new Error("Invalid detached Chobby native process ownership");
+        }
+        const connectionFilePath = path.join(WRITE_DATA_PATH, CONNECTION_FILE_NAME);
+        const record = JSON.parse(await fs.promises.readFile(connectionFilePath, "utf-8")) as ChobbyLauncherConnectionFile;
+        if (!record || record._sl_address !== "127.0.0.1" || record._sl_helper_pid !== helper.process.pid
+            || record._sl_port !== helper.connection._sl_port || record._sl_write_path !== WRITE_DATA_PATH) {
+            throw new Error("Detached Chobby helper connection ownership changed before native handoff");
+        }
+        const temporaryPath = path.join(WRITE_DATA_PATH, `.sl-connection-${randomUUID()}.tmp`);
+        let created = false;
+        try {
+            await fs.promises.writeFile(temporaryPath, `${JSON.stringify({ ...record, _sl_engine_pid: child.pid }, null, 2)}\n`, { flag: "wx", mode: 0o600 });
+            created = true;
+            await fs.promises.rename(temporaryPath, connectionFilePath);
+        } finally {
+            if (created) await fs.promises.rm(temporaryPath, { force: true });
+        }
+        if (helper.process !== this.detachedChobbyHelper || helper.process.exitCode !== null
+            || helper.process.signalCode !== null || helper.process.killed) {
+            throw new Error("Detached Chobby helper exited before native handoff");
+        }
     }
 
     private getChobbyLoopbackHelperArgs() {
@@ -281,15 +293,22 @@ export class GameAPI {
         return [CHOBBY_LOOPBACK_HELPER_ARG];
     }
 
-    private async waitForChobbyLauncherConnection(connectionFilePath: string) {
+    private async waitForChobbyLauncherConnection(connectionFilePath: string, helper: ChildProcess, startupError: () => Error | undefined) {
         const timeoutMs = 10_000;
         const startTime = Date.now();
         let lastError = "connection file has not been written";
 
         while (Date.now() - startTime < timeoutMs) {
+            const error = startupError();
+            if (error) throw error;
+            if (helper.exitCode !== null || helper.signalCode !== null) throw new Error("Chobby loopback helper exited before readiness");
             try {
                 const connection = JSON.parse(await fs.promises.readFile(connectionFilePath, "utf-8")) as ChobbyLauncherConnectionFile;
-                if (connection._sl_address && typeof connection._sl_port === "number" && (await this.canConnectToChobbyLoopback(connection._sl_address, connection._sl_port))) {
+                // The helper writes this record only after server.listen has
+                // completed. A TCP readiness probe would look like a menu client.
+                if (helper.pid && connection?._sl_helper_pid === helper.pid && connection._sl_address === "127.0.0.1"
+                    && typeof connection._sl_port === "number" && Number.isInteger(connection._sl_port) && connection._sl_port > 0 && connection._sl_port <= 65535
+                    && connection._sl_write_path === WRITE_DATA_PATH) {
                     return connection;
                 }
                 lastError = `connection file is incomplete: ${connectionFilePath}`;
@@ -300,19 +319,6 @@ export class GameAPI {
         }
 
         throw new Error(`Timed out waiting for Chobby loopback helper: ${lastError}`);
-    }
-
-    private async canConnectToChobbyLoopback(host: string, port: number) {
-        return new Promise<boolean>((resolve) => {
-            const socket = net.createConnection({ host, port });
-            const done = (result: boolean) => {
-                socket.destroy();
-                resolve(result);
-            };
-            socket.setTimeout(250, () => done(false));
-            socket.once("error", () => done(false));
-            socket.once("connect", () => done(true));
-        });
     }
 
     private async prepareChobbyLauncherLoopback(engineVersion: string) {
@@ -536,10 +542,10 @@ export class GameAPI {
         await fs.promises.mkdir(getAssetsPath(), { recursive: true });
         log.info(`Ensuring Chobby menu archive is available: ${rapidTag}`);
 
-        await new Promise<void>((resolve, reject) => {
+        await withContentWrite(getAssetsPath(), (assetsPath) => new Promise<void>((resolve, reject) => {
             let lastProgressLogTime = 0;
             let lastProgressMessage = "";
-            const prdProcess = spawn(`${prBinaryPath}`, ["--filesystem-writepath", getAssetsPath(), "--download-game", rapidTag], {
+            const prdProcess = spawn(`${prBinaryPath}`, ["--filesystem-writepath", assetsPath, "--download-game", rapidTag], {
                 env: {
                     ...process.env,
                     PRD_RAPID_USE_STREAMER: "false",
@@ -566,8 +572,7 @@ export class GameAPI {
                 }
             });
             prdProcess.stderr?.on("data", (data: Buffer) => log.error(`[CHOBBY PR-DOWNLOADER] ${data.toString().trim()}`));
-            prdProcess.on("error", reject);
-            prdProcess.on("exit", (code, signal) => {
+            waitForContentWriterClose(prdProcess).then(({ code, signal }) => {
                 if (code === 0) {
                     if (lastProgressMessage) {
                         log.info(`[CHOBBY PR-DOWNLOADER] ${lastProgressMessage}`);
@@ -577,8 +582,8 @@ export class GameAPI {
                 }
 
                 reject(new Error(`Chobby archive download failed with code ${code}, signal ${signal}`));
-            });
-        });
+            }, reject).catch(reject);
+        }));
     }
 
     private async ensureChobbyMultiplayerGameContent(profile: ChobbyMultiplayerProfile) {
@@ -598,6 +603,10 @@ export class GameAPI {
         return this.launchNativeEngine({
             engineVersion,
             args: ["--write-dir", WRITE_DATA_PATH, "--isolation", launchArg],
+            includeBundledAssetsInSpringDataDir: process.platform === "darwin" ? false : undefined,
+            includeBundledEngineSupportInSpringDataDir: process.platform === "darwin" ? true : undefined,
+            includeBundledMacOSLuaUIOverlayInSpringDataDir: process.platform === "darwin" ? true : undefined,
+            macOSLuaUIOverlayLane: "bar-lobby",
         });
     }
 
@@ -610,21 +619,30 @@ export class GameAPI {
         includeBundledAssetsInSpringDataDir,
         includeBundledEngineSupportInSpringDataDir,
         includeBundledMacOSLuaUIOverlayInSpringDataDir,
+        macOSLuaUIOverlayLane,
         onExit,
+        onDetachedSpawn,
     }: NativeEngineLaunchSettings): Promise<void> {
+        if (this.gameProcess) throw new Error("An engine process is still owned by this launcher");
         if (process.platform === "darwin") {
             await this.assertNativeRuntimeEngineVersionMatches(engineVersion);
         }
         if (process.platform === "darwin" && includeBundledMacOSLuaUIOverlayInSpringDataDir) {
-            const syncResult = await syncMacOSLuaUIOverlayToWritableDataDir({
+            if (!macOSLuaUIOverlayLane) {
+                throw new Error("Missing macOS LuaUI overlay lane for native engine launch");
+            }
+            const overlayResult = await prepareMacOSLuaUIOverlayForLaunch({
                 bundledAssetsPath: BUNDLED_ASSETS_PATH,
                 writeDataPath: WRITE_DATA_PATH,
+                lane: macOSLuaUIOverlayLane,
                 platform: process.platform,
             });
-            if (syncResult.synced) {
-                log.info(`Synced macOS LuaUI overlay into writable data dir: ${syncResult.sourcePath} -> ${syncResult.destinationPath}`);
+            if (overlayResult.prepared) {
+                log.info(
+                    `Prepared ${macOSLuaUIOverlayLane} macOS LuaUI overlay: ${overlayResult.sourcePath}; quarantined=${overlayResult.quarantinedFiles?.length ?? 0}; preserved=${overlayResult.preservedFiles?.length ?? 0}`
+                );
             } else {
-                log.debug(`Skipped macOS LuaUI overlay sync: ${syncResult.reason ?? "unknown"}`);
+                log.debug(`Skipped ${macOSLuaUIOverlayLane} macOS LuaUI overlay preparation: ${overlayResult.reason ?? "unknown"}`);
             }
         }
         applyDefaultSpringsettings();
@@ -643,6 +661,7 @@ export class GameAPI {
             includeBundledAssetsInSpringDataDir,
             includeBundledEngineSupportInSpringDataDir,
             includeBundledMacOSLuaUIOverlayInSpringDataDir,
+            macOSLuaUIOverlayLane,
             writeDataPath: WRITE_DATA_PATH,
             platform: process.platform,
             baseEnv: envOverrides ? { ...process.env, ...envOverrides } : process.env,
@@ -671,8 +690,9 @@ export class GameAPI {
         }
 
         return new Promise<void>((resolve, reject) => {
+            let driverLog: ReturnType<typeof createEngineStderrLog> | undefined;
             try {
-                const engineLogMirrorState = createEngineLobbyLogMirrorState();
+                const engineLogMirror = createEngineLobbyLogMirror(engineLogger, path.join(WRITE_DATA_PATH, "infolog.txt"));
                 let exitHookCalled = false;
                 const runExitHook = () => {
                     if (exitHookCalled) {
@@ -681,6 +701,7 @@ export class GameAPI {
                     exitHookCalled = true;
                     onExit?.();
                 };
+                if (this.gameProcess) throw new Error("An engine process is still owned by this launcher");
                 this.gameProcess = spawn(runner.spawnCommand, args, {
                     cwd: enginePath,
                     stdio: quitLobbyAfterSpawn ? "ignore" : "pipe",
@@ -688,30 +709,60 @@ export class GameAPI {
                     env: engineEnv,
                 });
                 if (quitLobbyAfterSpawn) {
+                    const ownedProcess = this.gameProcess;
+                    let handedOff = false;
+                    log.info("Engine stderr capture unavailable for detached Chobby stdio policy; do not interpret the absence of lobby driver errors as a clean GPU result.");
                     this.gameProcess.addListener("error", (err) => {
                         log.error(err);
                         runExitHook();
+                        if (!ownedProcess.pid && this.gameProcess === ownedProcess) this.gameProcess = null;
                         reject(err);
                     });
-                    this.gameProcess.addListener("spawn", () => {
-                        log.info("Chobby spawned; exiting BAR lobby process by policy.");
-                        if (process.platform === "darwin") {
-                            app.dock?.hide();
-                            app.hide();
-                        }
-                        this.gameProcess?.unref();
-                        this.onGameLaunched.dispatch();
-                        resolve();
-                        this.gameProcess = null;
-                        setImmediate(() => app.exit(0));
+                    ownedProcess.once("exit", () => {
+                        runExitHook();
+                        if (!handedOff && this.gameProcess === ownedProcess) this.gameProcess = null;
+                    });
+                    ownedProcess.addListener("spawn", () => {
+                        void (async () => {
+                            try {
+                                await onDetachedSpawn?.(ownedProcess);
+                                if (ownedProcess.exitCode !== null || ownedProcess.signalCode !== null) throw new Error("Chobby native process exited before ownership handoff");
+                                log.info("Chobby spawned; exiting BAR lobby process by policy.");
+                                if (process.platform === "darwin") {
+                                    app.dock?.hide();
+                                    app.hide();
+                                }
+                                ownedProcess.unref();
+                                handedOff = true;
+                                this.onGameLaunched.dispatch();
+                                resolve();
+                                this.gameProcess = null;
+                                setImmediate(() => app.exit(0));
+                            } catch (err) {
+                                if (ownedProcess.pid && ownedProcess.exitCode === null && ownedProcess.signalCode === null && !ownedProcess.killed) {
+                                    try { ownedProcess.kill("SIGTERM"); }
+                                    catch (killError) { log.warn(`Failed to request owned Chobby native shutdown: ${killError instanceof Error ? killError.message : String(killError)}`); }
+                                }
+                                runExitHook();
+                                reject(err);
+                            }
+                        })();
                     });
                     log.debug(`Game process PID: ${this.gameProcess.pid}`);
                     return;
                 }
                 if (!this.gameProcess.stdout || !this.gameProcess.stderr) throw new Error("failed to access game process stream");
+                driverLog = createEngineStderrLog(path.join(LOGS_PATH, "engine-diagnostics"), {
+                    engineVersion, enginePath, pid: this.gameProcess.pid, appPath: app.getAppPath(),
+                    icd: engineEnv.VK_DRIVER_FILES ?? engineEnv.VK_ICD_FILENAMES,
+                    zinkDebug: engineEnv.ZINK_DEBUG,
+                    asyncWaitOptOut: engineEnv.BAR_ZINK_MVK_DISABLE_ASYNC_WAIT,
+                    metalShaderValidation: engineEnv.MTL_SHADER_VALIDATION,
+                }, (message) => log.warn(message));
+                if (driverLog.path) log.info(`Bounded engine stderr capture: ${driverLog.path}`);
                 let isGameRunning = false;
                 this.gameProcess.stdout.on("data", (data) => {
-                    mirrorEngineOutputToLobbyLog(data, "info", engineLogMirrorState);
+                    engineLogMirror.write(data, "info");
                     // Check if the game has started
                     // This is a heuristic based on the log output, as the engine does not provide a specific event for game launch
                     //TODO replace this with some ipc event from the engine when it is available
@@ -730,7 +781,8 @@ export class GameAPI {
                     }
                 });
                 this.gameProcess.stderr.on("data", (data) => {
-                    mirrorEngineOutputToLobbyLog(data, "error", engineLogMirrorState);
+                    driverLog?.write(data);
+                    engineLogMirror.write(data, "error");
                 });
                 this.gameProcess.addListener("error", (err) => {
                     log.error(err);
@@ -756,11 +808,13 @@ export class GameAPI {
                     }
                 });
                 this.gameProcess.addListener("close", (exitCode) => {
-                    logEngineOutputSuppressionSummary(engineLogMirrorState);
+                    driverLog?.close();
+                    engineLogMirror.summarize();
                     log.debug(`Game process closed with exit code: ${exitCode}`);
                 });
                 log.debug(`Game process PID: ${this.gameProcess.pid}`);
             } catch (err) {
+                driverLog?.close();
                 log.error(`Failed to launch game: ${err}`);
                 reject(err);
             }

@@ -16,10 +16,11 @@ import { extract7z } from "@main/utils/extract-7z";
 import { getEngineReleaseInfo } from "@main/config/content-sources";
 import { AbstractContentAPI } from "@main/content/abstract-content";
 import { BUNDLED_ASSETS_PATH, getAssetsPath, getEnginePath } from "@main/config/app";
-import { DEFAULT_ENGINE_VERSION } from "@main/config/default-versions";
+import { getDefaultEngineVersion } from "@main/config/default-versions";
 import { getEngineRootSearchPaths, resolveEngineVersionPath } from "@main/config/native-engine-runner";
 
 const log = logger("engine-content.ts");
+const DEFAULT_ENGINE_VERSION = getDefaultEngineVersion(process.platform);
 
 // Regex matching Recoil engine ids used by BAR, for example:
 // "2025.06.21", "2025.01.3-rc1", "2026.06.06-63-g3dc7044".

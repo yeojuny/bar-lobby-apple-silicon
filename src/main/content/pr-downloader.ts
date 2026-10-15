@@ -11,6 +11,7 @@ import { engineContentAPI } from "./engine/engine-content";
 import { logger } from "@main/utils/logger";
 import { BUNDLED_ASSETS_PATH, getAssetsPath, getCaCertPath } from "@main/config/app";
 import { resolvePrDownloaderPath } from "@main/config/native-engine-runner";
+import { waitForContentWriterClose, withContentWrite } from "./content-write-coordinator";
 
 const log = logger("pr-downloader.ts");
 
@@ -37,7 +38,7 @@ export type RapidVersion = {
  */
 export abstract class PrDownloaderAPI<ID, T> extends AbstractContentAPI<ID, T> {
     protected downloadContent(type: "game" | "map", name: string) {
-        return new Promise<DownloadInfo>((resolve, reject) => {
+        return withContentWrite(getAssetsPath(), (assetsPath) => new Promise<DownloadInfo>((resolve, reject) => {
             try {
                 log.debug(`Downloading ${name}...`);
 
@@ -49,13 +50,13 @@ export abstract class PrDownloaderAPI<ID, T> extends AbstractContentAPI<ID, T> {
 
                 const prBinaryPath = resolvePrDownloaderPath({
                     engineVersion: defaultEngine.id,
-                    assetsPath: getAssetsPath(),
+                    assetsPath,
                     bundledAssetsPath: BUNDLED_ASSETS_PATH,
                     platform: process.platform,
                 });
                 const downloadArg = type === "game" ? "--download-game" : "--download-map";
                 const caCertPath = getCaCertPath();
-                const prdProcess = spawn(`${prBinaryPath}`, ["--filesystem-writepath", getAssetsPath(), downloadArg, name], {
+                const prdProcess = spawn(`${prBinaryPath}`, ["--filesystem-writepath", assetsPath, downloadArg, name], {
                     env: {
                         ...process.env,
                         PRD_RAPID_USE_STREAMER: "false",
@@ -102,12 +103,6 @@ export abstract class PrDownloaderAPI<ID, T> extends AbstractContentAPI<ID, T> {
                     }
                 });
 
-                prdProcess.on("error", (err) => {
-                    log.error(err);
-                    this.downloadFailed(downloadInfo);
-                    reject(err);
-                });
-
                 prdProcess.stderr?.on("data", (data: Buffer) => {
                     const output = data.toString();
                     log.error(output);
@@ -116,19 +111,23 @@ export abstract class PrDownloaderAPI<ID, T> extends AbstractContentAPI<ID, T> {
                     }
                 });
 
-                prdProcess.on("exit", (code, signal) => {
+                waitForContentWriterClose(prdProcess).then(({ code, signal }) => {
                     if (code !== 0) {
                         this.downloadFailed(downloadInfo);
                         reject(new Error(`pr-downloader exited with code ${code}, signal ${signal}`));
                     } else {
                         resolve(downloadInfo);
                     }
-                });
+                }, (err: Error) => {
+                    log.error(err);
+                    this.downloadFailed(downloadInfo);
+                    reject(err);
+                }).catch(reject);
             } catch (err) {
                 log.error(err);
                 reject(err);
             }
-        });
+        }));
     }
 
     protected parseProgressMessage(message: string): Omit<PrdProgressMessage, "downloadType" | "content"> {

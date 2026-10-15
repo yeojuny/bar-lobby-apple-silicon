@@ -20,7 +20,8 @@ import { ref } from "vue";
 
 import Button from "@renderer/components/controls/Button.vue";
 import Textarea from "@renderer/components/controls/Textarea.vue";
-import { DEFAULT_ENGINE_VERSION, LATEST_GAME_VERSION } from "@main/config/default-versions";
+import { LATEST_GAME_VERSION } from "@main/config/default-versions";
+import { infosStore } from "@renderer/store/infos.store";
 
 const script = ref(`[game] {
     [ais] {
@@ -43,6 +44,6 @@ const script = ref(`[game] {
 }`);
 
 function launch() {
-    window.game.launchScript(script.value, LATEST_GAME_VERSION, DEFAULT_ENGINE_VERSION);
+    window.game.launchScript(script.value, LATEST_GAME_VERSION, infosStore.defaultEngineVersion);
 }
 </script>

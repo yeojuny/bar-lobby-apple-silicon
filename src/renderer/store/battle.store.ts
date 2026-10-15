@@ -286,7 +286,9 @@ function updateTeams() {
 
     // Adjust number of teams
     if (battleStore.teams.length < numberOfTeams) {
-        for (let i = 0; i <= numberOfTeams - battleStore.teams.length; i++) addTeam();
+        // Snapshot the deficit: addTeam changes teams.length on every iteration.
+        const missingTeams = numberOfTeams - battleStore.teams.length;
+        for (let i = 0; i < missingTeams; i++) addTeam();
     } else if (battleStore.teams.length > numberOfTeams) {
         for (let i = battleStore.teams.length - 1; i + 1 > numberOfTeams; i--) removeTeam(i);
     }

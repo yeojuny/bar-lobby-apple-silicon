@@ -22,6 +22,26 @@ SPDX-License-Identifier: MIT
             <div>{{ t("lobby.navbar.settings.display") }}</div>
             <Select v-model="settingsStore.displayIndex" :options="displayOptions" optionLabel="label" optionValue="value" />
 
+            <template v-if="isMacOS && rendererSupported">
+                <div>Game renderer</div>
+                <div class="renderer-preference">
+                    <Select
+                        :model-value="rendererPreference?.renderer"
+                        :options="rendererOptions"
+                        optionLabel="label"
+                        optionValue="value"
+                        :placeholder="rendererLoading ? 'Loading…' : 'Choose a renderer'"
+                        :disabled="rendererLoading || rendererSaving || !!rendererPreference?.overriddenBy"
+                        @update:model-value="changeMetalRenderer"
+                    />
+                    <small>Applies to the next game or Chobby launch.</small>
+                    <small v-if="rendererPreference?.overriddenBy">
+                        {{ rendererPreference.overriddenBy }} controls this choice. Change the external launch setting to choose here.
+                    </small>
+                    <small v-if="rendererError" class="path-error">{{ rendererError }}</small>
+                </div>
+            </template>
+
             <div>{{ t("lobby.navbar.settings.skipIntro") }}</div>
             <Checkbox v-model="settingsStore.skipIntro" />
 
@@ -115,7 +135,52 @@ import { refreshGameStore } from "@renderer/store/game.store";
 import { refreshMapsStore } from "@renderer/store/maps.store";
 import { uploadLogs } from "@renderer/utils/log";
 import { useTypedI18n } from "@renderer/i18n";
+import { notificationsApi } from "@renderer/api/notifications";
+import type { MacOSRendererPreference } from "@main/config/native-engine-runner";
 const { t } = useTypedI18n();
+
+const isMacOS = navigator.platform.startsWith("Mac");
+const rendererPreference = ref<MacOSRendererPreference | null>(null);
+const rendererSupported = ref(true);
+const rendererLoading = ref(false);
+const rendererSaving = ref(false);
+const rendererError = ref("");
+const rendererOptions = [
+    { label: "Metal 3 (default)", value: "METAL3" },
+    { label: "Metal 4 (experimental)", value: "METAL4" },
+];
+
+async function loadMetalRenderer() {
+    if (!isMacOS || rendererLoading.value || rendererSaving.value) return;
+    rendererLoading.value = true;
+    try {
+        const preference = await window.settings.getMetalRenderer();
+        rendererPreference.value = preference;
+        rendererSupported.value = preference !== null;
+        rendererError.value = "";
+    } catch (error) {
+        rendererPreference.value = null;
+        rendererError.value = error instanceof Error ? error.message : "Could not read the renderer preference.";
+        notificationsApi.alert({ text: rendererError.value, severity: "error" });
+    } finally {
+        rendererLoading.value = false;
+    }
+}
+
+async function changeMetalRenderer(renderer: unknown) {
+    if (!isMacOS || rendererLoading.value || rendererSaving.value || rendererPreference.value?.overriddenBy) return;
+    if (renderer !== "METAL3" && renderer !== "METAL4") return;
+    rendererSaving.value = true;
+    try {
+        rendererPreference.value = await window.settings.setMetalRenderer(renderer);
+        rendererError.value = "";
+    } catch (error) {
+        rendererError.value = error instanceof Error ? error.message : "Could not save the renderer preference.";
+        notificationsApi.alert({ text: rendererError.value, severity: "error" });
+    } finally {
+        rendererSaving.value = false;
+    }
+}
 
 const currentAssetsPath = ref("");
 const pendingAssetsPath = ref<string | null>(null);
@@ -140,12 +205,14 @@ watch(
     () => attrs.modelValue as boolean,
     async (isOpen) => {
         if (isOpen) {
+            void loadMetalRenderer();
             currentAssetsPath.value = await window.paths.getCurrentAssetsPath();
         }
     }
 );
 
 onMounted(async () => {
+    void loadMetalRenderer();
     currentAssetsPath.value = await window.paths.getCurrentAssetsPath();
     cleanupCopyProgress = window.paths.onCopyProgress((progress) => {
         copyProgress.value = progress;
@@ -257,6 +324,16 @@ async function uploadLogsCommand(event) {
     .path-input {
         flex: 1;
         min-width: 0;
+    }
+}
+
+.renderer-preference {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+
+    small {
+        font-size: 11px;
     }
 }
 

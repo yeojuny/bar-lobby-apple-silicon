@@ -142,7 +142,6 @@ export async function resolveChobbyMultiplayerProfile(engineVersionOverride?: st
         ({
             engineVersion: CHOBBY_MULTIPLAYER_ENGINE_FALLBACK_VERSION,
             gameRapidAlias: CHOBBY_MULTIPLAYER_GAME_RAPID_ALIAS,
-            observedAt: "2026-06-23T00:00:00.000Z",
             source: "fallback",
         } satisfies ChobbyMultiplayerProfile);
 

@@ -1,0 +1,874 @@
+{
+  "schema": "bar-public-performance-evidence-v1",
+  "prepared_date": "2026-10-15",
+  "scope": "Historical local measurements, not new release candidate qualification. Separate series are not pooled. Full private logs/settings excluded.",
+  "r80": {
+    "source": {
+      "record": "artifacts/github-records/r80-stack-20261008/publish/evidence/performance.json",
+      "sha256": "0a40c3e3af96f10829b783aeeca4445cbfa7ad730f4a50f420670304ddf95445"
+    },
+    "measurement": {
+      "date": "2026-10-07",
+      "power": "AC connected, low-power mode enabled",
+      "thermal_state": 0,
+      "scene": "Seths Ravine Remake 1.3.1",
+      "content": "test-31479-433a460",
+      "seed": 7654321,
+      "quality": "Ultra / CUS GL4 / 4x MSAA / VSync off / 1432x902",
+      "measurement": "frame 240 through 1140; 900 simulation frames; approximately 30 seconds",
+      "cache": "new empty dedicated Mesa cache per arm; OS Metal cache not cleared",
+      "runs_per_arm": 1,
+      "order": "listed order",
+      "exclusions": 0,
+      "columns": [
+        "version",
+        "backend",
+        "average_fps",
+        "p95_ms",
+        "p99_ms"
+      ],
+      "rows": [
+        [
+          "RUN95+VBO",
+          "Metal3",
+          36.6598,
+          34.013,
+          41.897
+        ],
+        [
+          "r58",
+          "Metal3",
+          43.524,
+          42.646,
+          49.159
+        ],
+        [
+          "r58",
+          "Metal4",
+          36.6486,
+          48.394,
+          55.878
+        ],
+        [
+          "r78",
+          "Metal3",
+          46.5778,
+          28.809,
+          42.0
+        ],
+        [
+          "r78",
+          "Metal4",
+          41.4821,
+          30.61,
+          48.842
+        ],
+        [
+          "r80",
+          "Metal3",
+          46.5279,
+          29.055,
+          42.886
+        ],
+        [
+          "r80",
+          "Metal4",
+          42.0438,
+          30.405,
+          47.153
+        ]
+      ],
+      "scope": "whole stack comparison; not per-patch attribution or statistical proof"
+    },
+    "r80_metal3_vs_run95_percent": 26.91804101495372,
+    "r80_metal4_vs_metal3_percent": -9.63744334044736
+  },
+  "r85_baseline_refresh": {
+    "source": {
+      "record": "artifacts/validation/r85-metal3-baselines-ac-20261008/comparison-summary.json",
+      "sha256": "79dc9dab34d747bbb0044de53890f0644a2af92036c1661505757e7148806de0"
+    },
+    "date_label": "2026-10-08",
+    "power": "AC, Low Power ON",
+    "cpu_submit_wait": "ON",
+    "runs_per_arm": 1,
+    "rows": [
+      {
+        "version": "run95",
+        "backend": "metal3",
+        "cpu_submit_wait": "on",
+        "metrics": {
+          "count": 1109,
+          "meanFPS": 37.004669189453,
+          "meanMs": 27.023616790771,
+          "over100Ms": 1,
+          "over33Ms": 34,
+          "over50Ms": 3,
+          "p50Ms": 27.517999649048,
+          "p95Ms": 32.129001617432,
+          "p99Ms": 36.263999938965
+        },
+        "execution_receipt_sha256": "cc2191216a6d60e06a236fd75c5f99094b1668d7bb34fa84cfc1e1d08863efff"
+      },
+      {
+        "version": "r58",
+        "backend": "metal3",
+        "cpu_submit_wait": "on",
+        "metrics": {
+          "count": 1323,
+          "meanFPS": 44.132480621338,
+          "meanMs": 22.659048080444,
+          "over100Ms": 2,
+          "over33Ms": 183,
+          "over50Ms": 13,
+          "p50Ms": 22.101999282837,
+          "p95Ms": 42.331001281738,
+          "p99Ms": 49.736999511719
+        },
+        "execution_receipt_sha256": "6fe368d87080f1a36fd437b7943c1bb6480f772c3d5f143f89cb5eb11be7bb03"
+      },
+      {
+        "version": "r73",
+        "backend": "metal3",
+        "cpu_submit_wait": "on",
+        "metrics": {
+          "count": 1401,
+          "meanFPS": 46.747135162354,
+          "meanMs": 21.391683578491,
+          "over100Ms": 1,
+          "over33Ms": 35,
+          "over50Ms": 5,
+          "p50Ms": 21.531000137329,
+          "p95Ms": 28.271999359131,
+          "p99Ms": 41.00899887085
+        },
+        "execution_receipt_sha256": "47a6330dab6146453f626cb3947b551b1f53158f21a089ea9ba8822aa31a321d"
+      }
+    ],
+    "run73_vs_run95_percent": 26.32766671422584,
+    "pre_measurement_failure_retained": true,
+    "performance_samples_excluded": 0
+  },
+  "metal3_selection": {
+    "source": {
+      "record": "artifacts/validation/r92-metal3-selection-ac-20261012/comparison-summary.json",
+      "sha256": "fb3320fc2442f9e84d7a3817d0a1ef2c0d7c34bf4c899ad2c27600d369115b6e"
+    },
+    "date_label": "2026-10-12",
+    "method": "existing historical private-Lobby fullscreen, native game hidden, normal timer, CPUwaitOFF/costOFF, Ultra4MSAA/1432x902/cold private cache/900simframes",
+    "power_condition": "AC+LowPower ON",
+    "rows": [
+      {
+        "ordinal": 1,
+        "variant": "config-6085b86c",
+        "fps": 47.854843139648,
+        "meanMs": 20.89652633667,
+        "p95Ms": 28.17200088501,
+        "p99Ms": 40.430000305176,
+        "over50Ms": 2,
+        "over100Ms": 1,
+        "normalExitAndLobbyReturnPassed": true,
+        "cpuWaitOFF": true,
+        "costOFF": true,
+        "execution_receipt_sha256": "2f5c0ac39b632902a8cfe24893b91c81ab747d63a89af39f018952b166fa33e4"
+      },
+      {
+        "ordinal": 2,
+        "variant": "epoch-c2d8edcf",
+        "fps": 47.95719909668,
+        "meanMs": 20.851926803589,
+        "p95Ms": 27.722999572754,
+        "p99Ms": 40.132999420166,
+        "over50Ms": 3,
+        "over100Ms": 1,
+        "normalExitAndLobbyReturnPassed": true,
+        "cpuWaitOFF": true,
+        "costOFF": true,
+        "execution_receipt_sha256": "a742d9767432c2e8273565ed7bbf820ae470eac6c4f60fd346b4f9b29b828f7c"
+      },
+      {
+        "ordinal": 3,
+        "variant": "f5-f5d9dd5b",
+        "fps": 48.146446228027,
+        "meanMs": 20.76996421814,
+        "p95Ms": 28.628999710083,
+        "p99Ms": 41.849998474121,
+        "over50Ms": 6,
+        "over100Ms": 1,
+        "normalExitAndLobbyReturnPassed": true,
+        "cpuWaitOFF": true,
+        "costOFF": true,
+        "execution_receipt_sha256": "a197ceb1cc7ce09e1ed714435485986e2f002068d2aefcc16005d3c49ff25c0e"
+      },
+      {
+        "ordinal": 4,
+        "variant": "f5-f5d9dd5b",
+        "fps": 47.548004150391,
+        "meanMs": 21.031377792358,
+        "p95Ms": 28.593999862671,
+        "p99Ms": 43.125,
+        "over50Ms": 4,
+        "over100Ms": 1,
+        "normalExitAndLobbyReturnPassed": true,
+        "cpuWaitOFF": true,
+        "costOFF": true,
+        "execution_receipt_sha256": "384927479a56cb6bf8895e7dc85bbdd40123e30a06866396ce2c0f0cb3bcc18f"
+      },
+      {
+        "ordinal": 5,
+        "variant": "epoch-c2d8edcf",
+        "fps": 47.888980865479,
+        "meanMs": 20.881629943848,
+        "p95Ms": 29.117000579834,
+        "p99Ms": 42.580001831055,
+        "over50Ms": 5,
+        "over100Ms": 1,
+        "normalExitAndLobbyReturnPassed": true,
+        "cpuWaitOFF": true,
+        "costOFF": true,
+        "execution_receipt_sha256": "2f5a93f963f5eb817351cd9937e10a0c296b1dae7ddf398543ff6d5381475f1a"
+      },
+      {
+        "ordinal": 6,
+        "variant": "config-6085b86c",
+        "fps": 47.666088104248,
+        "meanMs": 20.979276657104,
+        "p95Ms": 27.813999176025,
+        "p99Ms": 41.397998809814,
+        "over50Ms": 2,
+        "over100Ms": 1,
+        "normalExitAndLobbyReturnPassed": true,
+        "cpuWaitOFF": true,
+        "costOFF": true,
+        "execution_receipt_sha256": "ee020f53b16099aec2dcbb7a977b25c54a0f045923252d741dae0db80ed76a67"
+      }
+    ],
+    "candidates": {
+      "config-6085b86c": {
+        "count": 2,
+        "FPS": [
+          47.854843139648,
+          47.666088104248
+        ],
+        "meanFPS": 47.760465621948,
+        "minFPS": 47.666088104248,
+        "maxFPS": 47.854843139648,
+        "rangeFPS": 0.18875503539999983,
+        "secondVsFirstPercent": -0.39443246078392225,
+        "meanOfRunP95Ms": 27.9930000305175,
+        "meanOfRunP99Ms": 40.913999557495,
+        "over50MsTotal": 4,
+        "over100MsTotal": 2
+      },
+      "epoch-c2d8edcf": {
+        "count": 2,
+        "FPS": [
+          47.95719909668,
+          47.888980865479
+        ],
+        "meanFPS": 47.9230899810795,
+        "minFPS": 47.888980865479,
+        "maxFPS": 47.95719909668,
+        "rangeFPS": 0.06821823120100134,
+        "secondVsFirstPercent": -0.1422481556178412,
+        "meanOfRunP95Ms": 28.420000076294,
+        "meanOfRunP99Ms": 41.3565006256105,
+        "over50MsTotal": 8,
+        "over100MsTotal": 2
+      },
+      "f5-f5d9dd5b": {
+        "count": 2,
+        "FPS": [
+          48.146446228027,
+          47.548004150391
+        ],
+        "meanFPS": 47.847225189209,
+        "minFPS": 47.548004150391,
+        "maxFPS": 48.146446228027,
+        "rangeFPS": 0.5984420776360011,
+        "secondVsFirstPercent": -1.2429620969359068,
+        "meanOfRunP95Ms": 28.611499786377003,
+        "meanOfRunP99Ms": 42.487499237060504,
+        "over50MsTotal": 10,
+        "over100MsTotal": 2
+      }
+    },
+    "selected_engineering_base": "config-6085b86c",
+    "highest_mean_fps": "epoch-c2d8edcf",
+    "highest_mean_lead_over_selected_percent": 0.340499944910011,
+    "all_six_normal": true,
+    "samples_excluded": 0,
+    "causal_difference_established": false
+  },
+  "limitations": [
+    "Single machine; no universal FPS, energy or temperature claim.",
+    "6085 is a content/build digest, not an upstream git commit.",
+    "Required generic host-allocation error correction changes the proposed release candidate; these measurements do not transfer to it.",
+    "Past actual public multiplayer and Scav investigations exist; final candidate peer/endurance qualification remains separate."
+  ],
+  "later_separate_series": {
+    "r2": {
+      "source_record": "artifacts/validation/r92-cold-identity-lookup-game-battery-20261013/comparison-summary.json",
+      "source_sha256": "18f7721a401c7fb5b06409a0b03ddfad04dd28bcc3cc54521fd04515ce174028",
+      "data": {
+        "power": "Battery+LowPower",
+        "sequenceFPS": [
+          44.388000488281,
+          42.754718780518,
+          42.776081085205,
+          42.839710235596,
+          42.636234283447,
+          47.57914352417
+        ],
+        "Metal3": {
+          "parentFPS": 44.388000488281,
+          "candidateFPS": 47.57914352417,
+          "candidateVsParentPercent": 7.189202038356068,
+          "nEach": 1,
+          "parentM4RelativeGapPercent": 3.8130213969546745,
+          "candidateM4RelativeGapPercent": 10.028023857440227
+        },
+        "Metal4": {
+          "parentFPS": [
+            42.754718780518,
+            42.636234283447
+          ],
+          "candidateFPS": [
+            42.776081085205,
+            42.839710235596
+          ],
+          "parentMean": 42.6954765319825,
+          "candidateMean": 42.807895660400504,
+          "candidateMeanVsParentMeanPercent": 0.26330454078382637,
+          "unchangedParentLateVsFirstPercent": -0.27712612888237675,
+          "nEach": 2,
+          "allSamplesRetained": true
+        },
+        "allActualGames": 6,
+        "candidateGames": 3,
+        "parentGames": 3,
+        "measurements": 6,
+        "normalExits": 6,
+        "lobbyReturns": 6,
+        "performanceImprovementEstablished": false,
+        "patchInfluenceExcluded": false
+      }
+    },
+    "s1": {
+      "source_record": "artifacts/validation/r92-single-child-lock-storage-game-ac-20261013/comparison-summary.json",
+      "source_sha256": "374a8b87fb0c805d62db4e4da9a5d73ee75dbb25d1220f5408f71098fd9e5d95",
+      "data": {
+        "power": "AC+LowPower",
+        "sequenceFPS": [
+          47.891845703125,
+          42.450637817383,
+          39.199783325195,
+          42.22749710083,
+          42.747699737549,
+          47.756397247314
+        ],
+        "Metal3": {
+          "candidateFPS": 47.756397247314,
+          "candidateVsParentPercent": -0.2828215405408008,
+          "nEach": 1,
+          "parentFPS": 47.891845703125
+        },
+        "Metal4": {
+          "allSamplesRetained": true,
+          "candidateFPS": [
+            39.199783325195,
+            42.22749710083
+          ],
+          "candidateMean": 40.713640213012496,
+          "candidateMeanVsParentMeanPercent": -4.426209756118304,
+          "nEach": 2,
+          "parentFPS": [
+            42.450637817383,
+            42.747699737549
+          ],
+          "parentMean": 42.599168777466,
+          "unchangedCandidateSecondVsFirstPercent": 7.7238023244097676,
+          "unchangedParentLateVsFirstPercent": 0.6997819948993955
+        },
+        "allActualGames": 6,
+        "candidateGames": 3,
+        "parentGames": 3,
+        "measurements": 6,
+        "normalExits": 6,
+        "lobbyReturns": 6,
+        "performanceImprovementEstablished": false,
+        "stableCausalRegressionEstablished": false,
+        "patchInfluenceExcluded": false,
+        "memoryOrSystemCauseEstablished": false,
+        "metrics": {
+          "R2M3": {
+            "FPS": [
+              47.891845703125
+            ],
+            "meanFPS": 47.891845703125,
+            "meanMs": 20.880382537842,
+            "n": 1,
+            "over100Ms": 1,
+            "over50Ms": 4,
+            "p95Ms": 28.254999160767,
+            "p99Ms": 40.229000091553
+          },
+          "R2M4": {
+            "FPS": [
+              42.450637817383,
+              42.747699737549
+            ],
+            "meanFPS": 42.599168777466,
+            "meanMs": 23.4749212265015,
+            "n": 2,
+            "over100Ms": 2,
+            "over50Ms": 14,
+            "p95Ms": 30.8410005569455,
+            "p99Ms": 46.600999832153
+          },
+          "S1M3": {
+            "FPS": [
+              47.756397247314
+            ],
+            "meanFPS": 47.756397247314,
+            "meanMs": 20.939603805542,
+            "n": 1,
+            "over100Ms": 1,
+            "over50Ms": 6,
+            "p95Ms": 29.55299949646,
+            "p99Ms": 43.662998199463
+          },
+          "S1M4": {
+            "FPS": [
+              39.199783325195,
+              42.22749710083
+            ],
+            "meanFPS": 40.713640213012496,
+            "meanMs": 24.5957984924315,
+            "n": 2,
+            "over100Ms": 9,
+            "over50Ms": 31,
+            "p95Ms": 32.2019996643065,
+            "p99Ms": 55.4484996795655
+          }
+        }
+      }
+    },
+    "r5": {
+      "source_record": "artifacts/validation/r92-group-hit-validity-game-battery-20261013/comparison-summary.json",
+      "source_sha256": "98bd4296e25ff681de1117081371beb3ec64574702fdcd4fcba81c30cc06c256",
+      "data": {
+        "power": "AC+LowPower",
+        "sequenceFPS": [
+          46.581722259521,
+          41.787731170654,
+          39.064968109131,
+          40.953384399414,
+          41.217464447021,
+          46.206901550293
+        ],
+        "Metal3": {
+          "parentFPS": 46.581722259521,
+          "candidateFPS": 46.206901550293,
+          "candidateVsParentPercent": -0.8046518914430978,
+          "nEach": 1
+        },
+        "Metal4": {
+          "parentFPS": [
+            41.787731170654,
+            41.217464447021
+          ],
+          "candidateFPS": [
+            39.064968109131,
+            40.953384399414
+          ],
+          "parentMean": 41.5025978088375,
+          "candidateMean": 40.009176254272504,
+          "candidateMeanVsParentMeanPercent": -3.598380904838172,
+          "nEach": 2,
+          "unchangedParentLateVsFirstPercent": -1.3646750078488923,
+          "unchangedCandidateSecondVsFirstPercent": 4.834040271087803,
+          "allSamplesRetained": true
+        },
+        "allActualGames": 6,
+        "candidateGames": 3,
+        "parentGames": 3,
+        "measurements": 6,
+        "normalExits": 6,
+        "lobbyReturns": 6,
+        "performanceImprovementEstablished": false,
+        "stableCausalRegressionEstablished": false,
+        "patchInfluenceExcluded": false,
+        "memoryOrSystemCauseEstablished": false,
+        "metrics": {
+          "S1M3": {
+            "n": 1,
+            "FPS": [
+              46.581722259521
+            ],
+            "meanFPS": 46.581722259521,
+            "meanMs": 21.46764755249,
+            "p95Ms": 29.840999603271,
+            "p99Ms": 43.775001525879,
+            "over50Ms": 2,
+            "over100Ms": 1
+          },
+          "S1M4": {
+            "n": 2,
+            "FPS": [
+              41.787731170654,
+              41.217464447021
+            ],
+            "meanFPS": 41.5025978088375,
+            "meanMs": 24.096014976501,
+            "p95Ms": 31.0315008163455,
+            "p99Ms": 49.2170009613035,
+            "over50Ms": 24,
+            "over100Ms": 2
+          },
+          "R5M3": {
+            "n": 1,
+            "FPS": [
+              46.206901550293
+            ],
+            "meanFPS": 46.206901550293,
+            "meanMs": 21.641788482666,
+            "p95Ms": 29.257999420166,
+            "p99Ms": 42.932998657227,
+            "over50Ms": 5,
+            "over100Ms": 1
+          },
+          "R5M4": {
+            "n": 2,
+            "FPS": [
+              39.064968109131,
+              40.953384399414
+            ],
+            "meanFPS": 40.009176254272504,
+            "meanMs": 25.008193016051997,
+            "p95Ms": 32.4475002288815,
+            "p99Ms": 50.969499588012496,
+            "over50Ms": 23,
+            "over100Ms": 9
+          }
+        },
+        "sequence": [
+          {
+            "ordinal": 1,
+            "variant": "old-16a9718e",
+            "backend": "metal3",
+            "FPS": 46.581722259521,
+            "drawIntervals": {
+              "count": 1396,
+              "meanFPS": 46.581722259521,
+              "meanMs": 21.46764755249,
+              "over100Ms": 1,
+              "over33Ms": 44,
+              "over50Ms": 2,
+              "p50Ms": 21.416999816895,
+              "p95Ms": 29.840999603271,
+              "p99Ms": 43.775001525879
+            },
+            "actualUUID": "16a9718e-1b02-0209-0000-000100000000",
+            "actualNativeMetal4": {
+              "requested": false,
+              "activeQueues": 0,
+              "proved": false,
+              "legacyParentIdentityVerified": true
+            },
+            "normalExit": {
+              "at": 1791957805523,
+              "pid": 54126,
+              "event": "owned-engine-exit",
+              "childPid": 54166,
+              "code": 0,
+              "signal": null
+            },
+            "lobbyReturn": {
+              "ready": "complete",
+              "api": "function",
+              "url": "[private path omitted]"
+            },
+            "foregroundChecks": 67,
+            "powerObservations": 9
+          },
+          {
+            "ordinal": 2,
+            "variant": "old-16a9718e",
+            "backend": "metal4",
+            "FPS": 41.787731170654,
+            "drawIntervals": {
+              "count": 1252,
+              "meanFPS": 41.787731170654,
+              "meanMs": 23.930469512939,
+              "over100Ms": 1,
+              "over33Ms": 35,
+              "over50Ms": 10,
+              "p50Ms": 24.214000701904,
+              "p95Ms": 30.311000823975,
+              "p99Ms": 48.124000549316
+            },
+            "actualUUID": "16a9718e-1b02-0209-0000-000100000000",
+            "actualNativeMetal4": {
+              "requested": true,
+              "activeQueues": 1,
+              "completedSubmissions": [
+                18616
+              ],
+              "proved": true
+            },
+            "normalExit": {
+              "at": 1791957955726,
+              "pid": 55076,
+              "event": "owned-engine-exit",
+              "childPid": 55121,
+              "code": 0,
+              "signal": null
+            },
+            "lobbyReturn": {
+              "ready": "complete",
+              "api": "function",
+              "url": "[private path omitted]"
+            },
+            "foregroundChecks": 67,
+            "powerObservations": 9
+          },
+          {
+            "ordinal": 3,
+            "variant": "new-3560905b",
+            "backend": "metal4",
+            "FPS": 39.064968109131,
+            "drawIntervals": {
+              "count": 1179,
+              "meanFPS": 39.064968109131,
+              "meanMs": 25.59838104248,
+              "over100Ms": 8,
+              "over33Ms": 45,
+              "over50Ms": 14,
+              "p50Ms": 24.753999710083,
+              "p95Ms": 31.679000854492,
+              "p99Ms": 54.063999176025
+            },
+            "actualUUID": "3560905b-1b02-0209-0000-000100000000",
+            "actualNativeMetal4": {
+              "requested": true,
+              "activeQueues": 1,
+              "completedSubmissions": [
+                16471
+              ],
+              "proved": true
+            },
+            "normalExit": {
+              "at": 1791958111502,
+              "pid": 56093,
+              "event": "owned-engine-exit",
+              "childPid": 56135,
+              "code": 0,
+              "signal": null
+            },
+            "lobbyReturn": {
+              "ready": "complete",
+              "api": "function",
+              "url": "[private path omitted]"
+            },
+            "foregroundChecks": 72,
+            "powerObservations": 10
+          },
+          {
+            "ordinal": 4,
+            "variant": "new-3560905b",
+            "backend": "metal4",
+            "FPS": 40.953384399414,
+            "drawIntervals": {
+              "count": 1227,
+              "meanFPS": 40.953384399414,
+              "meanMs": 24.418004989624,
+              "over100Ms": 1,
+              "over33Ms": 66,
+              "over50Ms": 9,
+              "p50Ms": 24.270000457764,
+              "p95Ms": 33.215999603271,
+              "p99Ms": 47.875
+            },
+            "actualUUID": "3560905b-1b02-0209-0000-000100000000",
+            "actualNativeMetal4": {
+              "requested": true,
+              "activeQueues": 1,
+              "completedSubmissions": [
+                18416
+              ],
+              "proved": true
+            },
+            "normalExit": {
+              "at": 1791958261929,
+              "pid": 57038,
+              "event": "owned-engine-exit",
+              "childPid": 57072,
+              "code": 0,
+              "signal": null
+            },
+            "lobbyReturn": {
+              "ready": "complete",
+              "api": "function",
+              "url": "[private path omitted]"
+            },
+            "foregroundChecks": 67,
+            "powerObservations": 9
+          },
+          {
+            "ordinal": 5,
+            "variant": "old-16a9718e",
+            "backend": "metal4",
+            "FPS": 41.217464447021,
+            "drawIntervals": {
+              "count": 1235,
+              "meanFPS": 41.217464447021,
+              "meanMs": 24.261560440063,
+              "over100Ms": 1,
+              "over33Ms": 46,
+              "over50Ms": 14,
+              "p50Ms": 24.284000396729,
+              "p95Ms": 31.752000808716,
+              "p99Ms": 50.310001373291
+            },
+            "actualUUID": "16a9718e-1b02-0209-0000-000100000000",
+            "actualNativeMetal4": {
+              "requested": true,
+              "activeQueues": 1,
+              "completedSubmissions": [
+                18734
+              ],
+              "proved": true
+            },
+            "normalExit": {
+              "at": 1791958412741,
+              "pid": 57945,
+              "event": "owned-engine-exit",
+              "childPid": 57982,
+              "code": 0,
+              "signal": null
+            },
+            "lobbyReturn": {
+              "ready": "complete",
+              "api": "function",
+              "url": "[private path omitted]"
+            },
+            "foregroundChecks": 66,
+            "powerObservations": 9
+          },
+          {
+            "ordinal": 6,
+            "variant": "new-3560905b",
+            "backend": "metal3",
+            "FPS": 46.206901550293,
+            "drawIntervals": {
+              "count": 1384,
+              "meanFPS": 46.206901550293,
+              "meanMs": 21.641788482666,
+              "over100Ms": 1,
+              "over33Ms": 35,
+              "over50Ms": 5,
+              "p50Ms": 21.579999923706,
+              "p95Ms": 29.257999420166,
+              "p99Ms": 42.932998657227
+            },
+            "actualUUID": "3560905b-1b02-0209-0000-000100000000",
+            "actualNativeMetal4": {
+              "requested": false,
+              "activeQueues": 0,
+              "proved": false,
+              "legacyParentIdentityVerified": true
+            },
+            "normalExit": {
+              "at": 1791958563970,
+              "pid": 58874,
+              "event": "owned-engine-exit",
+              "childPid": 58909,
+              "code": 0,
+              "signal": null
+            },
+            "lobbyReturn": {
+              "ready": "complete",
+              "api": "function",
+              "url": "[private path omitted]"
+            },
+            "foregroundChecks": 67,
+            "powerObservations": 9
+          }
+        ]
+      }
+    },
+    "submit_wait": {
+      "source_record": "artifacts/validation/r92-submit-wait-review-battery-20261013/comparison-summary.json",
+      "source_sha256": "f37788629b50ff3519519c343b63dd8477ee9de8f1b16ec0aad20082f501fd86",
+      "data": {
+        "power": "Battery+LowPower",
+        "OFFminusONMeanFPS": -0.014101664225336208,
+        "OFFvsONMeanPercent": -0.02945588995103554,
+        "allSlowSamplesRetained": true,
+        "backend": "Metal3",
+        "defaultWaitOFF": true,
+        "metrics": {
+          "OFF": {
+            "FPS": [
+              47.775436401367,
+              48.115314483643,
+              47.688449859619
+            ],
+            "meanFPS": 47.859733581543,
+            "meanMs": 20.894699732462335,
+            "n": 3,
+            "over100Ms": 3,
+            "over50Ms": 19,
+            "p95Ms": 28.706999460856,
+            "p99Ms": 41.67499923706067,
+            "sampleSDFPS": 0.22557230049366836
+          },
+          "ON": {
+            "FPS": [
+              47.933658599854,
+              48.0647315979,
+              47.623115539551
+            ],
+            "meanFPS": 47.87383524576833,
+            "meanMs": 20.888549804687667,
+            "n": 3,
+            "over100Ms": 3,
+            "over50Ms": 7,
+            "p95Ms": 28.019666671752667,
+            "p99Ms": 42.16699981689433,
+            "sampleSDFPS": 0.22680456569141338
+          }
+        },
+        "pairs": [
+          {
+            "OFF": 47.775436401367,
+            "OFFminusON": -0.15822219848699604,
+            "OFFvsONPercent": -0.3300857958868142,
+            "ON": 47.933658599854
+          },
+          {
+            "OFF": 48.115314483643,
+            "OFFminusON": 0.05058288574299752,
+            "OFFvsONPercent": 0.10523908916451052,
+            "ON": 48.0647315979
+          },
+          {
+            "OFF": 47.688449859619,
+            "OFFminusON": 0.065334320067997,
+            "OFFvsONPercent": 0.13719035247439226,
+            "ON": 47.623115539551
+          }
+        ],
+        "sequence": [
+          "ON",
+          "OFF",
+          "ON",
+          "OFF",
+          "ON",
+          "OFF"
+        ]
+      }
+    }
+  }
+}

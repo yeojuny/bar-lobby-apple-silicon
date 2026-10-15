@@ -57,7 +57,7 @@ describe("auto updater initialization", () => {
         ).toBe("macOS update metadata is unavailable");
     });
 
-    it("allows macOS packaged release builds with updater metadata", () => {
+    it("does not let macOS updater metadata grant application replacement ownership", () => {
         const metadataPath = getMacOSAppUpdateMetadataPath(resourcesPath);
 
         expect(
@@ -67,6 +67,14 @@ describe("auto updater initialization", () => {
                 resourcesPath,
                 pathExists: (filePath) => filePath === metadataPath,
             })
-        ).toBeUndefined();
+        ).toBe("macOS application updates disabled pending reviewed owner/channel policy");
+    });
+
+    it("keeps Linux packaged updater behavior unchanged", () => {
+        expect(getAutoUpdaterInitializationSkipReason({
+            isPackaged: true,
+            platform: "linux",
+            pathExists: () => false,
+        })).toBeUndefined();
     });
 });

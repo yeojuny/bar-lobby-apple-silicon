@@ -1,0 +1,15 @@
+<!-- SPDX-FileCopyrightText: 2026 yeojuny
+     SPDX-License-Identifier: CC0-1.0
+     Original geometric artwork for this independent Apple Silicon port. -->
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
+  <defs>
+    <linearGradient id="base" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#282b31"/><stop offset="1" stop-color="#111318"/></linearGradient>
+    <linearGradient id="copper" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ffca8a"/><stop offset="0.52" stop-color="#ed9b60"/><stop offset="1" stop-color="#be6744"/></linearGradient>
+  </defs>
+  <rect x="76" y="76" width="872" height="872" rx="196" fill="url(#base)"/>
+  <rect x="78" y="78" width="868" height="868" rx="194" fill="none" stroke="#4c4c50" stroke-width="4"/>
+  <path d="M170 705 442 205 773 319M174 778 487 205 816 319M230 821 531 270 853 382" fill="none" stroke="#dba978" stroke-opacity="0.10" stroke-width="3"/>
+  <path d="M278 252H520L717 391 595 508 736 638 529 772H278Z M386 350V463H491L563 404 487 350Z M386 557V674H499L574 623 499 557Z" fill="url(#copper)" fill-rule="evenodd"/>
+  <path d="M760 207V259M734 233H786" stroke="#f0e5d5" stroke-width="8" stroke-linecap="round"/>
+  <path d="M278 824H622" stroke="#f0e5d5" stroke-opacity="0.55" stroke-width="6"/>
+</svg>

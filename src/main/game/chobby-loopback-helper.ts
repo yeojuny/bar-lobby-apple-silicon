@@ -4,7 +4,7 @@
 
 import { app } from "electron";
 
-import { ChobbyLauncherLoopback, ChobbyLauncherLoopbackOptions } from "@main/game/chobby-launcher-loopback";
+import { ChobbyLauncherConnection, ChobbyLauncherLoopback, ChobbyLauncherLoopbackOptions } from "@main/game/chobby-launcher-loopback";
 import { logger } from "@main/utils/logger";
 
 export const CHOBBY_LOOPBACK_HELPER_ARG = "--bar-chobby-loopback-helper";
@@ -26,6 +26,10 @@ function parseHelperOptions(): ChobbyLauncherLoopbackOptions {
     if (!isStringRecord(parsed)) {
         throw new Error(`${CHOBBY_LOOPBACK_HELPER_OPTIONS_ENV} must be a JSON object with string values`);
     }
+    const startupOwnerPID = Number(parsed.startupOwnerPID ?? process.ppid);
+    if (!Number.isSafeInteger(startupOwnerPID) || startupOwnerPID <= 1 || startupOwnerPID !== process.ppid) {
+        throw new Error(`${CHOBBY_LOOPBACK_HELPER_OPTIONS_ENV} must identify the helper's startup parent`);
+    }
 
     return {
         engineVersion: parsed.engineVersion,
@@ -33,6 +37,7 @@ function parseHelperOptions(): ChobbyLauncherLoopbackOptions {
         bundledAssetsPath: parsed.bundledAssetsPath || undefined,
         writeDataPath: parsed.writeDataPath,
         platform: parsed.platform as NodeJS.Platform,
+        startupOwnerPID,
     };
 }
 
@@ -76,6 +81,14 @@ export async function runChobbyLoopbackHelper() {
     process.on("SIGINT", shutdown);
 
     await app.whenReady();
-    const connection = await loopback.start();
+    if (isShuttingDown) return;
+    let connection: ChobbyLauncherConnection;
+    try {
+        connection = await loopback.start();
+    } catch (err) {
+        if (!isShuttingDown) throw err;
+        await loopback.close();
+        return;
+    }
     log.info(`Chobby loopback helper ready at ${connection.host}:${connection.port}, connectionFile: ${connection.connectionFilePath}`);
 }

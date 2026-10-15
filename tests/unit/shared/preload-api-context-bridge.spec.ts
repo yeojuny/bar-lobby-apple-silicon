@@ -6,11 +6,35 @@
 /* eslint-disable @typescript-eslint/no-unsafe-function-type */
 
 import { beforeEach, describe, it, vi, expect, afterEach } from "vitest";
+import { readFileSync } from "node:fs";
+import path from "node:path";
+import { runInNewContext } from "node:vm";
+import ts from "typescript";
 
 type MockIpcRenderer = {
     invoke: Function;
     on: Function;
 };
+
+describe("Renderer-safe shared engine versions", () => {
+    it("loads without Node globals and preserves the canonical platform defaults", () => {
+        const source = readFileSync(path.resolve("src/main/config/default-versions.ts"), "utf8");
+        const code = ts.transpileModule(source, {
+            compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2022 },
+        }).outputText;
+        const shared = {} as {
+            DEFAULT_ENGINE_VERSION: string;
+            getDefaultEngineVersion: (platform: string) => string;
+            CHOBBY_MULTIPLAYER_ENGINE_FALLBACK_VERSION: string;
+        };
+        runInNewContext(code, { exports: shared }, { timeout: 1000 });
+        expect(shared.DEFAULT_ENGINE_VERSION).toBe("2026.06.08");
+        expect(shared.getDefaultEngineVersion("darwin")).toBe("2026.09.10-0-g694e9df7");
+        expect(shared.getDefaultEngineVersion("linux")).toBe("2026.06.08");
+        expect(shared.getDefaultEngineVersion("win32")).toBe("2026.06.08");
+        expect(shared.CHOBBY_MULTIPLAYER_ENGINE_FALLBACK_VERSION).toBe("2026.07.04");
+    });
+});
 
 describe("Preload API Context Bridge", () => {
     // List of all APIs exposed in the preload script

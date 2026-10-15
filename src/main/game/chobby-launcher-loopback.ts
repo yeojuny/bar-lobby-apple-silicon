@@ -27,7 +27,7 @@ import {
     MACOS_NATIVE_ENGINE_ENV_DIAGNOSTIC_PROBE,
     resolveNativeEngineRunner,
     resolvePrDownloaderPath,
-    syncMacOSLuaUIOverlayToWritableDataDir,
+    prepareMacOSLuaUIOverlayForLaunch,
 } from "@main/config/native-engine-runner";
 
 const log = logger("main/game/chobby-launcher-loopback.ts");
@@ -47,6 +47,7 @@ export interface ChobbyLauncherLoopbackOptions {
     platform: NodeJS.Platform;
     idleShutdownDelayMs?: number;
     onIdle?: () => void;
+    startupOwnerPID?: number;
 }
 
 export interface ChobbyLauncherConnection {
@@ -173,7 +174,15 @@ export class ChobbyLauncherLoopback {
     private server: Server | null = null;
     private readonly clients = new Set<Socket>();
     private readonly childProcesses = new Set<ChildProcess>();
+    private readonly prDownloaderDownloads = new Map<string, Promise<boolean>>();
     private idleShutdownTimer: ReturnType<typeof setTimeout> | null = null;
+    private startupOwnerTimer: ReturnType<typeof setTimeout> | null = null;
+    private startupNativePID: number | undefined;
+    private hasConnectedClient = false;
+    private generation = 0;
+    private connection: ChobbyLauncherConnection | null = null;
+    private closingPromise: Promise<void> | null = null;
+    private pendingConnectionWrite: Promise<ChobbyLauncherConnection> | null = null;
 
     public constructor(options: ChobbyLauncherLoopbackOptions) {
         this.options = options;
@@ -181,15 +190,12 @@ export class ChobbyLauncherLoopback {
 
     public async start(): Promise<ChobbyLauncherConnection> {
         await this.close();
-
-        this.server = net.createServer((socket) => this.handleConnection(socket));
+        const generation = ++this.generation;
+        this.hasConnectedClient = false;
+        this.startupNativePID = undefined;
+        const server = net.createServer((socket) => this.handleConnection(socket, generation));
+        this.server = server;
         await new Promise<void>((resolve, reject) => {
-            const server = this.server;
-            if (!server) {
-                reject(new Error("Chobby launcher loopback server was not initialized"));
-                return;
-            }
-
             const onError = (err: Error) => {
                 server.off("listening", onListening);
                 reject(err);
@@ -204,42 +210,139 @@ export class ChobbyLauncherLoopback {
             server.listen(0, LOOPBACK_HOST);
         });
 
-        const address = this.server.address();
+        if (generation !== this.generation || this.server !== server) throw new Error("Chobby loopback stopped during startup");
+        const address = server.address();
         if (!address || typeof address === "string") {
             throw new Error("Could not resolve Chobby launcher loopback port");
         }
 
-        const connection = await this.writeConnectionFile(address);
+        const pendingWrite = this.writeConnectionFile(address);
+        this.pendingConnectionWrite = pendingWrite;
+        let connection: ChobbyLauncherConnection;
+        try {
+            connection = await pendingWrite;
+        } finally {
+            if (this.pendingConnectionWrite === pendingWrite) this.pendingConnectionWrite = null;
+        }
+        if (generation !== this.generation || this.server !== server) throw new Error("Chobby loopback stopped during startup");
+        this.connection = connection;
+        this.scheduleStartupOwnerCheck(generation);
         log.info(`Chobby launcher loopback listening at ${connection.host}:${connection.port}`);
         return connection;
     }
 
-    public async close() {
-        this.clearIdleShutdownTimer();
-
-        for (const socket of this.clients) {
-            socket.destroy();
-        }
-        this.clients.clear();
-
-        for (const childProcess of this.childProcesses) {
-            if (!childProcess.killed) {
-                childProcess.kill();
-            }
-        }
-        this.childProcesses.clear();
-
+    public close(): Promise<void> {
+        if (this.closingPromise) return this.closingPromise;
+        const generation = ++this.generation;
         const server = this.server;
+        const connection = this.connection;
+        const pendingWrite = this.pendingConnectionWrite;
         this.server = null;
-        if (server) {
-            await new Promise<void>((resolve) => server.close(() => resolve()));
-        }
-
-        await fs.promises.unlink(this.connectionFilePath).catch((err: NodeJS.ErrnoException) => {
-            if (err.code !== "ENOENT") {
-                log.warn(`Failed to remove Chobby launcher connection file: ${err.message}`);
+        this.connection = null;
+        this.clearIdleShutdownTimer();
+        this.clearStartupOwnerTimer();
+        const closing = (async () => {
+            for (const socket of this.clients) socket.destroy();
+            this.clients.clear();
+            for (const childProcess of this.childProcesses) {
+                if (!childProcess.killed) childProcess.kill();
             }
+            this.childProcesses.clear();
+            if (server) await new Promise<void>((resolve) => server.close(() => resolve()));
+            const stoppedConnection = connection ?? await pendingWrite?.catch(() => null);
+            if (!stoppedConnection || generation !== this.generation) return;
+            try {
+                const record: unknown = JSON.parse(await fs.promises.readFile(this.connectionFilePath, "utf-8"));
+                if (generation === this.generation && this.isOwnedConnectionRecord(record, stoppedConnection)) {
+                    await fs.promises.unlink(this.connectionFilePath);
+                }
+            } catch (err) {
+                if ((err as NodeJS.ErrnoException).code !== "ENOENT") {
+                    log.warn(`Failed to remove Chobby launcher connection file: ${err instanceof Error ? err.message : String(err)}`);
+                }
+            }
+        })();
+        const completion = closing.finally(() => {
+            if (this.closingPromise === completion) this.closingPromise = null;
         });
+        this.closingPromise = completion;
+        return completion;
+    }
+
+    private isOwnedConnectionRecord(record: unknown, connection: ChobbyLauncherConnection): record is Record<string, unknown> {
+        return isRecord(record) && record._sl_helper_pid === process.pid && record._sl_address === LOOPBACK_HOST
+            && record._sl_port === connection.port && record._sl_write_path === this.options.writeDataPath;
+    }
+
+    private isPreClientStartup(generation: number) {
+        return generation === this.generation && this.server !== null && !this.hasConnectedClient;
+    }
+
+    private clearStartupOwnerTimer() {
+        if (this.startupOwnerTimer) clearTimeout(this.startupOwnerTimer);
+        this.startupOwnerTimer = null;
+    }
+
+    private scheduleStartupOwnerCheck(generation: number) {
+        if (!this.options.startupOwnerPID || !this.options.onIdle || !this.isPreClientStartup(generation) || this.startupOwnerTimer) return;
+        // This is a liveness observation cadence, not a deadline for slow startup.
+        this.startupOwnerTimer = setTimeout(() => {
+            if (!this.isPreClientStartup(generation)) return;
+            this.startupOwnerTimer = null;
+            void this.checkStartupOwner(generation).catch((err: unknown) => {
+                if (!this.isPreClientStartup(generation)) return;
+                log.warn(`Failed to check Chobby startup owner: ${err instanceof Error ? err.message : String(err)}`);
+                this.options.onIdle?.();
+            });
+        }, this.options.idleShutdownDelayMs ?? 5_000);
+    }
+
+    private async readStartupNativeOwner(generation: number) {
+        if (this.startupNativePID !== undefined) return this.startupNativePID;
+        try {
+            const record: unknown = JSON.parse(await fs.promises.readFile(this.connectionFilePath, "utf-8"));
+            if (!this.isPreClientStartup(generation)) return;
+            if (this.connection && this.isOwnedConnectionRecord(record, this.connection)) {
+                const pid = record._sl_engine_pid;
+                if (typeof pid === "number" && Number.isSafeInteger(pid) && pid > 0 && pid !== process.pid && pid !== this.options.startupOwnerPID) {
+                    this.startupNativePID = pid;
+                }
+            }
+        } catch {
+            // Before publication the launcher remains the owner. On its death,
+            // the caller re-reads the record to close the publish/exit race.
+        }
+        return this.startupNativePID;
+    }
+
+    private isProcessAlive(pid: number) {
+        try {
+            process.kill(pid, 0);
+            return true;
+        } catch (err) {
+            if ((err as NodeJS.ErrnoException).code === "ESRCH") return false;
+            if ((err as NodeJS.ErrnoException).code === "EPERM") return true;
+            throw err;
+        }
+    }
+
+    private async checkStartupOwner(generation: number) {
+        let nativePID = await this.readStartupNativeOwner(generation);
+        if (!this.isPreClientStartup(generation)) return;
+        if (nativePID === undefined && this.isProcessAlive(this.options.startupOwnerPID!)) {
+            this.scheduleStartupOwnerCheck(generation);
+            return;
+        }
+        if (nativePID === undefined) {
+            nativePID = await this.readStartupNativeOwner(generation);
+            if (!this.isPreClientStartup(generation)) return;
+        }
+        if (nativePID !== undefined && this.isProcessAlive(nativePID)) {
+            this.scheduleStartupOwnerCheck(generation);
+            return;
+        }
+        log.info("Chobby startup owner exited before a menu client connected; requesting helper shutdown");
+        this.options.onIdle?.();
     }
 
     private clearIdleShutdownTimer() {
@@ -252,12 +355,14 @@ export class ChobbyLauncherLoopback {
     }
 
     private scheduleIdleShutdownIfNeeded() {
-        if (!this.options.onIdle || this.clients.size > 0 || this.childProcesses.size > 0 || this.idleShutdownTimer) {
+        if (!this.server || !this.options.onIdle || this.clients.size > 0 || this.childProcesses.size > 0 || this.idleShutdownTimer) {
             return;
         }
 
         const delayMs = this.options.idleShutdownDelayMs ?? 5_000;
+        const generation = this.generation;
         this.idleShutdownTimer = setTimeout(() => {
+            if (generation !== this.generation || !this.server) return;
             this.idleShutdownTimer = null;
             if (this.clients.size === 0 && this.childProcesses.size === 0) {
                 log.info("Chobby launcher loopback is idle; requesting helper shutdown");
@@ -267,6 +372,7 @@ export class ChobbyLauncherLoopback {
     }
 
     private trackChildProcess(childProcess: ChildProcess, label: string) {
+        const generation = this.generation;
         this.clearIdleShutdownTimer();
         this.childProcesses.add(childProcess);
 
@@ -276,6 +382,7 @@ export class ChobbyLauncherLoopback {
                 return;
             }
             settled = true;
+            if (generation !== this.generation || !this.server) return;
             this.childProcesses.delete(childProcess);
             log.info(`Chobby launcher loopback child process ended (${label}, ${reason})`);
             this.scheduleIdleShutdownIfNeeded();
@@ -309,7 +416,13 @@ export class ChobbyLauncherLoopback {
         return path.join(this.options.writeDataPath, CONNECTION_FILE_NAME);
     }
 
-    private handleConnection(socket: Socket) {
+    private handleConnection(socket: Socket, generation: number) {
+        if (generation !== this.generation || !this.server) {
+            socket.destroy();
+            return;
+        }
+        this.hasConnectedClient = true;
+        this.clearStartupOwnerTimer();
         this.clearIdleShutdownTimer();
         this.clients.add(socket);
         log.info("Chobby launcher loopback client connected");
@@ -326,7 +439,7 @@ export class ChobbyLauncherLoopback {
         });
         socket.on("error", (err) => log.warn(`Chobby launcher loopback socket error: ${err.message}`));
         socket.on("close", () => {
-            this.clients.delete(socket);
+            if (generation !== this.generation || !this.server || !this.clients.delete(socket)) return;
             log.info("Chobby launcher loopback client disconnected");
             this.scheduleIdleShutdownIfNeeded();
         });
@@ -400,6 +513,30 @@ export class ChobbyLauncherLoopback {
     }
 
     private async runPrDownloader(socket: Socket, name: string, downloadArg: string) {
+        const downloadKey = `${downloadArg}\0${name}`;
+        const activeDownload = this.prDownloaderDownloads.get(downloadKey);
+        if (activeDownload) {
+            log.info(`Chobby launcher loopback joining in-flight download ${name} with ${downloadArg}`);
+            const isSuccess = await activeDownload;
+            if (isSuccess) {
+                this.send(socket, "DownloadProgress", { name, progress: 1, total: 1 });
+            }
+            this.sendDownloadFinished(socket, name, isSuccess);
+            return;
+        }
+
+        const downloadPromise = this.runPrDownloaderProcess(socket, name, downloadArg);
+        this.prDownloaderDownloads.set(downloadKey, downloadPromise);
+        try {
+            await downloadPromise;
+        } finally {
+            if (this.prDownloaderDownloads.get(downloadKey) === downloadPromise) {
+                this.prDownloaderDownloads.delete(downloadKey);
+            }
+        }
+    }
+
+    private async runPrDownloaderProcess(socket: Socket, name: string, downloadArg: string): Promise<boolean> {
         const prBinaryPath = resolvePrDownloaderPath({
             engineVersion: this.options.engineVersion,
             assetsPath: this.options.assetsPath,
@@ -410,7 +547,8 @@ export class ChobbyLauncherLoopback {
 
         log.info(`Chobby launcher loopback downloading ${name} with ${downloadArg}`);
 
-        await new Promise<void>((resolve) => {
+        return new Promise<boolean>((resolve) => {
+            let sawErrorOutput = false;
             const prdProcess = spawn(prBinaryPath, ["--filesystem-writepath", this.options.assetsPath, downloadArg, name], {
                 cwd: path.dirname(prBinaryPath),
                 env: {
@@ -446,6 +584,7 @@ export class ChobbyLauncherLoopback {
                     .split(/\r?\n|\r/)
                     .filter(Boolean)) {
                     if (line.includes("[Error]") || line.includes("Error:")) {
+                        sawErrorOutput = true;
                         log.warn(`[CHOBBY LOOPBACK PR-DOWNLOADER] ${line}`);
                     } else {
                         log.debug(`[CHOBBY LOOPBACK PR-DOWNLOADER] ${line}`);
@@ -455,20 +594,23 @@ export class ChobbyLauncherLoopback {
             prdProcess.on("error", (err) => {
                 log.error(`Chobby loopback pr-downloader failed to start: ${err.message}`);
                 this.sendDownloadFinished(socket, name, false);
-                resolve();
+                resolve(false);
             });
             prdProcess.on("exit", (code, signal) => {
-                if (code === 0) {
+                if (code === 0 && !sawErrorOutput) {
                     log.info(`Chobby loopback pr-downloader completed: ${name}`);
                     this.send(socket, "DownloadProgress", { name, progress: 1, total: 1 });
                     this.sendDownloadFinished(socket, name, true);
-                    resolve();
-                    return;
+                    resolve(true);
+                } else if (code === 0) {
+                    log.warn(`Chobby loopback pr-downloader exited with code 0 after error output; treating ${name} as failed`);
+                    this.sendDownloadFinished(socket, name, false);
+                    resolve(false);
+                } else {
+                    log.warn(`Chobby loopback pr-downloader exited with code ${code}, signal ${signal}`);
+                    this.sendDownloadFinished(socket, name, false);
+                    resolve(false);
                 }
-
-                log.warn(`Chobby loopback pr-downloader exited with code ${code}, signal ${signal}`);
-                this.sendDownloadFinished(socket, name, false);
-                resolve();
             });
         });
     }
@@ -581,15 +723,18 @@ export class ChobbyLauncherLoopback {
     private async handleStartNewSpring(command: ChobbyStartNewSpringCommand) {
         const engineVersion = this.normalizeEngineVersion(command.Engine);
         if (this.options.platform === "darwin") {
-            const syncResult = await syncMacOSLuaUIOverlayToWritableDataDir({
+            const overlayResult = await prepareMacOSLuaUIOverlayForLaunch({
                 bundledAssetsPath: this.options.bundledAssetsPath,
                 writeDataPath: this.options.writeDataPath,
+                lane: "bar-chobby",
                 platform: this.options.platform,
             });
-            if (syncResult.synced) {
-                log.info(`Synced macOS LuaUI overlay into writable data dir: ${syncResult.sourcePath} -> ${syncResult.destinationPath}`);
+            if (overlayResult.prepared) {
+                log.info(
+                    `Prepared bar-chobby macOS LuaUI overlay: ${overlayResult.sourcePath}; quarantined=${overlayResult.quarantinedFiles?.length ?? 0}; preserved=${overlayResult.preservedFiles?.length ?? 0}`
+                );
             } else {
-                log.debug(`Skipped macOS LuaUI overlay sync: ${syncResult.reason ?? "unknown"}`);
+                log.debug(`Skipped bar-chobby macOS LuaUI overlay preparation: ${overlayResult.reason ?? "unknown"}`);
             }
         }
         const runner = resolveNativeEngineRunner({
@@ -606,6 +751,7 @@ export class ChobbyLauncherLoopback {
             includeBundledAssetsInSpringDataDir: false,
             includeBundledEngineSupportInSpringDataDir: true,
             includeBundledMacOSLuaUIOverlayInSpringDataDir: true,
+            macOSLuaUIOverlayLane: "bar-chobby",
             writeDataPath: this.options.writeDataPath,
             platform: this.options.platform,
             baseEnv: process.env,
@@ -642,10 +788,28 @@ export class ChobbyLauncherLoopback {
         this.trackChildProcess(childProcess, `native engine ${engineVersion}`);
     }
 
+    private enforceMacOSFullscreenSpringSetting(settings: string) {
+        if (this.options.platform !== "darwin") return settings;
+
+        const lines = settings.trimEnd() ? settings.trimEnd().split(/\r?\n/) : [];
+        let found = false;
+        const nextLines = lines.map((line) => {
+            const match = line.match(/^(\s*)([^#=]+?)(\s*=\s*)(.*)$/);
+            if (!match || match[2].trim() !== "Fullscreen") return line;
+
+            found = true;
+            return `${match[1]}Fullscreen${match[3]}1`;
+        });
+
+        if (!found) nextLines.push("Fullscreen = 1");
+        return `${nextLines.join("\n")}\n`;
+    }
+
     private async resolveStartNewSpringLaunchArg(command: ChobbyStartNewSpringCommand) {
         await fs.promises.mkdir(this.options.writeDataPath, { recursive: true });
         if (command.SpringSettings) {
-            await fs.promises.writeFile(path.join(this.options.writeDataPath, "springsettings.cfg"), command.SpringSettings, "utf-8");
+            const springSettings = this.enforceMacOSFullscreenSpringSetting(command.SpringSettings);
+            await fs.promises.writeFile(path.join(this.options.writeDataPath, "springsettings.cfg"), springSettings, "utf-8");
         }
         if (command.StartScriptContent) {
             const scriptPath = path.join(this.options.writeDataPath, `chobby-start-script-${Date.now()}.txt`);

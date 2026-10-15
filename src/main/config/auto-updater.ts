@@ -32,5 +32,9 @@ export function getAutoUpdaterInitializationSkipReason(runtime: AutoUpdaterRunti
         return "macOS update metadata is unavailable";
     }
 
-    return undefined;
+    // Metadata is a download location, not authority to replace the application.
+    // Keep the installed macOS bundle's unconditional-off policy in fresh builds.
+    // Enabling this requires a reviewed owner/channel and whole-bundle recovery
+    // contract; no environment variable or data-location marker grants ownership.
+    return "macOS application updates disabled pending reviewed owner/channel policy";
 }

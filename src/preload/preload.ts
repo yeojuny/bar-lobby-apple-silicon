@@ -6,6 +6,7 @@ import { contextBridge } from "electron";
 import { ipcRenderer } from "@main/typed-ipc";
 import { Replay } from "@main/content/replays/replay";
 import { Settings } from "@main/services/settings.service";
+import type { MacOSMetalBackend, MacOSRendererPreference } from "@main/config/native-engine-runner";
 import { EngineVersion } from "@main/content/engine/engine-version";
 import { GameVersion } from "@main/content/game/game-version";
 import { MapData, MapDownloadData } from "@main/content/maps/map-data";
@@ -71,6 +72,8 @@ contextBridge.exposeInMainWorld("replays", replaysApi);
 
 const settingsApi = {
     getSettings: (): Promise<Settings> => ipcRenderer.invoke("settings:get"),
+    getMetalRenderer: (): Promise<MacOSRendererPreference | null> => ipcRenderer.invoke("settings:getMetalRenderer"),
+    setMetalRenderer: (renderer: MacOSMetalBackend): Promise<MacOSRendererPreference> => ipcRenderer.invoke("settings:setMetalRenderer", renderer),
     updateSettings: (settings: Partial<Settings>): Promise<Partial<Settings>> => ipcRenderer.invoke("settings:update", settings),
     toggleFullscreen: (): Promise<void> => ipcRenderer.invoke("settings:toggleFullscreen"),
 };

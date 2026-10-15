@@ -37,7 +37,9 @@ const BAR_SPRINGSETTINGS_DEFAULTS: Record<string, string | number> = {
     FeatureDrawDistance: 10000,
     FeatureFadeDistance: 10000,
     ForceDisableShaders: 0,
-    Fullscreen: 0,
+    // Keep the macOS lobby-to-engine handoff fullscreen. Native fullscreen
+    // teardown can otherwise persist a transient windowed state for the next run.
+    Fullscreen: process.platform === "darwin" ? 1 : 0,
     FullscreenEdgeMove: 1,
     GrassDetail: 0,
     GroundDecals: 2,
@@ -65,6 +67,7 @@ const BAR_SPRINGSETTINGS_DEFAULTS: Record<string, string | number> = {
     MoveWarnings: 0,
     MSAA: 1,
     MSAALevel: 4,
+    GeometryShadersUnsupported: process.platform === "darwin" ? 1 : -1,
     NormalMapping: 1,
     ReconnectTimeout: 0,
     Roam: 1,
@@ -135,7 +138,8 @@ export function applyDefaultSpringsettings(): void {
         const settings = readSettings(SPRINGSETTINGS_PATH);
         let changed = false;
         for (const [key, value] of Object.entries(BAR_SPRINGSETTINGS_DEFAULTS)) {
-            if (!settings.has(key)) {
+            const restoreMacOSFullscreen = process.platform === "darwin" && key === "Fullscreen" && settings.get(key) !== "1";
+            if (!settings.has(key) || restoreMacOSFullscreen) {
                 settings.set(key, String(value));
                 changed = true;
             }

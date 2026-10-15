@@ -17,6 +17,9 @@ SPDX-License-Identifier: MIT
                     <Button v-for="view in primaryRoutes" :key="view.path" :to="view.path">
                         {{ view.meta.title }}
                     </Button>
+                    <Button v-if="isMacOS" :disabled="chobbyLaunchDisabled" @click="launchChobby">
+                        {{ t("lobby.multiplayer.title") }} (Chobby)
+                    </Button>
                 </div>
                 <div class="drag-window-area"></div>
                 <div class="primary-right">
@@ -126,6 +129,8 @@ import { me } from "@renderer/store/me.store";
 import ServerStatus from "@renderer/components/navbar/ServerStatus.vue";
 import { useLogInConfirmation } from "@renderer/composables/useLogInConfirmation";
 import { chatStore } from "@renderer/store/chat.store";
+import { GameStatus, gameStore } from "@renderer/store/game.store";
+import { notificationsApi } from "@renderer/api/notifications";
 
 defineProps<{
     hidden?: boolean;
@@ -152,6 +157,9 @@ const secondaryRoutes = computed(() => {
 const messagesOpen = ref(false);
 const friendsOpen = ref(false);
 const downloadsOpen = ref(false);
+const isMacOS = navigator.platform.startsWith("Mac");
+const launchingChobby = ref(false);
+const chobbyLaunchDisabled = computed(() => launchingChobby.value || gameStore.status !== GameStatus.CLOSED);
 const settingsOpen = inject<Ref<boolean>>("settingsOpen")!;
 const exitOpen = inject<Ref<boolean>>("exitOpen")!;
 
@@ -162,6 +170,21 @@ function handleFriendsClick() {
         return;
     }
     friendsOpen.value = !friendsOpen.value;
+}
+
+async function launchChobby() {
+    if (!isMacOS || chobbyLaunchDisabled.value) return;
+    launchingChobby.value = true;
+    gameStore.status = GameStatus.LOADING;
+    try {
+        await window.game.launchChobby({});
+        // Successful macOS handoff closes this lobby; keep the button disabled until exit.
+    } catch (error) {
+        launchingChobby.value = false;
+        if (gameStore.status === GameStatus.LOADING) gameStore.status = GameStatus.CLOSED;
+        const text = error instanceof Error ? error.message : "Chobby launch failed.";
+        notificationsApi.alert({ text, severity: "error" });
+    }
 }
 
 const messagesUnread = computed(() => [...chatStore.userChats.values()].some((m) => m.at(-1)?.seen === false));

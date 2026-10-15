@@ -15,6 +15,7 @@ import type { NewsFeedData } from "@main/services/news.service";
 import type { Replay } from "@main/content/replays/replay";
 import type { Scenario } from "@main/content/game/scenario";
 import type { Settings } from "@main/services/settings.service";
+import type { MacOSMetalBackend, MacOSRendererPreference } from "@main/config/native-engine-runner";
 import type { TachyonEvent, TachyonResponse } from "tachyon-protocol";
 import { ipcRenderer as electronIpcRenderer, ipcMain as electronIpcMain } from "electron";
 
@@ -106,6 +107,8 @@ export type IPCCommands = {
     "replays:delete": (fileName: string) => void;
     "replays:sync": (replays: string[]) => void;
     "settings:get": () => Settings;
+    "settings:getMetalRenderer": () => MacOSRendererPreference | null;
+    "settings:setMetalRenderer": (renderer: MacOSMetalBackend) => MacOSRendererPreference;
     "settings:toggleFullscreen": () => void;
     "settings:update": (settings: Partial<Settings>) => Partial<Settings>;
     "shell:openStateDir": () => string;

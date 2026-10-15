@@ -1,172 +1,36 @@
-<!--
-SPDX-FileCopyrightText: 2025 The BAR Lobby Authors
+# BAR for Apple Silicon
 
-SPDX-License-Identifier: CC0-1.0
--->
+Beyond All Reason in one **BAR.app**, with bar-lobby and an ordinary **Multiplayer (Chobby)** entry. The native Recoil engines use Mesa/Zink, Vulkan and MoltenVK. Requires **Apple Silicon and macOS 27 or later**.
 
-# BAR Lobby
+**v0.15.4-alpha.1 is an unsigned experimental prerelease.** [Downloads and checksums](https://github.com/yeojuny/bar-lobby-apple-silicon/releases/tag/v0.15.4-alpha.1) include a DMG, a ZIP of the same app, matching sources and third-party notices.
 
-BAR Lobby is a new WIP lobby for the RTS game [Beyond All Reason](https://www.beyondallreason.info/). It hopes to boldly go where no Spring client has gone before, providing a more streamlined experience, with good visuals and UX being high priority. The ultimate goal of BAR Lobby is to replace all other lobbies when it comes to playing BAR. If a significant amount of people don't wish to use it because of reasons such as functionality or speed, then this project is going very wrong.
+## Install and play
 
-![image](https://user-images.githubusercontent.com/1434248/223881325-bb8ac4f5-ed14-4ad8-ad33-970781cf3089.png)
+1. Download the DMG and drag **BAR.app** to Applications, or extract the ZIP and move the app there.
+2. Open BAR. Choose **Multiplayer (Chobby)** for the Chobby multiplayer route. Game and map content downloads separately.
+3. In **Settings**, choose **Metal3** or **Metal4 (experimental)**. Metal3 is the default; both engine lanes share the preference. A change applies to the **next native launch**, leaving a running game unchanged. Explicit advanced environment overrides take precedence.
 
-## Project Status
+The app has ad-hoc integrity signatures, without an Apple Developer ID or notarization. If macOS blocks it after an opening attempt, Apple's documented per-app option is **System Settings → Privacy & Security → Open Anyway**. See [Apple's instructions](https://support.apple.com/en-us/102445). This is documented guidance, not a clean-machine installation test performed for this release.
 
-BAR Lobby is a work-in-progress and actively developed project. We are currently working towards milestones defined in the [wiki/Roadmap](https://github.com/beyond-all-reason/bar-lobby/wiki/Roadmap).
+Automatic app updates are disabled. Replace the app manually for a new version. Install through the [personal Homebrew tap](https://github.com/yeojuny/homebrew-bar) with `brew install --cask yeojuny/bar/bar-apple-silicon`. The cask was loaded and checked locally; a clean-machine Homebrew installation has not been tested. Existing installations and shared user data remain under your control; this installer does not remove another distributor's apps.
 
-BAR Lobby is an important part of [BAR's Steam Roadmap](https://www.beyondallreason.info/development/steam-release), and there is a lot of other work in other places that support this development. Please take a look at the [infrastructure documentation](https://beyond-all-reason.github.io/infrastructure/new_client/) for details on how BAR Lobby fits into the rest of the system.
+## Engines and evidence
 
-## Releases
+| Route | Native engine label |
+| --- | --- |
+| bar-lobby | `2026.09.10-0-g694e9df7`, selected historical development source with local corrections |
+| Multiplayer (Chobby) | `2026.07.04`, selected stable-line source with local corrections |
 
-Pre-release builds are available on the [GitHub releases page](https://github.com/beyond-all-reason/bar-lobby/releases). The lobby auto-updates when a new version is published.
+These labels identify the bundled lanes; they do not claim today's newest official engine or universal public-peer compatibility. See [validation scope](docs/release-readiness/2026-10-15/README.md).
 
-Every commit on the `master` branch is also built. To download an installer of this development version:
+Historical fixed-scene tests observed roughly **26–27% higher mean FPS** for a later Metal3 stack than the older RUN95 baseline on one machine. Those limited whole-stack samples are not a benchmark of this prerelease. Metal4 was slower than Metal3 in the published R80 comparison; no new FPS gain is claimed for recent functional changes or diagnostic removal. [Full measurements and limits](docs/release-readiness/2026-10-15/PERFORMANCE.md) preserve conditions, slow samples and tradeoffs.
 
-1. Sign in to GitHub.
-2. Go to the [Build workflow on `master`](https://github.com/beyond-all-reason/bar-lobby/actions/workflows/build.yml?query=branch%3Amaster) and pick the latest run.
-3. Download from the "Artifacts" section at the bottom of the run page.
+The exact release app passed ordinary Chobby Metal3/Metal4 menu handoffs and one short default-Metal3 Jade Empress game with native exit 0 and visible Lobby return. Renderer settings behavior was checked on the preceding UI-fixed package; native functional checks are bound through unchanged native runtime bytes. Clean-machine rebuilding, comprehensive peer compatibility and long-session reliability are not established by those bounded checks.
 
-## Functionality and Goals
+## Source and credits
 
-- Provide functionality for everything related to BAR. Campaigns, Missions, Multiplayer, Replays etc
-- Simple and intutive codebase, lots of documenation for contributing
-- Steam integration, automatic account creation and login
-- Smooth, seemless, fully integrated downloads. Content should be preloaded when sensible
-- Communicate entirely via Teiserver's new protocol, [Tachyon](https://github.com/beyond-all-reason/tachyon). No support for the legacy SpringLobbyProtocol
-- TLS only, no unencypted comms
+Matching [preferred sources](https://github.com/yeojuny/bar-lobby-apple-silicon/releases/download/v0.15.4-alpha.1/BAR-0.15.4-alpha.1-sources.tar.gz), [notices](https://github.com/yeojuny/bar-lobby-apple-silicon/releases/download/v0.15.4-alpha.1/BAR-0.15.4-alpha.1-notices.tar.gz) and [SHA256SUMS](https://github.com/yeojuny/bar-lobby-apple-silicon/releases/download/v0.15.4-alpha.1/SHA256SUMS) accompany the app. GitHub's automatically generated repository archive alone does not reconstruct the complete native stack. [Source and provenance details](docs/release-readiness/2026-10-15/SOURCE-STATUS.md) distinguish source delivery from bit reproduction.
 
-## Contributing
+Upstream BAR, bar-lobby, Chobby, Recoil, Mesa, MoltenVK and dependency authors retain their credit and licenses. Original launcher and installer artwork is CC0; the game and trademarks are not relicensed. This software is based in part on the work of the **FreeType Team** ([freetype.org](https://freetype.org)).
 
-Please take a look at the [contributing guide](CONTRIBUTING.md) to learn how to help the project.
-
-## Development
-
-### Primary Tech Stack
-
-- [Electron](https://www.electronjs.org/)
-- [Vue 3](https://v3.vuejs.org/)
-- [TypeScript](https://www.typescriptlang.org/)
-- [SCSS](https://sass-lang.com/)
-- [PrimeVue Components](https://primevue.org/datatable)
-
-### Recommended Environment
-
-It is highly recommended to use [VSCode](https://code.visualstudio.com/) for development, as it provides full, built-in TypeScript support, as well as useful extensions such as [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) and [Vue - Official (previously Volar)](https://marketplace.visualstudio.com/items?itemName=vue.volar).
-
-### Requirements
-
-- [Node.js 22.18.0](https://nodejs.org/en/download/)
-
-We recommend tools management software like [NVM](https://github.com/nvm-sh/nvm) or [mise-en-place](https://mise.jdx.dev/) for installation of the correct node version.
-Make sure you use **the right node.js version**, check `engines.node` in [`package.json`](./package.json) for the source of truth.
-
-### Local Development
-
-```bash
-npm install
-npm start
-```
-
-If you change node.js version, you **need** to re-run `npm install`.
-
-### Project Structure
-
-```
-.
-├──buildResources   # used by electron-builder
-├──src
-│  ├──main
-│  │  ├──main.ts
-│  │  └──...
-│  ├──preload
-│  │  ├──preload.ts
-│  │  └──...
-│  └──renderer      # with vue
-│     ├──public     # (optional) publicDir for renderer
-│     ├──index.ts
-│     ├──index.html
-│     └──...
-├──electron-builder.ts
-├──electron.vite.config.ts
-├──package.json
-└──...
-```
-
-- [**Main process**](https://www.electronjs.org/docs/latest/tutorial/process-model#the-main-process)
-    - Runs in a Node.js environment and has access to Node.js APIs
-    - Anything requiring access to the operating system or Node.js APIs needs to live here
-- [**Preload script**](https://www.electronjs.org/docs/latest/tutorial/process-model#preload-scripts)
-    - Runs in a Node.js environment
-    - Defines global objects that can be used in the renderer
-    - Handles communication between the main and renderer processes
-        - Uses Electron's ipcMain and ipcRenderer modules for inter-process communication (IPC).
-- [**Renderer process**](https://www.electronjs.org/docs/latest/tutorial/process-model#the-renderer-process)
-    - Runs in a web environment and has **no** direct access to Node.js APIs
-
-### Build & Publish
-
-- [`electron-forge`](https://www.electronforge.io/config/plugins/vite)
-    - Builds the app with a pre-configured Vite setup for Electron apps
-    - This intentionally does not include `electron` or any other `node_modules` dependencies in the build
-        - Dependencies get added to the package by `electron-builder` with ASAR
-        - Note: apps that only have CJS exports need to be included in the build, e.g. `glob-promise`
-- [`electron-builder`](https://www.electron.build/)
-    - Packages Electron app for distribution
-        - Configured for Windows NSIS installer and Linux AppImage
-    - Handles publishing updates
-        - Auto-updates TBD
-
-### Commands
-
-- `npm start`
-    - Runs `electron-forge` in `development` mode
-    - **renderer** runs with Hot Module Replacement (HMR)
-    - **main** and **preload** are directly bundled to `.vite/build`
-- `npm run package`
-    - Runs `electron-forge` in `production` mode
-    - **renderer** is bundled to `.vite/renderer`
-    - **main** and **preload** are bundled to `.vite/build`
-    - This should be run before any of the `npm run build` commands below.
-- `npm run preview`
-    - Runs `electron-forge` in `production` mode, and runs electron
-    - **main**, **preload**, and **renderer** are bundled to `.vite/build`
-    - This is useful for validating the `production` build without packaging the app
-- `npm run build:win`
-    - Runs `npm run build` and `electron-builder`, building for Windows
-    - Outputs NSIS installer in `dist`
-- `npm run buildall:win`
-    - Runs `npm run package` then runs `npm run build:win`.
-- `npm run build:linux`
-    - Runs `npm run build` and `electron-builder`, building for Linux
-    - Outputs AppImage executable in `dist`
-- `npm run buildall:linux`
-    - Runs `npm run package` then runs `npm run build:linux`.
-- `npm run build:unpack`
-    - Runs `npm run build` and `electron-builder`, building an unpackaged directory
-    - Outputs the unpacked contents in `dist`
-    - Useful for testing
-- `npm run dev-cert` (optional and only for Windows development)
-    - Runs `electron-builder` to create a self-signed cert for Windows apps.
-    - After selecting "None" in the pop-up, a cert file should be created called `BAR Team.pfx`
-    - Then run `npm run build:win:dev-cert` to build a signed Windows installer
-- `npm run generate-i18n-assets` (run when modifying source translation files)
-    - Generates transformed asset files for translations in `src/renderer/assets/languages`
-
-### Mutliplayer
-
-You can start multiple separate instances by overriding the assets and/or state location using env variables:
-
-```
-BAR_STATE_PATH=state-2 npm start
-BAR_ASSETS_PATH=assets-3 BAR_STATE_PATH=state-3 npm start
-```
-
-At time of writing, the [production server (server4)](https://server4.beyondallreason.info/) isn't setup for the new client. You need
-to enable dev mode in the settings, and then, in the dev settings, choose [server5](https://server5.beyondallreason.info/) which is closer to the production
-server, or the [dev server](https://lobby-server-dev.beyondallreason.dev/) where you can create test accounts.
-
-### License
-
-[![REUSE status](https://api.reuse.software/badge/github.com/beyond-all-reason/bar-lobby)](https://api.reuse.software/info/github.com/beyond-all-reason/bar-lobby)
-
-Please see the [LICENSE.md](LICENSE.md) file for details on the license of this project.
+This personal fork is independent of upstream projects. AI tools assisted development and review.
