@@ -9,15 +9,15 @@ import { createPinnedBundledAssets } from "./packaging/pinned-bundled-assets";
 // Reviewed experimental release inputs. The external lock remains mandatory;
 // protected local candidates are not modified by this packaging configuration.
 const bundledAssets = createPinnedBundledAssets(process.env, {
-    id: "release-candidate-20261015",
+    id: "release-imac-fix-20261015-alpha2",
     lanes: {
         "bar-chobby": {
             engineDirectory: "2026.07.04",
-            springSha256: "27fa06c634330299abc0c293d8f68b24f71b409bea8f67355aaa12d663c1eb80",
+            springSha256: "829651a32559ab3f29cce19d9659102db63d73b7956c2ffd78f4c828ec58fec9",
         },
         "bar-lobby": {
             engineDirectory: "2026.09.10-0-g694e9df7",
-            springSha256: "794ced8b40960be6693acd7d17624bb99b120c1fa9890f09c367020523f2e53c",
+            springSha256: "b72006c777e051faf9a2b879ee180339f5961f9b440c5d6c6794e1b040766add",
         },
     },
 });
@@ -30,9 +30,9 @@ const config: Configuration = {
     // Should be the same as APP_NAME in src/main/config/app.ts and in
     // workaround in installer.nsh.
     productName: "BAR",
-    buildVersion: "0.15.4.1",
+    buildVersion: "0.15.4.2",
     extraMetadata: {
-        version: "0.15.4-alpha.1",
+        version: "0.15.4-alpha.2",
         repository: { type: "git", url: "https://github.com/yeojuny/bar-lobby-apple-silicon.git" },
     },
 

@@ -750,7 +750,8 @@ export class ChobbyLauncherLoopback {
             enginePath,
             includeBundledAssetsInSpringDataDir: false,
             includeBundledEngineSupportInSpringDataDir: true,
-            includeBundledMacOSLuaUIOverlayInSpringDataDir: true,
+            // The paired native engine owns the immutable presentation adaptations.
+            includeBundledMacOSLuaUIOverlayInSpringDataDir: false,
             macOSLuaUIOverlayLane: "bar-chobby",
             writeDataPath: this.options.writeDataPath,
             platform: this.options.platform,

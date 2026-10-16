@@ -188,7 +188,8 @@ export class GameAPI {
                 quitLobbyAfterSpawn: process.platform === "darwin",
                 includeBundledAssetsInSpringDataDir: false,
                 includeBundledEngineSupportInSpringDataDir: true,
-                includeBundledMacOSLuaUIOverlayInSpringDataDir: true,
+                // Renderer adaptations are immutable native sources; user widgets stay sandboxed.
+                includeBundledMacOSLuaUIOverlayInSpringDataDir: false,
                 macOSLuaUIOverlayLane: "bar-chobby",
                 onDetachedSpawn: detachedHelper ? (child) => this.publishDetachedChobbyEngineOwner(detachedHelper!, child) : undefined,
                 onExit: () => {
@@ -605,7 +606,7 @@ export class GameAPI {
             args: ["--write-dir", WRITE_DATA_PATH, "--isolation", launchArg],
             includeBundledAssetsInSpringDataDir: process.platform === "darwin" ? false : undefined,
             includeBundledEngineSupportInSpringDataDir: process.platform === "darwin" ? true : undefined,
-            includeBundledMacOSLuaUIOverlayInSpringDataDir: process.platform === "darwin" ? true : undefined,
+            includeBundledMacOSLuaUIOverlayInSpringDataDir: false,
             macOSLuaUIOverlayLane: "bar-lobby",
         });
     }
@@ -627,7 +628,8 @@ export class GameAPI {
         if (process.platform === "darwin") {
             await this.assertNativeRuntimeEngineVersionMatches(engineVersion);
         }
-        if (process.platform === "darwin" && includeBundledMacOSLuaUIOverlayInSpringDataDir) {
+        // Keep exact legacy-file quarantine even though bundled code is no longer a RAW data directory.
+        if (process.platform === "darwin" && (includeBundledMacOSLuaUIOverlayInSpringDataDir || macOSLuaUIOverlayLane)) {
             if (!macOSLuaUIOverlayLane) {
                 throw new Error("Missing macOS LuaUI overlay lane for native engine launch");
             }

@@ -2,7 +2,7 @@
 
 Beyond All Reason in one **BAR.app**, with bar-lobby and an ordinary **Multiplayer (Chobby)** entry. The native Recoil engines use Mesa/Zink, Vulkan and MoltenVK. Requires **Apple Silicon and macOS 27 or later**.
 
-**v0.15.4-alpha.1 is an unsigned experimental prerelease.** [Downloads and checksums](https://github.com/yeojuny/bar-lobby-apple-silicon/releases/tag/v0.15.4-alpha.1) include a DMG, a ZIP of the same app, matching sources and third-party notices.
+**v0.15.4-alpha.2 is an unsigned experimental prerelease.** [Downloads and checksums](https://github.com/yeojuny/bar-lobby-apple-silicon/releases/tag/v0.15.4-alpha.2) include a DMG, a ZIP of the same app, matching sources and third-party notices.
 
 ## Install and play
 
@@ -21,15 +21,17 @@ Automatic app updates are disabled. Replace the app manually for a new version. 
 | bar-lobby | `2026.09.10-0-g694e9df7`, selected historical development source with local corrections |
 | Multiplayer (Chobby) | `2026.07.04`, selected stable-line source with local corrections |
 
-These labels identify the bundled lanes; they do not claim today's newest official engine or universal public-peer compatibility. See [validation scope](docs/release-readiness/2026-10-15/README.md).
+These labels identify the bundled lanes; they do not claim today's newest official engine or universal public-peer compatibility. See [validation scope](docs/release-readiness/2026-10-16/README.md).
 
 Historical fixed-scene tests observed roughly **26–27% higher mean FPS** for a later Metal3 stack than the older RUN95 baseline on one machine. Those limited whole-stack samples are not a benchmark of this prerelease. Metal4 was slower than Metal3 in the published R80 comparison; no new FPS gain is claimed for recent functional changes or diagnostic removal. [Full measurements and limits](docs/release-readiness/2026-10-15/PERFORMANCE.md) preserve conditions, slow samples and tradeoffs.
 
-The exact release app passed ordinary Chobby Metal3/Metal4 menu handoffs and one short default-Metal3 Jade Empress game with native exit 0 and visible Lobby return. Renderer settings behavior was checked on the preceding UI-fixed package; native functional checks are bound through unchanged native runtime bytes. Clean-machine rebuilding, comprehensive peer compatibility and long-session reliability are not established by those bounded checks.
+Alpha.2 corrects the current game's bundled-widget loading boundary, macOS fullscreen workarea/cutout handling, GS capability reporting, and font/map-edge/VBO/CUS compatibility. It retains the accepted explicit NoGS presentation, CUS GL4, both renderer choices, CPU submit wait OFF and cost collection OFF. The graphics runtime is unchanged. [Changes and validation scope](docs/release-readiness/2026-10-16/README.md).
+
+Alpha.2's hidden Metal3 game check showed a damaged-unit healthbar and Settings entry, preserved Ultra/4x MSAA, initialized Nano/Energy NoGS directly, and exited normally. The same Metal4 scene and native shutdown passed, but an automatic content downloader remained after launcher exit and required test cleanup; this is not a complete Metal4 lifecycle pass. This inherited downloader shutdown limitation is disclosed in the [validation scope](docs/release-readiness/2026-10-16/README.md). Chobby menu checks passed in both renderer modes with genuine helper connections and natural cleanup; no multiplayer game was run. No alpha.2 FPS, complete NoGS visual parity, physical iMac transition, full multiplayer, endurance or clean-machine claim is made.
 
 ## Source and credits
 
-Matching [preferred sources](https://github.com/yeojuny/bar-lobby-apple-silicon/releases/download/v0.15.4-alpha.1/BAR-0.15.4-alpha.1-sources.tar.gz), [notices](https://github.com/yeojuny/bar-lobby-apple-silicon/releases/download/v0.15.4-alpha.1/BAR-0.15.4-alpha.1-notices.tar.gz) and [SHA256SUMS](https://github.com/yeojuny/bar-lobby-apple-silicon/releases/download/v0.15.4-alpha.1/SHA256SUMS) accompany the app. GitHub's automatically generated repository archive alone does not reconstruct the complete native stack. [Source and provenance details](docs/release-readiness/2026-10-15/SOURCE-STATUS.md) distinguish source delivery from bit reproduction.
+Matching [preferred sources](https://github.com/yeojuny/bar-lobby-apple-silicon/releases/download/v0.15.4-alpha.2/BAR-0.15.4-alpha.2-sources.tar.gz), [notices](https://github.com/yeojuny/bar-lobby-apple-silicon/releases/download/v0.15.4-alpha.2/BAR-0.15.4-alpha.2-notices.tar.gz) and [SHA256SUMS](https://github.com/yeojuny/bar-lobby-apple-silicon/releases/download/v0.15.4-alpha.2/SHA256SUMS) accompany the app. GitHub's automatically generated repository archive alone does not reconstruct the complete native stack. [Source and provenance details](docs/release-readiness/2026-10-16/SOURCE-STATUS.md) distinguish source delivery from bit reproduction.
 
 Upstream BAR, bar-lobby, Chobby, Recoil, Mesa, MoltenVK and dependency authors retain their credit and licenses. Original launcher and installer artwork is CC0; the game and trademarks are not relicensed. This software is based in part on the work of the **FreeType Team** ([freetype.org](https://freetype.org)).
 

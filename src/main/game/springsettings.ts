@@ -17,7 +17,6 @@ const SPRINGSETTINGS_PATH = path.join(WRITE_DATA_PATH, "springsettings.cfg");
 const BAR_SPRINGSETTINGS_DEFAULTS: Record<string, string | number> = {
     AdvUnitShading: 1,
     AdvMapShading: 1,
-    AdvSky: 0,
     AllowDeferredMapRendering: 1,
     AllowDeferredModelRendering: 1,
     BuildWarnings: 0,

@@ -1,0 +1,58 @@
+{
+  "schemaVersion": 1,
+  "appVersion": "0.15.4-alpha.2",
+  "appInventorySHA256": "93d2f94ef9de491471498ca668a4dc0dff08cf0aabcd1b19d90f7eb607627097",
+  "appAsarSHA256": "fb7bc77aa91210d756e3606201097ecc9632ad2ebb307d1d76b415cc2c633e06",
+  "lobbyEngineSHA256": "b72006c777e051faf9a2b879ee180339f5961f9b440c5d6c6794e1b040766add",
+  "chobbyEngineSHA256": "829651a32559ab3f29cce19d9659102db63d73b7956c2ffd78f4c828ec58fec9",
+  "moltenvkSHA256": "aebf0df53fb655aa7e67cebf30fad2f6426694621aa06e028e06bc74240e5916",
+  "runtimeUnchangedFromAlpha1": true,
+  "lobbyGame": "Beyond All Reason test-31653-ebba846",
+  "map": "Jade Empress 1.41",
+  "metal3": {
+    "scopedHealthbarAndSettingsPixels": true,
+    "nativeExitCode": 0,
+    "launcherExitCode": 0,
+    "ownedCleanupIntervention": false,
+    "overallLifecyclePassed": true
+  },
+  "metal4": {
+    "scopedHealthbarAndSettingsPixels": true,
+    "actualCommandBackendMessage": true,
+    "nativeExitCode": 0,
+    "launcherExitCode": 0,
+    "ownedCleanupIntervention": true,
+    "overallLifecyclePassed": false,
+    "limitation": "Inherited automatic byar:test downloader remained after launcher exit; owned final test cleanup terminated it. Zero remained."
+  },
+  "chobbyMenus": {
+    "menu": "BYAR Chobby test-4659-5fb5727",
+    "gameMetadata": "Beyond All Reason test-31657-2f0a840",
+    "metal3": "passed-with-root-menu-image-review",
+    "metal4": "passed-with-root-menu-image-review",
+    "eachMenuLaunches": 1,
+    "eachGames": 0,
+    "eachParentExitCode": 0,
+    "eachDetachedNativeExitCode": null,
+    "eachNativeOrderedShutdownPIDAbsence": true,
+    "eachHelperNaturalIdlePIDAbsenceConnectionRemoved": true,
+    "remainingOwnedProcesses": 0
+  },
+  "preserved": [
+    "CUS GL4",
+    "accepted explicit NoGS presentation",
+    "Ultra20/4xMSAA in scoped scene",
+    "peer engine versions",
+    "CPU submit wait OFF",
+    "cost collection OFF"
+  ],
+  "notEstablished": [
+    "FPS or energy gain",
+    "complete effect-animation parity",
+    "public-peer multiplayer",
+    "endurance",
+    "physical iMac fullscreen",
+    "clean-machine installation",
+    "Developer ID/notarization"
+  ]
+}
