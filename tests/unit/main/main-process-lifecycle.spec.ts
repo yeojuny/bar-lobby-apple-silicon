@@ -13,6 +13,7 @@ describe("Main Process Lifecycle", () => {
     let mockProtocol: any;
     let mockSession: any;
     let mockNet: any;
+    let shutdownWriters: any;
 
     // Mock all services
     const mockServices = {
@@ -37,6 +38,8 @@ describe("Main Process Lifecycle", () => {
     beforeEach(() => {
         vi.clearAllMocks();
         vi.resetModules();
+        shutdownWriters = vi.fn().mockResolvedValue(undefined);
+        vi.doMock("@main/content/content-write-coordinator", () => ({ shutdownContentWriters: shutdownWriters }));
 
         mockApp = {
             requestSingleInstanceLock: vi.fn().mockReturnValue(true),
@@ -240,6 +243,41 @@ describe("Main Process Lifecycle", () => {
         expect(mockServices.autoUpdaterService.registerIpcHandlers).toHaveBeenCalled();
         expect(mockServices.navigationService.registerIpcHandlers).toHaveBeenCalled();
     });
+
+    it("blocks repeated quit requests until owned downloader closure, then permits final quit", async () => {
+        let finish!: () => void;
+        shutdownWriters.mockImplementation(() => new Promise<void>((resolve) => { finish = resolve; }));
+        await import("@main/main");
+        const beforeQuit = mockApp.on.mock.calls.find(([event]: [string]) => event === "before-quit")[1];
+        const first = { preventDefault: vi.fn() }, repeated = { preventDefault: vi.fn() };
+        beforeQuit(first);
+        beforeQuit(repeated);
+        expect(first.preventDefault).toHaveBeenCalledOnce();
+        expect(repeated.preventDefault).toHaveBeenCalledOnce();
+        expect(shutdownWriters).toHaveBeenCalledOnce();
+        expect(mockApp.quit).not.toHaveBeenCalled();
+        finish();
+        await Promise.resolve();
+        await Promise.resolve();
+        expect(mockApp.quit).toHaveBeenCalledOnce();
+        const final = { preventDefault: vi.fn() };
+        beforeQuit(final);
+        expect(final.preventDefault).not.toHaveBeenCalled();
+        expect(shutdownWriters).toHaveBeenCalledOnce();
+    });
+
+    it("does not exit or retry if stopping an owned downloader fails", async () => {
+        shutdownWriters.mockRejectedValue(new Error("owned child termination failed"));
+        await import("@main/main");
+        const beforeQuit = mockApp.on.mock.calls.find(([event]: [string]) => event === "before-quit")[1];
+        beforeQuit({ preventDefault: vi.fn() });
+        await Promise.resolve();
+        await Promise.resolve();
+        beforeQuit({ preventDefault: vi.fn() });
+        expect(mockApp.quit).not.toHaveBeenCalled();
+        expect(mockApp.exit).not.toHaveBeenCalled();
+        expect(shutdownWriters).toHaveBeenCalledOnce();
+    });
 });
 
 describe("Detached Chobby helper ownership", () => {
@@ -260,6 +298,7 @@ describe("Detached Chobby helper ownership", () => {
     let helperProcess: any;
     let nativeProcess: any;
     let ownerProbe: any;
+    let shutdownWriters: any;
     let onRead: ((file: string, value: string) => void) | undefined;
 
     function child(pid: number | undefined) {
@@ -397,7 +436,8 @@ describe("Detached Chobby helper ownership", () => {
         }));
         vi.doMock("@main/game/engine-log-mirror", () => ({ createEngineLobbyLogMirror: () => ({ write: vi.fn(), summarize: vi.fn() }) }));
         vi.doMock("@main/game/engine-stderr-log", () => ({ createEngineStderrLog: () => ({ write: vi.fn(), close: vi.fn() }) }));
-        vi.doMock("@main/content/content-write-coordinator", () => ({}));
+        shutdownWriters = vi.fn().mockResolvedValue(undefined);
+        vi.doMock("@main/content/content-write-coordinator", () => ({ shutdownContentWriters: shutdownWriters }));
         vi.doUnmock("@main/game/chobby-loopback-helper");
         ownerProbe = vi.spyOn(process, "kill").mockImplementation((pid, signal) => {
             if (signal !== 0) throw new Error("CPU fixture must not send OS signals");
@@ -564,6 +604,38 @@ describe("Detached Chobby helper ownership", () => {
         expect(fsPromises.rename).toHaveBeenCalledOnce();
         await vi.advanceTimersByTimeAsync(1);
         expect(app.exit).toHaveBeenCalledWith(0);
+        expect(helperProcess.kill).not.toHaveBeenCalled();
+        await helperLoopback.close();
+    });
+
+    it("drains parent downloaders after handoff without stopping the detached owners", async () => {
+        let finish!: () => void;
+        shutdownWriters.mockImplementation(() => new Promise<void>((resolve) => { finish = resolve; }));
+        helperLoopback = bridge({ startupOwnerPID: process.pid }).result;
+        const launch = preparedAPI().launchChobby();
+        await vi.advanceTimersByTimeAsync(100);
+        await launch;
+        expect(JSON.parse(files.get(connectionPath)!)._sl_engine_pid).toBe(nativePID);
+        expect(shutdownWriters).toHaveBeenCalledOnce();
+        expect(app.exit).not.toHaveBeenCalled();
+        expect(nativeProcess.unref).toHaveBeenCalledOnce();
+        expect(nativeProcess.kill).not.toHaveBeenCalled();
+        expect(helperProcess.kill).not.toHaveBeenCalled();
+        finish();
+        await vi.advanceTimersByTimeAsync(1);
+        expect(app.exit).toHaveBeenCalledWith(0);
+        await helperLoopback.close();
+    });
+
+    it("does not roll back a detached menu if the parent download drain fails", async () => {
+        shutdownWriters.mockRejectedValue(new Error("owned download did not stop"));
+        helperLoopback = bridge({ startupOwnerPID: process.pid }).result;
+        const launch = preparedAPI().launchChobby();
+        await vi.advanceTimersByTimeAsync(100);
+        await launch;
+        expect(JSON.parse(files.get(connectionPath)!)._sl_engine_pid).toBe(nativePID);
+        expect(app.exit).not.toHaveBeenCalled();
+        expect(nativeProcess.kill).not.toHaveBeenCalled();
         expect(helperProcess.kill).not.toHaveBeenCalled();
         await helperLoopback.close();
     });

@@ -6,11 +6,12 @@ import assert from "node:assert/strict";
 import type { ChildProcess } from "node:child_process";
 import { EventEmitter } from "node:events";
 import fs from "node:fs/promises";
+import { syncBuiltinESMExports } from "node:module";
 import os from "node:os";
 import path from "node:path";
 import { setImmediate } from "node:timers/promises";
 import test, { type TestContext } from "node:test";
-import { publishContentMetadata, waitForContentWriterClose, withContentWrite } from "../../src/main/content/content-write-coordinator.ts";
+import { publishContentMetadata, shutdownContentWriters, waitForContentWriterClose, withContentWrite } from "../../src/main/content/content-write-coordinator.ts";
 
 function deferred() {
     let resolve!: () => void;
@@ -25,7 +26,8 @@ function fakeChild() {
 }
 
 // Resolved mock I/O makes queue admission deterministic after a single event-loop
-// turn. The final test separately exercises real canonicalization/publication.
+// turn. A separate test exercises real canonicalization/publication before the
+// final test permanently latches shutdown.
 function mockDirectories(t: TestContext, canonicalize: (directory: string) => string = (directory) => directory) {
     t.mock.method(fs, "mkdir", async () => undefined);
     t.mock.method(fs, "realpath", async (directory: string) => canonicalize(directory));
@@ -178,4 +180,155 @@ test("real directory aliases canonicalize identically and metadata publishes on 
     } finally {
         await fs.rm(temporaryRoot, { recursive: true, force: true });
     }
+});
+
+// This must remain last: shutdown is irreversible, including after a deadline
+// failure. No production reset hook or second coordinator instance is used.
+test("shutdown closes admission races and reports a bounded failure without releasing unclosed owners", { timeout: 5000 }, async (t) => {
+    t.mock.timers.enable({ apis: ["setTimeout"] });
+    // Node 22 patches the timers object; refresh the coordinator's named ESM
+    // timer bindings too, so this test never waits on the real shutdown clock.
+    syncBuiltinESMExports();
+    const mkdirEntered = deferred();
+    const releaseMkdir = deferred();
+    const realpathEntered = deferred();
+    const releaseRealpath = deferred();
+    const registerLate = deferred();
+    const lateRegistered = deferred();
+    const inflight: Promise<unknown>[] = [];
+    const observe = <T>(promise: Promise<T>) => {
+        inflight.push(promise);
+        void promise.catch(() => undefined);
+        return promise;
+    };
+    let directoryCalls = 0;
+    let publications = 0;
+    const enteredWrites: string[] = [];
+    t.mock.method(fs, "mkdir", async (directory: string) => {
+        directoryCalls++;
+        if (directory === "/shutdown/mkdir-race") {
+            mkdirEntered.resolve();
+            await releaseMkdir.promise;
+        }
+    });
+    t.mock.method(fs, "realpath", async (directory: string) => {
+        if (directory === "/shutdown/realpath-race") {
+            realpathEntered.resolve();
+            await releaseRealpath.promise;
+        }
+        return directory;
+    });
+    t.mock.method(fs, "writeFile", async () => { publications++; });
+    t.mock.method(fs, "rename", async () => { publications++; });
+
+    const processError = new Error("signal error without close");
+    const owners = ["false", "error", "exited", "late"].map((name) => {
+        const signals: NodeJS.Signals[] = [];
+        const started = deferred();
+        const emitter = new EventEmitter();
+        const child = Object.assign(emitter, {
+            exitCode: null as number | null,
+            signalCode: null as NodeJS.Signals | null,
+            killed: false,
+            kill(signal: NodeJS.Signals) {
+                signals.push(signal);
+                if (name === "false") return false;
+                this.killed = true;
+                if (name === "error") emitter.emit("error", processError);
+                return true;
+            },
+        });
+        let settled = false;
+        const promise = observe(withContentWrite(`/shutdown/${name}`, async () => {
+            started.resolve();
+            if (name === "late") await registerLate.promise;
+            const closed = waitForContentWriterClose(child as unknown as ChildProcess);
+            if (name === "late") lateRegistered.resolve();
+            return closed;
+        }));
+        void promise.then(() => { settled = true; }, () => { settled = true; });
+        return { name, child, signals, started, promise, settled: () => settled };
+    });
+    t.after(async () => {
+        releaseMkdir.resolve();
+        releaseRealpath.resolve();
+        registerLate.resolve();
+        await setImmediate();
+        for (const owner of owners) owner.child.emit("close", 0, null);
+        await Promise.allSettled(inflight);
+        t.mock.timers.reset();
+        syncBuiltinESMExports();
+    });
+    await Promise.all(owners.map((owner) => owner.started.promise));
+    const queued = observe(withContentWrite("/shutdown/false", () => { enteredWrites.push("queued"); }));
+    const metadata = observe(publishContentMetadata("/shutdown/false", "/shutdown/false/versions.gz", "index"));
+    const mkdirRace = observe(withContentWrite("/shutdown/mkdir-race", () => { enteredWrites.push("mkdir-race"); }));
+    const realpathRace = observe(withContentWrite("/shutdown/realpath-race", () => { enteredWrites.push("realpath-race"); }));
+    await Promise.all([mkdirEntered.promise, realpathEntered.promise]);
+    await setImmediate();
+    const exited = owners.find((owner) => owner.name === "exited")!;
+    exited.child.exitCode = 0;
+    exited.child.emit("exit", 0, null);
+    t.mock.timers.tick(2_000);
+    assert.ok(owners.every((owner) => owner.signals.length === 0), "active downloads are not subject to the shutdown grace timer");
+
+    const shutdown = shutdownContentWriters();
+    const failedShutdown = assert.rejects(shutdown, /Owned content writers did not close within the launcher shutdown deadline/);
+    assert.equal(shutdownContentWriters(), shutdown, "simultaneous quit calls share one Promise");
+    let shutdownSettled = false;
+    void shutdown.then(() => { shutdownSettled = true; }, () => { shutdownSettled = true; });
+    const live = owners.filter((owner) => owner.name === "false" || owner.name === "error");
+    for (const owner of live) assert.deepEqual(owner.signals, ["SIGTERM"]);
+    assert.equal(live.find((owner) => owner.name === "error")!.child.killed, true);
+    assert.deepEqual(exited.signals, [], "an exited child still owes close but must not be signalled again");
+
+    const callsAtShutdown = directoryCalls;
+    await assert.rejects(withContentWrite("/shutdown/new", () => { enteredWrites.push("new"); }), /Content writes stopped because the launcher is quitting/);
+    assert.equal(directoryCalls, callsAtShutdown, "the quit latch rejects before directory I/O");
+    releaseMkdir.resolve();
+    releaseRealpath.resolve();
+    await Promise.all([
+        assert.rejects(mkdirRace, /Content writes stopped because the launcher is quitting/),
+        assert.rejects(realpathRace, /Content writes stopped because the launcher is quitting/),
+    ]);
+    registerLate.resolve();
+    await lateRegistered.promise;
+    const late = owners.find((owner) => owner.name === "late")!;
+    assert.deepEqual(late.signals, ["SIGKILL"], "a late child of an already-owned writer is stopped immediately");
+    t.mock.timers.tick(1_999);
+    assert.equal(shutdownSettled, false);
+    for (const owner of live) assert.deepEqual(owner.signals, ["SIGTERM"]);
+    t.mock.timers.tick(1);
+    for (const owner of live) assert.deepEqual(owner.signals, ["SIGTERM", "SIGKILL"], "false/error or killed=true cannot suppress the KILL attempt");
+    t.mock.timers.tick(2_999);
+    await setImmediate();
+    assert.equal(shutdownSettled, false, "close/drain is still pending before the five-second deadline");
+    assert.ok(owners.every((owner) => !owner.settled()), "neither false, error, exit nor a signal releases child ownership");
+    assert.deepEqual(enteredWrites, []);
+    assert.equal(publications, 0);
+    t.mock.timers.tick(1);
+    await failedShutdown;
+    assert.equal(shutdownSettled, true);
+    assert.ok(owners.every((owner) => !owner.settled()), "deadline failure preserves every unclosed writer");
+    assert.equal(shutdownContentWriters(), shutdown, "deadline failure does not create a fresh shutdown attempt");
+    await assert.rejects(withContentWrite("/shutdown/after-deadline", () => { enteredWrites.push("after-deadline"); }), /Content writes stopped because the launcher is quitting/);
+    assert.deepEqual(enteredWrites, []);
+    assert.equal(publications, 0);
+
+    for (const owner of owners) {
+        assert.equal(owner.settled(), false, `${owner.name} must still wait for its own close`);
+        owner.child.emit("close", owner.name === "error" ? -2 : 0, null);
+        if (owner.name === "error") await assert.rejects(owner.promise, (actual) => actual === processError);
+        else await owner.promise;
+        assert.equal(owner.settled(), true);
+        if (owner.name === "false") {
+            await Promise.all([
+                assert.rejects(queued, /Content writes stopped because the launcher is quitting/),
+                assert.rejects(metadata, /Content writes stopped because the launcher is quitting/),
+            ]);
+        }
+    }
+    assert.deepEqual(enteredWrites, [], "releasing old ownership never reopens admission");
+    assert.equal(publications, 0);
+    await assert.rejects(shutdownContentWriters(), /Owned content writers did not close within the launcher shutdown deadline/);
 });

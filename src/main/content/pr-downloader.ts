@@ -65,6 +65,7 @@ export abstract class PrDownloaderAPI<ID, T> extends AbstractContentAPI<ID, T> {
                         ...(caCertPath && !process.env.PRD_SSL_CERT_FILE && { PRD_SSL_CERT_FILE: caCertPath }),
                     },
                 });
+                const closed = waitForContentWriterClose(prdProcess);
                 const downloadInfo: DownloadInfo = {
                     type,
                     name,
@@ -111,7 +112,7 @@ export abstract class PrDownloaderAPI<ID, T> extends AbstractContentAPI<ID, T> {
                     }
                 });
 
-                waitForContentWriterClose(prdProcess).then(({ code, signal }) => {
+                closed.then(({ code, signal }) => {
                     if (code !== 0) {
                         this.downloadFailed(downloadInfo);
                         reject(new Error(`pr-downloader exited with code ${code}, signal ${signal}`));

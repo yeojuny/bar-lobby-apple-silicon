@@ -9,7 +9,7 @@ import { createPinnedBundledAssets } from "./packaging/pinned-bundled-assets";
 // Reviewed experimental release inputs. The external lock remains mandatory;
 // protected local candidates are not modified by this packaging configuration.
 const bundledAssets = createPinnedBundledAssets(process.env, {
-    id: "release-imac-fix-20261015-alpha2",
+    id: "release-downloader-shutdown-20261016-alpha3",
     lanes: {
         "bar-chobby": {
             engineDirectory: "2026.07.04",
@@ -30,9 +30,9 @@ const config: Configuration = {
     // Should be the same as APP_NAME in src/main/config/app.ts and in
     // workaround in installer.nsh.
     productName: "BAR",
-    buildVersion: "0.15.4.2",
+    buildVersion: "0.15.4.3",
     extraMetadata: {
-        version: "0.15.4-alpha.2",
+        version: "0.15.4-alpha.3",
         repository: { type: "git", url: "https://github.com/yeojuny/bar-lobby-apple-silicon.git" },
     },
 

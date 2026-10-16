@@ -1,0 +1,97 @@
+{
+  "version": "0.15.4-alpha.3",
+  "unsignedExperimental": true,
+  "appInventorySHA256": "6edc0cee2e62de01ff7609b7935a666bc8d5e852475f6a9f295e2864789a77fb",
+  "appASARSHA256": "9cb8b9b40388309cdbd8853e43d4d2e677e128644cb7456894a2b884e695b145",
+  "mainEntrySHA256": "a8f57b81b0bee70ab7b9581ca0f7afe645bbc45318ba4dde9104c79dd1b63535",
+  "sourceCPU": 17,
+  "packagedIntegrationCPU": 10,
+  "mainLifecycleCPU": 34,
+  "main34CoordinatorPinHistoricalAssociation": "Main fixture mocks coordinator; main/game/fixture files unchanged. Final coordinator source/package and deadline covered by source17, packaged10 and final Node typecheck. Original receipt retained.",
+  "nodeTypecheck": "passed",
+  "sourceReview": "clear",
+  "realNormalQuitDuringAutomaticDownload": {
+    "status": "passed",
+    "downloaderAliveAtQuit": true,
+    "downloaderSignal": "SIGTERM",
+    "downloaderBeforeParentExit0": true,
+    "remainingOwnedProcesses": 0,
+    "forcedTestCleanup": false,
+    "nativeStarts": 0
+  },
+  "chobbyMenus": {
+    "metal3": "passed-root-reviewed-pixels",
+    "metal4": "passed-root-reviewed-pixels-and-native-Metal4-activation",
+    "realHelperClient": true,
+    "parentExit0": true,
+    "nativeOrderedShutdownAndPIDAbsence": true,
+    "naturalHelperIdleShutdown": true,
+    "remainingOwnedProcesses": 0,
+    "forcedTestCleanup": false,
+    "detachedNativeExitCode": null,
+    "games": 0,
+    "officialMenu": "test-4659-5fb5727",
+    "gameMetadata": "test-31657-2f0a840"
+  },
+  "actualLauncherStarts": 3,
+  "actualMenus": 2,
+  "actualGames": 0,
+  "nativeBuilds": 0,
+  "nativePayloadUnchangedFromAlpha2": true,
+  "nativeClosure": {
+    "unchangedFiles": 39,
+    "edges": 309,
+    "newNativeGPUValidationRun": false
+  },
+  "sdlDummyHiddenBothLanes": "passed",
+  "DMGZIPExactAppEntries": 1171,
+  "strictAdhocSignature": "passed",
+  "NoGSAndDefaultsUnchanged": true,
+  "nativeCaption": "alpha.2 [R95 + VBO + R4] (unchanged native compatibility build)",
+  "source": {
+    "wrapperSHA256": "e0501c8d4efd9a07f2ddc81eca696dcfbaae87ba48669bae272bccaefcbff083",
+    "manifestSHA256": "cdc0591793310ca15ba49c18e08c3b9ea11162af3a33a40c51bf6eaab5dd5ebb",
+    "launcherArchiveSHA256": "8fd563815562b68477bc4cde220abf8b690fa5c6307a2433e88f063d1aee31de",
+    "launcherEntries": 644,
+    "nonREADMERepositoryCorrespondence": 643,
+    "unchangedArchivesFromAlpha2": 10,
+    "allInnerMembersReadBack": 42366,
+    "noticeWrapperSHA256": "4108672a019efaa78c43fd5f96a8d4c6a96ff2e94ed27e5f1b03eefdac1152ec",
+    "unchangedLegalPayloads": 366
+  },
+  "assets": [
+    {
+      "name": "BAR-0.15.4-alpha.3-arm64.dmg",
+      "bytes": 230621568,
+      "sha256": "ccf2d29b98c44fcba548ab010ef1def8c2b238c79c77d66a0d25191d8f0d9f53"
+    },
+    {
+      "name": "BAR-0.15.4-alpha.3-arm64.zip",
+      "bytes": 224166820,
+      "sha256": "d26bf5dedf2a8429d40f824ea6bdd5924e30f9c4d516a9b1b99fa0c49b3d6ad7"
+    },
+    {
+      "name": "BAR-0.15.4-alpha.3-sources.tar.gz",
+      "bytes": 372872014,
+      "sha256": "e0501c8d4efd9a07f2ddc81eca696dcfbaae87ba48669bae272bccaefcbff083"
+    },
+    {
+      "name": "BAR-0.15.4-alpha.3-notices.tar.gz",
+      "bytes": 2490733,
+      "sha256": "4108672a019efaa78c43fd5f96a8d4c6a96ff2e94ed27e5f1b03eefdac1152ec"
+    },
+    {
+      "name": "SHA256SUMS",
+      "bytes": 390,
+      "sha256": "cad7d692e6409aabca7043466a79316de287f5208e1e0e036758dc8d1431efe7"
+    }
+  ],
+  "limits": [
+    "Normal quit and explicit parent handoff only; Force Quit/external SIGKILL/power loss outside guarantee",
+    "No new game, benchmark, FPS or energy result",
+    "Prior alpha.2 Metal4 game cleanup failure remains failed",
+    "No full multiplayer, endurance, physical iMac or clean-machine claim",
+    "No Developer ID or notarization",
+    "Prior dependency audit and source/provider reproducibility limits retained"
+  ]
+}

@@ -39,7 +39,7 @@ import { ChobbyLauncherLoopback, CONNECTION_FILE_NAME } from "@main/game/chobby-
 import { CHOBBY_LOOPBACK_HELPER_ARG, CHOBBY_LOOPBACK_HELPER_OPTIONS_ENV } from "@main/game/chobby-loopback-helper";
 import { createEngineLobbyLogMirror } from "@main/game/engine-log-mirror";
 import { createEngineStderrLog } from "@main/game/engine-stderr-log";
-import { waitForContentWriterClose, withContentWrite } from "@main/content/content-write-coordinator";
+import { shutdownContentWriters, waitForContentWriterClose, withContentWrite } from "@main/content/content-write-coordinator";
 
 const log = logger("main/game/game.ts");
 const engineLogger = logger("[RECOIL ENGINE]", { separator: "\n", level: "info" });
@@ -555,6 +555,7 @@ export class GameAPI {
                     ...(caCertPath && !process.env.PRD_SSL_CERT_FILE && { PRD_SSL_CERT_FILE: caCertPath }),
                 },
             });
+            const closed = waitForContentWriterClose(prdProcess);
             prdProcess.stdout?.on("data", (data: Buffer) => {
                 for (const line of data
                     .toString()
@@ -573,7 +574,7 @@ export class GameAPI {
                 }
             });
             prdProcess.stderr?.on("data", (data: Buffer) => log.error(`[CHOBBY PR-DOWNLOADER] ${data.toString().trim()}`));
-            waitForContentWriterClose(prdProcess).then(({ code, signal }) => {
+            closed.then(({ code, signal }) => {
                 if (code === 0) {
                     if (lastProgressMessage) {
                         log.info(`[CHOBBY PR-DOWNLOADER] ${lastProgressMessage}`);
@@ -739,7 +740,6 @@ export class GameAPI {
                                 this.onGameLaunched.dispatch();
                                 resolve();
                                 this.gameProcess = null;
-                                setImmediate(() => app.exit(0));
                             } catch (err) {
                                 if (ownedProcess.pid && ownedProcess.exitCode === null && ownedProcess.signalCode === null && !ownedProcess.killed) {
                                     try { ownedProcess.kill("SIGTERM"); }
@@ -747,7 +747,15 @@ export class GameAPI {
                                 }
                                 runExitHook();
                                 reject(err);
+                                return;
                             }
+                            // Ownership has transferred. A parent download drain
+                            // failure must not roll back the detached menu/helper.
+                            shutdownContentWriters().then(() => {
+                                setImmediate(() => app.exit(0));
+                            }).catch((error: unknown) => {
+                                log.error(`Could not stop parent content writers after Chobby handoff: ${String(error)}`);
+                            });
                         })();
                     });
                     log.debug(`Game process PID: ${this.gameProcess.pid}`);

@@ -30,6 +30,7 @@ import { typedWebContents } from "@main/typed-ipc";
 import { navigationService } from "@main/services/navigation.service";
 import { pathsService } from "./services/paths.service";
 import { isChobbyLoopbackHelperProcess, runChobbyLoopbackHelper } from "@main/game/chobby-loopback-helper";
+import { shutdownContentWriters } from "@main/content/content-write-coordinator";
 
 const log = logger("main/index.ts");
 
@@ -91,6 +92,20 @@ function startMainApp() {
     }
 
     app.setName(APP_NAME);
+    let contentWritersStopped = false;
+    let contentShutdownStarted = false;
+    app.on("before-quit", (event) => {
+        if (contentWritersStopped) return;
+        event.preventDefault();
+        if (contentShutdownStarted) return;
+        contentShutdownStarted = true;
+        shutdownContentWriters().then(() => {
+            contentWritersStopped = true;
+            app.quit();
+        }).catch((error: unknown) => {
+            log.error(`Could not stop owned content writers before quitting: ${String(error)}`);
+        });
+    });
     app.on("window-all-closed", () => app.quit());
 
     // Security
