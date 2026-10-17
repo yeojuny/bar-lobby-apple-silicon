@@ -4,6 +4,7 @@ This detailed ledger accompanies the existing public sources. It separates the e
 
 - [Exact components, development snapshots, every engine-base submodule and dependency/source catalogs](COMPONENTS.md)
 - [External PR/MR integration ledger, exact included commits and current upstream status](INTEGRATIONS.md)
+- [Why some versions are ahead or behind; both engines checked](VERSION-SELECTION.md)
 - [Local changes, provenance, costs and validation boundaries](LOCAL-CHANGES.md)
 - [Excluded/deferred proposals and historical changes](EXCLUSIONS.md)
 - [r73/r75 feature patch series, exact base files and CPU evidence](../../engine-patches/2026-10-17/README.md)

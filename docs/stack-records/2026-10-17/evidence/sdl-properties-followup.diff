@@ -1,0 +1,28 @@
+--- published-src/SDL_properties.c
++++ upstream-current/SDL_properties.c
+@@ -351,7 +351,7 @@
+     }
+ 
+     SDL_FindInHashTable(SDL_properties, (const void *)(uintptr_t)props, (const void **)properties);
+-    CHECK_PARAM(!*properties) {
++    CHECK_PARAM(!properties) {
+         return SDL_InvalidParamError("props");
+     }
+ 
+@@ -398,7 +398,7 @@
+                 }
+                 if (!key || !property ||
+                     !SDL_InsertIntoHashTable(properties->props, key, property, false)) {
+-                    SDL_FreePropertyWithCleanup(key, property, NULL, false);
++                    SDL_FreePropertyWithCleanup(key, property, NULL, true);
+                     result = false;
+                 }
+             }
+@@ -605,7 +605,7 @@
+     }
+ 
+     SDL_FindInHashTable(SDL_properties, (const void *)(uintptr_t)props, (const void **)properties);
+-    CHECK_PARAM(!*properties) {
++    CHECK_PARAM(!properties) {
+         return false;
+     }

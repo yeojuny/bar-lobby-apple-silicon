@@ -1,0 +1,113 @@
+{
+  "comparisonBase": "e2c45c8fcb5461acb3232539493be15cd0fda7ec",
+  "notice": "Against selected official source, not a claim of newer than every current npm release",
+  "rows": [
+    {
+      "package": "electron",
+      "officialSelectedSource": {
+        "devDependencies": "37.3.1"
+      },
+      "ourPublishedSource": {
+        "devDependencies": "44.7.2"
+      },
+      "officialSelectedLockedVersions": [
+        {
+          "path": "node_modules/electron",
+          "version": "37.3.1"
+        }
+      ],
+      "ourLockedVersions": [
+        {
+          "path": "node_modules/electron",
+          "version": "44.7.2"
+        }
+      ]
+    },
+    {
+      "package": "axios",
+      "officialSelectedSource": {
+        "dependencies": "^1.13.5"
+      },
+      "ourPublishedSource": {
+        "dependencies": "1.20.0"
+      },
+      "officialSelectedLockedVersions": [
+        {
+          "path": "node_modules/axios",
+          "version": "1.13.5"
+        }
+      ],
+      "ourLockedVersions": [
+        {
+          "path": "node_modules/axios",
+          "version": "1.20.0"
+        }
+      ]
+    },
+    {
+      "package": "dompurify",
+      "officialSelectedSource": {
+        "dependencies": "^3.2.6"
+      },
+      "ourPublishedSource": {
+        "dependencies": "3.4.16"
+      },
+      "officialSelectedLockedVersions": [
+        {
+          "path": "node_modules/dompurify",
+          "version": "3.2.6"
+        }
+      ],
+      "ourLockedVersions": [
+        {
+          "path": "node_modules/dompurify",
+          "version": "3.4.16"
+        }
+      ]
+    },
+    {
+      "package": "ws",
+      "officialSelectedSource": {
+        "dependencies": "^8.18.3"
+      },
+      "ourPublishedSource": {
+        "dependencies": "8.21.0"
+      },
+      "officialSelectedLockedVersions": [
+        {
+          "path": "node_modules/ws",
+          "version": "8.18.3"
+        }
+      ],
+      "ourLockedVersions": [
+        {
+          "path": "node_modules/ws",
+          "version": "8.21.0"
+        }
+      ]
+    },
+    {
+      "package": "fast-xml-parser",
+      "officialSelectedSource": {},
+      "ourPublishedSource": {},
+      "officialSelectedLockedVersions": [
+        {
+          "path": "node_modules/fast-xml-parser",
+          "version": "5.3.6"
+        }
+      ],
+      "ourLockedVersions": [
+        {
+          "path": "node_modules/fast-xml-parser",
+          "version": "5.7.0"
+        }
+      ]
+    }
+  ],
+  "overrideDetail": {
+    "package": "@extractus/feed-extractor",
+    "dependency": "fast-xml-parser",
+    "version": "5.7.0",
+    "meaning": "nested override, not a direct top-level dependency"
+  }
+}

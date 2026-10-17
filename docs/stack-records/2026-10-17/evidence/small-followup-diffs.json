@@ -1,0 +1,122 @@
+[
+  {
+    "component": "Vulkan Headers",
+    "repo": "KhronosGroup/Vulkan-Headers",
+    "from": "c46850864f4661461b0f6cb9922c058ffea4915e",
+    "to": "acbb9391c0a597272800cd3f4363661c00a27c77",
+    "diff": {
+      "ahead_by": 1,
+      "behind_by": 0,
+      "commits": [
+        {
+          "sha": "acbb9391c0a597272800cd3f4363661c00a27c77",
+          "subject": "Use setup-msvc-dev to set up the MSVC developer environment in CI"
+        }
+      ],
+      "files": [
+        {
+          "filename": ".github/workflows/ci.yml",
+          "patch": "@@ -27,7 +27,6 @@ jobs:\n       - uses: lukka/get-cmake@latest\n         with:\n           cmakeVersion: ${{ matrix.cmake-version }}\n-      - uses: ilammy/msvc-dev-cmd@v1\n       - run: cmake -S . -B build -D VULKAN_HEADERS_ENABLE_TESTS=ON -D VULKAN_HEADERS_ENABLE_INSTALL=ON\n       - run: cmake --build ./build\n       - run: cmake --install build/ --prefix build/install\n@@ -45,7 +44,9 @@ jobs:\n       - uses: lukka/get-cmake@latest\n         with:\n           cmakeVersion: ${{ matrix.cmake-version }}\n-      - uses: ilammy/msvc-dev-cmd@v1\n+      - uses: TheMrMilchmann/setup-msvc-dev@v4\n+        with:\n+          arch: x64\n       - run: cmake -S . -B build -D VULKAN_HEADERS_ENABLE_TESTS=ON -D VULKAN_HEADERS_ENABLE_INSTALL=ON\n       - run: cmake --build ./build\n       - run: cmake --install build/ --prefix build/install\n@@ -60,7 +61,9 @@ jobs:\n           compiler: [ clang, clang-cl ]\n     steps:\n         - uses: actions/checkout@v7\n-        - uses: ilammy/msvc-dev-cmd@v1\n+        - uses: TheMrMilchmann/setup-msvc-dev@v4\n+          with:\n+            arch: x64\n         - run: |\n             cmake -S . -B build `\n             -D CMAKE_C_COMPILER=${{matrix.compiler}} `\n@@ -86,7 +89,6 @@ jobs:\n       - uses: lukka/get-cmake@latest\n         with:\n           cmakeVersion: ${{ matrix.cmake-version }}\n-      - uses: ilammy/msvc-dev-cmd@v1\n       - run: |\n           cmake -S . -B build \\\n           -D VULKAN_HEADERS_ENABLE_TESTS=ON \\\n@@ -109,7 +111,9 @@ jobs:\n       - uses: lukka/get-cmake@latest\n         with:\n           cmakeVersion: ${{ matrix.cmake-version }}\n-      - uses: ilammy/msvc-dev-cmd@v1\n+      - uses: TheMrMilchmann/setup-msvc-dev@v4\n+        with:\n+          arch: x64\n       - run: |\n           cmake -S . -B build `\n           -D VULKAN_HEADERS_ENABLE_TESTS=ON `",
+          "status": "modified"
+        }
+      ],
+      "status": "ahead"
+    }
+  },
+  {
+    "component": "SPIRV-Cross",
+    "repo": "KhronosGroup/SPIRV-Cross",
+    "from": "aa217aeb6c9f0ace7a0ab233b28807edf45eb165",
+    "to": "300681bbcb8365a8d1eacdacdbdd0249bbf1d6b1",
+    "diff": {
+      "ahead_by": 1,
+      "behind_by": 0,
+      "commits": [
+        {
+          "sha": "300681bbcb8365a8d1eacdacdbdd0249bbf1d6b1",
+          "subject": "MSL: Preserve negative zero in precise multiplication"
+        }
+      ],
+      "files": [
+        {
+          "filename": "reference/opt/shaders-msl/vert/float-math.invariant-float-math.vert",
+          "patch": "@@ -47,13 +47,13 @@ struct spvUnsafeArray\n template<typename T>\n [[clang::optnone]] T spvFMul(T l, T r)\n {\n-    return fma(l, r, T(0));\n+    return fma(l, r, T(-0.0));\n }\n \n template<typename T, int Cols, int Rows>\n [[clang::optnone]] vec<T, Cols> spvFMulVectorMatrix(vec<T, Rows> v, matrix<T, Cols, Rows> m)\n {\n-    vec<T, Cols> res = vec<T, Cols>(0);\n+    vec<T, Cols> res = vec<T, Cols>(T(-0.0));\n     for (uint i = Rows; i > 0; --i)\n     {\n         vec<T, Cols> tmp(0);\n@@ -69,7 +69,7 @@ template<typename T, int Cols, int Rows>\n template<typename T, int Cols, int Rows>\n [[clang::optnone]] vec<T, Rows> spvFMulMatrixVector(matrix<T, Cols, Rows> m, vec<T, Cols> v)\n {\n-    vec<T, Rows> res = vec<T, Rows>(0);\n+    vec<T, Rows> res = vec<T, Rows>(T(-0.0));\n     for (uint i = Cols; i > 0; --i)\n     {\n         res = fma(m[i - 1], vec<T, Rows>(v[i - 1]), res);\n@@ -84,7 +84,7 @@ template<typename T, int LCols, int LRows, int RCols, int RRows>\n     matrix<T, RCols, LRows> res;\n     for (uint i = 0; i < RCols; i++)\n     {\n-        vec<T, LRows> tmp(0);\n+        vec<T, LRows> tmp(T(-0.0));\n         for (uint j = 0; j < LCols; j++)\n         {\n             tmp = fma(vec<T, LRows>(r[i][j]), l[j], tmp);",
+          "status": "modified"
+        },
+        {
+          "filename": "reference/opt/shaders-msl/vert/no-contraction.vert",
+          "patch": "@@ -8,13 +8,13 @@ using namespace metal;\n template<typename T>\n [[clang::optnone]] T spvFMul(T l, T r)\n {\n-    return fma(l, r, T(0));\n+    return fma(l, r, T(-0.0));\n }\n \n template<typename T, int Cols, int Rows>\n [[clang::optnone]] vec<T, Cols> spvFMulVectorMatrix(vec<T, Rows> v, matrix<T, Cols, Rows> m)\n {\n-    vec<T, Cols> res = vec<T, Cols>(0);\n+    vec<T, Cols> res = vec<T, Cols>(T(-0.0));\n     for (uint i = Rows; i > 0; --i)\n     {\n         vec<T, Cols> tmp(0);\n@@ -30,7 +30,7 @@ template<typename T, int Cols, int Rows>\n template<typename T, int Cols, int Rows>\n [[clang::optnone]] vec<T, Rows> spvFMulMatrixVector(matrix<T, Cols, Rows> m, vec<T, Cols> v)\n {\n-    vec<T, Rows> res = vec<T, Rows>(0);\n+    vec<T, Rows> res = vec<T, Rows>(T(-0.0));\n     for (uint i = Cols; i > 0; --i)\n     {\n         res = fma(m[i - 1], vec<T, Rows>(v[i - 1]), res);\n@@ -45,7 +45,7 @@ template<typename T, int LCols, int LRows, int RCols, int RRows>\n     matrix<T, RCols, LRows> res;\n     for (uint i = 0; i < RCols; i++)\n     {\n-        vec<T, LRows> tmp(0);\n+        vec<T, LRows> tmp(T(-0.0));\n         for (uint j = 0; j < LCols; j++)\n         {\n             tmp = fma(vec<T, LRows>(r[i][j]), l[j], tmp);",
+          "status": "modified"
+        },
+        {
+          "filename": "reference/shaders-msl-no-opt/asm/comp/compilation-loop-edge-case.spv16.asm.comp",
+          "patch": "@@ -8,13 +8,13 @@ using namespace metal;\n template<typename T>\n [[clang::optnone]] T spvFMul(T l, T r)\n {\n-    return fma(l, r, T(0));\n+    return fma(l, r, T(-0.0));\n }\n \n template<typename T, int Cols, int Rows>\n [[clang::optnone]] vec<T, Cols> spvFMulVectorMatrix(vec<T, Rows> v, matrix<T, Cols, Rows> m)\n {\n-    vec<T, Cols> res = vec<T, Cols>(0);\n+    vec<T, Cols> res = vec<T, Cols>(T(-0.0));\n     for (uint i = Rows; i > 0; --i)\n     {\n         vec<T, Cols> tmp(0);\n@@ -30,7 +30,7 @@ template<typename T, int Cols, int Rows>\n template<typename T, int Cols, int Rows>\n [[clang::optnone]] vec<T, Rows> spvFMulMatrixVector(matrix<T, Cols, Rows> m, vec<T, Cols> v)\n {\n-    vec<T, Rows> res = vec<T, Rows>(0);\n+    vec<T, Rows> res = vec<T, Rows>(T(-0.0));\n     for (uint i = Cols; i > 0; --i)\n     {\n         res = fma(m[i - 1], vec<T, Rows>(v[i - 1]), res);\n@@ -45,7 +45,7 @@ template<typename T, int LCols, int LRows, int RCols, int RRows>\n     matrix<T, RCols, LRows> res;\n     for (uint i = 0; i < RCols; i++)\n     {\n-        vec<T, LRows> tmp(0);\n+        vec<T, LRows> tmp(T(-0.0));\n         for (uint j = 0; j < LCols; j++)\n         {\n             tmp = fma(vec<T, LRows>(r[i][j]), l[j], tmp);",
+          "status": "modified"
+        },
+        {
+          "filename": "reference/shaders-msl-no-opt/comp/precise-non-square-matrix.comp",
+          "patch": "@@ -8,13 +8,13 @@ using namespace metal;\n template<typename T>\n [[clang::optnone]] T spvFMul(T l, T r)\n {\n-    return fma(l, r, T(0));\n+    return fma(l, r, T(-0.0));\n }\n \n template<typename T, int Cols, int Rows>\n [[clang::optnone]] vec<T, Cols> spvFMulVectorMatrix(vec<T, Rows> v, matrix<T, Cols, Rows> m)\n {\n-    vec<T, Cols> res = vec<T, Cols>(0);\n+    vec<T, Cols> res = vec<T, Cols>(T(-0.0));\n     for (uint i = Rows; i > 0; --i)\n     {\n         vec<T, Cols> tmp(0);\n@@ -30,7 +30,7 @@ template<typename T, int Cols, int Rows>\n template<typename T, int Cols, int Rows>\n [[clang::optnone]] vec<T, Rows> spvFMulMatrixVector(matrix<T, Cols, Rows> m, vec<T, Cols> v)\n {\n-    vec<T, Rows> res = vec<T, Rows>(0);\n+    vec<T, Rows> res = vec<T, Rows>(T(-0.0));\n     for (uint i = Cols; i > 0; --i)\n     {\n         res = fma(m[i - 1], vec<T, Rows>(v[i - 1]), res);\n@@ -45,7 +45,7 @@ template<typename T, int LCols, int LRows, int RCols, int RRows>\n     matrix<T, RCols, LRows> res;\n     for (uint i = 0; i < RCols; i++)\n     {\n-        vec<T, LRows> tmp(0);\n+        vec<T, LRows> tmp(T(-0.0));\n         for (uint j = 0; j < LCols; j++)\n         {\n             tmp = fma(vec<T, LRows>(r[i][j]), l[j], tmp);",
+          "status": "modified"
+        },
+        {
+          "filename": "reference/shaders-msl/vert/float-math.invariant-float-math.vert",
+          "patch": "@@ -47,13 +47,13 @@ struct spvUnsafeArray\n template<typename T>\n [[clang::optnone]] T spvFMul(T l, T r)\n {\n-    return fma(l, r, T(0));\n+    return fma(l, r, T(-0.0));\n }\n \n template<typename T, int Cols, int Rows>\n [[clang::optnone]] vec<T, Cols> spvFMulVectorMatrix(vec<T, Rows> v, matrix<T, Cols, Rows> m)\n {\n-    vec<T, Cols> res = vec<T, Cols>(0);\n+    vec<T, Cols> res = vec<T, Cols>(T(-0.0));\n     for (uint i = Rows; i > 0; --i)\n     {\n         vec<T, Cols> tmp(0);\n@@ -69,7 +69,7 @@ template<typename T, int Cols, int Rows>\n template<typename T, int Cols, int Rows>\n [[clang::optnone]] vec<T, Rows> spvFMulMatrixVector(matrix<T, Cols, Rows> m, vec<T, Cols> v)\n {\n-    vec<T, Rows> res = vec<T, Rows>(0);\n+    vec<T, Rows> res = vec<T, Rows>(T(-0.0));\n     for (uint i = Cols; i > 0; --i)\n     {\n         res = fma(m[i - 1], vec<T, Rows>(v[i - 1]), res);\n@@ -84,7 +84,7 @@ template<typename T, int LCols, int LRows, int RCols, int RRows>\n     matrix<T, RCols, LRows> res;\n     for (uint i = 0; i < RCols; i++)\n     {\n-        vec<T, LRows> tmp(0);\n+        vec<T, LRows> tmp(T(-0.0));\n         for (uint j = 0; j < LCols; j++)\n         {\n             tmp = fma(vec<T, LRows>(r[i][j]), l[j], tmp);",
+          "status": "modified"
+        },
+        {
+          "filename": "reference/shaders-msl/vert/no-contraction.vert",
+          "patch": "@@ -8,13 +8,13 @@ using namespace metal;\n template<typename T>\n [[clang::optnone]] T spvFMul(T l, T r)\n {\n-    return fma(l, r, T(0));\n+    return fma(l, r, T(-0.0));\n }\n \n template<typename T, int Cols, int Rows>\n [[clang::optnone]] vec<T, Cols> spvFMulVectorMatrix(vec<T, Rows> v, matrix<T, Cols, Rows> m)\n {\n-    vec<T, Cols> res = vec<T, Cols>(0);\n+    vec<T, Cols> res = vec<T, Cols>(T(-0.0));\n     for (uint i = Rows; i > 0; --i)\n     {\n         vec<T, Cols> tmp(0);\n@@ -30,7 +30,7 @@ template<typename T, int Cols, int Rows>\n template<typename T, int Cols, int Rows>\n [[clang::optnone]] vec<T, Rows> spvFMulMatrixVector(matrix<T, Cols, Rows> m, vec<T, Cols> v)\n {\n-    vec<T, Rows> res = vec<T, Rows>(0);\n+    vec<T, Rows> res = vec<T, Rows>(T(-0.0));\n     for (uint i = Cols; i > 0; --i)\n     {\n         res = fma(m[i - 1], vec<T, Rows>(v[i - 1]), res);\n@@ -45,7 +45,7 @@ template<typename T, int LCols, int LRows, int RCols, int RRows>\n     matrix<T, RCols, LRows> res;\n     for (uint i = 0; i < RCols; i++)\n     {\n-        vec<T, LRows> tmp(0);\n+        vec<T, LRows> tmp(T(-0.0));\n         for (uint j = 0; j < LCols; j++)\n         {\n             tmp = fma(vec<T, LRows>(r[i][j]), l[j], tmp);",
+          "status": "modified"
+        },
+        {
+          "filename": "spirv_msl.cpp",
+          "patch": "@@ -6447,14 +6447,14 @@ void CompilerMSL::emit_custom_functions()\n \t\t\tstatement(\"template<typename T>\");\n \t\t\tstatement(\"[[clang::optnone]] T spvFMul(T l, T r)\");\n \t\t\tbegin_scope();\n-\t\t\tstatement(\"return fma(l, r, T(0));\");\n+\t\t\tstatement(\"return fma(l, r, T(-0.0));\");\n \t\t\tend_scope();\n \t\t\tstatement(\"\");\n \n \t\t\tstatement(\"template<typename T, int Cols, int Rows>\");\n \t\t\tstatement(\"[[clang::optnone]] vec<T, Cols> spvFMulVectorMatrix(vec<T, Rows> v, matrix<T, Cols, Rows> m)\");\n \t\t\tbegin_scope();\n-\t\t\tstatement(\"vec<T, Cols> res = vec<T, Cols>(0);\");\n+\t\t\tstatement(\"vec<T, Cols> res = vec<T, Cols>(T(-0.0));\");\n \t\t\tstatement(\"for (uint i = Rows; i > 0; --i)\");\n \t\t\tbegin_scope();\n \t\t\tstatement(\"vec<T, Cols> tmp(0);\");\n@@ -6471,7 +6471,7 @@ void CompilerMSL::emit_custom_functions()\n \t\t\tstatement(\"template<typename T, int Cols, int Rows>\");\n \t\t\tstatement(\"[[clang::optnone]] vec<T, Rows> spvFMulMatrixVector(matrix<T, Cols, Rows> m, vec<T, Cols> v)\");\n \t\t\tbegin_scope();\n-\t\t\tstatement(\"vec<T, Rows> res = vec<T, Rows>(0);\");\n+\t\t\tstatement(\"vec<T, Rows> res = vec<T, Rows>(T(-0.0));\");\n \t\t\tstatement(\"for (uint i = Cols; i > 0; --i)\");\n \t\t\tbegin_scope();\n \t\t\tstatement(\"res = fma(m[i - 1], vec<T, Rows>(v[i - 1]), res);\");\n@@ -6487,7 +6487,7 @@ void CompilerMSL::emit_custom_functions()\n \t\t\tstatement(\"matrix<T, RCols, LRows> res;\");\n \t\t\tstatement(\"for (uint i = 0; i < RCols; i++)\");\n \t\t\tbegin_scope();\n-\t\t\tstatement(\"vec<T, LRows> tmp(0);\");\n+\t\t\tstatement(\"vec<T, LRows> tmp(T(-0.0));\");\n \t\t\tstatement(\"for (uint j = 0; j < LCols; j++)\");\n \t\t\tbegin_scope();\n \t\t\tstatement(\"tmp = fma(vec<T, LRows>(r[i][j]), l[j], tmp);\");",
+          "status": "modified"
+        }
+      ],
+      "status": "ahead"
+    }
+  },
+  {
+    "component": "MoltenVK cereal dependency",
+    "repo": "USCiLab/cereal",
+    "from": "a56bad8bbb770ee266e930c95d37fff2a5be7fea",
+    "to": "22a1b369f39be918ca79206a83c4facd759f9105",
+    "diff": {
+      "ahead_by": 3,
+      "behind_by": 0,
+      "commits": [
+        {
+          "sha": "9cfc87f442167c863526ad075a592828e118251e",
+          "subject": "Appveyor CI fixes (#876)"
+        },
+        {
+          "sha": "d81e2f7df7b334fee057e53017388d02e555a836",
+          "subject": "Fix llvm20 compile issue in tuple.hpp (#872)"
+        },
+        {
+          "sha": "22a1b369f39be918ca79206a83c4facd759f9105",
+          "subject": "Fix the MacOS  workflow (#879)"
+        }
+      ],
+      "files": [
+        {
+          "filename": ".github/workflows/ci-macos.yml",
+          "patch": "@@ -3,20 +3,22 @@ on: [push, pull_request]\n \n jobs:\n   test_cereal_macos:\n-    runs-on: macos-latest\n+    runs-on: ${{ matrix.os }}\n     strategy:\n       fail-fast: false\n       matrix:\n         include:\n           - CMAKE_OPTIONS: '-DWITH_WERROR=OFF -DSKIP_PORTABILITY_TEST=ON -DSKIP_PERFORMANCE_COMPARISON=ON'\n             COMPILER: 'clang++'\n             XCODE_VERSION: 15\n-            NAME: macos-latest-clang-xcode15\n+            NAME: macos-14-clang-xcode15\n+            os: macos-14\n \n           - CMAKE_OPTIONS: '-DWITH_WERROR=OFF -DSKIP_PORTABILITY_TEST=ON -DSKIP_PERFORMANCE_COMPARISON=ON'\n             COMPILER: 'clang++'\n             XCODE_VERSION: 16\n-            NAME: macos-latest-clang-xcode16\n+            NAME: macos-15-clang-xcode16\n+            os: macos-15\n     name: ${{ matrix.name }}\n \n     steps:",
+          "status": "modified"
+        },
+        {
+          "filename": "appveyor.yml",
+          "patch": "@@ -24,10 +24,10 @@ environment:\n       BOOST_ROOT: C:\\Libraries\\boost_1_66_0\n     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019\n       VS_VERSION_MAJOR: 16\n-      BOOST_ROOT: C:\\Libraries\\boost_1_73_0\n+      BOOST_ROOT: C:\\Libraries\\boost_1_85_0\n     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2022\n       VS_VERSION_MAJOR: 17\n-      BOOST_ROOT: C:\\Libraries\\boost_1_73_0\n+      BOOST_ROOT: C:\\Libraries\\boost_1_85_0\n \n matrix:\n   exclude:",
+          "status": "modified"
+        },
+        {
+          "filename": "include/cereal/types/tuple.hpp",
+          "patch": "@@ -95,7 +95,7 @@ namespace cereal\n       template <class Archive, class ... Types> inline\n       static void apply( Archive & ar, std::tuple<Types...> & tuple )\n       {\n-        serialize<Height - 1>::template apply( ar, tuple );\n+        serialize<Height - 1>::template apply<Archive, Types...>( ar, tuple );\n         ar( CEREAL_NVP_(tuple_element_name<Height - 1>::c_str(),\n             std::get<Height - 1>( tuple )) );\n       }\n@@ -116,7 +116,7 @@ namespace cereal\n   template <class Archive, class ... Types> inline\n   void CEREAL_SERIALIZE_FUNCTION_NAME( Archive & ar, std::tuple<Types...> & tuple )\n   {\n-    tuple_detail::serialize<std::tuple_size<std::tuple<Types...>>::value>::template apply( ar, tuple );\n+    tuple_detail::serialize<std::tuple_size<std::tuple<Types...>>::value>::template apply<Archive, Types...>( ar, tuple );\n   }\n } // namespace cereal\n ",
+          "status": "modified"
+        }
+      ],
+      "status": "ahead"
+    }
+  }
+]

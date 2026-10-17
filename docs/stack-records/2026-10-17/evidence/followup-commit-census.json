@@ -1,0 +1,3583 @@
+[
+  {
+    "component": "MoltenVK",
+    "repository": "KhronosGroup/MoltenVK",
+    "from": "52aa21f54d7a84c5c441fc26359692b0980b384c",
+    "to": "5189f8de86ec365860f63bf1da736815cfaea5cd",
+    "comparison": {
+      "ahead_by": 8,
+      "behind_by": 0,
+      "commits": [
+        {
+          "sha": "bea03021457e1bd9c578c4ca4e3b0279b85b370f",
+          "subject": "This PR adds a CONTRIBUTING file which includes a legally mandated AI Contributions block of text and adds CLA pre-disclosure with a link to the CLA text"
+        },
+        {
+          "sha": "a81425051d171ddd4fa683398b78e5c752738d59",
+          "subject": "feat: implement VK_EXT_depth_clip_enable"
+        },
+        {
+          "sha": "fae55a18779ee59da2cc5373a367a0282779c171",
+          "subject": "Merge pull request #2712 from anshulnoori/feat/depth-clip-enable"
+        },
+        {
+          "sha": "cbe497918d1d24772de4753eaa199be74fa62d07",
+          "subject": "Fix pipeline cache matching to fully match dynamicBufferDescriptors and discreteDescriptorSets."
+        },
+        {
+          "sha": "67b2682699d7903606b97a0392061d85d27d49e6",
+          "subject": "Merge pull request #2861 from crichalchemist/fix-shader-cache-dynamic-offsets"
+        },
+        {
+          "sha": "0aa76ad7800f3c470103e2004d9a3dc0401693ee",
+          "subject": "Add deprecation notice"
+        },
+        {
+          "sha": "cf2dafb911ab6b99f0fcb3072bdcd8823161e51a",
+          "subject": "Merge pull request #2874 from KhronosGroup/add-deprecation-notice-to-readme"
+        },
+        {
+          "sha": "5189f8de86ec365860f63bf1da736815cfaea5cd",
+          "subject": "Merge pull request #2832 from KhronosGroup/add-contributing-file"
+        }
+      ],
+      "files": [
+        {
+          "filename": "CONTRIBUTING.md",
+          "status": "added"
+        },
+        {
+          "filename": "Docs/MoltenVK_Runtime_UserGuide.md",
+          "status": "modified"
+        },
+        {
+          "filename": "Docs/Whats_New.md",
+          "status": "modified"
+        },
+        {
+          "filename": "MoltenVK/MoltenVK/Commands/MVKCmdRendering.h",
+          "status": "modified"
+        },
+        {
+          "filename": "MoltenVK/MoltenVK/Commands/MVKCmdRendering.mm",
+          "status": "modified"
+        },
+        {
+          "filename": "MoltenVK/MoltenVK/Commands/MVKCommandEncoderState.h",
+          "status": "modified"
+        },
+        {
+          "filename": "MoltenVK/MoltenVK/Commands/MVKCommandEncoderState.mm",
+          "status": "modified"
+        },
+        {
+          "filename": "MoltenVK/MoltenVK/Commands/MVKCommandTypePools.def",
+          "status": "modified"
+        },
+        {
+          "filename": "MoltenVK/MoltenVK/GPUObjects/MVKDevice.mm",
+          "status": "modified"
+        },
+        {
+          "filename": "MoltenVK/MoltenVK/GPUObjects/MVKDeviceFeatureStructs.def",
+          "status": "modified"
+        },
+        {
+          "filename": "MoltenVK/MoltenVK/GPUObjects/MVKPipeline.mm",
+          "status": "modified"
+        },
+        {
+          "filename": "MoltenVK/MoltenVK/Layers/MVKExtensions.def",
+          "status": "modified"
+        },
+        {
+          "filename": "MoltenVK/MoltenVK/Utility/MVKStateTracking.h",
+          "status": "modified"
+        },
+        {
+          "filename": "MoltenVK/MoltenVK/Vulkan/vulkan.mm",
+          "status": "modified"
+        },
+        {
+          "filename": "MoltenVKShaderConverter/MoltenVKShaderConverter/SPIRVToMSLConverter.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "MoltenVKShaderConverter/MoltenVKShaderConverter/SPIRVToMSLConverter.h",
+          "status": "modified"
+        },
+        {
+          "filename": "README.md",
+          "status": "modified"
+        }
+      ],
+      "status": "ahead",
+      "total_commits": 8
+    },
+    "scope": "Commit subjects and file paths only; not a full semantic audit of every diff."
+  },
+  {
+    "component": "Vulkan Loader",
+    "repository": "KhronosGroup/Vulkan-Loader",
+    "from": "b82e310e99c20bfac8dd3123c9e939f81ce54b89",
+    "to": "4224768e1844d31f37c5d96b15433eaf46c7bede",
+    "comparison": {
+      "ahead_by": 19,
+      "behind_by": 0,
+      "commits": [
+        {
+          "sha": "6a5ae1ea5f55d52be776663dc7f765f5a8502e4c",
+          "subject": "guard iOS surface early-outs with VK_USE_PLATFORM_IOS_MVK"
+        },
+        {
+          "sha": "7a3f9d19c8a6daaff38960c385dc7214e3d689ae",
+          "subject": "Support Clang 23 by adding missing header in tests"
+        },
+        {
+          "sha": "883bdf6774bf2259fb2ea3b2d6777295ee718efa",
+          "subject": "Fix dead documentation link"
+        },
+        {
+          "sha": "ece6d2942e766bc69b4d5b24a94bd1bf90f6a4d2",
+          "subject": "Support Guarded Control Stack in Aarch64 assembly"
+        },
+        {
+          "sha": "b79d3f8464d7df6431fadfd53578e4a887cbdd51",
+          "subject": "parse driverVersion through valuedouble in parse_device_configuration"
+        },
+        {
+          "sha": "1fc1e02e8f5e98a3e9c89c6cf4c5f2fa4da1d417",
+          "subject": "fix infinite loop in terminator_EnumeratePhysicalDeviceGroups"
+        },
+        {
+          "sha": "22a50d795e2776e0bbe9051cb465b13fcaac9a3a",
+          "subject": "Make GCC happy by checking dest is not null for snprintf"
+        },
+        {
+          "sha": "6b45d76280a9525740c38c1796060eadb9267488",
+          "subject": "Make device creation/destruction callbacks lock"
+        },
+        {
+          "sha": "5443cbe64c559be06774913643e55f75f667bac9",
+          "subject": "Update cJSON implementation to latest"
+        },
+        {
+          "sha": "3bc5d30785b04a151d4edc0f6ee14f579ab43eb2",
+          "subject": "Document optional json manifest fields better"
+        },
+        {
+          "sha": "24f17bdede7019f1a9fa8cc5d7191ffd07178b3b",
+          "subject": "Add DYNAMIC_LINK_MSVC_RUNTIME_LIBRARY build option"
+        },
+        {
+          "sha": "156f781437a3298f5de2de45bad03ac6ef35e38d",
+          "subject": "build(deps): bump github/codeql-action from 4.38.2 to 4.38.3"
+        },
+        {
+          "sha": "e38751a7c03588c2f1fec742f611cbafff864158",
+          "subject": "loader: guard debug messenger chain walk with loader_lock"
+        },
+        {
+          "sha": "73cf5326e8c87d7922b235666198988064b0f294",
+          "subject": "Remove locking in terminator_SubmitDebugUtilsMessageEXT"
+        },
+        {
+          "sha": "d77a2a09597af347e171fa2830ef05b39319b4eb",
+          "subject": "fix path list segment parsing in check_if_settings_path_exists"
+        },
+        {
+          "sha": "a3fdec40f1a76c73747f22671ee5d4c0269cb3f1",
+          "subject": "keep explicit null terminator checks in segment walk"
+        },
+        {
+          "sha": "2d3e7b9bae969ebd662a2df36ec4251848aab435",
+          "subject": "take loader_lock in wsi_unwrap_icd_surface"
+        },
+        {
+          "sha": "77406fdfcd5706fd2a5d8f4473a6408fa6218b32",
+          "subject": "restore device group pNext chain when vkCreateDevice fails"
+        },
+        {
+          "sha": "4224768e1844d31f37c5d96b15433eaf46c7bede",
+          "subject": "Fix mingw CI run"
+        }
+      ],
+      "files": [
+        {
+          "filename": ".github/workflows/build.yml",
+          "status": "modified"
+        },
+        {
+          "filename": ".github/workflows/codeql.yml",
+          "status": "modified"
+        },
+        {
+          "filename": "CMakeLists.txt",
+          "status": "modified"
+        },
+        {
+          "filename": "docs/LoaderDriverInterface.md",
+          "status": "modified"
+        },
+        {
+          "filename": "docs/LoaderLayerInterface.md",
+          "status": "modified"
+        },
+        {
+          "filename": "loader/cJSON.c",
+          "status": "modified"
+        },
+        {
+          "filename": "loader/cJSON.h",
+          "status": "modified"
+        },
+        {
+          "filename": "loader/debug_utils.c",
+          "status": "modified"
+        },
+        {
+          "filename": "loader/loader.c",
+          "status": "modified"
+        },
+        {
+          "filename": "loader/loader_windows.c",
+          "status": "modified"
+        },
+        {
+          "filename": "loader/settings.c",
+          "status": "modified"
+        },
+        {
+          "filename": "loader/settings.h",
+          "status": "modified"
+        },
+        {
+          "filename": "loader/trampoline.c",
+          "status": "modified"
+        },
+        {
+          "filename": "loader/unknown_ext_chain_gas_aarch.S",
+          "status": "modified"
+        },
+        {
+          "filename": "loader/wsi.c",
+          "status": "modified"
+        },
+        {
+          "filename": "tests/framework/layer/test_layer.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "tests/framework/layer/test_layer.h",
+          "status": "modified"
+        },
+        {
+          "filename": "tests/loader_fuzz_tests.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "tests/loader_regression_tests.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "tests/loader_settings_tests.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "tests/loader_testing_main.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "tests/loader_threading_tests.cpp",
+          "status": "modified"
+        }
+      ],
+      "status": "ahead",
+      "total_commits": 19
+    },
+    "scope": "Commit subjects and file paths only; not a full semantic audit of every diff."
+  },
+  {
+    "component": "SDL3",
+    "repository": "libsdl-org/SDL",
+    "from": "4a17e772ea9a4ff77dd10fa6ea6f45fc6731eb01",
+    "to": "5ebc96f97c3a459284f1572e29cd151f24e4a09c",
+    "comparison": {
+      "ahead_by": 91,
+      "behind_by": 0,
+      "commits": [
+        {
+          "sha": "f48181fd33743da429877c4dbc8d7e22d67cefe7",
+          "subject": "wayland: Use substring matching for detecting the desktop name"
+        },
+        {
+          "sha": "12eb249e9b8277028c466606c93131a240765515",
+          "subject": "Sync SDL3 wiki -> header"
+        },
+        {
+          "sha": "659ec63b2eb9f36221a76f28c14453867d9b3409",
+          "subject": "PS2: allow setting framebuffer color depth (#16442)"
+        },
+        {
+          "sha": "6dc2b2c866ee926bed6cfda891dcdee62dd81bc4",
+          "subject": "PS2: fix off-by-one error when setting scissor"
+        },
+        {
+          "sha": "0ce29152334db1eae84c8059e0066ea8a1a845dd",
+          "subject": "Fix a small leak in README-migration code"
+        },
+        {
+          "sha": "804cf651b1d2302d248da5b08f91e4025f13fdee",
+          "subject": "x11: Don't report hidden windows as minimized"
+        },
+        {
+          "sha": "7340b327a6e7f9da939cb122b731509466149ce2",
+          "subject": "Added support for the 8BitDo Ultimate 2C Wireless controller via HIDAPI"
+        },
+        {
+          "sha": "008dd4195b5a9f5bdbb83fccf5ada973b0ffb17c",
+          "subject": "docs: Corrections and improvements to Locale documentation."
+        },
+        {
+          "sha": "e5335f9a20bf3d06d099e9c90e4f14b7093a001f",
+          "subject": "migration: Fixes and additions to SDL_migration.cocci and README-migration.md."
+        },
+        {
+          "sha": "21528641fc0b543c1e24c131e4a5869bcd35ee24",
+          "subject": "Sync SDL3 wiki -> header"
+        },
+        {
+          "sha": "2296712f9f7ab4cb00678b55352c5bc9f43321ee",
+          "subject": "Fixed Xbox One S controller buttons on some older firmware versions"
+        },
+        {
+          "sha": "dc6f0f0dcc06e9d282e949f19fad97e44468ceef",
+          "subject": "raw keyboard: Prefer using Message over Flags to decide if key is down"
+        },
+        {
+          "sha": "10fc195302f9061897d330494eb925142305f363",
+          "subject": "wayland: Use the cleanup callbacks for internal clipboard userdata"
+        },
+        {
+          "sha": "d84f4a726629742513f1598d3f5469dbd4f2d367",
+          "subject": "wayland: Remove unused MIME data members"
+        },
+        {
+          "sha": "21928ce27225e3b8f7959759cba99902e837dc19",
+          "subject": "wayland: Store MIME types in an array"
+        },
+        {
+          "sha": "6c518525ac7f8fa270882d5fa90efbb3478b0231",
+          "subject": "audio: Added notes about the risks of SDL_LockAudioStream vs the device lock."
+        },
+        {
+          "sha": "e4af6f8e283812aa693eb2c70c91249a9e1ce92c",
+          "subject": "Sync SDL3 wiki -> header"
+        },
+        {
+          "sha": "d365d1795a3df39a2d5e879adf9f4a6e379d9623",
+          "subject": "testgles2: HarmonyOS has GLES2 support, enable this test app there."
+        },
+        {
+          "sha": "57f22e6e43ad7c40912645d6cc76083107b4c367",
+          "subject": "stdlib: Fix copy/paste error in StepUTF8()."
+        },
+        {
+          "sha": "b4c0634fefe59c5264e9c567e63eb9f3c55ad3a3",
+          "subject": "main: Call SDL_AppQuit() if SDL_EVENT_TERMINATING fires."
+        },
+        {
+          "sha": "0999e188613301849b9bf82b7453654ed668f609",
+          "subject": "Fix regex replacement with string replacement for file path"
+        },
+        {
+          "sha": "e9bc23196e6d0ebc5cb61117aba7299655658289",
+          "subject": "Added support for 2-plane external NV12 textures to the Vulkan renderer"
+        },
+        {
+          "sha": "b5be443c285c88ea91575950af2c78e33a85d7e8",
+          "subject": "Only set VK_IMAGE_CREATE_MUTABLE_FORMAT_BIT if we're going to use it"
+        },
+        {
+          "sha": "e78ad90ea3fd53f88b02c03e71742b512aafd51e",
+          "subject": "Only set image view usage to our actual usage in the Vulkan renderer"
+        },
+        {
+          "sha": "76f8ebf2caaf68ec0b26c83f9186cb6ff632207c",
+          "subject": "testffmpeg: treat DRM_FORMAT_GR88 and DRM_FORMAT_RG88 both as NV12"
+        },
+        {
+          "sha": "47f8ad78a3c022122b6f4f0ce013d302a3137940",
+          "subject": "iOS: honor SDL_HINT_MAIN_CALLBACK_RATE via CADisplayLink (#16060)"
+        },
+        {
+          "sha": "c314de7ce9a48c4b3a2ead40ddb53153c02c1ec6",
+          "subject": "ci: Add HarmonyOS/OpenHarmony builds to Github Actions."
+        },
+        {
+          "sha": "bb93c303acc0a1cb9b3fc45936e53b0f0a98c20f",
+          "subject": "Added support for SDL_MATRIX_COEFFICIENTS_UNSPECIFIED in the software renderer"
+        },
+        {
+          "sha": "075e1d87596ca5595da181233d72e1cea4942239",
+          "subject": "hashtable: add generic hashtable"
+        },
+        {
+          "sha": "28e2e7712589924912659e56d9854b335c2d0c67",
+          "subject": "Added SDL_SetSoftwareRendererWindow() and SDL_SetSoftwareRendererSurface()"
+        },
+        {
+          "sha": "67bb0b6aa6836205e1bff6d70d72075206958b5b",
+          "subject": "Add keycode mappings for keysyms corresponding to dead keys"
+        },
+        {
+          "sha": "6b7096c97e3a6f2bedc81544e64f65a2cfdfefde",
+          "subject": "hashtable: Prefix externally-defined macros with \"SDL_\", remove an underscore."
+        },
+        {
+          "sha": "d84bd0315179466c13fefe95e60210deaef2d48a",
+          "subject": "Disable HDR on gamescope"
+        },
+        {
+          "sha": "f3dda00eb419f51df5df8bd15ae5871eb3cb52e7",
+          "subject": "Better handle Unicode key symbol names"
+        },
+        {
+          "sha": "da44f688792871ae5c17659e95835dfd19f2b9bf",
+          "subject": "Fixed build"
+        },
+        {
+          "sha": "fa133e0146899252cfbe241f6127f1afc4c9eb42",
+          "subject": "Fixed warning: 'break' will never be executed"
+        },
+        {
+          "sha": "137944bb94b6967b9b96981550a4989b306715bd",
+          "subject": "android: Relative mode mouse support for more devices. (#16483)"
+        },
+        {
+          "sha": "ea3042350d3aac4b83ae83047185ba703d8f0a5c",
+          "subject": "Use the templated hashtable for keymaps"
+        },
+        {
+          "sha": "52ef28aebadaf6fd3478cf06a8c3337c7214262d",
+          "subject": "stdlib: Fail if we can't create a mutex in SDL_CreateEnvironment()."
+        },
+        {
+          "sha": "c409c327f98d1707018b385a134e167570a6f244",
+          "subject": "camera: FIXME removal: internal callback where userdata wasn't first parameter."
+        },
+        {
+          "sha": "9e3f213b9481cd8b031d678d9fdd7dd215033339",
+          "subject": "audio: FIXME removal: internal callback where userdata wasn't first parameter."
+        },
+        {
+          "sha": "2c7856d6252cf1850ba75eb198d05437c13ba389",
+          "subject": "Don't fail Windows joystick initialization if DirectInput initialization fails"
+        },
+        {
+          "sha": "3e879b590728d2ad82dadee6efe591c7a9604c6a",
+          "subject": "Fixed build"
+        },
+        {
+          "sha": "f6af41d12368747b61a98bb50e03a78ebb6163e4",
+          "subject": "Make snprintf %p tests consistent"
+        },
+        {
+          "sha": "a419debd293f53dcd19b2daba1eb064c7145533e",
+          "subject": "win: Prevent rapid focus switching when using DPI unaware mode"
+        },
+        {
+          "sha": "f885c1f9faa95a8aa68becc1047171e8373d6f5f",
+          "subject": "Fixed transparent windows using the Vulkan renderer"
+        },
+        {
+          "sha": "ce3af25d40d8d718cb5f04eea417ef111b693413",
+          "subject": "Use AASSET_MODE_RANDOM to improve seek performance on Android"
+        },
+        {
+          "sha": "c7645d77eaccd301c6918d390d4a8abc3077da76",
+          "subject": "Fix lean and mean build"
+        },
+        {
+          "sha": "efbfa2d73c76775f02d36afe7682a8014e681d74",
+          "subject": "Fix for steam virtual gamepad file not picked up after subsystem restart"
+        },
+        {
+          "sha": "930cd0dbf8d1b6fdc5b91711d8d71542c1df0960",
+          "subject": "Validate first_binding in SDL_BindGPUVertexBuffers (#16493)"
+        },
+        {
+          "sha": "30bbdedde042b2d4e78ec9e81d2d575a0e6a7321",
+          "subject": "win32: Remove left over debug logging"
+        },
+        {
+          "sha": "408709ad5e9dfd73e986cfbcd1495ed7e6a7e6e7",
+          "subject": "wikiheaders: disable Undocumented.md page by default."
+        },
+        {
+          "sha": "69dd29eec2fc12d02e8a05b2fbba2d1cd03c1531",
+          "subject": "kmsdrm: If async page flip fails, try again without the async flag."
+        },
+        {
+          "sha": "d399b610ecc68632ae44c0e4874715ca549693aa",
+          "subject": "kmsdrm: fix build after commit 69dd29eec"
+        },
+        {
+          "sha": "332986093c8b71c20f23ae9944ee8cc2c070a28f",
+          "subject": "SDL_hidapi_switch.c: silence -Wmaybe-uninitialized warnings from old gcc"
+        },
+        {
+          "sha": "5180c654d439ad7df5eb99481fd0e3f027db65de",
+          "subject": "Make sure XSetIMValues is terminated with a null pointer value"
+        },
+        {
+          "sha": "8e5388c72fdbbca2af82a52e80dc5f7a2c6ad76e",
+          "subject": "testrwlock: Redesign to fix some flaws."
+        },
+        {
+          "sha": "d5e971db2c1b194cb264429578c92621e6506eb1",
+          "subject": "cocoa: Prevent spurious window resizes when moving between displays"
+        },
+        {
+          "sha": "36864b60a2a5629c0de1c4e33589b5902322dbc2",
+          "subject": "Fixed crash when we can't recover the audio device under Android"
+        },
+        {
+          "sha": "772072a8e3aeab96b7c1bc7aaefd6d5b2d4e0a05",
+          "subject": "Fixed crash when we can't recover the audio device under OpenHarmony"
+        },
+        {
+          "sha": "c4cfa42f23485b18216b51854d2ee6f06690c6c0",
+          "subject": "Fixed an audio crash when the device format changes at runtime"
+        },
+        {
+          "sha": "b64293b342c2cde123285199818803f83dbac612",
+          "subject": "Fixed audio crash in Android and OpenHarmony"
+        },
+        {
+          "sha": "341496be7baf16633f1dddbca6eb3c7588b0af30",
+          "subject": "win32: Set the resize flag to match the SetWindowPos() flags"
+        },
+        {
+          "sha": "ab5541ec5d4377dcc20a701897437f07ba71566f",
+          "subject": "audio: Make sure to set `device->spec` before actually opening the device."
+        },
+        {
+          "sha": "507179ee74eeb7e549d47d15ac15fdc97486632c",
+          "subject": "misc: Added SDL_EncodeURL."
+        },
+        {
+          "sha": "d4557c1511c721485dc4960f7149730afc9a73a0",
+          "subject": "Sync SDL3 wiki -> header"
+        },
+        {
+          "sha": "717cd3f76663f4e56380229b99a40f68cdec5420",
+          "subject": "wayland: Generalize the self data read function"
+        },
+        {
+          "sha": "6defbc0129b5ba90bab3f6c67bbc1e9329e24ff1",
+          "subject": "wayland: Destroy the data source in handle_dnd_finished()"
+        },
+        {
+          "sha": "4cfdb71ee1f52e0761d61e8e73cb7395a79d65df",
+          "subject": "notification: Use non-deprecated methods for bundle detection when available"
+        },
+        {
+          "sha": "a35ab714f34587a7dc9d89e723d8e5cb8ed52e8d",
+          "subject": "Updated documentation for HDR properties"
+        },
+        {
+          "sha": "de915ef4773ff4f3e02b6c72173061622e9148c5",
+          "subject": "Update SDL_PROP_DISPLAY_HDR_ENABLED_BOOLEAN when HDR state changes"
+        },
+        {
+          "sha": "1ad33adf1ad7282a8cddece8adb1ebc68433cd2c",
+          "subject": "Fixed HDR properties on Wayland"
+        },
+        {
+          "sha": "3d92e4c35a3911491ebeae4358e9bad138907721",
+          "subject": "Set HDR metadata for HDR10 swapchains in the SDL renderer"
+        },
+        {
+          "sha": "4dad7ef04de266a63646ede7e303ce848d469f0b",
+          "subject": "Added SDL_SetRenderHDRHeadroom() and SDL_GetRenderHDRHeadroom()"
+        },
+        {
+          "sha": "9aeed8f697e6f0ff27aa28a7f35ddd6f856a8aa4",
+          "subject": "Fail renderer creation if we couldn't set the desired output colorspace"
+        },
+        {
+          "sha": "747914804d52c698dee4261b8470a28d298eb8c9",
+          "subject": "Removed the simple pixel shader for HDR10 renderers"
+        },
+        {
+          "sha": "5c282221d55645ffc0440606b09f2a2bab47dc7e",
+          "subject": "Fixed SDR_white_point calculation for HDR10 render targets"
+        },
+        {
+          "sha": "14ef6423d0614ae3df2e1c08d787725f7b6341c1",
+          "subject": "Added support for SDL_COLORSPACE_HDR10 to the Metal renderer"
+        },
+        {
+          "sha": "d4c66527c80ec05b1949f4c320b31e144aa57f6d",
+          "subject": "testcolorspace: create the window with SDL_WINDOW_HIGH_PIXEL_DENSITY"
+        },
+        {
+          "sha": "b930d1d8814a140d9cda1c3cd0021d5c136c0c90",
+          "subject": "testcolorspace: fuzzy match on blend colors"
+        },
+        {
+          "sha": "b7810f9dbff765ab4de53c0a4a273c60f73e5871",
+          "subject": "Fixed rendering textures with unusual formats to linear colorspaces"
+        },
+        {
+          "sha": "91b5e623b4b1642012cfaa7873920b083b420c50",
+          "subject": "Treat SRGB render targets the same as SRGB swapchains"
+        },
+        {
+          "sha": "db85aaa17437196ad2ab3af402001ee757728e79",
+          "subject": "Merged shader simplification from the metal shader"
+        },
+        {
+          "sha": "9a452a5e22b1acca229fb23dbef225e4747405b0",
+          "subject": "Added support for SDL_COLORSPACE_HDR10 to the GPU renderer"
+        },
+        {
+          "sha": "9d845a3846ab7eaf3c9377cf7a20e8cb6ff5ca3b",
+          "subject": "testcolorspace: use the default SDR white point for the HDR10 ramp test"
+        },
+        {
+          "sha": "25f281898a290ebb3ab20785d6a8108d04727c84",
+          "subject": "testcolorspace: explain why the drawn and texture gradients differ"
+        },
+        {
+          "sha": "7080301cf85a06dc0936ed63b5844b6371e47d2e",
+          "subject": "Sync SDL3 wiki -> header"
+        },
+        {
+          "sha": "d5b715173c7ea7afbc4ddbe159063e71c2f349ff",
+          "subject": "update khronos headers from mainstream."
+        },
+        {
+          "sha": "c1040305eff8878f67926428e8e581f474496435",
+          "subject": "vulkan: Remove uninitialized defragLock"
+        },
+        {
+          "sha": "50539f2d593f031e5751240e2a1502395fd65290",
+          "subject": "X11: Use SDL_PremultiplyAlpha when creating XcursorImage (#16537)"
+        },
+        {
+          "sha": "5ebc96f97c3a459284f1572e29cd151f24e4a09c",
+          "subject": "Fixed potential crash looking for \"NES Controller\""
+        }
+      ],
+      "files": [
+        {
+          "filename": ".github/actions/setup-harmonyos-toolchain/action.yml",
+          "status": "added"
+        },
+        {
+          "filename": ".github/workflows/create-test-plan.py",
+          "status": "modified"
+        },
+        {
+          "filename": ".github/workflows/generic.yml",
+          "status": "modified"
+        },
+        {
+          "filename": "CMakeLists.txt",
+          "status": "modified"
+        },
+        {
+          "filename": "android-project/app/src/main/java/org/libsdl/app/SDLControllerManager.java",
+          "status": "modified"
+        },
+        {
+          "filename": "build-scripts/SDL_migration.cocci",
+          "status": "modified"
+        },
+        {
+          "filename": "build-scripts/wikiheaders.pl",
+          "status": "modified"
+        },
+        {
+          "filename": "docs/README-ios.md",
+          "status": "modified"
+        },
+        {
+          "filename": "docs/README-migration.md",
+          "status": "modified"
+        },
+        {
+          "filename": "docs/README-ps2.md",
+          "status": "modified"
+        },
+        {
+          "filename": "include/SDL3/SDL_audio.h",
+          "status": "modified"
+        },
+        {
+          "filename": "include/SDL3/SDL_hints.h",
+          "status": "modified"
+        },
+        {
+          "filename": "include/SDL3/SDL_locale.h",
+          "status": "modified"
+        },
+        {
+          "filename": "include/SDL3/SDL_main.h",
+          "status": "modified"
+        },
+        {
+          "filename": "include/SDL3/SDL_misc.h",
+          "status": "modified"
+        },
+        {
+          "filename": "include/SDL3/SDL_render.h",
+          "status": "modified"
+        },
+        {
+          "filename": "include/SDL3/SDL_video.h",
+          "status": "modified"
+        },
+        {
+          "filename": "src/SDL_generic_hashtable.h",
+          "status": "added"
+        },
+        {
+          "filename": "src/audio/SDL_audio.c",
+          "status": "modified"
+        },
+        {
+          "filename": "src/audio/SDL_sysaudio.h",
+          "status": "modified"
+        },
+        {
+          "filename": "src/audio/aaudio/SDL_aaudio.c",
+          "status": "modified"
+        },
+        {
+          "filename": "src/audio/coreaudio/SDL_coreaudio.m",
+          "status": "modified"
+        },
+        {
+          "filename": "src/audio/ohaudio/SDL_ohaudio.c",
+          "status": "modified"
+        },
+        {
+          "filename": "src/audio/pulseaudio/SDL_pulseaudio.c",
+          "status": "modified"
+        },
+        {
+          "filename": "src/camera/SDL_camera.c",
+          "status": "modified"
+        },
+        {
+          "filename": "src/camera/SDL_syscamera.h",
+          "status": "modified"
+        },
+        {
+          "filename": "src/camera/android/SDL_camera_android.c",
+          "status": "modified"
+        },
+        {
+          "filename": "src/camera/coremedia/SDL_camera_coremedia.m",
+          "status": "modified"
+        },
+        {
+          "filename": "src/camera/mediafoundation/SDL_camera_mediafoundation.c",
+          "status": "modified"
+        },
+        {
+          "filename": "src/camera/openharmony/SDL_camera_openharmony.c",
+          "status": "modified"
+        },
+        {
+          "filename": "src/camera/v4l2/SDL_camera_v4l2.c",
+          "status": "modified"
+        },
+        {
+          "filename": "src/camera/vita/SDL_camera_vita.c",
+          "status": "modified"
+        },
+        {
+          "filename": "src/core/android/SDL_android.c",
+          "status": "modified"
+        },
+        {
+          "filename": "src/core/openharmony/SDL_openharmony.c",
+          "status": "modified"
+        },
+        {
+          "filename": "src/core/windows/SDL_immdevice.c",
+          "status": "modified"
+        },
+        {
+          "filename": "src/dynapi/SDL_dynapi.exports",
+          "status": "modified"
+        },
+        {
+          "filename": "src/dynapi/SDL_dynapi.sym",
+          "status": "modified"
+        },
+        {
+          "filename": "src/dynapi/SDL_dynapi_overrides.h",
+          "status": "modified"
+        },
+        {
+          "filename": "src/dynapi/SDL_dynapi_procs.h",
+          "status": "modified"
+        },
+        {
+          "filename": "src/events/SDL_keyboard.c",
+          "status": "modified"
+        },
+        {
+          "filename": "src/events/SDL_keyboard_c.h",
+          "status": "modified"
+        },
+        {
+          "filename": "src/events/SDL_keymap.c",
+          "status": "modified"
+        },
+        {
+          "filename": "src/events/SDL_keymap_c.h",
+          "status": "modified"
+        },
+        {
+          "filename": "src/events/SDL_keysym_to_keycode.c",
+          "status": "modified"
+        },
+        {
+          "filename": "src/gpu/SDL_gpu.c",
+          "status": "modified"
+        },
+        {
+          "filename": "src/gpu/vulkan/SDL_gpu_vulkan.c",
+          "status": "modified"
+        },
+        {
+          "filename": "src/joystick/SDL_gamepad.c",
+          "status": "modified"
+        },
+        {
+          "filename": "src/joystick/SDL_steam_virtual_gamepad.c",
+          "status": "modified"
+        },
+        {
+          "filename": "src/joystick/hidapi/SDL_hidapi_8bitdo.c",
+          "status": "modified"
+        },
+        {
+          "filename": "src/joystick/hidapi/SDL_hidapi_switch.c",
+          "status": "modified"
+        },
+        {
+          "filename": "src/joystick/hidapi/SDL_hidapi_xboxone.c",
+          "status": "modified"
+        },
+        {
+          "filename": "src/joystick/usb_ids.h",
+          "status": "modified"
+        },
+        {
+          "filename": "src/joystick/windows/SDL_windowsjoystick.c",
+          "status": "modified"
+        },
+        {
+          "filename": "src/main/SDL_main_callbacks.c",
+          "status": "modified"
+        },
+        {
+          "filename": "src/main/SDL_main_callbacks.h",
+          "status": "modified"
+        },
+        {
+          "filename": "src/main/emscripten/SDL_sysmain_callbacks.c",
+          "status": "modified"
+        },
+        {
+          "filename": "src/main/generic/SDL_sysmain_callbacks.c",
+          "status": "modified"
+        },
+        {
+          "filename": "src/main/ios/SDL_sysmain_callbacks.m",
+          "status": "modified"
+        },
+        {
+          "filename": "src/main/ngage/SDL_sysmain_callbacks.c",
+          "status": "modified"
+        },
+        {
+          "filename": "src/main/openharmony/SDL_sysmain_callbacks.c",
+          "status": "modified"
+        },
+        {
+          "filename": "src/misc/SDL_url.c",
+          "status": "modified"
+        },
+        {
+          "filename": "src/notification/cocoa/SDL_cocoanotification.m",
+          "status": "modified"
+        },
+        {
+          "filename": "src/render/SDL_render.c",
+          "status": "modified"
+        },
+        {
+          "filename": "src/render/SDL_sysrender.h",
+          "status": "modified"
+        },
+        {
+          "filename": "src/render/direct3d11/D3D11_PixelShader_Advanced.h",
+          "status": "modified"
+        },
+        {
+          "filename": "src/render/direct3d11/D3D11_PixelShader_Colors.h",
+          "status": "modified"
+        },
+        {
+          "filename": "src/render/direct3d11/D3D11_PixelShader_Colors_PQ.h",
+          "status": "modified"
+        },
+        {
+          "filename": "src/render/direct3d11/D3D11_PixelShader_Common.hlsli",
+          "status": "modified"
+        },
+        {
+          "filename": "src/render/direct3d11/D3D11_PixelShader_Textures.h",
+          "status": "modified"
+        },
+        {
+          "filename": "src/render/direct3d11/D3D11_PixelShader_Textures_PQ.h",
+          "status": "removed"
+        },
+        {
+          "filename": "src/render/direct3d11/D3D11_PixelShader_Textures_PQ.hlsl",
+          "status": "removed"
+        },
+        {
+          "filename": "src/render/direct3d11/D3D11_PixelShader_Textures_Simple.h",
+          "status": "removed"
+        },
+        {
+          "filename": "src/render/direct3d11/D3D11_PixelShader_Textures_Simple.hlsl",
+          "status": "removed"
+        },
+        {
+          "filename": "src/render/direct3d11/D3D11_VertexShader.h",
+          "status": "modified"
+        },
+        {
+          "filename": "src/render/direct3d11/SDL_render_d3d11.c",
+          "status": "modified"
+        },
+        {
+          "filename": "src/render/direct3d11/SDL_shaders_d3d11.c",
+          "status": "modified"
+        },
+        {
+          "filename": "src/render/direct3d11/SDL_shaders_d3d11.h",
+          "status": "modified"
+        },
+        {
+          "filename": "src/render/direct3d11/compile_shaders.bat",
+          "status": "modified"
+        },
+        {
+          "filename": "src/render/direct3d12/D3D12_PixelShader_Advanced.h",
+          "status": "modified"
+        },
+        {
+          "filename": "src/render/direct3d12/D3D12_PixelShader_Colors.h",
+          "status": "modified"
+        },
+        {
+          "filename": "src/render/direct3d12/D3D12_PixelShader_Colors_PQ.h",
+          "status": "modified"
+        },
+        {
+          "filename": "src/render/direct3d12/D3D12_PixelShader_Common.hlsli",
+          "status": "modified"
+        },
+        {
+          "filename": "src/render/direct3d12/D3D12_PixelShader_Textures.h",
+          "status": "modified"
+        },
+        {
+          "filename": "src/render/direct3d12/D3D12_PixelShader_Textures_PQ.h",
+          "status": "removed"
+        },
+        {
+          "filename": "src/render/direct3d12/D3D12_PixelShader_Textures_PQ.hlsl",
+          "status": "removed"
+        },
+        {
+          "filename": "src/render/direct3d12/D3D12_PixelShader_Textures_Simple.h",
+          "status": "removed"
+        },
+        {
+          "filename": "src/render/direct3d12/D3D12_PixelShader_Textures_Simple.hlsl",
+          "status": "removed"
+        },
+        {
+          "filename": "src/render/direct3d12/D3D12_VertexShader_Advanced.h",
+          "status": "modified"
+        },
+        {
+          "filename": "src/render/direct3d12/D3D12_VertexShader_Color.h",
+          "status": "modified"
+        },
+        {
+          "filename": "src/render/direct3d12/D3D12_VertexShader_Texture.h",
+          "status": "modified"
+        },
+        {
+          "filename": "src/render/direct3d12/SDL_render_d3d12.c",
+          "status": "modified"
+        },
+        {
+          "filename": "src/render/direct3d12/SDL_shaders_d3d12.c",
+          "status": "modified"
+        },
+        {
+          "filename": "src/render/direct3d12/SDL_shaders_d3d12.h",
+          "status": "modified"
+        },
+        {
+          "filename": "src/render/direct3d12/SDL_shaders_d3d12_xboxone.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "src/render/direct3d12/SDL_shaders_d3d12_xboxseries.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "src/render/direct3d12/compile_shaders.bat",
+          "status": "modified"
+        },
+        {
+          "filename": "src/render/gpu/SDL_render_gpu.c",
+          "status": "modified"
+        },
+        {
+          "filename": "src/render/gpu/SDL_shaders_gpu.c",
+          "status": "modified"
+        },
+        {
+          "filename": "src/render/gpu/SDL_shaders_gpu.h",
+          "status": "modified"
+        },
+        {
+          "filename": "src/render/gpu/shaders/color.frag.dxil.h",
+          "status": "modified"
+        },
+        {
+          "filename": "src/render/gpu/shaders/color_pq.frag.dxil.h",
+          "status": "added"
+        },
+        {
+          "filename": "src/render/gpu/shaders/color_pq.frag.hlsl",
+          "status": "added"
+        },
+        {
+          "filename": "src/render/gpu/shaders/color_pq.frag.msl.h",
+          "status": "added"
+        },
+        {
+          "filename": "src/render/gpu/shaders/color_pq.frag.spv.h",
+          "status": "added"
+        },
+        {
+          "filename": "src/render/gpu/shaders/dxil.h",
+          "status": "modified"
+        },
+        {
+          "filename": "src/render/gpu/shaders/linepoint.vert.dxil.h",
+          "status": "modified"
+        },
+        {
+          "filename": "src/render/gpu/shaders/msl.h",
+          "status": "modified"
+        },
+        {
+          "filename": "src/render/gpu/shaders/spir-v.h",
+          "status": "modified"
+        },
+        {
+          "filename": "src/render/gpu/shaders/texture_advanced.frag.dxil.h",
+          "status": "modified"
+        },
+        {
+          "filename": "src/render/gpu/shaders/texture_advanced.frag.hlsl",
+          "status": "modified"
+        },
+        {
+          "filename": "src/render/gpu/shaders/texture_advanced.frag.msl.h",
+          "status": "modified"
+        },
+        {
+          "filename": "src/render/gpu/shaders/texture_advanced.frag.spv.h",
+          "status": "modified"
+        },
+        {
+          "filename": "src/render/gpu/shaders/texture_rgb.frag.dxil.h",
+          "status": "modified"
+        },
+        {
+          "filename": "src/render/gpu/shaders/texture_rgba.frag.dxil.h",
+          "status": "modified"
+        },
+        {
+          "filename": "src/render/gpu/shaders/tri_color.vert.dxil.h",
+          "status": "modified"
+        },
+        {
+          "filename": "src/render/gpu/shaders/tri_texture.vert.dxil.h",
+          "status": "modified"
+        },
+        {
+          "filename": "src/render/metal/SDL_render_metal.m",
+          "status": "modified"
+        },
+        {
+          "filename": "src/render/metal/SDL_shaders_metal.metal",
+          "status": "modified"
+        },
+        {
+          "filename": "src/render/metal/SDL_shaders_metal_ios.h",
+          "status": "modified"
+        },
+        {
+          "filename": "src/render/metal/SDL_shaders_metal_iphonesimulator.h",
+          "status": "modified"
+        },
+        {
+          "filename": "src/render/metal/SDL_shaders_metal_macos.h",
+          "status": "modified"
+        },
+        {
+          "filename": "src/render/metal/SDL_shaders_metal_tvos.h",
+          "status": "modified"
+        },
+        {
+          "filename": "src/render/metal/SDL_shaders_metal_tvsimulator.h",
+          "status": "modified"
+        },
+        {
+          "filename": "src/render/ps2/SDL_render_ps2.c",
+          "status": "modified"
+        },
+        {
+          "filename": "src/render/software/SDL_render_sw.c",
+          "status": "modified"
+        },
+        {
+          "filename": "src/render/software/SDL_render_sw_c.h",
+          "status": "modified"
+        },
+        {
+          "filename": "src/render/vulkan/SDL_render_vulkan.c",
+          "status": "modified"
+        },
+        {
+          "filename": "src/render/vulkan/SDL_shaders_vulkan.c",
+          "status": "modified"
+        },
+        {
+          "filename": "src/render/vulkan/SDL_shaders_vulkan.h",
+          "status": "modified"
+        },
+        {
+          "filename": "src/render/vulkan/VULKAN_PixelShader_Advanced.h",
+          "status": "modified"
+        },
+        {
+          "filename": "src/render/vulkan/VULKAN_PixelShader_Colors.h",
+          "status": "modified"
+        },
+        {
+          "filename": "src/render/vulkan/VULKAN_PixelShader_Colors_PQ.h",
+          "status": "modified"
+        },
+        {
+          "filename": "src/render/vulkan/VULKAN_PixelShader_Common.hlsli",
+          "status": "modified"
+        },
+        {
+          "filename": "src/render/vulkan/VULKAN_PixelShader_Textures.h",
+          "status": "modified"
+        },
+        {
+          "filename": "src/render/vulkan/VULKAN_PixelShader_Textures_PQ.h",
+          "status": "removed"
+        },
+        {
+          "filename": "src/render/vulkan/VULKAN_PixelShader_Textures_PQ.hlsl",
+          "status": "removed"
+        },
+        {
+          "filename": "src/render/vulkan/VULKAN_PixelShader_Textures_Simple.h",
+          "status": "removed"
+        },
+        {
+          "filename": "src/render/vulkan/VULKAN_PixelShader_Textures_Simple.hlsl",
+          "status": "removed"
+        },
+        {
+          "filename": "src/render/vulkan/compile_shaders.bat",
+          "status": "modified"
+        },
+        {
+          "filename": "src/stdlib/SDL_getenv.c",
+          "status": "modified"
+        },
+        {
+          "filename": "src/stdlib/SDL_string.c",
+          "status": "modified"
+        },
+        {
+          "filename": "src/video/SDL_pixels.c",
+          "status": "modified"
+        },
+        {
+          "filename": "src/video/SDL_pixels_c.h",
+          "status": "modified"
+        },
+        {
+          "filename": "src/video/SDL_video.c",
+          "status": "modified"
+        },
+        {
+          "filename": "src/video/SDL_yuv.c",
+          "status": "modified"
+        },
+        {
+          "filename": "src/video/android/SDL_androidevents.c",
+          "status": "modified"
+        },
+        {
+          "filename": "src/video/cocoa/SDL_cocoaevents.m",
+          "status": "modified"
+        },
+        {
+          "filename": "src/video/emscripten/SDL_emscriptenevents.c",
+          "status": "modified"
+        },
+        {
+          "filename": "src/video/khronos/openxr/openxr.h",
+          "status": "modified"
+        },
+        {
+          "filename": "src/video/khronos/openxr/openxr_reflection.h",
+          "status": "modified"
+        },
+        {
+          "filename": "src/video/khronos/openxr/openxr_reflection_parent_structs.h",
+          "status": "modified"
+        },
+        {
+          "filename": "src/video/khronos/openxr/openxr_reflection_structs.h",
+          "status": "modified"
+        },
+        {
+          "filename": "src/video/khronos/vulkan/vulkan_core.h",
+          "status": "modified"
+        },
+        {
+          "filename": "src/video/kmsdrm/SDL_kmsdrmopengles.c",
+          "status": "modified"
+        },
+        {
+          "filename": "src/video/wayland/SDL_waylandclipboard.c",
+          "status": "modified"
+        },
+        {
+          "filename": "src/video/wayland/SDL_waylandcolor.c",
+          "status": "modified"
+        },
+        {
+          "filename": "src/video/wayland/SDL_waylanddatamanager.c",
+          "status": "modified"
+        },
+        {
+          "filename": "src/video/wayland/SDL_waylanddatamanager.h",
+          "status": "modified"
+        },
+        {
+          "filename": "src/video/wayland/SDL_waylandevents.c",
+          "status": "modified"
+        },
+        {
+          "filename": "src/video/wayland/SDL_waylandwindow.c",
+          "status": "modified"
+        },
+        {
+          "filename": "src/video/windows/SDL_windowsevents.c",
+          "status": "modified"
+        },
+        {
+          "filename": "src/video/windows/SDL_windowsvideo.c",
+          "status": "modified"
+        },
+        {
+          "filename": "src/video/windows/SDL_windowsvideo.h",
+          "status": "modified"
+        },
+        {
+          "filename": "src/video/windows/SDL_windowswindow.c",
+          "status": "modified"
+        },
+        {
+          "filename": "src/video/x11/SDL_x11events.c",
+          "status": "modified"
+        },
+        {
+          "filename": "src/video/x11/SDL_x11keyboard.c",
+          "status": "modified"
+        },
+        {
+          "filename": "src/video/x11/SDL_x11modes.c",
+          "status": "modified"
+        },
+        {
+          "filename": "src/video/x11/SDL_x11mouse.c",
+          "status": "modified"
+        },
+        {
+          "filename": "test/testautomation_render.c",
+          "status": "modified"
+        },
+        {
+          "filename": "test/testautomation_stdlib.c",
+          "status": "modified"
+        },
+        {
+          "filename": "test/testcolorspace.c",
+          "status": "modified"
+        },
+        {
+          "filename": "test/testffmpeg_vulkan.c",
+          "status": "modified"
+        },
+        {
+          "filename": "test/testgles2.c",
+          "status": "modified"
+        },
+        {
+          "filename": "test/testrwlock.c",
+          "status": "modified"
+        },
+        {
+          "filename": "test/testurl.c",
+          "status": "modified"
+        }
+      ],
+      "status": "ahead",
+      "total_commits": 91
+    },
+    "scope": "Commit subjects and file paths only; not a full semantic audit of every diff."
+  },
+  {
+    "component": "SPIRV-Tools",
+    "repository": "KhronosGroup/SPIRV-Tools",
+    "from": "ba9a9e32160e2500ce1e48cc563a8fedaf596e6e",
+    "to": "71f287f18ed78d496e724fbfb1c3feae3a2af75a",
+    "comparison": {
+      "ahead_by": 61,
+      "behind_by": 0,
+      "commits": [
+        {
+          "sha": "af4f54c8d4deb15e6aa532c5c1a56fffbb6daaea",
+          "subject": "roll deps (#6892)"
+        },
+        {
+          "sha": "2907cbbc344b5f550567d8c11b7e872000352aec",
+          "subject": "spirv-fuzz: Restrict atomic loads and stores to scalar types (#6889)"
+        },
+        {
+          "sha": "e0df197dc7a25d4428a6f32a2dd6e5dbd525378d",
+          "subject": "[Kokoro] Use git 2.53 on linux (#6891)"
+        },
+        {
+          "sha": "bfd26b275278028d5d726d5bed02ce438cebda85",
+          "subject": "[GH Actions] Rebuild for all unlabeled actions (#6900)"
+        },
+        {
+          "sha": "1d0401cd2b68ae34cda9ff625bedd1be4ed6214a",
+          "subject": "spirv-val: Validate RayQuery in struct (#6898)"
+        },
+        {
+          "sha": "54b37eb249283b22e4b19f50696e352731ce179c",
+          "subject": "Roll external/abseil_cpp/ 2d5a8e38e..f573cfba0 (2 commits) (#6901)"
+        },
+        {
+          "sha": "19e35eae1ab1574f31704ac002d77cbad6a064aa",
+          "subject": "spirv-opt: Fix use-after-free when moving DebugFunctionDefinition in merge-return (#6885)"
+        },
+        {
+          "sha": "7c6f020efc756dff4c6fa558316c4cabbdf045f6",
+          "subject": "spirv-val: Common location for IsConcreteType (#6913)"
+        },
+        {
+          "sha": "6057b057a050070a2f3cd134eb7b9d84fcbb2bc2",
+          "subject": "spirv-val: Walk tree once in ContainsLimitedUseIntOrFloatType (#6908)"
+        },
+        {
+          "sha": "0ceb86950bded94e15b050c47000a21e4d96769d",
+          "subject": "spir-val: Lazily allocate FriendlyNameMapper (#6909)"
+        },
+        {
+          "sha": "0a710094508247f7bee34acb98da18fbcf29e0f9",
+          "subject": "spirv-val: Adjust reserve sizes for CFA (#6907)"
+        },
+        {
+          "sha": "16b3b71fdcb53a61af3b87ed5472cab383739a58",
+          "subject": "spirv-val: Use plain pointer for dominator iterator (#6906)"
+        },
+        {
+          "sha": "7a88476ddf5f541ba553cbe009227d7510d258eb",
+          "subject": "spirv-val: Reduce an entire extra spvBinaryParse (#6910)"
+        },
+        {
+          "sha": "486d6136a0f7a7b0ed65d007e2545a8e616e5238",
+          "subject": "spirv-val: Allow Line 0 in DebugLine (#6915)"
+        },
+        {
+          "sha": "a6d9e14a5d59987a399b6b7a4e33752a69ea4136",
+          "subject": "Roll external/abseil_cpp/ 0171b81f0..8c138bbb7 (11 commits) (#6911)"
+        },
+        {
+          "sha": "15ac5f6ad32de030f1d022231923d18805096f12",
+          "subject": "build: Store gitlab ssh repo for future extensions (#6912)"
+        },
+        {
+          "sha": "7f927e500bad826cd78289eff32c3faf45b91586",
+          "subject": "spirv-val: Fix retrieval of long vector lengths for vectorshuffle (#6918)"
+        },
+        {
+          "sha": "adb415cf2e71d72e4b3f866655805cd337de9ea1",
+          "subject": "spirv-opt: Fix assertion with fp8 (#6677)"
+        },
+        {
+          "sha": "d82328785b1b2b92c1656986e74e77e2104dda86",
+          "subject": "spirv-val: Use vector for all_definitions (#6904)"
+        },
+        {
+          "sha": "9c8a9bed827f1df3078cb833451a082127154790",
+          "subject": "spirv-val: Add dedup member for BuiltInsValidator (#6905)"
+        },
+        {
+          "sha": "d342cfd9c7e7755bdd1fa10e8c3fafb9068b002f",
+          "subject": "Fix inconsistent Target vs Targets naming in export FILE and Config.cmake (#6810)"
+        },
+        {
+          "sha": "9e470e2dd60ede8cbf2222cbe0e3a05e139ecf88",
+          "subject": "spirv-opt: Check index bounds when folding OpCompositeInsert (#6922)"
+        },
+        {
+          "sha": "9e0859af73a26ba3a376e9f9a3afe1c05c9c2fcf",
+          "subject": "opt: add nonwritable-propagation pass (#6844)"
+        },
+        {
+          "sha": "4f3a92dfbd5b49593e43b3c245b6688da2ad933a",
+          "subject": "Order the libraries in SPIRV-Tools.pc for static linking (#6875)"
+        },
+        {
+          "sha": "0a4af476ce19de247daeff24b60ba8fa5958dbd9",
+          "subject": "Roll external/abseil_cpp/ d5c2f53df..1a8a725f5 (6 commits) (#6923)"
+        },
+        {
+          "sha": "fff03bbf62cd456c61f05cad8198d608f85b3f57",
+          "subject": "build(deps): bump github/codeql-action/upload-sarif from 4.38.0 to 4.38.2 in the github-actions group across 1 directory (#6895)"
+        },
+        {
+          "sha": "342d3e5d26d057e536c633a51949a08c64718004",
+          "subject": "cmake: depend on build-version.inc via add_dependency() (#6896)"
+        },
+        {
+          "sha": "1ba1f5b8fe921e46091d18370f91fb46450ff786",
+          "subject": "Android.mk: guard with NDK_ROOT (#6925)"
+        },
+        {
+          "sha": "ee690fd4cc708c04eaecf79bce045291c77e7b83",
+          "subject": "spirv-val: Validate CoopMat MulAdd float with Signed operand (#6924)"
+        },
+        {
+          "sha": "f64f69cebbc7372f327b518984d4f27cc01b7b2e",
+          "subject": "Validate untyped variable-length array operands (#6928)"
+        },
+        {
+          "sha": "fe74385012bd1a3fc00cb5f3291fd56ed13f36b6",
+          "subject": "spirv-val: Add OpUndef result type VU (#6931)"
+        },
+        {
+          "sha": "13b6fe7a9c1292119cd1550a0ee8bec39e4d5edc",
+          "subject": "spirv-val: Fix error messages (#6932)"
+        },
+        {
+          "sha": "71e22971e79c810726d782f3bd578271d24a7f27",
+          "subject": "Fix finite-range checks and rounding carries in HexFloat::castTo (#6902)"
+        },
+        {
+          "sha": "9cdbb47594bd713ea6608c30b5b85bb50d07f959",
+          "subject": "spirv-val: Add missing Refract type matching check (#6933)"
+        },
+        {
+          "sha": "6916cf5f5e3ee4cbfc6991e615ae49b8d0b979dc",
+          "subject": "spirv-opt: Keep members of struct type operands in dead members (#6916)"
+        },
+        {
+          "sha": "ce818d1f2db53916d89fa1fe0012237779480a9b",
+          "subject": "spirv-val: Fix crash in OpAbortKHR (#6934)"
+        },
+        {
+          "sha": "a9ca6687a0621688d4a55cea31c85a5e2ec5311e",
+          "subject": "roll deps (#6926)"
+        },
+        {
+          "sha": "5394fb260ab6145f7458c0b8c473cc6952570ce7",
+          "subject": "build(deps): bump lukka/get-cmake from 4.4.2 to 4.4.4 in the github-actions group (#6941)"
+        },
+        {
+          "sha": "666011357e70a35c97d144f408e376a0c1aa39ff",
+          "subject": "spirv-val: Validate OpCopyMemory on opaque descriptors (#6937)"
+        },
+        {
+          "sha": "db9f9670640c6aadc4a0c9bf3bb8a4f086005430",
+          "subject": "spirv-val: Fix crashing on pointer compare (#6938)"
+        },
+        {
+          "sha": "3ec7c4aba484c724e8c2a55c39d6633f18d90842",
+          "subject": "spirv-val: Fix storage class operand for untyped (#6940)"
+        },
+        {
+          "sha": "e56740d931256cc464d4d1a76149f69469c33f70",
+          "subject": "spirv-val: Handle OpConstantSizeOfEXT of non-int (#6939)"
+        },
+        {
+          "sha": "47ed79f592149b435bac64df71da37a5d9c4e31a",
+          "subject": "spirv-val: Fix crashes with NSDI (#6943)"
+        },
+        {
+          "sha": "2a7f2309a662a70dcd46a3e30ec013b300e7fab8",
+          "subject": "spirv-val: Allow DebugExpression as DebugGlobalVariable Variable operand (#6946)"
+        },
+        {
+          "sha": "e3067185a06c9d5a674c62cba777eff810430047",
+          "subject": "spirv-val: Fix UntypedPointers with FPRoundingMode (#6956)"
+        },
+        {
+          "sha": "a109118148124f7cdf669637c05a884943cf061a",
+          "subject": "spirv-val: OpCopyObject for RayQuery (#6952)"
+        },
+        {
+          "sha": "9554b7c726fb3ec04e0e93af559f9aeff6821576",
+          "subject": "spirv-val: Add Vulkan Image mask 04865 (#6961)"
+        },
+        {
+          "sha": "af16d4db882697f08cbcde4a3e54c27068760dfd",
+          "subject": "spirv-val: Add OpBranchConditional Branch Weights (#6959)"
+        },
+        {
+          "sha": "47c91ab8ca387093b088343f4dcb16bd13b2727c",
+          "subject": "spirv-val: Verify OpConstantNull is banned (#6960)"
+        },
+        {
+          "sha": "911d1eaf87fd7763b2365d7e339816fa31ec3f4b",
+          "subject": "spirv-val: Fix various Mesh Builtin issues (#6958)"
+        },
+        {
+          "sha": "6559c79987c7290b1bdee0b43334705b0c22a6dc",
+          "subject": "spirv-opt: Fix crash when folding vector reciprocals (#6936)"
+        },
+        {
+          "sha": "fc00cae70b56df73871d775e0439bc42046c1a02",
+          "subject": "Roll external/abseil_cpp/ 8f8fe25cb..dc960a419 (9 commits) (#6945)"
+        },
+        {
+          "sha": "672b77ba594a76a9fed22af371c4ea971ce0be55",
+          "subject": "build(deps): bump the github-actions group with 2 updates (#6963)"
+        },
+        {
+          "sha": "c47a797c01efd9a620a2329cafca5223225fd9e0",
+          "subject": "spirv-opt: Add constant folding rules for SAbs & FAbs (#6930)"
+        },
+        {
+          "sha": "7ac024537f15b9f6438eb49684526e01f9b15ca2",
+          "subject": "spirv-dis: Fix crash when reordering blocks with missing branch targets (#6920)"
+        },
+        {
+          "sha": "35fe089ca8c614715bda29465ccfb093576331e2",
+          "subject": "spirv-opt: Handle OpTypeVectorIdEXT in fix-storage-class access chains (#6971)"
+        },
+        {
+          "sha": "a05a70f9ec462f69f6d934d78a04d88961eb40fc",
+          "subject": "spirv-val: Add final NSDI helpers (#6944)"
+        },
+        {
+          "sha": "159605260788a13565ded13a657aec9604f1a088",
+          "subject": "spirv-val: Handle OpConstantComposite of OpConstantSizeOfEXT (#6949)"
+        },
+        {
+          "sha": "aab387a1569a11def627131597cbaf2147f713cb",
+          "subject": "val: fix crash when interface contains untyped variables in mesh shader (#6950) (#6957)"
+        },
+        {
+          "sha": "c7045209570aa7983548243f0fee362f242e84e5",
+          "subject": "spirv-val: Add static RayQuery/RayTracing value check (#5567)"
+        },
+        {
+          "sha": "71f287f18ed78d496e724fbfb1c3feae3a2af75a",
+          "subject": "spirv-val: Allow debug types for DebugTypedef and DebugTypeVector (#6965)"
+        }
+      ],
+      "files": [
+        {
+          "filename": ".github/workflows/bazel.yml",
+          "status": "modified"
+        },
+        {
+          "filename": ".github/workflows/ios.yml",
+          "status": "modified"
+        },
+        {
+          "filename": ".github/workflows/scorecard.yml",
+          "status": "modified"
+        },
+        {
+          "filename": ".github/workflows/wasm.yml",
+          "status": "modified"
+        },
+        {
+          "filename": "Android.mk",
+          "status": "modified"
+        },
+        {
+          "filename": "BUILD.gn",
+          "status": "modified"
+        },
+        {
+          "filename": "CMakeLists.txt",
+          "status": "modified"
+        },
+        {
+          "filename": "DEPS",
+          "status": "modified"
+        },
+        {
+          "filename": "include/spirv-tools/optimizer.hpp",
+          "status": "modified"
+        },
+        {
+          "filename": "kokoro/scripts/linux/build-docker.sh",
+          "status": "modified"
+        },
+        {
+          "filename": "source/CMakeLists.txt",
+          "status": "modified"
+        },
+        {
+          "filename": "source/cfa.h",
+          "status": "modified"
+        },
+        {
+          "filename": "source/disassemble.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "source/fuzz/CMakeLists.txt",
+          "status": "modified"
+        },
+        {
+          "filename": "source/fuzz/fuzzer_pass_add_loads.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "source/fuzz/fuzzer_pass_add_stores.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "source/fuzz/fuzzer_util.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "source/fuzz/fuzzer_util.h",
+          "status": "modified"
+        },
+        {
+          "filename": "source/fuzz/transformation_load.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "source/fuzz/transformation_load.h",
+          "status": "modified"
+        },
+        {
+          "filename": "source/fuzz/transformation_store.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "source/fuzz/transformation_store.h",
+          "status": "modified"
+        },
+        {
+          "filename": "source/opcode.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "source/opt/CMakeLists.txt",
+          "status": "modified"
+        },
+        {
+          "filename": "source/opt/const_folding_rules.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "source/opt/eliminate_dead_members_pass.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "source/opt/fix_storage_class.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "source/opt/folding_rules.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "source/opt/merge_return_pass.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "source/opt/nonwritable_propagation_pass.cpp",
+          "status": "added"
+        },
+        {
+          "filename": "source/opt/nonwritable_propagation_pass.h",
+          "status": "added"
+        },
+        {
+          "filename": "source/opt/optimizer.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "source/opt/passes.h",
+          "status": "modified"
+        },
+        {
+          "filename": "source/reduce/CMakeLists.txt",
+          "status": "modified"
+        },
+        {
+          "filename": "source/util/hex_float.h",
+          "status": "modified"
+        },
+        {
+          "filename": "source/val/basic_block.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "source/val/basic_block.h",
+          "status": "modified"
+        },
+        {
+          "filename": "source/val/validate.h",
+          "status": "modified"
+        },
+        {
+          "filename": "source/val/validate_arithmetics.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "source/val/validate_builtins.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "source/val/validate_cfg.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "source/val/validate_composites.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "source/val/validate_constants.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "source/val/validate_decorations.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "source/val/validate_extensions.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "source/val/validate_id.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "source/val/validate_image.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "source/val/validate_memory.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "source/val/validate_misc.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "source/val/validate_ray_query.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "source/val/validate_ray_tracing.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "source/val/validate_ray_tracing_reorder.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "source/val/validation_state.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "source/val/validation_state.h",
+          "status": "modified"
+        },
+        {
+          "filename": "test/binary_to_text_test.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "test/fuzz/fuzzerutil_test.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "test/fuzz/transformation_load_test.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "test/fuzz/transformation_store_test.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "test/hex_float_test.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "test/opt/CMakeLists.txt",
+          "status": "modified"
+        },
+        {
+          "filename": "test/opt/eliminate_dead_member_test.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "test/opt/fix_storage_class_test.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "test/opt/fold_test.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "test/opt/nonwritable_propagation_test.cpp",
+          "status": "added"
+        },
+        {
+          "filename": "test/opt/pass_merge_return_test.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "test/val/val_arithmetics_test.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "test/val/val_builtins_test.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "test/val/val_cfg_test.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "test/val/val_composites_test.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "test/val/val_decoration_test.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "test/val/val_ext_inst_debug_test.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "test/val/val_ext_inst_test.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "test/val/val_extension_spv_ext_descriptor_heap.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "test/val/val_extension_spv_khr_abort_test.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "test/val/val_image_test.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "test/val/val_memory_test.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "test/val/val_misc_test.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "test/val/val_ray_query_test.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "test/val/val_ray_tracing_reorder_test.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "test/val/val_ray_tracing_test.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "test/val/val_shader_debug_info_test.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "tools/opt/opt.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "utils/git-sync-deps",
+          "status": "modified"
+        }
+      ],
+      "status": "ahead",
+      "total_commits": 61
+    },
+    "scope": "Commit subjects and file paths only; not a full semantic audit of every diff."
+  },
+  {
+    "component": "OpenAL Soft",
+    "repository": "kcat/openal-soft",
+    "from": "8d2d2e2ed1f51df960e7eb4bb26b64625c873c0d",
+    "to": "a70d4116118cdf6bc7ac58fe6ae7a805c7205c50",
+    "comparison": {
+      "ahead_by": 147,
+      "behind_by": 0,
+      "commits": [
+        {
+          "sha": "fb595eee78b3a28b7bb79948768d14603f889db2",
+          "subject": "Use a zstring_view for the logging prefix"
+        },
+        {
+          "sha": "262a9c28eca461aeaad1a4802434ec707f259b52",
+          "subject": "Simplify alformattypes"
+        },
+        {
+          "sha": "5b0d03934578fea194e549da77de1e0a844a8c3c",
+          "subject": "Move EAX validators into the sources where they're used"
+        },
+        {
+          "sha": "ba37a4c85205a11e6b58281e4f6a5d9d8135a1f2",
+          "subject": "Avoid including core/device.h in so many headers"
+        },
+        {
+          "sha": "9aa191eb6e94c03daade2230c3095b9bc423e04b",
+          "subject": "Make and use a module for core/device.h"
+        },
+        {
+          "sha": "b93148f4fb622280bd2c7e757759c147c404a54d",
+          "subject": "Make and use a module for alc/device.h"
+        },
+        {
+          "sha": "5df368fc49b8efa03ee52be2df1cd8e479bc21a1",
+          "subject": "Pass a zstring_view to alc::Event"
+        },
+        {
+          "sha": "dc7a3fa3a9f5bc845892bf17eeb4fe216c60147d",
+          "subject": "Use a zstring_view to handle debug messages"
+        },
+        {
+          "sha": "181a83e1b6ca553554e8a742f8d23e5c02212713",
+          "subject": "Use an export block for the formatter types"
+        },
+        {
+          "sha": "4dca559a65c99a0eb612a36df2d17a2c4824e668",
+          "subject": "Add missing include"
+        },
+        {
+          "sha": "c89b8cf7bba4822f230c69f0a6696a52e5322dca",
+          "subject": "Add more missing includes"
+        },
+        {
+          "sha": "e321920c0dcfffeb2ca723e6d985d8c85cc9d39c",
+          "subject": "Make and use a type that assigns through a callable"
+        },
+        {
+          "sha": "805744fe57834633bc243c4ad2b822a76855badd",
+          "subject": "Move eax_log_exception to where it's used"
+        },
+        {
+          "sha": "6c7d821a9a454e661b260a6dbf74112c0cfccb61",
+          "subject": "Avoid explicit storage for some AL_GUIDs"
+        },
+        {
+          "sha": "b243a71dbf45777543c2f420a7be38feb75f12a4",
+          "subject": "Inline some global variables"
+        },
+        {
+          "sha": "c58730bb78d2b179f6f70ede46185d5856a112c2",
+          "subject": "Avoid including eax/api.h in some headers"
+        },
+        {
+          "sha": "8e345e09a192ca35e09f6bebe158ed77cda3dcb4",
+          "subject": "Avoid some more nested includes"
+        },
+        {
+          "sha": "71abe90b30c0b5edec5cb46727fbc4948a41b2c6",
+          "subject": "Remove an unused validator"
+        },
+        {
+          "sha": "e9c91ba037c2a2701f77a9c6221fb76ad0cf5ec0",
+          "subject": "Use a scoped enum bitset for EAX dirty flags"
+        },
+        {
+          "sha": "34c6a82b9de26d8db9bddd2e842a8b81bf8b5725",
+          "subject": "Only handle operator== for EAXVECTOR"
+        },
+        {
+          "sha": "ad356b58d7ccc7d13eff8f45c2aecb658bc7e04e",
+          "subject": "Move the EAX reverb presets to their own header"
+        },
+        {
+          "sha": "9717d5fa3180759d0dc1c972932b22c2fade358d",
+          "subject": "Move the OpenAL EAX API declarations to their own header"
+        },
+        {
+          "sha": "d81ebeaef688a4c2eb20e42077ec67de8782dead",
+          "subject": "Fix up some includes"
+        },
+        {
+          "sha": "3838e379d23dbf8ea153061aade7186e11e8150d",
+          "subject": "Fix an include"
+        },
+        {
+          "sha": "d05da32974425708940f650fc2b19ffd9a4936ac",
+          "subject": "Add formatters for fmtlib when using std::format"
+        },
+        {
+          "sha": "ea36b947cead7453b30c6e5daed06106db16ce9e",
+          "subject": "Move the exception ptr when rethrowing it"
+        },
+        {
+          "sha": "0fc54d81486b7fa8fa2077b7d60b8b5af18ad765",
+          "subject": "Avoid an unnecessary type alias"
+        },
+        {
+          "sha": "4a72ebf7e44fe661b636fab193151df239f598c8",
+          "subject": "Use normal functions to calculate the rotator coefficients"
+        },
+        {
+          "sha": "51399f5e6312fd2150305e680e6d7f96bb7f04a6",
+          "subject": "Calculate the ambisonic rotator coefficients at compile time"
+        },
+        {
+          "sha": "c0338a64f9b1783d4366c4acc866a379cc201c09",
+          "subject": "Put the strict number operators in their own inline namespace"
+        },
+        {
+          "sha": "b25ff2acdde2ba430f35ee7817d6f8d6e98c928e",
+          "subject": "Make and use a type module"
+        },
+        {
+          "sha": "558761e13c048425f353b50afdd7b1b0a3902c5b",
+          "subject": "Revert \"Avoid an unnecessary type alias\""
+        },
+        {
+          "sha": "3fdea9b2e5e50703fe57c64c58178f24d09ecb9b",
+          "subject": "Make some more filter tables constexpr"
+        },
+        {
+          "sha": "e7e618c3427d7af9048e5fb7a4bba1d7cce1b5e8",
+          "subject": "Remove an unused file"
+        },
+        {
+          "sha": "afb4a3c25923a44792df427a8cfd8a9fecac55c0",
+          "subject": "Make RotatorCoeffs inherit from std::array"
+        },
+        {
+          "sha": "f2bbafe758cc8152925ec16634614d34bfd5480a",
+          "subject": "Use an inline namespace for more freestanding functions"
+        },
+        {
+          "sha": "0ee4d6d803f5c1761667bace2e73058ebc000bee",
+          "subject": "Mark a couple functions nodiscard"
+        },
+        {
+          "sha": "56f9bf365d6c22b1081a9d6340f7a30ec36a86fa",
+          "subject": "Make and use a module for EAX value validation"
+        },
+        {
+          "sha": "fd5a5f835202aaafb673a537134ba49bf97580ea",
+          "subject": "Move backend_exception to a separate header/module"
+        },
+        {
+          "sha": "f25b3512c3c9c22b05d70fd597df95aeb26f8b62",
+          "subject": "Make and use a module for al::format functions"
+        },
+        {
+          "sha": "1ae6658e7c1e33a6b9f19f529badfac573046c57",
+          "subject": "Fix some includes"
+        },
+        {
+          "sha": "e34df773801a0a9ca80482b11f9e260c12e0a004",
+          "subject": "Properly check an EAX macro"
+        },
+        {
+          "sha": "e1e644442ead2c0c8e01155c405cbe67a232e4b5",
+          "subject": "Use a separate header for the size_t UDLs"
+        },
+        {
+          "sha": "fa51c4515692a4dfb6e563559de86de3505ed7ac",
+          "subject": "Make a module for ContextBase"
+        },
+        {
+          "sha": "459f935568063730af8a9906170b6bd3e713c095",
+          "subject": "Move a macro and type to where it's needed"
+        },
+        {
+          "sha": "5b5b626aa256e454faee6e3035af594dc97eb0b1",
+          "subject": "Avoid some const not_null<T*>s"
+        },
+        {
+          "sha": "424492c1a6b82b9e20b10f353dbae0760fb8a698",
+          "subject": "Make a module for fmtlib"
+        },
+        {
+          "sha": "359fffd08ab62dfe3a35d4f19a974ef993e8bb3d",
+          "subject": "Fix MSVC builds"
+        },
+        {
+          "sha": "a9e6502c7f05c96681342b8cd8363f6766765698",
+          "subject": "Add more missing includes"
+        },
+        {
+          "sha": "3fa40675c6ba8ed60bf7d3bfb599d6bd3a21197e",
+          "subject": "Avoid using modules in the examples' helper header"
+        },
+        {
+          "sha": "ab6248e005df7465ece1bd0808e74ad4312e7f30",
+          "subject": "Fix a comment"
+        },
+        {
+          "sha": "c41281dae201e50d08d68d81a714d9d1d550974c",
+          "subject": "Add a module for filesystem.h"
+        },
+        {
+          "sha": "1d28ea834f1c43606756cecb8f395212de60290e",
+          "subject": "Move includes to before imports"
+        },
+        {
+          "sha": "615c0717a9c847f3665ce435cfe1d5291eb6e36c",
+          "subject": "Avoid strict integers for the ambisonic index arrays"
+        },
+        {
+          "sha": "02b3f708ee8cbe218464dd0afdd9dadace9903e3",
+          "subject": "Use the appropriate namespace for filesystem"
+        },
+        {
+          "sha": "7ca553b18fe1bf0e5423bd6fd98e52b4bfea8079",
+          "subject": "Move back some includes for MSVC"
+        },
+        {
+          "sha": "cd95378e12d71abceb5848966d0d7af11f6a8d01",
+          "subject": "Try to readjust some includes for MSVC"
+        },
+        {
+          "sha": "37d824e4d21b58c8a55e6e3c08bb6c1c6bb54a9e",
+          "subject": "Add a missing include"
+        },
+        {
+          "sha": "1c5699378d0d40ee2c8479326ff1bb479204e83a",
+          "subject": "Try to workaround an MSVC issue"
+        },
+        {
+          "sha": "04b407ed7c7adc560b1d8f8875bb30e1a73cf09c",
+          "subject": "Avoid using strict numbers for sample formats"
+        },
+        {
+          "sha": "f40e6a8e020e8b754ab9f562793e5c1d76827705",
+          "subject": "Avoid strict number types in some headers"
+        },
+        {
+          "sha": "5fd8bec5e5bf0e4fdb1d19c1381943231c0884dc",
+          "subject": "Error on implicit sign conversions"
+        },
+        {
+          "sha": "0a05acda0d2b783db1bd695a470030bdabd316cd",
+          "subject": "Fix a narrowing conversion on 32-bit targets"
+        },
+        {
+          "sha": "2e613feadb3e2026301b48e278a1764fd23427f1",
+          "subject": "Make a module for the example helpers"
+        },
+        {
+          "sha": "c1d9853ac75f7b887bc76a88403ac4c24e618e88",
+          "subject": "Disable errors for sign-conversion"
+        },
+        {
+          "sha": "9574d262062e930da065d09b63ec8f37efe9ddfd",
+          "subject": "Use zstring_view for the main replacement"
+        },
+        {
+          "sha": "e2a1e662b9e8ca690ac79c5acc857c55f8db2a33",
+          "subject": "Fix a narrowing conversion warning"
+        },
+        {
+          "sha": "d98b50313165170566f337505faa6bfeaeccd923",
+          "subject": "Avoid some more strict numbers in headers"
+        },
+        {
+          "sha": "42c5878d54ab6595981ef0950b7b735b64c160ec",
+          "subject": "Silence some signed mismatch comparison warnings with MSVC"
+        },
+        {
+          "sha": "80b78ff12f7c28fc732337a50b5e1fd9412edf16",
+          "subject": "Another MSVC workaround"
+        },
+        {
+          "sha": "77e4f31082e3de4b415362674ffee3a574151c20",
+          "subject": "Use a more lightweight header for the MSVC filesystem workaround"
+        },
+        {
+          "sha": "174fe3c033f0652db058c7a7957697ce22aaa654",
+          "subject": "Fix header include check"
+        },
+        {
+          "sha": "6d39f8fbf6518675e86abdd56cc00629c837f947",
+          "subject": "Export filesystem bitwise ops"
+        },
+        {
+          "sha": "5ad2f02a16fe652d70b5e73cec21af3a81926585",
+          "subject": "Avoid some .c_val accesses"
+        },
+        {
+          "sha": "2d50fa1e7f400429e513955c12aa6aa8450deead",
+          "subject": "Support larger bit counts in al::bitset"
+        },
+        {
+          "sha": "9ca993e8f65c77c97011bc2e94d4c4074e5f715c",
+          "subject": "Replace NextPowerOf2 with a standard function"
+        },
+        {
+          "sha": "a87279c4c5dce7e669b2fcd25ca2741da5f48fe0",
+          "subject": "Use another standard function instead of a custom one"
+        },
+        {
+          "sha": "64facb252e5a445e2eafbc658200f87d65d50b10",
+          "subject": "Simplify the BitReverser struct"
+        },
+        {
+          "sha": "e77723fff1a28ac2c4c98d8ec108d8563f7f42d1",
+          "subject": "Update the default effect slot properties with context creation"
+        },
+        {
+          "sha": "3b41d45046d523ca1b8cc409eef90bd71b45c496",
+          "subject": "Avoid an extraneous init function for MSVC"
+        },
+        {
+          "sha": "12ccabdaf91ec4fa85e57e4ed99578fbd7e0e4b2",
+          "subject": "Improve (in)out_ptr compliance"
+        },
+        {
+          "sha": "5c8c36eb5e02db7d4813ff90044d546b0d207f13",
+          "subject": "Move (in)out_ptr to its own header"
+        },
+        {
+          "sha": "9324d3395e4ec66c7fa2d452d866ca9c31ab2782",
+          "subject": "Remove some almalloc includes"
+        },
+        {
+          "sha": "c52192793bdc7e91ae47c2d2e0a74b61ace5ea80",
+          "subject": "Move DISABLE_ALLOC to its own header"
+        },
+        {
+          "sha": "47f5703d448dd2cce4c391e3fb35b917bf9b3183",
+          "subject": "Remove some more unnecessary strict number type uses"
+        },
+        {
+          "sha": "3ce85d7945dc454cb2584e0bea589fd2dc35c296",
+          "subject": "Move DevFmtType_t to its own header"
+        },
+        {
+          "sha": "d5c7ff9eb19fcd810a26ff69cd14fec0276852b2",
+          "subject": "Avoid a variant for (in)out_ptr"
+        },
+        {
+          "sha": "929718578c5077705445acd0001ded95ca2e6cae",
+          "subject": "De-duplicate instance_of definitions"
+        },
+        {
+          "sha": "94f59c26752c08dfba1980892b51b2c8e530bb50",
+          "subject": "Add missing include"
+        },
+        {
+          "sha": "f7cb6e16141ead725045ed9f994150ee626791c9",
+          "subject": "Improve (in)out_ptr compliance"
+        },
+        {
+          "sha": "ebe856f7e00619fd1264670a92cc7a18359bda93",
+          "subject": "Fix some types"
+        },
+        {
+          "sha": "6185117c6059873df4f0f531838e8336538a862e",
+          "subject": "Passify an MSVC warning"
+        },
+        {
+          "sha": "49f28b691ec739bd5503a6aa5d524dbf916af4ff",
+          "subject": "Use standard types in a few more places"
+        },
+        {
+          "sha": "662c24995a6e809c0d1b0802fb189aa81a8ce7de",
+          "subject": "Add a missing include for libc++ (#1326)"
+        },
+        {
+          "sha": "06b94cc4a32f0fea3a8eab7f3e01306f393ed8b8",
+          "subject": "Replace some more bit fiddling with standard functions"
+        },
+        {
+          "sha": "e4b662b75e6a7da4704a25256f9921627998537e",
+          "subject": "Fix a few more headers"
+        },
+        {
+          "sha": "77a7fd4ac351028d51695e92a4c48217e677b778",
+          "subject": "Don't include gsl in fmt_traits.h"
+        },
+        {
+          "sha": "830c16305e13079d4a40e27a0f265f56635ac9eb",
+          "subject": "Replace a const not_null with a reference"
+        },
+        {
+          "sha": "c309fb36d56f737380412ca00393f4072a657132",
+          "subject": "Avoid unnecessary use of a UDL"
+        },
+        {
+          "sha": "3a2753eedf56421b3d2b904378d70aefffa86d11",
+          "subject": "Mark the process watcher variables as used/maybe_unused"
+        },
+        {
+          "sha": "a7f471dfa7b9640b8be922eb276e35957d9fd733",
+          "subject": "Finalize AL_SOFT_source_panning"
+        },
+        {
+          "sha": "e2f9e6a996372041f979a5c43ce7d67365f620f5",
+          "subject": "Replace some not_nulls with references"
+        },
+        {
+          "sha": "b0104e5affba5ecd6dddfb93c15cc8d53eebf38b",
+          "subject": "Use references in place of a number of not_nulls"
+        },
+        {
+          "sha": "6516233cf6b06867d48f759173b1e9fc3c0c979f",
+          "subject": "Avoid some not_nulls with auxiliary effect slots"
+        },
+        {
+          "sha": "a6ddc4d74865a848b76f2e4effd58ba1c8d6aa9e",
+          "subject": "Remove some not_nulls from al/buffer.cpp"
+        },
+        {
+          "sha": "497e2e4d864c23bd238ee47c1b117d9fc6b6189e",
+          "subject": "Replace more not_nulls with references"
+        },
+        {
+          "sha": "b06136afbfa6245b5da44e0eaf2b70505c9f2725",
+          "subject": "Pass references to the effect property handlers"
+        },
+        {
+          "sha": "6681ba53f4076b96265d35ae6d19dfaacf606d94",
+          "subject": "Don't use not_null for SetName"
+        },
+        {
+          "sha": "1fde212cdba3d01d1fc71dab2b57cafee4c70a61",
+          "subject": "Pass context references to the implementation functions"
+        },
+        {
+          "sha": "418939e18f5c231ea8f965e003d492ffc2fb2b67",
+          "subject": "Get rid of get_not_null"
+        },
+        {
+          "sha": "103a45ab6934dcc295fc554c75c44a1ee3d0fab4",
+          "subject": "Avoid strict numbers for array index values"
+        },
+        {
+          "sha": "ea3234dfae5e27b6b18ab3adad3cf2d4eb3f6247",
+          "subject": "Move alcEventIsSupportedSOFT to the other event functions"
+        },
+        {
+          "sha": "49ad43cb1fdb1fb36d9ce42f427e464e0f478233",
+          "subject": "Don't do a reverse search unnecessarily"
+        },
+        {
+          "sha": "2ab9acc7413b0c08ef78375f690670a4bf56859b",
+          "subject": "Avoid an unnecessary strict number type"
+        },
+        {
+          "sha": "b32640410cf7bdeed3a52b3e5ed436a1e67249f4",
+          "subject": "Avoid an unnecessary function"
+        },
+        {
+          "sha": "d31424ee6424ceaecfe8f216025be7065776d17d",
+          "subject": "Avoid some formatting in headers"
+        },
+        {
+          "sha": "9c24a588cb94230006668469a4071571ca2b35ba",
+          "subject": "Don't format in the inline log call"
+        },
+        {
+          "sha": "1ef2b27065d7094c53ceb31148958eb9946afc43",
+          "subject": "Avoid more unnecessary strict types"
+        },
+        {
+          "sha": "09e2be796e34ad4b6b129204ba2d187bf4577924",
+          "subject": "Add missing include"
+        },
+        {
+          "sha": "3f174c88be0955819ee911f9ba300b8a4a505189",
+          "subject": "Make sure objects passed to al::dereference are dereferenceable"
+        },
+        {
+          "sha": "df9a60d22dbad0afd5acf90121fcdb577acbd9f5",
+          "subject": "Rename backend .h files to .hpp"
+        },
+        {
+          "sha": "ec2d9877185c993224bf60b10d87571d781a46e6",
+          "subject": "Make and use a standard-like spanstream"
+        },
+        {
+          "sha": "dfa4593a0334f49455ad25a9aeabd00a2fcc1b24",
+          "subject": "Use a spanstream instead of sscanf"
+        },
+        {
+          "sha": "d0c5cfc1050bfdce1bdcc7caa779c2e3153bcfb5",
+          "subject": "Avoid another sscanf"
+        },
+        {
+          "sha": "9ca7d05e4f1b16897104c913be7553891f0d027d",
+          "subject": "Avoid a layer of indirection for managing loaded HRTFs"
+        },
+        {
+          "sha": "f1fcb779651e59b6f0a96961a940341f8ad2492a",
+          "subject": "Treat PipeWire AUX0/AUX1 channels as stereo (#1327)"
+        },
+        {
+          "sha": "a029c31c15ac0898e8fc8f1791f95b8a9584cc56",
+          "subject": "Simplify some offset range checks"
+        },
+        {
+          "sha": "a46c4a824a77997c824c472dfd4c87d34eb22c76",
+          "subject": "Report or ignore return values we can't do anything for"
+        },
+        {
+          "sha": "0c9ad40878ba911e50e9ff20e72e4cea4d3d12cd",
+          "subject": "Avoid some template specialization"
+        },
+        {
+          "sha": "f84c186ee4a0a9393792b6bb363bac063d1d9281",
+          "subject": "Remove some seemingly unnecessary includes"
+        },
+        {
+          "sha": "efae1eef2efac247ee3e1ac0733ee42c2b87de24",
+          "subject": "Make some functions nodiscard"
+        },
+        {
+          "sha": "8a194f87b26d30963e5f71f2e6d0697962b910bd",
+          "subject": "Avoid more template specializations"
+        },
+        {
+          "sha": "73dcf841e64b530169acb86f184b6531cb0182f7",
+          "subject": "Make a module for alstring functions"
+        },
+        {
+          "sha": "a43d43ee8c598787c31872b707fc7c602c0ae4c1",
+          "subject": "Use u8 strings for filenames"
+        },
+        {
+          "sha": "2f1c712364aa2fd9d66accedeecff6a4de2d5aba",
+          "subject": "Update a comment"
+        },
+        {
+          "sha": "802e5b50fae63f3c313ac523133be65d50efcb55",
+          "subject": "Make a module for core/helpers"
+        },
+        {
+          "sha": "96c394c825beb5984264530106f1298083713b32",
+          "subject": "Use fs::path for the data file search"
+        },
+        {
+          "sha": "762ed534c4bafc03b4453b841cce86ac5aacf3ff",
+          "subject": "Move utf8_to_wstr and wstr_to_utf8 to alstring"
+        },
+        {
+          "sha": "6338635b4c00ca7458b09f8273d6dffe607e43e9",
+          "subject": "Rename strutils to envutils"
+        },
+        {
+          "sha": "827dd078263d890382d66cd0d8d5e089b2d221be",
+          "subject": "Avoid including gsl in a header"
+        },
+        {
+          "sha": "4fefbaed4c7b5cb16dd562f6338c57acd17039d5",
+          "subject": "Invoke a lambda directly without giving it a name"
+        },
+        {
+          "sha": "d1e34a06c537b278e30fa8efacd7e76b82fc9b9d",
+          "subject": "Return an fs::path for the process binary"
+        },
+        {
+          "sha": "ff92fb2fba63407629ccbd8e9ad2421897fb93b1",
+          "subject": "Add formatters for fs::path"
+        },
+        {
+          "sha": "a322cc381718df8dce537e11c91908c4f6442f64",
+          "subject": "Fix an include"
+        },
+        {
+          "sha": "df42dc96ef72ddf5f8bcbd6141260c4bd07e8e44",
+          "subject": "Fix definitions for std and fmt formatters of std vs ghc fs paths"
+        },
+        {
+          "sha": "96d67562861838e5486c7ad262446181337de913",
+          "subject": "More include fixes for formatting paths"
+        },
+        {
+          "sha": "a70d4116118cdf6bc7ac58fe6ae7a805c7205c50",
+          "subject": "Fix a variable name for macOS and Haiku"
+        }
+      ],
+      "files": [
+        {
+          "filename": "CMakeLists.txt",
+          "status": "modified"
+        },
+        {
+          "filename": "al/auxeffectslot.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "al/auxeffectslot.h",
+          "status": "modified"
+        },
+        {
+          "filename": "al/buffer.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "al/buffer.h",
+          "status": "modified"
+        },
+        {
+          "filename": "al/debug.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "al/direct_defs.h",
+          "status": "modified"
+        },
+        {
+          "filename": "al/eax.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "al/eax/alapi.hpp",
+          "status": "added"
+        },
+        {
+          "filename": "al/eax/api.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "al/eax/api.h",
+          "status": "modified"
+        },
+        {
+          "filename": "al/eax/call.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "al/eax/call.h",
+          "status": "modified"
+        },
+        {
+          "filename": "al/eax/effect.h",
+          "status": "modified"
+        },
+        {
+          "filename": "al/eax/fx_slot_index.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "al/eax/fx_slot_index.h",
+          "status": "modified"
+        },
+        {
+          "filename": "al/eax/fx_slots.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "al/eax/fx_slots.h",
+          "status": "modified"
+        },
+        {
+          "filename": "al/eax/presets.hpp",
+          "status": "added"
+        },
+        {
+          "filename": "al/eax/utils.cpp",
+          "status": "removed"
+        },
+        {
+          "filename": "al/eax/utils.h",
+          "status": "removed"
+        },
+        {
+          "filename": "al/eax/validator.cppm",
+          "status": "added"
+        },
+        {
+          "filename": "al/eax/validator.hpp",
+          "status": "added"
+        },
+        {
+          "filename": "al/eax/x_ram.h",
+          "status": "removed"
+        },
+        {
+          "filename": "al/effect.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "al/effect.h",
+          "status": "modified"
+        },
+        {
+          "filename": "al/effects/autowah.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "al/effects/chorus.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "al/effects/compressor.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "al/effects/convolution.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "al/effects/dedicated.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "al/effects/distortion.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "al/effects/echo.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "al/effects/effects.h",
+          "status": "modified"
+        },
+        {
+          "filename": "al/effects/equalizer.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "al/effects/fshifter.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "al/effects/modulator.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "al/effects/null.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "al/effects/pshifter.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "al/effects/reverb.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "al/effects/vmorpher.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "al/error.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "al/event.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "al/extension.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "al/filter.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "al/filter.h",
+          "status": "modified"
+        },
+        {
+          "filename": "al/listener.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "al/listener.h",
+          "status": "modified"
+        },
+        {
+          "filename": "al/source.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "al/source.h",
+          "status": "modified"
+        },
+        {
+          "filename": "al/state.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "alc/alc.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "alc/alconfig.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "alc/alu.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "alc/backends/alsa.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "alc/backends/alsa.hpp",
+          "status": "renamed"
+        },
+        {
+          "filename": "alc/backends/base.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "alc/backends/base.h",
+          "status": "removed"
+        },
+        {
+          "filename": "alc/backends/base.hpp",
+          "status": "added"
+        },
+        {
+          "filename": "alc/backends/coreaudio.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "alc/backends/coreaudio.hpp",
+          "status": "renamed"
+        },
+        {
+          "filename": "alc/backends/dsound.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "alc/backends/dsound.hpp",
+          "status": "renamed"
+        },
+        {
+          "filename": "alc/backends/exception.cppm",
+          "status": "added"
+        },
+        {
+          "filename": "alc/backends/exception.hpp",
+          "status": "added"
+        },
+        {
+          "filename": "alc/backends/jack.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "alc/backends/jack.hpp",
+          "status": "renamed"
+        },
+        {
+          "filename": "alc/backends/loopback.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "alc/backends/loopback.hpp",
+          "status": "renamed"
+        },
+        {
+          "filename": "alc/backends/null.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "alc/backends/null.hpp",
+          "status": "renamed"
+        },
+        {
+          "filename": "alc/backends/oboe.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "alc/backends/oboe.hpp",
+          "status": "renamed"
+        },
+        {
+          "filename": "alc/backends/opensl.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "alc/backends/opensl.hpp",
+          "status": "renamed"
+        },
+        {
+          "filename": "alc/backends/oss.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "alc/backends/oss.hpp",
+          "status": "renamed"
+        },
+        {
+          "filename": "alc/backends/pipewire.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "alc/backends/pipewire.hpp",
+          "status": "renamed"
+        },
+        {
+          "filename": "alc/backends/portaudio.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "alc/backends/portaudio.hpp",
+          "status": "modified"
+        },
+        {
+          "filename": "alc/backends/pulseaudio.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "alc/backends/pulseaudio.hpp",
+          "status": "renamed"
+        },
+        {
+          "filename": "alc/backends/sdl2.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "alc/backends/sdl2.hpp",
+          "status": "renamed"
+        },
+        {
+          "filename": "alc/backends/sdl3.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "alc/backends/sdl3.hpp",
+          "status": "renamed"
+        },
+        {
+          "filename": "alc/backends/sndio.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "alc/backends/sndio.hpp",
+          "status": "modified"
+        },
+        {
+          "filename": "alc/backends/solaris.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "alc/backends/solaris.hpp",
+          "status": "renamed"
+        },
+        {
+          "filename": "alc/backends/wasapi.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "alc/backends/wasapi.hpp",
+          "status": "renamed"
+        },
+        {
+          "filename": "alc/backends/wave.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "alc/backends/wave.hpp",
+          "status": "renamed"
+        },
+        {
+          "filename": "alc/backends/winmm.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "alc/backends/winmm.hpp",
+          "status": "renamed"
+        },
+        {
+          "filename": "alc/context.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "alc/context.cppm",
+          "status": "modified"
+        },
+        {
+          "filename": "alc/context.hpp",
+          "status": "modified"
+        },
+        {
+          "filename": "alc/device.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "alc/device.cppm",
+          "status": "added"
+        },
+        {
+          "filename": "alc/device.h",
+          "status": "modified"
+        },
+        {
+          "filename": "alc/effects/autowah.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "alc/effects/chorus.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "alc/effects/compressor.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "alc/effects/convolution.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "alc/effects/dedicated.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "alc/effects/distortion.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "alc/effects/echo.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "alc/effects/equalizer.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "alc/effects/fshifter.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "alc/effects/modulator.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "alc/effects/pshifter.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "alc/effects/reverb.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "alc/effects/vmorpher.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "alc/events.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "alc/events.h",
+          "status": "modified"
+        },
+        {
+          "filename": "alc/export_list.h",
+          "status": "modified"
+        },
+        {
+          "filename": "alc/inprogext.h",
+          "status": "modified"
+        },
+        {
+          "filename": "alc/panning.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "alsoft-modules/fmtlib.cppm",
+          "status": "added"
+        },
+        {
+          "filename": "alsoft-modules/gsl.cppm",
+          "status": "modified"
+        },
+        {
+          "filename": "common/alcomplex.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "common/alformat.cppm",
+          "status": "added"
+        },
+        {
+          "filename": "common/alformat.hpp",
+          "status": "modified"
+        },
+        {
+          "filename": "common/alformatpath.hpp",
+          "status": "added"
+        },
+        {
+          "filename": "common/alformattypes.cppm",
+          "status": "removed"
+        },
+        {
+          "filename": "common/alformattypes.hpp",
+          "status": "modified"
+        },
+        {
+          "filename": "common/alformatzsv.hpp",
+          "status": "modified"
+        },
+        {
+          "filename": "common/almalloc.h",
+          "status": "modified"
+        },
+        {
+          "filename": "common/alnumeric.h",
+          "status": "modified"
+        },
+        {
+          "filename": "common/alstring.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "common/alstring.cppm",
+          "status": "added"
+        },
+        {
+          "filename": "common/alstring.h",
+          "status": "modified"
+        },
+        {
+          "filename": "common/altypes.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "common/altypes.cppm",
+          "status": "added"
+        },
+        {
+          "filename": "common/altypes.hpp",
+          "status": "modified"
+        },
+        {
+          "filename": "common/atomic.h",
+          "status": "modified"
+        },
+        {
+          "filename": "common/bitset.hpp",
+          "status": "modified"
+        },
+        {
+          "filename": "common/cemath.cppm",
+          "status": "added"
+        },
+        {
+          "filename": "common/cemath.hpp",
+          "status": "added"
+        },
+        {
+          "filename": "common/disable_alloc.hpp",
+          "status": "added"
+        },
+        {
+          "filename": "common/dynload.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "common/envutils.cpp",
+          "status": "added"
+        },
+        {
+          "filename": "common/envutils.hpp",
+          "status": "added"
+        },
+        {
+          "filename": "common/filesystem.cppm",
+          "status": "added"
+        },
+        {
+          "filename": "common/flexarray.h",
+          "status": "modified"
+        },
+        {
+          "filename": "common/hann_window.cppm",
+          "status": "modified"
+        },
+        {
+          "filename": "common/hann_window.hpp",
+          "status": "modified"
+        },
+        {
+          "filename": "common/inout_ptr.hpp",
+          "status": "added"
+        },
+        {
+          "filename": "common/instance_of.hpp",
+          "status": "added"
+        },
+        {
+          "filename": "common/opthelpers.h",
+          "status": "modified"
+        },
+        {
+          "filename": "common/pffft.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "common/pffft.h",
+          "status": "modified"
+        },
+        {
+          "filename": "common/phase_shifter.cppm",
+          "status": "modified"
+        },
+        {
+          "filename": "common/phase_shifter.hpp",
+          "status": "modified"
+        },
+        {
+          "filename": "common/polyphase_resampler.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "common/ringbuffer.h",
+          "status": "modified"
+        },
+        {
+          "filename": "common/spanstream.cppm",
+          "status": "added"
+        },
+        {
+          "filename": "common/spanstream.hpp",
+          "status": "added"
+        },
+        {
+          "filename": "common/strutils.cpp",
+          "status": "removed"
+        },
+        {
+          "filename": "common/strutils.hpp",
+          "status": "removed"
+        },
+        {
+          "filename": "common/win_main_utf8.h",
+          "status": "modified"
+        },
+        {
+          "filename": "common/zstring_view.cppm",
+          "status": "modified"
+        },
+        {
+          "filename": "common/zstring_view.hpp",
+          "status": "modified"
+        },
+        {
+          "filename": "common/zudl.hpp",
+          "status": "added"
+        },
+        {
+          "filename": "core/allpass_conv.hpp",
+          "status": "modified"
+        },
+        {
+          "filename": "core/allpass_iir.hpp",
+          "status": "modified"
+        },
+        {
+          "filename": "core/ambdec.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "core/ambidefs.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "core/ambidefs.h",
+          "status": "modified"
+        },
+        {
+          "filename": "core/async_event.h",
+          "status": "modified"
+        },
+        {
+          "filename": "core/bformatdec.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "core/bsinc_tables.hpp",
+          "status": "modified"
+        },
+        {
+          "filename": "core/buffer_storage.h",
+          "status": "modified"
+        },
+        {
+          "filename": "core/context.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "core/context.cppm",
+          "status": "added"
+        },
+        {
+          "filename": "core/context.h",
+          "status": "modified"
+        },
+        {
+          "filename": "core/converter.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "core/converter.h",
+          "status": "modified"
+        },
+        {
+          "filename": "core/cubic_tables.hpp",
+          "status": "modified"
+        },
+        {
+          "filename": "core/devfmttraits.hpp",
+          "status": "added"
+        },
+        {
+          "filename": "core/devformat.h",
+          "status": "modified"
+        },
+        {
+          "filename": "core/device.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "core/device.cppm",
+          "status": "added"
+        },
+        {
+          "filename": "core/device.h",
+          "status": "modified"
+        },
+        {
+          "filename": "core/effectslot.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "core/effectslot.h",
+          "status": "modified"
+        },
+        {
+          "filename": "core/fmt_traits.h",
+          "status": "modified"
+        },
+        {
+          "filename": "core/front_stablizer.h",
+          "status": "modified"
+        },
+        {
+          "filename": "core/helpers.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "core/helpers.cppm",
+          "status": "added"
+        },
+        {
+          "filename": "core/helpers.h",
+          "status": "removed"
+        },
+        {
+          "filename": "core/helpers.hpp",
+          "status": "added"
+        },
+        {
+          "filename": "core/hrtf.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "core/hrtf.h",
+          "status": "modified"
+        },
+        {
+          "filename": "core/hrtf_loader.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "core/hrtf_loader.hpp",
+          "status": "modified"
+        },
+        {
+          "filename": "core/logging.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "core/logging.cppm",
+          "status": "modified"
+        },
+        {
+          "filename": "core/logging.h",
+          "status": "modified"
+        },
+        {
+          "filename": "core/mastering.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "core/mastering.h",
+          "status": "modified"
+        },
+        {
+          "filename": "core/mixer.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "core/mixer/defs.h",
+          "status": "modified"
+        },
+        {
+          "filename": "core/mixer/hrtfdefs.h",
+          "status": "modified"
+        },
+        {
+          "filename": "core/mixer/mixer_c.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "core/mixer/mixer_neon.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "core/mixer/mixer_sse.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "core/mixer/mixer_sse2.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "core/mixer/mixer_sse41.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "core/mixparams.hpp",
+          "status": "added"
+        },
+        {
+          "filename": "core/storage_formats.h",
+          "status": "modified"
+        },
+        {
+          "filename": "core/tsmefilter.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "core/tsmefilter.hpp",
+          "status": "modified"
+        },
+        {
+          "filename": "core/uhjfilter.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "core/uhjfilter.h",
+          "status": "modified"
+        },
+        {
+          "filename": "core/voice.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "core/voice.h",
+          "status": "modified"
+        },
+        {
+          "filename": "examples/aldebug.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "examples/aldirect.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "examples/alffplay.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "examples/allafplay.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "examples/alstreamcb.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "examples/common/alhelpers.c",
+          "status": "modified"
+        },
+        {
+          "filename": "examples/common/alhelpers.cppm",
+          "status": "added"
+        },
+        {
+          "filename": "examples/common/alhelpers.h",
+          "status": "modified"
+        },
+        {
+          "filename": "examples/common/alhelpers.hpp",
+          "status": "modified"
+        },
+        {
+          "filename": "include/AL/al.h",
+          "status": "modified"
+        },
+        {
+          "filename": "include/AL/alc.h",
+          "status": "modified"
+        },
+        {
+          "filename": "include/AL/alext.h",
+          "status": "modified"
+        },
+        {
+          "filename": "include/AL/efx.h",
+          "status": "modified"
+        },
+        {
+          "filename": "modules/al.cppm",
+          "status": "modified"
+        },
+        {
+          "filename": "modules/alc.cppm",
+          "status": "modified"
+        },
+        {
+          "filename": "modules/alext.cppm",
+          "status": "modified"
+        },
+        {
+          "filename": "modules/efx.cppm",
+          "status": "modified"
+        },
+        {
+          "filename": "registry/xml/al.xml",
+          "status": "modified"
+        },
+        {
+          "filename": "router/alc.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "router/router.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "router/router.cppm",
+          "status": "modified"
+        },
+        {
+          "filename": "router/router.h",
+          "status": "modified"
+        },
+        {
+          "filename": "utils/alsoft-config/mainwindow.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "utils/makemhr/loaddef.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "utils/makemhr/loaddef.h",
+          "status": "modified"
+        },
+        {
+          "filename": "utils/makemhr/loadsofa.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "utils/makemhr/makemhr.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "utils/sofa-info.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "utils/sofa-support.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "utils/uhjdecoder.cpp",
+          "status": "modified"
+        },
+        {
+          "filename": "utils/uhjencoder.cpp",
+          "status": "modified"
+        }
+      ],
+      "status": "ahead",
+      "total_commits": 147
+    },
+    "scope": "Commit subjects and file paths only; not a full semantic audit of every diff."
+  }
+]

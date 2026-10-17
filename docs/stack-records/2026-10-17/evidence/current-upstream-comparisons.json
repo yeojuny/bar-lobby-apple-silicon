@@ -1,0 +1,328 @@
+{
+  "date": "2026-10-17",
+  "scope": "Original component base pins versus current official default branch heads. Counts are not a semantic missing-fix count for the locally patched binaries.",
+  "github": [
+    {
+      "component": "Launcher",
+      "includedVersion": "bar-lobby snapshot",
+      "repository": "beyond-all-reason/bar-lobby",
+      "pin": "e2c45c8fcb5461acb3232539493be15cd0fda7ec",
+      "checkedClientDate": "2026-10-17",
+      "defaultBranch": "master",
+      "head": {
+        "committerDate": "2026-10-15T00:13:17Z",
+        "sha": "e2c45c8fcb5461acb3232539493be15cd0fda7ec",
+        "subject": "Lobby list filters, sorting, previews, and associated tooling (#747)"
+      },
+      "base": {
+        "committerDate": "2026-10-15T00:13:17Z",
+        "sha": "e2c45c8fcb5461acb3232539493be15cd0fda7ec",
+        "subject": "Lobby list filters, sorting, previews, and associated tooling (#747)"
+      },
+      "comparison": {
+        "ahead_by": 0,
+        "behind_by": 0,
+        "mergeBase": "e2c45c8fcb5461acb3232539493be15cd0fda7ec",
+        "status": "identical",
+        "total_commits": 0
+      }
+    },
+    {
+      "component": "Lobby engine",
+      "includedVersion": "2026.09.01-24-g01efdf4 master",
+      "repository": "beyond-all-reason/RecoilEngine",
+      "pin": "01efdf43121dfd40d105649ef7eb89a8804662d9",
+      "checkedClientDate": "2026-10-17",
+      "defaultBranch": "master",
+      "head": {
+        "committerDate": "2026-10-10T19:57:37Z",
+        "sha": "01efdf43121dfd40d105649ef7eb89a8804662d9",
+        "subject": "Fix builds with detailed tracy zones (#3461)"
+      },
+      "base": {
+        "committerDate": "2026-10-10T19:57:37Z",
+        "sha": "01efdf43121dfd40d105649ef7eb89a8804662d9",
+        "subject": "Fix builds with detailed tracy zones (#3461)"
+      },
+      "comparison": {
+        "ahead_by": 0,
+        "behind_by": 0,
+        "mergeBase": "01efdf43121dfd40d105649ef7eb89a8804662d9",
+        "status": "identical",
+        "total_commits": 0
+      }
+    },
+    {
+      "component": "Chobby engine",
+      "includedVersion": "2026.07.04",
+      "repository": "beyond-all-reason/RecoilEngine",
+      "pin": "de69361239d8c8b1012dba3f5aa3122954ea4da3",
+      "checkedClientDate": "2026-10-17",
+      "defaultBranch": "master",
+      "head": {
+        "committerDate": "2026-10-10T19:57:37Z",
+        "sha": "01efdf43121dfd40d105649ef7eb89a8804662d9",
+        "subject": "Fix builds with detailed tracy zones (#3461)"
+      },
+      "base": {
+        "committerDate": "2026-08-04T19:51:01Z",
+        "sha": "de69361239d8c8b1012dba3f5aa3122954ea4da3",
+        "subject": "fix path cleanup when immediate path search fails (#3176)"
+      },
+      "comparison": {
+        "ahead_by": 117,
+        "behind_by": 5,
+        "mergeBase": "9bec68d3e3e814fe8ead272bddb59e2093af2afc",
+        "status": "diverged",
+        "total_commits": 117
+      }
+    },
+    {
+      "component": "MoltenVK",
+      "includedVersion": "1.4.3-derived",
+      "repository": "KhronosGroup/MoltenVK",
+      "pin": "52aa21f54d7a84c5c441fc26359692b0980b384c",
+      "checkedClientDate": "2026-10-17",
+      "defaultBranch": "main",
+      "head": {
+        "committerDate": "2026-10-13T17:33:32Z",
+        "sha": "5189f8de86ec365860f63bf1da736815cfaea5cd",
+        "subject": "Merge pull request #2832 from KhronosGroup/add-contributing-file"
+      },
+      "base": {
+        "committerDate": "2026-09-30T01:20:28Z",
+        "sha": "52aa21f54d7a84c5c441fc26359692b0980b384c",
+        "subject": "Merge pull request #2850 from squidbus/fix-serialize"
+      },
+      "comparison": {
+        "ahead_by": 8,
+        "behind_by": 0,
+        "mergeBase": "52aa21f54d7a84c5c441fc26359692b0980b384c",
+        "status": "ahead",
+        "total_commits": 8
+      }
+    },
+    {
+      "component": "Vulkan Loader",
+      "includedVersion": "1.4.365",
+      "repository": "KhronosGroup/Vulkan-Loader",
+      "pin": "b82e310e99c20bfac8dd3123c9e939f81ce54b89",
+      "checkedClientDate": "2026-10-17",
+      "defaultBranch": "main",
+      "head": {
+        "committerDate": "2026-10-17T04:36:09Z",
+        "sha": "4224768e1844d31f37c5d96b15433eaf46c7bede",
+        "subject": "Fix mingw CI run"
+      },
+      "base": {
+        "committerDate": "2026-10-02T18:01:17Z",
+        "sha": "b82e310e99c20bfac8dd3123c9e939f81ce54b89",
+        "subject": "Disable threading unknown function tests in no-asm CI builds"
+      },
+      "comparison": {
+        "ahead_by": 19,
+        "behind_by": 0,
+        "mergeBase": "b82e310e99c20bfac8dd3123c9e939f81ce54b89",
+        "status": "ahead",
+        "total_commits": 19
+      }
+    },
+    {
+      "component": "Vulkan Headers",
+      "includedVersion": "1.4.365",
+      "repository": "KhronosGroup/Vulkan-Headers",
+      "pin": "c46850864f4661461b0f6cb9922c058ffea4915e",
+      "checkedClientDate": "2026-10-17",
+      "defaultBranch": "main",
+      "head": {
+        "committerDate": "2026-10-16T23:00:04Z",
+        "sha": "acbb9391c0a597272800cd3f4363661c00a27c77",
+        "subject": "Use setup-msvc-dev to set up the MSVC developer environment in CI"
+      },
+      "base": {
+        "committerDate": "2026-10-02T01:58:17Z",
+        "sha": "c46850864f4661461b0f6cb9922c058ffea4915e",
+        "subject": "Update for Vulkan-Docs 1.4.365"
+      },
+      "comparison": {
+        "ahead_by": 1,
+        "behind_by": 0,
+        "mergeBase": "c46850864f4661461b0f6cb9922c058ffea4915e",
+        "status": "ahead",
+        "total_commits": 1
+      }
+    },
+    {
+      "component": "SDL3",
+      "includedVersion": "3.5.0 development snapshot",
+      "repository": "libsdl-org/SDL",
+      "pin": "4a17e772ea9a4ff77dd10fa6ea6f45fc6731eb01",
+      "checkedClientDate": "2026-10-17",
+      "defaultBranch": "main",
+      "head": {
+        "committerDate": "2026-10-17T17:56:01Z",
+        "sha": "5ebc96f97c3a459284f1572e29cd151f24e4a09c",
+        "subject": "Fixed potential crash looking for \"NES Controller\""
+      },
+      "base": {
+        "committerDate": "2026-10-02T19:32:07Z",
+        "sha": "4a17e772ea9a4ff77dd10fa6ea6f45fc6731eb01",
+        "subject": "wayland: Don't defer clipboard source submission when no serial is available"
+      },
+      "comparison": {
+        "ahead_by": 91,
+        "behind_by": 0,
+        "mergeBase": "4a17e772ea9a4ff77dd10fa6ea6f45fc6731eb01",
+        "status": "ahead",
+        "total_commits": 91
+      }
+    },
+    {
+      "component": "SPIRV-Cross",
+      "includedVersion": "pinned main snapshot",
+      "repository": "KhronosGroup/SPIRV-Cross",
+      "pin": "aa217aeb6c9f0ace7a0ab233b28807edf45eb165",
+      "checkedClientDate": "2026-10-17",
+      "defaultBranch": "main",
+      "head": {
+        "committerDate": "2026-10-14T11:31:50Z",
+        "sha": "300681bbcb8365a8d1eacdacdbdd0249bbf1d6b1",
+        "subject": "MSL: Preserve negative zero in precise multiplication"
+      },
+      "base": {
+        "committerDate": "2026-09-22T08:57:59Z",
+        "sha": "aa217aeb6c9f0ace7a0ab233b28807edf45eb165",
+        "subject": "This PR adds a CONTRIBUTING file which includes a legally mandated AI Contributions block of text and adds CLA pre-disclosure with a link to the CLA text"
+      },
+      "comparison": {
+        "ahead_by": 1,
+        "behind_by": 0,
+        "mergeBase": "aa217aeb6c9f0ace7a0ab233b28807edf45eb165",
+        "status": "ahead",
+        "total_commits": 1
+      }
+    },
+    {
+      "component": "SPIRV-Tools",
+      "includedVersion": "pinned source snapshot",
+      "repository": "KhronosGroup/SPIRV-Tools",
+      "pin": "ba9a9e32160e2500ce1e48cc563a8fedaf596e6e",
+      "checkedClientDate": "2026-10-17",
+      "defaultBranch": "main",
+      "head": {
+        "committerDate": "2026-10-16T17:52:40Z",
+        "sha": "71f287f18ed78d496e724fbfb1c3feae3a2af75a",
+        "subject": "spirv-val: Allow debug types for DebugTypedef and DebugTypeVector (#6965)"
+      },
+      "base": {
+        "committerDate": "2026-09-18T16:12:55Z",
+        "sha": "ba9a9e32160e2500ce1e48cc563a8fedaf596e6e",
+        "subject": "spirv-fuzz: Handle composites without static index bounds (#6890)"
+      },
+      "comparison": {
+        "ahead_by": 61,
+        "behind_by": 0,
+        "mergeBase": "ba9a9e32160e2500ce1e48cc563a8fedaf596e6e",
+        "status": "ahead",
+        "total_commits": 61
+      }
+    },
+    {
+      "component": "SPIRV-Headers",
+      "includedVersion": "pinned source snapshot",
+      "repository": "KhronosGroup/SPIRV-Headers",
+      "pin": "2b7475f6d664efbad4d4315c94ecec9640831e5b",
+      "checkedClientDate": "2026-10-17",
+      "defaultBranch": "main",
+      "head": {
+        "committerDate": "2026-10-02T19:57:46Z",
+        "sha": "86f980c731e62ae4eaf383d320449d71687936bf",
+        "subject": "clean up SPV_INTEL_memory_access_aliasing (#637)"
+      },
+      "base": {
+        "committerDate": "2026-09-18T20:41:02Z",
+        "sha": "2b7475f6d664efbad4d4315c94ecec9640831e5b",
+        "subject": "update headers for SPV_INTEL_device_barrier (#628)"
+      },
+      "comparison": {
+        "ahead_by": 3,
+        "behind_by": 0,
+        "mergeBase": "2b7475f6d664efbad4d4315c94ecec9640831e5b",
+        "status": "ahead",
+        "total_commits": 3
+      }
+    },
+    {
+      "component": "MoltenVK cereal dependency",
+      "includedVersion": "pinned source snapshot",
+      "repository": "USCiLab/cereal",
+      "pin": "a56bad8bbb770ee266e930c95d37fff2a5be7fea",
+      "checkedClientDate": "2026-10-17",
+      "defaultBranch": "master",
+      "head": {
+        "committerDate": "2026-03-11T06:41:29Z",
+        "sha": "22a1b369f39be918ca79206a83c4facd759f9105",
+        "subject": "Fix the MacOS  workflow (#879)"
+      },
+      "base": {
+        "committerDate": "2025-01-20T05:00:41Z",
+        "sha": "a56bad8bbb770ee266e930c95d37fff2a5be7fea",
+        "subject": "Fix `std::array<T,0>` (#848)"
+      },
+      "comparison": {
+        "ahead_by": 3,
+        "behind_by": 0,
+        "mergeBase": "a56bad8bbb770ee266e930c95d37fff2a5be7fea",
+        "status": "ahead",
+        "total_commits": 3
+      }
+    },
+    {
+      "component": "OpenAL Soft",
+      "includedVersion": "1.25.2 source snapshot",
+      "repository": "kcat/openal-soft",
+      "pin": "8d2d2e2ed1f51df960e7eb4bb26b64625c873c0d",
+      "checkedClientDate": "2026-10-17",
+      "defaultBranch": "master",
+      "head": {
+        "committerDate": "2026-10-15T10:24:52Z",
+        "sha": "a70d4116118cdf6bc7ac58fe6ae7a805c7205c50",
+        "subject": "Fix a variable name for macOS and Haiku"
+      },
+      "base": {
+        "committerDate": "2026-09-14T12:17:21Z",
+        "sha": "8d2d2e2ed1f51df960e7eb4bb26b64625c873c0d",
+        "subject": "Use __glibcxx_assert for hardening assertions"
+      },
+      "comparison": {
+        "ahead_by": 147,
+        "behind_by": 0,
+        "mergeBase": "8d2d2e2ed1f51df960e7eb4bb26b64625c873c0d",
+        "status": "ahead",
+        "total_commits": 147
+      }
+    }
+  ],
+  "mesa": {
+    "component": "Mesa / Zink / EGL",
+    "pin": "45019c28811991cc02f87f0360235b8e4c369155",
+    "checkedClientDate": "2026-10-17",
+    "defaultBranch": "main",
+    "head": {
+      "id": "335d5698dca1d1b9d11ef18cf5f523cc0f7f58fb",
+      "title": "kk: Fix miptail computation due to behaviour difference in OS versions",
+      "committed_date": "2026-10-17T02:43:03.000+00:00"
+    },
+    "base": {
+      "id": "45019c28811991cc02f87f0360235b8e4c369155",
+      "title": "brw,jay: get rid of isub in brw_nir_opt_divergent_atomics",
+      "committed_date": "2026-10-02T20:41:43.000+00:00"
+    },
+    "comparison": {
+      "compare_timeout": true,
+      "compare_same_ref": false,
+      "returnedCommits": 1192,
+      "notice": "Returned commits can be limited by API; not advertised as an exact behind count without completeness proof."
+    }
+  }
+}

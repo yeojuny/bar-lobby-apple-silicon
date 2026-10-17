@@ -1,0 +1,95 @@
+{
+  "date": "2026-10-17",
+  "rows": [
+    {
+      "component": "Launcher",
+      "pin": "e2c45c8fcb5461acb3232539493be15cd0fda7ec",
+      "upstreamHead": "e2c45c8fcb5461acb3232539493be15cd0fda7ec",
+      "status": "same upstream base",
+      "reason": "Base equals current upstream default. Newer local dependency pins and macOS adaptations remain beyond it."
+    },
+    {
+      "component": "Lobby engine",
+      "pin": "01efdf43121dfd40d105649ef7eb89a8804662d9",
+      "upstreamHead": "01efdf43121dfd40d105649ef7eb89a8804662d9",
+      "status": "same upstream base",
+      "reason": "Base equals current upstream default; our rendering/platform patches are additional local work."
+    },
+    {
+      "component": "Chobby engine",
+      "pin": "de69361239d8c8b1012dba3f5aa3122954ea4da3",
+      "upstreamHead": "01efdf43121dfd40d105649ef7eb89a8804662d9",
+      "status": "diverged: default-only 117, selected-base-only 5",
+      "reason": "Separate published multiplayer contract/branch. Preserve identity and validated compatibility rather than aliasing the newer Lobby engine."
+    },
+    {
+      "component": "MoltenVK",
+      "pin": "52aa21f54d7a84c5c441fc26359692b0980b384c",
+      "upstreamHead": "5189f8de86ec365860f63bf1da736815cfaea5cd",
+      "status": "8 newer upstream commits after base",
+      "reason": "Retain the verified base plus selected later fixes and the local Metal4 backend. One later pipeline-cache fix is already selectively included; other changes need separate qualification."
+    },
+    {
+      "component": "Vulkan Loader",
+      "pin": "b82e310e99c20bfac8dd3123c9e939f81ce54b89",
+      "upstreamHead": "4224768e1844d31f37c5d96b15433eaf46c7bede",
+      "status": "19 newer upstream commits after base",
+      "reason": "Pinned Loader/Headers pair with selected enumeration-loop fix. Later locking/parsing/cJSON/error cleanup changes have not all received local semantic review."
+    },
+    {
+      "component": "Vulkan Headers",
+      "pin": "c46850864f4661461b0f6cb9922c058ffea4915e",
+      "upstreamHead": "acbb9391c0a597272800cd3f4363661c00a27c77",
+      "status": "1 newer upstream commits after base",
+      "reason": "The only current-base difference touches .github/workflows/ci.yml for Windows MSVC setup. No additional Vulkan API declarations in this comparison."
+    },
+    {
+      "component": "SDL3",
+      "pin": "4a17e772ea9a4ff77dd10fa6ea6f45fc6731eb01",
+      "upstreamHead": "5ebc96f97c3a459284f1572e29cd151f24e4a09c",
+      "status": "91 newer upstream commits after base",
+      "reason": "Retain the tested SDL3/Cocoa/EGL integration and local property fixes. Official latest properties file still differs by the same three local corrections."
+    },
+    {
+      "component": "SPIRV-Cross",
+      "pin": "aa217aeb6c9f0ace7a0ab233b28807edf45eb165",
+      "upstreamHead": "300681bbcb8365a8d1eacdacdbdd0249bbf1d6b1",
+      "status": "1 newer upstream commits after base",
+      "reason": "Pinned compiler plus #2687. The one later upstream commit preserves negative zero in precise multiplication; not yet included and worth a focused shader-correctness review."
+    },
+    {
+      "component": "SPIRV-Tools",
+      "pin": "ba9a9e32160e2500ce1e48cc563a8fedaf596e6e",
+      "upstreamHead": "71f287f18ed78d496e724fbfb1c3feae3a2af75a",
+      "status": "61 newer upstream commits after base",
+      "reason": "Retained paired tool/header inputs; previous call-path audit found optional diagnostic disassembly use, not a demonstrated live draw-speed gain from new optimizer proposals. Later changes remain review debt."
+    },
+    {
+      "component": "SPIRV-Headers",
+      "pin": "2b7475f6d664efbad4d4315c94ecec9640831e5b",
+      "upstreamHead": "86f980c731e62ae4eaf383d320449d71687936bf",
+      "status": "3 newer upstream commits after base",
+      "reason": "Matched build definitions retained. Later grammar/capability changes require relevance/coherence review."
+    },
+    {
+      "component": "MoltenVK cereal dependency",
+      "pin": "a56bad8bbb770ee266e930c95d37fff2a5be7fea",
+      "upstreamHead": "22a1b369f39be918ca79206a83c4facd759f9105",
+      "status": "3 newer upstream commits after base",
+      "reason": "Three later commits touch two CI files and tuple.hpp LLVM20 compilation. This comparison does not show a new runtime serialization algorithm."
+    },
+    {
+      "component": "OpenAL Soft",
+      "pin": "8d2d2e2ed1f51df960e7eb4bb26b64625c873c0d",
+      "upstreamHead": "a70d4116118cdf6bc7ac58fe6ae7a805c7205c50",
+      "status": "147 newer upstream commits after base",
+      "reason": "Preserved source/binary across the graphics campaign; 147 later upstream commits have not all been semantically audited for this port. Not a claim that the old version is intrinsically better."
+    }
+  ],
+  "mesa": "Base45019c28 vs current335d5698 differs; GitLab compare_timeout=true, exact count not asserted.",
+  "interpretation": "Ahead/behind is relative to a named base and branch. Local patch inclusion, semantic equivalence and version/commit timestamps are separate facts.",
+  "completeSemanticAuditOfAllFollowupCommits": false,
+  "nativeBuilds": 0,
+  "gameRuns": 0,
+  "settingsChanged": false
+}
