@@ -9,15 +9,15 @@ import { createPinnedBundledAssets } from "./packaging/pinned-bundled-assets";
 // Reviewed experimental release inputs. The external lock remains mandatory;
 // protected local candidates are not modified by this packaging configuration.
 const bundledAssets = createPinnedBundledAssets(process.env, {
-    id: "ai-sensor-audio-fix-20261016-candidate4",
+    id: "macos-maintenance-20261017-candidate5",
     lanes: {
         "bar-chobby": {
             engineDirectory: "2026.07.04",
-            springSha256: "0f9f5abdf97d82f388ee27ad90a45237137ad9c823c59681144bb496de88c9e9",
+            springSha256: "2db4a834a3a12d29370d3b5ff32ff1490e5cf8c702371c40c70063494ae5fc7a",
         },
         "bar-lobby": {
             engineDirectory: "2026.09.01-24-g01efdf4 master",
-            springSha256: "27932f377e05012f626d28186c9620ade8cf300ecc747cb76e78822a4746cf3d",
+            springSha256: "6d0d891100ed0b5a9772f73e1b8f435c53f6c1764bfaeff640b5a3e8934a1ab5",
         },
     },
 });
@@ -30,9 +30,9 @@ const config: Configuration = {
     // Should be the same as APP_NAME in src/main/config/app.ts and in
     // workaround in installer.nsh.
     productName: "BAR",
-    buildVersion: "0.17.0.4",
+    buildVersion: "0.17.0.5",
     extraMetadata: {
-        version: "0.17.0-candidate.4",
+        version: "0.17.0-candidate.5",
         repository: { type: "git", url: "https://github.com/yeojuny/bar-lobby-apple-silicon.git" },
     },
 

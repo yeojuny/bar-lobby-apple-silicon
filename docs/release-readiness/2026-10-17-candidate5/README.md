@@ -1,0 +1,11 @@
+# Candidate.5 validation scope
+
+This unsigned experimental Apple Silicon/macOS27 maintenance release fixes the native hardware-string input used by official Chobby analytics, recognizes the existing correct Options recursive guard, reduces diagnostic output, skips retired Mac launcher defaults and avoids a Linux-only disk lookup. Both native lanes retain their exact sync identities, compiler numeric policy, AI algorithms, accepted NoGS/CUS, display/safe-area behavior, CPU submit wait OFF and custom cost collection OFF.
+
+CPU: 859 launcher unit tests, Node/Web types, Lua144, VBO32, hardware4 sanitizer cases and defaults4 passed. All52 final native loader checks and strict ad-hoc signature passed. The DMG/ZIP preserve all1190 file/link/mode entries exactly. Existing AI and shared graphics-library bytes are unchanged from candidate.4. This release was not graphically run; earlier manual/AI/menu evidence is historical and scoped to the corresponding preceding binaries. No fresh full multiplayer/replay synchronization, CircuitAI gameplay, FPS/energy, endurance, other-Mac or clean-machine result is claimed.
+
+The native hardware string and derived sysInfoHash can change; this metadata is exposed to Lua and consumed by existing analytics. Official analytics parsing code was not replaced. Official Chobby-owned obsolete writes and map/resource warnings remain. Unknown Options shapes still report required-fix failures. Functional capability detection is retained; quieter logs do not mean all diagnostics were removed.
+
+Runtime: ARM64 Recoil OpenGL -> Mesa/Zink -> Vulkan -> MoltenVK -> Metal. SDL3 handles native window/input/events; SDL2 is not the active window backend. X11 is a display system and XQuartz its macOS implementation. This app does not require XQuartz or launch an X11 server. SDL3 does not by itself translate OpenGL to Metal; the Mesa/Zink/MoltenVK route performs that translation.
+
+The single app provides bar-lobby and Multiplayer (Chobby), sharing graphics libraries/content. Metal3 is the default and Metal4 experimental, selectable in Settings for the next native launch. Lobby keeps2026.09.01-24-g01efdf4 master; Chobby keeps2026.07.04. Ad-hoc integrity signing is not Apple Developer ID/notarization. Candidate.4 and alpha.3 remain available for rollback. AI tools assisted development and maintenance.

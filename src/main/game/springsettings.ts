@@ -13,6 +13,10 @@ const log = logger("main/game/springsettings.ts");
 
 const SPRINGSETTINGS_PATH = path.join(WRITE_DATA_PATH, "springsettings.cfg");
 
+// Both bundled macOS engines reject these retired keys. Ignore them when
+// importing launcher defaults; never remove a user's existing settings.
+const retiredMacOSSettings = new Set(["UsePBO", "GroundScarAlphaFade", "UnitLodDist", "AdvUnitShading", "FSAA", "AdvSky"]);
+
 function readSettings(filePath: string): Map<string, string> {
     const settings = new Map<string, string>();
     let fileContent = "";
@@ -45,6 +49,7 @@ export function applyDefaultSpringsettings(): void {
         const settings = readSettings(SPRINGSETTINGS_PATH);
         let changed = false;
         for (const [key, value] of Object.entries({ ...configService.getConfig().springSettings, ...(process.platform === "darwin" ? { Fullscreen: 1, GeometryShadersUnsupported: 1 } : {}) })) {
+            if (process.platform === "darwin" && retiredMacOSSettings.has(key)) continue;
             const restoreMacOSFullscreen = process.platform === "darwin" && key === "Fullscreen" && settings.get(key) !== "1";
             if (!settings.has(key) || restoreMacOSFullscreen) {
                 settings.set(key, String(value));
