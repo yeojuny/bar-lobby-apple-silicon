@@ -1,0 +1,92 @@
+# Temporary byte transport only: no app build, game, benchmark or publication.
+name: Assemble candidate5 upload
+on:
+  push:
+    branches: [release-transport-candidate5-20261017]
+permissions:
+  contents: write
+concurrency:
+  group: release-transport-candidate5-20261017
+  cancel-in-progress: false
+jobs:
+  assemble:
+    if: github.repository == 'yeojuny/bar-lobby-apple-silicon'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Reconstruct exact frozen assets and verify digests
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          python3 - <<'PYCODE'
+          import hashlib, json, pathlib, re, subprocess, urllib.parse
+          M = json.loads('{"releaseId":415910997,"tag":"v0.17.0-candidate.5","prefix":"transport-c5-a531e9b2d0","files":[{"name":"BAR-0.17.0-candidate.5-arm64.dmg","bytes":231720091,"sha256":"6a9d920e6c5417930bbf53d4223cb03d948c149c3fcb9bbdb99109f29d663b3e","reference":{"name":"BAR-0.17.0-candidate.4-arm64.dmg","id":649981664,"bytes":231740905,"sha256":"0b9a49fe21716d3d18d40dacff67e9244143bce83cda99c075750f94857355a1"},"patch":{"bytes":152418141,"sha256":"79fb0ca221f67b3c989138afbc901efb7d91e3b420b272d400b6e05fd73e6fc7"},"parts":[{"name":"transport-c5-a531e9b2d0-0-000.bin","offset":0,"bytes":16777216,"sha256":"cecc9808d8f303f7252b012c087beadba6685eae946f3070cb460e365e09606d"},{"name":"transport-c5-a531e9b2d0-0-001.bin","offset":16777216,"bytes":16777216,"sha256":"60b05c7201609e8ea442f6340573518933830587b38a525c2e2377450fd3644a"},{"name":"transport-c5-a531e9b2d0-0-002.bin","offset":33554432,"bytes":16777216,"sha256":"702069bac4b2b8dc037585fee22e163dea57069de291f8f8dd976f9d1125c6ff"},{"name":"transport-c5-a531e9b2d0-0-003.bin","offset":50331648,"bytes":16777216,"sha256":"2539b3583727ddb678d5e3cf23d3ed8a93d440aabbb812b4d6f6086784fb11da"},{"name":"transport-c5-a531e9b2d0-0-004.bin","offset":67108864,"bytes":16777216,"sha256":"9a082461c5296c323dcd448233c5dd273a73e94f22ec69b81763f51d84a33d01"},{"name":"transport-c5-a531e9b2d0-0-005.bin","offset":83886080,"bytes":16777216,"sha256":"5e933f15683e714a58b45bccccc6ca8345c5c92e2ca7a9b61064b5c9def3ddf0"},{"name":"transport-c5-a531e9b2d0-0-006.bin","offset":100663296,"bytes":16777216,"sha256":"ecd6c2532d26e654c26d0beb2f891570d5951d82fc1ada32ca1ac31941726d45"},{"name":"transport-c5-a531e9b2d0-0-007.bin","offset":117440512,"bytes":16777216,"sha256":"b542c4562572cc19f07a0a6a7479aa144ce1a889ec9678d48679a76edf06f6c6"},{"name":"transport-c5-a531e9b2d0-0-008.bin","offset":134217728,"bytes":16777216,"sha256":"edc4a87ba5d2d68009c71ba28a07ce42ddceceb34d90061b58a797eec2c021be"},{"name":"transport-c5-a531e9b2d0-0-009.bin","offset":150994944,"bytes":1423197,"sha256":"119243eb690da1568459ac0171df4d78218fa85f88b6348f2f4331539c74a5cf"}]},{"name":"BAR-0.17.0-candidate.5-arm64.zip","bytes":231629857,"sha256":"113988164148d19947eb7575170eacc8aba04237e0e1bb9ab82ffb26d716e8d5","reference":{"name":"BAR-0.17.0-candidate.4-arm64.zip","id":649982058,"bytes":231633857,"sha256":"9ce06b7f6026c170240488a3132ffa5985190340341016a1c6013ff87f098d04"},"patch":{"bytes":55304130,"sha256":"d8784c8611d7990fc934680cedc5a06a39c4b3cb041cf8340fed868abc7022fa"},"parts":[{"name":"transport-c5-a531e9b2d0-1-000.bin","offset":0,"bytes":16777216,"sha256":"adcd8f6dae9f7f63e33326f1c1ee679a9eb83507a52c89b1383f9a6d99a399ab"},{"name":"transport-c5-a531e9b2d0-1-001.bin","offset":16777216,"bytes":16777216,"sha256":"c8ca75dbf892f7112ff5faf8e6acbd56cfc3a2a010999b00bb74ffa2f1dd891b"},{"name":"transport-c5-a531e9b2d0-1-002.bin","offset":33554432,"bytes":16777216,"sha256":"ead984589ee5380c9acfc6158cf1344981b1bb9aac933bcf4ae0f373b919ec46"},{"name":"transport-c5-a531e9b2d0-1-003.bin","offset":50331648,"bytes":4972482,"sha256":"aa3c0518f2f772533dfe45a980a6f5ed076d25bdbe2a8fef24f20c253031e440"}]},{"name":"BAR-0.17.0-candidate.5-sources.tar.gz","bytes":375467171,"sha256":"25bef70188f9b495d90155cebb4f6f37d8744d583b44448d8aa82a0a61068c72","reference":{"name":"BAR-0.17.0-candidate.4-sources.tar.gz","id":649982572,"bytes":374939453,"sha256":"65e29a1b17c7d434fa6a4c97b5040a0236f1edb36d869f0b18c6fb27f70c792e"},"patch":{"bytes":194265437,"sha256":"17ffda61b98ae9e79281ab9ea59549ad0701c8ca7b894d05f4429f5a21a06a52"},"parts":[{"name":"transport-c5-a531e9b2d0-2-000.bin","offset":0,"bytes":16777216,"sha256":"0249c9821c8d2fce5cfe37e5a35491af7942d4dcc298205e99a8ce8b204f8bb1"},{"name":"transport-c5-a531e9b2d0-2-001.bin","offset":16777216,"bytes":16777216,"sha256":"0727dbf82dab6193b4a8b4fdf5373b7b8472ae19d650ceb18123b9e3126b7beb"},{"name":"transport-c5-a531e9b2d0-2-002.bin","offset":33554432,"bytes":16777216,"sha256":"26d10bae27d317b326b55a0cb712ebe5b2709385143955ff323bf0311da8881a"},{"name":"transport-c5-a531e9b2d0-2-003.bin","offset":50331648,"bytes":16777216,"sha256":"d1a22bfa2d5fb6c6d0ab5910efde086a0e8596d7826da73574b4fa4b123b1612"},{"name":"transport-c5-a531e9b2d0-2-004.bin","offset":67108864,"bytes":16777216,"sha256":"24e0ff832662721f2e1f2c5debae377c5178bd227df633842cb8faec05096f2d"},{"name":"transport-c5-a531e9b2d0-2-005.bin","offset":83886080,"bytes":16777216,"sha256":"b4b1dd1760916e90aa5751e8e4fd8be15bd847c9a8fea9443d3f4327f44ef582"},{"name":"transport-c5-a531e9b2d0-2-006.bin","offset":100663296,"bytes":16777216,"sha256":"a2593e4e20d90e0c0b92ccf8501ebbcdf1d15ce2d9f2f3e82e21000ae08aa4f3"},{"name":"transport-c5-a531e9b2d0-2-007.bin","offset":117440512,"bytes":16777216,"sha256":"6f48ab69c42703099088800978e6c70157ff51505e2e1318e2cf615f6b9a53d7"},{"name":"transport-c5-a531e9b2d0-2-008.bin","offset":134217728,"bytes":16777216,"sha256":"aec9a9ceee5332204ae1252d91a659c1c2e6f5f46138341f1452ccea49289cd0"},{"name":"transport-c5-a531e9b2d0-2-009.bin","offset":150994944,"bytes":16777216,"sha256":"104625ae0eb3fcfd1dc636d3b720f52991c5a54e714ea10a87173d66dbdd94ad"},{"name":"transport-c5-a531e9b2d0-2-010.bin","offset":167772160,"bytes":16777216,"sha256":"487a1b462c419d93026957157140d4fdf499f9d095858b53b51367be845b6477"},{"name":"transport-c5-a531e9b2d0-2-011.bin","offset":184549376,"bytes":9716061,"sha256":"e725a52277f843e58618548ff154d5a13af54e5774895da663c5c4b36ed92eb0"}]}],"baseReleaseTag":"v0.17.0-candidate.4","baseCommit":"c313b26c95fbe81b3dc8f31aaed8a7f46d185fc6","immutableSourceTagCommit":"6f902dfed061f32f6c78ffe691841cd6f0b4d689","finalAssets":[{"name":"BAR-0.17.0-candidate.5-arm64.dmg","bytes":231720091,"sha256":"6a9d920e6c5417930bbf53d4223cb03d948c149c3fcb9bbdb99109f29d663b3e"},{"name":"BAR-0.17.0-candidate.5-arm64.zip","bytes":231629857,"sha256":"113988164148d19947eb7575170eacc8aba04237e0e1bb9ab82ffb26d716e8d5"},{"name":"BAR-0.17.0-candidate.5-notices.tar.gz","bytes":4191205,"sha256":"7dce3b1f311b5d19a79762d0430dacac6fb4d135e559f9d53b2280ef499ffa8a"},{"name":"BAR-0.17.0-candidate.5-sources.tar.gz","bytes":375467171,"sha256":"25bef70188f9b495d90155cebb4f6f37d8744d583b44448d8aa82a0a61068c72"},{"name":"SHA256SUMS","bytes":406,"sha256":"56106008a1acbfc194439516551147cea243fa64c1c53170e645fbeaecc5f974"}]}')
+          REPO = 'yeojuny/bar-lobby-apple-silicon'
+          RID = M['releaseId']
+          def api(path, method='GET'):
+              return subprocess.check_output(['gh', 'api', '--method', method, path])
+          def assets():
+              rows = json.loads(api(f'repos/{REPO}/releases/{RID}/assets?per_page=100'))
+              assert len({x['name'] for x in rows}) == len(rows)
+              return {x['name']: x for x in rows}
+          def matches(remote, spec):
+              return remote['state'] == 'uploaded' and remote['size'] == spec['bytes'] and remote['digest'] == 'sha256:' + spec['sha256']
+          def digest(path):
+              h = hashlib.sha256()
+              with path.open('rb') as f:
+                  for raw in iter(lambda: f.read(1024*1024), b''): h.update(raw)
+              return h.hexdigest()
+          state = json.loads(api(f'repos/{REPO}/releases/{RID}'))
+          assert state['draft'] and state['tag_name'] == M['tag']
+          assert json.loads(api(f"repos/{REPO}/git/ref/tags/{M['tag']}"))['object']['sha'] == M['immutableSourceTagCommit']
+          remote = assets()
+          parts = [p for f in M['files'] for p in f['parts']]
+          for part in parts:
+              assert part['name'].startswith(M['prefix'] + '-') and matches(remote[part['name']], part)
+          subprocess.run(['zstd', '--version'], check=True)
+          for f in M['files']:
+              assert re.fullmatch(r'[A-Za-z0-9._-]+', f['name'])
+              if f['name'] in remote:
+                  assert matches(remote[f['name']], f)
+                  continue
+              refspec = f['reference']
+              refmeta = json.loads(api(f"repos/{REPO}/releases/assets/{refspec['id']}"))
+              assert refmeta['name'] == refspec['name'] and matches(refmeta, refspec)
+              reference = pathlib.Path('reference.bin')
+              with reference.open('wb') as target:
+                  subprocess.run(['gh', 'api', f"repos/{REPO}/releases/assets/{refspec['id']}", '-H', 'Accept: application/octet-stream'], stdout=target, check=True)
+              assert reference.stat().st_size == refspec['bytes'] and digest(reference) == refspec['sha256']
+              patch = pathlib.Path('transport.zst')
+              total = 0
+              with patch.open('wb') as target:
+                  for part in f['parts']:
+                      assert part['offset'] == total
+                      temporary = pathlib.Path('part.bin')
+                      with temporary.open('wb') as dst:
+                          subprocess.run(['gh', 'api', f"repos/{REPO}/releases/assets/{remote[part['name']]['id']}", '-H', 'Accept: application/octet-stream'], stdout=dst, check=True)
+                      assert temporary.stat().st_size == part['bytes'] and digest(temporary) == part['sha256']
+                      with temporary.open('rb') as src:
+                          for raw in iter(lambda: src.read(1024*1024), b''): target.write(raw)
+                      total += part['bytes']; temporary.unlink()
+              assert total == f['patch']['bytes'] and digest(patch) == f['patch']['sha256']
+              output = pathlib.Path(f['name'])
+              subprocess.run(['zstd', '-d', '--long=29', '--patch-from=' + str(reference), str(patch), '-o', str(output)], check=True)
+              assert output.stat().st_size == f['bytes'] and digest(output) == f['sha256']
+              url = f'https://uploads.github.com/repos/{REPO}/releases/{RID}/assets?' + urllib.parse.urlencode({'name': f['name']})
+              item = json.loads(subprocess.check_output(['gh', 'api', '--method', 'POST', '-H', 'Content-Type: application/octet-stream', '--input', str(output), url]))
+              assert matches(item, f); remote[f['name']] = item
+              print('Verified exact final asset:', f['name'], f['sha256'], flush=True)
+              output.unlink(); reference.unlink(); patch.unlink()
+          remote = assets()
+          for f in M['finalAssets']: assert matches(remote[f['name']], f)
+          # Remove only this attempt's exact verified transport chunks after all five final assets pass.
+          for p in parts:
+              assert matches(remote[p['name']], p)
+              api(f"repos/{REPO}/releases/assets/{remote[p['name']]['id']}", 'DELETE')
+          remote = assets()
+          assert set(remote) == {x['name'] for x in M['finalAssets']}
+          for f in M['finalAssets']: assert matches(remote[f['name']], f)
+          assert json.loads(api(f'repos/{REPO}/releases/{RID}'))['draft']
+          print(json.dumps({'status': 'all-final-assets-verified', 'releaseId': RID, 'temporaryPartsRemoved': len(parts), 'releaseStillDraft': True}))
+          PYCODE
