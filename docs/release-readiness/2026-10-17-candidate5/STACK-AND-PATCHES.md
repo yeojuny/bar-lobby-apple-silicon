@@ -1,6 +1,6 @@
 # Runtime stack and integrated patches — candidate.5
 
-The packaged route is **ARM64 Recoil OpenGL → Mesa/Zink → Vulkan Loader → MoltenVK → Metal**. Electron provides the launcher. SDL3 provides native macOS window/input/event integration through Cocoa and the existing EGL/CAMetalLayer bridge. SDL3 does not translate OpenGL to Metal. This runtime does not require an X11 server or XQuartz installation; X11 is the display system and XQuartz its macOS implementation. SDL2 is not the active window backend, even though historical/unused targets or compatibility names may still mention it. This app is separate from any native Metal4 renderer project.
+The packaged route is **ARM64 Recoil OpenGL → Mesa/Zink → Vulkan Loader → MoltenVK → Metal**. Electron provides the launcher. SDL3 provides native macOS window/input/event integration through Cocoa and the existing EGL/CAMetalLayer bridge. SDL3 does not translate OpenGL to Metal. This runtime does not require an X11 server or XQuartz installation; X11 is the display system and XQuartz its macOS implementation. SDL2 is not the active window backend, even though historical/unused targets or compatibility names may still mention it. A separate **Native Metal 4 project will be made public soon**. Its performance relative to this MoltenVK-based version is not yet known; it may be faster or slower.
 
 ## Exact shipped source baseline
 
