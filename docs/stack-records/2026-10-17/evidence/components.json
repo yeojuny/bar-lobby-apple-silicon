@@ -1,0 +1,104 @@
+{
+  "date": "2026-10-17",
+  "scope": "Published candidate.4 baseline; candidate.5 maintenance keeps these shared-runtime pins",
+  "components": [
+    {
+      "component": "Launcher",
+      "version": "bar-lobby snapshot",
+      "repository": "https://github.com/beyond-all-reason/bar-lobby",
+      "upstreamPin": "e2c45c8fcb5461acb3232539493be15cd0fda7ec",
+      "scope": "Local macOS integration; public fork master is a documentation/source publication identity, not the upstream base."
+    },
+    {
+      "component": "Lobby engine",
+      "version": "2026.09.01-24-g01efdf4 master",
+      "repository": "https://github.com/beyond-all-reason/RecoilEngine",
+      "upstreamPin": "01efdf43121dfd40d105649ef7eb89a8804662d9",
+      "scope": "Development engine lane; local rendering/platform fixes."
+    },
+    {
+      "component": "Chobby engine",
+      "version": "2026.07.04",
+      "repository": "https://github.com/beyond-all-reason/RecoilEngine",
+      "upstreamPin": "de69361239d8c8b1012dba3f5aa3122954ea4da3",
+      "scope": "Official multiplayer identity retained; different source lane and local macOS fixes."
+    },
+    {
+      "component": "Mesa / Zink / EGL",
+      "version": "26.3.0-devel",
+      "repository": "https://gitlab.freedesktop.org/mesa/mesa",
+      "upstreamPin": "45019c28811991cc02f87f0360235b8e4c369155",
+      "scope": "Development snapshot plus selected MR commits and local changes; not a released stable Mesa build."
+    },
+    {
+      "component": "MoltenVK",
+      "version": "1.4.3-derived",
+      "repository": "https://github.com/KhronosGroup/MoltenVK",
+      "upstreamPin": "52aa21f54d7a84c5c441fc26359692b0980b384c",
+      "scope": "Pinned main plus retained PR content/local Metal4 backend. Local revision 0e7c41b9 is NOT an upstream commit or official Metal4 release."
+    },
+    {
+      "component": "Vulkan Loader",
+      "version": "1.4.365",
+      "repository": "https://github.com/KhronosGroup/Vulkan-Loader",
+      "upstreamPin": "b82e310e99c20bfac8dd3123c9e939f81ce54b89",
+      "scope": "Pinned source plus selected #2050; app-local loader/ICD closure."
+    },
+    {
+      "component": "Vulkan Headers",
+      "version": "1.4.365",
+      "repository": "https://github.com/KhronosGroup/Vulkan-Headers",
+      "upstreamPin": "c46850864f4661461b0f6cb9922c058ffea4915e",
+      "scope": "Build headers; a header version does not prove runtime feature support."
+    },
+    {
+      "component": "SDL3",
+      "version": "3.5.0 development snapshot",
+      "repository": "https://github.com/libsdl-org/SDL",
+      "upstreamPin": "4a17e772ea9a4ff77dd10fa6ea6f45fc6731eb01",
+      "scope": "Local property failure-path correction. Active backend is SDL3, not SDL2 or SDL_GPU."
+    },
+    {
+      "component": "SPIRV-Cross",
+      "version": "pinned main snapshot",
+      "repository": "https://github.com/KhronosGroup/SPIRV-Cross",
+      "upstreamPin": "aa217aeb6c9f0ace7a0ab233b28807edf45eb165",
+      "scope": "Plus selected #2687; shader translation, not a separate renderer."
+    },
+    {
+      "component": "SPIRV-Tools",
+      "version": "pinned source snapshot",
+      "repository": "https://github.com/KhronosGroup/SPIRV-Tools",
+      "upstreamPin": "ba9a9e32160e2500ce1e48cc563a8fedaf596e6e",
+      "scope": "Dependency pin; no extra optimizer PR implied by investigation records."
+    },
+    {
+      "component": "SPIRV-Headers",
+      "version": "pinned source snapshot",
+      "repository": "https://github.com/KhronosGroup/SPIRV-Headers",
+      "upstreamPin": "2b7475f6d664efbad4d4315c94ecec9640831e5b",
+      "scope": "Matched SPIR-V build definitions."
+    },
+    {
+      "component": "MoltenVK cereal dependency",
+      "version": "pinned source snapshot",
+      "repository": "https://github.com/USCiLab/cereal",
+      "upstreamPin": "a56bad8bbb770ee266e930c95d37fff2a5be7fea",
+      "scope": "Separate from the Recoil engine cereal submodule; #758 was not adopted."
+    },
+    {
+      "component": "OpenAL Soft",
+      "version": "1.25.2 source snapshot",
+      "repository": "https://github.com/kcat/openal-soft",
+      "upstreamPin": "8d2d2e2ed1f51df960e7eb4bb26b64625c873c0d",
+      "scope": "Normal macOS audio backend in manual/product launch. Validation null-backend settings are not product defaults."
+    },
+    {
+      "component": "Bundled pr-downloader source",
+      "version": "Chobby 8263d01 source input",
+      "repository": "https://github.com/beyond-all-reason/pr-downloader",
+      "upstreamPin": "8263d01",
+      "scope": "Abbreviated source identifier from the complete source companion archive name; not substituted for either engine gitlink. Archive hash is authoritative."
+    }
+  ]
+}

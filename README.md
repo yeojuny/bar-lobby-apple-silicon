@@ -55,3 +55,7 @@ Detailed [validation scope](docs/release-readiness/2026-10-17-candidate5/README.
 Download the matching sources, notices and SHA256SUMS alongside each release. GitHub's automatic launcher-only archive is not the complete application source.
 
 Upstream BAR, bar-lobby, Chobby, Recoil, Mesa, MoltenVK and dependency authors retain their credits and licenses. This software is based in part on the work of the **FreeType Team** ([freetype.org](https://freetype.org)). Original installer/launcher artwork is CC0; game assets and trademarks are not relicensed. This is an independent port. AI tools assisted development and review.
+
+## Source, integrations and reusable patches
+
+See the [detailed stack and PR/MR ledger](docs/stack-records/2026-10-17/README.md) for exact devel/RC pins, inherited versus selected changes and upstream status. [r73/r75 feature patches](docs/engine-patches/README.md) include attribution, exact base files and scoped local validation.

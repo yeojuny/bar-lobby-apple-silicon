@@ -1,0 +1,456 @@
+{
+  "notice": "Historical intake and attribution context, not current upstream approval status. Cumulative patches include inherited macOS work, selected upstream contributions, and subsequent local changes. Do not attribute every hunk to this project.",
+  "mesa": {
+    "schema": "run95-mesa-source-integration-v1",
+    "status": "source-ready-cpu-checked-build-not-run",
+    "sourceDirectory": "${WORKSPACE}/build/run66-mesa-src-20260903",
+    "officialBase": "45019c28811991cc02f87f0360235b8e4c369155",
+    "installedOfficialBase": "590bf21d918c86908d96d1f4590ecd25b9657171",
+    "sourceInventorySha256": "2915aed24c108676e14380978df7e0ee5b68d96d459ae12b88654571a98e2a1b",
+    "sourceFileCount": 12909,
+    "patchSeries": [
+      {
+        "patch": "01-mesa-run66-selected-local.patch",
+        "kind": "retained",
+        "origin": "BAR.app/Contents/Resources/bundled-assets/runtime/provenance/run92/patches/mesa-run66-selected-local.patch",
+        "sha256": "2de1c4db5b35ea42580e70e0b7fa52f22bbcd3967a56393a76ebcbc1c807ec95"
+      },
+      {
+        "patch": "02-mesa-device-loss-teardown.patch",
+        "kind": "retained",
+        "origin": "BAR.app/Contents/Resources/bundled-assets/runtime/provenance/run92/patches/mesa-device-loss-teardown.patch",
+        "sha256": "73d623404fa7da5283ec93c60bbdeeab5b9d2fd60b5935d8c49ffee8e5ecdc1a"
+      },
+      {
+        "patch": "03-mesa-43541.patch",
+        "kind": "retained",
+        "origin": "BAR.app/Contents/Resources/bundled-assets/runtime/provenance/run92/patches/mesa-43541.patch",
+        "sha256": "89397b74b9338a5f291c716eabed2485d47b4c170b268ba4dd5e65f848716756"
+      },
+      {
+        "patch": "04-mesa-zink-vertex-input-0011.patch",
+        "kind": "retained",
+        "origin": "artifacts/runtime/run94-zink-vertex-input-0011-20260922/patches/mesa-zink-vertex-input-0011.patch",
+        "sha256": "d1757fccabb83ef72c95bc858692f9fbea280bebd2cacf860e65fc3980b8face"
+      },
+      {
+        "patch": "05-commit-07c356d5.patch",
+        "kind": "new-reviewed",
+        "origin": "commit-07c356d5.json",
+        "sha256": "e5abd1cb10201c0c9bbe9cd498925acfa4466f0c64a2948294c3713d54aa1b7c"
+      },
+      {
+        "patch": "06-mr-44707-diffs.patch",
+        "kind": "new-reviewed",
+        "origin": "mr-44707-diffs.json",
+        "sha256": "d3a29fd15ea098a9d71115707f66b242aa5cbdb9dacfb139b3207923b89767d4"
+      },
+      {
+        "patch": "07-mr-38708-diffs.patch",
+        "kind": "new-reviewed",
+        "origin": "mr-38708-diffs.json",
+        "sha256": "626a722d4847d3ee8adead53b9dbbb40b7546cc0b8b3a7aec41de5cd2d377514"
+      },
+      {
+        "patch": "08-mr-43440-diffs.patch",
+        "kind": "new-reviewed",
+        "origin": "mr-43440-diffs.json",
+        "sha256": "a772757a0e260a77e73b10cdbc4c98688fef71690bf9a869abd53c8e141b5273"
+      }
+    ],
+    "changedFiles": [
+      {
+        "path": "src/compiler/nir/nir_search.c",
+        "officialSha256": "cee0d6eb71571c09648eca6e17705726223d206e2d29b15773365e06f9f964ff",
+        "integratedSha256": "dd78aa17f01b1ef721a23ff5391f10d88895c55253a193bbea62d5f33466202d"
+      },
+      {
+        "path": "src/egl/drivers/dri2/egl_dri2.c",
+        "officialSha256": "7f58fb49db70f75e9c6656caba182868630a738a5eafb48b90697c593ef06cad",
+        "integratedSha256": "43bcddba8a990424d5cca58a07d35ec66ff64679911890f9440ab7855e41cf3b"
+      },
+      {
+        "path": "src/egl/drivers/dri2/egl_dri2.h",
+        "officialSha256": "b09c6121dd8b9e08e5d7a725d9ceb410b890b191c5c61d39cdfacae52b353f71",
+        "integratedSha256": "6951aea89da63b3077f61df146009b02ffe6a320f50b9112797f7ccc68ea57f2"
+      },
+      {
+        "path": "src/egl/drivers/dri2/platform_surfaceless.c",
+        "officialSha256": "e990f157398ee1cb5067fc7a5c7f452c2f0becb9edab8c58d9b14940db576645",
+        "integratedSha256": "f0a58fe9a55553fc1accc4af9ff1b431bebf1c2b72734c25afe5b4ce5e7fd889"
+      },
+      {
+        "path": "src/egl/main/egldisplay.c",
+        "officialSha256": "3be21251b6bf7ef5df61992daf680271dfa6b4bb3c2e93d1c58802d45ec7068a",
+        "integratedSha256": "117877ddeee875d99f865b0059af101beb0435a66bf99eaf50b3584597fcdab6"
+      },
+      {
+        "path": "src/egl/main/egldisplay.h",
+        "officialSha256": "51a062d62f7ab2b65ddaf4f0cd66585b803c81fb8bab94d69d1ec7cab3526036",
+        "integratedSha256": "96c2c840e84cd0bca05306d80fff61fa7c84b3f9783ae87bb3836ad8fb4ab773"
+      },
+      {
+        "path": "src/gallium/auxiliary/nir/tgsi_to_nir.c",
+        "officialSha256": "755f85617fa4f38923c759d1f27029c078c2bc47aead66abbb79130fea3f9b17",
+        "integratedSha256": "10114bba63e75b3c26bc1e64f8f9c2927d829b18725af4181473e380c710e392"
+      },
+      {
+        "path": "src/gallium/auxiliary/pipe-loader/pipe_loader_sw.c",
+        "officialSha256": "485e76e96baab4e2743bb631a966398d870c024f940f8f9995d170a6503c5583",
+        "integratedSha256": "bbdc45c9fd584896fac542026e91cbbe0edbc81df64605bfdcbae6bc1e40d1ab"
+      },
+      {
+        "path": "src/gallium/auxiliary/util/u_range.h",
+        "officialSha256": "26a8aee3a8ec0aa919b1b69903186106404a7d3a5628c9b9cec75afe0a878697",
+        "integratedSha256": "9c8baa2d78e218c997266de7e8cbfc2a9dc301935a879de16e84bc6b7817be15"
+      },
+      {
+        "path": "src/gallium/drivers/zink/zink_context.c",
+        "officialSha256": "75a14ded04d9d8e3aaf5b482fae9da20a841c7b51a1b4dd14d5bf6031a7abcbf",
+        "integratedSha256": "36fae6f6495465d418a01c2af1b07016ad742882f1acaa2328dac7717fa2d320"
+      },
+      {
+        "path": "src/gallium/drivers/zink/zink_context.h",
+        "officialSha256": "7c991ac8083e709c24d0d5f83391cf4f9e37d86bcfaef0579cce81aab1958825",
+        "integratedSha256": "fb2f1c70706a9d26edfcb171439044f4df3ca521de25a8b1bbd9b385abfae66f"
+      },
+      {
+        "path": "src/gallium/drivers/zink/zink_device_info.py",
+        "officialSha256": "77aba859a5280b28c091957ec1eca50793376601d40962a71eb95dd80ad2fea9",
+        "integratedSha256": "05fcfd69d13f2b85283b36d9ff781332bc260b1609d08288552c5d01737b9b7c"
+      },
+      {
+        "path": "src/gallium/drivers/zink/zink_draw.cpp",
+        "officialSha256": "73c6e882b6d63109419be5297e36c99da3a8ad54ad7ba40ad4b1e384e5c05eb4",
+        "integratedSha256": "76c7ea11650338fe93bddf91c763e147b07b9375acc5924e7bb484cea6af1213"
+      },
+      {
+        "path": "src/gallium/drivers/zink/zink_instance.py",
+        "officialSha256": "2e8b8e7470b863bdeac71a0b5d1b9cdab85bb2752aa9dc487408fb19fd2f90c8",
+        "integratedSha256": "962bb251d8e80c6657e8bcdbd6378f8f542256320876910f0afb58d140f206cf"
+      },
+      {
+        "path": "src/gallium/drivers/zink/zink_kopper.c",
+        "officialSha256": "53d1b514d0ce409aa775d59426387003f81c9d0f2d3cc9d9dfb172f99d83dc04",
+        "integratedSha256": "ce328b2988daed1028bd409f372250079d03dbae95a4bdae23a8abe5f0e6c877"
+      },
+      {
+        "path": "src/gallium/drivers/zink/zink_kopper.h",
+        "officialSha256": "626c18cd95046f8b4d6da35a53ba2ddfbe0c7a88aabd4566f3541f2d8a311424",
+        "integratedSha256": "1f480178afd19e46daf47ca39cd772891fe9d88e1ff6fc4772eb5dab8ea554e4"
+      },
+      {
+        "path": "src/gallium/drivers/zink/zink_screen.c",
+        "officialSha256": "11dd7bc279f09df81bd53f847fab86f29433843a2efd46de85a84c326665933e",
+        "integratedSha256": "784f23c50c9d4df8f73c299e1c495b9f350131a43e54bf09033173f8e8c8b845"
+      },
+      {
+        "path": "src/gallium/drivers/zink/zink_types.h",
+        "officialSha256": "a006d5af5eb231c5ee0f0d381853b3c98237f6844abf827b9543cf72530393dd",
+        "integratedSha256": "dce274f0e32190e23dfdef0e9f1a87dd8ac29c8ef3de00ed66157afe157d2ee4"
+      },
+      {
+        "path": "src/mesa/main/draw.c",
+        "officialSha256": "b7c46e2fb3464e3b11dad73e144c3a69d7b14105883142148e0334094cb9db4d",
+        "integratedSha256": "8074a0cacedeaed482f1f0e6256bdfe5a62f91e7ed9f33f7872743f9662d87e6"
+      },
+      {
+        "path": "src/mesa/main/format_utils.c",
+        "officialSha256": "26fa275e4f43e6da2c0c6b9419a9d391c5d5a1b75981c157337a482112a20c8e",
+        "integratedSha256": "fe2fd1819627a750d4635242d546495f81d28974e4341e05a6a973471f2efb12"
+      },
+      {
+        "path": "src/mesa/state_tracker/st_draw.c",
+        "officialSha256": "9f04bfc1eff4a7221fb5ae3fe171c3d6802fca80e0d736e26f42337fadfd3110",
+        "integratedSha256": "8d48fd92c3bfc15dce6c86c3e38d927bb4ea0de039e2050a955578dadb7914b4"
+      },
+      {
+        "path": "src/mesa/state_tracker/st_draw.h",
+        "officialSha256": "f8ff82a50796a7bf7e09f19aded144677ef19fd61aadf9272fa9c5138eab91b9",
+        "integratedSha256": "e82398f048894ae612f78d5c72a7ab6e6eea46b42f18748b9153496f0eb796cd"
+      },
+      {
+        "path": "src/mesa/state_tracker/st_draw_feedback.c",
+        "officialSha256": "8408143d7fbdd903705de85e74ce8c830179c52b9715ae1788c5d616232b7253",
+        "integratedSha256": "bd6a76b8e79df558ed42f73a97132e8a4e167e9dd95cc278ad3d8eeec1c4549b"
+      }
+    ],
+    "inputs": [
+      {
+        "path": "artifacts/runtime/run95-stack-update-20261002/mesa/01-mesa-run66-selected-local.patch",
+        "sha256": "2de1c4db5b35ea42580e70e0b7fa52f22bbcd3967a56393a76ebcbc1c807ec95"
+      },
+      {
+        "path": "artifacts/runtime/run95-stack-update-20261002/mesa/02-mesa-device-loss-teardown.patch",
+        "sha256": "73d623404fa7da5283ec93c60bbdeeab5b9d2fd60b5935d8c49ffee8e5ecdc1a"
+      },
+      {
+        "path": "artifacts/runtime/run95-stack-update-20261002/mesa/03-mesa-43541.patch",
+        "sha256": "89397b74b9338a5f291c716eabed2485d47b4c170b268ba4dd5e65f848716756"
+      },
+      {
+        "path": "artifacts/runtime/run95-stack-update-20261002/mesa/04-mesa-zink-vertex-input-0011.patch",
+        "sha256": "d1757fccabb83ef72c95bc858692f9fbea280bebd2cacf860e65fc3980b8face"
+      },
+      {
+        "path": "artifacts/runtime/run95-stack-update-20261002/mesa/05-commit-07c356d5.patch",
+        "sha256": "e5abd1cb10201c0c9bbe9cd498925acfa4466f0c64a2948294c3713d54aa1b7c"
+      },
+      {
+        "path": "artifacts/runtime/run95-stack-update-20261002/mesa/06-mr-44707-diffs.patch",
+        "sha256": "d3a29fd15ea098a9d71115707f66b242aa5cbdb9dacfb139b3207923b89767d4"
+      },
+      {
+        "path": "artifacts/runtime/run95-stack-update-20261002/mesa/07-mr-38708-diffs.patch",
+        "sha256": "626a722d4847d3ee8adead53b9dbbb40b7546cc0b8b3a7aec41de5cd2d377514"
+      },
+      {
+        "path": "artifacts/runtime/run95-stack-update-20261002/mesa/08-mr-43440-diffs.patch",
+        "sha256": "a772757a0e260a77e73b10cdbc4c98688fef71690bf9a869abd53c8e141b5273"
+      },
+      {
+        "path": "artifacts/runtime/run95-stack-update-20261002/mesa/author-austriancoder.json",
+        "sha256": "cd919423113ca86672c1feb2c6deb66d5233e656d714e5d847ce7b13845f440d"
+      },
+      {
+        "path": "artifacts/runtime/run95-stack-update-20261002/mesa/author-flexusjan.json",
+        "sha256": "1012e274824b2038da9ccb5e75b4be451480a1723511f365375d1d5f02ff823f"
+      },
+      {
+        "path": "artifacts/runtime/run95-stack-update-20261002/mesa/commit-07c356d5.json",
+        "sha256": "5867d53bf027a211f745c853e0a9fd96bf769b4ef8445eab655ba6daf431fe6e"
+      },
+      {
+        "path": "artifacts/runtime/run95-stack-update-20261002/mesa/cpu-check.py",
+        "sha256": "90f4b47235651a8dd8b9e98c57ed85d6b5f3472648ef448fa1fd282293411b4b"
+      },
+      {
+        "path": "artifacts/runtime/run95-stack-update-20261002/mesa/cpu-index.json",
+        "sha256": "5e510336168404e1c54a5213526df130ece97092694a92de66af824bf23df3d1"
+      },
+      {
+        "path": "artifacts/runtime/run95-stack-update-20261002/mesa/cpu-neon.json",
+        "sha256": "eb9592c7951e60d947d048e79c96c4b25fee15dfd8cf768089751fdfb96c67cb"
+      },
+      {
+        "path": "artifacts/runtime/run95-stack-update-20261002/mesa/cpu-nir-index.py",
+        "sha256": "c1f2370c5af2d01ad069b26edf6812bdeb5d4e89c0ac16e2183f0bacba85a06b"
+      },
+      {
+        "path": "artifacts/runtime/run95-stack-update-20261002/mesa/cpu-nir.json",
+        "sha256": "0b87588a6e03346c2991f53d23fe31cc658e9c10df576272a874ccb65f40d0ef"
+      },
+      {
+        "path": "artifacts/runtime/run95-stack-update-20261002/mesa/download-evidence.json",
+        "sha256": "4818b5a3e0ac1e75492710aff1995b1cdc4abc59197ae15e4e910ad6c50ede35"
+      },
+      {
+        "path": "artifacts/runtime/run95-stack-update-20261002/mesa/finalize.py",
+        "sha256": "ec9041e665073e9fff569222a5e4d9110a191968d56c7fee3b7c6b8ca5f1377d"
+      },
+      {
+        "path": "artifacts/runtime/run95-stack-update-20261002/mesa/index-actual.c",
+        "sha256": "3917942954400641defeb54e5d89fa9b78e2d43891858c26e0085ad219b4fff8"
+      },
+      {
+        "path": "artifacts/runtime/run95-stack-update-20261002/mesa/integrate.py",
+        "sha256": "a1f88bf1c9d32088ba51b4f090a5c3bff6e25cad53e9443adbfdf80784ea229c"
+      },
+      {
+        "path": "artifacts/runtime/run95-stack-update-20261002/mesa/mesa-45019c28811991cc02f87f0360235b8e4c369155.tar.gz",
+        "sha256": "df09398b15a94991e551e2affb6cba5bb1e9648290a0a1a47ebfa1d2c719d203"
+      },
+      {
+        "path": "artifacts/runtime/run95-stack-update-20261002/mesa/mr-38708-approvals.json",
+        "sha256": "89ec5222b7803e382193326bc2245a934b982d68a8d1d56bd72eb5fff30b53a2"
+      },
+      {
+        "path": "artifacts/runtime/run95-stack-update-20261002/mesa/mr-38708-diffs.json",
+        "sha256": "166bb483ec4eefd157b8d895c1743e37586270d95fd73a78854223ac6d96eb6d"
+      },
+      {
+        "path": "artifacts/runtime/run95-stack-update-20261002/mesa/mr-38708.json",
+        "sha256": "a79e5b88208034aa11e3499d44644e696721f9920e595afc3c2ec691c9a207f2"
+      },
+      {
+        "path": "artifacts/runtime/run95-stack-update-20261002/mesa/mr-43440-approvals.json",
+        "sha256": "89ec5222b7803e382193326bc2245a934b982d68a8d1d56bd72eb5fff30b53a2"
+      },
+      {
+        "path": "artifacts/runtime/run95-stack-update-20261002/mesa/mr-43440-diffs.json",
+        "sha256": "c8078d077627a22a3af9eeb400785ecd41e6430556f33198180dcf64f796cedd"
+      },
+      {
+        "path": "artifacts/runtime/run95-stack-update-20261002/mesa/mr-43440.json",
+        "sha256": "a7aad3a35fb0606205fd302929df3a8c0e1bf1844cbeea139b35670e9aaad865"
+      },
+      {
+        "path": "artifacts/runtime/run95-stack-update-20261002/mesa/mr-44707-approvals.json",
+        "sha256": "89ec5222b7803e382193326bc2245a934b982d68a8d1d56bd72eb5fff30b53a2"
+      },
+      {
+        "path": "artifacts/runtime/run95-stack-update-20261002/mesa/mr-44707-diffs.json",
+        "sha256": "ec2a14a5e2ab1ff8415f69df56b9acfdbea91728008ddfd6510e823cbd98e830"
+      },
+      {
+        "path": "artifacts/runtime/run95-stack-update-20261002/mesa/mr-44707.json",
+        "sha256": "347ddfa95e785dd0acaab5739871fa05e2cdc84b08297b754a980e80bc735f26"
+      },
+      {
+        "path": "artifacts/runtime/run95-stack-update-20261002/mesa/neon-actual.c",
+        "sha256": "2c3f74a1ec547a79a30e16c9a275c26ac0ad94ff219b585d42362a089313d16e"
+      },
+      {
+        "path": "artifacts/runtime/run95-stack-update-20261002/mesa/nir-actual-branches.c",
+        "sha256": "3ad9a3da76d76dc4b358598fbc8c78f3e8de1ebd91dd1e2259c2e8d3f4d7d3e8"
+      },
+      {
+        "path": "artifacts/runtime/run95-stack-update-20261002/mesa/prepare.py",
+        "sha256": "e852c6ddcecad46f4df3a961f0f6fab4225dafa1b77c9ee6f663886a99f5a288"
+      },
+      {
+        "path": "artifacts/runtime/run95-stack-update-20261002/mesa/prior-state.json",
+        "sha256": "a2038044ad06b589043edbe402c9b9746ca03d71db3d9915083fe9e827d66c18"
+      },
+      {
+        "path": "artifacts/runtime/run95-stack-update-20261002/mesa/series.json",
+        "sha256": "5d0676f9e9297c0d55acbcb6f6873161a7eee289d84ff7712da075f83c8a91a4"
+      }
+    ],
+    "tests": {
+      "allEightPatchesCheckAndApply": true,
+      "changesRestrictedToPatchPaths": true,
+      "arm64NeonComparisons": 24960,
+      "nirVariableDifferentialCases": 4352,
+      "nirZeroComponentNegative": 1,
+      "drawIndexPredicates": 32,
+      "actualCallerOrderingChecks": 6,
+      "sanitizers": "address,undefined",
+      "fullMesaBuild": false,
+      "gameGPU": false
+    },
+    "includedOpenHeads": {
+      "44707": "2bacf9c87dcfa0a5cf10adbf371b704db449ae3a",
+      "38708": "f48aff4943b17c175efbb293f4dadd2d62eab7f9",
+      "43440": "22c0155e95e22f26d1c9d4c70d2c430ac3c084b4"
+    },
+    "reviewStatus": {
+      "mr44707": "required index preparation correctness after upstream draw preparation relocation",
+      "mr38708": "include reviewed exact head; repeated merged author; actual AArch64 function CPU pass",
+      "mr43440": "include reviewed exact head; repeated merged author; changed variable branch CPU pass",
+      "currentUpstreamApprovals": {
+        "44707": false,
+        "38708": false,
+        "43440": false
+      }
+    },
+    "held": [
+      "full MR44865 head (prune freed-current access risk); only independent 07c356d5 included",
+      "MR40962 deferred submission",
+      "MR34957 baseinstance lowering removal",
+      "broad threaded-context/upload changes",
+      "all other open MRs not explicitly selected"
+    ],
+    "limits": [
+      "Extracted CPU functions and minimal stand-ins do not establish full NIR suite, Mesa build, GPU or BAR correctness",
+      "Author microbenchmarks are not local BAR FPS evidence",
+      "No gl/GLSL version inference for Geometry Shader support; CUS/NoGS and content unchanged",
+      "Both lanes must use same shared translation runtime",
+      "Source-only preparation; existing build directory, app and engine unmodified"
+    ]
+  },
+  "moltenvk": {
+    "schema": "run95-mvk-cross-source-integration-v1",
+    "source": "build/run66-moltenvk-src-20260903",
+    "officialMain": "52aa21f54d7a84c5c441fc26359692b0980b384c",
+    "CrossPR2687": "38abe362c57311a77808b7ec4d1d0d9ceb8d9370",
+    "dependencyPins": {
+      "SPIRV-Cross": "aa217aeb6c9f0ace7a0ab233b28807edf45eb165",
+      "SPIRV-Tools": "ba9a9e32160e2500ce1e48cc563a8fedaf596e6e",
+      "SPIRV-Headers": "2b7475f6d664efbad4d4315c94ecec9640831e5b",
+      "Vulkan-Headers": "c46850864f4661461b0f6cb9922c058ffea4915e",
+      "cereal": "a56bad8bbb770ee266e930c95d37fff2a5be7fea"
+    },
+    "files": 7237,
+    "sourceManifestSha256": "164de22052080406e30639cbd048d23d1b7a86feaf615ccd36b660d703416320",
+    "sourceTreeDigest": "5257f984a56e9d058a9ece71e7086496194825d0daeeef723724143f7c59db19",
+    "officialMainChangedFiles": [
+      "ExternalRevisions/SPIRV-Headers_repo_revision",
+      "ExternalRevisions/SPIRV-Tools_repo_revision",
+      "ExternalRevisions/Vulkan-Headers_repo_revision",
+      "MoltenVK/CMakeLists.txt",
+      "MoltenVK/MoltenVK/Commands/MVKCmdDraw.mm",
+      "MoltenVK/MoltenVK/Commands/MVKCmdRendering.mm",
+      "MoltenVK/MoltenVK/Commands/MVKCommandEncoderState.h",
+      "MoltenVK/MoltenVK/Commands/MVKCommandEncoderState.mm",
+      "MoltenVK/MoltenVK/Commands/MVKCommandPipelineStateFactoryShaderSource.h",
+      "MoltenVK/MoltenVK/GPUObjects/MVKPipeline.mm",
+      "MoltenVK/MoltenVK/GPUObjects/MVKShaderModule.mm",
+      "MoltenVK/MoltenVK/Utility/MVKStateTracking.h"
+    ],
+    "patches": [
+      {
+        "path": "cross-2687.patch",
+        "sha256": "6c3fb88a8128c08ba56500340652a4f2371ab0209baad74054ba1402d55b8444"
+      },
+      {
+        "path": "cross-prepared-vs-installed.patch",
+        "sha256": "7fd05e203cc6d83e979a621d23e968084ea54ed2c0153b8352707cdab04b08ff"
+      },
+      {
+        "path": "dependency-overrides.patch",
+        "sha256": "7b6f3f6cc2a1c86efcc99fdf2ee113e1736214ad3ef809201a56ee7d3b34bab8"
+      },
+      {
+        "path": "local-shader-library-copy-ownership.patch",
+        "sha256": "90381da0081c1c51df519745182343b156d8d590f5231d28a0e2605cdfac7e80"
+      },
+      {
+        "path": "prepared-vs-official-main.patch",
+        "sha256": "fb22a618d43823bfca5e71a9eb416f5f521438f40fcbecbc6808d4a98b18e5af"
+      },
+      {
+        "path": "retained-2820-followup.patch",
+        "sha256": "0f8fc61a541657120f0ff44c81fab3f62cd7088fe19d7884d91fe2b1281b38c7"
+      },
+      {
+        "path": "retained-2820.patch",
+        "sha256": "697aae1375731171b0e9e4047e34b77e450b7a498451bc9f9ff0a3265f985bc8"
+      },
+      {
+        "path": "retained-2822.patch",
+        "sha256": "3635741967480c45591958d1f87ec47d641f4d59585e046eece8f9974b8beb27"
+      },
+      {
+        "path": "retained-build-revision.patch",
+        "sha256": "8dcb37bd382de187d68e206d275502f0a726e722e6b31c5ae2d15ec1d4ae0d3d"
+      },
+      {
+        "path": "retained-dynamic-fan.patch",
+        "sha256": "0b9b6e62f61ef716a59f8a41fe5ca04512f9a9db0b1b1f410076f147deed9598"
+      }
+    ],
+    "held": [
+      "MVK2854 author criterion unfulfilled",
+      "cereal758 author criterion unfulfilled",
+      "MVK2837 invalidation contract unresolved",
+      "MVK2831 legal failing lifetime ordering unproved; documented acceptance decision",
+      "MVK2853 bundle excluded; only independent ownership fix included"
+    ],
+    "retained": [
+      "2822",
+      "2820 initial+followup",
+      "dynamic primitive topology/fan",
+      "explicit build revision"
+    ],
+    "supersededByMain": [
+      "2819 initial and held final execution-only",
+      "2823",
+      "2829",
+      "2839",
+      "2850"
+    ],
+    "buildIdentity": "Root must derive final MVK_GIT_REV from sourceTreeDigest plus all dependency/toolchain/options inputs; no reused old 97f5d0e6/0d680202 prefix. This source digest is not final build lock.",
+    "status": "source-prepared; parent build and compiler/GPU acceptance pending"
+  }
+}

@@ -1,0 +1,769 @@
+{
+  "schema": "preferred-port-source-companion-v1",
+  "release": "0.17.0-candidate.4",
+  "sourceArchives": [
+    {
+      "archive": "archives/mesa-zink-68cc-input.tar.gz",
+      "sha256": "9ca8ac89e3e4e23c23cb50d7b009a8e8cc2e27b06f7154e3ef717b38261fe3fd",
+      "bytes": 133999651,
+      "reusedFrom": "0.15.4-alpha.3",
+      "entries": 12909,
+      "readback": true
+    },
+    {
+      "archive": "archives/vulkan-loader-68cc-input.tar.gz",
+      "sha256": "68269a49344a1b2fd318f56828c0ca7104ef08ea3144e4fe97ac93061e8c7420",
+      "bytes": 1869775,
+      "reusedFrom": "0.15.4-alpha.3",
+      "entries": 292,
+      "readback": true
+    },
+    {
+      "archive": "archives/vulkan-headers-c4685086.tar.gz",
+      "sha256": "9ac18f85038eec76851fe05d3e31828107bb7d4c362ab09dcec850c77747e4a7",
+      "bytes": 3436439,
+      "reusedFrom": "0.15.4-alpha.3",
+      "entries": 89,
+      "readback": true
+    },
+    {
+      "archive": "archives/sdl3-4a17e772.tar.gz",
+      "sha256": "a0d0c257c748660936e2b19c561e338ba8198982c44b9e9dfbaf4312c515197f",
+      "bytes": 16775360,
+      "reusedFrom": "0.15.4-alpha.3",
+      "entries": 2392,
+      "readback": true
+    },
+    {
+      "archive": "archives/pr-downloader-chobby-8263d01.tar.gz",
+      "sha256": "c8b29ef73b6c143b7779022bcb1516bfa27f0cea381d494a5b8774750564be10",
+      "bytes": 381864,
+      "reusedFrom": "0.15.4-alpha.3",
+      "entries": 245,
+      "readback": true
+    },
+    {
+      "archive": "archives/openal-soft-8d2d2e2e-populated.tar.gz",
+      "sha256": "e661285a9f1365758eab1499db4a4ce779f73c63f978ac5648d2c35d53a5caef",
+      "bytes": 1610812,
+      "reusedFrom": "0.15.4-alpha.3",
+      "entries": 465,
+      "readback": true
+    },
+    {
+      "archive": "archives/moltenvk-68cc-functional-diagnostics-off.tar.gz",
+      "sha256": "7ce7b6fee52a78cedae5ec55bb8e8076763393cefcff0b5656d0d49d8ce4c56c",
+      "bytes": 8142625,
+      "reusedFrom": "0.15.4-alpha.3",
+      "entries": 7246,
+      "readback": true
+    },
+    {
+      "archive": "archives/launcher-overlay-and-profile-inputs.tar.gz",
+      "sha256": "67ba4ac6fdf949a729ad7320eeb2fd2ba589259df3cf1b2477d4a7acbc935e82",
+      "bytes": 928082,
+      "entries": 105,
+      "readback": true
+    },
+    {
+      "archive": "archives/bar-launcher-0.17.0-candidate.4.tar.gz",
+      "sha256": "0f65891b89548f5952fc3bd424084cebb8799ceb10d00d09c8d3ede9c7d2e7c5",
+      "bytes": 37674541,
+      "entries": 826,
+      "readback": true
+    },
+    {
+      "archive": "archives/recoil-lobby-01efdf4-candidate.4.tar.gz",
+      "sha256": "57288b4efda03924c21a16901c175fd27a53d84a1e66a40eb7fabcaaac8dad66",
+      "bytes": 60856097,
+      "entries": 9220,
+      "readback": true
+    },
+    {
+      "archive": "archives/recoil-chobby-2026.07.04-candidate.4.tar.gz",
+      "sha256": "6294bd446b3e70338f40d34a15bc63cf4882cceb2e46088856447169828683d4",
+      "bytes": 60193434,
+      "entries": 8936,
+      "readback": true
+    }
+  ],
+  "files": [
+    {
+      "path": "README.md",
+      "bytes": 1314,
+      "sha256": "7345fc9e7698cae210b50836366b512a303204afbf65e945f46e3f7579085d4f"
+    },
+    {
+      "path": "archives/bar-launcher-0.17.0-candidate.4.tar.gz",
+      "bytes": 37674541,
+      "sha256": "0f65891b89548f5952fc3bd424084cebb8799ceb10d00d09c8d3ede9c7d2e7c5"
+    },
+    {
+      "path": "archives/launcher-overlay-and-profile-inputs.tar.gz",
+      "bytes": 928082,
+      "sha256": "67ba4ac6fdf949a729ad7320eeb2fd2ba589259df3cf1b2477d4a7acbc935e82"
+    },
+    {
+      "path": "archives/mesa-zink-68cc-input.tar.gz",
+      "bytes": 133999651,
+      "sha256": "9ca8ac89e3e4e23c23cb50d7b009a8e8cc2e27b06f7154e3ef717b38261fe3fd"
+    },
+    {
+      "path": "archives/moltenvk-68cc-functional-diagnostics-off.tar.gz",
+      "bytes": 8142625,
+      "sha256": "7ce7b6fee52a78cedae5ec55bb8e8076763393cefcff0b5656d0d49d8ce4c56c"
+    },
+    {
+      "path": "archives/openal-soft-8d2d2e2e-populated.tar.gz",
+      "bytes": 1610812,
+      "sha256": "e661285a9f1365758eab1499db4a4ce779f73c63f978ac5648d2c35d53a5caef"
+    },
+    {
+      "path": "archives/pr-downloader-chobby-8263d01.tar.gz",
+      "bytes": 381864,
+      "sha256": "c8b29ef73b6c143b7779022bcb1516bfa27f0cea381d494a5b8774750564be10"
+    },
+    {
+      "path": "archives/recoil-chobby-2026.07.04-candidate.4.tar.gz",
+      "bytes": 60193434,
+      "sha256": "6294bd446b3e70338f40d34a15bc63cf4882cceb2e46088856447169828683d4"
+    },
+    {
+      "path": "archives/recoil-lobby-01efdf4-candidate.4.tar.gz",
+      "bytes": 60856097,
+      "sha256": "57288b4efda03924c21a16901c175fd27a53d84a1e66a40eb7fabcaaac8dad66"
+    },
+    {
+      "path": "archives/sdl3-4a17e772.tar.gz",
+      "bytes": 16775360,
+      "sha256": "a0d0c257c748660936e2b19c561e338ba8198982c44b9e9dfbaf4312c515197f"
+    },
+    {
+      "path": "archives/vulkan-headers-c4685086.tar.gz",
+      "bytes": 3436439,
+      "sha256": "9ac18f85038eec76851fe05d3e31828107bb7d4c362ab09dcec850c77747e4a7"
+    },
+    {
+      "path": "archives/vulkan-loader-68cc-input.tar.gz",
+      "bytes": 1869775,
+      "sha256": "68269a49344a1b2fd318f56828c0ca7104ef08ea3144e4fe97ac93061e8c7420"
+    },
+    {
+      "path": "build-notes/CANDIDATE4-BUILD.md",
+      "bytes": 3571,
+      "sha256": "836e16f480edceaf859221aae4b03c372ddc5926bc32414d7a7010db21f9dd08"
+    },
+    {
+      "path": "build-notes/candidate-source-correspondence.json",
+      "bytes": 5113,
+      "sha256": "95ff05c5825cdb1b696d2c9c859933292ddf0674cefff4bb84137a9ad80a8341"
+    },
+    {
+      "path": "build-notes/packaged-native-files.json",
+      "bytes": 10895,
+      "sha256": "2ef6318f7be9e8922945ad7cf719670a873673328adfba58e879d7cb23f94b93"
+    },
+    {
+      "path": "build-notes/runtime-input-lock.json",
+      "bytes": 1080,
+      "sha256": "1723071f882b26adc82bc7b2da54f315ec35179a3eca68306175b5a66e9f91c2"
+    },
+    {
+      "path": "build-support/README.md",
+      "bytes": 1817,
+      "sha256": "4b825bd11a8c148e5f24c8c4f6c9993f7b9f36d30d6c0e40ab3d3e23f09bb5ab"
+    },
+    {
+      "path": "build-support/REPRODUCE-HEADERS.md",
+      "bytes": 1702,
+      "sha256": "293e9480e7ab7371d09c27ca70c50bd501f2832cc04199b5fd85061e48706eea"
+    },
+    {
+      "path": "build-support/fixtures/cus/current-LuaShader.lua",
+      "bytes": 45641,
+      "sha256": "61e139efaf762f3940b6528c361785cacdfa9059cafe3fabef456d74f0128b23"
+    },
+    {
+      "path": "build-support/fixtures/cus/cus_gl4.frag.glsl",
+      "bytes": 47270,
+      "sha256": "33e15596c1f988f7d1ac9f52f07291350cead9c1abacf41e489b5816d13a04df"
+    },
+    {
+      "path": "build-support/fixtures/cus/cus_gl4.vert.glsl",
+      "bytes": 27269,
+      "sha256": "fc6126625533ae5aaf0a672d00fc02fa23f09f354fdb8da3f2d93f6e39d3d97c"
+    },
+    {
+      "path": "build-support/fixtures/cus-historical/pr8631-cus.vert.glsl",
+      "bytes": 26451,
+      "sha256": "1f66f88420808611e1e993d21ad795b65260b4842685eca76aa0a6dd5073a15a"
+    },
+    {
+      "path": "build-support/fixtures/cus-historical/selected-LuaShader.lua",
+      "bytes": 44927,
+      "sha256": "eae8620436f9758c7ade56cf9f7fa7e14aed5d36b9181db1436da43c6be64429"
+    },
+    {
+      "path": "build-support/fixtures/cus-historical/selected-cus.frag.glsl",
+      "bytes": 45180,
+      "sha256": "f5d06a5d463b318858a5d2605842440fea03c5244fa4f0a5dcce9fd36f4b0fa1"
+    },
+    {
+      "path": "build-support/fixtures/cus-historical/selected-cus.vert.glsl",
+      "bytes": 26439,
+      "sha256": "fe5ebfe55d37084d5c239828cc8afcc4e9728524a72eb272f28e0b0dcca06b0d"
+    },
+    {
+      "path": "build-support/fixtures/lua/official-433a460-gui_fonthandler.lua",
+      "bytes": 3336,
+      "sha256": "65946448ae5595757ee3f1a99ebad03102924ef2792b9a5b09c954ecfce5534b"
+    },
+    {
+      "path": "build-support/fixtures/lua/official-433a460-instancevbotable.lua",
+      "bytes": 57352,
+      "sha256": "0beed5dc66ae5dc87938ee40c4e7b6b31e003ddd3cd04841460b4ae61832cea1"
+    },
+    {
+      "path": "build-support/fixtures/lua/official-433a460-map_edge_extension2.lua",
+      "bytes": 32017,
+      "sha256": "fd04a545e54c51bd771f504c134b448ccff5ef5bd0fb3814e074f4c32083f47e"
+    },
+    {
+      "path": "build-support/fixtures/lua/official-ebba846-gui_fonthandler.lua",
+      "bytes": 3462,
+      "sha256": "52e37cb288873df76aa9a694c4efcb0aab686b4bf9fcbc8d053525dc304eeb49"
+    },
+    {
+      "path": "build-support/fixtures/lua/official-ebba846-instancevbotable.lua",
+      "bytes": 59586,
+      "sha256": "a295511e741d2965647697fce3ad3839835ad172e56909937f2ccf9dbbf80e47"
+    },
+    {
+      "path": "build-support/fixtures/lua/official-ebba846-map_edge_extension2.lua",
+      "bytes": 18852,
+      "sha256": "13eff2ff50c61dc18c30d435b37672398fd908c4613612526d463647baff3641"
+    },
+    {
+      "path": "build-support/fixtures/provider/official-433a460-LuaShader.lua",
+      "bytes": 44927,
+      "sha256": "eae8620436f9758c7ade56cf9f7fa7e14aed5d36b9181db1436da43c6be64429"
+    },
+    {
+      "path": "build-support/fixtures/provider/official-433a460-barwidgets.lua",
+      "bytes": 103589,
+      "sha256": "42be187308e2877600f37d499bb4e891368214c14b4991facd25c35ac3601bc8"
+    },
+    {
+      "path": "build-support/fixtures/provider/official-ebba846-LuaShader.lua",
+      "bytes": 45641,
+      "sha256": "61e139efaf762f3940b6528c361785cacdfa9059cafe3fabef456d74f0128b23"
+    },
+    {
+      "path": "build-support/fixtures/provider/official-ebba846-barwidgets.lua",
+      "bytes": 138917,
+      "sha256": "95d30c04b1ba8633aa9560bed67bcebaad53f869e358bce90339109c11e2aeda"
+    },
+    {
+      "path": "build-support/fixtures/source-files.json",
+      "bytes": 3165,
+      "sha256": "aa587e38da833f20ad461ba49b2392068cb5d5ca6cca161fdc28bfdf4daa5c0e"
+    },
+    {
+      "path": "build-support/header-reproduction.json",
+      "bytes": 812,
+      "sha256": "d40b9ebe9d1f3c0d3e226e39426a09c95b564ef2ee52af82c7b67a9a9d729be8"
+    },
+    {
+      "path": "build-support/presentation-source-pins.json",
+      "bytes": 12029,
+      "sha256": "38f21bc3946ce3c8ca584da58c3fd4da8e831bbd6ed4b98b63395dc505fcb941"
+    },
+    {
+      "path": "build-support/source-files.json",
+      "bytes": 2403,
+      "sha256": "9d84d3627b49bd041707abc35c2d631ed8f1ca4fde640efe28cd663dc9872b4d"
+    },
+    {
+      "path": "build-support/sources/bar-lobby/packaging/pinned-bundled-assets.ts",
+      "bytes": 7350,
+      "sha256": "e90d3adc1de90f1f3168d4e913a895b01bc93bb526df276c88d9b4d70b3dd5c1"
+    },
+    {
+      "path": "build-support/tools/build-run94-official-ui-parity.mjs",
+      "bytes": 1576,
+      "sha256": "33bc3d6296935cbd15e21c999bcea2379a899e7cb91795815babdbde654d03ab"
+    },
+    {
+      "path": "build-support/tools/lib/run94-canonical-overlay-intake.mjs",
+      "bytes": 13007,
+      "sha256": "a6d31ab5cd40fe585234d880c8bac9f28dd3c04a36fa2a4185fb41debc8c13b2"
+    },
+    {
+      "path": "build-support/tools/lib/run94-release-source-adapter.mjs",
+      "bytes": 28517,
+      "sha256": "aed19e3cd14d09f946d9afdea965bfa190dc4a4df3a6f55c724b23059a3888ae"
+    },
+    {
+      "path": "build-support/tools/test-run94-graphics-optin-signals.lua",
+      "bytes": 39337,
+      "sha256": "874be4e3f296a2eda2a44b3c7822b030a56a11b1cb053a20ceed2266f33d9a02"
+    },
+    {
+      "path": "build-support/tools/tests/run94-canonical-overlay-intake.test.mjs",
+      "bytes": 28218,
+      "sha256": "4eeca407e25dfaca576121a1388d83b6db1192ee957492ab1809c3dd94ab38e3"
+    },
+    {
+      "path": "build-support/tools/tests/run94-cus-palette.test.lua",
+      "bytes": 14424,
+      "sha256": "bd633b73607d445f2228d745e47be1651566a1ca5e60b41bc98abed535ce33a9"
+    },
+    {
+      "path": "build-support/tools/tests/run94-cus-palette.test.mjs",
+      "bytes": 2820,
+      "sha256": "b7e3df40a6d5ad7279dc84dd39d76894712c119da7e2abbc92d92fcd5ff7ef7d"
+    },
+    {
+      "path": "build-support/tools/tests/run94-unsynced-shader-policy.test.lua",
+      "bytes": 7714,
+      "sha256": "92c204de819b3af0be95a5f642daa20ba49f7970c15702e6be38d4b4cc0be968"
+    },
+    {
+      "path": "build-support/tools/tests/run94-unsynced-shader-policy.test.mjs",
+      "bytes": 5674,
+      "sha256": "48f1fda7919b8bcbedd6d8912d852858871dd9ecd8e241efd3865d8ed9f1a71b"
+    },
+    {
+      "path": "build-support/tools/verify-instancevbo-compaction.lua",
+      "bytes": 7317,
+      "sha256": "b59cb3ce6a3e1f6c6d96727b5c2a7a7956081ee05aeb8233d5c32954f0a58175"
+    },
+    {
+      "path": "build-support/tools/verify-instancevbo-delegate.lua",
+      "bytes": 5551,
+      "sha256": "e25110b56554a66e81330febbf20c4b35d00cc906837ad23a910fc3f1b6efbfc"
+    },
+    {
+      "path": "build-support/tools/verify-macos-nogs-resize.lua",
+      "bytes": 7679,
+      "sha256": "626da976714458c25b748de83d83068d254a105d4b0905f25b40c8d589542f8d"
+    },
+    {
+      "path": "dependency-recipes/devil-1.8.0_6.rb",
+      "bytes": 3368,
+      "sha256": "a0d1e21536ba3fde9dd437e0c9477e2a4e876db88d617fdd82ab0bd3936a93fb"
+    },
+    {
+      "path": "dependency-recipes/fontconfig-2.18.3.rb",
+      "bytes": 2099,
+      "sha256": "3487cc7274c480e70db8d4e8fee529c53d95da7e905d5f66b90e93d444c37c46"
+    },
+    {
+      "path": "dependency-recipes/gcc-16.2.0.rb",
+      "bytes": 6889,
+      "sha256": "b8d9c2ed24f328a234666b433ae915b3d9c58dc592e8721520f8699c1721e6f3"
+    },
+    {
+      "path": "dependency-recipes/gettext-1.0.rb",
+      "bytes": 2157,
+      "sha256": "170f5a29d2eb95b9dd1f1f754c0f9b90692c3d5dcf6db02c199c93e2c445177d"
+    },
+    {
+      "path": "dependency-recipes/jasper-4.2.9.rb",
+      "bytes": 1920,
+      "sha256": "dd44af0a645d541bc2403ac47a4f03eac0cd90d85e7a7235051e46e92475e012"
+    },
+    {
+      "path": "dependency-recipes/jpeg-turbo-3.2.0.rb",
+      "bytes": 2595,
+      "sha256": "b1937813c7c67fa8a44a7a958f1496e9e237d942052b52d421c41e61df4b526b"
+    },
+    {
+      "path": "dependency-recipes/libogg-1.3.6.rb",
+      "bytes": 2387,
+      "sha256": "e31fcdaf937004b95262421789f2d9c749dc74cdd47f84e15f2cdd974a0b3bf0"
+    },
+    {
+      "path": "dependency-recipes/libtiff-4.7.2.rb",
+      "bytes": 1533,
+      "sha256": "fa0b0cc9e2487f1e22c7c844f985c49b841663480f30e09e430abdecc3884f42"
+    },
+    {
+      "path": "dependency-recipes/libvorbis-1.3.7.rb",
+      "bytes": 1981,
+      "sha256": "877d592b67f88751b839bd00b6d22af1e3eb11dce990750d0a29aacb5ba1f06d"
+    },
+    {
+      "path": "dependency-recipes/little-cms2-2.19.1.rb",
+      "bytes": 1300,
+      "sha256": "3e0c95ecef22dc910b678891f0f805d6b018ae5cf2aab6d48393dfe5c6cac594"
+    },
+    {
+      "path": "dependency-recipes/minizip-1.3.2_1.rb",
+      "bytes": 3227,
+      "sha256": "d15c8ec291dabe7b6c8c3639742799205cf08a203356e956368b12c2457adbde"
+    },
+    {
+      "path": "dependency-recipes/p7zip-16.02_3.rb",
+      "bytes": 2020,
+      "sha256": "1fcdc3c4a49f9354413b044991f9720694b47363dc1012f5016e754a1a97ac52"
+    },
+    {
+      "path": "dependency-recipes/version-reference-only/freetype-2.15.0.rb",
+      "bytes": 1394,
+      "sha256": "996aaa19623ee3f24f686922b0ca977fff33c9c2cf39f68ef688b7f9a338bb12"
+    },
+    {
+      "path": "dependency-recipes/version-reference-only/libpng-1.6.59.rb",
+      "bytes": 1772,
+      "sha256": "3ef2e9c5f499c302dc8e9f1f76980732ad850618a00606fbfac2522080632b37"
+    },
+    {
+      "path": "dependency-recipes/version-reference-only/xz-5.8.4.rb",
+      "bytes": 1085,
+      "sha256": "0a0ec0394575eadc853cdb509c8ababc01c8926b973bd76841a1f6f254e1ebdf"
+    },
+    {
+      "path": "dependency-recipes/zstd-1.5.7_1.rb",
+      "bytes": 2573,
+      "sha256": "9a9b0183896886e82b915af4db576f27d34d1cee7757d6c5beb0e1eb74c68e0d"
+    },
+    {
+      "path": "dependency-sources/OpenAL-Soft-8d2d2e2ed1f51df960e7eb4bb26b64625c873c0d.tar.gz",
+      "bytes": 1615300,
+      "sha256": "45f1decccbe79dc44eef0034951525e5b914a3b5f4cfd49ad184ce70c8fb8e5a"
+    },
+    {
+      "path": "dependency-sources/devil-1.8.0-homebrew-patch-1.patch",
+      "bytes": 1036,
+      "sha256": "324dc09896164bef75bb82b37981cc30dfecf4f1c2386c695bb7e92a2bb8154d"
+    },
+    {
+      "path": "dependency-sources/devil-1.8.0-homebrew-patch-2.patch",
+      "bytes": 2963,
+      "sha256": "7e74a4366ef485beea1c4285f2b371b6bfa0e2513b83d4d45e4e120690c93f1d"
+    },
+    {
+      "path": "dependency-sources/devil-1.8.0-homebrew-patch-3.patch",
+      "bytes": 1902,
+      "sha256": "b3a99c34cd7f9a5681f43dc0886fe360ba7d1df2dd1eddd7fcdcae7898f7a68e"
+    },
+    {
+      "path": "dependency-sources/devil-1.8.0.tar.gz",
+      "bytes": 3084833,
+      "sha256": "0075973ee7dd89f0507873e2580ac78336452d29d34a07134b208f44e2feb709"
+    },
+    {
+      "path": "dependency-sources/freefont-sfd-20090104.tar.gz",
+      "bytes": 4838853,
+      "sha256": "3655d3172c2d103ef0136a320d30748a56292a5b2e4bd8d463c402d757cea2c2"
+    },
+    {
+      "path": "dependency-sources/gettext-1.0.tar.gz",
+      "bytes": 32694085,
+      "sha256": "85d99b79c981a404874c02e0342176cf75c7698e2b51fe41031cf6526d974f1a"
+    },
+    {
+      "path": "dependency-sources/p7zip-16.02-aes-patch.zip",
+      "bytes": 2812,
+      "sha256": "838dd2175c3112dc34193e99b8414d1dc1b2b20b861bdde0df2b32dbf59d1ce4"
+    },
+    {
+      "path": "dependency-sources/p7zip-16.02-debian-patches.tar.xz",
+      "bytes": 22004,
+      "sha256": "01217dca1667af0de48935a51dc46aad442e6ebcac799d714101b7edf9651eb5"
+    },
+    {
+      "path": "dependency-sources/p7zip_16.02_src_all.tar.bz2",
+      "bytes": 4239909,
+      "sha256": "5eb20ac0e2944f6cb9c2d51dd6c4518941c185347d4089ea89087ffdd6e2341f"
+    },
+    {
+      "path": "dependency-sources/tiff-4.7.1.tar.gz",
+      "bytes": 4000609,
+      "sha256": "f698d94f3103da8ca7438d84e0344e453fe0ba3b7486e04c5bf7a9a3fabe9b69"
+    },
+    {
+      "path": "gcc-reference/COPYING.RUNTIME",
+      "bytes": 3324,
+      "sha256": "9d6b43ce4d8de0c878bf16b54d8e7a10d9bd42b75178153e3af6a815bdc90f74"
+    },
+    {
+      "path": "gcc-reference/README.md",
+      "bytes": 1224,
+      "sha256": "7c3d21db683939d6f9fd9c18e281b2c7eca2a84645528ff369832e1123fb6540"
+    },
+    {
+      "path": "gcc-reference/coverage-receipt.json",
+      "bytes": 581,
+      "sha256": "5456e5f64c09648d33058e74c177dcb041ce7c1ffc36477428b6404aa1703396"
+    },
+    {
+      "path": "gcc-reference/retained-unwind.h",
+      "bytes": 10938,
+      "sha256": "eec8b340b73916237f814687d20681f519fec0f1b3a6350af3a28741bf9d6ef0"
+    },
+    {
+      "path": "historical-alpha3-build-notes/ALPHA2-BUILD.md",
+      "bytes": 2890,
+      "sha256": "5db1251dc91df3b3d6d406e4ac51b6e105b8248fee595ac33b3c2c36f0422605"
+    },
+    {
+      "path": "historical-alpha3-build-notes/ALPHA3-BUILD.md",
+      "bytes": 2665,
+      "sha256": "aaf9128eceb605c306830635405d2c8c7ef7bbbda0b4b26f216045793ca87f81"
+    },
+    {
+      "path": "historical-alpha3-build-notes/DELIVERY-DERIVATIVE.md",
+      "bytes": 2398,
+      "sha256": "86facd8c906f5e4843800cf41f1e9e8eb058e47d89ae17aa07e2c7d417fdd13d"
+    },
+    {
+      "path": "historical-alpha3-build-notes/LAUNCHER-BUILD.md",
+      "bytes": 5774,
+      "sha256": "575e387bb5d659cf74cbbe2cdd47d5d85e1a1fcc24b3a273cca5399ff6a537fc"
+    },
+    {
+      "path": "historical-alpha3-build-notes/README.md",
+      "bytes": 1835,
+      "sha256": "91b69d839fa6a77c194a20fe8ac29f48c589f0de6d74e0e64d6cf4eef6d95c68"
+    },
+    {
+      "path": "historical-alpha3-build-notes/actual-build-inputs.json",
+      "bytes": 170576,
+      "sha256": "841b235cdff40a8c4c1d861774f90ec9c037b9fe75cebb33e0fa130d68b2e3eb"
+    },
+    {
+      "path": "historical-alpha3-build-notes/alpha2-launcher-inputs.json",
+      "bytes": 77499,
+      "sha256": "6f62aa4eba666c42df852edb59548f9d47ee0bc8c8eaf7b70f1fff83c8086374"
+    },
+    {
+      "path": "historical-alpha3-build-notes/alpha2-native-and-presentation-inputs.json",
+      "bytes": 9072,
+      "sha256": "1f06fa5a0b7733e77d0f21215f78e526ff019b75315055c3cb95a1c3b347354b"
+    },
+    {
+      "path": "historical-alpha3-build-notes/alpha2-npm-dependency-map.json",
+      "bytes": 128485,
+      "sha256": "c8f74ab967d536f4dc2789af02ff61bf6e5139cbeb907843a3ec252d9d81286b"
+    },
+    {
+      "path": "historical-alpha3-build-notes/alpha2-runtime-input-lock.json",
+      "bytes": 1066,
+      "sha256": "7a6685951f14430b861455564206d1055fcc5657b2635213703c393aa413246a"
+    },
+    {
+      "path": "historical-alpha3-build-notes/alpha3-launcher-inputs.json",
+      "bytes": 78749,
+      "sha256": "f4d88553f3099289daa4790cc129387439bc1bcbaba36576bf0ef8c9861b9466"
+    },
+    {
+      "path": "historical-alpha3-build-notes/alpha3-notice-association.json",
+      "bytes": 938,
+      "sha256": "bc347e474f8aee5fb065250189512612ebc56e91403f03b6518db050b1445ffd"
+    },
+    {
+      "path": "historical-alpha3-build-notes/alpha3-npm-dependency-map.json",
+      "bytes": 128738,
+      "sha256": "d4d79d6c3c8abe131b14eb2313ceb8cb58cb86835ad1d2e54bb0c6fcd10ed2f9"
+    },
+    {
+      "path": "historical-alpha3-build-notes/alpha3-runtime-input-lock.json",
+      "bytes": 1077,
+      "sha256": "69421c4099a2722a851dfc6d05756848b399a7c0f849f191f54b161a3455bd1a"
+    },
+    {
+      "path": "historical-alpha3-build-notes/alpha3-validation.json",
+      "bytes": 972,
+      "sha256": "6b822461b3023841ef271293a164848f08f5da0ed6b96c17f04cd1c7563a33ff"
+    },
+    {
+      "path": "historical-alpha3-build-notes/chobby-helper-lifetime-fix.json",
+      "bytes": 1646,
+      "sha256": "00987e84f51f15576356a0b8f8e9f64e4a796ebbc5f97793825b56b5b343dfa4"
+    },
+    {
+      "path": "historical-alpha3-build-notes/delivery-derivative-receipt.json",
+      "bytes": 4211,
+      "sha256": "37986aa32fe16ff04ccc856a2d809c6c1c708acfd72613af594f93e380cb8542"
+    },
+    {
+      "path": "historical-alpha3-build-notes/delivery-input-lock.json",
+      "bytes": 1060,
+      "sha256": "fc0a4c9a4b0d8994b715be2d8fdf8f66a8231d6244e959d0d23081f9dda3d115"
+    },
+    {
+      "path": "historical-alpha3-build-notes/final-launcher-inputs.json",
+      "bytes": 68132,
+      "sha256": "d8bcf950e575be624e859dca5d9ae9f272288b385ba1c373553c6f6becd4af1e"
+    },
+    {
+      "path": "historical-alpha3-build-notes/final-npm-dependency-map.json",
+      "bytes": 127914,
+      "sha256": "a68224d39b2f8e47fd54e54bf6b7f4452f71627dc2ab333469588a2323912964"
+    },
+    {
+      "path": "historical-alpha3-build-notes/launcher-startup-fix.json",
+      "bytes": 2637,
+      "sha256": "84bf21746e533be09331987417fbc9a07e8fcf0b8350a63ddc74cdd47235a4c5"
+    },
+    {
+      "path": "historical-alpha3-build-notes/public-mvk-build.json",
+      "bytes": 3232,
+      "sha256": "79df86d8c78b9436dbebb3c0ed7f35292cca4aaf37d46df701ea85f5edc5c7d1"
+    },
+    {
+      "path": "historical-alpha3-build-notes/reference-recipes/build-official-chobby.sh.txt",
+      "bytes": 2204,
+      "sha256": "926ca29a9c2d6ea6841b8eda9cc340d73cc10bbf77f3856839e3cc00decd4d2c"
+    },
+    {
+      "path": "historical-alpha3-build-notes/reference-recipes/build-r92-runtime-correctness.py.txt",
+      "bytes": 12642,
+      "sha256": "b000d75993429b43dbb0eff69057c89c3c3422ac4f47a9cce1e84210609e03fe"
+    },
+    {
+      "path": "historical-alpha3-build-notes/reference-recipes/build-run92-stack-candidate.mjs.txt",
+      "bytes": 23075,
+      "sha256": "8ea75cd169926312d5142b5fe79917ff79e5731720abd27f2cab418afd3c07f0"
+    },
+    {
+      "path": "historical-alpha3-build-notes/reference-recipes/build.py.txt",
+      "bytes": 3772,
+      "sha256": "60c72efc4169a8af5f48d70234cba4ca76eb281e761c4ab6a12ba12b43756d22"
+    },
+    {
+      "path": "historical-alpha3-build-notes/reference-recipes/run95-build-stack.py.txt",
+      "bytes": 10735,
+      "sha256": "7c04435e00fe21feca32a9b5b978b7ea581a5a24e7ab82cadad890c8bee7698b"
+    },
+    {
+      "path": "historical-candidate1-build-notes/CANDIDATE1-BUILD.md",
+      "bytes": 2393,
+      "sha256": "bbbe9425050a854b202c628bbf9a101d1b90fe2650be8876180e3c46c98e21a0"
+    },
+    {
+      "path": "historical-candidate1-build-notes/candidate-build-inputs.json",
+      "bytes": 1438,
+      "sha256": "98bfb40c9448dd37d8231b8487f4252c753f30abe6cde64911a5322e0be4d70d"
+    },
+    {
+      "path": "historical-candidate1-build-notes/candidate-notices.json",
+      "bytes": 110,
+      "sha256": "59aa097634c58aa7844a92ff25f4036a3046c0883d3fd05936ae58c1f6f7ae7a"
+    },
+    {
+      "path": "historical-candidate1-build-notes/candidate-source-correspondence.json",
+      "bytes": 4128,
+      "sha256": "eb78691f6b0bec33f6c30aae487bd9ce6f80f3fd6b2e32a762beca77de34a35e"
+    },
+    {
+      "path": "historical-candidate1-build-notes/checksum-game-lifecycle-correction.json",
+      "bytes": 1999,
+      "sha256": "c217fb753ca049cdc0a53c188c25b80416e34715bb35f9969ba5734ff372871c"
+    },
+    {
+      "path": "historical-candidate1-build-notes/engine-dependencies-integration.json",
+      "bytes": 1279,
+      "sha256": "ca3cf511313cd08f939c5bcbfb13e6dcbc21a0a66e399314beb95e49765829b7"
+    },
+    {
+      "path": "historical-candidate1-build-notes/engine-source-integration.json",
+      "bytes": 38716,
+      "sha256": "37675354b8eed33fa6a8089f51ad4ee89abc474ff2e0b047744e7665a1fefc66"
+    },
+    {
+      "path": "historical-candidate1-build-notes/launcher-build-association.json",
+      "bytes": 141003,
+      "sha256": "3a821582e01fe6fed06cb838f89d36577bc8140184e2f80e1f9cf85238390069"
+    },
+    {
+      "path": "historical-candidate1-build-notes/minimap-assessment.json",
+      "bytes": 2438,
+      "sha256": "974e1a2ed6c034dc8e459aa7adcc35db8cd0f803d2d4ba971a9f7761dfce3540"
+    },
+    {
+      "path": "historical-candidate1-build-notes/native-numeric-build-policy.json",
+      "bytes": 23292,
+      "sha256": "c8916eee646464e4e0d73e77e05eca4efc70d1b7aed83c62b2a47174120c71ee"
+    },
+    {
+      "path": "historical-candidate1-build-notes/runtime-input-lock.json",
+      "bytes": 1081,
+      "sha256": "ec8667aa51a530c015bb0f3ab6c348bc8a88008f682ad52063a8498cd27195a7"
+    },
+    {
+      "path": "historical-candidate1-build-notes/selected-native-cache.json",
+      "bytes": 36970,
+      "sha256": "4f62782fb54798ab11f0ee31ddadd12a8840d88d5b202550be4bda608ecaf29a"
+    },
+    {
+      "path": "historical-candidate1-build-notes/shipping-notice-association.json",
+      "bytes": 491,
+      "sha256": "8bb76335d38bdc009feb6723efb13a83bedfce0d25ef1ae34ad0a2ee296a8b5d"
+    },
+    {
+      "path": "inventories/bar-launcher-0.17.0-candidate.4.json",
+      "bytes": 183992,
+      "sha256": "8ad5706580c50365a8c302e50c9abee43c891b1cb6501f30e13b0ff8b3a74207"
+    },
+    {
+      "path": "inventories/launcher-overlay-and-profile-inputs.json",
+      "bytes": 25883,
+      "sha256": "e92d0c9ef1e5ca8058279078695cb4843dc510b1f91d8f280ab46d100db3ab22"
+    },
+    {
+      "path": "inventories/mesa-zink-68cc-input.json",
+      "bytes": 2810867,
+      "sha256": "52fef2837c1491a4a7a8fbc89037b66d74b18c1b2d9fb20e6405469aedf842b4"
+    },
+    {
+      "path": "inventories/moltenvk-68cc-functional-diagnostics-off.json",
+      "bytes": 1804911,
+      "sha256": "4540a0c85b03e3f1bef9cbd6b6ff660b111a2028813bad0b4f4cd1ef7fb7ef32"
+    },
+    {
+      "path": "inventories/openal-soft-8d2d2e2e-populated.json",
+      "bytes": 91984,
+      "sha256": "e24e9359cebbb8024ce8e7fe0b574d1f255764f235e7e0c9fce1b1cb1499c538"
+    },
+    {
+      "path": "inventories/pr-downloader-chobby-8263d01.json",
+      "bytes": 51132,
+      "sha256": "46950ef2cd5e923a90b173ef0aef1c572fab3b5ea5e77b43dbdc55e846cb59a9"
+    },
+    {
+      "path": "inventories/recoil-chobby-2026.07.04-candidate.4.json",
+      "bytes": 1966227,
+      "sha256": "a46722e8b5005fceca3b7c84b09f6da190c4daec4f1f37b7ae9cbe512c849029"
+    },
+    {
+      "path": "inventories/recoil-lobby-01efdf4-candidate.4.json",
+      "bytes": 2027628,
+      "sha256": "37e812f7c9b8988f838f5a66effd87f8c32f7474eccd40a639cc7d63d56dd8f1"
+    },
+    {
+      "path": "inventories/sdl3-4a17e772.json",
+      "bytes": 505468,
+      "sha256": "705c109919c9a215ebfaa76cfc34ee43f92aa7af92c6d6882f9714a8074e2982"
+    },
+    {
+      "path": "inventories/vulkan-headers-c4685086.json",
+      "bytes": 18698,
+      "sha256": "9170a8d1a9425e7f269ede9db3ef25785da1aec95b40246662fc0236e851e1f2"
+    },
+    {
+      "path": "inventories/vulkan-loader-68cc-input.json",
+      "bytes": 65123,
+      "sha256": "382285df1fe0062135976a878aed79f8d283077aa88d682d23adb6126c94589f"
+    }
+  ],
+  "preferredSourceArchiveCount": 11,
+  "sourceArchiveMembersReadback": 42725,
+  "safeSymlinksReadback": 23,
+  "privacyScope": "Exact personal workspace markers in selected source text and metadata; raw/private logs excluded; existing binary path disclosure retained",
+  "privacyFindings": [],
+  "published": false,
+  "assessmentCorrection": "build-notes/minimap-assessment.json"
+}

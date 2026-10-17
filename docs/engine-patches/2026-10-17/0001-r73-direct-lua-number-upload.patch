@@ -1,0 +1,114 @@
+--- a/rts/Lua/LuaVBOImpl.cpp
++++ b/rts/Lua/LuaVBOImpl.cpp
+@@ -637,6 +637,22 @@
+ 
+ 	const uint32_t luaTblDataSize = luaTblData.size();
+ 
++	// Lua's __len callback may delete or redefine this buffer. Validate the
++	// current storage and layout before converting into its CPU shadow.
++	VBOExistenceCheck(vbo, __func__);
++	if (!vboOwner) {
++		LuaUtils::SolLuaError("[LuaVBOImpl::%s] Engine-owned buffers cannot be uploaded", __func__);
++	}
++	if (!bufferData || bufferAttribDefsVec.empty()) {
++		LuaUtils::SolLuaError("[LuaVBOImpl::%s] Buffer definition has no upload storage", __func__);
++	}
++	if (elemOffset >= elementsCount) {
++		LuaUtils::SolLuaError("[LuaVBOImpl::%s] Invalid elemOffset [%u] >= elementsCount [%u]", __func__, elemOffset, elementsCount);
++	}
++	if (attribIdx != -1 && bufferAttribDefs.find(attribIdx) == bufferAttribDefs.cend()) {
++		LuaUtils::SolLuaError("[LuaVBOImpl::%s] attribIdx is not found in bufferAttribDefs", __func__);
++	}
++
+ 	const uint32_t luaStartIndex = static_cast<uint32_t>(std::max(luaStartIndexOpt.value_or(1), 1));
+ 	if (luaStartIndex > luaTblDataSize) {
+ 		LuaUtils::SolLuaError("[LuaVBOImpl::%s] Invalid luaStartIndex [%u] exceeds table size [%u]", __func__, luaStartIndex, luaTblDataSize);
+@@ -651,15 +667,28 @@
+ 		LuaUtils::SolLuaError("[LuaVBOImpl::%s] Invalid luaStartIndex [%u] is greater than luaFinishIndex [%u]", __func__, luaStartIndex, luaFinishIndex);
+ 	}
+ 
+-	std::vector<lua_Number> dataVec;
+-	dataVec.resize(luaFinishIndex - luaStartIndex + 1);
+-
+-	constexpr auto defaultValue = static_cast<lua_Number>(0);
+-	for (auto k = 0; k < dataVec.size(); ++k) {
+-		dataVec[k] = luaTblData.raw_get_or<lua_Number>(luaStartIndex + k, defaultValue);
+-	}
+-
+-	return UploadImpl<lua_Number>(dataVec, elemOffset, attribIdx);
++	// Raw numeric reads do not invoke Lua metamethods. Keep the same zero
++	// fallback while converting directly into the existing CPU shadow.
++	struct LuaNumberIterator {
++		const sol::stack_table* table;
++		uint64_t index;
++
++		lua_Number operator*() const {
++			constexpr auto defaultValue = static_cast<lua_Number>(0);
++			return table->raw_get_or<lua_Number>(index, defaultValue);
++		}
++		LuaNumberIterator& operator++() { ++index; return *this; }
++		bool operator<(const LuaNumberIterator& other) const { return index < other.index; }
++		int64_t operator-(const LuaNumberIterator& other) const {
++			return static_cast<int64_t>(index) - static_cast<int64_t>(other.index);
++		}
++	};
++
++	return UploadImpl<lua_Number>(
++		LuaNumberIterator{&luaTblData, luaStartIndex},
++		LuaNumberIterator{&luaTblData, static_cast<uint64_t>(luaFinishIndex) + 1},
++		elemOffset, [attribIdx](int attrID) { return attribIdx == -1 || attribIdx == attrID; }
++	);
+ }
+ 
+ 
+@@ -1101,10 +1130,10 @@
+ 	return UploadImpl<uint32_t>(instanceDataVec, elemOffset, attrID);
+ }
+ 
+-template<typename TIn, typename AttribTestFunc>
+-size_t LuaVBOImpl::UploadImpl(const std::vector<TIn>& dataVec, uint32_t elemOffset, AttribTestFunc attribTestFunc)
+-{
+-	if (dataVec.empty())
++template<typename TIn, typename TIter, typename AttribTestFunc>
++size_t LuaVBOImpl::UploadImpl(TIter dataBegin, TIter dataEnd, uint32_t elemOffset, AttribTestFunc attribTestFunc)
++{
++	if (dataEnd - dataBegin == 0)
+ 		return 0u;
+ 
+ 	if (elemOffset >= elementsCount) {
+@@ -1138,8 +1167,8 @@
+ 
+ 	int bytesWritten = 0;
+ 
+-	auto bdvIter = dataVec.cbegin();
+-	for (uint32_t element = elemOffset; bdvIter < dataVec.cend(); ++element) {
++	auto bdvIter = dataBegin;
++	for (uint32_t element = elemOffset; bdvIter < dataEnd; ++element) {
+ 		if (element >= elementsCount) {
+ 			LOG_L(L_ERROR, "[LuaVBOImpl::%s] Upload array contains too much data", __func__);
+ 			return uploadToGPU(bytesWritten);
+@@ -1165,7 +1194,7 @@
+ 			bool copyData = attribTestFunc(attrID);
+ 
+ 			#define TRANSFORM_AND_WRITE(T) { \
+-				if (!TransformAndWrite<TIn, T>(bytesWritten, buffDataWithOffset, mappedBufferSizeInBytes, basicTypeSize, bdvIter, dataVec.cend(), copyData)) { \
++				if (!TransformAndWrite<TIn, T>(bytesWritten, buffDataWithOffset, mappedBufferSizeInBytes, basicTypeSize, bdvIter, dataEnd, copyData)) { \
+ 					return uploadToGPU(bytesWritten); \
+ 				} \
+ 			}
+--- a/rts/Lua/LuaVBOImpl.h
++++ b/rts/Lua/LuaVBOImpl.h
+@@ -93,7 +93,12 @@
+ 	size_t MatrixDataFromProjectileIDsImpl(const Iterable& ids, int attrID, sol::optional<int> elemOffsetOpt, const char* func);
+ 
+ 	template<typename TIn, typename AttribTestFunc>
+-	size_t UploadImpl(const std::vector<TIn>& dataVec, uint32_t elemOffset, AttribTestFunc attribTestFunc);
++	size_t UploadImpl(const std::vector<TIn>& dataVec, uint32_t elemOffset, AttribTestFunc attribTestFunc) {
++		return UploadImpl<TIn>(dataVec.cbegin(), dataVec.cend(), elemOffset, attribTestFunc);
++	}
++
++	template<typename TIn, typename TIter, typename AttribTestFunc>
++	size_t UploadImpl(TIter dataBegin, TIter dataEnd, uint32_t elemOffset, AttribTestFunc attribTestFunc);
+ 
+ 	template<typename TIn>
+ 	size_t UploadImpl(const std::vector<TIn>& dataVec, uint32_t elemOffset, int attribIdx) {

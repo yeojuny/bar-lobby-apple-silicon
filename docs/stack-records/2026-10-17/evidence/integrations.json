@@ -1,0 +1,801 @@
+{
+  "date": "2026-10-17",
+  "coverage": "All separately recorded selected PR/MR integrations in the retained Run95 intake plus later accepted runtime additions, named inherited foundations and donor record; all remaining upstream history is identified by exact component pins.",
+  "statusSemantics": "Merged/open/closed are upstream observations; local inclusion/test status is independent. Approval is not inferred from title, author association, local tests or closed state.",
+  "records": [
+    {
+      "repository": "KhronosGroup/MoltenVK",
+      "number": 2746,
+      "kind": "PR",
+      "inclusionMode": "inherited in pinned base 52aa21f5",
+      "integratedCommits": [
+        "9d5d89a2a1954ae8fe73fd2a97a4f3d862319eee"
+      ],
+      "purpose": "Update SPIRV-Cross to latest revision.",
+      "localEvidence": "Base ancestry verified against exact merge commit; inherited upstream work, no per-PR BAR benchmark.",
+      "upstreamObservation": {
+        "repository": "KhronosGroup/MoltenVK",
+        "number": 2746,
+        "title": "Update SPIRV-Cross to latest revision.",
+        "html_url": "https://github.com/KhronosGroup/MoltenVK/pull/2746",
+        "state": "closed",
+        "merged": true,
+        "merged_at": "2026-06-02T11:24:14Z",
+        "merge_commit_sha": "9d5d89a2a1954ae8fe73fd2a97a4f3d862319eee",
+        "headSHA": "430d31682ea10c5f9401db403b79f60adfc3a9be",
+        "author": "squidbus",
+        "checkedDate": "2026-10-17"
+      },
+      "notes": ""
+    },
+    {
+      "repository": "KhronosGroup/MoltenVK",
+      "number": 2747,
+      "kind": "PR",
+      "inclusionMode": "inherited in pinned base 52aa21f5",
+      "integratedCommits": [
+        "7d724020575219914a28ed9fb4011ba5303fb7b5"
+      ],
+      "purpose": "Fix invalidation of cached metal textures",
+      "localEvidence": "Base ancestry verified against exact merge commit; inherited upstream work, no per-PR BAR benchmark.",
+      "upstreamObservation": {
+        "repository": "KhronosGroup/MoltenVK",
+        "number": 2747,
+        "title": "Fix invalidation of cached metal textures",
+        "html_url": "https://github.com/KhronosGroup/MoltenVK/pull/2747",
+        "state": "closed",
+        "merged": true,
+        "merged_at": "2026-07-19T16:55:30Z",
+        "merge_commit_sha": "7d724020575219914a28ed9fb4011ba5303fb7b5",
+        "headSHA": "9a5e233ef08e3a0f58c7b90053385cfb5cacde68",
+        "author": "visigoth",
+        "checkedDate": "2026-10-17"
+      },
+      "notes": ""
+    },
+    {
+      "repository": "KhronosGroup/MoltenVK",
+      "number": 2775,
+      "kind": "PR",
+      "inclusionMode": "inherited in pinned base 52aa21f5",
+      "integratedCommits": [
+        "92a43810bfebb1b8ebcfa7cb715cfd32ee26e7c8"
+      ],
+      "purpose": "Support draw indirect count",
+      "localEvidence": "Base ancestry verified against exact merge commit; inherited upstream work, no per-PR BAR benchmark.",
+      "upstreamObservation": {
+        "repository": "KhronosGroup/MoltenVK",
+        "number": 2775,
+        "title": "Support draw indirect count",
+        "html_url": "https://github.com/KhronosGroup/MoltenVK/pull/2775",
+        "state": "closed",
+        "merged": true,
+        "merged_at": "2026-07-24T20:48:50Z",
+        "merge_commit_sha": "92a43810bfebb1b8ebcfa7cb715cfd32ee26e7c8",
+        "headSHA": "3a6d21f9b8d64ab1e6de3443d2aa80705b5a29b7",
+        "author": "antisaling",
+        "checkedDate": "2026-10-17"
+      },
+      "notes": ""
+    },
+    {
+      "repository": "KhronosGroup/MoltenVK",
+      "number": 2778,
+      "kind": "PR",
+      "inclusionMode": "inherited in pinned base 52aa21f5",
+      "integratedCommits": [
+        "98f35743467488e380317feec591f4d33d652f5f"
+      ],
+      "purpose": "Update dependency libraries.",
+      "localEvidence": "Base ancestry verified against exact merge commit; inherited upstream work, no per-PR BAR benchmark.",
+      "upstreamObservation": {
+        "repository": "KhronosGroup/MoltenVK",
+        "number": 2778,
+        "title": "Update dependency libraries.",
+        "html_url": "https://github.com/KhronosGroup/MoltenVK/pull/2778",
+        "state": "closed",
+        "merged": true,
+        "merged_at": "2026-07-19T19:02:28Z",
+        "merge_commit_sha": "98f35743467488e380317feec591f4d33d652f5f",
+        "headSHA": "718110be352b5c50186558804ebcd69d7a393a77",
+        "author": "billhollings",
+        "checkedDate": "2026-10-17"
+      },
+      "notes": ""
+    },
+    {
+      "repository": "KhronosGroup/MoltenVK",
+      "number": 2819,
+      "kind": "PR",
+      "inclusionMode": "inherited in pinned base 52aa21f5",
+      "integratedCommits": [
+        "a63d486387651b4e077174995ffc49125db22636"
+      ],
+      "purpose": "Preserve execution dependencies across Metal encoders",
+      "localEvidence": "Base ancestry verified against exact merge commit; inherited upstream work, no per-PR BAR benchmark.",
+      "upstreamObservation": {
+        "repository": "KhronosGroup/MoltenVK",
+        "number": 2819,
+        "title": "Preserve execution dependencies across Metal encoders",
+        "html_url": "https://github.com/KhronosGroup/MoltenVK/pull/2819",
+        "state": "closed",
+        "merged": true,
+        "merged_at": "2026-09-24T23:58:40Z",
+        "merge_commit_sha": "a63d486387651b4e077174995ffc49125db22636",
+        "headSHA": "9a339b611e1bfdf346db18afeee5200c7d8271b6",
+        "author": "dttdrv",
+        "checkedDate": "2026-10-17"
+      },
+      "notes": ""
+    },
+    {
+      "repository": "KhronosGroup/MoltenVK",
+      "number": 2823,
+      "kind": "PR",
+      "inclusionMode": "inherited in pinned base 52aa21f5",
+      "integratedCommits": [
+        "2bc63941b1606c4c0e5150dfbba4f1f09a39a52e"
+      ],
+      "purpose": "Fix Metal fence ordering for external subpass dependencies",
+      "localEvidence": "Base ancestry verified against exact merge commit; inherited upstream work, no per-PR BAR benchmark.",
+      "upstreamObservation": {
+        "repository": "KhronosGroup/MoltenVK",
+        "number": 2823,
+        "title": "Fix Metal fence ordering for external subpass dependencies",
+        "html_url": "https://github.com/KhronosGroup/MoltenVK/pull/2823",
+        "state": "closed",
+        "merged": true,
+        "merged_at": "2026-09-23T11:24:13Z",
+        "merge_commit_sha": "2bc63941b1606c4c0e5150dfbba4f1f09a39a52e",
+        "headSHA": "05982c41d17f0f7d3fd3647624043bc2dffcda41",
+        "author": "Novum",
+        "checkedDate": "2026-10-17"
+      },
+      "notes": ""
+    },
+    {
+      "repository": "KhronosGroup/MoltenVK",
+      "number": 2829,
+      "kind": "PR",
+      "inclusionMode": "inherited in pinned base 52aa21f5",
+      "integratedCommits": [
+        "f0571d7d6ebdad9f31abcdfebb0af50b83d2dae2"
+      ],
+      "purpose": "Fix VkDeviceMemory imported from a MTLTexture.",
+      "localEvidence": "Base ancestry verified against exact merge commit; inherited upstream work, no per-PR BAR benchmark.",
+      "upstreamObservation": {
+        "repository": "KhronosGroup/MoltenVK",
+        "number": 2829,
+        "title": "Fix VkDeviceMemory imported from a MTLTexture.",
+        "html_url": "https://github.com/KhronosGroup/MoltenVK/pull/2829",
+        "state": "closed",
+        "merged": true,
+        "merged_at": "2026-09-23T11:20:04Z",
+        "merge_commit_sha": "f0571d7d6ebdad9f31abcdfebb0af50b83d2dae2",
+        "headSHA": "062a23c615a0d82f4d377e72e159d7ef4052cc72",
+        "author": "utzcoz",
+        "checkedDate": "2026-10-17"
+      },
+      "notes": ""
+    },
+    {
+      "repository": "KhronosGroup/MoltenVK",
+      "number": 2839,
+      "kind": "PR",
+      "inclusionMode": "inherited in pinned base 52aa21f5",
+      "integratedCommits": [
+        "50b3cbf373f4165947e0e315c0c37cfb658dfd51"
+      ],
+      "purpose": "Retain query pools until Metal command buffer completion",
+      "localEvidence": "Base ancestry verified against exact merge commit; inherited upstream work, no per-PR BAR benchmark.",
+      "upstreamObservation": {
+        "repository": "KhronosGroup/MoltenVK",
+        "number": 2839,
+        "title": "Retain query pools until Metal command buffer completion",
+        "html_url": "https://github.com/KhronosGroup/MoltenVK/pull/2839",
+        "state": "closed",
+        "merged": true,
+        "merged_at": "2026-09-26T20:32:50Z",
+        "merge_commit_sha": "50b3cbf373f4165947e0e315c0c37cfb658dfd51",
+        "headSHA": "c0af3a5658ba03b6006fdeb14efd1b21b2ad91b2",
+        "author": "hstdt",
+        "checkedDate": "2026-10-17"
+      },
+      "notes": ""
+    },
+    {
+      "repository": "KhronosGroup/MoltenVK",
+      "number": 2850,
+      "kind": "PR",
+      "inclusionMode": "inherited in pinned base 52aa21f5",
+      "integratedCommits": [
+        "52aa21f54d7a84c5c441fc26359692b0980b384c"
+      ],
+      "purpose": "Add new SPIRV-Cross options to serialization",
+      "localEvidence": "Base ancestry verified against exact merge commit; inherited upstream work, no per-PR BAR benchmark.",
+      "upstreamObservation": {
+        "repository": "KhronosGroup/MoltenVK",
+        "number": 2850,
+        "title": "Add new SPIRV-Cross options to serialization",
+        "html_url": "https://github.com/KhronosGroup/MoltenVK/pull/2850",
+        "state": "closed",
+        "merged": true,
+        "merged_at": "2026-09-30T01:20:28Z",
+        "merge_commit_sha": "52aa21f54d7a84c5c441fc26359692b0980b384c",
+        "headSHA": "b17fb26a5db606f39f2f44bfa6d87ddbb7341d91",
+        "author": "squidbus",
+        "checkedDate": "2026-10-17"
+      },
+      "notes": ""
+    },
+    {
+      "repository": "KhronosGroup/MoltenVK",
+      "number": 2820,
+      "kind": "PR",
+      "inclusionMode": "selected initial + follow-up",
+      "integratedCommits": [
+        "3dbe1bca0516c87076fa0ff5a9ee5b9a73f965c0",
+        "f0fff496170ec265a8be8f96a7b80e1be5a0ba0b"
+      ],
+      "purpose": "Tessellation patch counts, indexed-indirect layout and temporary-buffer handling",
+      "localEvidence": "Historical source/compiler/package checks; exact retained patch hashes in Run95 intake.",
+      "upstreamObservation": {
+        "repository": "KhronosGroup/MoltenVK",
+        "number": 2820,
+        "title": "Correct tessellation patch counts and indexed-indirect command layout",
+        "html_url": "https://github.com/KhronosGroup/MoltenVK/pull/2820",
+        "state": "open",
+        "merged": false,
+        "merged_at": null,
+        "merge_commit_sha": "8bdcba1452a8132321dc7886262e786cf5b8fb11",
+        "headSHA": "7e5c9b443e22ebff7b7182f1b4d0b346ccdebd7a",
+        "author": "dttdrv",
+        "checkedDate": "2026-10-17"
+      },
+      "notes": "Frozen selected commits, not the current floating PR head."
+    },
+    {
+      "repository": "KhronosGroup/MoltenVK",
+      "number": 2822,
+      "kind": "PR",
+      "inclusionMode": "selected exact commit",
+      "integratedCommits": [
+        "fd8ea9dbb1963af3642d912bad651f018434c922"
+      ],
+      "purpose": "Restore argument-buffer bindings after helper encoders",
+      "localEvidence": "Retained source and later packaged native graphics checks; not a guarantee of every helper/binding combination.",
+      "upstreamObservation": {
+        "repository": "KhronosGroup/MoltenVK",
+        "number": 2822,
+        "title": "Restore argument buffer bindings after helper commands",
+        "html_url": "https://github.com/KhronosGroup/MoltenVK/pull/2822",
+        "state": "open",
+        "merged": false,
+        "merged_at": null,
+        "merge_commit_sha": "abd443d3635eed03858744aeee60d99b04cf88d6",
+        "headSHA": "fd8ea9dbb1963af3642d912bad651f018434c922",
+        "author": "shih-liang",
+        "checkedDate": "2026-10-17"
+      },
+      "notes": ""
+    },
+    {
+      "repository": "KhronosGroup/MoltenVK",
+      "number": 2855,
+      "kind": "PR",
+      "inclusionMode": "selected exact commit",
+      "integratedCommits": [
+        "6ff9f7bbd89f53234fd4e3bb26c5ef4d4be134b3"
+      ],
+      "purpose": "Thread-safe lazy global configuration publication",
+      "localEvidence": "Existing runtime-correctness integration/source and CPU checks; no FPS claim.",
+      "upstreamObservation": {
+        "repository": "KhronosGroup/MoltenVK",
+        "number": 2855,
+        "title": "Make lazy global configuration initialization thread-safe",
+        "html_url": "https://github.com/KhronosGroup/MoltenVK/pull/2855",
+        "state": "open",
+        "merged": false,
+        "merged_at": null,
+        "merge_commit_sha": "d98498b902555b94ba39acc864f720266677da97",
+        "headSHA": "6ff9f7bbd89f53234fd4e3bb26c5ef4d4be134b3",
+        "author": "hstdt",
+        "checkedDate": "2026-10-17"
+      },
+      "notes": ""
+    },
+    {
+      "repository": "KhronosGroup/MoltenVK",
+      "number": 2861,
+      "kind": "PR",
+      "inclusionMode": "selected exact commit beyond base",
+      "integratedCommits": [
+        "cbe497918d1d24772de4753eaa199be74fa62d07"
+      ],
+      "purpose": "Complete pipeline cache matching for dynamic-buffer descriptors and discrete descriptor sets",
+      "localEvidence": "Existing runtime-correctness integration and cache-match checks.",
+      "upstreamObservation": {
+        "repository": "KhronosGroup/MoltenVK",
+        "number": 2861,
+        "title": "Fix pipeline cache matching to fully match dynamicBufferDescriptors and discreteDescriptorSets",
+        "html_url": "https://github.com/KhronosGroup/MoltenVK/pull/2861",
+        "state": "closed",
+        "merged": true,
+        "merged_at": "2026-10-08T08:37:17Z",
+        "merge_commit_sha": "67b2682699d7903606b97a0392061d85d27d49e6",
+        "headSHA": "cbe497918d1d24772de4753eaa199be74fa62d07",
+        "author": "crichalchemist",
+        "checkedDate": "2026-10-17"
+      },
+      "notes": "Upstream later merged a different merge object; that does not change the frozen included commit."
+    },
+    {
+      "repository": "KhronosGroup/SPIRV-Cross",
+      "number": 2678,
+      "kind": "PR",
+      "inclusionMode": "inherited in aa217aeb",
+      "integratedCommits": [
+        "94d59e564363a08b7d053692e9499d0f909c106b"
+      ],
+      "purpose": "MSL: Fix layout of struct arrays whose ArrayStride exceeds the packed struct size",
+      "localEvidence": "Base ancestry checked; inherited shader-translation fixes.",
+      "upstreamObservation": {
+        "repository": "KhronosGroup/SPIRV-Cross",
+        "number": 2678,
+        "title": "MSL: Fix layout of struct arrays whose ArrayStride exceeds the packed struct size",
+        "html_url": "https://github.com/KhronosGroup/SPIRV-Cross/pull/2678",
+        "state": "closed",
+        "merged": true,
+        "merged_at": "2026-09-16T11:24:28Z",
+        "merge_commit_sha": "94d59e564363a08b7d053692e9499d0f909c106b",
+        "headSHA": "96f76bcc7ae133e4daf45c3b94663f0b836e61c5",
+        "author": "hmennen90",
+        "checkedDate": "2026-10-17"
+      },
+      "notes": ""
+    },
+    {
+      "repository": "KhronosGroup/SPIRV-Cross",
+      "number": 2681,
+      "kind": "PR",
+      "inclusionMode": "inherited in aa217aeb",
+      "integratedCommits": [
+        "71055a8144bef210e43cc6519900079629ca7f89"
+      ],
+      "purpose": "MSL: Fix invalid pointer constructor when unrolling row-major column …",
+      "localEvidence": "Base ancestry checked; inherited shader-translation fixes.",
+      "upstreamObservation": {
+        "repository": "KhronosGroup/SPIRV-Cross",
+        "number": 2681,
+        "title": "MSL: Fix invalid pointer constructor when unrolling row-major column …",
+        "html_url": "https://github.com/KhronosGroup/SPIRV-Cross/pull/2681",
+        "state": "closed",
+        "merged": true,
+        "merged_at": "2026-09-17T09:55:42Z",
+        "merge_commit_sha": "71055a8144bef210e43cc6519900079629ca7f89",
+        "headSHA": "cd06139cbbe732faddde181882f8324baa24ec15",
+        "author": "MouseChannel",
+        "checkedDate": "2026-10-17"
+      },
+      "notes": ""
+    },
+    {
+      "repository": "KhronosGroup/SPIRV-Cross",
+      "number": 2687,
+      "kind": "PR",
+      "inclusionMode": "selected exact commit",
+      "integratedCommits": [
+        "38abe362c57311a77808b7ec4d1d0d9ceb8d9370"
+      ],
+      "purpose": "MSL integer-to-pointer aliasing correctness",
+      "localEvidence": "Historical two actual translator outputs matched expected MSL bytes; independent offline Metal compilation was not performed in that check.",
+      "upstreamObservation": {
+        "repository": "KhronosGroup/SPIRV-Cross",
+        "number": 2687,
+        "title": "fix: msl bda convert utoptr aliasing",
+        "html_url": "https://github.com/KhronosGroup/SPIRV-Cross/pull/2687",
+        "state": "open",
+        "merged": false,
+        "merged_at": null,
+        "merge_commit_sha": "649a8109843e3980d5b1358afc21b13d42564f13",
+        "headSHA": "38abe362c57311a77808b7ec4d1d0d9ceb8d9370",
+        "author": "HopeSuffers",
+        "checkedDate": "2026-10-17"
+      },
+      "notes": ""
+    },
+    {
+      "repository": "KhronosGroup/Vulkan-Loader",
+      "number": 2050,
+      "kind": "PR",
+      "inclusionMode": "selected exact commit",
+      "integratedCommits": [
+        "f770ea2ec2d4777a63bdf4017d910ce613f11afd"
+      ],
+      "purpose": "Avoid enumeration/path retry infinite loops",
+      "localEvidence": "Existing source/error-path tests and packaged loader closure.",
+      "upstreamObservation": {
+        "repository": "KhronosGroup/Vulkan-Loader",
+        "number": 2050,
+        "title": "fix infinite loop in terminator_EnumeratePhysicalDeviceGroups",
+        "html_url": "https://github.com/KhronosGroup/Vulkan-Loader/pull/2050",
+        "state": "closed",
+        "merged": true,
+        "merged_at": "2026-10-10T19:04:50Z",
+        "merge_commit_sha": "22a50d795e2776e0bbe9051cb465b13fcaac9a3a",
+        "headSHA": "6eff05235fc027c584d17ee1c9b4a2156ae1e75a",
+        "author": "aizu-m",
+        "checkedDate": "2026-10-17"
+      },
+      "notes": "Upstream subsequently merged it; the recorded source remains the selected commit."
+    },
+    {
+      "repository": "mesa/mesa",
+      "number": 43541,
+      "kind": "MR",
+      "inclusionMode": "selected, with later local range/copy corrections",
+      "integratedCommits": [
+        "b8e600c4ac688929315662c5e9d04de54add8066"
+      ],
+      "purpose": "Preserve prior updates to source valid_buffer_range",
+      "localEvidence": "Exact retained patch plus later local byte-region/hazard checks.",
+      "upstreamObservation": {
+        "number": 43541,
+        "url": "https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/43541",
+        "title": "zink_context_replace_buffer_storage: Catch all prior updates to source valid_buffer_range.",
+        "state": "opened",
+        "headSHA": "b8e600c4ac688929315662c5e9d04de54add8066",
+        "mergedAt": null,
+        "mergeCommitSHA": null,
+        "currentStatusVerified": true,
+        "checkedDate": "2026-10-17"
+      },
+      "notes": ""
+    },
+    {
+      "repository": "mesa/mesa",
+      "number": 44707,
+      "kind": "MR",
+      "inclusionMode": "selected earlier reviewed head",
+      "integratedCommits": [
+        "2bacf9c87dcfa0a5cf10adbf371b704db449ae3a"
+      ],
+      "purpose": "Draw preparation ordering and subsequent index bounds",
+      "localEvidence": "Historical 32 index-predicate and 6 caller-ordering CPU checks.",
+      "upstreamObservation": {
+        "number": 44707,
+        "url": "https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/44707",
+        "title": "mesa: Fix draw preparation ordering",
+        "state": "merged",
+        "headSHA": "37bf953a58d8baa6c29142c714f46418d4d596a4",
+        "mergedAt": "2026-10-11T12:00:48.440Z",
+        "mergeCommitSHA": null,
+        "currentStatusVerified": true,
+        "checkedDate": "2026-10-17"
+      },
+      "notes": "Upstream merged on 2026-10-11; current final MR head differs from our included 2bacf9c8. No claim of byte-identical final MR integration."
+    },
+    {
+      "repository": "mesa/mesa",
+      "number": 38708,
+      "kind": "MR",
+      "inclusionMode": "selected exact head",
+      "integratedCommits": [
+        "f48aff4943b17c175efbb293f4dadd2d62eab7f9"
+      ],
+      "purpose": "AArch64 NEON RGBA/BGRA conversion",
+      "localEvidence": "Historical 24,960 actual-function CPU comparisons; author microbenchmark is not BAR FPS.",
+      "upstreamObservation": {
+        "number": 38708,
+        "url": "https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/38708",
+        "title": "mesa/format_utils: Add NEON-optimized RGBA to BGRA conversion",
+        "state": "opened",
+        "headSHA": "f48aff4943b17c175efbb293f4dadd2d62eab7f9",
+        "mergedAt": null,
+        "mergeCommitSHA": null,
+        "currentStatusVerified": true,
+        "checkedDate": "2026-10-17"
+      },
+      "notes": ""
+    },
+    {
+      "repository": "mesa/mesa",
+      "number": 43440,
+      "kind": "MR",
+      "inclusionMode": "selected exact head",
+      "integratedCommits": [
+        "22c0155e95e22f26d1c9d4c70d2c430ac3c084b4"
+      ],
+      "purpose": "Avoid unnecessary NIR algebraic matcher bookkeeping",
+      "localEvidence": "Historical 4,352 variable-branch cases and a negative case; not the full NIR suite.",
+      "upstreamObservation": {
+        "number": 43440,
+        "url": "https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/43440",
+        "title": "nir/search: reduce algebraic matcher overhead",
+        "state": "closed",
+        "headSHA": "22c0155e95e22f26d1c9d4c70d2c430ac3c084b4",
+        "mergedAt": null,
+        "mergeCommitSHA": null,
+        "currentStatusVerified": true,
+        "checkedDate": "2026-10-17"
+      },
+      "notes": "Current API state is closed with no merged_at. Closed is not merged; local inclusion is not official approval."
+    },
+    {
+      "repository": "mesa/mesa",
+      "number": 44811,
+      "kind": "MR",
+      "inclusionMode": "selected exact commit",
+      "integratedCommits": [
+        "ee29d6c94cdb461a1cd9b62fe6ac74e14810b5bd"
+      ],
+      "purpose": "Texture-instruction CSE result definition matching",
+      "localEvidence": "Paired with !44915 in retained runtime correctness checks.",
+      "upstreamObservation": {
+        "number": 44811,
+        "url": "https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/44811",
+        "title": "nir/instr_set: compare tex def when CSEing texture instructions",
+        "state": "merged",
+        "headSHA": "ee29d6c94cdb461a1cd9b62fe6ac74e14810b5bd",
+        "mergedAt": "2026-10-05T07:09:15.650Z",
+        "mergeCommitSHA": null,
+        "currentStatusVerified": true,
+        "checkedDate": "2026-10-17"
+      },
+      "notes": ""
+    },
+    {
+      "repository": "mesa/mesa",
+      "number": 44915,
+      "kind": "MR",
+      "inclusionMode": "selected exact commit",
+      "integratedCommits": [
+        "9ce7a2ef35ae1ab06e024860a0f247962ab11b95"
+      ],
+      "purpose": "Texture CSE destination type rather than bit-size matching",
+      "localEvidence": "Paired with !44811; no BAR shader miscompile occurrence claim.",
+      "upstreamObservation": {
+        "number": 44915,
+        "url": "https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/44915",
+        "title": "nir/instr_set: compare tex dest_type instead of bit size when CSEing texture instructions",
+        "state": "merged",
+        "headSHA": "9ce7a2ef35ae1ab06e024860a0f247962ab11b95",
+        "mergedAt": "2026-10-07T08:02:00.120Z",
+        "mergeCommitSHA": null,
+        "currentStatusVerified": true,
+        "checkedDate": "2026-10-17"
+      },
+      "notes": ""
+    },
+    {
+      "repository": "mesa/mesa",
+      "number": 45035,
+      "kind": "MR",
+      "inclusionMode": "adapted selected commit + local guard",
+      "integratedCommits": [
+        "b448ad053f2ce190a5b6b2d27b30dcbf3d45ec7d"
+      ],
+      "purpose": "Ordered/unordered Zink resource synchronization tracking",
+      "localEvidence": "Additional local ordered-dependency guard retained; not an unmodified MR transplant.",
+      "upstreamObservation": {
+        "number": 45035,
+        "url": "https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/45035",
+        "title": "zink/sync: plug an extremely tricky hole in reordering logic",
+        "state": "merged",
+        "headSHA": "b448ad053f2ce190a5b6b2d27b30dcbf3d45ec7d",
+        "mergedAt": "2026-10-09T03:31:22.296Z",
+        "mergeCommitSHA": null,
+        "currentStatusVerified": true,
+        "checkedDate": "2026-10-17"
+      },
+      "notes": ""
+    },
+    {
+      "repository": "mesa/mesa",
+      "number": 44358,
+      "kind": "MR",
+      "inclusionMode": "historically recorded as inherited base work",
+      "integratedCommits": [
+        "9c95a742b585d59360e391edcef88e52fb619f9e"
+      ],
+      "purpose": "Place buffer-view cache key first",
+      "localEvidence": "Inherited source attribution; no separate performance claim.",
+      "upstreamObservation": {
+        "number": 44358,
+        "url": "https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/44358",
+        "title": "zink: put the buffer view cache key first",
+        "state": "merged",
+        "headSHA": "9c95a742b585d59360e391edcef88e52fb619f9e",
+        "mergedAt": "2026-09-10T12:11:31.757Z",
+        "mergeCommitSHA": null,
+        "currentStatusVerified": true,
+        "checkedDate": "2026-10-17"
+      },
+      "notes": ""
+    },
+    {
+      "repository": "mesa/mesa",
+      "number": 44474,
+      "kind": "MR",
+      "inclusionMode": "historically recorded as inherited base work",
+      "integratedCommits": [
+        "f30cb8839b2fcd0903b74c659aa7d9d3d0c5045d"
+      ],
+      "purpose": "Replace blend/vertex-element state hashes with IDs",
+      "localEvidence": "Preserved with local dynamic-stride handling; inherited attribution.",
+      "upstreamObservation": {
+        "number": 44474,
+        "url": "https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/44474",
+        "title": "zink: replace blend and vertex elements state hashes with IDs",
+        "state": "merged",
+        "headSHA": "f30cb8839b2fcd0903b74c659aa7d9d3d0c5045d",
+        "mergedAt": "2026-09-16T12:22:02.320Z",
+        "mergeCommitSHA": null,
+        "currentStatusVerified": true,
+        "checkedDate": "2026-10-17"
+      },
+      "notes": ""
+    },
+    {
+      "repository": "beyond-all-reason/RecoilEngine",
+      "number": 2819,
+      "kind": "PR",
+      "inclusionMode": "inherited in lobby, chobby base",
+      "integratedCommits": [
+        "5ed2647d2d80775c45742ab87a019a1b6e6e3983"
+      ],
+      "purpose": "Add ARM64 platform support with deterministic floating-point",
+      "localEvidence": "Exact official merge/base ancestry checked. Local numeric compatibility checks remain distinct from live cross-platform acceptance.",
+      "upstreamObservation": {
+        "repository": "beyond-all-reason/RecoilEngine",
+        "number": 2819,
+        "title": "Add ARM64 platform support with deterministic floating-point",
+        "html_url": "https://github.com/beyond-all-reason/RecoilEngine/pull/2819",
+        "state": "closed",
+        "merged": true,
+        "merged_at": "2026-03-22T13:41:44Z",
+        "merge_commit_sha": "5ed2647d2d80775c45742ab87a019a1b6e6e3983",
+        "headSHA": "0c10b076dcfbdf4864a64dd5eed2409a3f71f88f",
+        "author": "MarkKropf",
+        "checkedDate": "2026-10-17"
+      },
+      "notes": "No claim that an absent base merge is automatically an absent/equivalent local correction in the other lane."
+    },
+    {
+      "repository": "beyond-all-reason/RecoilEngine",
+      "number": 2886,
+      "kind": "PR",
+      "inclusionMode": "inherited in lobby, chobby base",
+      "integratedCommits": [
+        "74e145c7079c1e3a4d9fd5e17e3c8358325168bd"
+      ],
+      "purpose": "ARM64 platform support rework",
+      "localEvidence": "Exact official merge/base ancestry checked. Local numeric compatibility checks remain distinct from live cross-platform acceptance.",
+      "upstreamObservation": {
+        "repository": "beyond-all-reason/RecoilEngine",
+        "number": 2886,
+        "title": "ARM64 platform support rework",
+        "html_url": "https://github.com/beyond-all-reason/RecoilEngine/pull/2886",
+        "state": "closed",
+        "merged": true,
+        "merged_at": "2026-03-22T22:48:00Z",
+        "merge_commit_sha": "74e145c7079c1e3a4d9fd5e17e3c8358325168bd",
+        "headSHA": "06ff42dc83197c111eb75be9bf2bb695f95eceff",
+        "author": "lhog",
+        "checkedDate": "2026-10-17"
+      },
+      "notes": "No claim that an absent base merge is automatically an absent/equivalent local correction in the other lane."
+    },
+    {
+      "repository": "beyond-all-reason/RecoilEngine",
+      "number": 3075,
+      "kind": "PR",
+      "inclusionMode": "inherited in lobby, chobby base",
+      "integratedCommits": [
+        "7104ab1f76d9fe6823016dcb5561e179174e39a2"
+      ],
+      "purpose": "Sim/COB: avoid UB in float-to-short angle casts (fixes arm64/x86 desync)",
+      "localEvidence": "Exact official merge/base ancestry checked. Local numeric compatibility checks remain distinct from live cross-platform acceptance.",
+      "upstreamObservation": {
+        "repository": "beyond-all-reason/RecoilEngine",
+        "number": 3075,
+        "title": "Sim/COB: avoid UB in float-to-short angle casts (fixes arm64/x86 desync)",
+        "html_url": "https://github.com/beyond-all-reason/RecoilEngine/pull/3075",
+        "state": "closed",
+        "merged": true,
+        "merged_at": "2026-07-28T12:55:20Z",
+        "merge_commit_sha": "7104ab1f76d9fe6823016dcb5561e179174e39a2",
+        "headSHA": "58dbc16c053b7e69fac49b1afc8f4512b5cb3ac1",
+        "author": "tomjn",
+        "checkedDate": "2026-10-17"
+      },
+      "notes": "No claim that an absent base merge is automatically an absent/equivalent local correction in the other lane."
+    },
+    {
+      "repository": "beyond-all-reason/RecoilEngine",
+      "number": 3070,
+      "kind": "PR",
+      "inclusionMode": "inherited in lobby, chobby base",
+      "integratedCommits": [
+        "f898efc6c31b3871cc8f60ed2c567a5de41db696"
+      ],
+      "purpose": "Fix demotool build and truncated sync checksum dump",
+      "localEvidence": "Exact official merge/base ancestry checked. Local numeric compatibility checks remain distinct from live cross-platform acceptance.",
+      "upstreamObservation": {
+        "repository": "beyond-all-reason/RecoilEngine",
+        "number": 3070,
+        "title": "Fix demotool build and truncated sync checksum dump",
+        "html_url": "https://github.com/beyond-all-reason/RecoilEngine/pull/3070",
+        "state": "closed",
+        "merged": true,
+        "merged_at": "2026-06-29T15:00:27Z",
+        "merge_commit_sha": "f898efc6c31b3871cc8f60ed2c567a5de41db696",
+        "headSHA": "6f3203b11666ec6dda7d5865d7a1d462bf2884cc",
+        "author": "tomjn",
+        "checkedDate": "2026-10-17"
+      },
+      "notes": "No claim that an absent base merge is automatically an absent/equivalent local correction in the other lane."
+    },
+    {
+      "repository": "beyond-all-reason/RecoilEngine",
+      "number": 3342,
+      "kind": "PR",
+      "inclusionMode": "inherited in lobby base",
+      "integratedCommits": [
+        "da974d379b613f024859292da0e000d9d2a4280c"
+      ],
+      "purpose": "Sim: avoid UB in float-to-short heading casts",
+      "localEvidence": "Exact official merge/base ancestry checked. Local numeric compatibility checks remain distinct from live cross-platform acceptance.",
+      "upstreamObservation": {
+        "repository": "beyond-all-reason/RecoilEngine",
+        "number": 3342,
+        "title": "Sim: avoid UB in float-to-short heading casts",
+        "html_url": "https://github.com/beyond-all-reason/RecoilEngine/pull/3342",
+        "state": "closed",
+        "merged": true,
+        "merged_at": "2026-09-11T12:15:35Z",
+        "merge_commit_sha": "da974d379b613f024859292da0e000d9d2a4280c",
+        "headSHA": "3f139a12774b98c0f413ef834715a6ec9f416c5c",
+        "author": "Vandomas",
+        "checkedDate": "2026-10-17"
+      },
+      "notes": "No claim that an absent base merge is automatically an absent/equivalent local correction in the other lane."
+    },
+    {
+      "repository": "beyond-all-reason/RecoilEngine",
+      "number": 3132,
+      "kind": "PR",
+      "inclusionMode": "inherited in lobby base",
+      "integratedCommits": [
+        "a0d4241b10e1e2f9c250033d404ec6545fd05923"
+      ],
+      "purpose": "fix issue where ships could get incorrect pathmap blocking zones ",
+      "localEvidence": "Exact official merge/base ancestry checked. Local numeric compatibility checks remain distinct from live cross-platform acceptance.",
+      "upstreamObservation": {
+        "repository": "beyond-all-reason/RecoilEngine",
+        "number": 3132,
+        "title": "fix issue where ships could get incorrect pathmap blocking zones ",
+        "html_url": "https://github.com/beyond-all-reason/RecoilEngine/pull/3132",
+        "state": "closed",
+        "merged": true,
+        "merged_at": "2026-09-10T14:28:41Z",
+        "merge_commit_sha": "a0d4241b10e1e2f9c250033d404ec6545fd05923",
+        "headSHA": "610376025ba05e3b726041487a30ad7b28ce20af",
+        "author": "lostsquirrel1",
+        "checkedDate": "2026-10-17"
+      },
+      "notes": "No claim that an absent base merge is automatically an absent/equivalent local correction in the other lane."
+    }
+  ],
+  "standaloneCommit": {
+    "repository": "mesa/mesa",
+    "commit": "07c356d5debdc3c84cfde4f5f1cc045329f26429",
+    "purpose": "old-swapchain append-pointer advancement",
+    "inclusion": "selected narrow commit; not full !44865"
+  },
+  "donor": {
+    "repository": "benbreen/RecoilEngine-AppleSilicon",
+    "commit": "a49a8ecc5265c4dd3f8d0016d90b32e81e22c73b",
+    "scope": "r57 engine ideas; local r58 corrections and later Lua work described separately"
+  }
+}
