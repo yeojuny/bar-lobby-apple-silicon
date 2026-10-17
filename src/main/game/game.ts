@@ -5,20 +5,19 @@
 import type { ChildProcess } from "child_process";
 import { spawn } from "child_process";
 import { randomUUID } from "crypto";
-import { app } from "electron";
+import { app, BrowserWindow, screen } from "electron";
 import * as fs from "fs";
 import { Signal } from "$/jaz-ts-utils/signal";
 import * as path from "path";
 import * as zlib from "zlib";
 
-import { engineContentAPI } from "@main/content/engine/engine-content";
+import { contentAPI } from "@main/content/content-api";
 import { applyDefaultSpringsettings } from "@main/game/springsettings";
 import { startScriptConverter } from "@main/utils/start-script-converter";
 import { logger } from "@main/utils/logger";
-import { gameContentAPI } from "@main/content/game/game-content";
 import { WRITE_DATA_PATH, REPLAYS_PATH, LOGS_PATH, BUNDLED_ASSETS_PATH, getAssetsPath, getCaCertPath, getRapidIndexPath, getPackagePath, getPoolPath } from "@main/config/app";
 import { BattleWithMetadata } from "@main/game/battle/battle-types";
-import { Replay } from "@main/content/replays/replay";
+import { Replay } from "@main/replays/replay";
 import {
     getNativeEngineDataDirDiagnostics,
     getNativeEngineProcessEnv,
@@ -39,7 +38,10 @@ import { ChobbyLauncherLoopback, CONNECTION_FILE_NAME } from "@main/game/chobby-
 import { CHOBBY_LOOPBACK_HELPER_ARG, CHOBBY_LOOPBACK_HELPER_OPTIONS_ENV } from "@main/game/chobby-loopback-helper";
 import { createEngineLobbyLogMirror } from "@main/game/engine-log-mirror";
 import { createEngineStderrLog } from "@main/game/engine-stderr-log";
-import { shutdownContentWriters, waitForContentWriterClose, withContentWrite } from "@main/content/content-write-coordinator";
+import { requireContentWritesOpen, shutdownContentWriters, waitForContentWriterClose, withContentWrite } from "@main/content/content-write-coordinator";
+import { acquireChecksumHold } from "@main/utils/checksums";
+import { prepareChobbyDisplaySettings } from "@main/game/chobby-display-settings";
+import { settingsService } from "@main/services/settings.service";
 
 const log = logger("main/game/game.ts");
 const engineLogger = logger("[RECOIL ENGINE]", { separator: "\n", level: "info" });
@@ -116,16 +118,19 @@ export class GameAPI {
     public readonly startScriptName = "script.txt";
 
     protected gameProcess: ChildProcess | null = null;
+    private nativeLaunchPending = false;
+    private chobbyLaunchPending: Promise<void> | null = null;
     private chobbyLauncherLoopback: ChobbyLauncherLoopback | null = null;
     private detachedChobbyHelper: ChildProcess | null = null;
 
     public async launchBattle(battle: BattleWithMetadata): Promise<void> {
-        const script = startScriptConverter.generateScriptStr(battle);
+        const script = await startScriptConverter.generateScriptStr(battle);
         const scriptPath = path.join(WRITE_DATA_PATH, this.startScriptName);
         await fs.promises.writeFile(scriptPath, script);
         await this.launch({
             engineVersion: battle.battleOptions.engineVersion,
             gameVersion: battle.battleOptions.gameVersion,
+            mapSpringName: battle.battleOptions.map?.springName,
             launchArg: scriptPath,
         });
     }
@@ -134,6 +139,7 @@ export class GameAPI {
         return this.launch({
             engineVersion: replay.engineVersion,
             gameVersion: replay.gameVersion,
+            mapSpringName: replay.mapSpringName,
             launchArg: replay.filePath ? replay.filePath : path.join(REPLAYS_PATH, replay.fileName),
         });
     }
@@ -150,6 +156,7 @@ export class GameAPI {
         await this.launch({
             engineVersion,
             gameVersion: scriptGameVersion || gameVersion, // using script's game version if available
+            mapSpringName,
             launchArg: scriptPath,
         });
     }
@@ -162,8 +169,21 @@ export class GameAPI {
         });
     }
 
-    public async launchChobby({ engineVersion, menu = DEFAULT_CHOBBY_MENU }: ChobbyLaunchSettings = {}) {
-        if (this.gameProcess) throw new Error("An engine process is still owned by this launcher");
+    public launchChobby(settings: ChobbyLaunchSettings = {}): Promise<void> {
+        // Reserve the whole preparation before the first await. Native ownership
+        // starts later, after config migration and content preparation already ran.
+        if (this.chobbyLaunchPending) return this.chobbyLaunchPending;
+        const launch = this.launchChobbyPrepared(settings);
+        this.chobbyLaunchPending = launch;
+        const settled = () => {
+            if (this.chobbyLaunchPending === launch) this.chobbyLaunchPending = null;
+        };
+        void launch.then(settled, settled);
+        return launch;
+    }
+
+    private async launchChobbyPrepared({ engineVersion, menu = DEFAULT_CHOBBY_MENU }: ChobbyLaunchSettings) {
+        if (this.gameProcess || this.nativeLaunchPending || this.detachedChobbyHelper) throw new Error("An engine process is still owned by this launcher");
         const profile = await resolveChobbyMultiplayerProfile(engineVersion);
         log.info(
             `Launching Chobby multiplayer compatibility mode with engine: ${profile.engineVersion}, game: ${profile.gameVersion ?? profile.gameRapidAlias}, profileSource: ${profile.source}, menu: ${menu}`
@@ -171,6 +191,9 @@ export class GameAPI {
         await this.assertNativeRuntimeEngineVersionMatches(profile.engineVersion, "Chobby multiplayer");
         await this.ensureChobbyConfigFile();
         await this.ensureChobbySpringSettings();
+        if (process.platform === "darwin") {
+            await prepareChobbyDisplaySettings(WRITE_DATA_PATH, settingsService.getSettings().fullscreen);
+        }
         await this.ensureChobbyMenuArchive({ engineVersion: profile.engineVersion, menu });
         await this.ensureChobbyMultiplayerGameContent(profile);
         await this.ensureChobbyEngineVersionAlias({ engineVersion: profile.engineVersion, menu });
@@ -222,6 +245,7 @@ export class GameAPI {
             stdio: "ignore",
             env: {
                 ...process.env,
+                ...this.getMacOSLaunchDisplayEnv(),
                 [CHOBBY_LOOPBACK_HELPER_OPTIONS_ENV]: JSON.stringify(helperOptions),
             },
         });
@@ -407,17 +431,14 @@ export class GameAPI {
             platform: process.platform,
         });
         const versionOutput = await this.readNativeEngineVersion(runner);
-        const versionMatch = versionOutput.match(/spring version\s+(\S+)/i);
-        if (versionMatch?.[1]) {
-            return versionMatch[1];
-        }
-
-        throw new Error(`Could not parse native engine runtime version from '${versionOutput.trim()}'`);
+        const syncVersion = versionOutput.trim();
+        if (syncVersion && !/[\r\n]/.test(syncVersion)) return syncVersion;
+        throw new Error(`Could not parse native engine sync version from '${versionOutput.trim()}'`);
     }
 
     private async readNativeEngineVersion(runner: NativeEngineRunner) {
         return new Promise<string>((resolve, reject) => {
-            const versionProcess = spawn(runner.spawnCommand, ["--version"], {
+            const versionProcess = spawn(runner.spawnCommand, ["--sync-version"], {
                 cwd: runner.enginePath,
                 stdio: "pipe",
             });
@@ -541,7 +562,7 @@ export class GameAPI {
         const caCertPath = getCaCertPath();
 
         await fs.promises.mkdir(getAssetsPath(), { recursive: true });
-        log.info(`Ensuring Chobby menu archive is available: ${rapidTag}`);
+        log.info(`Ensuring Chobby archive is available: ${rapidTag}`);
 
         await withContentWrite(getAssetsPath(), (assetsPath) => new Promise<void>((resolve, reject) => {
             let lastProgressLogTime = 0;
@@ -591,16 +612,20 @@ export class GameAPI {
     private async ensureChobbyMultiplayerGameContent(profile: ChobbyMultiplayerProfile) {
         const gameTarget = profile.gameRapidAlias || CHOBBY_MULTIPLAYER_GAME_RAPID_ALIAS;
         log.info(`Ensuring Chobby multiplayer game content is available: ${profile.gameVersion ?? gameTarget}`);
-        await gameContentAPI.downloadGame(gameTarget);
+        await this.ensureChobbyMenuArchive({ engineVersion: profile.engineVersion, menu: gameTarget });
         log.info("Chobby multiplayer keeps official rapid game content unchanged; macOS graphics fixes must come from the engine/runtime or upstream-compatible content.");
     }
 
-    public async launch({ engineVersion, gameVersion, launchArg }: { engineVersion?: string; gameVersion?: string; launchArg?: string }): Promise<void> {
+    public async launch({ engineVersion, gameVersion, mapSpringName, launchArg }: { engineVersion?: string; gameVersion?: string; mapSpringName?: string; launchArg?: string }): Promise<void> {
         if (!engineVersion || !gameVersion || !launchArg) {
             throw new Error("Engine Version, Game Version and launch Arguments need to be specified");
         }
 
         log.info(`Launching game with engine: ${engineVersion}, game: ${gameVersion}`);
+
+        // Playing something is the clearest sign it is still wanted, and it is the one thing every
+        // launch path has in common.
+        void contentAPI.markUsed([{ type: "engine", id: engineVersion }, { type: "game", id: gameVersion }, ...(mapSpringName ? [{ type: "map" as const, id: mapSpringName }] : [])]);
         await this.fetchMissingContent(engineVersion, gameVersion); // TODO preload anything needed through the UI before launching. Remove this step
         return this.launchNativeEngine({
             engineVersion,
@@ -612,7 +637,38 @@ export class GameAPI {
         });
     }
 
-    private async launchNativeEngine({
+    private async launchNativeEngine(settings: NativeEngineLaunchSettings): Promise<void> {
+        if (process.platform !== "darwin") return this.launchNativeEngineHeld(settings, () => undefined);
+        if (this.gameProcess || this.nativeLaunchPending) throw new Error("An engine process is still owned by this launcher");
+        this.nativeLaunchPending = true;
+        let release: (() => void) | undefined;
+        let childOwnsHold = false;
+        try {
+            release = await acquireChecksumHold();
+            return await this.launchNativeEngineHeld(settings, (child) => {
+                childOwnsHold = true;
+                child.once("close", release!);
+            });
+        } finally {
+            this.nativeLaunchPending = false;
+            // A successful load/handoff resolves before native teardown. The
+            // child retains the hold through close, including Kill stage 8.
+            if (!childOwnsHold) release?.();
+        }
+    }
+
+    private getMacOSLaunchDisplayEnv(): NodeJS.ProcessEnv {
+        if (process.platform !== "darwin") return {};
+        const id = Number(process.env.MAIN_WINDOW_ID);
+        const window = Number.isSafeInteger(id) && id > 0 ? BrowserWindow.fromId(id) : null;
+        if (!window || window.isDestroyed()) return {};
+        // Electron DIP and SDL Cocoa desktop bounds share logical coordinates.
+        // Pass the target display, never a fixed render resolution or workarea.
+        const { x, y, width, height } = screen.getDisplayMatching(window.getBounds()).bounds;
+        return { BAR_MACOS_TARGET_DISPLAY: [x, y, width, height].join(",") };
+    }
+
+    private async launchNativeEngineHeld({
         engineVersion,
         args,
         resolveOnSpawn = false,
@@ -624,7 +680,7 @@ export class GameAPI {
         macOSLuaUIOverlayLane,
         onExit,
         onDetachedSpawn,
-    }: NativeEngineLaunchSettings): Promise<void> {
+    }: NativeEngineLaunchSettings, onSpawned: (child: ChildProcess) => void): Promise<void> {
         if (this.gameProcess) throw new Error("An engine process is still owned by this launcher");
         if (process.platform === "darwin") {
             await this.assertNativeRuntimeEngineVersionMatches(engineVersion);
@@ -667,7 +723,7 @@ export class GameAPI {
             macOSLuaUIOverlayLane,
             writeDataPath: WRITE_DATA_PATH,
             platform: process.platform,
-            baseEnv: envOverrides ? { ...process.env, ...envOverrides } : process.env,
+            baseEnv: { ...process.env, ...this.getMacOSLaunchDisplayEnv(), ...envOverrides },
         });
         log.debug(`Running binary: ${path.join(enginePath, runner.binaryFileName)}, args: ${args}`);
         // macOS-port diagnostic probe: remove or demote after Thread 07 runtime closure accepts the final app-local environment contract.
@@ -705,12 +761,14 @@ export class GameAPI {
                     onExit?.();
                 };
                 if (this.gameProcess) throw new Error("An engine process is still owned by this launcher");
+                if (process.platform === "darwin") requireContentWritesOpen();
                 this.gameProcess = spawn(runner.spawnCommand, args, {
                     cwd: enginePath,
                     stdio: quitLobbyAfterSpawn ? "ignore" : "pipe",
                     detached: true,
                     env: engineEnv,
                 });
+                onSpawned(this.gameProcess);
                 if (quitLobbyAfterSpawn) {
                     const ownedProcess = this.gameProcess;
                     let handedOff = false;
@@ -841,17 +899,10 @@ export class GameAPI {
             throw new Error("Engine Version and Game Version need to be specified");
         }
 
-        const isEngineInstalled = engineContentAPI.isVersionInstalled(engineVersion);
-        const isGameInstalled = gameContentAPI.isVersionInstalled(gameVersion);
-        if (!isEngineInstalled || !isGameInstalled) {
-            //|| !isMapInstalled) {
-            //TODO replace with an event
-            // api.notifications.alert({
-            //     text: "Downloading missing content - the game will auto-launch when downloads complete",
-            // });
-            return Promise.all([engineContentAPI.downloadEngine(engineVersion), gameContentAPI.downloadGame(gameVersion)]);
-        }
-        return;
+        await contentAPI.ensure([
+            { type: "engine", id: engineVersion },
+            { type: "game", id: gameVersion },
+        ]);
     }
 }
 

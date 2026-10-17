@@ -31,7 +31,7 @@ SPDX-License-Identifier: MIT
 import { Icon } from "@iconify/vue";
 import robot from "@iconify-icons/mdi/robot";
 import robotAngry from "@iconify-icons/mdi/robot-angry";
-import { Ref, ref } from "vue";
+import { computed, Ref, ref } from "vue";
 import { useTypedI18n } from "@renderer/i18n";
 
 import LuaOptionsModal from "@renderer/components/battle/LuaOptionsModal.vue";
@@ -49,7 +49,7 @@ const { t } = useTypedI18n();
 
 const props = defineProps<{
     bot: Bot;
-    teamId: number;
+    teamId: string;
 }>();
 
 const botOptions: Ref<LuaOptionSection[]> = ref([]);
@@ -57,7 +57,7 @@ const botOptionsOpen = ref(false);
 const menu = ref<InstanceType<typeof ContextMenu>>();
 const canChooseFaction = !isRaptor(props.bot) && !isScavenger(props.bot);
 
-const actions = [
+const actions = computed(() => [
     {
         label: t("lobby.components.battle.botParticipant.configure"),
         command: configureBot,
@@ -70,7 +70,7 @@ const actions = [
         label: t("lobby.components.battle.botParticipant.kick"),
         command: kickBot,
     },
-];
+]);
 
 function onRightClick(event: MouseEvent) {
     if (menu.value) {

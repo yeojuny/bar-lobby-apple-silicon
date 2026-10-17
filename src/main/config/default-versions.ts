@@ -16,9 +16,9 @@ export const LATEST = "LATEST";
 export const LATEST_GAME_VERSION = "byar:test";
 // Shared exports are also imported by the sandboxed renderer. Main supplies
 // the platform-specific default through the existing info IPC.
-export const DEFAULT_ENGINE_VERSION = "2026.06.08";
+export const DEFAULT_ENGINE_VERSION = "2026.07.04";
 export function getDefaultEngineVersion(platform: string): string {
-    return platform === "darwin" ? "2026.09.10-0-g694e9df7" : DEFAULT_ENGINE_VERSION;
+    return platform === "darwin" ? "2026.09.01-24-g01efdf4 master" : DEFAULT_ENGINE_VERSION;
 }
 // Reviewed public multiplayer fallback, separate from the polishing engine.
 // BYAR-Chobby dist_cfg/config.json at bdfae3ca698d8c081a3f0bec75bce1f0a452d67e

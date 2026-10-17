@@ -2,158 +2,154 @@
 //
 // SPDX-License-Identifier: MIT
 
+import zlib from "zlib";
 import { describe, expect, it } from "vitest";
 
 import { BattleWithMetadata, Faction, GameModeID, StartPosType } from "@main/game/battle/battle-types";
 import { startScriptConverter } from "@main/utils/start-script-converter";
 
-function makeUser(userId: string, username: string) {
-    return {
-        userId,
-        username,
-        displayName: username,
-        clanId: null,
-        partyId: null,
-        countryCode: "US",
-        status: "menu" as const,
-        battleRoomState: {},
-    };
-}
+type Arrangement = {
+    startboxes: { poly: { x: number; y: number; strength?: number }[] }[];
+    maxPlayersPerStartbox?: number;
+};
 
-function makeBattle(factions: Array<Faction | undefined>, modoptions: Record<string, unknown> = {}): BattleWithMetadata {
-    const players = factions.map((faction, id) => ({
-        id,
-        name: `Player ${id}`,
-        user: makeUser(String(id + 1), `Player${id}`),
-        contentSyncState: {
-            engine: 0,
-            game: 0,
-            map: 0,
-        },
-        inGame: false,
-        faction,
-    }));
+const polygonSet = [
+    {
+        maxPlayersPerStartbox: 8,
+        startboxes: [
+            {
+                poly: [
+                    { x: 0, y: 0 },
+                    { x: 60, y: 0 },
+                    { x: 30, y: 60, strength: 1 },
+                ],
+            },
+            {
+                poly: [
+                    { x: 140, y: 200 },
+                    { x: 200, y: 200 },
+                    { x: 170, y: 140 },
+                ],
+            },
+        ],
+    },
+];
 
+function twoTeamBattle(mapOptions: Record<string, unknown>): BattleWithMetadata {
     return {
-        title: "Startscript test",
         isOnline: false,
+        spectators: [],
+        me: { id: "0", user: { username: "p1", userId: "1" } },
+        teams: [{ participants: [{ id: "0", user: { username: "p1", userId: "1" } }] }, { participants: [{ id: "1", user: { username: "p2", userId: "2" } }] }],
         battleOptions: {
-            engineVersion: "2025.06.21",
-            gameVersion: "Beyond All Reason test",
-            gameMode: {
-                id: GameModeID.CLASSIC,
-                label: "Classic",
-                options: modoptions,
-            },
-            map: {
-                springName: "Test Map",
-            } as never,
-            mapOptions: {
-                startPosType: StartPosType.Fixed,
-            },
+            gameVersion: "test",
+            gameMode: { id: GameModeID.CLASSIC, options: {} },
+            map: { springName: "Test Map", startboxesSet: polygonSet, playerCountMax: 16 },
+            mapOptions,
             restrictions: [],
         },
-        me: players[0],
-        teams: players.map((player) => ({ participants: [player] })),
-        spectators: [],
-        participants: players,
-        bots: [],
-        players,
-        started: false,
-    };
+    } as unknown as BattleWithMetadata;
 }
 
-function makeSkirmishAiBattle(): BattleWithMetadata {
-    const player = {
-        id: 0,
-        name: "Player",
-        user: makeUser("1", "Player"),
-        contentSyncState: {
-            engine: 0,
-            game: 0,
-            map: 0,
-        },
-        inGame: false,
-        faction: Faction.Armada,
-    };
-    const bot = {
-        id: 1,
-        host: 0,
-        aiShortName: "BARb",
-        name: "BARbarIAn",
-        aiOptions: {},
-    };
-
-    return {
-        title: "Skirmish AI test",
-        isOnline: false,
-        battleOptions: {
-            engineVersion: "2025.06.21",
-            gameVersion: "Beyond All Reason test",
-            gameMode: {
-                id: GameModeID.CLASSIC,
-                label: "Classic",
-                options: {},
-            },
-            map: {
-                springName: "Test Map",
-            } as never,
-            mapOptions: {
-                startPosType: StartPosType.Fixed,
-            },
-            restrictions: [],
-        },
-        me: player,
-        teams: [{ participants: [player] }, { participants: [bot] }],
-        spectators: [],
-        participants: [player, bot],
-        bots: [bot],
-        players: [player],
-        started: false,
-    };
+function decodeModoption(script: string, pattern: RegExp): unknown {
+    const match = script.match(pattern);
+    if (!match) throw new Error(`modoption not found in start script: ${pattern}`);
+    return JSON.parse(zlib.inflateSync(Buffer.from(match[1], "base64url")).toString());
 }
 
-describe("start script converter", () => {
-    it("writes Legion as the BAR side name and enables the Legion content modoption", () => {
-        const script = startScriptConverter.generateScriptStr(makeBattle([Faction.Legion], { fixedallies: 1 }));
+const SET = /mapmetadata_startboxes_set\s*=\s*([^;\s}]+)/;
+const OVERRIDE = /mapmetadata_startbox_override\s*=\s*([^;\s}]+)/;
 
-        expect(script).toMatch(/\[team0\] \{[\s\S]*side=Legion;/);
-        expect(script).toMatch(/\[modoptions\] \{[\s\S]*fixedallies=1;/);
-        expect(script).toMatch(/\[modoptions\] \{[\s\S]*experimentallegionfaction=1;/);
+describe("start script bot factions", () => {
+    it("passes a bot's selected faction to the engine team side", async () => {
+        const battle = twoTeamBattle({ startPosType: StartPosType.Fixed });
+        battle.teams[1].participants = [
+            {
+                id: "1",
+                host: "0",
+                aiShortName: "BARb",
+                name: "Armada bot",
+                aiOptions: {},
+                faction: Faction.Armada,
+            },
+        ];
+
+        const script = await startScriptConverter.generateScriptStr(battle);
+
+        expect(script).toMatch(/\[team1\]\s*\{[^}]*side=Armada;/);
     });
 
-    it("writes BAR side names without enabling Legion content unless Legion is selected", () => {
-        const script = startScriptConverter.generateScriptStr(makeBattle([Faction.Armada, Faction.Cortex, Faction.Random]));
+    it("leaves the engine side unset when a bot has no selected faction", async () => {
+        const battle = twoTeamBattle({ startPosType: StartPosType.Fixed });
+        battle.teams[1].participants = [
+            {
+                id: "1",
+                host: "0",
+                aiShortName: "BARb",
+                name: "Default bot",
+                aiOptions: {},
+            },
+        ];
 
-        expect(script).toMatch(/\[team0\] \{[\s\S]*side=Armada;/);
-        expect(script).toMatch(/\[team1\] \{[\s\S]*side=Cortex;/);
-        expect(script).toMatch(/\[team2\] \{[\s\S]*side=Random;/);
-        expect(script).not.toContain("experimentallegionfaction");
+        const script = await startScriptConverter.generateScriptStr(battle);
+
+        expect(script).not.toMatch(/\[team1\]\s*\{[^}]*side=/);
+    });
+});
+
+describe("start script polygon startbox modoptions", () => {
+    it("injects the set keyed by team count when a preset is selected", async () => {
+        const script = await startScriptConverter.generateScriptStr(twoTeamBattle({ startPosType: StartPosType.Boxes, startBoxesIndex: 0 }));
+
+        expect(script).toContain("mapmetadata_startboxes_set");
+        expect(script).not.toContain("mapmetadata_startbox_override");
+
+        const set = decodeModoption(script, SET) as Record<string, Arrangement>;
+        expect(Object.keys(set)).toEqual(["2"]);
+        expect(set["2"].startboxes).toHaveLength(2);
+        expect(set["2"].startboxes[0].poly[2].strength).toBe(1);
     });
 
-    it("enables the BAR Legion option when a player uses the in-game faction picker", () => {
-        const script = startScriptConverter.generateScriptStr(makeBattle([undefined]));
-        const playerTeam = script.match(/\[team0\] \{([\s\S]*?)\n\s*\}/)?.[1];
+    it("injects an override alongside the map's set for custom drag-edited boxes", async () => {
+        const script = await startScriptConverter.generateScriptStr(
+            twoTeamBattle({
+                startPosType: StartPosType.Boxes,
+                customStartBoxes: [
+                    { left: 0, top: 0, right: 0.25, bottom: 1 },
+                    { left: 0.75, top: 0, right: 1, bottom: 1 },
+                ],
+            })
+        );
 
-        expect(playerTeam).toBeDefined();
-        expect(playerTeam).not.toContain("side=");
-        expect(script).toMatch(/\[modoptions\] \{[\s\S]*experimentallegionfaction=1;/);
+        expect(Object.keys(decodeModoption(script, SET) as object)).toEqual(["2"]);
+
+        const override = decodeModoption(script, OVERRIDE) as Arrangement;
+        // single arrangement, not keyed by team count; matchOverride checks startboxes.length == numTeams
+        expect(override.startboxes).toHaveLength(2);
+        // a 2-point poly is opposite corners on the 0-200 grid
+        expect(override.startboxes[0].poly).toEqual([
+            { x: 0, y: 0 },
+            { x: 50, y: 200 },
+        ]);
     });
 
-    it("respects an explicit disabled Legion option when faction choice is deferred", () => {
-        const script = startScriptConverter.generateScriptStr(makeBattle([undefined], { experimentallegionfaction: false }));
+    it("sends each imported shape as the override while its custom rect still matches it", async () => {
+        const shapes = polygonSet[0].startboxes.map((box) => box.poly);
+        const rects = [
+            { left: 0, top: 0, right: 0.3, bottom: 0.3 },
+            { left: 0.7, top: 0.7, right: 1, bottom: 1 },
+        ];
 
-        expect(script).toMatch(/\[modoptions\] \{[\s\S]*experimentallegionfaction=0;/);
-    });
+        const matching = await startScriptConverter.generateScriptStr(twoTeamBattle({ startPosType: StartPosType.Boxes, customStartBoxes: rects, customStartBoxShapes: shapes }));
+        expect((decodeModoption(matching, OVERRIDE) as Arrangement).startboxes.map((box) => box.poly)).toEqual(shapes);
 
-    it("does not assign a hidden default faction to skirmish AI", () => {
-        const script = startScriptConverter.generateScriptStr(makeSkirmishAiBattle());
-        const aiTeam = script.match(/\[team1\] \{([\s\S]*?)\n\s*\}/)?.[1];
-
-        expect(script).toMatch(/startpostype=0;/);
-        expect(script).toMatch(/\[ai1\] \{[\s\S]*shortname=BARb;/);
-        expect(aiTeam).toBeDefined();
-        expect(aiTeam).not.toContain("side=");
-        expect(script).not.toContain("experimentallegionfaction");
+        const edited = await startScriptConverter.generateScriptStr(
+            twoTeamBattle({ startPosType: StartPosType.Boxes, customStartBoxes: [rects[0], { left: 0.5, top: 0.7, right: 1, bottom: 1 }], customStartBoxShapes: shapes })
+        );
+        expect((decodeModoption(edited, OVERRIDE) as Arrangement).startboxes[0].poly).toEqual(shapes[0]);
+        expect((decodeModoption(edited, OVERRIDE) as Arrangement).startboxes[1].poly).toEqual([
+            { x: 100, y: 140 },
+            { x: 200, y: 200 },
+        ]);
     });
 });

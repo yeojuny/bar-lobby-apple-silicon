@@ -20,6 +20,7 @@ vi.mock("@renderer/store/settings.store", () => ({
         devMode: false,
     },
 }));
+vi.mock("@renderer/router", () => ({ router: { currentRoute: { value: { path: "/" } }, push: vi.fn(), replace: vi.fn() } }));
 
 vi.mock("@renderer/store/infos.store", () => ({
     infosStore: {
@@ -75,6 +76,7 @@ vi.mock("vue-router", () => ({
         afterEach: vi.fn(),
     }),
 }));
+vi.mock("@renderer/router", () => ({ router: { push: vi.fn() } }));
 
 describe("App.vue", () => {
     it("renders the App root and lobby version", () => {
@@ -91,53 +93,41 @@ describe("App.vue", () => {
 
 describe("Renderer engine initialization", () => {
     it.each([
-        ["darwin", "2026.09.10-0-g694e9df7"],
-        ["linux", "2026.06.08"],
-        ["win32", "2026.06.08"],
-    ])("awaits canonical main-process info for %s and refreshes it", async (_platform, defaultEngineVersion) => {
-        const names = ["engine", "info", "downloads"] as const;
+        ["darwin", "2026.09.01-24-g01efdf4 master"],
+        ["linux", "2026.07.04"],
+        ["win32", "2026.07.04"],
+    ])("selects the canonical main-process config for %s after versions arrive", async (_platform, defaultEngineVersion) => {
+        vi.resetModules();
+        const config = { defaultEngineVersion };
+        vi.doMock("@renderer/store/config.store", () => ({ configStore: config }));
+        const names = ["engine", "content"] as const;
         const previous = names.map((name) => [name, Object.getOwnPropertyDescriptor(window, name)] as const);
-        let completeInfo!: (value: { defaultEngineVersion: string }) => void;
-        const delayedInfo = new Promise<{ defaultEngineVersion: string }>((resolve) => {
-            completeInfo = resolve;
-        });
-        const getInfo = vi.fn().mockReturnValueOnce(delayedInfo);
         const versions = [
-            { id: "2026.06.08", ais: [], installed: true },
-            { id: "2026.09.10-0-g694e9df7", ais: [], installed: true },
+            { id: "2026.07.04", ais: [], installed: true },
+            { id: "2026.09.01-24-g01efdf4 master", ais: [], installed: true },
         ];
-        const listAvailableVersions = vi.fn().mockResolvedValue(versions);
+        let completeVersions!: (value: typeof versions) => void;
+        const delayed = new Promise<typeof versions>((resolve) => { completeVersions = resolve; });
+        const listAvailableVersions = vi.fn().mockReturnValueOnce(delayed).mockResolvedValue(versions);
         Object.defineProperty(window, "engine", { configurable: true, value: { listAvailableVersions } });
-        Object.defineProperty(window, "info", { configurable: true, value: { getInfo } });
-        Object.defineProperty(window, "downloads", {
-            configurable: true,
-            value: { onDownloadEngineComplete: vi.fn(), onDownloadEngineFail: vi.fn() },
-        });
+        Object.defineProperty(window, "content", { configurable: true, value: { onSettled: vi.fn() } });
         const { enginesStore, initEnginesStore, refreshEnginesStore } = await import("@renderer/store/engine.store");
-        enginesStore.isInitialized = false;
-        enginesStore.availableEngineVersions = [];
-        enginesStore.selectedEngineVersion = undefined;
         try {
             const initialized = initEnginesStore();
-            expect(getInfo).toHaveBeenCalledOnce();
+            expect(listAvailableVersions).toHaveBeenCalledOnce();
             await Promise.resolve();
             expect(enginesStore.isInitialized).toBe(false);
             expect(enginesStore.selectedEngineVersion).toBeUndefined();
-            completeInfo({ defaultEngineVersion });
+            completeVersions(versions);
             await initialized;
             expect(enginesStore.isInitialized).toBe(true);
             expect(enginesStore.selectedEngineVersion).toMatchObject({ id: defaultEngineVersion });
-
-            const next = defaultEngineVersion === "2026.06.08" ? "2026.09.10-0-g694e9df7" : "2026.06.08";
-            getInfo.mockResolvedValue({ defaultEngineVersion: next });
+            config.defaultEngineVersion = versions.find((version) => version.id !== defaultEngineVersion)!.id;
             await refreshEnginesStore();
-            expect(getInfo).toHaveBeenCalledTimes(2);
             expect(listAvailableVersions).toHaveBeenCalledTimes(2);
-            expect(enginesStore.selectedEngineVersion).toMatchObject({ id: next });
+            expect(enginesStore.selectedEngineVersion).toMatchObject({ id: config.defaultEngineVersion });
         } finally {
-            enginesStore.isInitialized = false;
-            enginesStore.availableEngineVersions = [];
-            enginesStore.selectedEngineVersion = undefined;
+            vi.doUnmock("@renderer/store/config.store");
             for (const [name, descriptor] of previous) {
                 if (descriptor) Object.defineProperty(window, name, descriptor);
                 else Reflect.deleteProperty(window, name);

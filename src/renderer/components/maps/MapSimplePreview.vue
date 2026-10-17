@@ -26,13 +26,14 @@ defineComponent({
 });
 
 const props = defineProps<{
-    map: MapData;
+    map: MapData | undefined;
 }>();
 
-const { get } = useImageBlobUrlCache();
+const cache = useImageBlobUrlCache();
 
 const mapTextureUrl = computed(() => {
-    const blobUrl = props.map.imagesBlob?.preview ? get(props.map.springName, props.map.imagesBlob.preview) : undefined;
+    if (!props.map) return defaultMiniMap;
+    const blobUrl = props.map.imagesBlob?.preview ? cache.get(props.map.springName, props.map.imagesBlob.preview) : undefined;
     return blobUrl ?? props.map.images?.preview ?? defaultMiniMap;
 });
 </script>

@@ -24,9 +24,9 @@ import zlib from "node:zlib";
 import ts from "typescript";
 
 type Coordinator = typeof import("../../src/main/content/content-write-coordinator.ts");
-const expectedPackagedAsarSha256 = "9cb8b9b40388309cdbd8853e43d4d2e677e128644cb7456894a2b884e695b145";
-const expectedPackagedMainSha256 = "a8f57b81b0bee70ab7b9581ca0f7afe645bbc45318ba4dde9104c79dd1b63535";
-const expectedPackagedCoordinatorSha256 = "6cee8002bda8c1d9cb76a827b5fba84155ad7a31330ae1a70448c6a15abd4488";
+const expectedPackagedAsarSha256 = "0ac0113911c6618a9959e910e6a3630efd228ec75cff8cb479f280e11cd2a7b8";
+const expectedPackagedMainSha256 = "d3cb7d4e13b56834b4986591fb15e189d1d340c66f242330ded8fb2510d4efee";
+const expectedPackagedCoordinatorSha256 = "a64de4d7d26282be838739d735f5950b25d34e9b966f8521809a9bd6fce40b41";
 const hashBytes = (value: string | Uint8Array) => createHash("sha256").update(value).digest("hex");
 
 function loadPackagedInputs(candidateApp: string) {
@@ -69,16 +69,18 @@ function loadPackagedInputs(candidateApp: string) {
         // This frozen build inlines the coordinator. Select only its complete
         // seven top-level declarations, never execute the main module, and keep
         // their original bytes rather than printing or rewriting their bodies.
-        const functions = new Set(["Nh", "q4", "ZE", "QE", "Az"]);
-        const states = new Set(["kp", "Ac", "S4", "Ru"]);
+        const functions = new Set(["cm", "ul", "vd", "Lq", "uee"]);
+        const states = new Set(["dd", "Cm", "b6", "Df"]);
         const selected = parsed.statements.filter((statement) =>
             ts.isFunctionDeclaration(statement) ? !!statement.name && functions.has(statement.name.text)
                 : ts.isVariableStatement(statement) && statement.declarationList.declarations.some((declaration) => ts.isIdentifier(declaration.name) && states.has(declaration.name.text)));
         const declarations = selected.map((statement) => ts.isFunctionDeclaration(statement) ? statement.name!.text
             : (statement as ts.VariableStatement).declarationList.declarations.map((declaration) => declaration.name.getText(parsed)));
-        assert.deepEqual(declarations, [["kp", "Ac"], ["S4", "Ru"], "Nh", "q4", "ZE", "QE", "Az"]);
+        assert.deepEqual(declarations, [["dd", "Cm"], ["b6", "Df"], "cm", "ul", "vd", "Lq", "uee"]);
         const first = parsed.statements.indexOf(selected[0]);
         assert.ok(selected.every((statement, offset) => parsed.statements[first + offset] === statement), "Coordinator declarations must form one exact contiguous block");
+        // This build emits the seven coordinator declarations without an
+        // unrelated constructor. Keep the complete original contiguous bytes.
         const text = main.text.slice(selected[0].getStart(parsed), selected[selected.length - 1].end);
         const helper = { text, sha256: hashBytes(text), declarations };
         assert.equal(helper.sha256, expectedPackagedCoordinatorSha256, "Inlined coordinator declaration bytes differ from the authorized pin");
@@ -104,9 +106,9 @@ function loadPackagedCoordinator(inputs: NonNullable<typeof packagedInputs>): Co
     // Only dependency aliases and the test export adapter surround the exact
     // extracted declarations. No application imports or writer bodies run here.
     const wrapper = new vm.Script(`(function(exports, require, module, __filename, __dirname) {
-const oo = require("node:crypto"), oa = require("node:fs/promises"), Kn = require("node:path"), Dd = require("node:timers");
+const gl = require("node:crypto"), es = require("node:fs/promises"), On = require("node:path"), kc = require("node:timers");
 ${inputs.helper.text}
-module.exports = { withContentWrite: q4, waitForContentWriterClose: ZE, publishContentMetadata: Az, shutdownContentWriters: QE };
+module.exports = { withContentWrite: ul, waitForContentWriterClose: vd, publishContentMetadata: uee, shutdownContentWriters: Lq };
 })`, { filename }).runInNewContext({ Buffer });
     packagedHelperLoads++;
     wrapper(module.exports, requireBuiltin, module, filename, path.dirname(filename));
@@ -127,7 +129,7 @@ const sourceEvidence: Array<{ file: string; method: string; fileSha256: string; 
 const sha256 = (value: string) => createHash("sha256").update(value).digest("hex");
 
 function loadMethod(relativeFile: string, className: string, methodName: string) {
-    const packagedClassNames: Record<string, string> = { PrDownloaderAPI: "ex", GameContentAPI: "Sz", GameAPI: "pH" };
+    const packagedClassNames: Record<string, string> = { PrDownloaderAPI: "bp", GameProvider: "Ste", GameAPI: "bse" };
     const targetClass = packagedInputs ? packagedClassNames[className] : className;
     assert.ok(targetClass, `No fixed class target for ${className}`);
     const filename = packagedInputs ? `${packagedInputs.archive}#${packagedInputs.mainEntry}` : path.join(sourceRoot, relativeFile);
@@ -165,8 +167,9 @@ function loadMethod(relativeFile: string, className: string, methodName: string)
 }
 
 const createOrdinaryWriter = loadMethod("content/pr-downloader.ts", "PrDownloaderAPI", "downloadContent");
+const createUninstallWriter = loadMethod("content/pr-downloader.ts", "PrDownloaderAPI", "runUninstall");
 const createChobbyWriter = loadMethod("game/game.ts", "GameAPI", "ensureChobbyMenuArchive");
-const createMetadataWriter = loadMethod("content/game/game-content.ts", "GameContentAPI", "refreshRapidLookupTablesFromRemote");
+const createMetadataWriter = loadMethod("content/game/game-provider.ts", "GameProvider", "refreshRapidLookupTablesFromRemote");
 
 function deferred() {
     let resolve!: () => void;
@@ -268,7 +271,7 @@ async function fixture(t: TestContext) {
     const metadataBytes = zlib.gzipSync(versionText);
     let fakeHttpRequests = 0;
     const bindings = {
-        Buffer, Error, Date, log, os: { EOL: "\n" }, path,
+        Buffer, Error, Date, log, promisify, zlib, os: { EOL: "\n" }, path,
         process: { platform: "darwin", env: {} },
         fs: { promises: fs },
         BUNDLED_ASSETS_PATH: undefined,
@@ -277,6 +280,7 @@ async function fixture(t: TestContext) {
         getAssetsPath: () => assets,
         getCaCertPath: () => undefined,
         getRapidIndexPath: () => path.join(assets, "rapid"),
+        configService: { getConfig: () => ({ prdRapidUseStreamer: "false", prdRapidRepoMaster: "https://repos-cdn.beyondallreason.dev/repos.gz", prdHttpSearchUrl: "https://files-cdn.beyondallreason.dev/find" }) },
         contentSources: { rapid: { host: "offline.invalid", game: "byar" } },
         engineContentAPI: { getDefaultEngine: () => ({ id: "ordinary-cpu-stub", installed: true }) },
         resolvePrDownloaderPath: ({ engineVersion }: { engineVersion: string }) => `/never-executed/${engineVersion}/pr-downloader`,
@@ -296,31 +300,32 @@ async function fixture(t: TestContext) {
     };
     const methodBindings = packagedInputs ? {
         ...bindings,
-        q4: withContentWrite,
-        ZE: waitForContentWriterClose,
-        Az: publishContentMetadata,
-        Rr: bindings.getAssetsPath,
-        _2: bindings.getCaCertPath,
-        Dt: bindings.BUNDLED_ASSETS_PATH,
-        w2: bindings.resolvePrDownloaderPath,
-        Ls: { spawn: bindings.spawn },
-        Ve: bindings.fs,
-        ke: path,
-        Ye: log,
-        ut: bindings.engineContentAPI,
-        vs: bindings.os,
-        Kl: log,
-        Un: bindings.contentSources,
-        xr: bindings.axios,
-        ju: bindings.gunzip,
-        tc: bindings.getRapidIndexPath,
-        Lt: log,
-        Xl: bindings.DEFAULT_CHOBBY_MENU,
-        A8: bindings.DEFAULT_CHOBBY_RAPID_TAG,
+        ul: withContentWrite,
+        vd: waitForContentWriterClose,
+        uee: publishContentMetadata,
+        Pt: bindings.getAssetsPath,
+        Uw: bindings.getCaCertPath,
+        hr: bindings.BUNDLED_ASSETS_PATH,
+        sw: bindings.resolvePrDownloaderPath,
+        Ss: { spawn: bindings.spawn },
+        Ge: bindings.fs,
+        Ne: path,
+        An: log,
+        Ys: bindings.os,
+        Qe: log,
+        qt: bindings.configService,
+        Ft: bindings.axios,
+        ms: { promisify },
+        St: zlib,
+        rm: bindings.getRapidIndexPath,
+        ya: log,
+        xu: bindings.DEFAULT_CHOBBY_MENU,
+        tP: bindings.DEFAULT_CHOBBY_RAPID_TAG,
     } : bindings;
     fixtureHelpers.push({ withContentWrite, waitForContentWriterClose, publishContentMetadata, shutdownContentWriters });
     const ordinary = createOrdinaryWriter(methodBindings);
     Object.assign(ordinary, {
+        getPrdBinaryPath: () => "/never-executed/ordinary-cpu-stub/pr-downloader",
         currentDownloads: [],
         downloadStarted: () => undefined,
         downloadProgress: () => undefined,
@@ -330,15 +335,17 @@ async function fixture(t: TestContext) {
             if (faults.failedListener) throw faults.failedListener;
         },
     });
+    const uninstall = createUninstallWriter(methodBindings);
     const chobby = createChobbyWriter(methodBindings);
     const metadata = createMetadataWriter(methodBindings);
     const indexed: string[] = [];
     Object.assign(metadata, { indexRapidVersions: (text: string) => indexed.push(text) });
-    const metadataPath = path.join(assets, "rapid", "offline.invalid", "byar", "versions.gz");
+    const metadataPath = path.join(assets, "rapid", "repos-cdn.beyondallreason.dev", "byar", "versions.gz");
 
     return {
         assets, canonicalAssets, children, calls, faults, logs, indexed, metadataPath, metadataBytes, cleanupReleases,
-        ordinary: () => observed(ordinary.downloadContent("game", "byar:test")),
+        uninstall: () => observed(uninstall.runUninstall("/never-executed/pr-downloader", "0123456789abcdef0123456789abcdef")),
+        ordinary: () => observed(ordinary.downloadContent("game", ["byar:test"])),
         chobby: () => observed(chobby.ensureChobbyMenuArchive({ engineVersion: "chobby-cpu-stub" })),
         metadata: () => observed(metadata.refreshRapidLookupTablesFromRemote()),
         failedNotifications: () => failedNotifications,
@@ -498,6 +505,32 @@ test("actual metadata publication holds exclusion while an ordinary download is 
     await Promise.all([metadata, ordinary]);
 });
 
+test("actual uninstall waits for downloads and retains ownership through error until close", { timeout: 5000 }, async (t) => {
+    const f = await fixture(t);
+    const ordinary = f.ordinary();
+    await f.spawned(1);
+    const uninstall = f.uninstall();
+    await f.admitted(2);
+    assert.equal(f.children.length, 1);
+    f.children[0].emit("exit", 0, null);
+    await setImmediate();
+    assert.equal(f.children.length, 1);
+    f.children[0].close();
+    await f.spawned(2);
+    assert.equal(f.calls[1].args[2], "--uninstall");
+    const chobby = f.chobby();
+    await f.admitted(3);
+    const failure = new Error("uninstall process failed");
+    f.children[1].emit("error", failure);
+    await setImmediate();
+    assert.equal(f.children.length, 2);
+    f.children[1].close(1);
+    await assert.rejects(uninstall, (error) => error === failure);
+    await f.spawned(3);
+    f.children[2].close();
+    await Promise.all([ordinary, chobby]);
+});
+
 // The coordinator's quit latch is irreversible. Keep this after every ordinary
 // writer case; both actual wrapper kinds still use the one shared helper.
 test("shutdown tracks both actual spawned wrappers and cancels queued Chobby and metadata only after owner close", { timeout: 5000 }, async (t) => {
@@ -579,9 +612,9 @@ test("shutdown tracks both actual spawned wrappers and cancels queued Chobby and
 });
 
 if (packagedInputs) {
-    test("packaged helper module is loaded once and shared by all ten fixtures", () => {
+    test("packaged helper module is loaded once and shared by all eleven fixtures", () => {
         assert.equal(packagedHelperLoads, 1);
-        assert.equal(fixtureHelpers.length, 10);
+        assert.equal(fixtureHelpers.length, 11);
         for (const helpers of fixtureHelpers) {
             assert.equal(helpers.withContentWrite, coordinator.withContentWrite);
             assert.equal(helpers.waitForContentWriterClose, coordinator.waitForContentWriterClose);

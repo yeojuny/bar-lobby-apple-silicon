@@ -7,8 +7,11 @@ SPDX-License-Identifier: MIT
 <template>
     <div class="nav" :class="{ hidden }">
         <div class="logo">
-            <Button to="/play/menu?">
-                <img src="/src/renderer/assets/images/logo.svg" />
+            <Button @click="onLogoClick">
+                <div class="logo-container">
+                    <img src="/src/renderer/assets/images/logo.svg" :class="{ dim: tachyonStore.springConnectionDetails }" />
+                    <ActiveBattleVideo class="battle-video" v-if="tachyonStore.springConnectionDetails" />
+                </div>
             </Button>
         </div>
         <div class="flex-col flex-grow">
@@ -131,6 +134,8 @@ import { useLogInConfirmation } from "@renderer/composables/useLogInConfirmation
 import { chatStore } from "@renderer/store/chat.store";
 import { GameStatus, gameStore } from "@renderer/store/game.store";
 import { notificationsApi } from "@renderer/api/notifications";
+import { tachyonStore } from "@renderer/store/tachyon.store";
+import ActiveBattleVideo from "@renderer/components/misc/ActiveBattleVideo.vue";
 
 defineProps<{
     hidden?: boolean;
@@ -195,6 +200,14 @@ function minimizeWindow() {
 
 function toggleFullscreen() {
     settingsStore.fullscreen = !settingsStore.fullscreen;
+}
+
+function onLogoClick() {
+    if (tachyonStore.springConnectionDetails) {
+        tachyonStore.rejoinModalOpen = true;
+    } else {
+        router.push("/play/menu");
+    }
 }
 </script>
 
@@ -383,5 +396,25 @@ function toggleFullscreen() {
 .drag-window-area {
     flex-grow: 1;
     -webkit-app-region: drag !important;
+}
+.logo-container {
+    position: relative;
+    display: inline-block;
+}
+.logo-container img {
+    display: block;
+    // max-width: 100%;
+    // height: auto;
+}
+.battle-video {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    transform: translateY(-50%);
+    z-index: 2;
+}
+.dim {
+    filter: brightness(0.12);
 }
 </style>

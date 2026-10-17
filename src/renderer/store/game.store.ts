@@ -4,11 +4,13 @@
 
 import { GameVersion } from "@main/content/game/game-version";
 import { LuaOption } from "@main/content/game/lua-options";
-import { Replay } from "@main/content/replays/replay";
+import { Replay } from "@main/replays/replay";
 import { BattleWithMetadata } from "@main/game/battle/battle-types";
 import { notificationsApi } from "@renderer/api/notifications";
 import { sortGameVersionsByVersionDesc } from "@renderer/utils/game-version-sort";
+import { onContentSettled } from "@renderer/store/contents.store";
 import { reactive, watch } from "vue";
+import { matchmakingStore, MatchmakingStatus } from "./matchmaking.store";
 
 function getErrorMessage(error: unknown, fallback: string): string {
     return error instanceof Error ? error.message : fallback;
@@ -99,15 +101,15 @@ export async function watchReplay(replay: Replay) {
 }
 
 export async function initGameStore() {
-    if (gameStore.isInitialized) return;
+    if (gameStore.isInitialized) {
+        console.warn("Game store is already initialized. Skipping initialization.");
+        return;
+    }
     await refreshStore();
-    window.downloads.onDownloadGameComplete(async (downloadInfo) => {
-        console.debug("Received game download completed event", downloadInfo);
-        await refreshStore();
-    });
-    window.downloads.onDownloadGameFail(async (downloadInfo) => {
-        console.error("Game download failed", downloadInfo);
-        await refreshStore();
+    onContentSettled(async (refs) => {
+        if (refs.some((ref) => ref.type === "game")) {
+            await refreshStore();
+        }
     });
     window.game.onGameLaunched(() => {
         console.debug("Game loaded");
@@ -116,6 +118,9 @@ export async function initGameStore() {
     window.game.onGameClosed(() => {
         console.debug("Game closed");
         gameStore.status = GameStatus.CLOSED;
+        if (matchmakingStore.status !== MatchmakingStatus.Idle) {
+            matchmakingStore.status = MatchmakingStatus.Idle;
+        }
     });
     gameStore.isInitialized = true;
 }

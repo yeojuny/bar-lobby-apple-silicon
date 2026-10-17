@@ -6,7 +6,10 @@ SPDX-License-Identifier: MIT
 
 <template>
     <div class="map-container" :style="{ aspectRatio: mapTextureUrl ? 'auto' : 1 }">
-        <div v-if="mapTextureUrl" class="map">
+        <div v-if="noPreview" class="map">
+            <img :src="defaultMiniMap" />
+        </div>
+        <div v-else class="map">
             <img :src="mapTextureUrl" />
             <div class="boxes">
                 <div v-for="team in teams" :key="team.allyTeamId" v-startBox="team.startBox" class="box" />
@@ -32,7 +35,7 @@ SPDX-License-Identifier: MIT
 </template>
 
 <script setup lang="ts">
-import { Replay } from "@main/content/replays/replay";
+import { Replay } from "@main/replays/replay";
 import { useDexieLiveQueryWithDeps } from "@renderer/composables/useDexieLiveQuery";
 import { useImageBlobUrlCache } from "@renderer/composables/useImageBlobUrlCache";
 import { db } from "@renderer/store/db";
@@ -64,7 +67,7 @@ defineComponent({
 });
 
 const map = useDexieLiveQueryWithDeps([() => props.replay?.mapSpringName], () => {
-    if (!props.replay) throw new Error("unable to acces replay");
+    if (!props.replay) throw new Error("unable to access replay");
 
     return db.maps.get(props.replay.mapSpringName);
 });
@@ -72,10 +75,11 @@ const mapWidthElmos = computed(() => (map.value?.mapWidth ? map.value.mapWidth *
 const mapHeightElmos = computed(() => (map.value?.mapHeight ? map.value.mapHeight * 512 : null));
 const cache = useImageBlobUrlCache();
 const mapTextureUrl = computed(() => {
-    if (!map.value) return null;
+    if (!map.value) return defaultMiniMap;
     const blobUrl = map.value.imagesBlob?.preview ? cache.get(map.value.springName, map.value.imagesBlob.preview) : undefined;
     return blobUrl ?? map.value.images?.preview ?? defaultMiniMap;
 });
+const noPreview = computed(() => !map.value?.imagesBlob?.preview);
 </script>
 
 <style lang="scss" scoped>

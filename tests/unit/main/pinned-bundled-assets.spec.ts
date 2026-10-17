@@ -103,6 +103,25 @@ describe("explicit pinned macOS packaging inputs", () => {
         expect(() => createPinnedBundledAssets(f.pin(), f.baseline).validate()).toThrow(/engine pin mismatch/);
     });
 
+    it("preserves a complete git-describe sync identity including its branch", () => {
+        const f = fixture();
+        const version = "2026.09.01-24-g01efdf4 master";
+        f.baseline.lanes["bar-lobby"].engineDirectory = version;
+        f.lock.lanes["bar-lobby"].engineDirectory = version;
+        chmodSync(f.put(`engine/${version}/spring`, "lobby-engine"), 0o755);
+        f.lock.entries.engine = hashBundledAssetEntry(f.assets, "engine");
+        expect(() => createPinnedBundledAssets(f.pin(), f.baseline).validate()).not.toThrow();
+        f.put(`engine/${version}/spring`, "wrong-engine");
+        expect(() => createPinnedBundledAssets(f.pin(), f.baseline).validate()).toThrow(/executable identity mismatch/);
+    });
+
+    it.each(["../engine", "engine/master", "engine\\master", "engine  master", "engine master/next", "engine\nmaster", "engine "])("rejects an unsafe engine directory %j", (version) => {
+        const f = fixture();
+        f.baseline.lanes["bar-lobby"].engineDirectory = version;
+        f.lock.lanes["bar-lobby"].engineDirectory = version;
+        expect(() => createPinnedBundledAssets(f.pin(), f.baseline).validate()).toThrow(/Invalid protected bar-lobby engine identity/);
+    });
+
     it.each(["runtime/lib/runtime.dylib", "macos-luaui-overlays/bar-chobby/manifest.json", "engine/chobby-current/spring", "third-party-notices/source-map.json", "third-party-notices/licenses/example/LICENSE"])("rejects altered bytes in %s", (name) => {
         const f = fixture();
         const input = createPinnedBundledAssets(f.pin(), f.baseline);

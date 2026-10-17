@@ -2,7 +2,9 @@
 //
 // SPDX-License-Identifier: MIT
 
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
+
+vi.mock("@main/services/config.service", () => ({ configService: { getConfig: () => ({ engineReleaseUrl: "https://files-cdn.beyondallreason.dev/find" }) } }));
 
 import { getEngineReleaseCategory } from "@main/config/content-sources";
 

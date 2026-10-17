@@ -6,7 +6,7 @@ import { app, screen, BrowserWindow } from "electron";
 import { ipcMain } from "@main/typed-ipc";
 import os from "os";
 import { STATE_PATH, getAssetsPath } from "@main/config/app";
-import { getDefaultEngineVersion } from "@main/config/default-versions";
+import { configService } from "@main/services/config.service";
 
 export type Info = {
     statePath: string;
@@ -35,7 +35,7 @@ function getInfo() {
     const info: Info = {
         statePath: STATE_PATH,
         assetsPath: getAssetsPath(),
-        defaultEngineVersion: getDefaultEngineVersion(process.platform),
+        defaultEngineVersion: configService.getConfig().defaultEngineVersion,
         lobby: {
             name: "BAR Lobby",
             version: app.getVersion(),

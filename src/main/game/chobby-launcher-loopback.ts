@@ -789,27 +789,20 @@ export class ChobbyLauncherLoopback {
         this.trackChildProcess(childProcess, `native engine ${engineVersion}`);
     }
 
-    private enforceMacOSFullscreenSpringSetting(settings: string) {
+    private normalizeMacOSDisplaySpringSettings(settings: string) {
         if (this.options.platform !== "darwin") return settings;
-
-        const lines = settings.trimEnd() ? settings.trimEnd().split(/\r?\n/) : [];
-        let found = false;
-        const nextLines = lines.map((line) => {
-            const match = line.match(/^(\s*)([^#=]+?)(\s*=\s*)(.*)$/);
-            if (!match || match[2].trim() !== "Fullscreen") return line;
-
-            found = true;
-            return `${match[1]}Fullscreen${match[3]}1`;
-        });
-
-        if (!found) nextLines.push("Fullscreen = 1");
-        return `${nextLines.join("\n")}\n`;
+        // Chobby's mode3 serializes Fullscreen1, mode2 explicitly serializes0.
+        // Respect both. Borderless modes omit Fullscreen but set WindowBorderless1;
+        // that is a window choice, not permission to force native fullscreen.
+        if (/^\s*Fullscreen\s*=/m.test(settings)) return settings;
+        const borderless = /^\s*WindowBorderless\s*=\s*1\s*$/m.test(settings);
+        return `${settings.trimEnd()}\nFullscreen = ${borderless ? 0 : 1}\n`;
     }
 
     private async resolveStartNewSpringLaunchArg(command: ChobbyStartNewSpringCommand) {
         await fs.promises.mkdir(this.options.writeDataPath, { recursive: true });
         if (command.SpringSettings) {
-            const springSettings = this.enforceMacOSFullscreenSpringSetting(command.SpringSettings);
+            const springSettings = this.normalizeMacOSDisplaySpringSettings(command.SpringSettings);
             await fs.promises.writeFile(path.join(this.options.writeDataPath, "springsettings.cfg"), springSettings, "utf-8");
         }
         if (command.StartScriptContent) {

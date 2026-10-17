@@ -9,15 +9,15 @@ import { createPinnedBundledAssets } from "./packaging/pinned-bundled-assets";
 // Reviewed experimental release inputs. The external lock remains mandatory;
 // protected local candidates are not modified by this packaging configuration.
 const bundledAssets = createPinnedBundledAssets(process.env, {
-    id: "release-downloader-shutdown-20261016-alpha3",
+    id: "ai-sensor-audio-fix-20261016-candidate4",
     lanes: {
         "bar-chobby": {
             engineDirectory: "2026.07.04",
-            springSha256: "829651a32559ab3f29cce19d9659102db63d73b7956c2ffd78f4c828ec58fec9",
+            springSha256: "0f9f5abdf97d82f388ee27ad90a45237137ad9c823c59681144bb496de88c9e9",
         },
         "bar-lobby": {
-            engineDirectory: "2026.09.10-0-g694e9df7",
-            springSha256: "b72006c777e051faf9a2b879ee180339f5961f9b440c5d6c6794e1b040766add",
+            engineDirectory: "2026.09.01-24-g01efdf4 master",
+            springSha256: "27932f377e05012f626d28186c9620ade8cf300ecc747cb76e78822a4746cf3d",
         },
     },
 });
@@ -30,9 +30,9 @@ const config: Configuration = {
     // Should be the same as APP_NAME in src/main/config/app.ts and in
     // workaround in installer.nsh.
     productName: "BAR",
-    buildVersion: "0.15.4.3",
+    buildVersion: "0.17.0.4",
     extraMetadata: {
-        version: "0.15.4-alpha.3",
+        version: "0.17.0-candidate.4",
         repository: { type: "git", url: "https://github.com/yeojuny/bar-lobby-apple-silicon.git" },
     },
 
@@ -58,6 +58,7 @@ const config: Configuration = {
     // review. Explicit null also prevents token-based publisher autodetection.
     publish: null,
     fileAssociations: [
+        { ext: "barreplay", description: "BAR Replay Highlight", role: "Viewer", icon: "icon.ico", name: "BAR Replay Highlight" },
         {
             ext: "sdfz",
             description: "BAR Replay File",
@@ -65,7 +66,7 @@ const config: Configuration = {
             // electron-builder resolves this to icon.icns on macOS, using the
             // original port artwork while preserving the Windows association.
             icon: "icon.ico",
-            name: "SDFZ NAME HERE",
+            name: "BAR Replay",
         },
     ],
 

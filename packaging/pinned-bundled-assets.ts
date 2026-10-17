@@ -103,7 +103,9 @@ export function createPinnedBundledAssets(env: NodeJS.ProcessEnv, baseline: Bund
                 if (pin.engineDirectory !== expected.engineDirectory || pin.springSha256 !== expected.springSha256) {
                     throw new Error(`Protected ${lane} engine pin mismatch`);
                 }
-                if (!/^[A-Za-z0-9][A-Za-z0-9._+-]*$/.test(expected.engineDirectory) || !isSha256(expected.springSha256)) {
+                // Recoil's full sync identity may include its branch after one space.
+                // Keep both tokens path-safe without shortening the multiplayer identity.
+                if (!/^[A-Za-z0-9][A-Za-z0-9._+-]*(?: [A-Za-z0-9][A-Za-z0-9._+-]*)?$/.test(expected.engineDirectory) || !isSha256(expected.springSha256)) {
                     throw new Error(`Invalid protected ${lane} engine identity`);
                 }
                 const spring = path.join(assetsPath, "engine", expected.engineDirectory, "spring");

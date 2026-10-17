@@ -15,7 +15,7 @@ const writerChildren = new Map<ChildProcess, Promise<void>>();
 let stopping = false;
 let shutdown: Promise<void> | undefined;
 
-function requireContentWritesOpen() {
+export function requireContentWritesOpen() {
     if (stopping) throw new Error("Content writes stopped because the launcher is quitting");
 }
 
@@ -73,7 +73,7 @@ export function waitForContentWriterClose(child: ChildProcess): Promise<{ code: 
     return completion;
 }
 
-/** Only this process's registered downloaders; never detached native/helper owners. */
+/** Only registered parent content children; never detached native/helper owners. */
 export function shutdownContentWriters(): Promise<void> {
     if (shutdown) return shutdown;
     stopping = true;

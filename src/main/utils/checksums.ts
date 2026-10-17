@@ -7,14 +7,44 @@ import { spawn } from "child_process";
 import { logger } from "@main/utils/logger";
 import { getEnginePath, WRITE_DATA_PATH, getAssetsPath, BUNDLED_ASSETS_PATH } from "@main/config/app";
 import { getNativeEngineProcessEnv, resolveNativeEngineRunner } from "@main/config/native-engine-runner";
+import { waitForContentWriterClose, withContentWrite } from "@main/content/content-write-coordinator";
 
 const log = logger("checksums.ts");
 
-let checksumQueue: Promise<void> = Promise.resolve();
+let checksumQueue: Promise<unknown> = Promise.resolve();
+
+// A rejection must not poison the chain, or one failed removal would stop every later checksum.
+function enqueue<T>(task: () => Promise<T>): Promise<T> {
+    const result = checksumQueue.then(task);
+    checksumQueue = result.catch(() => undefined);
+
+    return result;
+}
 
 export function calcChecksum(engineVersion: string, archiveName: string): Promise<void> {
-    checksumQueue = checksumQueue.then(() => runChecksumProcess(engineVersion, archiveName));
-    return checksumQueue;
+    return enqueue(() => process.platform === "darwin"
+        ? withContentWrite(getAssetsPath(), () => runChecksumProcess(engineVersion, archiveName)).catch((error) => {
+            log.warn(`calcChecksum did not run for ${archiveName}: ${error}`);
+        })
+        : runChecksumProcess(engineVersion, archiveName));
+}
+
+/**
+ * Runs work with the checksum queue held, so nothing is checksumming while it does.
+ *
+ * The engine holds an archive open while checksumming it, so deleting that archive fails outright on
+ * Windows. Waiting for the queue to drain is not enough: anything may queue a checksum the moment the
+ * wait resolves, so removal takes its turn in the queue instead of watching it.
+ */
+export function holdChecksums<T>(work: () => Promise<T>): Promise<T> {
+    return enqueue(work);
+}
+
+/** Keep checksum processes out of a native game's shared cache and infolog until it closes. */
+export function acquireChecksumHold(): Promise<() => void> {
+    return new Promise((resolve) => {
+        void holdChecksums(() => new Promise<void>((release) => resolve(release)));
+    });
 }
 
 function runChecksumProcess(engineVersion: string, archiveName: string): Promise<void> {
@@ -55,6 +85,18 @@ function runChecksumProcess(engineVersion: string, archiveName: string): Promise
             stdio: "ignore",
             env,
         });
+        if (process.platform === "darwin") {
+            // These children also write native cache/log files. Register them
+            // with the same close/drain owner as downloads before returning.
+            waitForContentWriterClose(proc).then(({ code }) => {
+                if (code !== 0) log.warn(`calcChecksum exited with code ${code} for: ${archiveName}`);
+                resolve();
+            }, (error) => {
+                log.warn(`calcChecksum failed for ${archiveName}: ${error}`);
+                resolve();
+            });
+            return;
+        }
         proc.on("exit", (code) => {
             if (code !== 0) log.warn(`calcChecksum exited with code ${code} for: ${archiveName}`);
             resolve();

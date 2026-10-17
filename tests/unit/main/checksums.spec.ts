@@ -1,71 +1,110 @@
+// SPDX-FileCopyrightText: 2026 The BAR Lobby Authors
+//
 // SPDX-License-Identifier: MIT
+
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import { EventEmitter } from "node:events";
-import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
-const mocks = vi.hoisted(() => ({ spawn: vi.fn(), runner: vi.fn(), env: vi.fn(), warn: vi.fn() }));
-vi.mock("child_process", () => ({ spawn: mocks.spawn }));
-vi.mock("@main/utils/logger", () => ({ logger: () => ({ debug: vi.fn(), warn: mocks.warn }) }));
-vi.mock("@main/config/app", () => ({
-    getEnginePath: () => "/assets/engine",
-    getAssetsPath: () => "/assets",
-    WRITE_DATA_PATH: "/state/data",
-    BUNDLED_ASSETS_PATH: "/BAR.app/bundled-assets",
-}));
+const { running, spawned } = vi.hoisted(() => ({ running: { processes: [] as Array<{ exit: () => void }> }, spawned: [] as string[] }));
+
+vi.mock("@main/utils/logger", () => ({ logger: () => ({ debug: vi.fn(), info: vi.fn(), warn: vi.fn(), error: vi.fn() }) }));
+vi.mock("node:fs/promises", () => ({ default: { mkdir: async () => undefined, realpath: async (p: string) => p } }));
+vi.mock("@main/config/app", () => ({ getEnginePath: () => "/engine", WRITE_DATA_PATH: "/write", getAssetsPath: () => "/assets", BUNDLED_ASSETS_PATH: undefined }));
 vi.mock("@main/config/native-engine-runner", () => ({
-    resolveNativeEngineRunner: mocks.runner,
-    getNativeEngineProcessEnv: mocks.env,
+    resolveNativeEngineRunner: ({ engineVersion }: { engineVersion: string }) => ({ enginePath: `/engine/${engineVersion}`, spawnCommand: "./spring" }),
+    getNativeEngineProcessEnv: () => ({ SPRING_DATADIR: "/assets" }),
+}));
+vi.mock("child_process", () => ({
+    // A checksum process that only ends when the test says so, so overlap is observable rather than timed.
+    spawn: (_binary: string, args: string[]) => {
+        const child = new EventEmitter();
+        spawned.push(args[args.length - 1]);
+        running.processes.push({ exit: () => { child.emit("exit", 0, null); child.emit("close", 0, null); } });
+
+        return child;
+    },
 }));
 
-describe("archive checksum subprocess", () => {
-    let child: EventEmitter;
+import { calcChecksum, holdChecksums } from "@main/utils/checksums";
+
+// The queue advances on microtasks, so nothing has spawned on the line after asking for it.
+const settle = () => new Promise<void>((resolve) => setTimeout(resolve, 0));
+
+function endOldestChecksum() {
+    running.processes.shift()?.exit();
+}
+
+describe("checksum queue", () => {
     beforeEach(() => {
-        vi.resetModules();
-        vi.clearAllMocks();
-        vi.stubGlobal("process", Object.create(process, { platform: { value: "darwin" } }));
-        child = new EventEmitter();
-        mocks.spawn.mockReturnValue(child);
-        mocks.runner.mockReturnValue({ enginePath: "/BAR.app/bundled-assets/engine/requested", spawnCommand: "./spring" });
-        mocks.env.mockReturnValue({ SPRING_DATADIR: "/assets:/engine", DYLD_LIBRARY_PATH: "/BAR.app/runtime" });
+        running.processes.length = 0;
+        spawned.length = 0;
     });
-    afterEach(() => vi.unstubAllGlobals());
 
-    it("uses the exact requested native engine and its bundle runtime without a content overlay", async () => {
-        const { calcChecksum } = await import("@main/utils/checksums");
-        const done = calcChecksum("2026.06.08", "official game");
-        await vi.waitFor(() => expect(mocks.spawn).toHaveBeenCalledOnce());
-        expect(mocks.runner).toHaveBeenCalledWith(expect.objectContaining({ engineVersion: "2026.06.08" }));
-        expect(mocks.env).toHaveBeenCalledWith(expect.objectContaining({
-            includeBundledAssetsInSpringDataDir: false,
-            includeBundledMacOSLuaUIOverlayInSpringDataDir: false,
-        }));
-        expect(mocks.spawn).toHaveBeenCalledWith("./spring", ["--write-dir", "/state/data", "--isolation", "--calc-checksum", "official game"], {
-            cwd: "/BAR.app/bundled-assets/engine/requested",
-            stdio: "ignore",
-            env: { SPRING_DATADIR: "/assets:/engine", DYLD_LIBRARY_PATH: "/BAR.app/runtime" },
+    it("runs one checksum at a time", async () => {
+        const first = calcChecksum("2025.06.21", "a.sd7");
+        const second = calcChecksum("2025.06.21", "b.sd7");
+        await settle();
+
+        expect(spawned).toEqual(["a.sd7"]);
+
+        endOldestChecksum();
+        await first;
+        await settle();
+
+        expect(spawned).toEqual(["a.sd7", "b.sd7"]);
+
+        endOldestChecksum();
+        await second;
+    });
+
+    // The bug this guards: waiting for the queue to drain and then deleting leaves a window where anything
+    // can queue a checksum against the archive being removed.
+    it("keeps a checksum queued during held work from starting", async () => {
+        const order: string[] = [];
+        let queued: Promise<void> | undefined;
+
+        await holdChecksums(async () => {
+            order.push("removal start");
+            queued = calcChecksum("2025.06.21", "doomed.sd7");
+            await settle();
+
+            expect(spawned).toEqual([]);
+
+            order.push("removal end");
         });
-        child.emit("exit", 0);
-        await done;
+        await settle();
+
+        expect(order).toEqual(["removal start", "removal end"]);
+        expect(spawned).toEqual(["doomed.sd7"]);
+
+        endOldestChecksum();
+        await queued;
     });
 
-    it("does not substitute another engine or poison the queue when the requested version is missing", async () => {
-        const { calcChecksum } = await import("@main/utils/checksums");
-        mocks.runner.mockImplementationOnce(() => { throw new Error("requested version unavailable"); });
-        await calcChecksum("missing", "first game");
-        expect(mocks.spawn).not.toHaveBeenCalled();
-        const done = calcChecksum("2026.06.08", "second game");
-        await vi.waitFor(() => expect(mocks.spawn).toHaveBeenCalledOnce());
-        child.emit("exit", 0);
-        await done;
+    it("waits for a checksum already running before held work starts", async () => {
+        const order: string[] = [];
+        const checksum = calcChecksum("2025.06.21", "a.sd7").then(() => void order.push("checksum done"));
+        const held = holdChecksums(async () => void order.push("removal"));
+        await settle();
+
+        expect(order).toEqual([]);
+
+        endOldestChecksum();
+        await Promise.all([checksum, held]);
+
+        expect(order).toEqual(["checksum done", "removal"]);
     });
 
-    it("keeps the existing headless executable on Windows", async () => {
-        vi.stubGlobal("process", Object.create(process, { platform: { value: "win32" } }));
-        const { calcChecksum } = await import("@main/utils/checksums");
-        const done = calcChecksum("version", "game");
-        await vi.waitFor(() => expect(mocks.spawn).toHaveBeenCalledOnce());
-        expect(mocks.spawn.mock.calls[0][0]).toBe("spring-headless.exe");
-        expect(mocks.runner).not.toHaveBeenCalled();
-        child.emit("exit", 0);
-        await done;
+    // A rejecting removal must not leave the chain rejected, or every later checksum is skipped.
+    it("survives held work that throws", async () => {
+        await expect(holdChecksums(() => Promise.reject(new Error("EBUSY")))).rejects.toThrow("EBUSY");
+
+        const after = calcChecksum("2025.06.21", "later.sd7");
+        await settle();
+
+        expect(spawned).toEqual(["later.sd7"]);
+
+        endOldestChecksum();
+        await after;
     });
 });

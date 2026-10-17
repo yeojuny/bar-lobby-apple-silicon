@@ -100,7 +100,8 @@ export class AutoUpdaterAPI extends Downloader {
         let downloadedInfo: UpdateInfo | undefined;
         let emittedError = false;
         const onProgress = (progress: electronUpdater.ProgressInfo) => {
-            void this.downloadProgress({ type: "update", name: info.version, currentBytes: progress.transferred, totalBytes: progress.total, progress: progress.percent }).catch((error) => {
+            void this.downloadProgress({ type: "update",
+                id: info.version, name: info.version, currentBytes: progress.transferred, totalBytes: progress.total, progress: progress.percent }).catch((error) => {
                 log.error(error, "Error notifying update download progress");
             });
         };
@@ -118,10 +119,12 @@ export class AutoUpdaterAPI extends Downloader {
             await autoUpdater.downloadUpdate();
             if (emittedError || !downloadedInfo) throw Error("Update download did not complete successfully");
             this.updateInfo = downloadedInfo;
-            await this.downloadComplete({ type: "update", name: info.version, currentBytes: 1, totalBytes: 1, progress: 1 });
+            await this.downloadComplete({ type: "update",
+                id: info.version, name: info.version, currentBytes: 1, totalBytes: 1, progress: 1 });
         } catch (error) {
             if (!emittedError) log.error(error, "Error downloading update");
-            await this.downloadFailed({ type: "update", name: info.version, currentBytes: 0, totalBytes: 0, progress: 0 });
+            await this.downloadFailed({ type: "update",
+                id: info.version, name: info.version, currentBytes: 0, totalBytes: 0, progress: 0 });
         } finally {
             autoUpdater.removeListener("download-progress", onProgress);
             autoUpdater.removeListener("update-downloaded", onDownloaded);

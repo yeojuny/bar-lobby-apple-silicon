@@ -17,29 +17,47 @@ describe("Main Process Lifecycle", () => {
 
     // Mock all services
     const mockServices = {
-        engineService: { init: vi.fn().mockResolvedValue(undefined), registerIpcHandlers: vi.fn() },
-        settingsService: { init: vi.fn().mockResolvedValue(undefined), registerIpcHandlers: vi.fn(), getSettings: vi.fn().mockReturnValue({ assetsPath: "" }) },
+        engineService: { registerIpcHandlers: vi.fn() },
+        settingsService: {
+            init: vi.fn().mockResolvedValue(undefined),
+            registerIpcHandlers: vi.fn(),
+            getSettings: vi.fn().mockReturnValue({ assetsPath: "", lobbyServerOverride: "", customServerList: [] }),
+            updateSettings: vi.fn().mockResolvedValue(undefined),
+        },
+        customLobbiesService: {
+            init: vi.fn().mockResolvedValue(undefined),
+            registerIpcHandlers: vi.fn(),
+        },
+        configService: {
+            init: vi.fn().mockResolvedValue(undefined),
+            registerIpcHandlers: vi.fn(),
+            getConfig: vi.fn().mockReturnValue({ configUrl: "", defaultServers: ["wss://server4.beyondallreason.info"] }),
+        },
         accountService: { init: vi.fn().mockResolvedValue(undefined) },
         replaysService: { init: vi.fn().mockResolvedValue(undefined), registerIpcHandlers: vi.fn() },
-        gameService: { init: vi.fn().mockResolvedValue(undefined), registerIpcHandlers: vi.fn() },
-        mapsService: { init: vi.fn().mockResolvedValue(undefined), registerIpcHandlers: vi.fn() },
+        gameService: { registerIpcHandlers: vi.fn() },
+        mapsService: { registerIpcHandlers: vi.fn() },
         autoUpdaterService: { init: vi.fn().mockResolvedValue(undefined), registerIpcHandlers: vi.fn() },
+        contentService: { registerIpcHandlers: vi.fn() },
+        contentAPI: { init: vi.fn().mockResolvedValue(undefined), reinit: vi.fn().mockResolvedValue(undefined) },
         logService: { registerIpcHandlers: vi.fn() },
         infoService: { registerIpcHandlers: vi.fn() },
-        authService: { registerIpcHandlers: vi.fn() },
+        authService: { init: vi.fn().mockResolvedValue(undefined), registerIpcHandlers: vi.fn() },
         tachyonService: { registerIpcHandlers: vi.fn() },
         shellService: { registerIpcHandlers: vi.fn() },
-        downloadsService: { registerIpcHandlers: vi.fn() },
         miscService: { registerIpcHandlers: vi.fn() },
         navigationService: { registerIpcHandlers: vi.fn() },
         pathsService: { registerIpcHandlers: vi.fn() },
     };
 
-    beforeEach(() => {
+    beforeEach(async () => {
         vi.clearAllMocks();
         vi.resetModules();
         shutdownWriters = vi.fn().mockResolvedValue(undefined);
         vi.doMock("@main/content/content-write-coordinator", () => ({ shutdownContentWriters: shutdownWriters }));
+
+        vi.stubGlobal("SPLASH_WINDOW_VITE_DEV_SERVER_URL", "http://localhost:5173/splash.html");
+        vi.stubGlobal("MAIN_WINDOW_VITE_DEV_SERVER_URL", "http://localhost:5173/index.html");
 
         mockApp = {
             requestSingleInstanceLock: vi.fn().mockReturnValue(true),
@@ -72,6 +90,7 @@ describe("Main Process Lifecycle", () => {
         };
 
         mockProcess = {
+            argv: ["BAR"],
             env: { NODE_ENV: "development" },
             platform: "linux",
             on: vi.fn(),
@@ -83,6 +102,23 @@ describe("Main Process Lifecycle", () => {
             protocol: mockProtocol,
             session: mockSession,
             net: mockNet,
+
+            BrowserWindow: vi.fn().mockImplementation(() => ({
+                loadURL: vi.fn(),
+                show: vi.fn(),
+                on: vi.fn(),
+                destroy: vi.fn(),
+                webContents: {
+                    on: vi.fn(),
+                    send: vi.fn(),
+                },
+            })),
+            nativeImage: {
+                createEmpty: vi.fn().mockReturnValue({}),
+                createFromPath: vi.fn().mockReturnValue({}),
+                createFromBuffer: vi.fn().mockReturnValue({}),
+                createFromDataURL: vi.fn().mockReturnValue({}),
+            },
         }));
 
         vi.doMock("node:net", () => ({
@@ -91,9 +127,23 @@ describe("Main Process Lifecycle", () => {
             },
         }));
 
+        vi.doMock("@main/splash-window", () => ({
+            createSplashWindow: vi.fn().mockReturnValue({
+                webContents: {},
+                once: vi.fn(),
+                destroy: vi.fn(),
+                close: vi.fn(),
+            }),
+        }));
+
+        vi.doMock("@main/browser-behaviours", () => ({
+            installApplicationMenu: vi.fn(),
+        }));
+
         vi.doMock("@main/main-window", () => ({
             createWindow: vi.fn().mockReturnValue({
                 webContents: {},
+                on: vi.fn(),
             }),
         }));
 
@@ -123,11 +173,12 @@ describe("Main Process Lifecycle", () => {
         vi.doMock("@main/services/maps.service", () => ({ default: mockServices.mapsService }));
         vi.doMock("@main/services/engine.service", () => ({ default: mockServices.engineService }));
         vi.doMock("@main/services/auto-updater.service", () => ({ default: mockServices.autoUpdaterService }));
-        vi.doMock("@main/services/downloads.service", () => ({ default: mockServices.downloadsService }));
-
+        vi.doMock("@main/services/config.service", () => ({ configService: mockServices.configService }));
+        vi.doMock("@main/services/content.service", () => ({ default: mockServices.contentService }));
+        vi.doMock("@main/content/content-api", () => ({ contentAPI: mockServices.contentAPI }));
         vi.doMock("@main/services/settings.service", () => ({ settingsService: mockServices.settingsService }));
+        vi.doMock("@main/services/custom-lobbies.service", () => ({ customLobbiesService: mockServices.customLobbiesService }));
         vi.doMock("@main/services/info.service", () => ({ infoService: mockServices.infoService }));
-        vi.doMock("@main/services/account.service", () => ({ accountService: mockServices.accountService }));
         vi.doMock("@main/services/log.service", () => ({ logService: mockServices.logService }));
         vi.doMock("@main/services/auth.service", () => ({ authService: mockServices.authService }));
         vi.doMock("@main/services/tachyon.service", () => ({ tachyonService: mockServices.tachyonService }));
@@ -148,13 +199,25 @@ describe("Main Process Lifecycle", () => {
         vi.resetModules();
     });
 
-    it("should exit if single instance lock is not acquired", async () => {
+    it("should exit if single instance lock is not acquired in production", async () => {
         mockApp.requestSingleInstanceLock.mockReturnValue(false);
+        mockProcess.env.NODE_ENV = "production";
 
         await import("@main/main");
 
         expect(mockApp.requestSingleInstanceLock).toHaveBeenCalled();
         expect(mockApp.exit).toHaveBeenCalledWith(0);
+    });
+
+    it("lets the detached Chobby helper start without taking the parent app lock", async () => {
+        mockProcess.argv.push("--bar-chobby-loopback-helper");
+        const helper = vi.fn().mockResolvedValue(undefined);
+        vi.doMock("@main/game/chobby-loopback-helper", () => ({ isChobbyLoopbackHelperProcess: () => true, runChobbyLoopbackHelper: helper }));
+        await import("@main/main");
+        expect(helper).toHaveBeenCalledOnce();
+        expect(mockApp.requestSingleInstanceLock).not.toHaveBeenCalled();
+        expect(mockServices.configService.init).not.toHaveBeenCalled();
+        expect(mockApp.whenReady).not.toHaveBeenCalled();
     });
 
     it("should start the app successfully and initialize basic configurations", async () => {
@@ -216,29 +279,43 @@ describe("Main Process Lifecycle", () => {
     it("should initialize services when app is ready", async () => {
         await import("@main/main");
 
-        expect(mockServices.engineService.init).toHaveBeenCalled();
+        expect(mockServices.configService.init).toHaveBeenCalled();
         expect(mockServices.settingsService.init).toHaveBeenCalled();
-        expect(mockServices.accountService.init).toHaveBeenCalled();
+        expect(mockServices.customLobbiesService.init).toHaveBeenCalled();
+        expect(mockServices.contentAPI.init).toHaveBeenCalled();
+        expect(mockServices.authService.init).toHaveBeenCalled();
         expect(mockServices.replaysService.init).toHaveBeenCalled();
-        expect(mockServices.gameService.init).toHaveBeenCalled();
-        expect(mockServices.mapsService.init).toHaveBeenCalled();
         expect(mockServices.autoUpdaterService.init).toHaveBeenCalled();
+    });
+
+    // A saved assets path on a drive that is not there makes content init throw, and the screen that lets
+    // the user repoint it cannot appear unless the window is created anyway.
+    it("should still create the window when content initialisation fails", async () => {
+        mockServices.contentAPI.init.mockRejectedValueOnce(new Error("ENOENT: assets path is gone"));
+
+        await import("@main/main");
+
+        expect(mockServices.contentAPI.init).toHaveBeenCalled();
+        expect(mockServices.contentService.registerIpcHandlers).toHaveBeenCalled();
+        expect(mockServices.pathsService.registerIpcHandlers).toHaveBeenCalled();
     });
 
     it("should register IPC handlers when app is ready", async () => {
         await import("@main/main");
 
+        expect(mockServices.configService.registerIpcHandlers).toHaveBeenCalled();
         expect(mockServices.logService.registerIpcHandlers).toHaveBeenCalled();
         expect(mockServices.infoService.registerIpcHandlers).toHaveBeenCalled();
         expect(mockServices.settingsService.registerIpcHandlers).toHaveBeenCalled();
+        expect(mockServices.customLobbiesService.registerIpcHandlers).toHaveBeenCalled();
         expect(mockServices.authService.registerIpcHandlers).toHaveBeenCalled();
         expect(mockServices.tachyonService.registerIpcHandlers).toHaveBeenCalled();
         expect(mockServices.replaysService.registerIpcHandlers).toHaveBeenCalled();
+        expect(mockServices.contentService.registerIpcHandlers).toHaveBeenCalled();
         expect(mockServices.engineService.registerIpcHandlers).toHaveBeenCalled();
         expect(mockServices.gameService.registerIpcHandlers).toHaveBeenCalled();
         expect(mockServices.mapsService.registerIpcHandlers).toHaveBeenCalled();
         expect(mockServices.shellService.registerIpcHandlers).toHaveBeenCalled();
-        expect(mockServices.downloadsService.registerIpcHandlers).toHaveBeenCalled();
         expect(mockServices.miscService.registerIpcHandlers).toHaveBeenCalled();
         expect(mockServices.autoUpdaterService.registerIpcHandlers).toHaveBeenCalled();
         expect(mockServices.navigationService.registerIpcHandlers).toHaveBeenCalled();
@@ -299,6 +376,9 @@ describe("Detached Chobby helper ownership", () => {
     let nativeProcess: any;
     let ownerProbe: any;
     let shutdownWriters: any;
+    let acquireChecksumHold: any;
+    let releaseChecksumHold: any;
+    let requireContentWritesOpen: any;
     let onRead: ((file: string, value: string) => void) | undefined;
 
     function child(pid: number | undefined) {
@@ -395,7 +475,9 @@ describe("Detached Chobby helper ownership", () => {
             void Promise.resolve().then(() => nativeProcess.emit("spawn"));
             return nativeProcess;
         });
-        vi.doMock("electron", () => ({ app, shell: { openExternal: vi.fn() } }));
+        vi.doMock("electron", () => ({ app, BrowserWindow: { fromId: vi.fn(() => null) }, screen: { getDisplayMatching: vi.fn() }, shell: { openExternal: vi.fn() } }));
+        vi.doMock("@main/services/settings.service", () => ({ settingsService: { getSettings: () => ({ fullscreen: true }) } }));
+        vi.doMock("@main/game/chobby-display-settings", () => ({ prepareChobbyDisplaySettings: vi.fn().mockResolvedValue(undefined) }));
         vi.doMock("fs", () => ({ promises: fsPromises }));
         vi.doMock("net", () => ({
             createConnection: connect,
@@ -437,7 +519,11 @@ describe("Detached Chobby helper ownership", () => {
         vi.doMock("@main/game/engine-log-mirror", () => ({ createEngineLobbyLogMirror: () => ({ write: vi.fn(), summarize: vi.fn() }) }));
         vi.doMock("@main/game/engine-stderr-log", () => ({ createEngineStderrLog: () => ({ write: vi.fn(), close: vi.fn() }) }));
         shutdownWriters = vi.fn().mockResolvedValue(undefined);
-        vi.doMock("@main/content/content-write-coordinator", () => ({ shutdownContentWriters: shutdownWriters }));
+        requireContentWritesOpen = vi.fn();
+        vi.doMock("@main/content/content-write-coordinator", () => ({ shutdownContentWriters: shutdownWriters, requireContentWritesOpen }));
+        releaseChecksumHold = vi.fn();
+        acquireChecksumHold = vi.fn().mockResolvedValue(releaseChecksumHold);
+        vi.doMock("@main/utils/checksums", () => ({ acquireChecksumHold }));
         vi.doUnmock("@main/game/chobby-loopback-helper");
         ownerProbe = vi.spyOn(process, "kill").mockImplementation((pid, signal) => {
             if (signal !== 0) throw new Error("CPU fixture must not send OS signals");
@@ -456,6 +542,38 @@ describe("Detached Chobby helper ownership", () => {
         vi.resetModules();
     });
 
+    it("passes the actual launcher display bounds instead of a saved display index or resolution", async () => {
+        const { BrowserWindow, screen } = await import("electron");
+        vi.stubEnv("MAIN_WINDOW_ID", "42");
+        const bounds = { x: -1800, y: 0, width: 1800, height: 1125 };
+        const getBounds = vi.fn(() => ({ x: -1700, y: 50, width: 1200, height: 800 }));
+        vi.mocked(BrowserWindow.fromId).mockReturnValue({ isDestroyed: () => false, getBounds } as any);
+        vi.mocked(screen.getDisplayMatching).mockReturnValue({ bounds } as any);
+        const api: any = new GameAPI();
+        expect(api.getMacOSLaunchDisplayEnv()).toEqual({ BAR_MACOS_TARGET_DISPLAY: "-1800,0,1800,1125" });
+        expect(screen.getDisplayMatching).toHaveBeenCalledWith(getBounds());
+        vi.mocked(BrowserWindow.fromId).mockReturnValue(null);
+        expect(api.getMacOSLaunchDisplayEnv()).toEqual({});
+    });
+
+    it("preserves Chobby's explicit game fullscreen and windowed choices through the helper", () => {
+        const { result }: { result: any } = bridge();
+        const fullscreen = "WindowBorderless = 0\nFullscreen = 1\n";
+        const windowed = "WindowBorderless = 0\nFullscreen = 0\n";
+        expect(result.normalizeMacOSDisplaySpringSettings(fullscreen)).toBe(fullscreen);
+        expect(result.normalizeMacOSDisplaySpringSettings(windowed)).toBe(windowed);
+        expect(result.normalizeMacOSDisplaySpringSettings("WindowBorderless = 1\n")).toBe("WindowBorderless = 1\nFullscreen = 0\n");
+        expect(result.normalizeMacOSDisplaySpringSettings("VSync = 0\n")).toBe("VSync = 0\nFullscreen = 1\n");
+    });
+
+    it("compares the complete sync identity, including a development branch suffix", async () => {
+        const api: any = new GameAPI();
+        vi.spyOn(api, "readNativeEngineVersion").mockResolvedValue("2026.09.01-24-g01efdf4 master\n");
+        await expect(api.assertNativeRuntimeEngineVersionMatches("2026.09.01-24-g01efdf4 master")).resolves.toBeUndefined();
+        await expect(api.assertNativeRuntimeEngineVersionMatches("2026.09.01-24-g01efdf4")).rejects.toThrow(/reports 2026.09.01-24-g01efdf4 master/);
+        await expect(api.assertNativeRuntimeEngineVersionMatches("2026.07.04", "Chobby multiplayer")).rejects.toThrow(/Do not alias/);
+    });
+
     function preparedAPI() {
         const api: any = new GameAPI();
         for (const name of ["assertNativeRuntimeEngineVersionMatches", "ensureChobbyConfigFile", "ensureChobbySpringSettings",
@@ -464,6 +582,94 @@ describe("Detached Chobby helper ownership", () => {
         }
         return api;
     }
+
+    it("joins overlapping Chobby requests before any settings migration or helper spawn", async () => {
+        helperLoopback = bridge({ startupOwnerPID: process.pid }).result;
+        const api = preparedAPI();
+        let releasePreparation!: () => void;
+        api.ensureChobbyConfigFile.mockImplementation(() => new Promise<void>((resolve) => { releasePreparation = resolve; }));
+        const first = api.launchChobby();
+        const second = api.launchChobby();
+        await vi.advanceTimersByTimeAsync(0);
+        expect(api.ensureChobbyConfigFile).toHaveBeenCalledOnce();
+        expect(spawn).not.toHaveBeenCalled();
+        releasePreparation();
+        await vi.advanceTimersByTimeAsync(100);
+        await Promise.all([first, second]);
+        const { prepareChobbyDisplaySettings } = await import("@main/game/chobby-display-settings");
+        expect(prepareChobbyDisplaySettings).toHaveBeenCalledOnce();
+        expect(spawn.mock.calls.filter(([, args]: [string, string[]]) => args.includes("--bar-chobby-loopback-helper"))).toHaveLength(1);
+        expect(spawn.mock.calls.filter(([, args]: [string, string[]]) => args.includes("--menu"))).toHaveLength(1);
+        expect(JSON.parse(files.get(connectionPath)!)._sl_engine_pid).toBe(nativePID);
+        await helperLoopback.close();
+    });
+
+    it("shares a failed Chobby preparation and allows a later retry", async () => {
+        const api = preparedAPI();
+        api.ensureChobbyConfigFile.mockRejectedValueOnce(new Error("settings unavailable"));
+        const failures = await Promise.allSettled([api.launchChobby(), api.launchChobby()]);
+        expect(failures.map((result) => result.status)).toEqual(["rejected", "rejected"]);
+        expect(failures.every((result) => result.status === "rejected" && result.reason.message === "settings unavailable")).toBe(true);
+        expect(api.ensureChobbyConfigFile).toHaveBeenCalledOnce();
+        expect(spawn).not.toHaveBeenCalled();
+        helperLoopback = bridge({ startupOwnerPID: process.pid }).result;
+        const retry = api.launchChobby();
+        await vi.advanceTimersByTimeAsync(100);
+        await retry;
+        expect(api.ensureChobbyConfigFile).toHaveBeenCalledTimes(2);
+        expect(spawn.mock.calls.filter(([, args]: [string, string[]]) => args.includes("--menu"))).toHaveLength(1);
+        await helperLoopback.close();
+    });
+
+    it("does not repeat Chobby preparation after a successful detached handoff while the parent drains", async () => {
+        shutdownWriters.mockImplementation(() => new Promise<void>(() => {}));
+        helperLoopback = bridge({ startupOwnerPID: process.pid }).result;
+        const api = preparedAPI();
+        const launch = api.launchChobby();
+        await vi.advanceTimersByTimeAsync(100);
+        await launch;
+        await expect(api.launchChobby()).rejects.toThrow("engine process is still owned");
+        expect(api.ensureChobbyConfigFile).toHaveBeenCalledOnce();
+        expect(spawn.mock.calls.filter(([, args]: [string, string[]]) => args.includes("--bar-chobby-loopback-helper"))).toHaveLength(1);
+        expect(spawn.mock.calls.filter(([, args]: [string, string[]]) => args.includes("--menu"))).toHaveLength(1);
+        expect(app.exit).not.toHaveBeenCalled();
+        await helperLoopback.close();
+    });
+
+    it("waits for checksum ownership before launching and rejects a concurrent pending launch", async () => {
+        let grant!: (release: () => void) => void;
+        acquireChecksumHold.mockImplementationOnce(() => new Promise((resolve) => { grant = resolve; }));
+        const api = preparedAPI();
+        const held = vi.spyOn(api, "launchNativeEngineHeld").mockImplementation(async (_settings: unknown, onSpawned: any) => onSpawned(nativeProcess));
+        const launch = api.launchNativeEngine({ engineVersion: "test", args: [] });
+        expect(held).not.toHaveBeenCalled();
+        await expect(api.launchNativeEngine({ engineVersion: "test", args: [] })).rejects.toThrow("engine process is still owned");
+        grant(releaseChecksumHold);
+        await launch;
+        expect(held).toHaveBeenCalledOnce();
+        expect(releaseChecksumHold).not.toHaveBeenCalled();
+        nativeProcess.emit("exit", 0, null);
+        expect(releaseChecksumHold).not.toHaveBeenCalled();
+        nativeProcess.emit("close", 0, null);
+        expect(releaseChecksumHold).toHaveBeenCalledOnce();
+    });
+
+    it("releases checksum ownership when native preparation fails before spawn", async () => {
+        const api = preparedAPI();
+        api.assertNativeRuntimeEngineVersionMatches.mockRejectedValue(new Error("version mismatch"));
+        await expect(api.launchNativeEngine({ engineVersion: "test", args: [] })).rejects.toThrow("version mismatch");
+        expect(spawn).not.toHaveBeenCalled();
+        expect(releaseChecksumHold).toHaveBeenCalledOnce();
+        expect(api.nativeLaunchPending).toBe(false);
+    });
+
+    it("does not spawn a waiting native launch once ordinary shutdown has begun", async () => {
+        const api = preparedAPI();
+        requireContentWritesOpen.mockImplementation(() => { throw new Error("Content writes stopped because the launcher is quitting"); });
+        await expect(api.launchNativeEngine({ engineVersion: "test", args: [] })).rejects.toThrow("launcher is quitting");
+        expect(spawn).not.toHaveBeenCalled();
+        expect(releaseChecksumHold).toHaveBeenCalledOnce();
+    });
 
     it("does not let helper readiness disconnect start the menu's five-second idle clock", async () => {
         const { result, onIdle } = bridge({ startupOwnerPID: process.pid });
@@ -605,6 +811,9 @@ describe("Detached Chobby helper ownership", () => {
         await vi.advanceTimersByTimeAsync(1);
         expect(app.exit).toHaveBeenCalledWith(0);
         expect(helperProcess.kill).not.toHaveBeenCalled();
+        expect(releaseChecksumHold).not.toHaveBeenCalled();
+        nativeProcess.emit("close", 0, null);
+        expect(releaseChecksumHold).toHaveBeenCalledOnce();
         await helperLoopback.close();
     });
 
