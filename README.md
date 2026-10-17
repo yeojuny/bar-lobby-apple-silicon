@@ -30,6 +30,10 @@ The app has ad-hoc integrity signatures, **without Apple Developer ID signing or
 
 In launcher **Settings**, choose **Metal3** or **Metal4 (experimental)**. Metal3 is the default. The preference applies to both engine lanes on the next native launch; an explicit environment override takes precedence. CPU submit wait and custom cost collection remain OFF. Metal4 is not guaranteed to be faster or use less power.
 
+## Runtime versions and patches
+
+See the [exact stack and integrated PR/MR ledger](docs/release-readiness/2026-10-17-candidate5/STACK-AND-PATCHES.md) for versions, source commits, already-merged upstream work, locally integrated open PRs, and local corrections. SDL3 is the active window backend and X11/XQuartz is not required.
+
 ## What changed
 
 | Route | Source and exact engine identity |
