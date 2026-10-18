@@ -64,6 +64,16 @@ In launcher **Settings**, select **Metal3** (default) or **Metal4** (experimenta
 
 **SDL3** handles native macOS windows, input and events; SDL2 is not the active window backend. X11 is a display system and XQuartz its macOS implementation. This app uses native macOS windows and does not require an X11 server or XQuartz installation. OpenGL-to-Metal translation is handled by the graphics stack, not SDL3.
 
+### Native Cocoa presentation, without XQuartz
+
+The port connects the Cocoa window's **CAMetalLayer** to a local **EGL/Kopper/Zink window-surface path**, then creates a **Vulkan Metal surface** that MoltenVK presents through its swapchain. Ordinary frame presentation does not require a separate engine-side full-frame readback-and-represent pipeline. The renderer still uses OpenGL → Zink → MoltenVK; this is native window-system integration, not a native Metal renderer or a claim of zero driver overhead.
+
+The bridge deliberately defaults to **1x drawable scaling** and handles the target screen's safe area, including notched displays. Resolution/UI policy is separate from presentation buffering and synchronization. [Architecture, source map and reuse checklist](docs/platform-integration/COCOA-EGL-METAL-PRESENTATION.md).
+
+### How an SDL2-shaped engine runs on SDL3
+
+A scoped source compatibility adapter, **SDLRecoilCompat.h**, maps the engine's existing SDL2-style calls to SDL3. The CMake target name **SDL2::SDL2** is retained as an alias whose interface links **SDL3::SDL3**; it does not mean the SDL2 runtime is loaded. Additional platform changes implement Cocoa/EGL integration, input and display handling. This is not a complete general-purpose SDL2 compatibility library, and SDL3 alone does not provide the graphics translation or guarantee higher FPS. [Adapter design and reuse checklist](docs/platform-integration/SDL3-COMPATIBILITY.md).
+
 See the [exact versions, source commits and integrated PR/MR ledger](docs/release-readiness/2026-10-18-v1.0.3/STACK-AND-PATCHES.md).
 
 A separate **Native Metal 4 project will be made public soon**. Its performance relative to this MoltenVK-based version is not yet known; it may be faster or slower.
