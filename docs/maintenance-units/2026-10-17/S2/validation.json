@@ -1,0 +1,286 @@
+{
+  "unit": "S2",
+  "originalHQResultSHA256": "c8effd58243c95130086bcd8328545c62d505d45eb98c3dfb11451814495dea9",
+  "appliedAuditOriginalSHA256": "3ae361752a9e23ac3758d872117f80acab4f06095c95dbe69a8a15fa94466d0e",
+  "builds": {
+    "baselineTestsBuild": {
+      "phase": "S2-tests-added-production-unmodified",
+      "command": [
+        "/opt/homebrew/bin/cmake",
+        "--build",
+        "$WORKSPACE/build/run95-sdl-20261002",
+        "--target",
+        "SDL3-shared",
+        "testautomation",
+        "--parallel",
+        "3"
+      ],
+      "cwd": "$WORKSPACE",
+      "returncode": 0,
+      "seconds": 3.320691959,
+      "log": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/S2/baseline-build.log",
+      "finishedAtUTC": "2026-10-18T02:18:54.180702+00:00",
+      "CMAKE_DISABLE_FIND_PACKAGE_FFmpeg": "ON retained from S1"
+    },
+    "afterFixIncrementalBuild": {
+      "phase": "S2-production-fix",
+      "command": [
+        "/opt/homebrew/bin/cmake",
+        "--build",
+        "$WORKSPACE/build/run95-sdl-20261002",
+        "--target",
+        "SDL3-shared",
+        "testautomation",
+        "--parallel",
+        "3"
+      ],
+      "cwd": "$WORKSPACE",
+      "returncode": 0,
+      "seconds": 3.9265615,
+      "log": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/S2/after-fix-build.log",
+      "finishedAtUTC": "2026-10-18T02:19:44.541994+00:00"
+    },
+    "afterFixCompileScope": "Only src/stdlib/SDL_getenv.c object then SDL dylib/testautomation relink. Baseline built changed existing testautomation.c and Stdlib test objects.",
+    "existingFFmpegTestOnlyConfiguration": "ON reused unchanged from S1; no reconfigure, dependency install/update, or new package discovery",
+    "compileFlagsAndCMakeCacheByteExact": true,
+    "newSourceBuildLanes": 0,
+    "installPrefixUpdated": false
+  },
+  "testResults": {
+    "beforeFix": {
+      "phase": "before-S2-production-fix",
+      "command": [
+        "$WORKSPACE/build/run95-sdl-20261002/test/testautomation",
+        "--no-init",
+        "--filter",
+        "stdlib_environmentAllocations",
+        "--seed",
+        "S2ENVFIXEDSEED"
+      ],
+      "cwd": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/S2",
+      "returncode": 1,
+      "seconds": 0.295466167,
+      "log": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/S2/before-fix-environment.log",
+      "environmentOverrides": {
+        "DYLD_PRINT_LIBRARIES": "1"
+      },
+      "loadedSDL": [
+        "dyld[53240]: <D582BC44-ACC9-3CDD-B2FF-537EEF3B5DFE> $WORKSPACE/build/run95-sdl-20261002/libSDL3.0.dylib"
+      ],
+      "rawSDLSHA256": "1915ccbbdee9a017115850ee297a018ff9f8bbc2dcb07b121e8dfb780a9cb9f2",
+      "testExecutableSHA256": "df2fb1d0c76e5571141bbcad4ceb0adf31c613c085e525ba5722821e41878bb7",
+      "productionStillPreimage": true,
+      "expectedRegressionFailure": true,
+      "assertionSummaries": [
+        {
+          "total": 57,
+          "passed": 56,
+          "failed": 1
+        }
+      ],
+      "runSummary": {
+        "total": 1,
+        "passed": 0,
+        "failed": 1,
+        "skipped": 0
+      },
+      "finishedAtUTC": "2026-10-18T02:19:31.534489+00:00"
+    },
+    "beforeFixFailure": "Exactly one failed assertion: allocation4 (old mutex allocation) returned non-NULL environment; 57 assertions/56 passed/1 failed, runner exit1. Expected source regression, no crash/init error.",
+    "afterFix": [
+      {
+        "name": "stdlib_environmentAllocations",
+        "phase": "after-S2-production-fix",
+        "command": [
+          "$WORKSPACE/build/run95-sdl-20261002/test/testautomation",
+          "--no-init",
+          "--filter",
+          "stdlib_environmentAllocations",
+          "--seed",
+          "S2ENVFIXEDSEED"
+        ],
+        "cwd": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/S2",
+        "returncode": 0,
+        "seconds": 0.348164208,
+        "log": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/S2/after-fix-stdlib_environmentAllocations.log",
+        "environmentOverrides": {
+          "DYLD_PRINT_LIBRARIES": "1"
+        },
+        "loadedSDL": [
+          "dyld[53719]: <5C728D2C-DABE-3618-9260-825CF05302AD> $WORKSPACE/build/run95-sdl-20261002/libSDL3.0.dylib"
+        ],
+        "rawSDLSHA256": "1e4c4ad59e8dd36bcb0e333446eae24c7c164ebe3fd2921054a1fdceecd579c6",
+        "testExecutableSHA256": "df2fb1d0c76e5571141bbcad4ceb0adf31c613c085e525ba5722821e41878bb7",
+        "assertionSummaries": [
+          {
+            "total": 57,
+            "passed": 57,
+            "failed": 0
+          }
+        ],
+        "runSummary": {
+          "total": 1,
+          "passed": 1,
+          "failed": 0,
+          "skipped": 0
+        },
+        "allocationTraceSummaries": [
+          "2026-10-17 19:20:17.865 testautomation[53719:441658]  10/17/26 19:20:17: control creation/destruction: calloc calls=4, allocated=4, failed=0",
+          "2026-10-17 19:20:17.865 testautomation[53719:441658]  10/17/26 19:20:17: failure at allocation 1: calloc calls=1, allocated=0, failed=1",
+          "2026-10-17 19:20:17.865 testautomation[53719:441658]  10/17/26 19:20:17: failure at allocation 2: calloc calls=2, allocated=1, failed=1",
+          "2026-10-17 19:20:17.865 testautomation[53719:441658]  10/17/26 19:20:17: failure at allocation 3: calloc calls=3, allocated=2, failed=1",
+          "2026-10-17 19:20:17.865 testautomation[53719:441658]  10/17/26 19:20:17: failure at allocation 4: calloc calls=4, allocated=3, failed=1"
+        ],
+        "finishedAtUTC": "2026-10-18T02:20:17.917557+00:00"
+      },
+      {
+        "name": "stdlib_getsetenv",
+        "phase": "after-S2-production-fix",
+        "command": [
+          "$WORKSPACE/build/run95-sdl-20261002/test/testautomation",
+          "--no-init",
+          "--filter",
+          "stdlib_getsetenv",
+          "--seed",
+          "S2ENVFIXEDSEED"
+        ],
+        "cwd": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/S2",
+        "returncode": 0,
+        "seconds": 0.07915962499999996,
+        "log": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/S2/after-fix-stdlib_getsetenv.log",
+        "environmentOverrides": {
+          "DYLD_PRINT_LIBRARIES": "1"
+        },
+        "loadedSDL": [
+          "dyld[53720]: <5C728D2C-DABE-3618-9260-825CF05302AD> $WORKSPACE/build/run95-sdl-20261002/libSDL3.0.dylib"
+        ],
+        "rawSDLSHA256": "1e4c4ad59e8dd36bcb0e333446eae24c7c164ebe3fd2921054a1fdceecd579c6",
+        "testExecutableSHA256": "df2fb1d0c76e5571141bbcad4ceb0adf31c613c085e525ba5722821e41878bb7",
+        "assertionSummaries": [
+          {
+            "total": 53,
+            "passed": 53,
+            "failed": 0
+          }
+        ],
+        "runSummary": {
+          "total": 1,
+          "passed": 1,
+          "failed": 0,
+          "skipped": 0
+        },
+        "allocationTraceSummaries": [],
+        "finishedAtUTC": "2026-10-18T02:20:18.000298+00:00"
+      },
+      {
+        "name": "stdlib_stepUTF8",
+        "phase": "after-S2-production-fix",
+        "command": [
+          "$WORKSPACE/build/run95-sdl-20261002/test/testautomation",
+          "--no-init",
+          "--filter",
+          "stdlib_stepUTF8",
+          "--seed",
+          "S2ENVFIXEDSEED"
+        ],
+        "cwd": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/S2",
+        "returncode": 0,
+        "seconds": 0.07355541699999996,
+        "log": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/S2/after-fix-stdlib_stepUTF8.log",
+        "environmentOverrides": {
+          "DYLD_PRINT_LIBRARIES": "1"
+        },
+        "loadedSDL": [
+          "dyld[53721]: <5C728D2C-DABE-3618-9260-825CF05302AD> $WORKSPACE/build/run95-sdl-20261002/libSDL3.0.dylib"
+        ],
+        "rawSDLSHA256": "1e4c4ad59e8dd36bcb0e333446eae24c7c164ebe3fd2921054a1fdceecd579c6",
+        "testExecutableSHA256": "df2fb1d0c76e5571141bbcad4ceb0adf31c613c085e525ba5722821e41878bb7",
+        "assertionSummaries": [
+          {
+            "total": 117,
+            "passed": 117,
+            "failed": 0
+          }
+        ],
+        "runSummary": {
+          "total": 1,
+          "passed": 1,
+          "failed": 0,
+          "skipped": 0
+        },
+        "allocationTraceSummaries": [],
+        "finishedAtUTC": "2026-10-18T02:20:18.077047+00:00"
+      }
+    ],
+    "environmentFocusedAssertions": {
+      "total": 57,
+      "passed": 57,
+      "failed": 0,
+      "normalPrivateCopies": "populated=false/true Create/Set/Get/no-overwrite/overwrite/Unset/Destroy",
+      "controlEmptyCreateDestroy": "4 calloc requests, all 4 successful allocations freed once",
+      "injectedFailureCases": "fail once at each of the four empty-creation calloc requests; all return NULL; prior successful allocations freed exactly once, no unknown/double frees, no unexpected allocation kind",
+      "sourceMappedAfterFixFailures": {
+        "allocation1": "env struct",
+        "allocation2": "mutex calloc",
+        "allocation3": "hashtable struct calloc after created mutex",
+        "allocation4": "hashtable bucket calloc after created mutex/table"
+      },
+      "nullCallerAPIs": "Get/Set/Unset/List on NULL environment and Destroy(NULL)"
+    },
+    "existingEnvironmentAssertions": {
+      "total": 53,
+      "passed": 53,
+      "failed": 0,
+      "test": "stdlib_getsetenv"
+    },
+    "S1CumulativeRegression": {
+      "test": "stdlib_stepUTF8",
+      "inputs": 24,
+      "assertions": 117,
+      "passed": 117,
+      "failed": 0
+    },
+    "totalAfterFixAssertions": 227,
+    "actualChangedLibraryBinding": true,
+    "sameTestExecutableAcrossBeforeAndAfter": true,
+    "bindingEvidence": "DYLD_PRINT_LIBRARIES recorded exact active build SDL path; raw SDL SHA changed from S1 1915ccbb... to S2 while rebuilt existing test executable SHA stayed identical.",
+    "testVideoAudioInit": "not invoked (--no-init); existing harness timeout timer remains and is excluded from owner-thread allocation tracking."
+  },
+  "artifacts": {
+    "newRawSDL": {
+      "path": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/S2/artifacts/libSDL3.0.dylib",
+      "builtPath": "$WORKSPACE/build/run95-sdl-20261002/libSDL3.0.dylib",
+      "sha256": "1e4c4ad59e8dd36bcb0e333446eae24c7c164ebe3fd2921054a1fdceecd579c6",
+      "bytes": 3009664,
+      "parentS1SHA256": "1915ccbbdee9a017115850ee297a018ff9f8bbc2dcb07b121e8dfb780a9cb9f2",
+      "rawOnlyNotInstalledOrPackaged": true
+    },
+    "testExecutable": {
+      "path": "$WORKSPACE/build/run95-sdl-20261002/test/testautomation",
+      "sha256": "df2fb1d0c76e5571141bbcad4ceb0adf31c613c085e525ba5722821e41878bb7"
+    },
+    "dependencyLoadCommandsAndInstallNameUnchanged": true,
+    "rawOnlyNoAppPackageUpdate": true
+  },
+  "coverageBoundary": "Alloc-failure injection covers observed empty environment calloc sequence on this macOS/pthread build and frees of successful tracked allocations. OS-level pthread_mutex_init errors, lazy global singleton retry/concurrent initialization and other-platform backends not newly certified.",
+  "unexpectedBuildOrTestFailures": [],
+  "notRequiredThisUnit": [
+    {
+      "check": "whole app/game/FPS/MP/GPU/display/audio/AI loops",
+      "reason": "Isolated environment creation/failure cleanup, risk-tier1 focused component policy"
+    },
+    {
+      "check": "launcher unit/types/Lua/VBO/native52/installer/final app signing",
+      "reason": "No launcher/engine/app package changes; final V1 integration is separate"
+    }
+  ],
+  "notClaimed": [
+    "OS-level pthread_mutex_init failure injection",
+    "singleton concurrency/cross-platform certification",
+    "new binary export census or app integration/GPU/game/FPS/MP/IME/audio acceptance",
+    "installed/public app/Release/Homebrew/V1 update"
+  ],
+  "mandatorySelectedSkips": 0,
+  "invocationContract": "Exact documented lowercase --no-init with positive assertions/skipped=0; different capitalization or non-CPU invocation is not certified by these receipts.",
+  "scope": "Actual HQ execution and applied Audit - MK2 review; publisher did not rerun component tests."
+}

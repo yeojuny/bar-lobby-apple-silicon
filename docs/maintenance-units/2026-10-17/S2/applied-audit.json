@@ -1,0 +1,119 @@
+{
+  "schema": "bar-applied-unit-audit-v1",
+  "unit": "S2",
+  "recordedAtUTC": "2026-10-18T02:25:50.826904+00:00",
+  "reviewer": "Audit - MK2",
+  "verdict": "PASS",
+  "sourcePublicationAllowed": true,
+  "requiredChecksSatisfied": true,
+  "hqResult": {
+    "path": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/S2/unit-result.json",
+    "sha256": "c8effd58243c95130086bcd8328545c62d505d45eb98c3dfb11451814495dea9"
+  },
+  "upstreamSHA": "52ef28aebadaf6fd3478cf06a8c3337c7214262d",
+  "completePatch": {
+    "path": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/S2/change.patch",
+    "sha256": "069012342337a66d09e7bd8e76fd3529b771c44887255a5b10e92b7d5e22a0dc"
+  },
+  "reviewedFiles": [
+    {
+      "componentRelativePath": "src/stdlib/SDL_getenv.c",
+      "path": "$WORKSPACE/build/run66-sdl-src-20260903/src/stdlib/SDL_getenv.c",
+      "preimage": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/S2/preimage/src/stdlib/SDL_getenv.c",
+      "preimageSHA256": "95857b97660b5c5faf822f4ed6ca67096a5ee7afcb693bf2c0ba58345cd69fd4",
+      "postimage": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/S2/postimage/src/stdlib/SDL_getenv.c",
+      "postimageSHA256": "0e53390b91a6606c8fa7ca0c9ba59426be7b94c8bf434573f5cde6d377851d98",
+      "mode": 420,
+      "bytes": 17889
+    },
+    {
+      "componentRelativePath": "test/testautomation.c",
+      "path": "$WORKSPACE/build/run66-sdl-src-20260903/test/testautomation.c",
+      "preimage": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/S2/preimage/test/testautomation.c",
+      "preimageSHA256": "2fa8dcf22976231c3e73ea01236f57547d7539f8e6f6942f92b478cb10c32027",
+      "postimage": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/S2/postimage/test/testautomation.c",
+      "postimageSHA256": "c795751a33d460790cfd78ba740d86cedb67201f5da4ee5eb0cdc64d0e85fb25",
+      "mode": 420,
+      "bytes": 4750
+    },
+    {
+      "componentRelativePath": "test/testautomation_stdlib.c",
+      "path": "$WORKSPACE/build/run66-sdl-src-20260903/test/testautomation_stdlib.c",
+      "preimage": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/S2/preimage/test/testautomation_stdlib.c",
+      "preimageSHA256": "60c240c1cb452536716dc7d2896839ff95612fefac92efcaf2aa92ba6b2c3c77",
+      "postimage": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/S2/postimage/test/testautomation_stdlib.c",
+      "postimageSHA256": "b9d2674ed71b2a0037c6b1c1884c6b2204c4b79133eb37dc42d1f8fe18bb3343",
+      "mode": 420,
+      "bytes": 92952
+    }
+  ],
+  "productionReview": "Exactly the upstream mutex-first construction/check, env release/NULL on mutex failure, and paired mutex release on later hashtable failure. Existing getter/setter locks and query-time allocation behavior unchanged.",
+  "testReview": "Existing runner explicit --no-init path; saved allocation family retained for process lifetime. Immutable owner-thread check precedes mutable trace reads, timer threads bypass the trace. Four observed empty-environment calloc failures checked in private objects; error storage warmed and logging/assertions outside trace. Successful pointers freed once; populated/unpopulated behavior and NULL APIs checked. All mandatory runs execute with skipped=0.",
+  "validation": {
+    "beforeFixAssertions": [
+      {
+        "total": 57,
+        "passed": 56,
+        "failed": 1
+      }
+    ],
+    "beforeFixExpectedFailure": "Old mutex allocation failure returned non-NULL environment",
+    "afterFixAssertions": 227,
+    "afterFixFailures": 0,
+    "environmentAssertions": 57,
+    "existingEnvironmentAssertions": 53,
+    "S1CumulativeUTF8Assertions": 117,
+    "sameTestExecutableAcrossBeforeAndAfter": true,
+    "actualChangedLibraryBinding": true,
+    "rawSDL": {
+      "path": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/S2/artifacts/libSDL3.0.dylib",
+      "builtPath": "$WORKSPACE/build/run95-sdl-20261002/libSDL3.0.dylib",
+      "sha256": "1e4c4ad59e8dd36bcb0e333446eae24c7c164ebe3fd2921054a1fdceecd579c6",
+      "bytes": 3009664,
+      "parentS1SHA256": "1915ccbbdee9a017115850ee297a018ff9f8bbc2dcb07b121e8dfb780a9cb9f2",
+      "rawOnlyNotInstalledOrPackaged": true
+    },
+    "compileFlagsAndCacheUnchanged": true,
+    "dependencyLoadCommandsAndInstallNameUnchanged": true,
+    "publicABIDeclarationsChangedByProductionDiff": false,
+    "patchRoundtripByteExact": true
+  },
+  "publicBase": {
+    "publicURL": "https://github.com/yeojuny/bar-lobby-apple-silicon/releases/download/v0.17.0-candidate.4/BAR-0.17.0-candidate.4-sources.tar.gz",
+    "outerSHA256": "65e29a1b17c7d434fa6a4c97b5040a0236f1edb36d869f0b18c6fb27f70c792e",
+    "componentArchiveSHA256": "a0d0c257c748660936e2b19c561e338ba8198982c44b9e9dfbaf4312c515197f",
+    "untouchedBaseFiles": {
+      "src/stdlib/SDL_getenv.c": "95857b97660b5c5faf822f4ed6ca67096a5ee7afcb693bf2c0ba58345cd69fd4",
+      "test/testautomation.c": "2fa8dcf22976231c3e73ea01236f57547d7539f8e6f6942f92b478cb10c32027"
+    },
+    "requiredPredecessor": {
+      "unit": "S1",
+      "commit": "11bb59e12b0d4d7a7c8175fd21cd9d574e660867",
+      "testStdlibPreimageSHA256": "60c240c1cb452536716dc7d2896839ff95612fefac92efcaf2aa92ba6b2c3c77"
+    },
+    "rule": "Apply public S1 full patch to exact port SDL archive before S2; the Stdlib preimage is the S1 postimage, not pristine upstream."
+  },
+  "preserved": "S1 production/test body, three property corrections, selected Cocoa/bridge files, real launcher HEAD/index and selected frozen app SDL/metadata hashes. No new whole-app inventory.",
+  "testInvocationContract": "Exact documented lowercase --no-init with positive assertions/skipped=0; different capitalization or non-CPU invocation is not certified by these receipts.",
+  "coverageLimits": "Alloc-failure injection covers observed empty environment calloc sequence on this macOS/pthread build and frees of successful tracked allocations. OS-level pthread_mutex_init errors, lazy global singleton retry/concurrent initialization and other-platform backends not newly certified.",
+  "notRequiredThisUnit": [
+    {
+      "check": "whole app/game/FPS/MP/GPU/display/audio/AI loops",
+      "reason": "Isolated environment creation/failure cleanup, risk-tier1 focused component policy"
+    },
+    {
+      "check": "launcher unit/types/Lua/VBO/native52/installer/final app signing",
+      "reason": "No launcher/engine/app package changes; final V1 integration is separate"
+    }
+  ],
+  "notClaimed": [
+    "OS-level pthread_mutex_init failure injection",
+    "singleton concurrency/cross-platform certification",
+    "new binary export census or app integration/GPU/game/FPS/MP/IME/audio acceptance",
+    "installed/public app/Release/Homebrew/V1 update"
+  ],
+  "blockingFindings": [],
+  "nextGate": "Publisher S2 source commit on S1 parent and remote readback before L5.",
+  "privateOriginalAuditSHA256": "3ae361752a9e23ac3758d872117f80acab4f06095c95dbe69a8a15fa94466d0e",
+  "exportNote": "Path-rebased public copy; original private receipt SHA256 identifies provenance, not this exported blob."
+}

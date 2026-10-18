@@ -1,0 +1,115 @@
+{
+  "schema": "bar-maintenance-public-unit-v1",
+  "unit": "S2",
+  "upstream": {
+    "sha": "52ef28aebadaf6fd3478cf06a8c3337c7214262d",
+    "url": "https://github.com/libsdl-org/SDL/commit/52ef28aebadaf6fd3478cf06a8c3337c7214262d"
+  },
+  "componentBaseUpstream": "4a17e772ea9a4ff77dd10fa6ea6f45fc6731eb01",
+  "publicationParent": "11bb59e12b0d4d7a7c8175fd21cd9d574e660867",
+  "requiredPredecessor": {
+    "unit": "S1",
+    "commit": "11bb59e12b0d4d7a7c8175fd21cd9d574e660867",
+    "completePatchURL": "https://github.com/yeojuny/bar-lobby-apple-silicon/blob/11bb59e12b0d4d7a7c8175fd21cd9d574e660867/docs/maintenance-units/2026-10-17/S1/change.patch",
+    "completePatchSHA256": "1639ed588fef528ccc1b676872c847e807a1e597cbd74b7b341216d51debcfda",
+    "manifestURL": "https://github.com/yeojuny/bar-lobby-apple-silicon/blob/11bb59e12b0d4d7a7c8175fd21cd9d574e660867/docs/maintenance-units/2026-10-17/S1/manifest.json"
+  },
+  "publicSourceBase": {
+    "publicURL": "https://github.com/yeojuny/bar-lobby-apple-silicon/releases/download/v0.17.0-candidate.4/BAR-0.17.0-candidate.4-sources.tar.gz",
+    "outerSHA256": "65e29a1b17c7d434fa6a4c97b5040a0236f1edb36d869f0b18c6fb27f70c792e",
+    "componentArchiveSHA256": "a0d0c257c748660936e2b19c561e338ba8198982c44b9e9dfbaf4312c515197f",
+    "untouchedBaseFiles": {
+      "src/stdlib/SDL_getenv.c": "95857b97660b5c5faf822f4ed6ca67096a5ee7afcb693bf2c0ba58345cd69fd4",
+      "test/testautomation.c": "2fa8dcf22976231c3e73ea01236f57547d7539f8e6f6942f92b478cb10c32027"
+    },
+    "requiredPredecessor": {
+      "unit": "S1",
+      "commit": "11bb59e12b0d4d7a7c8175fd21cd9d574e660867",
+      "testStdlibPreimageSHA256": "60c240c1cb452536716dc7d2896839ff95612fefac92efcaf2aa92ba6b2c3c77"
+    },
+    "rule": "Apply public S1 full patch to exact port SDL archive before S2; the Stdlib preimage is the S1 postimage, not pristine upstream."
+  },
+  "reconstructionOrder": [
+    "Verify public candidate.4 outer source archive and nested port SDL archive hashes.",
+    "Apply the complete public S1 patch, including its Stdlib regression, and verify S1 postimages.",
+    "Verify all three S2 preimages; testautomation_stdlib.c must be S1 postimage 60c240c1cb452536716dc7d2896839ff95612fefac92efcaf2aa92ba6b2c3c77.",
+    "Apply the complete S2 patch and verify all S2 postimages. Do not apply S2 directly to pristine Stdlib or overwrite S1 with pristine source."
+  ],
+  "files": [
+    {
+      "path": "src/stdlib/SDL_getenv.c",
+      "preimageSHA256": "95857b97660b5c5faf822f4ed6ca67096a5ee7afcb693bf2c0ba58345cd69fd4",
+      "postimageSHA256": "0e53390b91a6606c8fa7ca0c9ba59426be7b94c8bf434573f5cde6d377851d98",
+      "mode": "100644"
+    },
+    {
+      "path": "test/testautomation.c",
+      "preimageSHA256": "2fa8dcf22976231c3e73ea01236f57547d7539f8e6f6942f92b478cb10c32027",
+      "postimageSHA256": "c795751a33d460790cfd78ba740d86cedb67201f5da4ee5eb0cdc64d0e85fb25",
+      "mode": "100644"
+    },
+    {
+      "path": "test/testautomation_stdlib.c",
+      "preimageSHA256": "60c240c1cb452536716dc7d2896839ff95612fefac92efcaf2aa92ba6b2c3c77",
+      "postimageSHA256": "b9d2674ed71b2a0037c6b1c1884c6b2204c4b79133eb37dc42d1f8fe18bb3343",
+      "mode": "100644"
+    }
+  ],
+  "patch": {
+    "path": "change.patch",
+    "sha256": "069012342337a66d09e7bd8e76fd3529b771c44887255a5b10e92b7d5e22a0dc",
+    "bytes": 11684,
+    "includes": "Exact upstream production hunk plus existing testautomation.c --no-init support and existing Stdlib allocation/cleanup regression, three files."
+  },
+  "privateEvidenceOriginalSHA256": {
+    "unit-result.json": "c8effd58243c95130086bcd8328545c62d505d45eb98c3dfb11451814495dea9",
+    "applied-audit.json": "3ae361752a9e23ac3758d872117f80acab4f06095c95dbe69a8a15fa94466d0e",
+    "change.patch": "069012342337a66d09e7bd8e76fd3529b771c44887255a5b10e92b7d5e22a0dc"
+  },
+  "buildInputs": {
+    "sourceRoot": "$WORKSPACE/build/run66-sdl-src-20260903",
+    "buildRoot": "$WORKSPACE/build/run95-sdl-20261002",
+    "originalInputLockSHA256": "855e66328981fd844d2ccf5a1fea884cf0c1fec552448fb7e790cd32f5452e0c",
+    "inheritsS1ConfigurationAtCommit": "11bb59e12b0d4d7a7c8175fd21cd9d574e660867",
+    "compileFlagsAndCMakeCacheUnchanged": true,
+    "optionalTestOnlySetting": "CMAKE_DISABLE_FIND_PACKAGE_FFmpeg=ON retained from S1",
+    "jobs": 3
+  },
+  "rawSDL": {
+    "path": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/S2/artifacts/libSDL3.0.dylib",
+    "builtPath": "$WORKSPACE/build/run95-sdl-20261002/libSDL3.0.dylib",
+    "sha256": "1e4c4ad59e8dd36bcb0e333446eae24c7c164ebe3fd2921054a1fdceecd579c6",
+    "bytes": 3009664,
+    "parentS1SHA256": "1915ccbbdee9a017115850ee297a018ff9f8bbc2dcb07b121e8dfb780a9cb9f2",
+    "rawOnlyNotInstalledOrPackaged": true
+  },
+  "testExecutable": {
+    "path": "$WORKSPACE/build/run95-sdl-20261002/test/testautomation",
+    "sha256": "df2fb1d0c76e5571141bbcad4ceb0adf31c613c085e525ba5722821e41878bb7"
+  },
+  "preserved": {
+    "selectedReadback": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/S2/preservation-after.json",
+    "SDLPropertiesThreeCorrections": "Exact SDL_properties.c pre/post hash unchanged; no unrelated Properties runtime repetition.",
+    "S1": "SDL_string.c hash unchanged; UTF8 case body byteexact and prior Stdlib reference order retained; actual S1 117 assertions pass.",
+    "displayPolicies": "Selected Cocoa and both engine bridge sources unchanged; no target-screen/safe-area/fullscreen code changes or display test needed.",
+    "launcherHEADIndex": "Bounded exact checks unchanged; source checkpoint uses separate publisher, not real dirty index.",
+    "frozenApps": "No repack/install/write. Selected frozen/root metadata and packaged SDL hashes unchanged; full inventories not rerun.",
+    "NoGSCUSNumericMPWaitCostAI": "outside edited/built path; no engine/AI/graphics/Loader source or build touched."
+  },
+  "sourcePublicABIScope": "Production source ABI declarations, compile flags/cache and dependency load commands/install name unchanged; no new binary export census.",
+  "sourcePublicationGate": {
+    "appliedAuditVerdict": "PASS",
+    "requiredChecksSatisfied": true,
+    "explicitCoordinatorPASSReceived": true,
+    "mandatorySelectedTestSkips": 0
+  },
+  "notClaimed": [
+    "OS-level pthread_mutex_init failure injection",
+    "singleton concurrency/cross-platform certification",
+    "new binary export census or app integration/GPU/game/FPS/MP/IME/audio acceptance",
+    "installed/public app/Release/Homebrew/V1 update"
+  ],
+  "license": "Existing SDL source license and attribution remain in the pinned component archive.",
+  "appReleaseScope": "Cumulative S1+S2 source/raw-component checkpoint only; no app, Release, Homebrew, V1 or tag change.",
+  "commitSHARule": "Actual source publication commit is recorded afterward in a separate local receipt."
+}

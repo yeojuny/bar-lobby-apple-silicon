@@ -1,0 +1,311 @@
+--- a/src/stdlib/SDL_getenv.c
++++ b/src/stdlib/SDL_getenv.c
+@@ -93,14 +93,18 @@
+         return NULL;
+     }
+ 
++    env->lock = SDL_CreateMutex();
++    if (!env->lock) {
++        SDL_free(env);
++        return NULL;
++    }
++
+     env->strings = SDL_CreateHashTable(0, false, SDL_HashString, SDL_KeyMatchString, SDL_DestroyHashKey, NULL);
+     if (!env->strings) {
++        SDL_DestroyMutex(env->lock);
+         SDL_free(env);
+         return NULL;
+     }
+-
+-    // Don't fail if we can't create a mutex (e.g. on a single-thread environment)  // !!! FIXME: single-threaded environments should still return a non-NULL, do-nothing object here. Check for failure!
+-    env->lock = SDL_CreateMutex();
+ 
+     if (populated) {
+ #if defined(SDL_PLATFORM_WINDOWS) && !defined(SDL_PLATFORM_CYGWIN)
+--- a/test/testautomation.c
++++ b/test/testautomation.c
+@@ -11,12 +11,16 @@
+ */
+ 
+ #include <stdlib.h>
++#include <string.h>
+ 
+ #include <SDL3/SDL.h>
+ #include <SDL3/SDL_main.h>
+ #include <SDL3/SDL_test.h>
+ 
+ #include "testautomation_suites.h"
++
++/* Defined by the existing Stdlib suite; wrappers delegate to the original allocator. */
++bool SDLTest_InstallEnvironmentMemoryHooks(void);
+ 
+ static SDLTest_CommonState *state;
+ static SDLTest_TestSuiteRunner *runner;
+@@ -70,6 +74,17 @@
+     int i, done;
+     SDL_Event event;
+     int list = 0;
++    bool no_init = false;
++
++    /* Install hooks before runner allocations or subsystem threads can start. */
++    for (i = 1; i < argc; ++i) {
++        if (strcmp(argv[i], "--no-init") == 0) {
++            no_init = true;
++        }
++    }
++    if (no_init && !SDLTest_InstallEnvironmentMemoryHooks()) {
++        return 1;
++    }
+ 
+     /* Initialize test framework */
+     state = SDLTest_CommonCreateState(argv, SDL_INIT_VIDEO | SDL_INIT_AUDIO);
+@@ -79,6 +94,9 @@
+ 
+     /* No need of windows (or update testautomation_mouse.c:mouse_getMouseFocus() */
+     state->num_windows = 0;
++    if (no_init) {
++        state->flags = 0;
++    }
+ 
+     runner = SDLTest_CreateTestSuiteRunner(state, testSuites);
+ 
+@@ -93,11 +111,14 @@
+             if (SDL_strcasecmp(argv[i], "--list") == 0) {
+                 consumed = 1;
+                 list = 1;
++            } else if (SDL_strcasecmp(argv[i], "--no-init") == 0) {
++                consumed = 1;
+             }
+         }
+         if (consumed < 0) {
+             static const char *options[] = {
+                 "[--list]",
++                "[--no-init] (CPU-only tests; no video/audio initialization)",
+                 NULL };
+             SDLTest_CommonLogUsage(state, argv[0], options);
+             quit(1);
+@@ -122,7 +143,7 @@
+     }
+ 
+     /* Initialize common state */
+-    if (!SDLTest_CommonInit(state)) {
++    if (!no_init && !SDLTest_CommonInit(state)) {
+         quit(2);
+     }
+ 
+@@ -135,6 +156,11 @@
+ 
+     /* Call Harness */
+     result = SDLTest_ExecuteTestSuiteRunner(runner);
++
++    if (no_init) {
++        quit(0);
++        return result;
++    }
+ 
+     /* Empty event queue */
+     done = 0;
+--- a/test/testautomation_stdlib.c
++++ b/test/testautomation_stdlib.c
+@@ -6,6 +6,182 @@
+ #include "testautomation_suites.h"
+ 
+ /* Test case functions */
++
++/* Environment OOM checks use the existing runner, not a standalone harness.
++ * Hooks are installed at process startup and always use the saved allocator.
++ * Only the owning test thread records allocations; harness timer threads bypass it.
++ */
++static SDL_malloc_func environment_malloc;
++static SDL_calloc_func environment_calloc;
++static SDL_realloc_func environment_realloc;
++static SDL_free_func environment_free;
++static SDL_ThreadID environment_owner;
++static bool environment_hooks_ready;
++static struct
++{
++    bool active;
++    unsigned int fail_at, calls, failed, allocated, other_allocations, bad_frees, overflow;
++    void *pointers[8];
++    unsigned int frees[8];
++} environment_trace;
++
++static bool environment_tracking(void)
++{
++    return SDL_GetCurrentThreadID() == environment_owner && environment_trace.active;
++}
++
++static void *SDLCALL environment_test_malloc(size_t size)
++{
++    if (environment_tracking()) {
++        ++environment_trace.other_allocations;
++    }
++    return environment_malloc(size);
++}
++
++static void *SDLCALL environment_test_calloc(size_t count, size_t size)
++{
++    const bool tracking = environment_tracking();
++    void *pointer;
++    if (tracking && ++environment_trace.calls == environment_trace.fail_at) {
++        ++environment_trace.failed;
++        return NULL;
++    }
++    pointer = environment_calloc(count, size);
++    if (tracking && pointer) {
++        if (environment_trace.allocated < SDL_arraysize(environment_trace.pointers)) {
++            environment_trace.pointers[environment_trace.allocated++] = pointer;
++        } else {
++            ++environment_trace.overflow;
++        }
++    }
++    return pointer;
++}
++
++static void *SDLCALL environment_test_realloc(void *pointer, size_t size)
++{
++    if (environment_tracking()) {
++        ++environment_trace.other_allocations;
++    }
++    return environment_realloc(pointer, size);
++}
++
++static void SDLCALL environment_test_free(void *pointer)
++{
++    if (pointer && environment_tracking()) {
++        unsigned int i;
++        for (i = 0; i < environment_trace.allocated; ++i) {
++            if (environment_trace.pointers[i] == pointer) {
++                if (environment_trace.frees[i]++ != 0) {
++                    ++environment_trace.bad_frees;
++                    return; /* Report the double-free without crashing the runner. */
++                }
++                break;
++            }
++        }
++        if (i == environment_trace.allocated) {
++            ++environment_trace.bad_frees;
++        }
++    }
++    environment_free(pointer);
++}
++
++bool SDLTest_InstallEnvironmentMemoryHooks(void)
++{
++    environment_owner = SDL_GetCurrentThreadID();
++    SDL_GetMemoryFunctions(&environment_malloc, &environment_calloc, &environment_realloc, &environment_free);
++    environment_hooks_ready = SDL_SetMemoryFunctions(environment_test_malloc, environment_test_calloc,
++                                                    environment_test_realloc, environment_test_free);
++    return environment_hooks_ready;
++}
++
++static void environment_check_cleanup(const char *label)
++{
++    unsigned int i;
++    SDLTest_Log("%s: calloc calls=%u, allocated=%u, failed=%u", label,
++                environment_trace.calls, environment_trace.allocated, environment_trace.failed);
++    SDLTest_AssertCheck(environment_trace.other_allocations == 0, "%s no untracked allocation kind", label);
++    SDLTest_AssertCheck(environment_trace.bad_frees == 0, "%s no unknown or duplicate free", label);
++    SDLTest_AssertCheck(environment_trace.overflow == 0, "%s allocation ledger fits", label);
++    for (i = 0; i < environment_trace.allocated; ++i) {
++        SDLTest_AssertCheck(environment_trace.frees[i] == 1, "%s allocation %u freed exactly once", label, i + 1);
++    }
++}
++
++static int SDLCALL stdlib_environmentAllocations(void *arg)
++{
++    unsigned int i, allocations;
++    SDL_Environment *env;
++    const char *value;
++    const char *name = "SDL_S2_ISOLATED_ENVIRONMENT_TEST";
++    bool returned_null;
++
++    if (!environment_hooks_ready) {
++        SDLTest_Log("This test requires --no-init to install memory hooks before runner allocations.");
++        return TEST_SKIPPED;
++    }
++
++    /* These private copies never change the process or user's environment. */
++    for (i = 0; i < 2; ++i) {
++        env = SDL_CreateEnvironment(i != 0);
++        SDLTest_AssertCheck(env != NULL, "CreateEnvironment(populated=%u)", i);
++        if (!env) {
++            return TEST_ABORTED;
++        }
++        SDLTest_AssertCheck(SDL_SetEnvironmentVariable(env, name, "first", true), "Set isolated variable");
++        value = SDL_GetEnvironmentVariable(env, name);
++        SDLTest_AssertCheck(value && SDL_strcmp(value, "first") == 0, "Get isolated variable");
++        SDLTest_AssertCheck(SDL_SetEnvironmentVariable(env, name, "second", false), "Keep existing variable");
++        value = SDL_GetEnvironmentVariable(env, name);
++        SDLTest_AssertCheck(value && SDL_strcmp(value, "first") == 0, "No-overwrite keeps first value");
++        SDLTest_AssertCheck(SDL_SetEnvironmentVariable(env, name, "second", true), "Overwrite isolated variable");
++        value = SDL_GetEnvironmentVariable(env, name);
++        SDLTest_AssertCheck(value && SDL_strcmp(value, "second") == 0, "Get overwritten variable");
++        SDLTest_AssertCheck(SDL_UnsetEnvironmentVariable(env, name), "Unset isolated variable");
++        SDLTest_AssertCheck(SDL_GetEnvironmentVariable(env, name) == NULL, "Unset variable is absent");
++        SDL_DestroyEnvironment(env);
++    }
++
++    /* Warm the existing error buffer before observing only environment allocations. */
++    SDL_SetError("environment allocation test warmup");
++    SDL_ClearError();
++    SDL_zero(environment_trace);
++    environment_trace.active = true;
++    env = SDL_CreateEnvironment(false);
++    returned_null = env == NULL;
++    SDL_DestroyEnvironment(env);
++    environment_trace.active = false;
++    allocations = environment_trace.calls;
++    SDLTest_AssertCheck(!returned_null, "Uninjected environment creation succeeds");
++    SDLTest_AssertCheck(allocations > 0 && allocations <= SDL_arraysize(environment_trace.pointers),
++                        "Environment allocation sweep is bounded (%u calls)", allocations);
++    environment_check_cleanup("control creation/destruction");
++    if (returned_null || allocations == 0 || allocations > SDL_arraysize(environment_trace.pointers)) {
++        return TEST_ABORTED;
++    }
++
++    for (i = 1; i <= allocations; ++i) {
++        char label[64];
++        SDL_zero(environment_trace);
++        environment_trace.fail_at = i;
++        environment_trace.active = true;
++        env = SDL_CreateEnvironment(false);
++        returned_null = env == NULL;
++        SDL_DestroyEnvironment(env);
++        environment_trace.active = false;
++        SDL_snprintf(label, sizeof(label), "failure at allocation %u", i);
++        SDLTest_AssertCheck(returned_null, "%s returns NULL", label);
++        SDLTest_AssertCheck(environment_trace.failed == 1, "%s failure was injected", label);
++        environment_check_cleanup(label);
++    }
++
++    SDLTest_AssertCheck(SDL_GetEnvironmentVariable(NULL, name) == NULL, "NULL environment get is safe");
++    SDLTest_AssertCheck(!SDL_SetEnvironmentVariable(NULL, name, "value", true), "NULL environment set fails");
++    SDLTest_AssertCheck(!SDL_UnsetEnvironmentVariable(NULL, name), "NULL environment unset fails");
++    SDLTest_AssertCheck(SDL_GetEnvironmentVariables(NULL) == NULL, "NULL environment listing fails");
++    SDL_DestroyEnvironment(NULL);
++    SDL_ClearError();
++    return TEST_COMPLETED;
++}
+ 
+ /**
+  * Decode UTF-8 through the public stepping APIs, including four-byte values
+@@ -1547,6 +1723,10 @@
+ /* ================= Test References ================== */
+ 
+ /* Standard C routine test cases */
++static const SDLTest_TestCaseReference stdlibTest_environmentAllocations = {
++    stdlib_environmentAllocations, "stdlib_environmentAllocations", "Private environment creation, allocation failures and cleanup", TEST_ENABLED
++};
++
+ static const SDLTest_TestCaseReference stdlibTest_stepUTF8 = {
+     stdlib_stepUTF8, "stdlib_stepUTF8", "UTF-8 stepping payload bits, boundaries and invalid input", TEST_ENABLED
+ };
+@@ -1610,6 +1790,7 @@
+ /* Sequence of Standard C routine test cases */
+ static const SDLTest_TestCaseReference *stdlibTests[] = {
+     &stdlibTest_stepUTF8,
++    &stdlibTest_environmentAllocations,
+     &stdlibTest_strnlen,
+     &stdlibTest_strlcpy,
+     &stdlibTest_strstr,
