@@ -1,0 +1,222 @@
+--- a/rts/Lua/LuaBundledPresentation.h
++++ b/rts/Lua/LuaBundledPresentation.h
+@@ -79,6 +79,7 @@
+ inline bool AugmentWidgetHandler(std::string& source)
+ {
+ 	const bool known = Matches(source, 138917, "fd298d1cef4ee2996877bf45fc9f19715cbd77eca8e8dbf4fe5c73643f9dd6e8ff3a0eaaf2a6d21da4349125432b0b0c46245c4648185ce097f4a7aaa0e2ee19")
++		|| Matches(source, 141304, "738dd12f4df4d17fcb9c2079e0a071121896fbc975d9f9e5c5435721950a7e6436ee26ac88850fe8b9793663f585502eb0620c7610f43d7a26ba57fa6e5067cb")
+ 		|| Matches(source, 103589, "b731d0b2df6ed98157f172586fbb49524593c2042f977922ce69f15efe68721aa36db0b77085b569fddfd9a483c0c7435c8e7db4f9289923d2402db4f03bc112");
+ 	constexpr std::string_view anchor = "\tif text == nil then\n\t\treturn loadFailed(basename, \"missing file: \" .. filename)\n\tend";
+ 	const auto first = source.find(anchor);
+
+--- a/rts/Lua/LuaVFS.cpp
++++ b/rts/Lua/LuaVFS.cpp
+@@ -387,19 +387,21 @@
+ 	const auto presentationPath = bundled_presentation::NormalizePath(fileName);
+ 	if (!synced && IsUnsyncedPresentationHandle(L, "LuaUI") && presentationPath == "luaui/barwidgets.lua") {
+ 		bundledHandler = mode == SPRING_VFS_ZIP && bundled_presentation::AugmentWidgetHandler(fileData);
+-		if (bundledHandler)
++		if (bundledHandler) {
+ 			LOG_L(L_INFO, "[BAR presentation] exact official widget handler bound to immutable native sources");
+-		else
++		} else {
+ 			LOG_L(L_ERROR, "[BAR presentation] required widget routing incompatible: unknown handler bytes, anchor, or non-ZIP mode; original unchanged");
++		}
+ 	}
+ 	if (!synced && IsUnsyncedPresentationHandle(L, "LuaRules") && presentationPath == "modules/graphics/luashader.lua") {
+ 		// Preserve the requested mode and the original selected helper. Exact
+ 		// known bytes are required even when older content uses RAW_FIRST;
+ 		// this adapter changes no widget trust or access permissions.
+-		if (bundled_presentation::WrapLuaRulesHelper(fileData))
++		if (bundled_presentation::WrapLuaRulesHelper(fileData)) {
+ 			LOG_L(L_INFO, "[BAR presentation] exact original LuaRules helper plus immutable presentation adapter");
+-		else
++		} else {
+ 			LOG_L(L_ERROR, "[BAR presentation] required LuaRules helper routing incompatible: unknown original bytes; original unchanged");
++		}
+ 	}
+ 	LuaUtils::TracyRemoveAlsoExtras(fileData.data());
+ 	if ((luaError = luaL_loadbuffer(L, fileData.c_str(), fileData.size(), fileName.c_str())) != 0) {
+
+--- a/rts/Lua/LuaBundledPresentation.h
++++ b/rts/Lua/LuaBundledPresentation.h
+@@ -79,6 +79,7 @@
+ inline bool AugmentWidgetHandler(std::string& source)
+ {
+ 	const bool known = Matches(source, 138917, "fd298d1cef4ee2996877bf45fc9f19715cbd77eca8e8dbf4fe5c73643f9dd6e8ff3a0eaaf2a6d21da4349125432b0b0c46245c4648185ce097f4a7aaa0e2ee19")
++		|| Matches(source, 141304, "738dd12f4df4d17fcb9c2079e0a071121896fbc975d9f9e5c5435721950a7e6436ee26ac88850fe8b9793663f585502eb0620c7610f43d7a26ba57fa6e5067cb")
+ 		|| Matches(source, 103589, "b731d0b2df6ed98157f172586fbb49524593c2042f977922ce69f15efe68721aa36db0b77085b569fddfd9a483c0c7435c8e7db4f9289923d2402db4f03bc112");
+ 	constexpr std::string_view anchor = "\tif text == nil then\n\t\treturn loadFailed(basename, \"missing file: \" .. filename)\n\tend";
+ 	const auto first = source.find(anchor);
+
+--- a/rts/Lua/LuaVFS.cpp
++++ b/rts/Lua/LuaVFS.cpp
+@@ -383,19 +383,21 @@
+ 	const auto presentationPath = bundled_presentation::NormalizePath(fileName);
+ 	if (!synced && IsUnsyncedPresentationHandle(L, "LuaUI") && presentationPath == "luaui/barwidgets.lua") {
+ 		bundledHandler = mode == SPRING_VFS_ZIP && bundled_presentation::AugmentWidgetHandler(fileData);
+-		if (bundledHandler)
++		if (bundledHandler) {
+ 			LOG_L(L_INFO, "[BAR presentation] exact official widget handler bound to immutable native sources");
+-		else
++		} else {
+ 			LOG_L(L_ERROR, "[BAR presentation] required widget routing incompatible: unknown handler bytes, anchor, or non-ZIP mode; original unchanged");
++		}
+ 	}
+ 	if (!synced && IsUnsyncedPresentationHandle(L, "LuaRules") && presentationPath == "modules/graphics/luashader.lua") {
+ 		// Preserve the requested mode and the original selected helper. Exact
+ 		// known bytes are required even when older content uses RAW_FIRST;
+ 		// this adapter changes no widget trust or access permissions.
+-		if (bundled_presentation::WrapLuaRulesHelper(fileData))
++		if (bundled_presentation::WrapLuaRulesHelper(fileData)) {
+ 			LOG_L(L_INFO, "[BAR presentation] exact original LuaRules helper plus immutable presentation adapter");
+-		else
++		} else {
+ 			LOG_L(L_ERROR, "[BAR presentation] required LuaRules helper routing incompatible: unknown original bytes; original unchanged");
++		}
+ 	}
+ 	LuaUtils::TracyRemoveAlsoExtras(fileData.data());
+ 	if ((luaError = luaL_loadbuffer(L, fileData.c_str(), fileData.size(), fileName.c_str())) != 0) {
+
+--- a/launcher/package.json
++++ b/launcher/package.json
+@@ -1,7 +1,7 @@
+ {
+     "name": "bar-lobby",
+     "type": "module",
+-    "version": "1.0.0",
++    "version": "1.0.1",
+     "private": true,
+     "description": "Lobby client for the RTS game Beyond All Reason",
+     "author": "The BAR Lobby Authors",
+
+--- a/launcher/package-lock.json
++++ b/launcher/package-lock.json
+@@ -1,12 +1,12 @@
+ {
+     "name": "bar-lobby",
+-    "version": "1.0.0",
++    "version": "1.0.1",
+     "lockfileVersion": 3,
+     "requires": true,
+     "packages": {
+         "": {
+             "name": "bar-lobby",
+-            "version": "1.0.0",
++            "version": "1.0.1",
+             "hasInstallScript": true,
+             "license": "SEE LICENSE IN LICENSE.md",
+             "dependencies": {
+
+--- a/launcher/electron-builder.ts
++++ b/launcher/electron-builder.ts
+@@ -9,15 +9,15 @@
+ // Reviewed experimental release inputs. The external lock remains mandatory;
+ // protected local candidates are not modified by this packaging configuration.
+ const bundledAssets = createPinnedBundledAssets(process.env, {
+-    id: "release-v1.0.0-20261017",
++    id: "healthbar-radar-repair-20261017",
+     lanes: {
+         "bar-chobby": {
+             engineDirectory: "2026.07.04",
+-            springSha256: "f4af59ca41f64268d5d5856c0e6ba10b5ff2003551b6dd60f8408a590b994156",
++            springSha256: "3c786c1230d53bf0bc7c20005a099a528b6bc54d37979d4667af0489f0077445",
+         },
+         "bar-lobby": {
+             engineDirectory: "2026.09.01-24-g01efdf4 master",
+-            springSha256: "ce71db8fdd4b02a8c5e0206ac7e3c3aa18dafc2c4a30360e033ea5052c7021ab",
++            springSha256: "47e2fec5df139fc559553188161003e74fcef18aed3b4d7372c0817822034f40",
+         },
+     },
+ });
+@@ -30,9 +30,9 @@
+     // Should be the same as APP_NAME in src/main/config/app.ts and in
+     // workaround in installer.nsh.
+     productName: "BAR",
+-    buildVersion: "1.0.0",
++    buildVersion: "1.0.1",
+     extraMetadata: {
+-        version: "1.0.0",
++        version: "1.0.1",
+         repository: { type: "git", url: "https://github.com/yeojuny/bar-lobby-apple-silicon.git" },
+     },
+ 
+
+--- a/tools/tests/run94-canonical-overlay-intake.test.mjs
++++ b/tools/tests/run94-canonical-overlay-intake.test.mjs
+@@ -347,7 +347,7 @@
+   fs.writeFileSync(path.join(f.root, 'LuaBundledPresentationSources.h'), generated.header);
+   fs.copyFileSync(path.join(nativeRoot, 'Lua/LuaBundledPresentation.h'), path.join(f.root, 'LuaBundledPresentation.h'));
+   const evidence = path.resolve('artifacts/validation/release-imac-fix-20261015/provider');
+-  const output = path.join(evidence, 'cpu-generated'); fs.mkdirSync(output, { recursive: true });
++  const output = path.join(f.root, 'cpu-generated'); fs.mkdirSync(output, { recursive: true });
+   const source = `#include <cassert>\n#include <fstream>\n#include <iterator>\n#include "LuaBundledPresentation.h"\n
+ std::string Read(const std::string& p) { std::ifstream f(p, std::ios::binary); assert(f); return {std::istreambuf_iterator<char>(f), {}}; }
+ void Write(const std::string& p, const std::string& s) { std::ofstream f(p, std::ios::binary); f.write(s.data(), s.size()); }
+@@ -373,15 +373,21 @@
+   auto badHelper = Read(stem + "-LuaShader.lua") + " "; const auto badBefore = badHelper;
+   assert(!WrapLuaRulesHelper(badHelper) && badHelper == badBefore);
+  }
++ const auto currentOriginal = Read(argv[3]); auto current = currentOriginal;
++ assert(current.size() == 141304 && AugmentWidgetHandler(current));
++ Write(std::string(argv[2]) + "/ad2e1b7-barwidgets.lua", current);
++ auto changed = currentOriginal; changed.back() ^= 1; const auto changedBefore = changed;
++ assert(!AugmentWidgetHandler(changed) && changed == changedBefore);
++ auto unknownHandler = std::string("return {}"); assert(!AugmentWidgetHandler(unknownHandler) && unknownHandler == "return {}");
+  Write(std::string(argv[2]) + "/compiled-fixture-widget.lua", std::string(FindWidget("luaui/widgets/api_unit_tracker_gl4.lua")));
+ }\n`;
+   const cpp = path.join(f.root, 'provider-cpu.cpp'), binary = path.join(f.root, 'provider-cpu');
+   fs.writeFileSync(cpp, source);
+   execFileSync('/usr/bin/clang++', ['-std=c++17', '-O0', '-I', f.root, '-I', nativeRoot, cpp, path.join(nativeRoot, 'System/Sync/SHA512.cpp'), '-o', binary]);
+-  execFileSync(binary, [evidence, output]);
++  execFileSync(binary, [evidence, output, path.resolve('artifacts/validation/healthbar-radar-regression-20261017/current-content/luaui/barwidgets.lua')]);
+   assert.deepEqual(fs.readFileSync(path.join(output, 'compiled-fixture-widget.lua')), f.data.get('LuaUI/Widgets/api_unit_tracker_gl4.lua'));
+-  for (const version of ['433a460', 'ebba846']) {
+-    const original = fs.readFileSync(path.join(evidence, `official-${version}-barwidgets.lua`), 'utf8');
++  for (const version of ['433a460', 'ebba846', 'ad2e1b7']) {
++    const original = fs.readFileSync(version === 'ad2e1b7' ? 'artifacts/validation/healthbar-radar-regression-20261017/current-content/luaui/barwidgets.lua' : path.join(evidence, `official-${version}-barwidgets.lua`), 'utf8');
+     const transformed = fs.readFileSync(path.join(output, `${version}-barwidgets.lua`), 'utf8');
+     const prefix = 'local __barBundledWidgetSource = ...\n';
+     const addition = '\tlocal __barBundledText = __barBundledWidgetSource(filename)\n\tif __barBundledText ~= nil then\n\t\ttext = __barBundledText\n\t\tfromZip = true\n\tend\n';
+@@ -390,8 +396,8 @@
+ });
+ 
+ test('final pinned production tables roundtrip every compiled byte and generate actual LuaRules wrappers', () => {
+-  const pinBytes = fs.readFileSync('artifacts/validation/release-imac-fix-20261015/presentation-source-pins.json');
+-  assert.equal(sha(pinBytes), '2ccc969bda74c0b13e2f702854006466549baea52e087ece066ac40d7dc6e1c7');
++  const pinBytes = fs.readFileSync('artifacts/validation/healthbar-radar-regression-20261017/repair-hq/presentation-source-pins.json');
++  assert.equal(sha(pinBytes), 'ec67d2f23185a7c1fcc2117f6cf3538e6ef7445e1d9c5d7a41131ec73579c069');
+   const pins = JSON.parse(pinBytes);
+   const evidence = path.resolve('artifacts/validation/release-imac-fix-20261015/provider');
+   const cpu = fs.realpathSync(fs.mkdtempSync(path.join(os.tmpdir(), 'bar-production-presentation-cpu-')));
+@@ -402,7 +408,7 @@
+   const rows = [];
+   for (const [lane, root] of Object.entries(nativeRoots)) {
+     const generated = generateBundledPresentationHeader({ stagedAssetsRoot: path.dirname(pins.assetRoot), lane, ...pins.lanes[lane] });
+-    assert.deepEqual(fs.readFileSync(path.join(root, 'rts/Lua/LuaBundledPresentationSources.h')), generated.header);
++    assert.equal(sha(fs.readFileSync(path.join(root, 'rts/Lua/LuaBundledPresentationSources.h'))), sha(generated.header), 'exact production header digest');
+     const cpp = path.join(cpu, lane + '.cpp'), binary = path.join(cpu, lane);
+     const nativeVfs = fs.readFileSync(path.join(root, 'rts/Lua/LuaVFS.cpp'), 'utf8');
+     const context = nativeVfs.slice(nativeVfs.indexOf('static bool IsUnsyncedPresentationHandle('), nativeVfs.indexOf('/*** Unified IO'));
+@@ -427,11 +433,11 @@
+  for (const auto* version: {"433a460", "ebba846"}) {
+   std::ifstream input(std::string(argv[1]) + "/official-" + version + "-LuaShader.lua", std::ios::binary);
+   std::string source {std::istreambuf_iterator<char>(input), {}}; if (!bundled_presentation::WrapLuaRulesHelper(source)) return 1;
+-  std::ofstream output(std::string(argv[1]) + "/cpu-generated/" + argv[2] + "-" + version + "-LuaShader.lua", std::ios::binary); output.write(source.data(), source.size());
++  std::ofstream output(std::string(argv[3]) + "/" + argv[2] + "-" + version + "-LuaShader.lua", std::ios::binary); output.write(source.data(), source.size());
+  }
+ }\n`);
+     execFileSync('/usr/bin/clang++', ['-std=c++17', '-O0', '-I', path.join(root, 'rts'), cpp, path.join(root, 'rts/System/Sync/SHA512.cpp'), '-o', binary]);
+-    const output = execFileSync(binary, [evidence, lane], { encoding: 'utf8' });
++    const output = execFileSync(binary, [evidence, lane, cpu], { encoding: 'utf8' });
+     const compiled = new Map(output.trim().split('\n').map(line => { const [file, bytes, sha512] = line.split('\t'); return [file, { bytes: Number(bytes), sha512 }]; }));
+     assert.equal(compiled.size, generated.receipt.inputs.length);
+     for (const entry of generated.receipt.inputs) {
+@@ -443,5 +449,5 @@
+     }
+     rows.push({ lane, compiledEntries: compiled.size, headerSha256: generated.receipt.headerSha256, bytesMatched: true });
+   }
+-  fs.writeFileSync(path.join(evidence, 'compiled-production-roundtrip.json'), JSON.stringify({ scope: 'CPU helper/table compilation only; no engine build or game/GPU', lanes: rows }, null, 2) + '\n');
+-});
++  fs.writeFileSync(path.join(cpu, 'compiled-production-roundtrip.json'), JSON.stringify({ scope: 'CPU helper/table compilation only; no engine build or game/GPU', lanes: rows }, null, 2) + '\n');
++});

@@ -1,3 +1,5 @@
+> Historical 1.0.0 preparation: app publication was suspended after a real-game widget-routing failure. Use [1.0.1](../2026-10-17-v1.0.1/README.md) for the corrected release and current qualification.
+
 # BAR for Apple Silicon 1.0.0
 
 This source records the 1.0.0 product integration. It combines candidate.5 maintenance and the eight reviewed source units. Product numbering is separate from gameplay/MP/other-Mac qualification.

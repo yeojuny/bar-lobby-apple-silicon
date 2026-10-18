@@ -1,0 +1,11 @@
+# Corresponding source for 1.0.1
+
+Use the separately attached BAR-1.0.1-sources.tar.gz, notices and SHA256SUMS. GitHub's automatic launcher-only archive omits the complete native/dependency source set. The source companion contains eleven archives, pinned dependency recipes, preferred source, source/app bindings and build support. Unchanged components reuse exactly verified 1.0.0/candidate source bytes; launcher and both native archives are exported with this release's changes.
+
+The new source commit descends from the preserved 1.0.0 source f75adf900519161ad76d41cbd98e62171d4939f6. No immutable tag is moved. The companion manifest binds the resulting commit/tree without a self-referential hash inside the Git tree.
+
+Native build: configure each original engine lane with -DVERSION_ADDITIONAL=BAR-1.0.1 and build the existing engine-legacy target. Changed implementation files are only rts/Lua/LuaBundledPresentation.h and rts/Lua/LuaVFS.cpp in each lane. The included VersionGenerated.h and template-values metadata reproduce the version header byte-for-byte; official sync identities remain Lobby 2026.09.01-24-g01efdf4 master and Chobby 2026.07.04. Existing compiler/link and numeric policy are retained. Source changes are in repair/change.patch with exact pre/post SHA bindings; complete postimages are provided beside it.
+
+The launcher package.json and package-lock.json change version only. electron-builder.ts updates version/build-input bindings and the two packaged native binary SHA256 bindings; the existing canonical fixture uses the current exact handler and frozen production presentation inputs. Use the full build-support layout in the source companion for the fixture, rather than running a copied file in isolation. Production generated-header postimages are included in both native archives; regeneration additionally needs the fixture/source pins described there.
+
+Follow the retained component recipes and historical build notes for dependency population, Lua header generation, relocation and packaging. Current 1.0.1 receipts supersede 1.0.0 release associations. Old receipts and documentation are historical evidence, not a claim that the 1.0.0 app passed real-game validation.

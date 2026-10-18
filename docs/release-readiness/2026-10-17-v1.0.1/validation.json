@@ -1,0 +1,57 @@
+{
+  "productVersion": "1.0.1",
+  "app": {
+    "inventorySHA256": "cf13b8cc0b73b950de62482946cd4c099ca0a5cce89801db05941a0449eb42ea",
+    "entries": 1192,
+    "asarSHA256": "13f39a7954f75abb3c0a0c5e697dd03dfb68952dbe3875d6ee275eac76a7fdbc",
+    "inputLockSHA256": "36cb89774191b3f5ff8b4dd02265b9cb6e64185c088f391bab32ca4a1e9dab5b",
+    "nativeAdditionalVersion": "BAR-1.0.1",
+    "syncIdentities": [
+      "2026.09.01-24-g01efdf4 master",
+      "2026.07.04"
+    ],
+    "qualification": {
+      "humanConfirmed": [
+        "Healthbars visible",
+        "Commander minimap radar visible",
+        "Legion T2 radar-plane range visible",
+        "T1 world range line visible; minimap circle absent; current behavior accepted as normal by human"
+      ],
+      "limits": [
+        "Cause of the T1 world/minimap distinction remains unproven",
+        "No all-scout pixel parity, new FPS, full multiplayer, other-Mac or clean-machine qualification"
+      ],
+      "publisherAppOrGameLaunchOrQuit": false,
+      "privateRawLogsOrSettingsPublished": false
+    }
+  },
+  "existingChecks": {
+    "canonicalFixture": 28,
+    "launcherUnitTests": 859,
+    "launcherUnitFiles": 77,
+    "NodeTypes": "PASS",
+    "WebTypes": "PASS",
+    "nativeLoaderValidations": 52,
+    "dependencyClosureEdges": 247,
+    "strictDeepAdHocSignature": "PASS",
+    "packagedAssetGroupsExact": 7,
+    "appInventoryEntries": 1192,
+    "expectedChangedEntries": 19,
+    "addedProvenanceEntries": 1,
+    "removedEntries": 0,
+    "ASAR": {
+      "version": "1.0.1",
+      "path": "$WORKSPACE/artifacts/runtime/healthbar-radar-repair-20261017/app-builder-output/mac-arm64/BAR.app/Contents/Resources/app.asar",
+      "sha256": "13f39a7954f75abb3c0a0c5e697dd03dfb68952dbe3875d6ee275eac76a7fdbc"
+    },
+    "syncIdentities": [
+      "2026.09.01-24-g01efdf4 master",
+      "2026.07.04"
+    ],
+    "compiledPreviouslyAbsentErrorStrings": "Widget and LuaRules helper compatibility messages each present once in both raw native binaries; no runtime error-path invocation claimed"
+  },
+  "correctedAppAuditSHA256": "947e87da3cf0a3ede003cea468a633c4bbbcd8c916da2687b79278ec4fc28aa1",
+  "frozenOutputManifestSHA256": "0549ca947b81f904698639f1b9dc64da33595a4a216cacc6778333b6c3c2f46c",
+  "manualConfirmationAuthority": "Human confirmation relayed by Audit - MK2 after manual1.0.1 game; raw evidence remains private",
+  "historicalAuditStatusNote": "Corrected-app audit predates the later human confirmation; its original pending wording is preserved."
+}

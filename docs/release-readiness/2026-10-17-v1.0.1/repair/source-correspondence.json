@@ -1,0 +1,75 @@
+{
+  "sources": [
+    {
+      "path": "$WORKSPACE/build/run91-recoil-src-694e9df7/rts/Lua/LuaBundledPresentation.h",
+      "beforeSHA256": "59b7a85eb48faf32173838c69ecc93861dbfbd1f9ddb4fcbe50929eb1be015d5",
+      "afterSHA256": "0f70dd3fb977cc74ee35cc8c27eb1522778c0f91ce90cf95a02410b2272c1be0"
+    },
+    {
+      "path": "$WORKSPACE/build/run91-recoil-src-694e9df7/rts/Lua/LuaVFS.cpp",
+      "beforeSHA256": "02bc9c0c59136811fa017679f15569595f5705ccb74361456ec1a71c1d3ca8ac",
+      "afterSHA256": "5a2cceb136a01f8aeaf15e19e80babfd6292d806cfffc2ba2ddc859b10b72337"
+    },
+    {
+      "path": "$WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Lua/LuaBundledPresentation.h",
+      "beforeSHA256": "59b7a85eb48faf32173838c69ecc93861dbfbd1f9ddb4fcbe50929eb1be015d5",
+      "afterSHA256": "0f70dd3fb977cc74ee35cc8c27eb1522778c0f91ce90cf95a02410b2272c1be0"
+    },
+    {
+      "path": "$WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Lua/LuaVFS.cpp",
+      "beforeSHA256": "4b32b26710e7a0fdfd667fd4a20ef5e4f6e7f12d3b1ad2968a11365a6519ac84",
+      "afterSHA256": "b0940ce0475f9092ff77afeefef03c709aa5e1952084322f8ae2cfdf99b3d48f"
+    },
+    {
+      "path": "$WORKSPACE/sources/bar-lobby/package.json",
+      "beforeSHA256": "40bc9df60f4750a117892fba15650100529332855a08b20d7b88bb79356bf154",
+      "afterSHA256": "fba2c14dcb54e7d7e706c98761b34529d9da469c2b74b3153ccb43ca64d6ed7a"
+    },
+    {
+      "path": "$WORKSPACE/sources/bar-lobby/package-lock.json",
+      "beforeSHA256": "62397a17829b1f7d8fe54bd0b52d881cc591d5e2cfda1986eaac607c4150be07",
+      "afterSHA256": "0a9260ed498398019b14072d1537a20bd4f64ae065a6f0ffb8f93cde2040687c"
+    },
+    {
+      "path": "$WORKSPACE/sources/bar-lobby/electron-builder.ts",
+      "beforeSHA256": "445d612e384ef8658436d289d0a274187951eb1d0a9aad9a30e92995d6063ef3",
+      "afterSHA256": "60c329bb062c7634e299619f6146a618df70a2884fe3d0669a22edb3ca139ab5"
+    },
+    {
+      "path": "$WORKSPACE/tools/tests/run94-canonical-overlay-intake.test.mjs",
+      "beforeSHA256": "4eeca407e25dfaca576121a1388d83b6db1192ee957492ab1809c3dd94ab38e3",
+      "afterSHA256": "92a73ac10e30def47237a93ea544f3d26ab0e22ad5c508afafd813b16a60555a"
+    }
+  ],
+  "nativeBuildVerification": "native-source-build-verification.json",
+  "nativeBinaries": [
+    {
+      "component": "bar-lobby",
+      "rawPath": "$WORKSPACE/build/run91-recoil-engine-694e9df7-macos27/spring",
+      "rawSHA256": "e840ac7376eee332bbac8c3dff3ecd3b29e48177ef9d11436a9d41c00b3a266d",
+      "assetRelativePath": "engine/2026.09.01-24-g01efdf4 master/spring",
+      "packagedPath": "$WORKSPACE/artifacts/runtime/healthbar-radar-repair-20261017/assets/engine/2026.09.01-24-g01efdf4 master/spring",
+      "packagedSHA256": "47e2fec5df139fc559553188161003e74fcef18aed3b4d7372c0817822034f40",
+      "relocationRecipe": "$WORKSPACE/artifacts/validation/release-v1.0.0-20261017/hq/component-integration.json"
+    },
+    {
+      "component": "bar-chobby",
+      "rawPath": "$WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/build/spring",
+      "rawSHA256": "a24ebe1a891752ce254659c8b9d85d08d3a4fccdf08b0db2aa41ed732fc0a467",
+      "assetRelativePath": "engine/2026.07.04/spring",
+      "packagedPath": "$WORKSPACE/artifacts/runtime/healthbar-radar-repair-20261017/assets/engine/2026.07.04/spring",
+      "packagedSHA256": "3c786c1230d53bf0bc7c20005a099a528b6bc54d37979d4667af0489f0077445",
+      "relocationRecipe": "$WORKSPACE/artifacts/validation/release-v1.0.0-20261017/hq/component-integration.json"
+    }
+  ],
+  "fixturePins": {
+    "path": "$WORKSPACE/artifacts/validation/healthbar-radar-regression-20261017/repair-hq/presentation-source-pins.json",
+    "sha256": "ec67d2f23185a7c1fcc2117f6cf3538e6ef7445e1d9c5d7a41131ec73579c069"
+  },
+  "semanticReview": {
+    "current-handler-review.json": "fda35272e8e01592f7a502090061e9f0dac0c26eed606111ae25f6e44f6305a3",
+    "barwidgets-ebba846-to-ad2e1b7.diff": "12af408f65571f54067b4a68fc8d65ce7164c41821ad8dc05a8d64222097457f",
+    "healthbar-hq-review.json": "7d549e31cd51327b7d1e0aa4db4752b96fe66cd9f6ff775b4477deb7ae8aad2e"
+  },
+  "appliedAuditSHA256": "ae41e2fc049536bc3f70936c3c202add9b56033984cf2a9a8e80cd3772a41939"
+}
