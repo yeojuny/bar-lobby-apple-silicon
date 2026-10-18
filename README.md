@@ -86,7 +86,7 @@ Download the matching sources, notices and SHA256SUMS alongside each release. Gi
 
 Upstream BAR, bar-lobby, Chobby, Recoil, Mesa, MoltenVK and dependency authors retain their credits and licenses. This software is based in part on the work of the **FreeType Team** ([freetype.org](https://freetype.org)). Original installer/launcher artwork is CC0; game assets and trademarks are not relicensed. This is an independent port. AI tools assisted development and review.
 
-Engine-side optimization work in r57 was informed by [benbreen/RecoilEngine-AppleSilicon](https://github.com/benbreen/RecoilEngine-AppleSilicon/tree/a49a8ecc5265c4dd3f8d0016d90b32e81e22c73b): 250µs fence-wait timeouts, deeper model-upload rings, synchronous-worker QoS requests, and avoidance of unnecessary primitive restart. These ideas were adapted to this port; later lifetime/alignment corrections and the narrower index-safety checks are documented in the [origin and adaptation record](docs/engine-patches/2026-10-17/ORIGIN-AND-PERFORMANCE.md). This attribution concerns those renderer/worker optimizations, not a wholesale transplant of benbreen's readback presentation path or simulation changes.
+Optimization sources and local adaptations, including the benbreen-informed r57 integration and earlier restart work, are recorded in the [provenance notes](docs/engine-patches/2026-10-17/ORIGIN-AND-PERFORMANCE.md).
 
 ## Source, integrations and reusable patches
 

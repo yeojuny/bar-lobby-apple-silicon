@@ -4,7 +4,7 @@
 
 The port builds on Recoil/Spring, BAR, Mesa/Zink, MoltenVK, SDL, shader tools and their contributors. The existing ARM64 deterministic floating-point foundation is upstream work, not a new invention by this project. Earlier macOS baseline work and external integration records retain attribution. The cumulative source patches are not a count of independently authored optimizations.
 
-The r57 engine optimization investigation explicitly studied [benbreen's Apple Silicon Recoil port](https://github.com/benbreen/RecoilEngine-AppleSilicon/tree/a49a8ecc5265c4dd3f8d0016d90b32e81e22c73b). Fence polling, model-ring depth and worker QoS ideas retain that origin. Our restart adaptation used a narrower sentinel proof. r58 added local stream lifetime/cleanup/alignment fixes; r73/r75 later reduced Lua upload preparation. [Detailed chronology and performance evidence](../../engine-patches/2026-10-17/ORIGIN-AND-PERFORMANCE.md).
+The r57 engine optimization investigation explicitly studied [benbreen's Apple Silicon Recoil port](https://github.com/benbreen/RecoilEngine-AppleSilicon/tree/a49a8ecc5265c4dd3f8d0016d90b32e81e22c73b). Fence polling, model-ring depth and worker QoS ideas retain that origin. Earlier local Mesa/MoltenVK restart diagnosis, conversion and work-elimination changes preceded r57. The r57 engine-side adaptation used a narrower sentinel proof; the chronology and earlier external references are recorded in the linked origin record. r58 added local stream lifetime/cleanup/alignment fixes; r73/r75 later reduced Lua upload preparation. [Detailed chronology and performance evidence](../../engine-patches/2026-10-17/ORIGIN-AND-PERFORMANCE.md).
 
 ## Local change map
 
