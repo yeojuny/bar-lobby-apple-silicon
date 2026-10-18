@@ -1,0 +1,55 @@
+{
+  "version": "1.0.3",
+  "app": {
+    "version": "1.0.3",
+    "path": "$WORKSPACE/artifacts/runtime/healthbar-standalone-1.0.3-20261018/app-builder-output/mac-arm64/BAR.app",
+    "inventorySHA256": "71c5d391319f10fe1255330858a448722658a372cfb7e28268e63d37f312d76f",
+    "entries": 1194,
+    "asarSHA256": "3e723fc2e06664b9caf8e357b25e77c574da4f026e653e002d31bece29174d29",
+    "inputLockSHA256": "066289cff54dfbca8c4da5bfaac3146cbebb15cc07f1f5d6cab658aac9b6dd9f",
+    "nativeAdditionalVersion": "BAR-1.0.3",
+    "syncIdentities": [
+      "2026.09.01-24-g01efdf4 master",
+      "2026.07.04"
+    ],
+    "qualification": "Existing CPU/package/signature checks and applied-code self-review only; no separate Audit-agent review or actual1.0.3 game/GPU/MP/other-Mac acceptance. User owns other-Mac testing."
+  },
+  "existingChecks": {
+    "canonicalCPU": 28,
+    "actual31383NoGSLifecycle": 10,
+    "actual31671NoGSLifecycle": 10,
+    "nativeBuilds": 2,
+    "nativeSyncIdentitiesUnchanged": true,
+    "packagedGroups": 7,
+    "strictDeepSignature": true,
+    "launcherCodeUnchanged": true,
+    "protected102EntriesExact": 1192,
+    "finalAppEntries": 1194,
+    "packageChanges": 25
+  },
+  "limitations": [
+    "Actual 1.0.3 game/GPU/visual/multiplayer acceptance not run",
+    "Only healthbar and tracker are independent of whole widget-handler hashes; other delegates retain the existing strict route",
+    "Future incompatible widget APIs or atlas changes still require maintenance; no promise of universal future compatibility"
+  ],
+  "review": {
+    "scope": "Applied-code self review; no separate agent or gameplay acceptance",
+    "actualUnsyncedLuaUIOnly": true,
+    "barGameShortName": "BYAR",
+    "rawWidgetBytesNotPromoted": true,
+    "standaloneWidgetCount": 2,
+    "shaderPairPrivateAndPinned": true,
+    "previousWholeHandlerAndLuaRulesPoliciesUnchanged": true,
+    "healthbarRenderingCodeAndVertexUnchanged": true,
+    "trackerBytesUnchanged": true,
+    "diagnosticFiles": [],
+    "officialArchivesModified": false,
+    "current102Exact": true,
+    "launcherHead": "6a3b298c236cd10eff8fd7ce27d15cdb589f650f",
+    "launcherIndexSHA256": "073483d1f4a62c9cda7006b467f60da926f889d1c8f126dc0016e3a23b761c87",
+    "nativeNumericFlagsUnchanged": true,
+    "otherProjectsTouched": false
+  },
+  "handoffSHA256": "6f30981b993da639b3e4f000198b0c23b03a8fe36514ef692f37b1f2ec10edd7",
+  "sourceCompletionSHA256": "9d1e1315ca12436fec75ce9c1cb29410dfee1c32e115ea548c940498f28c4041"
+}

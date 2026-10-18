@@ -1,0 +1,4094 @@
+--- a/build/run91-recoil-src-694e9df7/rts/Lua/LuaVFS.cpp
++++ b/build/run91-recoil-src-694e9df7/rts/Lua/LuaVFS.cpp
+@@ -21,6 +21,7 @@
+ #include "System/FileSystem/FileSystem.h"
+ #include "System/Log/ILog.h"
+ #include "System/StringUtil.h"
++#include "Sim/Misc/ModInfo.h"
+ #include "System/TimeProfiler.h"
+ #include "../tools/pr-downloader/src/pr-downloader.h"
+ #include "fmt/format.h"
+@@ -38,6 +39,11 @@
+ 	(void)name;
+ 	return false;
+ 	#endif
++}
++
++static bool IsUnsyncedBARPresentationHandle(lua_State* L)
++{
++	return IsUnsyncedPresentationHandle(L, "LuaUI") && modInfo.shortName == "BYAR";
+ }
+ 
+ /*** Unified IO for archive and filesystem
+@@ -367,8 +373,10 @@
+ 	int luaError = 0;
+ 
+ 	const auto mode = GetModes(L, 3, synced);
+-	const auto privateSource = (!synced && IsUnsyncedPresentationHandle(L, "LuaUI"))
++	auto privateSource = (!synced && IsUnsyncedPresentationHandle(L, "LuaUI"))
+ 		? bundled_presentation::FindPrivateSource(fileName) : std::string_view{};
++	if (privateSource.empty() && !synced && IsUnsyncedBARPresentationHandle(L))
++		privateSource = bundled_presentation::FindStandaloneWidget(fileName, mode);
+ 	if (!privateSource.empty())
+ 		fileData.assign(privateSource);
+ 	if (privateSource.empty() && (loadCode = LoadFileWithModes(fileName, fileData, mode)) != 1) {
+@@ -483,8 +491,10 @@
+ 
+ 	string data;
+ 	const auto modes = GetModes(L, 2, synced);
+-	const auto privateSource = (!synced && IsUnsyncedPresentationHandle(L, "LuaUI"))
++	auto privateSource = (!synced && IsUnsyncedPresentationHandle(L, "LuaUI"))
+ 		? bundled_presentation::FindPrivateSource(filename) : std::string_view{};
++	if (privateSource.empty() && !synced && IsUnsyncedBARPresentationHandle(L))
++		privateSource = bundled_presentation::FindStandaloneWidget(filename, modes);
+ 	if (!privateSource.empty())
+ 		data.assign(privateSource);
+ 	if (!privateSource.empty() || LoadFileWithModes(filename, data, modes) == 1) {
+@@ -546,7 +556,9 @@
+ 	// if (!LuaIO::IsSimplePath(filename)) return 0;
+ 
+ 	const bool bundled = !synced && IsUnsyncedPresentationHandle(L, "LuaUI")
+-		&& !bundled_presentation::FindPrivateSource(filename).empty();
++		&& (!bundled_presentation::FindPrivateSource(filename).empty()
++			|| (IsUnsyncedBARPresentationHandle(L)
++				&& !bundled_presentation::FindStandaloneWidget(filename, vfsModes).empty()));
+ 	lua_pushboolean(L, bundled || CFileHandler::FileExists(filename, vfsModes));
+ 	return 1;
+ }
+@@ -606,6 +618,9 @@
+ 	if (!synced && IsUnsyncedPresentationHandle(L, "LuaUI") && widgetDirectory
+ 		&& pattern == "*.lua" && modes == SPRING_VFS_ZIP && !recursive)
+ 		bundled_presentation::AddDistributionWidget(files);
++	if (!synced && IsUnsyncedBARPresentationHandle(L) && widgetDirectory
++		&& (pattern == "*.lua" || pattern == "*") && !recursive)
++		bundled_presentation::UpdateStandaloneWidgetList(files, modes);
+ 	LuaUtils::PushStringVector(L, files);
+ 	return 1;
+ }
+--- a/build/run91-recoil-src-694e9df7/rts/Lua/LuaBundledPresentation.h
++++ b/build/run91-recoil-src-694e9df7/rts/Lua/LuaBundledPresentation.h
+@@ -60,6 +60,42 @@
+ inline std::string_view FindPrivateSource(std::string_view path)
+ {
+ 	return FindSource(path, bundled_presentation_data::PRIVATE_SOURCES);
++}
++
++// These two self-contained widgets use the ordinary archive widget loader.
++// Never substitute same-name delegates (which include their official original),
++// and never promote bytes read from RAW into archive widget privileges.
++inline constexpr std::string_view HEALTHBAR_WIDGETS[] = {
++	"luaui/widgets/gui_healthbars_gl4.lua",
++	"luaui/widgets/api_unit_tracker_gl4.lua",
++};
++
++inline std::string_view FindStandaloneWidget(std::string_view path, std::string_view modes)
++{
++	if (modes.find('M') == std::string_view::npos)
++		return {};
++	const auto normalized = NormalizePath(path);
++	for (const auto name: HEALTHBAR_WIDGETS) {
++		if (normalized == name)
++			return FindWidget(name);
++	}
++	return {};
++}
++
++inline void UpdateStandaloneWidgetList(std::vector<std::string>& files, std::string_view modes)
++{
++	const bool archive = modes.find('M') != std::string_view::npos;
++	if (!archive && modes.find('R') == std::string_view::npos)
++		return;
++	for (const auto name: HEALTHBAR_WIDGETS) {
++		// The compiled family is enumerated only as archive content, including
++		// on handlers which enumerate RAW first. Other user widgets are intact.
++		files.erase(std::remove_if(files.begin(), files.end(), [&](const auto& file) {
++			return NormalizePath(file) == name;
++		}), files.end());
++		if (archive && !FindWidget(name).empty())
++			files.emplace_back(name);
++	}
+ }
+ 
+ inline bool Matches(std::string_view source, size_t size, std::string_view expected)
+--- a/build/run91-recoil-src-694e9df7/rts/Lua/LuaBundledPresentationSources.h
++++ b/build/run91-recoil-src-694e9df7/rts/Lua/LuaBundledPresentationSources.h
+@@ -5,7 +5,7 @@
+ namespace bundled_presentation_data {
+ struct Source { std::string_view path; std::string_view bytes; };
+ inline constexpr std::string_view LANE = "bar-lobby";
+-inline constexpr std::string_view MANIFEST_SHA256 = "b52a8afbdc82023ea0243ad8a85998836aad79acb6ba405763fd19bdaa6a5fef";
++inline constexpr std::string_view MANIFEST_SHA256 = "1fb053d6e759ca24a32bf295a06622787c551d5d631617e3b12be2b526f4ddbc";
+ inline constexpr Source WIDGETS[] = {
+ 	{ "luaui/widgets/api_unit_tracker_gl4.lua", std::string_view(R"BAR58aa398151f3(local widget = widget ---@type Widget
+ 
+@@ -10163,9 +10163,9 @@
+ if debugmode then)BARe3a34c013a88" "\r" R"BAR11f212cbe310(
+ 	shaderConfig.DEBUGSHOW = 1 -- comment this to always show all bars)BAR11f212cbe310" "\r" R"BARcd8033eb6303(
+ end)BARcd8033eb6303" "\r" R"BAR52e4dc27d67a(
+-)BAR52e4dc27d67a" "\r" R"BAR260d1a7adb7a(
+-local vsSrcPath = "LuaUI/Shaders/HealthbarsGL4_NoGS.vert.glsl"
+-local fsSrcPath = "LuaUI/Shaders/HealthbarsGL4.frag.glsl"
++)BAR52e4dc27d67a" "\r" R"BARffd8de695f29(
++local vsSrcPath = "LuaUI/BARMacOS/Healthbars/healthbars.vert.glsl"
++local fsSrcPath = "LuaUI/BARMacOS/Healthbars/healthbars.frag.glsl"
+ 
+ local shaderSourceCache = {
+ 		vssrcpath = vsSrcPath,
+@@ -10174,7 +10174,7 @@
+ 		uniformInt = {
+ 			healthbartexture = 0;
+ 			},
+-		uniformFloat = {)BAR260d1a7adb7a" "\r" R"BARcae2a65111a6(
++		uniformFloat = {)BARffd8de695f29" "\r" R"BARcae2a65111a6(
+ 			--addRadius = 1,)BARcae2a65111a6" "\r" R"BAR222edd550cc7(
+ 			iconDistance = 27,)BAR222edd550cc7" "\r" R"BAR9dba55edb02a(
+ 			cameraDistanceMult = 1.0,)BAR9dba55edb02a" "\r" R"BAReca6943d1da8(
+@@ -11067,7 +11067,7 @@
+ 		shaderSourceCache.shaderConfig.SMALLERCORNER = shaderConfig.BARCORNER * 0.6)BAR106460f1c87c" "\r" R"BARdd377de47dba(
+ 	end)BARdd377de47dba" "\r" R"BARcd8033eb6303(
+ end)BARcd8033eb6303" "\r" R"BAR52e4dc27d67a(
+-)BAR52e4dc27d67a", 51745) },
++)BAR52e4dc27d67a", 51758) },
+ 	{ "luaui/widgets/gui_mapmarks_fx.lua", std::string_view(R"BARef3105bbe678(-- Unsynced presentation only; preserve current archive events, batching and style.
+ -- Each rectangle becomes 00,01,11 / 00,11,10, as in Run77/79.
+ local archivePath = "LuaUI/Widgets/gui_mapmarks_fx.lua"
+@@ -44812,6 +44812,454 @@
+ )BAR4e3a3cc7ceb6", 4838) },
+ };
+ inline constexpr Source PRIVATE_SOURCES[] = {
++	{ "luaui/barmacos/healthbars/healthbars.frag.glsl", std::string_view(R"BARcbf0d2219d4c(#version 420
++#extension GL_ARB_uniform_buffer_object : require
++#extension GL_ARB_shading_language_420pack: require
++// SPDX-License-Identifier: MIT
++// Copyright (c) 2026 Beherith (mysterme@gmail.com)
++// This shader is part of the Beyond All Reason repository.  
++
++//__ENGINEUNIFORMBUFFERDEFS__
++//__DEFINES__
++
++#line 30000
++in DataGS {
++	vec4 g_color;
++	vec4 g_uv;
++};
++
++uniform sampler2D healthbartexture;
++out vec4 fragColor;
++
++void main(void)
++{
++	vec4 texcolor = vec4(1.0);
++	texcolor = texture(healthbartexture, g_uv.xy);
++	texcolor.a *= g_color.a;
++	fragColor.rgba = mix(g_color, texcolor, g_uv.z);
++	//fragColor.rgba += vec4(0.25);
++	//fragColor.a += 0.5;
++	//fragColor.a = 1.0;
++	if (fragColor.a < 0.05) discard;
++})BARcbf0d2219d4c", 702) },
++	{ "luaui/barmacos/healthbars/healthbars.vert.glsl", std::string_view(R"BARf534bc29de50(#version 420
++#extension GL_ARB_uniform_buffer_object : require
++#extension GL_ARB_shader_storage_buffer_object : require
++#extension GL_ARB_shading_language_420pack: require
++
++// macOS NoGS adaptation of BAR's HealthbarsGL4 vertex+geometry pipeline.
++// Keeps the official instance attributes and fragment shader contract.
++#line 5000
++
++layout (location = 0) in vec4 height_timers;
++layout (location = 1) in uvec4 bartype_index_ssboloc;
++layout (location = 2) in vec4 mincolor;
++layout (location = 3) in vec4 maxcolor;
++layout (location = 4) in uvec4 instData;
++layout (location = 5) in float shapeIndex;
++
++//__ENGINEUNIFORMBUFFERDEFS__
++//__DEFINES__
++
++struct SUniformsBuffer {
++	uint composite;
++
++	uint unused2;
++	uint unused3;
++	uint unused4;
++
++	float maxHealth;
++	float health;
++	float unused5;
++	float unused6;
++
++	vec4 drawPos;
++	vec4 speed;
++	vec4[4] userDefined;
++};
++
++layout(std140, binding=1) readonly buffer UniformsBuffer {
++	SUniformsBuffer uni[];
++};
++
++#line 10000
++
++uniform float iconDistance;
++uniform float cameraDistanceMult;
++uniform float cameraDistanceMultGlyph;
++uniform float skipGlyphsNumbers;
++uniform float globalSizeMult;
++
++out DataGS {
++	vec4 g_color;
++	vec4 g_uv;
++};
++
++#define UNITUNIFORMS uni[instData.y]
++#define UNIFORMLOC bartype_index_ssboloc.z
++#define BARTYPE bartype_index_ssboloc.x
++
++#define BITUSEOVERLAY 1u
++#define BITSHOWGLYPH 2u
++#define BITPERCENTAGE 4u
++#define BITTIMELEFT 8u
++#define BITINTEGERNUMBER 16u
++#define BITGETPROGRESS 32u
++#define BITFLASHBAR 64u
++#define BITCOLORCORRECT 128u
++
++#define HALFPIXEL 0.0019765625
++
++bool vertexClipped(vec4 clipspace, float tolerance)
++{
++	return any(lessThan(clipspace.xyz, -clipspace.www * tolerance)) ||
++	       any(greaterThan(clipspace.xyz, clipspace.www * tolerance));
++}
++
++void HideVertex()
++{
++	gl_Position = vec4(0.0, 0.0, 2.0, 1.0);
++	g_color = vec4(0.0);
++	g_uv = vec4(0.0);
++}
++
++int StripIndexForTriangleVertex(int i)
++{
++	if (i == 0) return 0;
++	if (i == 1) return 1;
++	if (i == 2) return 2;
++	if (i == 3) return 2;
++	if (i == 4) return 1;
++	if (i == 5) return 3;
++	if (i == 6) return 2;
++	if (i == 7) return 3;
++	if (i == 8) return 4;
++	if (i == 9) return 4;
++	if (i == 10) return 3;
++	if (i == 11) return 5;
++	if (i == 12) return 4;
++	if (i == 13) return 5;
++	if (i == 14) return 6;
++	if (i == 15) return 6;
++	if (i == 16) return 5;
++	return 7;
++}
++
++int QuadIndexForTriangleVertex(int i)
++{
++	if (i == 0) return 0;
++	if (i == 1) return 1;
++	if (i == 2) return 2;
++	if (i == 3) return 2;
++	if (i == 4) return 1;
++	return 3;
++}
++
++vec2 BackgroundPos(int s)
++{
++	if (s == 0) return vec2(-BARWIDTH, BARCORNER);
++	if (s == 1) return vec2(-BARWIDTH, BARHEIGHT - BARCORNER);
++	if (s == 2) return vec2(-BARWIDTH + BARCORNER, 0.0);
++	if (s == 3) return vec2(-BARWIDTH + BARCORNER, BARHEIGHT);
++	if (s == 4) return vec2(BARWIDTH - BARCORNER, 0.0);
++	if (s == 5) return vec2(BARWIDTH - BARCORNER, BARHEIGHT);
++	if (s == 6) return vec2(BARWIDTH, BARCORNER);
++	return vec2(BARWIDTH, BARHEIGHT - BARCORNER);
++}
++
++vec2 BarBackgroundPos(int s)
++{
++	if (s == 0) return vec2(-BARWIDTH + BARCORNER, SMALLERCORNER + BARCORNER);
++	if (s == 1) return vec2(-BARWIDTH + BARCORNER, BARHEIGHT - SMALLERCORNER - BARCORNER);
++	if (s == 2) return vec2(-BARWIDTH + SMALLERCORNER + BARCORNER, BARCORNER);
++	if (s == 3) return vec2(-BARWIDTH + SMALLERCORNER + BARCORNER, BARHEIGHT - BARCORNER);
++	if (s == 4) return vec2(BARWIDTH - SMALLERCORNER - BARCORNER, BARCORNER);
++	if (s == 5) return vec2(BARWIDTH - SMALLERCORNER - BARCORNER, BARHEIGHT - BARCORNER);
++	if (s == 6) return vec2(BARWIDTH - BARCORNER, SMALLERCORNER + BARCORNER);
++	return vec2(BARWIDTH - BARCORNER, BARHEIGHT - SMALLERCORNER - BARCORNER);
++}
++
++vec2 BarForegroundPos(int s, float healthbasedpos)
++{
++	if (s == 0) return vec2(-BARWIDTH + BARCORNER, SMALLERCORNER + BARCORNER);
++	if (s == 1) return vec2(-BARWIDTH + BARCORNER, BARHEIGHT - BARCORNER - SMALLERCORNER);
++	if (s == 2) return vec2(-BARWIDTH + BARCORNER + SMALLERCORNER, BARCORNER);
++	if (s == 3) return vec2(-BARWIDTH + BARCORNER + SMALLERCORNER, BARHEIGHT - BARCORNER);
++	if (s == 4) return vec2(-BARWIDTH + BARCORNER + SMALLERCORNER + healthbasedpos, BARCORNER);
++	if (s == 5) return vec2(-BARWIDTH + BARCORNER + SMALLERCORNER + healthbasedpos, BARHEIGHT - BARCORNER);
++	if (s == 6) return vec2(-BARWIDTH + BARCORNER + 2.0 * SMALLERCORNER + healthbasedpos, BARCORNER + SMALLERCORNER);
++	return vec2(-BARWIDTH + BARCORNER + 2.0 * SMALLERCORNER + healthbasedpos, BARHEIGHT - BARCORNER - SMALLERCORNER);
++}
++
++vec4 ProjectBarVertex(vec2 pos, vec4 centerpos, mat3 rotY, float zoffset, float sizemultiplier, float depthbuffermod)
++{
++	vec3 primitiveCoords = vec3(pos.x, 0.0, pos.y - zoffset) * BARSCALE * sizemultiplier;
++	vec4 clip = cameraViewProj * vec4(centerpos.xyz + rotY * primitiveCoords, 1.0);
++	clip.z += depthbuffermod;
++	return clip;
++}
++
++void EmitBackgroundVertex(vec2 pos, vec4 centerpos, mat3 rotY, float zoffset, float sizemultiplier, float barAlpha, uint bartype)
++{
++	g_uv.xy = vec2(0.0);
++	g_uv.z = 0.0;
++	float extracolor = 0.0;
++	if (((bartype & BITFLASHBAR) > 0u) && (mod(timeInfo.x, 10.0) > 4.0)) {
++		extracolor = 0.5;
++	}
++	g_color = mix(BGBOTTOMCOLOR + extracolor, BGTOPCOLOR + extracolor, pos.y);
++	g_color.a *= barAlpha;
++	gl_Position = ProjectBarVertex(pos, centerpos, rotY, zoffset, sizemultiplier, 0.001);
++}
++
++void EmitBarVertex(vec2 pos, vec4 color, float bartextureoffset, vec4 centerpos, mat3 rotY, float zoffset, float sizemultiplier, float barAlpha, float depthbuffermod)
++{
++	g_uv.x = pos.x * 1.0 / (2.0 * (BARWIDTH - BARCORNER));
++	g_uv.x = g_uv.x + 0.5;
++	g_uv.y = (pos.y - BARCORNER) / (BARHEIGHT - 2.0 * BARCORNER);
++	g_uv.xy = g_uv.xy * vec2(ATLASSTEP * 9.0, ATLASSTEP) + vec2(3.0 * ATLASSTEP, bartextureoffset);
++	g_uv.y = -1.0 * g_uv.y;
++	g_uv.z = clamp(10000.0 * bartextureoffset, 0.0, 1.0);
++	g_color = color;
++	g_color.a *= barAlpha;
++	gl_Position = ProjectBarVertex(pos, centerpos, rotY, zoffset, sizemultiplier, depthbuffermod);
++}
++
++void EmitGlyphVertex(vec2 bottomleft, vec2 uvbottomleft, vec2 uvsizes, int triangleVertex, vec4 centerpos, mat3 rotY, float zoffset, float sizemultiplier, float glyphAlpha)
++{
++	int q = QuadIndexForTriangleVertex(triangleVertex);
++	vec2 pos = bottomleft;
++	vec2 uv = uvbottomleft;
++	if (q == 1) {
++		pos.y += BARHEIGHT;
++		uv.y += uvsizes.y;
++	} else if (q == 2) {
++		pos.x += BARHEIGHT;
++		uv.x += uvsizes.x;
++	} else if (q == 3) {
++		pos += vec2(BARHEIGHT, BARHEIGHT);
++		uv += uvsizes;
++	}
++
++	vec2 halfAdjust = vec2((q == 2 || q == 3) ? -HALFPIXEL : HALFPIXEL, (q == 1 || q == 3) ? -HALFPIXEL : HALFPIXEL);
++	g_uv.xy = vec2(uv.x + halfAdjust.x, 1.0 - (uv.y + halfAdjust.y));
++	g_uv.z = 1.0;
++	g_color = vec4(1.0);
++	g_color.a *= glyphAlpha;
++	gl_Position = ProjectBarVertex(pos, centerpos, rotY, zoffset, sizemultiplier, 0.0);
++}
++
++void main()
++{
++	int idx = int(shapeIndex + 0.5);
++
++	vec4 drawPos = vec4(UNITUNIFORMS.drawPos.xyz, 1.0);
++	vec4 centerpos = drawPos;
++	uint numvertices = 4u;
++	vec4 centerClip = cameraViewProj * drawPos;
++	if (vertexClipped(centerClip, CLIPTOLERANCE)) {
++		numvertices = 0u;
++	}
++
++	float cameraDistance = length(cameraViewInv[3].xyz - centerpos.xyz);
++	vec4 parameters = vec4(0.0);
++	parameters.y = (clamp(cameraDistance * cameraDistanceMult, BARFADESTART, BARFADEEND) - BARFADESTART) / (BARFADEEND - BARFADESTART);
++	parameters.y = 1.0 - clamp(parameters.y, 0.0, 1.0);
++	parameters.z = (clamp(cameraDistance * cameraDistanceMult * cameraDistanceMultGlyph, BARFADESTART, BARFADEEND) - BARFADESTART) / (BARFADEEND - BARFADESTART);
++	parameters.z = 1.0 - clamp(parameters.z, 0.0, 1.0);
++
++	#ifdef DEBUGSHOW
++		parameters.y = 1.0;
++		parameters.z = 1.0;
++	#endif
++
++	parameters.w = height_timers.w;
++	vec2 sizemodifiers = height_timers.yz;
++
++	if (dot(centerpos.xyz, centerpos.xyz) < 1.0) {
++		numvertices = 0u;
++	}
++
++	centerpos.y += HEIGHTOFFSET;
++	centerpos.y += height_timers.x;
++
++	float relativehealth = UNITUNIFORMS.health / UNITUNIFORMS.maxHealth;
++	parameters.x = relativehealth;
++	if (UNIFORMLOC < 20u) {
++		parameters.x = UNITUNIFORMS.userDefined[0].y;
++	} else {
++		float buildprogress = UNITUNIFORMS.userDefined[0].x;
++		#ifndef DEBUGSHOW
++			if (abs(buildprogress - relativehealth) < 0.03) {
++				numvertices = 0u;
++			}
++		#endif
++	}
++
++	if (UNIFORMLOC < 4u) parameters.x = UNITUNIFORMS.userDefined[0][UNIFORMLOC];
++	if (UNIFORMLOC == 1u) parameters.x = UNITUNIFORMS.userDefined[0].y;
++	if (UNIFORMLOC == 2u) parameters.x = UNITUNIFORMS.userDefined[0].z;
++	if (UNIFORMLOC == 4u) parameters.x = UNITUNIFORMS.userDefined[1].x;
++	if (UNIFORMLOC == 5u) parameters.x = UNITUNIFORMS.userDefined[1].y;
++
++	if ((BARTYPE & BITGETPROGRESS) > 0u) {
++		parameters.x = ((timeInfo.x + timeInfo.w) - UNITUNIFORMS.userDefined[0].z) /
++			(UNITUNIFORMS.userDefined[0].w - UNITUNIFORMS.userDefined[0].z);
++		parameters.x = clamp(parameters.x, 0.0, 1.0);
++	}
++
++	float health = parameters.x;
++	float barAlpha = parameters.y;
++	float glyphAlpha = parameters.z;
++	float uvoffset = parameters.w;
++	float sizemultiplier = sizemodifiers.x * globalSizeMult;
++	float zoffset = 1.15 * BARHEIGHT * float(bartype_index_ssboloc.y);
++	mat3 rotY = mat3(cameraViewInv[0].xyz, cameraViewInv[2].xyz, cameraViewInv[1].xyz);
++
++	if (numvertices == 0u || barAlpha < MINALPHA) {
++		HideVertex();
++		return;
++	}
++
++	#ifndef DEBUGSHOW
++		if (health < 0.00001) {
++			HideVertex();
++			return;
++		}
++		if ((BARTYPE & BITPERCENTAGE) > 0u) {
++			if (health > 0.999) {
++				HideVertex();
++				return;
++			}
++		} else if ((BARTYPE & BITGETPROGRESS) > 0u) {
++			if (health > 0.999) {
++				HideVertex();
++				return;
++			}
++		}
++	#endif
++
++	uint numStockpiled = 0u;
++	uint numStockpileQueued = 0u;
++	if ((BARTYPE & BITINTEGERNUMBER) > 0u) {
++		float oldhealth = health;
++		health = fract(oldhealth);
++		oldhealth = floor(oldhealth);
++		numStockpiled = uint(floor(mod(oldhealth, 128.0)));
++		numStockpileQueued = uint(floor(oldhealth / 128.0));
++	}
++
++	if (idx < 18) {
++		int s = StripIndexForTriangleVertex(idx);
++		EmitBackgroundVertex(BackgroundPos(s), centerpos, rotY, zoffset, sizemultiplier, barAlpha, BARTYPE);
++		return;
++	}
++
++	vec4 truecolor = mix(mincolor, maxcolor, health);
++
++	if (idx < 36) {
++		int s = StripIndexForTriangleVertex(idx - 18);
++		truecolor.a = 0.2;
++		vec4 topcolor = truecolor;
++		topcolor.rgb *= BOTTOMDARKENFACTOR;
++		vec4 color = ((s == 1) || (s == 3) || (s == 5) || (s == 7)) ? topcolor : truecolor;
++		EmitBarVertex(BarBackgroundPos(s), color, 0.0, centerpos, rotY, zoffset, sizemultiplier, barAlpha, 0.0);
++		return;
++	}
++
++	float healthbasedpos = (2.0 * (BARWIDTH - BARCORNER) - 2.0 * SMALLERCORNER) * health;
++	if ((BARTYPE & BITTIMELEFT) > 0u) {
++		healthbasedpos = 2.0 * (BARWIDTH - BARCORNER) - 2.0 * SMALLERCORNER;
++	}
++	if ((BARTYPE & BITCOLORCORRECT) > 0u) {
++		truecolor.rgb = truecolor.rgb / max(truecolor.r, truecolor.g);
++	}
++	truecolor.a = 1.0;
++	vec4 botcolor = truecolor;
++	botcolor.rgb *= BOTTOMDARKENFACTOR;
++	float bartextureoffset = 0.0;
++	if ((BARTYPE & BITUSEOVERLAY) > 0u) {
++		bartextureoffset = uvoffset;
++	}
++
++	if (idx < 54) {
++		int s = StripIndexForTriangleVertex(idx - 36);
++		vec4 color = ((s == 1) || (s == 3) || (s == 5) || (s == 7)) ? truecolor : botcolor;
++		EmitBarVertex(BarForegroundPos(s, healthbasedpos), color, bartextureoffset, centerpos, rotY, zoffset, sizemultiplier, barAlpha, -0.001);
++		return;
++	}
++
++	if (glyphAlpha < MINALPHA || skipGlyphsNumbers > 1.5) {
++		HideVertex();
++		return;
++	}
++
++	float currentglyphpos = 1.0;
++	bool drawGlyphIcon = false;
++	if (skipGlyphsNumbers < 0.5) {
++		drawGlyphIcon = ((BARTYPE & BITSHOWGLYPH) > 0u);
++	} else {
++		currentglyphpos = 0.0;
++	}
++
++	if (idx < 60) {
++		if (!drawGlyphIcon) {
++			HideVertex();
++			return;
++		}
++		EmitGlyphVertex(vec2(-BARWIDTH - currentglyphpos * BARHEIGHT, 0.0), vec2(ATLASSTEP, uvoffset), vec2(ATLASSTEP, ATLASSTEP), idx - 54, centerpos, rotY, zoffset, sizemultiplier, glyphAlpha);
++		return;
++	}
++
++	if ((BARTYPE & BITINTEGERNUMBER) > 0u) {
++		vec4 numbers = vec4(numStockpiled, numStockpiled, numStockpileQueued, numStockpileQueued);
++		numbers = numbers * vec4(1.0, 0.1, 1.0, 0.1);
++		numbers = floor(mod(numbers, 10.0)) * ATLASSTEP;
++
++		if (idx < 66) {
++			EmitGlyphVertex(vec2(-BARWIDTH - (currentglyphpos + 1.0) * BARHEIGHT, 0.0), vec2(0.0, numbers.x), vec2(ATLASSTEP, ATLASSTEP), idx - 60, centerpos, rotY, zoffset, sizemultiplier, glyphAlpha);
++			return;
++		}
++		if (idx < 72 && numbers.y > 0.0) {
++			EmitGlyphVertex(vec2(-BARWIDTH - (currentglyphpos + 2.0) * BARHEIGHT + BARHEIGHT * 0.4, 0.0), vec2(0.0, numbers.y), vec2(ATLASSTEP, ATLASSTEP), idx - 66, centerpos, rotY, zoffset, sizemultiplier, glyphAlpha);
++			return;
++		}
++		HideVertex();
++		return;
++	}
++
++	if ((BARTYPE & (BITTIMELEFT | BITPERCENTAGE)) > 0u) {
++		float lsb;
++		float msb;
++		float glyphpctsecatlas;
++		if ((BARTYPE & BITTIMELEFT) > 0u) {
++			health = (health - 1.0) / (1.0 / 40.0);
++			lsb = abs(floor(mod(health, 10.0)));
++			msb = abs(floor(mod(health * 0.1, 10.0)));
++			glyphpctsecatlas = 14.0;
++		} else {
++			lsb = floor(mod(health * 100.0, 10.0));
++			msb = floor(mod(health * 10.0, 10.0));
++			glyphpctsecatlas = 11.0;
++		}
++
++		if (idx < 66) {
++			EmitGlyphVertex(vec2(-BARWIDTH - (currentglyphpos + 1.0) * BARHEIGHT, 0.0), vec2(0.0, glyphpctsecatlas * ATLASSTEP), vec2(ATLASSTEP, ATLASSTEP), idx - 60, centerpos, rotY, zoffset, sizemultiplier, glyphAlpha);
++			return;
++		}
++		if (idx < 72) {
++			EmitGlyphVertex(vec2(-BARWIDTH - (currentglyphpos + 2.0) * BARHEIGHT + BARHEIGHT * 0.2, 0.0), vec2(0.0, lsb * ATLASSTEP), vec2(ATLASSTEP, ATLASSTEP), idx - 66, centerpos, rotY, zoffset, sizemultiplier, glyphAlpha);
++			return;
++		}
++		if (idx < 78 && msb > 0.0) {
++			EmitGlyphVertex(vec2(-BARWIDTH - (currentglyphpos + 3.0) * BARHEIGHT + BARHEIGHT * 0.5, 0.0), vec2(0.0, msb * ATLASSTEP), vec2(ATLASSTEP, ATLASSTEP), idx - 72, centerpos, rotY, zoffset, sizemultiplier, glyphAlpha);
++			return;
++		}
++	}
++
++	HideVertex();
++}
++)BARf534bc29de50", 13560) },
+ 	{ "luaui/include/drawprimitiveatunit_nogs_mesh.lua", std::string_view(R"BAR20461684b23e(-------------------------------------------------
+ -- DrawPrimitiveAtUnit NoGS adapter.
+ -- Keeps the official Lua-side object stream and replaces GS expansion with
+@@ -48631,424 +49079,6 @@
+ 
+ return PipHistory
+ )BAR4694eb9bf1d9", 92409) },
+-	{ "luaui/shaders/healthbarsgl4_nogs.vert.glsl", std::string_view(R"BARf534bc29de50(#version 420
+-#extension GL_ARB_uniform_buffer_object : require
+-#extension GL_ARB_shader_storage_buffer_object : require
+-#extension GL_ARB_shading_language_420pack: require
+-
+-// macOS NoGS adaptation of BAR's HealthbarsGL4 vertex+geometry pipeline.
+-// Keeps the official instance attributes and fragment shader contract.
+-#line 5000
+-
+-layout (location = 0) in vec4 height_timers;
+-layout (location = 1) in uvec4 bartype_index_ssboloc;
+-layout (location = 2) in vec4 mincolor;
+-layout (location = 3) in vec4 maxcolor;
+-layout (location = 4) in uvec4 instData;
+-layout (location = 5) in float shapeIndex;
+-
+-//__ENGINEUNIFORMBUFFERDEFS__
+-//__DEFINES__
+-
+-struct SUniformsBuffer {
+-	uint composite;
+-
+-	uint unused2;
+-	uint unused3;
+-	uint unused4;
+-
+-	float maxHealth;
+-	float health;
+-	float unused5;
+-	float unused6;
+-
+-	vec4 drawPos;
+-	vec4 speed;
+-	vec4[4] userDefined;
+-};
+-
+-layout(std140, binding=1) readonly buffer UniformsBuffer {
+-	SUniformsBuffer uni[];
+-};
+-
+-#line 10000
+-
+-uniform float iconDistance;
+-uniform float cameraDistanceMult;
+-uniform float cameraDistanceMultGlyph;
+-uniform float skipGlyphsNumbers;
+-uniform float globalSizeMult;
+-
+-out DataGS {
+-	vec4 g_color;
+-	vec4 g_uv;
+-};
+-
+-#define UNITUNIFORMS uni[instData.y]
+-#define UNIFORMLOC bartype_index_ssboloc.z
+-#define BARTYPE bartype_index_ssboloc.x
+-
+-#define BITUSEOVERLAY 1u
+-#define BITSHOWGLYPH 2u
+-#define BITPERCENTAGE 4u
+-#define BITTIMELEFT 8u
+-#define BITINTEGERNUMBER 16u
+-#define BITGETPROGRESS 32u
+-#define BITFLASHBAR 64u
+-#define BITCOLORCORRECT 128u
+-
+-#define HALFPIXEL 0.0019765625
+-
+-bool vertexClipped(vec4 clipspace, float tolerance)
+-{
+-	return any(lessThan(clipspace.xyz, -clipspace.www * tolerance)) ||
+-	       any(greaterThan(clipspace.xyz, clipspace.www * tolerance));
+-}
+-
+-void HideVertex()
+-{
+-	gl_Position = vec4(0.0, 0.0, 2.0, 1.0);
+-	g_color = vec4(0.0);
+-	g_uv = vec4(0.0);
+-}
+-
+-int StripIndexForTriangleVertex(int i)
+-{
+-	if (i == 0) return 0;
+-	if (i == 1) return 1;
+-	if (i == 2) return 2;
+-	if (i == 3) return 2;
+-	if (i == 4) return 1;
+-	if (i == 5) return 3;
+-	if (i == 6) return 2;
+-	if (i == 7) return 3;
+-	if (i == 8) return 4;
+-	if (i == 9) return 4;
+-	if (i == 10) return 3;
+-	if (i == 11) return 5;
+-	if (i == 12) return 4;
+-	if (i == 13) return 5;
+-	if (i == 14) return 6;
+-	if (i == 15) return 6;
+-	if (i == 16) return 5;
+-	return 7;
+-}
+-
+-int QuadIndexForTriangleVertex(int i)
+-{
+-	if (i == 0) return 0;
+-	if (i == 1) return 1;
+-	if (i == 2) return 2;
+-	if (i == 3) return 2;
+-	if (i == 4) return 1;
+-	return 3;
+-}
+-
+-vec2 BackgroundPos(int s)
+-{
+-	if (s == 0) return vec2(-BARWIDTH, BARCORNER);
+-	if (s == 1) return vec2(-BARWIDTH, BARHEIGHT - BARCORNER);
+-	if (s == 2) return vec2(-BARWIDTH + BARCORNER, 0.0);
+-	if (s == 3) return vec2(-BARWIDTH + BARCORNER, BARHEIGHT);
+-	if (s == 4) return vec2(BARWIDTH - BARCORNER, 0.0);
+-	if (s == 5) return vec2(BARWIDTH - BARCORNER, BARHEIGHT);
+-	if (s == 6) return vec2(BARWIDTH, BARCORNER);
+-	return vec2(BARWIDTH, BARHEIGHT - BARCORNER);
+-}
+-
+-vec2 BarBackgroundPos(int s)
+-{
+-	if (s == 0) return vec2(-BARWIDTH + BARCORNER, SMALLERCORNER + BARCORNER);
+-	if (s == 1) return vec2(-BARWIDTH + BARCORNER, BARHEIGHT - SMALLERCORNER - BARCORNER);
+-	if (s == 2) return vec2(-BARWIDTH + SMALLERCORNER + BARCORNER, BARCORNER);
+-	if (s == 3) return vec2(-BARWIDTH + SMALLERCORNER + BARCORNER, BARHEIGHT - BARCORNER);
+-	if (s == 4) return vec2(BARWIDTH - SMALLERCORNER - BARCORNER, BARCORNER);
+-	if (s == 5) return vec2(BARWIDTH - SMALLERCORNER - BARCORNER, BARHEIGHT - BARCORNER);
+-	if (s == 6) return vec2(BARWIDTH - BARCORNER, SMALLERCORNER + BARCORNER);
+-	return vec2(BARWIDTH - BARCORNER, BARHEIGHT - SMALLERCORNER - BARCORNER);
+-}
+-
+-vec2 BarForegroundPos(int s, float healthbasedpos)
+-{
+-	if (s == 0) return vec2(-BARWIDTH + BARCORNER, SMALLERCORNER + BARCORNER);
+-	if (s == 1) return vec2(-BARWIDTH + BARCORNER, BARHEIGHT - BARCORNER - SMALLERCORNER);
+-	if (s == 2) return vec2(-BARWIDTH + BARCORNER + SMALLERCORNER, BARCORNER);
+-	if (s == 3) return vec2(-BARWIDTH + BARCORNER + SMALLERCORNER, BARHEIGHT - BARCORNER);
+-	if (s == 4) return vec2(-BARWIDTH + BARCORNER + SMALLERCORNER + healthbasedpos, BARCORNER);
+-	if (s == 5) return vec2(-BARWIDTH + BARCORNER + SMALLERCORNER + healthbasedpos, BARHEIGHT - BARCORNER);
+-	if (s == 6) return vec2(-BARWIDTH + BARCORNER + 2.0 * SMALLERCORNER + healthbasedpos, BARCORNER + SMALLERCORNER);
+-	return vec2(-BARWIDTH + BARCORNER + 2.0 * SMALLERCORNER + healthbasedpos, BARHEIGHT - BARCORNER - SMALLERCORNER);
+-}
+-
+-vec4 ProjectBarVertex(vec2 pos, vec4 centerpos, mat3 rotY, float zoffset, float sizemultiplier, float depthbuffermod)
+-{
+-	vec3 primitiveCoords = vec3(pos.x, 0.0, pos.y - zoffset) * BARSCALE * sizemultiplier;
+-	vec4 clip = cameraViewProj * vec4(centerpos.xyz + rotY * primitiveCoords, 1.0);
+-	clip.z += depthbuffermod;
+-	return clip;
+-}
+-
+-void EmitBackgroundVertex(vec2 pos, vec4 centerpos, mat3 rotY, float zoffset, float sizemultiplier, float barAlpha, uint bartype)
+-{
+-	g_uv.xy = vec2(0.0);
+-	g_uv.z = 0.0;
+-	float extracolor = 0.0;
+-	if (((bartype & BITFLASHBAR) > 0u) && (mod(timeInfo.x, 10.0) > 4.0)) {
+-		extracolor = 0.5;
+-	}
+-	g_color = mix(BGBOTTOMCOLOR + extracolor, BGTOPCOLOR + extracolor, pos.y);
+-	g_color.a *= barAlpha;
+-	gl_Position = ProjectBarVertex(pos, centerpos, rotY, zoffset, sizemultiplier, 0.001);
+-}
+-
+-void EmitBarVertex(vec2 pos, vec4 color, float bartextureoffset, vec4 centerpos, mat3 rotY, float zoffset, float sizemultiplier, float barAlpha, float depthbuffermod)
+-{
+-	g_uv.x = pos.x * 1.0 / (2.0 * (BARWIDTH - BARCORNER));
+-	g_uv.x = g_uv.x + 0.5;
+-	g_uv.y = (pos.y - BARCORNER) / (BARHEIGHT - 2.0 * BARCORNER);
+-	g_uv.xy = g_uv.xy * vec2(ATLASSTEP * 9.0, ATLASSTEP) + vec2(3.0 * ATLASSTEP, bartextureoffset);
+-	g_uv.y = -1.0 * g_uv.y;
+-	g_uv.z = clamp(10000.0 * bartextureoffset, 0.0, 1.0);
+-	g_color = color;
+-	g_color.a *= barAlpha;
+-	gl_Position = ProjectBarVertex(pos, centerpos, rotY, zoffset, sizemultiplier, depthbuffermod);
+-}
+-
+-void EmitGlyphVertex(vec2 bottomleft, vec2 uvbottomleft, vec2 uvsizes, int triangleVertex, vec4 centerpos, mat3 rotY, float zoffset, float sizemultiplier, float glyphAlpha)
+-{
+-	int q = QuadIndexForTriangleVertex(triangleVertex);
+-	vec2 pos = bottomleft;
+-	vec2 uv = uvbottomleft;
+-	if (q == 1) {
+-		pos.y += BARHEIGHT;
+-		uv.y += uvsizes.y;
+-	} else if (q == 2) {
+-		pos.x += BARHEIGHT;
+-		uv.x += uvsizes.x;
+-	} else if (q == 3) {
+-		pos += vec2(BARHEIGHT, BARHEIGHT);
+-		uv += uvsizes;
+-	}
+-
+-	vec2 halfAdjust = vec2((q == 2 || q == 3) ? -HALFPIXEL : HALFPIXEL, (q == 1 || q == 3) ? -HALFPIXEL : HALFPIXEL);
+-	g_uv.xy = vec2(uv.x + halfAdjust.x, 1.0 - (uv.y + halfAdjust.y));
+-	g_uv.z = 1.0;
+-	g_color = vec4(1.0);
+-	g_color.a *= glyphAlpha;
+-	gl_Position = ProjectBarVertex(pos, centerpos, rotY, zoffset, sizemultiplier, 0.0);
+-}
+-
+-void main()
+-{
+-	int idx = int(shapeIndex + 0.5);
+-
+-	vec4 drawPos = vec4(UNITUNIFORMS.drawPos.xyz, 1.0);
+-	vec4 centerpos = drawPos;
+-	uint numvertices = 4u;
+-	vec4 centerClip = cameraViewProj * drawPos;
+-	if (vertexClipped(centerClip, CLIPTOLERANCE)) {
+-		numvertices = 0u;
+-	}
+-
+-	float cameraDistance = length(cameraViewInv[3].xyz - centerpos.xyz);
+-	vec4 parameters = vec4(0.0);
+-	parameters.y = (clamp(cameraDistance * cameraDistanceMult, BARFADESTART, BARFADEEND) - BARFADESTART) / (BARFADEEND - BARFADESTART);
+-	parameters.y = 1.0 - clamp(parameters.y, 0.0, 1.0);
+-	parameters.z = (clamp(cameraDistance * cameraDistanceMult * cameraDistanceMultGlyph, BARFADESTART, BARFADEEND) - BARFADESTART) / (BARFADEEND - BARFADESTART);
+-	parameters.z = 1.0 - clamp(parameters.z, 0.0, 1.0);
+-
+-	#ifdef DEBUGSHOW
+-		parameters.y = 1.0;
+-		parameters.z = 1.0;
+-	#endif
+-
+-	parameters.w = height_timers.w;
+-	vec2 sizemodifiers = height_timers.yz;
+-
+-	if (dot(centerpos.xyz, centerpos.xyz) < 1.0) {
+-		numvertices = 0u;
+-	}
+-
+-	centerpos.y += HEIGHTOFFSET;
+-	centerpos.y += height_timers.x;
+-
+-	float relativehealth = UNITUNIFORMS.health / UNITUNIFORMS.maxHealth;
+-	parameters.x = relativehealth;
+-	if (UNIFORMLOC < 20u) {
+-		parameters.x = UNITUNIFORMS.userDefined[0].y;
+-	} else {
+-		float buildprogress = UNITUNIFORMS.userDefined[0].x;
+-		#ifndef DEBUGSHOW
+-			if (abs(buildprogress - relativehealth) < 0.03) {
+-				numvertices = 0u;
+-			}
+-		#endif
+-	}
+-
+-	if (UNIFORMLOC < 4u) parameters.x = UNITUNIFORMS.userDefined[0][UNIFORMLOC];
+-	if (UNIFORMLOC == 1u) parameters.x = UNITUNIFORMS.userDefined[0].y;
+-	if (UNIFORMLOC == 2u) parameters.x = UNITUNIFORMS.userDefined[0].z;
+-	if (UNIFORMLOC == 4u) parameters.x = UNITUNIFORMS.userDefined[1].x;
+-	if (UNIFORMLOC == 5u) parameters.x = UNITUNIFORMS.userDefined[1].y;
+-
+-	if ((BARTYPE & BITGETPROGRESS) > 0u) {
+-		parameters.x = ((timeInfo.x + timeInfo.w) - UNITUNIFORMS.userDefined[0].z) /
+-			(UNITUNIFORMS.userDefined[0].w - UNITUNIFORMS.userDefined[0].z);
+-		parameters.x = clamp(parameters.x, 0.0, 1.0);
+-	}
+-
+-	float health = parameters.x;
+-	float barAlpha = parameters.y;
+-	float glyphAlpha = parameters.z;
+-	float uvoffset = parameters.w;
+-	float sizemultiplier = sizemodifiers.x * globalSizeMult;
+-	float zoffset = 1.15 * BARHEIGHT * float(bartype_index_ssboloc.y);
+-	mat3 rotY = mat3(cameraViewInv[0].xyz, cameraViewInv[2].xyz, cameraViewInv[1].xyz);
+-
+-	if (numvertices == 0u || barAlpha < MINALPHA) {
+-		HideVertex();
+-		return;
+-	}
+-
+-	#ifndef DEBUGSHOW
+-		if (health < 0.00001) {
+-			HideVertex();
+-			return;
+-		}
+-		if ((BARTYPE & BITPERCENTAGE) > 0u) {
+-			if (health > 0.999) {
+-				HideVertex();
+-				return;
+-			}
+-		} else if ((BARTYPE & BITGETPROGRESS) > 0u) {
+-			if (health > 0.999) {
+-				HideVertex();
+-				return;
+-			}
+-		}
+-	#endif
+-
+-	uint numStockpiled = 0u;
+-	uint numStockpileQueued = 0u;
+-	if ((BARTYPE & BITINTEGERNUMBER) > 0u) {
+-		float oldhealth = health;
+-		health = fract(oldhealth);
+-		oldhealth = floor(oldhealth);
+-		numStockpiled = uint(floor(mod(oldhealth, 128.0)));
+-		numStockpileQueued = uint(floor(oldhealth / 128.0));
+-	}
+-
+-	if (idx < 18) {
+-		int s = StripIndexForTriangleVertex(idx);
+-		EmitBackgroundVertex(BackgroundPos(s), centerpos, rotY, zoffset, sizemultiplier, barAlpha, BARTYPE);
+-		return;
+-	}
+-
+-	vec4 truecolor = mix(mincolor, maxcolor, health);
+-
+-	if (idx < 36) {
+-		int s = StripIndexForTriangleVertex(idx - 18);
+-		truecolor.a = 0.2;
+-		vec4 topcolor = truecolor;
+-		topcolor.rgb *= BOTTOMDARKENFACTOR;
+-		vec4 color = ((s == 1) || (s == 3) || (s == 5) || (s == 7)) ? topcolor : truecolor;
+-		EmitBarVertex(BarBackgroundPos(s), color, 0.0, centerpos, rotY, zoffset, sizemultiplier, barAlpha, 0.0);
+-		return;
+-	}
+-
+-	float healthbasedpos = (2.0 * (BARWIDTH - BARCORNER) - 2.0 * SMALLERCORNER) * health;
+-	if ((BARTYPE & BITTIMELEFT) > 0u) {
+-		healthbasedpos = 2.0 * (BARWIDTH - BARCORNER) - 2.0 * SMALLERCORNER;
+-	}
+-	if ((BARTYPE & BITCOLORCORRECT) > 0u) {
+-		truecolor.rgb = truecolor.rgb / max(truecolor.r, truecolor.g);
+-	}
+-	truecolor.a = 1.0;
+-	vec4 botcolor = truecolor;
+-	botcolor.rgb *= BOTTOMDARKENFACTOR;
+-	float bartextureoffset = 0.0;
+-	if ((BARTYPE & BITUSEOVERLAY) > 0u) {
+-		bartextureoffset = uvoffset;
+-	}
+-
+-	if (idx < 54) {
+-		int s = StripIndexForTriangleVertex(idx - 36);
+-		vec4 color = ((s == 1) || (s == 3) || (s == 5) || (s == 7)) ? truecolor : botcolor;
+-		EmitBarVertex(BarForegroundPos(s, healthbasedpos), color, bartextureoffset, centerpos, rotY, zoffset, sizemultiplier, barAlpha, -0.001);
+-		return;
+-	}
+-
+-	if (glyphAlpha < MINALPHA || skipGlyphsNumbers > 1.5) {
+-		HideVertex();
+-		return;
+-	}
+-
+-	float currentglyphpos = 1.0;
+-	bool drawGlyphIcon = false;
+-	if (skipGlyphsNumbers < 0.5) {
+-		drawGlyphIcon = ((BARTYPE & BITSHOWGLYPH) > 0u);
+-	} else {
+-		currentglyphpos = 0.0;
+-	}
+-
+-	if (idx < 60) {
+-		if (!drawGlyphIcon) {
+-			HideVertex();
+-			return;
+-		}
+-		EmitGlyphVertex(vec2(-BARWIDTH - currentglyphpos * BARHEIGHT, 0.0), vec2(ATLASSTEP, uvoffset), vec2(ATLASSTEP, ATLASSTEP), idx - 54, centerpos, rotY, zoffset, sizemultiplier, glyphAlpha);
+-		return;
+-	}
+-
+-	if ((BARTYPE & BITINTEGERNUMBER) > 0u) {
+-		vec4 numbers = vec4(numStockpiled, numStockpiled, numStockpileQueued, numStockpileQueued);
+-		numbers = numbers * vec4(1.0, 0.1, 1.0, 0.1);
+-		numbers = floor(mod(numbers, 10.0)) * ATLASSTEP;
+-
+-		if (idx < 66) {
+-			EmitGlyphVertex(vec2(-BARWIDTH - (currentglyphpos + 1.0) * BARHEIGHT, 0.0), vec2(0.0, numbers.x), vec2(ATLASSTEP, ATLASSTEP), idx - 60, centerpos, rotY, zoffset, sizemultiplier, glyphAlpha);
+-			return;
+-		}
+-		if (idx < 72 && numbers.y > 0.0) {
+-			EmitGlyphVertex(vec2(-BARWIDTH - (currentglyphpos + 2.0) * BARHEIGHT + BARHEIGHT * 0.4, 0.0), vec2(0.0, numbers.y), vec2(ATLASSTEP, ATLASSTEP), idx - 66, centerpos, rotY, zoffset, sizemultiplier, glyphAlpha);
+-			return;
+-		}
+-		HideVertex();
+-		return;
+-	}
+-
+-	if ((BARTYPE & (BITTIMELEFT | BITPERCENTAGE)) > 0u) {
+-		float lsb;
+-		float msb;
+-		float glyphpctsecatlas;
+-		if ((BARTYPE & BITTIMELEFT) > 0u) {
+-			health = (health - 1.0) / (1.0 / 40.0);
+-			lsb = abs(floor(mod(health, 10.0)));
+-			msb = abs(floor(mod(health * 0.1, 10.0)));
+-			glyphpctsecatlas = 14.0;
+-		} else {
+-			lsb = floor(mod(health * 100.0, 10.0));
+-			msb = floor(mod(health * 10.0, 10.0));
+-			glyphpctsecatlas = 11.0;
+-		}
+-
+-		if (idx < 66) {
+-			EmitGlyphVertex(vec2(-BARWIDTH - (currentglyphpos + 1.0) * BARHEIGHT, 0.0), vec2(0.0, glyphpctsecatlas * ATLASSTEP), vec2(ATLASSTEP, ATLASSTEP), idx - 60, centerpos, rotY, zoffset, sizemultiplier, glyphAlpha);
+-			return;
+-		}
+-		if (idx < 72) {
+-			EmitGlyphVertex(vec2(-BARWIDTH - (currentglyphpos + 2.0) * BARHEIGHT + BARHEIGHT * 0.2, 0.0), vec2(0.0, lsb * ATLASSTEP), vec2(ATLASSTEP, ATLASSTEP), idx - 66, centerpos, rotY, zoffset, sizemultiplier, glyphAlpha);
+-			return;
+-		}
+-		if (idx < 78 && msb > 0.0) {
+-			EmitGlyphVertex(vec2(-BARWIDTH - (currentglyphpos + 3.0) * BARHEIGHT + BARHEIGHT * 0.5, 0.0), vec2(0.0, msb * ATLASSTEP), vec2(ATLASSTEP, ATLASSTEP), idx - 72, centerpos, rotY, zoffset, sizemultiplier, glyphAlpha);
+-			return;
+-		}
+-	}
+-
+-	HideVertex();
+-}
+-)BARf534bc29de50", 13560) },
+ 	{ "luaui/shaders/screen_distortion_combine_gl4.frag.glsl", std::string_view(R"BAR75195a94b5e4(#version 150 compatibility
+ 
+ uniform sampler2D mapDepths;
+--- a/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Lua/LuaVFS.cpp
++++ b/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Lua/LuaVFS.cpp
+@@ -18,6 +18,7 @@
+ #include "System/FileSystem/FileSystem.h"
+ #include "System/Log/ILog.h"
+ #include "System/StringUtil.h"
++#include "Sim/Misc/ModInfo.h"
+ #include "System/TimeProfiler.h"
+ #include "../tools/pr-downloader/src/pr-downloader.h"
+ #include "fmt/format.h"
+@@ -35,6 +36,11 @@
+ 	(void)name;
+ 	return false;
+ 	#endif
++}
++
++static bool IsUnsyncedBARPresentationHandle(lua_State* L)
++{
++	return IsUnsyncedPresentationHandle(L, "LuaUI") && modInfo.shortName == "BYAR";
+ }
+ 
+ /*** Unified IO for archive and filesystem
+@@ -363,8 +369,10 @@
+ 	int luaError = 0;
+ 
+ 	const auto mode = GetModes(L, 3, synced);
+-	const auto privateSource = (!synced && IsUnsyncedPresentationHandle(L, "LuaUI"))
++	auto privateSource = (!synced && IsUnsyncedPresentationHandle(L, "LuaUI"))
+ 		? bundled_presentation::FindPrivateSource(fileName) : std::string_view{};
++	if (privateSource.empty() && !synced && IsUnsyncedBARPresentationHandle(L))
++		privateSource = bundled_presentation::FindStandaloneWidget(fileName, mode);
+ 	if (!privateSource.empty())
+ 		fileData.assign(privateSource);
+ 	if (privateSource.empty() && (loadCode = LoadFileWithModes(fileName, fileData, mode)) != 1) {
+@@ -479,8 +487,10 @@
+ 
+ 	string data;
+ 	const auto modes = GetModes(L, 2, synced);
+-	const auto privateSource = (!synced && IsUnsyncedPresentationHandle(L, "LuaUI"))
++	auto privateSource = (!synced && IsUnsyncedPresentationHandle(L, "LuaUI"))
+ 		? bundled_presentation::FindPrivateSource(filename) : std::string_view{};
++	if (privateSource.empty() && !synced && IsUnsyncedBARPresentationHandle(L))
++		privateSource = bundled_presentation::FindStandaloneWidget(filename, modes);
+ 	if (!privateSource.empty())
+ 		data.assign(privateSource);
+ 	if (!privateSource.empty() || LoadFileWithModes(filename, data, modes) == 1) {
+@@ -542,7 +552,9 @@
+ 	// if (!LuaIO::IsSimplePath(filename)) return 0;
+ 
+ 	const bool bundled = !synced && IsUnsyncedPresentationHandle(L, "LuaUI")
+-		&& !bundled_presentation::FindPrivateSource(filename).empty();
++		&& (!bundled_presentation::FindPrivateSource(filename).empty()
++			|| (IsUnsyncedBARPresentationHandle(L)
++				&& !bundled_presentation::FindStandaloneWidget(filename, vfsModes).empty()));
+ 	lua_pushboolean(L, bundled || CFileHandler::FileExists(filename, vfsModes));
+ 	return 1;
+ }
+@@ -602,6 +614,9 @@
+ 	if (!synced && IsUnsyncedPresentationHandle(L, "LuaUI") && widgetDirectory
+ 		&& pattern == "*.lua" && modes == SPRING_VFS_ZIP && !recursive)
+ 		bundled_presentation::AddDistributionWidget(files);
++	if (!synced && IsUnsyncedBARPresentationHandle(L) && widgetDirectory
++		&& (pattern == "*.lua" || pattern == "*") && !recursive)
++		bundled_presentation::UpdateStandaloneWidgetList(files, modes);
+ 	LuaUtils::PushStringVector(L, files);
+ 	return 1;
+ }
+--- a/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Lua/LuaBundledPresentation.h
++++ b/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Lua/LuaBundledPresentation.h
+@@ -60,6 +60,42 @@
+ inline std::string_view FindPrivateSource(std::string_view path)
+ {
+ 	return FindSource(path, bundled_presentation_data::PRIVATE_SOURCES);
++}
++
++// These two self-contained widgets use the ordinary archive widget loader.
++// Never substitute same-name delegates (which include their official original),
++// and never promote bytes read from RAW into archive widget privileges.
++inline constexpr std::string_view HEALTHBAR_WIDGETS[] = {
++	"luaui/widgets/gui_healthbars_gl4.lua",
++	"luaui/widgets/api_unit_tracker_gl4.lua",
++};
++
++inline std::string_view FindStandaloneWidget(std::string_view path, std::string_view modes)
++{
++	if (modes.find('M') == std::string_view::npos)
++		return {};
++	const auto normalized = NormalizePath(path);
++	for (const auto name: HEALTHBAR_WIDGETS) {
++		if (normalized == name)
++			return FindWidget(name);
++	}
++	return {};
++}
++
++inline void UpdateStandaloneWidgetList(std::vector<std::string>& files, std::string_view modes)
++{
++	const bool archive = modes.find('M') != std::string_view::npos;
++	if (!archive && modes.find('R') == std::string_view::npos)
++		return;
++	for (const auto name: HEALTHBAR_WIDGETS) {
++		// The compiled family is enumerated only as archive content, including
++		// on handlers which enumerate RAW first. Other user widgets are intact.
++		files.erase(std::remove_if(files.begin(), files.end(), [&](const auto& file) {
++			return NormalizePath(file) == name;
++		}), files.end());
++		if (archive && !FindWidget(name).empty())
++			files.emplace_back(name);
++	}
+ }
+ 
+ inline bool Matches(std::string_view source, size_t size, std::string_view expected)
+--- a/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Lua/LuaBundledPresentationSources.h
++++ b/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Lua/LuaBundledPresentationSources.h
+@@ -5,7 +5,7 @@
+ namespace bundled_presentation_data {
+ struct Source { std::string_view path; std::string_view bytes; };
+ inline constexpr std::string_view LANE = "bar-chobby";
+-inline constexpr std::string_view MANIFEST_SHA256 = "a3cbf6fe8be2cec745a41ead207e66cbc62e62702da380e26c8cd46d8815a9ec";
++inline constexpr std::string_view MANIFEST_SHA256 = "d7e46c8dcb52d24dc0e9ec97f7140de48923ea0a1abea02686ab1a3901c10eb2";
+ inline constexpr Source WIDGETS[] = {
+ 	{ "luaui/widgets/api_unit_tracker_gl4.lua", std::string_view(R"BAR58aa398151f3(local widget = widget ---@type Widget
+ 
+@@ -10163,9 +10163,9 @@
+ if debugmode then)BARe3a34c013a88" "\r" R"BAR11f212cbe310(
+ 	shaderConfig.DEBUGSHOW = 1 -- comment this to always show all bars)BAR11f212cbe310" "\r" R"BARcd8033eb6303(
+ end)BARcd8033eb6303" "\r" R"BAR52e4dc27d67a(
+-)BAR52e4dc27d67a" "\r" R"BAR260d1a7adb7a(
+-local vsSrcPath = "LuaUI/Shaders/HealthbarsGL4_NoGS.vert.glsl"
+-local fsSrcPath = "LuaUI/Shaders/HealthbarsGL4.frag.glsl"
++)BAR52e4dc27d67a" "\r" R"BARffd8de695f29(
++local vsSrcPath = "LuaUI/BARMacOS/Healthbars/healthbars.vert.glsl"
++local fsSrcPath = "LuaUI/BARMacOS/Healthbars/healthbars.frag.glsl"
+ 
+ local shaderSourceCache = {
+ 		vssrcpath = vsSrcPath,
+@@ -10174,7 +10174,7 @@
+ 		uniformInt = {
+ 			healthbartexture = 0;
+ 			},
+-		uniformFloat = {)BAR260d1a7adb7a" "\r" R"BARcae2a65111a6(
++		uniformFloat = {)BARffd8de695f29" "\r" R"BARcae2a65111a6(
+ 			--addRadius = 1,)BARcae2a65111a6" "\r" R"BAR222edd550cc7(
+ 			iconDistance = 27,)BAR222edd550cc7" "\r" R"BAR9dba55edb02a(
+ 			cameraDistanceMult = 1.0,)BAR9dba55edb02a" "\r" R"BAReca6943d1da8(
+@@ -11067,7 +11067,7 @@
+ 		shaderSourceCache.shaderConfig.SMALLERCORNER = shaderConfig.BARCORNER * 0.6)BAR106460f1c87c" "\r" R"BARdd377de47dba(
+ 	end)BARdd377de47dba" "\r" R"BARcd8033eb6303(
+ end)BARcd8033eb6303" "\r" R"BAR52e4dc27d67a(
+-)BAR52e4dc27d67a", 51745) },
++)BAR52e4dc27d67a", 51758) },
+ 	{ "luaui/widgets/gui_mapmarks_fx.lua", std::string_view(R"BARef3105bbe678(-- Unsynced presentation only; preserve current archive events, batching and style.
+ -- Each rectangle becomes 00,01,11 / 00,11,10, as in Run77/79.
+ local archivePath = "LuaUI/Widgets/gui_mapmarks_fx.lua"
+@@ -44812,6 +44812,454 @@
+ )BAR4e3a3cc7ceb6", 4838) },
+ };
+ inline constexpr Source PRIVATE_SOURCES[] = {
++	{ "luaui/barmacos/healthbars/healthbars.frag.glsl", std::string_view(R"BARcbf0d2219d4c(#version 420
++#extension GL_ARB_uniform_buffer_object : require
++#extension GL_ARB_shading_language_420pack: require
++// SPDX-License-Identifier: MIT
++// Copyright (c) 2026 Beherith (mysterme@gmail.com)
++// This shader is part of the Beyond All Reason repository.  
++
++//__ENGINEUNIFORMBUFFERDEFS__
++//__DEFINES__
++
++#line 30000
++in DataGS {
++	vec4 g_color;
++	vec4 g_uv;
++};
++
++uniform sampler2D healthbartexture;
++out vec4 fragColor;
++
++void main(void)
++{
++	vec4 texcolor = vec4(1.0);
++	texcolor = texture(healthbartexture, g_uv.xy);
++	texcolor.a *= g_color.a;
++	fragColor.rgba = mix(g_color, texcolor, g_uv.z);
++	//fragColor.rgba += vec4(0.25);
++	//fragColor.a += 0.5;
++	//fragColor.a = 1.0;
++	if (fragColor.a < 0.05) discard;
++})BARcbf0d2219d4c", 702) },
++	{ "luaui/barmacos/healthbars/healthbars.vert.glsl", std::string_view(R"BARf534bc29de50(#version 420
++#extension GL_ARB_uniform_buffer_object : require
++#extension GL_ARB_shader_storage_buffer_object : require
++#extension GL_ARB_shading_language_420pack: require
++
++// macOS NoGS adaptation of BAR's HealthbarsGL4 vertex+geometry pipeline.
++// Keeps the official instance attributes and fragment shader contract.
++#line 5000
++
++layout (location = 0) in vec4 height_timers;
++layout (location = 1) in uvec4 bartype_index_ssboloc;
++layout (location = 2) in vec4 mincolor;
++layout (location = 3) in vec4 maxcolor;
++layout (location = 4) in uvec4 instData;
++layout (location = 5) in float shapeIndex;
++
++//__ENGINEUNIFORMBUFFERDEFS__
++//__DEFINES__
++
++struct SUniformsBuffer {
++	uint composite;
++
++	uint unused2;
++	uint unused3;
++	uint unused4;
++
++	float maxHealth;
++	float health;
++	float unused5;
++	float unused6;
++
++	vec4 drawPos;
++	vec4 speed;
++	vec4[4] userDefined;
++};
++
++layout(std140, binding=1) readonly buffer UniformsBuffer {
++	SUniformsBuffer uni[];
++};
++
++#line 10000
++
++uniform float iconDistance;
++uniform float cameraDistanceMult;
++uniform float cameraDistanceMultGlyph;
++uniform float skipGlyphsNumbers;
++uniform float globalSizeMult;
++
++out DataGS {
++	vec4 g_color;
++	vec4 g_uv;
++};
++
++#define UNITUNIFORMS uni[instData.y]
++#define UNIFORMLOC bartype_index_ssboloc.z
++#define BARTYPE bartype_index_ssboloc.x
++
++#define BITUSEOVERLAY 1u
++#define BITSHOWGLYPH 2u
++#define BITPERCENTAGE 4u
++#define BITTIMELEFT 8u
++#define BITINTEGERNUMBER 16u
++#define BITGETPROGRESS 32u
++#define BITFLASHBAR 64u
++#define BITCOLORCORRECT 128u
++
++#define HALFPIXEL 0.0019765625
++
++bool vertexClipped(vec4 clipspace, float tolerance)
++{
++	return any(lessThan(clipspace.xyz, -clipspace.www * tolerance)) ||
++	       any(greaterThan(clipspace.xyz, clipspace.www * tolerance));
++}
++
++void HideVertex()
++{
++	gl_Position = vec4(0.0, 0.0, 2.0, 1.0);
++	g_color = vec4(0.0);
++	g_uv = vec4(0.0);
++}
++
++int StripIndexForTriangleVertex(int i)
++{
++	if (i == 0) return 0;
++	if (i == 1) return 1;
++	if (i == 2) return 2;
++	if (i == 3) return 2;
++	if (i == 4) return 1;
++	if (i == 5) return 3;
++	if (i == 6) return 2;
++	if (i == 7) return 3;
++	if (i == 8) return 4;
++	if (i == 9) return 4;
++	if (i == 10) return 3;
++	if (i == 11) return 5;
++	if (i == 12) return 4;
++	if (i == 13) return 5;
++	if (i == 14) return 6;
++	if (i == 15) return 6;
++	if (i == 16) return 5;
++	return 7;
++}
++
++int QuadIndexForTriangleVertex(int i)
++{
++	if (i == 0) return 0;
++	if (i == 1) return 1;
++	if (i == 2) return 2;
++	if (i == 3) return 2;
++	if (i == 4) return 1;
++	return 3;
++}
++
++vec2 BackgroundPos(int s)
++{
++	if (s == 0) return vec2(-BARWIDTH, BARCORNER);
++	if (s == 1) return vec2(-BARWIDTH, BARHEIGHT - BARCORNER);
++	if (s == 2) return vec2(-BARWIDTH + BARCORNER, 0.0);
++	if (s == 3) return vec2(-BARWIDTH + BARCORNER, BARHEIGHT);
++	if (s == 4) return vec2(BARWIDTH - BARCORNER, 0.0);
++	if (s == 5) return vec2(BARWIDTH - BARCORNER, BARHEIGHT);
++	if (s == 6) return vec2(BARWIDTH, BARCORNER);
++	return vec2(BARWIDTH, BARHEIGHT - BARCORNER);
++}
++
++vec2 BarBackgroundPos(int s)
++{
++	if (s == 0) return vec2(-BARWIDTH + BARCORNER, SMALLERCORNER + BARCORNER);
++	if (s == 1) return vec2(-BARWIDTH + BARCORNER, BARHEIGHT - SMALLERCORNER - BARCORNER);
++	if (s == 2) return vec2(-BARWIDTH + SMALLERCORNER + BARCORNER, BARCORNER);
++	if (s == 3) return vec2(-BARWIDTH + SMALLERCORNER + BARCORNER, BARHEIGHT - BARCORNER);
++	if (s == 4) return vec2(BARWIDTH - SMALLERCORNER - BARCORNER, BARCORNER);
++	if (s == 5) return vec2(BARWIDTH - SMALLERCORNER - BARCORNER, BARHEIGHT - BARCORNER);
++	if (s == 6) return vec2(BARWIDTH - BARCORNER, SMALLERCORNER + BARCORNER);
++	return vec2(BARWIDTH - BARCORNER, BARHEIGHT - SMALLERCORNER - BARCORNER);
++}
++
++vec2 BarForegroundPos(int s, float healthbasedpos)
++{
++	if (s == 0) return vec2(-BARWIDTH + BARCORNER, SMALLERCORNER + BARCORNER);
++	if (s == 1) return vec2(-BARWIDTH + BARCORNER, BARHEIGHT - BARCORNER - SMALLERCORNER);
++	if (s == 2) return vec2(-BARWIDTH + BARCORNER + SMALLERCORNER, BARCORNER);
++	if (s == 3) return vec2(-BARWIDTH + BARCORNER + SMALLERCORNER, BARHEIGHT - BARCORNER);
++	if (s == 4) return vec2(-BARWIDTH + BARCORNER + SMALLERCORNER + healthbasedpos, BARCORNER);
++	if (s == 5) return vec2(-BARWIDTH + BARCORNER + SMALLERCORNER + healthbasedpos, BARHEIGHT - BARCORNER);
++	if (s == 6) return vec2(-BARWIDTH + BARCORNER + 2.0 * SMALLERCORNER + healthbasedpos, BARCORNER + SMALLERCORNER);
++	return vec2(-BARWIDTH + BARCORNER + 2.0 * SMALLERCORNER + healthbasedpos, BARHEIGHT - BARCORNER - SMALLERCORNER);
++}
++
++vec4 ProjectBarVertex(vec2 pos, vec4 centerpos, mat3 rotY, float zoffset, float sizemultiplier, float depthbuffermod)
++{
++	vec3 primitiveCoords = vec3(pos.x, 0.0, pos.y - zoffset) * BARSCALE * sizemultiplier;
++	vec4 clip = cameraViewProj * vec4(centerpos.xyz + rotY * primitiveCoords, 1.0);
++	clip.z += depthbuffermod;
++	return clip;
++}
++
++void EmitBackgroundVertex(vec2 pos, vec4 centerpos, mat3 rotY, float zoffset, float sizemultiplier, float barAlpha, uint bartype)
++{
++	g_uv.xy = vec2(0.0);
++	g_uv.z = 0.0;
++	float extracolor = 0.0;
++	if (((bartype & BITFLASHBAR) > 0u) && (mod(timeInfo.x, 10.0) > 4.0)) {
++		extracolor = 0.5;
++	}
++	g_color = mix(BGBOTTOMCOLOR + extracolor, BGTOPCOLOR + extracolor, pos.y);
++	g_color.a *= barAlpha;
++	gl_Position = ProjectBarVertex(pos, centerpos, rotY, zoffset, sizemultiplier, 0.001);
++}
++
++void EmitBarVertex(vec2 pos, vec4 color, float bartextureoffset, vec4 centerpos, mat3 rotY, float zoffset, float sizemultiplier, float barAlpha, float depthbuffermod)
++{
++	g_uv.x = pos.x * 1.0 / (2.0 * (BARWIDTH - BARCORNER));
++	g_uv.x = g_uv.x + 0.5;
++	g_uv.y = (pos.y - BARCORNER) / (BARHEIGHT - 2.0 * BARCORNER);
++	g_uv.xy = g_uv.xy * vec2(ATLASSTEP * 9.0, ATLASSTEP) + vec2(3.0 * ATLASSTEP, bartextureoffset);
++	g_uv.y = -1.0 * g_uv.y;
++	g_uv.z = clamp(10000.0 * bartextureoffset, 0.0, 1.0);
++	g_color = color;
++	g_color.a *= barAlpha;
++	gl_Position = ProjectBarVertex(pos, centerpos, rotY, zoffset, sizemultiplier, depthbuffermod);
++}
++
++void EmitGlyphVertex(vec2 bottomleft, vec2 uvbottomleft, vec2 uvsizes, int triangleVertex, vec4 centerpos, mat3 rotY, float zoffset, float sizemultiplier, float glyphAlpha)
++{
++	int q = QuadIndexForTriangleVertex(triangleVertex);
++	vec2 pos = bottomleft;
++	vec2 uv = uvbottomleft;
++	if (q == 1) {
++		pos.y += BARHEIGHT;
++		uv.y += uvsizes.y;
++	} else if (q == 2) {
++		pos.x += BARHEIGHT;
++		uv.x += uvsizes.x;
++	} else if (q == 3) {
++		pos += vec2(BARHEIGHT, BARHEIGHT);
++		uv += uvsizes;
++	}
++
++	vec2 halfAdjust = vec2((q == 2 || q == 3) ? -HALFPIXEL : HALFPIXEL, (q == 1 || q == 3) ? -HALFPIXEL : HALFPIXEL);
++	g_uv.xy = vec2(uv.x + halfAdjust.x, 1.0 - (uv.y + halfAdjust.y));
++	g_uv.z = 1.0;
++	g_color = vec4(1.0);
++	g_color.a *= glyphAlpha;
++	gl_Position = ProjectBarVertex(pos, centerpos, rotY, zoffset, sizemultiplier, 0.0);
++}
++
++void main()
++{
++	int idx = int(shapeIndex + 0.5);
++
++	vec4 drawPos = vec4(UNITUNIFORMS.drawPos.xyz, 1.0);
++	vec4 centerpos = drawPos;
++	uint numvertices = 4u;
++	vec4 centerClip = cameraViewProj * drawPos;
++	if (vertexClipped(centerClip, CLIPTOLERANCE)) {
++		numvertices = 0u;
++	}
++
++	float cameraDistance = length(cameraViewInv[3].xyz - centerpos.xyz);
++	vec4 parameters = vec4(0.0);
++	parameters.y = (clamp(cameraDistance * cameraDistanceMult, BARFADESTART, BARFADEEND) - BARFADESTART) / (BARFADEEND - BARFADESTART);
++	parameters.y = 1.0 - clamp(parameters.y, 0.0, 1.0);
++	parameters.z = (clamp(cameraDistance * cameraDistanceMult * cameraDistanceMultGlyph, BARFADESTART, BARFADEEND) - BARFADESTART) / (BARFADEEND - BARFADESTART);
++	parameters.z = 1.0 - clamp(parameters.z, 0.0, 1.0);
++
++	#ifdef DEBUGSHOW
++		parameters.y = 1.0;
++		parameters.z = 1.0;
++	#endif
++
++	parameters.w = height_timers.w;
++	vec2 sizemodifiers = height_timers.yz;
++
++	if (dot(centerpos.xyz, centerpos.xyz) < 1.0) {
++		numvertices = 0u;
++	}
++
++	centerpos.y += HEIGHTOFFSET;
++	centerpos.y += height_timers.x;
++
++	float relativehealth = UNITUNIFORMS.health / UNITUNIFORMS.maxHealth;
++	parameters.x = relativehealth;
++	if (UNIFORMLOC < 20u) {
++		parameters.x = UNITUNIFORMS.userDefined[0].y;
++	} else {
++		float buildprogress = UNITUNIFORMS.userDefined[0].x;
++		#ifndef DEBUGSHOW
++			if (abs(buildprogress - relativehealth) < 0.03) {
++				numvertices = 0u;
++			}
++		#endif
++	}
++
++	if (UNIFORMLOC < 4u) parameters.x = UNITUNIFORMS.userDefined[0][UNIFORMLOC];
++	if (UNIFORMLOC == 1u) parameters.x = UNITUNIFORMS.userDefined[0].y;
++	if (UNIFORMLOC == 2u) parameters.x = UNITUNIFORMS.userDefined[0].z;
++	if (UNIFORMLOC == 4u) parameters.x = UNITUNIFORMS.userDefined[1].x;
++	if (UNIFORMLOC == 5u) parameters.x = UNITUNIFORMS.userDefined[1].y;
++
++	if ((BARTYPE & BITGETPROGRESS) > 0u) {
++		parameters.x = ((timeInfo.x + timeInfo.w) - UNITUNIFORMS.userDefined[0].z) /
++			(UNITUNIFORMS.userDefined[0].w - UNITUNIFORMS.userDefined[0].z);
++		parameters.x = clamp(parameters.x, 0.0, 1.0);
++	}
++
++	float health = parameters.x;
++	float barAlpha = parameters.y;
++	float glyphAlpha = parameters.z;
++	float uvoffset = parameters.w;
++	float sizemultiplier = sizemodifiers.x * globalSizeMult;
++	float zoffset = 1.15 * BARHEIGHT * float(bartype_index_ssboloc.y);
++	mat3 rotY = mat3(cameraViewInv[0].xyz, cameraViewInv[2].xyz, cameraViewInv[1].xyz);
++
++	if (numvertices == 0u || barAlpha < MINALPHA) {
++		HideVertex();
++		return;
++	}
++
++	#ifndef DEBUGSHOW
++		if (health < 0.00001) {
++			HideVertex();
++			return;
++		}
++		if ((BARTYPE & BITPERCENTAGE) > 0u) {
++			if (health > 0.999) {
++				HideVertex();
++				return;
++			}
++		} else if ((BARTYPE & BITGETPROGRESS) > 0u) {
++			if (health > 0.999) {
++				HideVertex();
++				return;
++			}
++		}
++	#endif
++
++	uint numStockpiled = 0u;
++	uint numStockpileQueued = 0u;
++	if ((BARTYPE & BITINTEGERNUMBER) > 0u) {
++		float oldhealth = health;
++		health = fract(oldhealth);
++		oldhealth = floor(oldhealth);
++		numStockpiled = uint(floor(mod(oldhealth, 128.0)));
++		numStockpileQueued = uint(floor(oldhealth / 128.0));
++	}
++
++	if (idx < 18) {
++		int s = StripIndexForTriangleVertex(idx);
++		EmitBackgroundVertex(BackgroundPos(s), centerpos, rotY, zoffset, sizemultiplier, barAlpha, BARTYPE);
++		return;
++	}
++
++	vec4 truecolor = mix(mincolor, maxcolor, health);
++
++	if (idx < 36) {
++		int s = StripIndexForTriangleVertex(idx - 18);
++		truecolor.a = 0.2;
++		vec4 topcolor = truecolor;
++		topcolor.rgb *= BOTTOMDARKENFACTOR;
++		vec4 color = ((s == 1) || (s == 3) || (s == 5) || (s == 7)) ? topcolor : truecolor;
++		EmitBarVertex(BarBackgroundPos(s), color, 0.0, centerpos, rotY, zoffset, sizemultiplier, barAlpha, 0.0);
++		return;
++	}
++
++	float healthbasedpos = (2.0 * (BARWIDTH - BARCORNER) - 2.0 * SMALLERCORNER) * health;
++	if ((BARTYPE & BITTIMELEFT) > 0u) {
++		healthbasedpos = 2.0 * (BARWIDTH - BARCORNER) - 2.0 * SMALLERCORNER;
++	}
++	if ((BARTYPE & BITCOLORCORRECT) > 0u) {
++		truecolor.rgb = truecolor.rgb / max(truecolor.r, truecolor.g);
++	}
++	truecolor.a = 1.0;
++	vec4 botcolor = truecolor;
++	botcolor.rgb *= BOTTOMDARKENFACTOR;
++	float bartextureoffset = 0.0;
++	if ((BARTYPE & BITUSEOVERLAY) > 0u) {
++		bartextureoffset = uvoffset;
++	}
++
++	if (idx < 54) {
++		int s = StripIndexForTriangleVertex(idx - 36);
++		vec4 color = ((s == 1) || (s == 3) || (s == 5) || (s == 7)) ? truecolor : botcolor;
++		EmitBarVertex(BarForegroundPos(s, healthbasedpos), color, bartextureoffset, centerpos, rotY, zoffset, sizemultiplier, barAlpha, -0.001);
++		return;
++	}
++
++	if (glyphAlpha < MINALPHA || skipGlyphsNumbers > 1.5) {
++		HideVertex();
++		return;
++	}
++
++	float currentglyphpos = 1.0;
++	bool drawGlyphIcon = false;
++	if (skipGlyphsNumbers < 0.5) {
++		drawGlyphIcon = ((BARTYPE & BITSHOWGLYPH) > 0u);
++	} else {
++		currentglyphpos = 0.0;
++	}
++
++	if (idx < 60) {
++		if (!drawGlyphIcon) {
++			HideVertex();
++			return;
++		}
++		EmitGlyphVertex(vec2(-BARWIDTH - currentglyphpos * BARHEIGHT, 0.0), vec2(ATLASSTEP, uvoffset), vec2(ATLASSTEP, ATLASSTEP), idx - 54, centerpos, rotY, zoffset, sizemultiplier, glyphAlpha);
++		return;
++	}
++
++	if ((BARTYPE & BITINTEGERNUMBER) > 0u) {
++		vec4 numbers = vec4(numStockpiled, numStockpiled, numStockpileQueued, numStockpileQueued);
++		numbers = numbers * vec4(1.0, 0.1, 1.0, 0.1);
++		numbers = floor(mod(numbers, 10.0)) * ATLASSTEP;
++
++		if (idx < 66) {
++			EmitGlyphVertex(vec2(-BARWIDTH - (currentglyphpos + 1.0) * BARHEIGHT, 0.0), vec2(0.0, numbers.x), vec2(ATLASSTEP, ATLASSTEP), idx - 60, centerpos, rotY, zoffset, sizemultiplier, glyphAlpha);
++			return;
++		}
++		if (idx < 72 && numbers.y > 0.0) {
++			EmitGlyphVertex(vec2(-BARWIDTH - (currentglyphpos + 2.0) * BARHEIGHT + BARHEIGHT * 0.4, 0.0), vec2(0.0, numbers.y), vec2(ATLASSTEP, ATLASSTEP), idx - 66, centerpos, rotY, zoffset, sizemultiplier, glyphAlpha);
++			return;
++		}
++		HideVertex();
++		return;
++	}
++
++	if ((BARTYPE & (BITTIMELEFT | BITPERCENTAGE)) > 0u) {
++		float lsb;
++		float msb;
++		float glyphpctsecatlas;
++		if ((BARTYPE & BITTIMELEFT) > 0u) {
++			health = (health - 1.0) / (1.0 / 40.0);
++			lsb = abs(floor(mod(health, 10.0)));
++			msb = abs(floor(mod(health * 0.1, 10.0)));
++			glyphpctsecatlas = 14.0;
++		} else {
++			lsb = floor(mod(health * 100.0, 10.0));
++			msb = floor(mod(health * 10.0, 10.0));
++			glyphpctsecatlas = 11.0;
++		}
++
++		if (idx < 66) {
++			EmitGlyphVertex(vec2(-BARWIDTH - (currentglyphpos + 1.0) * BARHEIGHT, 0.0), vec2(0.0, glyphpctsecatlas * ATLASSTEP), vec2(ATLASSTEP, ATLASSTEP), idx - 60, centerpos, rotY, zoffset, sizemultiplier, glyphAlpha);
++			return;
++		}
++		if (idx < 72) {
++			EmitGlyphVertex(vec2(-BARWIDTH - (currentglyphpos + 2.0) * BARHEIGHT + BARHEIGHT * 0.2, 0.0), vec2(0.0, lsb * ATLASSTEP), vec2(ATLASSTEP, ATLASSTEP), idx - 66, centerpos, rotY, zoffset, sizemultiplier, glyphAlpha);
++			return;
++		}
++		if (idx < 78 && msb > 0.0) {
++			EmitGlyphVertex(vec2(-BARWIDTH - (currentglyphpos + 3.0) * BARHEIGHT + BARHEIGHT * 0.5, 0.0), vec2(0.0, msb * ATLASSTEP), vec2(ATLASSTEP, ATLASSTEP), idx - 72, centerpos, rotY, zoffset, sizemultiplier, glyphAlpha);
++			return;
++		}
++	}
++
++	HideVertex();
++}
++)BARf534bc29de50", 13560) },
+ 	{ "luaui/include/drawprimitiveatunit_nogs_mesh.lua", std::string_view(R"BAR20461684b23e(-------------------------------------------------
+ -- DrawPrimitiveAtUnit NoGS adapter.
+ -- Keeps the official Lua-side object stream and replaces GS expansion with
+@@ -48631,424 +49079,6 @@
+ 
+ return PipHistory
+ )BAR4694eb9bf1d9", 92409) },
+-	{ "luaui/shaders/healthbarsgl4_nogs.vert.glsl", std::string_view(R"BARf534bc29de50(#version 420
+-#extension GL_ARB_uniform_buffer_object : require
+-#extension GL_ARB_shader_storage_buffer_object : require
+-#extension GL_ARB_shading_language_420pack: require
+-
+-// macOS NoGS adaptation of BAR's HealthbarsGL4 vertex+geometry pipeline.
+-// Keeps the official instance attributes and fragment shader contract.
+-#line 5000
+-
+-layout (location = 0) in vec4 height_timers;
+-layout (location = 1) in uvec4 bartype_index_ssboloc;
+-layout (location = 2) in vec4 mincolor;
+-layout (location = 3) in vec4 maxcolor;
+-layout (location = 4) in uvec4 instData;
+-layout (location = 5) in float shapeIndex;
+-
+-//__ENGINEUNIFORMBUFFERDEFS__
+-//__DEFINES__
+-
+-struct SUniformsBuffer {
+-	uint composite;
+-
+-	uint unused2;
+-	uint unused3;
+-	uint unused4;
+-
+-	float maxHealth;
+-	float health;
+-	float unused5;
+-	float unused6;
+-
+-	vec4 drawPos;
+-	vec4 speed;
+-	vec4[4] userDefined;
+-};
+-
+-layout(std140, binding=1) readonly buffer UniformsBuffer {
+-	SUniformsBuffer uni[];
+-};
+-
+-#line 10000
+-
+-uniform float iconDistance;
+-uniform float cameraDistanceMult;
+-uniform float cameraDistanceMultGlyph;
+-uniform float skipGlyphsNumbers;
+-uniform float globalSizeMult;
+-
+-out DataGS {
+-	vec4 g_color;
+-	vec4 g_uv;
+-};
+-
+-#define UNITUNIFORMS uni[instData.y]
+-#define UNIFORMLOC bartype_index_ssboloc.z
+-#define BARTYPE bartype_index_ssboloc.x
+-
+-#define BITUSEOVERLAY 1u
+-#define BITSHOWGLYPH 2u
+-#define BITPERCENTAGE 4u
+-#define BITTIMELEFT 8u
+-#define BITINTEGERNUMBER 16u
+-#define BITGETPROGRESS 32u
+-#define BITFLASHBAR 64u
+-#define BITCOLORCORRECT 128u
+-
+-#define HALFPIXEL 0.0019765625
+-
+-bool vertexClipped(vec4 clipspace, float tolerance)
+-{
+-	return any(lessThan(clipspace.xyz, -clipspace.www * tolerance)) ||
+-	       any(greaterThan(clipspace.xyz, clipspace.www * tolerance));
+-}
+-
+-void HideVertex()
+-{
+-	gl_Position = vec4(0.0, 0.0, 2.0, 1.0);
+-	g_color = vec4(0.0);
+-	g_uv = vec4(0.0);
+-}
+-
+-int StripIndexForTriangleVertex(int i)
+-{
+-	if (i == 0) return 0;
+-	if (i == 1) return 1;
+-	if (i == 2) return 2;
+-	if (i == 3) return 2;
+-	if (i == 4) return 1;
+-	if (i == 5) return 3;
+-	if (i == 6) return 2;
+-	if (i == 7) return 3;
+-	if (i == 8) return 4;
+-	if (i == 9) return 4;
+-	if (i == 10) return 3;
+-	if (i == 11) return 5;
+-	if (i == 12) return 4;
+-	if (i == 13) return 5;
+-	if (i == 14) return 6;
+-	if (i == 15) return 6;
+-	if (i == 16) return 5;
+-	return 7;
+-}
+-
+-int QuadIndexForTriangleVertex(int i)
+-{
+-	if (i == 0) return 0;
+-	if (i == 1) return 1;
+-	if (i == 2) return 2;
+-	if (i == 3) return 2;
+-	if (i == 4) return 1;
+-	return 3;
+-}
+-
+-vec2 BackgroundPos(int s)
+-{
+-	if (s == 0) return vec2(-BARWIDTH, BARCORNER);
+-	if (s == 1) return vec2(-BARWIDTH, BARHEIGHT - BARCORNER);
+-	if (s == 2) return vec2(-BARWIDTH + BARCORNER, 0.0);
+-	if (s == 3) return vec2(-BARWIDTH + BARCORNER, BARHEIGHT);
+-	if (s == 4) return vec2(BARWIDTH - BARCORNER, 0.0);
+-	if (s == 5) return vec2(BARWIDTH - BARCORNER, BARHEIGHT);
+-	if (s == 6) return vec2(BARWIDTH, BARCORNER);
+-	return vec2(BARWIDTH, BARHEIGHT - BARCORNER);
+-}
+-
+-vec2 BarBackgroundPos(int s)
+-{
+-	if (s == 0) return vec2(-BARWIDTH + BARCORNER, SMALLERCORNER + BARCORNER);
+-	if (s == 1) return vec2(-BARWIDTH + BARCORNER, BARHEIGHT - SMALLERCORNER - BARCORNER);
+-	if (s == 2) return vec2(-BARWIDTH + SMALLERCORNER + BARCORNER, BARCORNER);
+-	if (s == 3) return vec2(-BARWIDTH + SMALLERCORNER + BARCORNER, BARHEIGHT - BARCORNER);
+-	if (s == 4) return vec2(BARWIDTH - SMALLERCORNER - BARCORNER, BARCORNER);
+-	if (s == 5) return vec2(BARWIDTH - SMALLERCORNER - BARCORNER, BARHEIGHT - BARCORNER);
+-	if (s == 6) return vec2(BARWIDTH - BARCORNER, SMALLERCORNER + BARCORNER);
+-	return vec2(BARWIDTH - BARCORNER, BARHEIGHT - SMALLERCORNER - BARCORNER);
+-}
+-
+-vec2 BarForegroundPos(int s, float healthbasedpos)
+-{
+-	if (s == 0) return vec2(-BARWIDTH + BARCORNER, SMALLERCORNER + BARCORNER);
+-	if (s == 1) return vec2(-BARWIDTH + BARCORNER, BARHEIGHT - BARCORNER - SMALLERCORNER);
+-	if (s == 2) return vec2(-BARWIDTH + BARCORNER + SMALLERCORNER, BARCORNER);
+-	if (s == 3) return vec2(-BARWIDTH + BARCORNER + SMALLERCORNER, BARHEIGHT - BARCORNER);
+-	if (s == 4) return vec2(-BARWIDTH + BARCORNER + SMALLERCORNER + healthbasedpos, BARCORNER);
+-	if (s == 5) return vec2(-BARWIDTH + BARCORNER + SMALLERCORNER + healthbasedpos, BARHEIGHT - BARCORNER);
+-	if (s == 6) return vec2(-BARWIDTH + BARCORNER + 2.0 * SMALLERCORNER + healthbasedpos, BARCORNER + SMALLERCORNER);
+-	return vec2(-BARWIDTH + BARCORNER + 2.0 * SMALLERCORNER + healthbasedpos, BARHEIGHT - BARCORNER - SMALLERCORNER);
+-}
+-
+-vec4 ProjectBarVertex(vec2 pos, vec4 centerpos, mat3 rotY, float zoffset, float sizemultiplier, float depthbuffermod)
+-{
+-	vec3 primitiveCoords = vec3(pos.x, 0.0, pos.y - zoffset) * BARSCALE * sizemultiplier;
+-	vec4 clip = cameraViewProj * vec4(centerpos.xyz + rotY * primitiveCoords, 1.0);
+-	clip.z += depthbuffermod;
+-	return clip;
+-}
+-
+-void EmitBackgroundVertex(vec2 pos, vec4 centerpos, mat3 rotY, float zoffset, float sizemultiplier, float barAlpha, uint bartype)
+-{
+-	g_uv.xy = vec2(0.0);
+-	g_uv.z = 0.0;
+-	float extracolor = 0.0;
+-	if (((bartype & BITFLASHBAR) > 0u) && (mod(timeInfo.x, 10.0) > 4.0)) {
+-		extracolor = 0.5;
+-	}
+-	g_color = mix(BGBOTTOMCOLOR + extracolor, BGTOPCOLOR + extracolor, pos.y);
+-	g_color.a *= barAlpha;
+-	gl_Position = ProjectBarVertex(pos, centerpos, rotY, zoffset, sizemultiplier, 0.001);
+-}
+-
+-void EmitBarVertex(vec2 pos, vec4 color, float bartextureoffset, vec4 centerpos, mat3 rotY, float zoffset, float sizemultiplier, float barAlpha, float depthbuffermod)
+-{
+-	g_uv.x = pos.x * 1.0 / (2.0 * (BARWIDTH - BARCORNER));
+-	g_uv.x = g_uv.x + 0.5;
+-	g_uv.y = (pos.y - BARCORNER) / (BARHEIGHT - 2.0 * BARCORNER);
+-	g_uv.xy = g_uv.xy * vec2(ATLASSTEP * 9.0, ATLASSTEP) + vec2(3.0 * ATLASSTEP, bartextureoffset);
+-	g_uv.y = -1.0 * g_uv.y;
+-	g_uv.z = clamp(10000.0 * bartextureoffset, 0.0, 1.0);
+-	g_color = color;
+-	g_color.a *= barAlpha;
+-	gl_Position = ProjectBarVertex(pos, centerpos, rotY, zoffset, sizemultiplier, depthbuffermod);
+-}
+-
+-void EmitGlyphVertex(vec2 bottomleft, vec2 uvbottomleft, vec2 uvsizes, int triangleVertex, vec4 centerpos, mat3 rotY, float zoffset, float sizemultiplier, float glyphAlpha)
+-{
+-	int q = QuadIndexForTriangleVertex(triangleVertex);
+-	vec2 pos = bottomleft;
+-	vec2 uv = uvbottomleft;
+-	if (q == 1) {
+-		pos.y += BARHEIGHT;
+-		uv.y += uvsizes.y;
+-	} else if (q == 2) {
+-		pos.x += BARHEIGHT;
+-		uv.x += uvsizes.x;
+-	} else if (q == 3) {
+-		pos += vec2(BARHEIGHT, BARHEIGHT);
+-		uv += uvsizes;
+-	}
+-
+-	vec2 halfAdjust = vec2((q == 2 || q == 3) ? -HALFPIXEL : HALFPIXEL, (q == 1 || q == 3) ? -HALFPIXEL : HALFPIXEL);
+-	g_uv.xy = vec2(uv.x + halfAdjust.x, 1.0 - (uv.y + halfAdjust.y));
+-	g_uv.z = 1.0;
+-	g_color = vec4(1.0);
+-	g_color.a *= glyphAlpha;
+-	gl_Position = ProjectBarVertex(pos, centerpos, rotY, zoffset, sizemultiplier, 0.0);
+-}
+-
+-void main()
+-{
+-	int idx = int(shapeIndex + 0.5);
+-
+-	vec4 drawPos = vec4(UNITUNIFORMS.drawPos.xyz, 1.0);
+-	vec4 centerpos = drawPos;
+-	uint numvertices = 4u;
+-	vec4 centerClip = cameraViewProj * drawPos;
+-	if (vertexClipped(centerClip, CLIPTOLERANCE)) {
+-		numvertices = 0u;
+-	}
+-
+-	float cameraDistance = length(cameraViewInv[3].xyz - centerpos.xyz);
+-	vec4 parameters = vec4(0.0);
+-	parameters.y = (clamp(cameraDistance * cameraDistanceMult, BARFADESTART, BARFADEEND) - BARFADESTART) / (BARFADEEND - BARFADESTART);
+-	parameters.y = 1.0 - clamp(parameters.y, 0.0, 1.0);
+-	parameters.z = (clamp(cameraDistance * cameraDistanceMult * cameraDistanceMultGlyph, BARFADESTART, BARFADEEND) - BARFADESTART) / (BARFADEEND - BARFADESTART);
+-	parameters.z = 1.0 - clamp(parameters.z, 0.0, 1.0);
+-
+-	#ifdef DEBUGSHOW
+-		parameters.y = 1.0;
+-		parameters.z = 1.0;
+-	#endif
+-
+-	parameters.w = height_timers.w;
+-	vec2 sizemodifiers = height_timers.yz;
+-
+-	if (dot(centerpos.xyz, centerpos.xyz) < 1.0) {
+-		numvertices = 0u;
+-	}
+-
+-	centerpos.y += HEIGHTOFFSET;
+-	centerpos.y += height_timers.x;
+-
+-	float relativehealth = UNITUNIFORMS.health / UNITUNIFORMS.maxHealth;
+-	parameters.x = relativehealth;
+-	if (UNIFORMLOC < 20u) {
+-		parameters.x = UNITUNIFORMS.userDefined[0].y;
+-	} else {
+-		float buildprogress = UNITUNIFORMS.userDefined[0].x;
+-		#ifndef DEBUGSHOW
+-			if (abs(buildprogress - relativehealth) < 0.03) {
+-				numvertices = 0u;
+-			}
+-		#endif
+-	}
+-
+-	if (UNIFORMLOC < 4u) parameters.x = UNITUNIFORMS.userDefined[0][UNIFORMLOC];
+-	if (UNIFORMLOC == 1u) parameters.x = UNITUNIFORMS.userDefined[0].y;
+-	if (UNIFORMLOC == 2u) parameters.x = UNITUNIFORMS.userDefined[0].z;
+-	if (UNIFORMLOC == 4u) parameters.x = UNITUNIFORMS.userDefined[1].x;
+-	if (UNIFORMLOC == 5u) parameters.x = UNITUNIFORMS.userDefined[1].y;
+-
+-	if ((BARTYPE & BITGETPROGRESS) > 0u) {
+-		parameters.x = ((timeInfo.x + timeInfo.w) - UNITUNIFORMS.userDefined[0].z) /
+-			(UNITUNIFORMS.userDefined[0].w - UNITUNIFORMS.userDefined[0].z);
+-		parameters.x = clamp(parameters.x, 0.0, 1.0);
+-	}
+-
+-	float health = parameters.x;
+-	float barAlpha = parameters.y;
+-	float glyphAlpha = parameters.z;
+-	float uvoffset = parameters.w;
+-	float sizemultiplier = sizemodifiers.x * globalSizeMult;
+-	float zoffset = 1.15 * BARHEIGHT * float(bartype_index_ssboloc.y);
+-	mat3 rotY = mat3(cameraViewInv[0].xyz, cameraViewInv[2].xyz, cameraViewInv[1].xyz);
+-
+-	if (numvertices == 0u || barAlpha < MINALPHA) {
+-		HideVertex();
+-		return;
+-	}
+-
+-	#ifndef DEBUGSHOW
+-		if (health < 0.00001) {
+-			HideVertex();
+-			return;
+-		}
+-		if ((BARTYPE & BITPERCENTAGE) > 0u) {
+-			if (health > 0.999) {
+-				HideVertex();
+-				return;
+-			}
+-		} else if ((BARTYPE & BITGETPROGRESS) > 0u) {
+-			if (health > 0.999) {
+-				HideVertex();
+-				return;
+-			}
+-		}
+-	#endif
+-
+-	uint numStockpiled = 0u;
+-	uint numStockpileQueued = 0u;
+-	if ((BARTYPE & BITINTEGERNUMBER) > 0u) {
+-		float oldhealth = health;
+-		health = fract(oldhealth);
+-		oldhealth = floor(oldhealth);
+-		numStockpiled = uint(floor(mod(oldhealth, 128.0)));
+-		numStockpileQueued = uint(floor(oldhealth / 128.0));
+-	}
+-
+-	if (idx < 18) {
+-		int s = StripIndexForTriangleVertex(idx);
+-		EmitBackgroundVertex(BackgroundPos(s), centerpos, rotY, zoffset, sizemultiplier, barAlpha, BARTYPE);
+-		return;
+-	}
+-
+-	vec4 truecolor = mix(mincolor, maxcolor, health);
+-
+-	if (idx < 36) {
+-		int s = StripIndexForTriangleVertex(idx - 18);
+-		truecolor.a = 0.2;
+-		vec4 topcolor = truecolor;
+-		topcolor.rgb *= BOTTOMDARKENFACTOR;
+-		vec4 color = ((s == 1) || (s == 3) || (s == 5) || (s == 7)) ? topcolor : truecolor;
+-		EmitBarVertex(BarBackgroundPos(s), color, 0.0, centerpos, rotY, zoffset, sizemultiplier, barAlpha, 0.0);
+-		return;
+-	}
+-
+-	float healthbasedpos = (2.0 * (BARWIDTH - BARCORNER) - 2.0 * SMALLERCORNER) * health;
+-	if ((BARTYPE & BITTIMELEFT) > 0u) {
+-		healthbasedpos = 2.0 * (BARWIDTH - BARCORNER) - 2.0 * SMALLERCORNER;
+-	}
+-	if ((BARTYPE & BITCOLORCORRECT) > 0u) {
+-		truecolor.rgb = truecolor.rgb / max(truecolor.r, truecolor.g);
+-	}
+-	truecolor.a = 1.0;
+-	vec4 botcolor = truecolor;
+-	botcolor.rgb *= BOTTOMDARKENFACTOR;
+-	float bartextureoffset = 0.0;
+-	if ((BARTYPE & BITUSEOVERLAY) > 0u) {
+-		bartextureoffset = uvoffset;
+-	}
+-
+-	if (idx < 54) {
+-		int s = StripIndexForTriangleVertex(idx - 36);
+-		vec4 color = ((s == 1) || (s == 3) || (s == 5) || (s == 7)) ? truecolor : botcolor;
+-		EmitBarVertex(BarForegroundPos(s, healthbasedpos), color, bartextureoffset, centerpos, rotY, zoffset, sizemultiplier, barAlpha, -0.001);
+-		return;
+-	}
+-
+-	if (glyphAlpha < MINALPHA || skipGlyphsNumbers > 1.5) {
+-		HideVertex();
+-		return;
+-	}
+-
+-	float currentglyphpos = 1.0;
+-	bool drawGlyphIcon = false;
+-	if (skipGlyphsNumbers < 0.5) {
+-		drawGlyphIcon = ((BARTYPE & BITSHOWGLYPH) > 0u);
+-	} else {
+-		currentglyphpos = 0.0;
+-	}
+-
+-	if (idx < 60) {
+-		if (!drawGlyphIcon) {
+-			HideVertex();
+-			return;
+-		}
+-		EmitGlyphVertex(vec2(-BARWIDTH - currentglyphpos * BARHEIGHT, 0.0), vec2(ATLASSTEP, uvoffset), vec2(ATLASSTEP, ATLASSTEP), idx - 54, centerpos, rotY, zoffset, sizemultiplier, glyphAlpha);
+-		return;
+-	}
+-
+-	if ((BARTYPE & BITINTEGERNUMBER) > 0u) {
+-		vec4 numbers = vec4(numStockpiled, numStockpiled, numStockpileQueued, numStockpileQueued);
+-		numbers = numbers * vec4(1.0, 0.1, 1.0, 0.1);
+-		numbers = floor(mod(numbers, 10.0)) * ATLASSTEP;
+-
+-		if (idx < 66) {
+-			EmitGlyphVertex(vec2(-BARWIDTH - (currentglyphpos + 1.0) * BARHEIGHT, 0.0), vec2(0.0, numbers.x), vec2(ATLASSTEP, ATLASSTEP), idx - 60, centerpos, rotY, zoffset, sizemultiplier, glyphAlpha);
+-			return;
+-		}
+-		if (idx < 72 && numbers.y > 0.0) {
+-			EmitGlyphVertex(vec2(-BARWIDTH - (currentglyphpos + 2.0) * BARHEIGHT + BARHEIGHT * 0.4, 0.0), vec2(0.0, numbers.y), vec2(ATLASSTEP, ATLASSTEP), idx - 66, centerpos, rotY, zoffset, sizemultiplier, glyphAlpha);
+-			return;
+-		}
+-		HideVertex();
+-		return;
+-	}
+-
+-	if ((BARTYPE & (BITTIMELEFT | BITPERCENTAGE)) > 0u) {
+-		float lsb;
+-		float msb;
+-		float glyphpctsecatlas;
+-		if ((BARTYPE & BITTIMELEFT) > 0u) {
+-			health = (health - 1.0) / (1.0 / 40.0);
+-			lsb = abs(floor(mod(health, 10.0)));
+-			msb = abs(floor(mod(health * 0.1, 10.0)));
+-			glyphpctsecatlas = 14.0;
+-		} else {
+-			lsb = floor(mod(health * 100.0, 10.0));
+-			msb = floor(mod(health * 10.0, 10.0));
+-			glyphpctsecatlas = 11.0;
+-		}
+-
+-		if (idx < 66) {
+-			EmitGlyphVertex(vec2(-BARWIDTH - (currentglyphpos + 1.0) * BARHEIGHT, 0.0), vec2(0.0, glyphpctsecatlas * ATLASSTEP), vec2(ATLASSTEP, ATLASSTEP), idx - 60, centerpos, rotY, zoffset, sizemultiplier, glyphAlpha);
+-			return;
+-		}
+-		if (idx < 72) {
+-			EmitGlyphVertex(vec2(-BARWIDTH - (currentglyphpos + 2.0) * BARHEIGHT + BARHEIGHT * 0.2, 0.0), vec2(0.0, lsb * ATLASSTEP), vec2(ATLASSTEP, ATLASSTEP), idx - 66, centerpos, rotY, zoffset, sizemultiplier, glyphAlpha);
+-			return;
+-		}
+-		if (idx < 78 && msb > 0.0) {
+-			EmitGlyphVertex(vec2(-BARWIDTH - (currentglyphpos + 3.0) * BARHEIGHT + BARHEIGHT * 0.5, 0.0), vec2(0.0, msb * ATLASSTEP), vec2(ATLASSTEP, ATLASSTEP), idx - 72, centerpos, rotY, zoffset, sizemultiplier, glyphAlpha);
+-			return;
+-		}
+-	}
+-
+-	HideVertex();
+-}
+-)BARf534bc29de50", 13560) },
+ 	{ "luaui/shaders/screen_distortion_combine_gl4.frag.glsl", std::string_view(R"BAR75195a94b5e4(#version 150 compatibility
+ 
+ uniform sampler2D mapDepths;
+--- a/tools/lib/run94-release-source-adapter.mjs
++++ b/tools/lib/run94-release-source-adapter.mjs
+@@ -359,7 +359,8 @@
+   'luaui/include/instancevbotable_local.lua',
+   'luaui/include/nogsvao.lua',
+   'luaui/include/pip_history.lua',
+-  'luaui/shaders/healthbarsgl4_nogs.vert.glsl',
++  'luaui/barmacos/healthbars/healthbars.vert.glsl',
++  'luaui/barmacos/healthbars/healthbars.frag.glsl',
+   'luaui/shaders/screen_distortion_combine_gl4.frag.glsl',
+   'luaui/shaders/screen_distortion_combine_gl4.vert.glsl',
+ ]);
+@@ -418,7 +419,8 @@
+   }
+   exactKeys(sourcePins, inputs.map(entry => entry.path), 'Reviewed production presentation source set');
+   exactKeys(Object.fromEntries(privateSources.map(entry => [entry.path, true])), privatePresentationPaths, 'Private presentation resources');
+-  if (!widgets.length || !widgets.some(entry => entry.path === 'luaui/widgets/gui_pip_macos_minimap_overlay.lua') || !adapter) {
++  if (!['gui_pip_macos_minimap_overlay.lua', 'gui_healthbars_gl4.lua', 'api_unit_tracker_gl4.lua']
++      .every(name => widgets.some(entry => entry.path === `luaui/widgets/${name}`)) || !adapter) {
+     throw new Error('Production widget/custom PIP/helper set is incomplete');
+   }
+   const adapterAnchor = 'local helper = VFS.Include("modules/graphics/LuaShader.lua", nil, VFS.ZIP_ONLY)';
+@@ -453,7 +455,7 @@
+     receipt: {
+       schemaVersion: 1, kind: 'immutable-native-presentation-sources', lane: options.lane,
+       manifestSha256: pinned.sha256, inputs, excluded,
+-      widgetCount: widgets.length, privateIncludeCount: 4, privateShaderCount: 3,
++      widgetCount: widgets.length, privateIncludeCount: 4, privateShaderCount: 4,
+       adapterSourceSha256: adapter.sha256, adaptedSourceSha256: sha(adapted),
+       adapterTransformation: 'First exact recursive Include becomes local helper = ...; all other adapter bytes preserved.',
+       headerBytes: header.length, headerSha256: sha(header),
+--- a/tools/tests/run94-canonical-overlay-intake.test.mjs
++++ b/tools/tests/run94-canonical-overlay-intake.test.mjs
+@@ -287,9 +287,9 @@
+   const files = [
+     'LuaUI/Include/DrawPrimitiveAtUnit_NoGS_Mesh.lua', 'LuaUI/Include/InstanceVBOTable_Local.lua',
+     'LuaUI/Include/NoGSVAO.lua', 'LuaUI/Include/pip_history.lua',
+-    'LuaUI/Shaders/HealthbarsGL4_NoGS.vert.glsl',
++    'LuaUI/BARMacOS/Healthbars/healthbars.vert.glsl', 'LuaUI/BARMacOS/Healthbars/healthbars.frag.glsl',
+     'LuaUI/Shaders/screen_distortion_combine_gl4.frag.glsl', 'LuaUI/Shaders/screen_distortion_combine_gl4.vert.glsl',
+-    'LuaUI/Widgets/gui_pip_macos_minimap_overlay.lua', 'LuaUI/Widgets/api_unit_tracker_gl4.lua',
++    'LuaUI/Widgets/gui_pip_macos_minimap_overlay.lua', 'LuaUI/Widgets/api_unit_tracker_gl4.lua', 'LuaUI/Widgets/gui_healthbars_gl4.lua',
+     'modules/graphics/LuaShader.lua', 'LuaRules/Gadgets/historical.lua',
+   ];
+   const data = new Map();
+@@ -313,9 +313,9 @@
+ test('native presentation header is deterministic, exact-source pinned, and excludes historical synced code', () => {
+   const f = presentationFixture(); const args = f.args();
+   const a = generateBundledPresentationHeader(args), b = generateBundledPresentationHeader(args);
+-  assert.deepEqual(a, b); assert.equal(a.receipt.widgetCount, 2);
+-  assert.equal(a.receipt.privateIncludeCount, 4); assert.equal(a.receipt.privateShaderCount, 3);
+-  assert.equal(a.receipt.inputs.length, 10); assert.deepEqual(a.receipt.excluded, ['LuaRules/Gadgets/historical.lua']);
++  assert.deepEqual(a, b); assert.equal(a.receipt.widgetCount, 3);
++  assert.equal(a.receipt.privateIncludeCount, 4); assert.equal(a.receipt.privateShaderCount, 4);
++  assert.equal(a.receipt.inputs.length, 12); assert.deepEqual(a.receipt.excluded, ['LuaRules/Gadgets/historical.lua']);
+   assert.ok(!a.header.includes('NEVER_COMPILE_HISTORICAL_SYNCED_SOURCE'));
+   assert.ok(a.header.includes('local helper = ...')); assert.ok(a.header.includes('"\\r"'));
+   assert.throws(() => generateBundledPresentationHeader({ ...args, manifestSha256: '0'.repeat(64) }), /SHA-256 mismatch/);
+@@ -324,13 +324,17 @@
+ });
+ 
+ test('native presentation generator rejects malformed and extra resources before embedding', () => {
+-  for (const condition of ['nul', 'invalid-utf8', 'duplicate-case', 'unreviewed-include', 'diagnostic', 'symlink', 'extra-pin']) {
++  for (const condition of ['nul', 'invalid-utf8', 'duplicate-case', 'unreviewed-include', 'diagnostic', 'symlink', 'extra-pin', 'missing-healthbar', 'missing-tracker']) {
+     const f = presentationFixture();
+     if (condition === 'nul') f.set(f.files[0], Buffer.from([1, 0, 2]));
+     if (condition === 'invalid-utf8') f.set(f.files[0], Buffer.from([0xff]));
+     if (condition === 'duplicate-case') f.files.push(f.files[0].toLowerCase());
+     if (condition === 'unreviewed-include') { f.files.push('LuaUI/Include/unreviewed.lua'); f.set(f.files.at(-1), 'return true'); }
+     if (condition === 'diagnostic') { f.files.push('LuaUI/Widgets/gui_graphics_diagnostic.lua'); f.set(f.files.at(-1), 'return true'); }
++    if (condition === 'missing-healthbar' || condition === 'missing-tracker') {
++      const name = condition === 'missing-healthbar' ? 'gui_healthbars_gl4.lua' : 'api_unit_tracker_gl4.lua';
++      const file = `LuaUI/Widgets/${name}`; f.files.splice(f.files.indexOf(file), 1); f.data.delete(file);
++    }
+     const args = f.args();
+     if (condition === 'symlink') {
+       fs.renameSync(path.join(f.overlay, f.files[0]), path.join(f.root, 'linked-input'));
+@@ -359,6 +363,22 @@
+  assert(FindWidget(std::string_view("luaui/widgets/api_unit_tracker_gl4.lua\\0suffix", 43)).empty());
+  assert(FindPrivateSource("luaui/widgets/api_unit_tracker_gl4.lua").empty());
+  assert(FindWidget("luaui/include/nogsvao.lua").empty());
++ for (const auto* mode: {"M", "MmBb", "RMmBb", "MmBbR"}) {
++  assert(FindStandaloneWidget("LuaUI/Widgets/gui_healthbars_gl4.lua", mode) == FindWidget("luaui/widgets/gui_healthbars_gl4.lua"));
++  assert(FindStandaloneWidget("LuaUI/Widgets/api_unit_tracker_gl4.lua", mode) == FindWidget("luaui/widgets/api_unit_tracker_gl4.lua"));
++  assert(FindStandaloneWidget("luaui/widgets/gui_options.lua", mode).empty());
++ }
++ for (const auto* mode: {"R", "", "m", "B", "b"}) assert(FindStandaloneWidget("luaui/widgets/gui_healthbars_gl4.lua", mode).empty());
++ assert(FindStandaloneWidget("luaui/widgets/../widgets/gui_healthbars_gl4.lua", "M").empty());
++ assert(FindPrivateSource("luaui/shaders/healthbarsgl4_nogs.vert.glsl").empty());
++ assert(!FindPrivateSource("luaui/barmacos/healthbars/healthbars.vert.glsl").empty());
++ assert(!FindPrivateSource("luaui/barmacos/healthbars/healthbars.frag.glsl").empty());
++ std::vector<std::string> raw {"LuaUI/Widgets/gui_healthbars_gl4.lua", "LuaUI/Widgets/api_unit_tracker_gl4.lua", "LuaUI/Widgets/user_custom.lua"};
++ UpdateStandaloneWidgetList(raw, "R"); assert(raw.size() == 1 && raw.front() == "LuaUI/Widgets/user_custom.lua");
++ auto archive = raw; UpdateStandaloneWidgetList(archive, "MmBb"); assert(archive.size() == 3);
++ archive.emplace_back("LUAUI/WIDGETS/GUI_HEALTHBARS_GL4.LUA"); UpdateStandaloneWidgetList(archive, "MmBb"); assert(archive.size() == 3);
++ auto map = archive; UpdateStandaloneWidgetList(map, "m"); assert(map == archive);
++
+  std::vector<std::string> files {"normal.lua"}; AddDistributionWidget(files); assert(files.size() == 2); AddDistributionWidget(files); assert(files.size() == 2);
+  files.emplace_back("LUAUI/WIDGETS/GUI_PIP_MACOS_MINIMAP_OVERLAY.LUA"); AddDistributionWidget(files); assert(files.size() == 2);
+  for (const auto* version: {"433a460", "ebba846"}) {
+@@ -396,8 +416,8 @@
+ });
+ 
+ test('final pinned production tables roundtrip every compiled byte and generate actual LuaRules wrappers', () => {
+-  const pinBytes = fs.readFileSync('artifacts/validation/spring-default-1.0.2-20261018/presentation-source-pins.json');
+-  assert.equal(sha(pinBytes), '0e19907b2f5918063280a156279b01a1af966e19cb669319fcd0e5faeb28659d');
++  const pinBytes = fs.readFileSync('artifacts/validation/healthbar-standalone-1.0.3-20261018/presentation-source-pins.json');
++  assert.equal(sha(pinBytes), '5079a0899f24d79083f85aa05347581a1172cb129cbe1771e4a9f11c5a84cd68');
+   const pins = JSON.parse(pinBytes);
+   const evidence = path.resolve('artifacts/validation/release-imac-fix-20261015/provider');
+   const cpu = fs.realpathSync(fs.mkdtempSync(path.join(os.tmpdir(), 'bar-production-presentation-cpu-')));
+@@ -413,17 +433,23 @@
+     const nativeVfs = fs.readFileSync(path.join(root, 'rts/Lua/LuaVFS.cpp'), 'utf8');
+     const context = nativeVfs.slice(nativeVfs.indexOf('static bool IsUnsyncedPresentationHandle('), nativeVfs.indexOf('/*** Unified IO'));
+     assert.ok(context.includes('#ifdef __APPLE__') && context.includes('!CLuaHandle::GetHandleSynced(L)'));
+-    const nonMacContext = context.replace('IsUnsyncedPresentationHandle', 'DisabledPresentationHandle').replace('#ifdef __APPLE__', '#if 0');
++    const nonMacContext = context.replaceAll('IsUnsyncedPresentationHandle', 'DisabledPresentationHandle').replaceAll('IsUnsyncedBARPresentationHandle', 'DisabledBARPresentationHandle').replace('#ifdef __APPLE__', '#if 0');
+     fs.writeFileSync(cpp, `#include <cassert>\n#include <iostream>\n#include <fstream>\n#include <iterator>\n#include "Lua/LuaBundledPresentation.h"\n
+ struct lua_State;
+ struct CLuaHandle { std::string name; const std::string& GetName() const { return name; } static CLuaHandle* GetHandle(lua_State*); static bool GetHandleSynced(lua_State*); };
+ struct lua_State { CLuaHandle* owner; bool synced; const char* spoofedScriptName; };
+ CLuaHandle* CLuaHandle::GetHandle(lua_State* L) { return L->owner; } bool CLuaHandle::GetHandleSynced(lua_State* L) { return L->synced; }
++struct { std::string shortName = "BYAR"; } modInfo;
+ ${context}\n${nonMacContext}\n
+ void Print(std::string_view path, std::string_view text) { sha512::raw_digest raw{}; sha512::hex_digest hex{}; sha512::calc_digest(reinterpret_cast<const uint8_t*>(text.data()), text.size(), raw.data()); sha512::dump_digest(raw, hex); std::cout << path << "\\t" << text.size() << "\\t" << hex.data() << "\\n"; }
+ int main(int argc, char** argv) {
+  CLuaHandle ui {"LuaUI"}, rules {"LuaRules"}, intro {"LuaIntro"};
+  lua_State L {&ui, false, "LuaRules"}; assert(IsUnsyncedPresentationHandle(&L, "LuaUI")); assert(!DisabledPresentationHandle(&L, "LuaUI"));
++ assert(IsUnsyncedBARPresentationHandle(&L)); assert(!DisabledBARPresentationHandle(&L));
++ modInfo.shortName = "OTHER"; assert(!IsUnsyncedBARPresentationHandle(&L)); modInfo.shortName = "BYAR";
++ L.synced = true; assert(!IsUnsyncedBARPresentationHandle(&L)); L.synced = false;
++ L.owner = &rules; L.spoofedScriptName = "LuaUI"; assert(!IsUnsyncedBARPresentationHandle(&L)); L.owner = &ui;
++
+  L.synced = true; assert(!IsUnsyncedPresentationHandle(&L, "LuaUI")); L.synced = false;
+  L.owner = &rules; L.spoofedScriptName = "LuaUI"; assert(!IsUnsyncedPresentationHandle(&L, "LuaUI")); assert(IsUnsyncedPresentationHandle(&L, "LuaRules"));
+  L.owner = &intro; assert(!IsUnsyncedPresentationHandle(&L, "LuaUI")); L.owner = nullptr; assert(!IsUnsyncedPresentationHandle(&L, "LuaUI"));
+--- a/sources/bar-lobby/package.json
++++ b/sources/bar-lobby/package.json
+@@ -1,7 +1,7 @@
+ {
+     "name": "bar-lobby",
+     "type": "module",
+-    "version": "1.0.2",
++    "version": "1.0.3",
+     "private": true,
+     "description": "Lobby client for the RTS game Beyond All Reason",
+     "author": "The BAR Lobby Authors",
+--- a/sources/bar-lobby/package-lock.json
++++ b/sources/bar-lobby/package-lock.json
+@@ -1,12 +1,12 @@
+ {
+     "name": "bar-lobby",
+-    "version": "1.0.2",
++    "version": "1.0.3",
+     "lockfileVersion": 3,
+     "requires": true,
+     "packages": {
+         "": {
+             "name": "bar-lobby",
+-            "version": "1.0.2",
++            "version": "1.0.3",
+             "hasInstallScript": true,
+             "license": "SEE LICENSE IN LICENSE.md",
+             "dependencies": {
+--- a/sources/bar-lobby/electron-builder.ts
++++ b/sources/bar-lobby/electron-builder.ts
+@@ -9,15 +9,15 @@
+ // Reviewed experimental release inputs. The external lock remains mandatory;
+ // protected local candidates are not modified by this packaging configuration.
+ const bundledAssets = createPinnedBundledAssets(process.env, {
+-    id: "spring-default-1.0.2-20261018",
++    id: "healthbar-standalone-1.0.3-20261018",
+     lanes: {
+         "bar-chobby": {
+             engineDirectory: "2026.07.04",
+-            springSha256: "d270745ef970a6c440dae7cef453b58a9a87334c0e28f4974f7465cdd475bae3",
++            springSha256: "5416abb83d5611c22e8a2c4b841b8647d5c6f2f4ef59f9b304d9b909edc0daa8",
+         },
+         "bar-lobby": {
+             engineDirectory: "2026.09.01-24-g01efdf4 master",
+-            springSha256: "777d409bc6561c503d2ab0c833078af453f6c0a27060e9f582caed378daa71fb",
++            springSha256: "7d32a46c5d0e95be1f06291757c84cdddb49c2d5b9136eab6696751076d23ae7",
+         },
+     },
+ });
+@@ -30,9 +30,9 @@
+     // Should be the same as APP_NAME in src/main/config/app.ts and in
+     // workaround in installer.nsh.
+     productName: "BAR",
+-    buildVersion: "1.0.2",
++    buildVersion: "1.0.3",
+     extraMetadata: {
+-        version: "1.0.2",
++        version: "1.0.3",
+         repository: { type: "git", url: "https://github.com/yeojuny/bar-lobby-apple-silicon.git" },
+     },
+ 
+--- a/sources/bar-lobby/bundled-assets/macos-luaui-overlays/bar-lobby/manifest.json
++++ b/sources/bar-lobby/bundled-assets/macos-luaui-overlays/bar-lobby/manifest.json
+@@ -10,7 +10,8 @@
+     "LuaUI/Include/InstanceVBOTable_Local.lua",
+     "LuaUI/Include/NoGSVAO.lua",
+     "LuaUI/Include/pip_history.lua",
+-    "LuaUI/Shaders/HealthbarsGL4_NoGS.vert.glsl",
++    "LuaUI/BARMacOS/Healthbars/healthbars.vert.glsl",
++    "LuaUI/BARMacOS/Healthbars/healthbars.frag.glsl",
+     "LuaUI/Shaders/screen_distortion_combine_gl4.frag.glsl",
+     "LuaUI/Shaders/screen_distortion_combine_gl4.vert.glsl",
+     "LuaUI/Widgets/api_unit_tracker_gl4.lua",
+@@ -237,5 +238,16 @@
+     "checks": "Current deferred map/model and AdvMapShading settings, plus the official actual-advanced-shading check, at each InitGL",
+     "unmatchedArchivePolicy": "Run official widget unchanged with one load-time notice",
+     "acceptance": "CPU validated in Recoil Lua 5.1 and Lua 5.4; independent review and app acceptance pending"
++  },
++  "healthbarDelivery": {
++    "revision": "healthbar-standalone-1.0.3-20261018",
++    "scope": "Actual unsynced BAR LuaUI only; immutable healthbar and unit-tracker widgets through ordinary archive loading",
++    "shaders": [
++      "LuaUI/BARMacOS/Healthbars/healthbars.vert.glsl",
++      "LuaUI/BARMacOS/Healthbars/healthbars.frag.glsl"
++    ],
++    "wholeHandlerHashRequired": false,
++    "rawWidgetPrivilegesChanged": false,
++    "officialArchivesChanged": false
+   }
+ }
+--- a/sources/bar-lobby/bundled-assets/macos-luaui-overlays/bar-lobby/LuaUI/Widgets/gui_healthbars_gl4.lua
++++ b/sources/bar-lobby/bundled-assets/macos-luaui-overlays/bar-lobby/LuaUI/Widgets/gui_healthbars_gl4.lua
+@@ -460,8 +460,8 @@
+ 	shaderConfig.DEBUGSHOW = 1 -- comment this to always show all bars
+ end
+ 
+-local vsSrcPath = "LuaUI/Shaders/HealthbarsGL4_NoGS.vert.glsl"
+-local fsSrcPath = "LuaUI/Shaders/HealthbarsGL4.frag.glsl"
++local vsSrcPath = "LuaUI/BARMacOS/Healthbars/healthbars.vert.glsl"
++local fsSrcPath = "LuaUI/BARMacOS/Healthbars/healthbars.frag.glsl"
+ 
+ local shaderSourceCache = {
+ 		vssrcpath = vsSrcPath,
+--- a/sources/bar-lobby/bundled-assets/macos-luaui-overlays/bar-lobby/LuaUI/Shaders/HealthbarsGL4_NoGS.vert.glsl
++++ /dev/null
+@@ -1,417 +0,0 @@
+-#version 420
+-#extension GL_ARB_uniform_buffer_object : require
+-#extension GL_ARB_shader_storage_buffer_object : require
+-#extension GL_ARB_shading_language_420pack: require
+-
+-// macOS NoGS adaptation of BAR's HealthbarsGL4 vertex+geometry pipeline.
+-// Keeps the official instance attributes and fragment shader contract.
+-#line 5000
+-
+-layout (location = 0) in vec4 height_timers;
+-layout (location = 1) in uvec4 bartype_index_ssboloc;
+-layout (location = 2) in vec4 mincolor;
+-layout (location = 3) in vec4 maxcolor;
+-layout (location = 4) in uvec4 instData;
+-layout (location = 5) in float shapeIndex;
+-
+-//__ENGINEUNIFORMBUFFERDEFS__
+-//__DEFINES__
+-
+-struct SUniformsBuffer {
+-	uint composite;
+-
+-	uint unused2;
+-	uint unused3;
+-	uint unused4;
+-
+-	float maxHealth;
+-	float health;
+-	float unused5;
+-	float unused6;
+-
+-	vec4 drawPos;
+-	vec4 speed;
+-	vec4[4] userDefined;
+-};
+-
+-layout(std140, binding=1) readonly buffer UniformsBuffer {
+-	SUniformsBuffer uni[];
+-};
+-
+-#line 10000
+-
+-uniform float iconDistance;
+-uniform float cameraDistanceMult;
+-uniform float cameraDistanceMultGlyph;
+-uniform float skipGlyphsNumbers;
+-uniform float globalSizeMult;
+-
+-out DataGS {
+-	vec4 g_color;
+-	vec4 g_uv;
+-};
+-
+-#define UNITUNIFORMS uni[instData.y]
+-#define UNIFORMLOC bartype_index_ssboloc.z
+-#define BARTYPE bartype_index_ssboloc.x
+-
+-#define BITUSEOVERLAY 1u
+-#define BITSHOWGLYPH 2u
+-#define BITPERCENTAGE 4u
+-#define BITTIMELEFT 8u
+-#define BITINTEGERNUMBER 16u
+-#define BITGETPROGRESS 32u
+-#define BITFLASHBAR 64u
+-#define BITCOLORCORRECT 128u
+-
+-#define HALFPIXEL 0.0019765625
+-
+-bool vertexClipped(vec4 clipspace, float tolerance)
+-{
+-	return any(lessThan(clipspace.xyz, -clipspace.www * tolerance)) ||
+-	       any(greaterThan(clipspace.xyz, clipspace.www * tolerance));
+-}
+-
+-void HideVertex()
+-{
+-	gl_Position = vec4(0.0, 0.0, 2.0, 1.0);
+-	g_color = vec4(0.0);
+-	g_uv = vec4(0.0);
+-}
+-
+-int StripIndexForTriangleVertex(int i)
+-{
+-	if (i == 0) return 0;
+-	if (i == 1) return 1;
+-	if (i == 2) return 2;
+-	if (i == 3) return 2;
+-	if (i == 4) return 1;
+-	if (i == 5) return 3;
+-	if (i == 6) return 2;
+-	if (i == 7) return 3;
+-	if (i == 8) return 4;
+-	if (i == 9) return 4;
+-	if (i == 10) return 3;
+-	if (i == 11) return 5;
+-	if (i == 12) return 4;
+-	if (i == 13) return 5;
+-	if (i == 14) return 6;
+-	if (i == 15) return 6;
+-	if (i == 16) return 5;
+-	return 7;
+-}
+-
+-int QuadIndexForTriangleVertex(int i)
+-{
+-	if (i == 0) return 0;
+-	if (i == 1) return 1;
+-	if (i == 2) return 2;
+-	if (i == 3) return 2;
+-	if (i == 4) return 1;
+-	return 3;
+-}
+-
+-vec2 BackgroundPos(int s)
+-{
+-	if (s == 0) return vec2(-BARWIDTH, BARCORNER);
+-	if (s == 1) return vec2(-BARWIDTH, BARHEIGHT - BARCORNER);
+-	if (s == 2) return vec2(-BARWIDTH + BARCORNER, 0.0);
+-	if (s == 3) return vec2(-BARWIDTH + BARCORNER, BARHEIGHT);
+-	if (s == 4) return vec2(BARWIDTH - BARCORNER, 0.0);
+-	if (s == 5) return vec2(BARWIDTH - BARCORNER, BARHEIGHT);
+-	if (s == 6) return vec2(BARWIDTH, BARCORNER);
+-	return vec2(BARWIDTH, BARHEIGHT - BARCORNER);
+-}
+-
+-vec2 BarBackgroundPos(int s)
+-{
+-	if (s == 0) return vec2(-BARWIDTH + BARCORNER, SMALLERCORNER + BARCORNER);
+-	if (s == 1) return vec2(-BARWIDTH + BARCORNER, BARHEIGHT - SMALLERCORNER - BARCORNER);
+-	if (s == 2) return vec2(-BARWIDTH + SMALLERCORNER + BARCORNER, BARCORNER);
+-	if (s == 3) return vec2(-BARWIDTH + SMALLERCORNER + BARCORNER, BARHEIGHT - BARCORNER);
+-	if (s == 4) return vec2(BARWIDTH - SMALLERCORNER - BARCORNER, BARCORNER);
+-	if (s == 5) return vec2(BARWIDTH - SMALLERCORNER - BARCORNER, BARHEIGHT - BARCORNER);
+-	if (s == 6) return vec2(BARWIDTH - BARCORNER, SMALLERCORNER + BARCORNER);
+-	return vec2(BARWIDTH - BARCORNER, BARHEIGHT - SMALLERCORNER - BARCORNER);
+-}
+-
+-vec2 BarForegroundPos(int s, float healthbasedpos)
+-{
+-	if (s == 0) return vec2(-BARWIDTH + BARCORNER, SMALLERCORNER + BARCORNER);
+-	if (s == 1) return vec2(-BARWIDTH + BARCORNER, BARHEIGHT - BARCORNER - SMALLERCORNER);
+-	if (s == 2) return vec2(-BARWIDTH + BARCORNER + SMALLERCORNER, BARCORNER);
+-	if (s == 3) return vec2(-BARWIDTH + BARCORNER + SMALLERCORNER, BARHEIGHT - BARCORNER);
+-	if (s == 4) return vec2(-BARWIDTH + BARCORNER + SMALLERCORNER + healthbasedpos, BARCORNER);
+-	if (s == 5) return vec2(-BARWIDTH + BARCORNER + SMALLERCORNER + healthbasedpos, BARHEIGHT - BARCORNER);
+-	if (s == 6) return vec2(-BARWIDTH + BARCORNER + 2.0 * SMALLERCORNER + healthbasedpos, BARCORNER + SMALLERCORNER);
+-	return vec2(-BARWIDTH + BARCORNER + 2.0 * SMALLERCORNER + healthbasedpos, BARHEIGHT - BARCORNER - SMALLERCORNER);
+-}
+-
+-vec4 ProjectBarVertex(vec2 pos, vec4 centerpos, mat3 rotY, float zoffset, float sizemultiplier, float depthbuffermod)
+-{
+-	vec3 primitiveCoords = vec3(pos.x, 0.0, pos.y - zoffset) * BARSCALE * sizemultiplier;
+-	vec4 clip = cameraViewProj * vec4(centerpos.xyz + rotY * primitiveCoords, 1.0);
+-	clip.z += depthbuffermod;
+-	return clip;
+-}
+-
+-void EmitBackgroundVertex(vec2 pos, vec4 centerpos, mat3 rotY, float zoffset, float sizemultiplier, float barAlpha, uint bartype)
+-{
+-	g_uv.xy = vec2(0.0);
+-	g_uv.z = 0.0;
+-	float extracolor = 0.0;
+-	if (((bartype & BITFLASHBAR) > 0u) && (mod(timeInfo.x, 10.0) > 4.0)) {
+-		extracolor = 0.5;
+-	}
+-	g_color = mix(BGBOTTOMCOLOR + extracolor, BGTOPCOLOR + extracolor, pos.y);
+-	g_color.a *= barAlpha;
+-	gl_Position = ProjectBarVertex(pos, centerpos, rotY, zoffset, sizemultiplier, 0.001);
+-}
+-
+-void EmitBarVertex(vec2 pos, vec4 color, float bartextureoffset, vec4 centerpos, mat3 rotY, float zoffset, float sizemultiplier, float barAlpha, float depthbuffermod)
+-{
+-	g_uv.x = pos.x * 1.0 / (2.0 * (BARWIDTH - BARCORNER));
+-	g_uv.x = g_uv.x + 0.5;
+-	g_uv.y = (pos.y - BARCORNER) / (BARHEIGHT - 2.0 * BARCORNER);
+-	g_uv.xy = g_uv.xy * vec2(ATLASSTEP * 9.0, ATLASSTEP) + vec2(3.0 * ATLASSTEP, bartextureoffset);
+-	g_uv.y = -1.0 * g_uv.y;
+-	g_uv.z = clamp(10000.0 * bartextureoffset, 0.0, 1.0);
+-	g_color = color;
+-	g_color.a *= barAlpha;
+-	gl_Position = ProjectBarVertex(pos, centerpos, rotY, zoffset, sizemultiplier, depthbuffermod);
+-}
+-
+-void EmitGlyphVertex(vec2 bottomleft, vec2 uvbottomleft, vec2 uvsizes, int triangleVertex, vec4 centerpos, mat3 rotY, float zoffset, float sizemultiplier, float glyphAlpha)
+-{
+-	int q = QuadIndexForTriangleVertex(triangleVertex);
+-	vec2 pos = bottomleft;
+-	vec2 uv = uvbottomleft;
+-	if (q == 1) {
+-		pos.y += BARHEIGHT;
+-		uv.y += uvsizes.y;
+-	} else if (q == 2) {
+-		pos.x += BARHEIGHT;
+-		uv.x += uvsizes.x;
+-	} else if (q == 3) {
+-		pos += vec2(BARHEIGHT, BARHEIGHT);
+-		uv += uvsizes;
+-	}
+-
+-	vec2 halfAdjust = vec2((q == 2 || q == 3) ? -HALFPIXEL : HALFPIXEL, (q == 1 || q == 3) ? -HALFPIXEL : HALFPIXEL);
+-	g_uv.xy = vec2(uv.x + halfAdjust.x, 1.0 - (uv.y + halfAdjust.y));
+-	g_uv.z = 1.0;
+-	g_color = vec4(1.0);
+-	g_color.a *= glyphAlpha;
+-	gl_Position = ProjectBarVertex(pos, centerpos, rotY, zoffset, sizemultiplier, 0.0);
+-}
+-
+-void main()
+-{
+-	int idx = int(shapeIndex + 0.5);
+-
+-	vec4 drawPos = vec4(UNITUNIFORMS.drawPos.xyz, 1.0);
+-	vec4 centerpos = drawPos;
+-	uint numvertices = 4u;
+-	vec4 centerClip = cameraViewProj * drawPos;
+-	if (vertexClipped(centerClip, CLIPTOLERANCE)) {
+-		numvertices = 0u;
+-	}
+-
+-	float cameraDistance = length(cameraViewInv[3].xyz - centerpos.xyz);
+-	vec4 parameters = vec4(0.0);
+-	parameters.y = (clamp(cameraDistance * cameraDistanceMult, BARFADESTART, BARFADEEND) - BARFADESTART) / (BARFADEEND - BARFADESTART);
+-	parameters.y = 1.0 - clamp(parameters.y, 0.0, 1.0);
+-	parameters.z = (clamp(cameraDistance * cameraDistanceMult * cameraDistanceMultGlyph, BARFADESTART, BARFADEEND) - BARFADESTART) / (BARFADEEND - BARFADESTART);
+-	parameters.z = 1.0 - clamp(parameters.z, 0.0, 1.0);
+-
+-	#ifdef DEBUGSHOW
+-		parameters.y = 1.0;
+-		parameters.z = 1.0;
+-	#endif
+-
+-	parameters.w = height_timers.w;
+-	vec2 sizemodifiers = height_timers.yz;
+-
+-	if (dot(centerpos.xyz, centerpos.xyz) < 1.0) {
+-		numvertices = 0u;
+-	}
+-
+-	centerpos.y += HEIGHTOFFSET;
+-	centerpos.y += height_timers.x;
+-
+-	float relativehealth = UNITUNIFORMS.health / UNITUNIFORMS.maxHealth;
+-	parameters.x = relativehealth;
+-	if (UNIFORMLOC < 20u) {
+-		parameters.x = UNITUNIFORMS.userDefined[0].y;
+-	} else {
+-		float buildprogress = UNITUNIFORMS.userDefined[0].x;
+-		#ifndef DEBUGSHOW
+-			if (abs(buildprogress - relativehealth) < 0.03) {
+-				numvertices = 0u;
+-			}
+-		#endif
+-	}
+-
+-	if (UNIFORMLOC < 4u) parameters.x = UNITUNIFORMS.userDefined[0][UNIFORMLOC];
+-	if (UNIFORMLOC == 1u) parameters.x = UNITUNIFORMS.userDefined[0].y;
+-	if (UNIFORMLOC == 2u) parameters.x = UNITUNIFORMS.userDefined[0].z;
+-	if (UNIFORMLOC == 4u) parameters.x = UNITUNIFORMS.userDefined[1].x;
+-	if (UNIFORMLOC == 5u) parameters.x = UNITUNIFORMS.userDefined[1].y;
+-
+-	if ((BARTYPE & BITGETPROGRESS) > 0u) {
+-		parameters.x = ((timeInfo.x + timeInfo.w) - UNITUNIFORMS.userDefined[0].z) /
+-			(UNITUNIFORMS.userDefined[0].w - UNITUNIFORMS.userDefined[0].z);
+-		parameters.x = clamp(parameters.x, 0.0, 1.0);
+-	}
+-
+-	float health = parameters.x;
+-	float barAlpha = parameters.y;
+-	float glyphAlpha = parameters.z;
+-	float uvoffset = parameters.w;
+-	float sizemultiplier = sizemodifiers.x * globalSizeMult;
+-	float zoffset = 1.15 * BARHEIGHT * float(bartype_index_ssboloc.y);
+-	mat3 rotY = mat3(cameraViewInv[0].xyz, cameraViewInv[2].xyz, cameraViewInv[1].xyz);
+-
+-	if (numvertices == 0u || barAlpha < MINALPHA) {
+-		HideVertex();
+-		return;
+-	}
+-
+-	#ifndef DEBUGSHOW
+-		if (health < 0.00001) {
+-			HideVertex();
+-			return;
+-		}
+-		if ((BARTYPE & BITPERCENTAGE) > 0u) {
+-			if (health > 0.999) {
+-				HideVertex();
+-				return;
+-			}
+-		} else if ((BARTYPE & BITGETPROGRESS) > 0u) {
+-			if (health > 0.999) {
+-				HideVertex();
+-				return;
+-			}
+-		}
+-	#endif
+-
+-	uint numStockpiled = 0u;
+-	uint numStockpileQueued = 0u;
+-	if ((BARTYPE & BITINTEGERNUMBER) > 0u) {
+-		float oldhealth = health;
+-		health = fract(oldhealth);
+-		oldhealth = floor(oldhealth);
+-		numStockpiled = uint(floor(mod(oldhealth, 128.0)));
+-		numStockpileQueued = uint(floor(oldhealth / 128.0));
+-	}
+-
+-	if (idx < 18) {
+-		int s = StripIndexForTriangleVertex(idx);
+-		EmitBackgroundVertex(BackgroundPos(s), centerpos, rotY, zoffset, sizemultiplier, barAlpha, BARTYPE);
+-		return;
+-	}
+-
+-	vec4 truecolor = mix(mincolor, maxcolor, health);
+-
+-	if (idx < 36) {
+-		int s = StripIndexForTriangleVertex(idx - 18);
+-		truecolor.a = 0.2;
+-		vec4 topcolor = truecolor;
+-		topcolor.rgb *= BOTTOMDARKENFACTOR;
+-		vec4 color = ((s == 1) || (s == 3) || (s == 5) || (s == 7)) ? topcolor : truecolor;
+-		EmitBarVertex(BarBackgroundPos(s), color, 0.0, centerpos, rotY, zoffset, sizemultiplier, barAlpha, 0.0);
+-		return;
+-	}
+-
+-	float healthbasedpos = (2.0 * (BARWIDTH - BARCORNER) - 2.0 * SMALLERCORNER) * health;
+-	if ((BARTYPE & BITTIMELEFT) > 0u) {
+-		healthbasedpos = 2.0 * (BARWIDTH - BARCORNER) - 2.0 * SMALLERCORNER;
+-	}
+-	if ((BARTYPE & BITCOLORCORRECT) > 0u) {
+-		truecolor.rgb = truecolor.rgb / max(truecolor.r, truecolor.g);
+-	}
+-	truecolor.a = 1.0;
+-	vec4 botcolor = truecolor;
+-	botcolor.rgb *= BOTTOMDARKENFACTOR;
+-	float bartextureoffset = 0.0;
+-	if ((BARTYPE & BITUSEOVERLAY) > 0u) {
+-		bartextureoffset = uvoffset;
+-	}
+-
+-	if (idx < 54) {
+-		int s = StripIndexForTriangleVertex(idx - 36);
+-		vec4 color = ((s == 1) || (s == 3) || (s == 5) || (s == 7)) ? truecolor : botcolor;
+-		EmitBarVertex(BarForegroundPos(s, healthbasedpos), color, bartextureoffset, centerpos, rotY, zoffset, sizemultiplier, barAlpha, -0.001);
+-		return;
+-	}
+-
+-	if (glyphAlpha < MINALPHA || skipGlyphsNumbers > 1.5) {
+-		HideVertex();
+-		return;
+-	}
+-
+-	float currentglyphpos = 1.0;
+-	bool drawGlyphIcon = false;
+-	if (skipGlyphsNumbers < 0.5) {
+-		drawGlyphIcon = ((BARTYPE & BITSHOWGLYPH) > 0u);
+-	} else {
+-		currentglyphpos = 0.0;
+-	}
+-
+-	if (idx < 60) {
+-		if (!drawGlyphIcon) {
+-			HideVertex();
+-			return;
+-		}
+-		EmitGlyphVertex(vec2(-BARWIDTH - currentglyphpos * BARHEIGHT, 0.0), vec2(ATLASSTEP, uvoffset), vec2(ATLASSTEP, ATLASSTEP), idx - 54, centerpos, rotY, zoffset, sizemultiplier, glyphAlpha);
+-		return;
+-	}
+-
+-	if ((BARTYPE & BITINTEGERNUMBER) > 0u) {
+-		vec4 numbers = vec4(numStockpiled, numStockpiled, numStockpileQueued, numStockpileQueued);
+-		numbers = numbers * vec4(1.0, 0.1, 1.0, 0.1);
+-		numbers = floor(mod(numbers, 10.0)) * ATLASSTEP;
+-
+-		if (idx < 66) {
+-			EmitGlyphVertex(vec2(-BARWIDTH - (currentglyphpos + 1.0) * BARHEIGHT, 0.0), vec2(0.0, numbers.x), vec2(ATLASSTEP, ATLASSTEP), idx - 60, centerpos, rotY, zoffset, sizemultiplier, glyphAlpha);
+-			return;
+-		}
+-		if (idx < 72 && numbers.y > 0.0) {
+-			EmitGlyphVertex(vec2(-BARWIDTH - (currentglyphpos + 2.0) * BARHEIGHT + BARHEIGHT * 0.4, 0.0), vec2(0.0, numbers.y), vec2(ATLASSTEP, ATLASSTEP), idx - 66, centerpos, rotY, zoffset, sizemultiplier, glyphAlpha);
+-			return;
+-		}
+-		HideVertex();
+-		return;
+-	}
+-
+-	if ((BARTYPE & (BITTIMELEFT | BITPERCENTAGE)) > 0u) {
+-		float lsb;
+-		float msb;
+-		float glyphpctsecatlas;
+-		if ((BARTYPE & BITTIMELEFT) > 0u) {
+-			health = (health - 1.0) / (1.0 / 40.0);
+-			lsb = abs(floor(mod(health, 10.0)));
+-			msb = abs(floor(mod(health * 0.1, 10.0)));
+-			glyphpctsecatlas = 14.0;
+-		} else {
+-			lsb = floor(mod(health * 100.0, 10.0));
+-			msb = floor(mod(health * 10.0, 10.0));
+-			glyphpctsecatlas = 11.0;
+-		}
+-
+-		if (idx < 66) {
+-			EmitGlyphVertex(vec2(-BARWIDTH - (currentglyphpos + 1.0) * BARHEIGHT, 0.0), vec2(0.0, glyphpctsecatlas * ATLASSTEP), vec2(ATLASSTEP, ATLASSTEP), idx - 60, centerpos, rotY, zoffset, sizemultiplier, glyphAlpha);
+-			return;
+-		}
+-		if (idx < 72) {
+-			EmitGlyphVertex(vec2(-BARWIDTH - (currentglyphpos + 2.0) * BARHEIGHT + BARHEIGHT * 0.2, 0.0), vec2(0.0, lsb * ATLASSTEP), vec2(ATLASSTEP, ATLASSTEP), idx - 66, centerpos, rotY, zoffset, sizemultiplier, glyphAlpha);
+-			return;
+-		}
+-		if (idx < 78 && msb > 0.0) {
+-			EmitGlyphVertex(vec2(-BARWIDTH - (currentglyphpos + 3.0) * BARHEIGHT + BARHEIGHT * 0.5, 0.0), vec2(0.0, msb * ATLASSTEP), vec2(ATLASSTEP, ATLASSTEP), idx - 72, centerpos, rotY, zoffset, sizemultiplier, glyphAlpha);
+-			return;
+-		}
+-	}
+-
+-	HideVertex();
+-}
+--- a/sources/bar-lobby/bundled-assets/macos-luaui-overlays/bar-chobby/manifest.json
++++ b/sources/bar-lobby/bundled-assets/macos-luaui-overlays/bar-chobby/manifest.json
+@@ -7,7 +7,8 @@
+     "LuaUI/Include/InstanceVBOTable_Local.lua",
+     "LuaUI/Include/NoGSVAO.lua",
+     "LuaUI/Include/pip_history.lua",
+-    "LuaUI/Shaders/HealthbarsGL4_NoGS.vert.glsl",
++    "LuaUI/BARMacOS/Healthbars/healthbars.vert.glsl",
++    "LuaUI/BARMacOS/Healthbars/healthbars.frag.glsl",
+     "LuaUI/Shaders/screen_distortion_combine_gl4.frag.glsl",
+     "LuaUI/Shaders/screen_distortion_combine_gl4.vert.glsl",
+     "LuaUI/Widgets/api_unit_tracker_gl4.lua",
+@@ -234,5 +235,16 @@
+     "checks": "Current deferred map/model and AdvMapShading settings, plus the official actual-advanced-shading check, at each InitGL",
+     "unmatchedArchivePolicy": "Run official widget unchanged with one load-time notice",
+     "acceptance": "CPU validated in Recoil Lua 5.1 and Lua 5.4; independent review and app acceptance pending"
++  },
++  "healthbarDelivery": {
++    "revision": "healthbar-standalone-1.0.3-20261018",
++    "scope": "Actual unsynced BAR LuaUI only; immutable healthbar and unit-tracker widgets through ordinary archive loading",
++    "shaders": [
++      "LuaUI/BARMacOS/Healthbars/healthbars.vert.glsl",
++      "LuaUI/BARMacOS/Healthbars/healthbars.frag.glsl"
++    ],
++    "wholeHandlerHashRequired": false,
++    "rawWidgetPrivilegesChanged": false,
++    "officialArchivesChanged": false
+   }
+ }
+--- a/sources/bar-lobby/bundled-assets/macos-luaui-overlays/bar-chobby/LuaUI/Widgets/gui_healthbars_gl4.lua
++++ b/sources/bar-lobby/bundled-assets/macos-luaui-overlays/bar-chobby/LuaUI/Widgets/gui_healthbars_gl4.lua
+@@ -460,8 +460,8 @@
+ 	shaderConfig.DEBUGSHOW = 1 -- comment this to always show all bars
+ end
+ 
+-local vsSrcPath = "LuaUI/Shaders/HealthbarsGL4_NoGS.vert.glsl"
+-local fsSrcPath = "LuaUI/Shaders/HealthbarsGL4.frag.glsl"
++local vsSrcPath = "LuaUI/BARMacOS/Healthbars/healthbars.vert.glsl"
++local fsSrcPath = "LuaUI/BARMacOS/Healthbars/healthbars.frag.glsl"
+ 
+ local shaderSourceCache = {
+ 		vssrcpath = vsSrcPath,
+--- a/sources/bar-lobby/bundled-assets/macos-luaui-overlays/bar-chobby/LuaUI/Shaders/HealthbarsGL4_NoGS.vert.glsl
++++ /dev/null
+@@ -1,417 +0,0 @@
+-#version 420
+-#extension GL_ARB_uniform_buffer_object : require
+-#extension GL_ARB_shader_storage_buffer_object : require
+-#extension GL_ARB_shading_language_420pack: require
+-
+-// macOS NoGS adaptation of BAR's HealthbarsGL4 vertex+geometry pipeline.
+-// Keeps the official instance attributes and fragment shader contract.
+-#line 5000
+-
+-layout (location = 0) in vec4 height_timers;
+-layout (location = 1) in uvec4 bartype_index_ssboloc;
+-layout (location = 2) in vec4 mincolor;
+-layout (location = 3) in vec4 maxcolor;
+-layout (location = 4) in uvec4 instData;
+-layout (location = 5) in float shapeIndex;
+-
+-//__ENGINEUNIFORMBUFFERDEFS__
+-//__DEFINES__
+-
+-struct SUniformsBuffer {
+-	uint composite;
+-
+-	uint unused2;
+-	uint unused3;
+-	uint unused4;
+-
+-	float maxHealth;
+-	float health;
+-	float unused5;
+-	float unused6;
+-
+-	vec4 drawPos;
+-	vec4 speed;
+-	vec4[4] userDefined;
+-};
+-
+-layout(std140, binding=1) readonly buffer UniformsBuffer {
+-	SUniformsBuffer uni[];
+-};
+-
+-#line 10000
+-
+-uniform float iconDistance;
+-uniform float cameraDistanceMult;
+-uniform float cameraDistanceMultGlyph;
+-uniform float skipGlyphsNumbers;
+-uniform float globalSizeMult;
+-
+-out DataGS {
+-	vec4 g_color;
+-	vec4 g_uv;
+-};
+-
+-#define UNITUNIFORMS uni[instData.y]
+-#define UNIFORMLOC bartype_index_ssboloc.z
+-#define BARTYPE bartype_index_ssboloc.x
+-
+-#define BITUSEOVERLAY 1u
+-#define BITSHOWGLYPH 2u
+-#define BITPERCENTAGE 4u
+-#define BITTIMELEFT 8u
+-#define BITINTEGERNUMBER 16u
+-#define BITGETPROGRESS 32u
+-#define BITFLASHBAR 64u
+-#define BITCOLORCORRECT 128u
+-
+-#define HALFPIXEL 0.0019765625
+-
+-bool vertexClipped(vec4 clipspace, float tolerance)
+-{
+-	return any(lessThan(clipspace.xyz, -clipspace.www * tolerance)) ||
+-	       any(greaterThan(clipspace.xyz, clipspace.www * tolerance));
+-}
+-
+-void HideVertex()
+-{
+-	gl_Position = vec4(0.0, 0.0, 2.0, 1.0);
+-	g_color = vec4(0.0);
+-	g_uv = vec4(0.0);
+-}
+-
+-int StripIndexForTriangleVertex(int i)
+-{
+-	if (i == 0) return 0;
+-	if (i == 1) return 1;
+-	if (i == 2) return 2;
+-	if (i == 3) return 2;
+-	if (i == 4) return 1;
+-	if (i == 5) return 3;
+-	if (i == 6) return 2;
+-	if (i == 7) return 3;
+-	if (i == 8) return 4;
+-	if (i == 9) return 4;
+-	if (i == 10) return 3;
+-	if (i == 11) return 5;
+-	if (i == 12) return 4;
+-	if (i == 13) return 5;
+-	if (i == 14) return 6;
+-	if (i == 15) return 6;
+-	if (i == 16) return 5;
+-	return 7;
+-}
+-
+-int QuadIndexForTriangleVertex(int i)
+-{
+-	if (i == 0) return 0;
+-	if (i == 1) return 1;
+-	if (i == 2) return 2;
+-	if (i == 3) return 2;
+-	if (i == 4) return 1;
+-	return 3;
+-}
+-
+-vec2 BackgroundPos(int s)
+-{
+-	if (s == 0) return vec2(-BARWIDTH, BARCORNER);
+-	if (s == 1) return vec2(-BARWIDTH, BARHEIGHT - BARCORNER);
+-	if (s == 2) return vec2(-BARWIDTH + BARCORNER, 0.0);
+-	if (s == 3) return vec2(-BARWIDTH + BARCORNER, BARHEIGHT);
+-	if (s == 4) return vec2(BARWIDTH - BARCORNER, 0.0);
+-	if (s == 5) return vec2(BARWIDTH - BARCORNER, BARHEIGHT);
+-	if (s == 6) return vec2(BARWIDTH, BARCORNER);
+-	return vec2(BARWIDTH, BARHEIGHT - BARCORNER);
+-}
+-
+-vec2 BarBackgroundPos(int s)
+-{
+-	if (s == 0) return vec2(-BARWIDTH + BARCORNER, SMALLERCORNER + BARCORNER);
+-	if (s == 1) return vec2(-BARWIDTH + BARCORNER, BARHEIGHT - SMALLERCORNER - BARCORNER);
+-	if (s == 2) return vec2(-BARWIDTH + SMALLERCORNER + BARCORNER, BARCORNER);
+-	if (s == 3) return vec2(-BARWIDTH + SMALLERCORNER + BARCORNER, BARHEIGHT - BARCORNER);
+-	if (s == 4) return vec2(BARWIDTH - SMALLERCORNER - BARCORNER, BARCORNER);
+-	if (s == 5) return vec2(BARWIDTH - SMALLERCORNER - BARCORNER, BARHEIGHT - BARCORNER);
+-	if (s == 6) return vec2(BARWIDTH - BARCORNER, SMALLERCORNER + BARCORNER);
+-	return vec2(BARWIDTH - BARCORNER, BARHEIGHT - SMALLERCORNER - BARCORNER);
+-}
+-
+-vec2 BarForegroundPos(int s, float healthbasedpos)
+-{
+-	if (s == 0) return vec2(-BARWIDTH + BARCORNER, SMALLERCORNER + BARCORNER);
+-	if (s == 1) return vec2(-BARWIDTH + BARCORNER, BARHEIGHT - BARCORNER - SMALLERCORNER);
+-	if (s == 2) return vec2(-BARWIDTH + BARCORNER + SMALLERCORNER, BARCORNER);
+-	if (s == 3) return vec2(-BARWIDTH + BARCORNER + SMALLERCORNER, BARHEIGHT - BARCORNER);
+-	if (s == 4) return vec2(-BARWIDTH + BARCORNER + SMALLERCORNER + healthbasedpos, BARCORNER);
+-	if (s == 5) return vec2(-BARWIDTH + BARCORNER + SMALLERCORNER + healthbasedpos, BARHEIGHT - BARCORNER);
+-	if (s == 6) return vec2(-BARWIDTH + BARCORNER + 2.0 * SMALLERCORNER + healthbasedpos, BARCORNER + SMALLERCORNER);
+-	return vec2(-BARWIDTH + BARCORNER + 2.0 * SMALLERCORNER + healthbasedpos, BARHEIGHT - BARCORNER - SMALLERCORNER);
+-}
+-
+-vec4 ProjectBarVertex(vec2 pos, vec4 centerpos, mat3 rotY, float zoffset, float sizemultiplier, float depthbuffermod)
+-{
+-	vec3 primitiveCoords = vec3(pos.x, 0.0, pos.y - zoffset) * BARSCALE * sizemultiplier;
+-	vec4 clip = cameraViewProj * vec4(centerpos.xyz + rotY * primitiveCoords, 1.0);
+-	clip.z += depthbuffermod;
+-	return clip;
+-}
+-
+-void EmitBackgroundVertex(vec2 pos, vec4 centerpos, mat3 rotY, float zoffset, float sizemultiplier, float barAlpha, uint bartype)
+-{
+-	g_uv.xy = vec2(0.0);
+-	g_uv.z = 0.0;
+-	float extracolor = 0.0;
+-	if (((bartype & BITFLASHBAR) > 0u) && (mod(timeInfo.x, 10.0) > 4.0)) {
+-		extracolor = 0.5;
+-	}
+-	g_color = mix(BGBOTTOMCOLOR + extracolor, BGTOPCOLOR + extracolor, pos.y);
+-	g_color.a *= barAlpha;
+-	gl_Position = ProjectBarVertex(pos, centerpos, rotY, zoffset, sizemultiplier, 0.001);
+-}
+-
+-void EmitBarVertex(vec2 pos, vec4 color, float bartextureoffset, vec4 centerpos, mat3 rotY, float zoffset, float sizemultiplier, float barAlpha, float depthbuffermod)
+-{
+-	g_uv.x = pos.x * 1.0 / (2.0 * (BARWIDTH - BARCORNER));
+-	g_uv.x = g_uv.x + 0.5;
+-	g_uv.y = (pos.y - BARCORNER) / (BARHEIGHT - 2.0 * BARCORNER);
+-	g_uv.xy = g_uv.xy * vec2(ATLASSTEP * 9.0, ATLASSTEP) + vec2(3.0 * ATLASSTEP, bartextureoffset);
+-	g_uv.y = -1.0 * g_uv.y;
+-	g_uv.z = clamp(10000.0 * bartextureoffset, 0.0, 1.0);
+-	g_color = color;
+-	g_color.a *= barAlpha;
+-	gl_Position = ProjectBarVertex(pos, centerpos, rotY, zoffset, sizemultiplier, depthbuffermod);
+-}
+-
+-void EmitGlyphVertex(vec2 bottomleft, vec2 uvbottomleft, vec2 uvsizes, int triangleVertex, vec4 centerpos, mat3 rotY, float zoffset, float sizemultiplier, float glyphAlpha)
+-{
+-	int q = QuadIndexForTriangleVertex(triangleVertex);
+-	vec2 pos = bottomleft;
+-	vec2 uv = uvbottomleft;
+-	if (q == 1) {
+-		pos.y += BARHEIGHT;
+-		uv.y += uvsizes.y;
+-	} else if (q == 2) {
+-		pos.x += BARHEIGHT;
+-		uv.x += uvsizes.x;
+-	} else if (q == 3) {
+-		pos += vec2(BARHEIGHT, BARHEIGHT);
+-		uv += uvsizes;
+-	}
+-
+-	vec2 halfAdjust = vec2((q == 2 || q == 3) ? -HALFPIXEL : HALFPIXEL, (q == 1 || q == 3) ? -HALFPIXEL : HALFPIXEL);
+-	g_uv.xy = vec2(uv.x + halfAdjust.x, 1.0 - (uv.y + halfAdjust.y));
+-	g_uv.z = 1.0;
+-	g_color = vec4(1.0);
+-	g_color.a *= glyphAlpha;
+-	gl_Position = ProjectBarVertex(pos, centerpos, rotY, zoffset, sizemultiplier, 0.0);
+-}
+-
+-void main()
+-{
+-	int idx = int(shapeIndex + 0.5);
+-
+-	vec4 drawPos = vec4(UNITUNIFORMS.drawPos.xyz, 1.0);
+-	vec4 centerpos = drawPos;
+-	uint numvertices = 4u;
+-	vec4 centerClip = cameraViewProj * drawPos;
+-	if (vertexClipped(centerClip, CLIPTOLERANCE)) {
+-		numvertices = 0u;
+-	}
+-
+-	float cameraDistance = length(cameraViewInv[3].xyz - centerpos.xyz);
+-	vec4 parameters = vec4(0.0);
+-	parameters.y = (clamp(cameraDistance * cameraDistanceMult, BARFADESTART, BARFADEEND) - BARFADESTART) / (BARFADEEND - BARFADESTART);
+-	parameters.y = 1.0 - clamp(parameters.y, 0.0, 1.0);
+-	parameters.z = (clamp(cameraDistance * cameraDistanceMult * cameraDistanceMultGlyph, BARFADESTART, BARFADEEND) - BARFADESTART) / (BARFADEEND - BARFADESTART);
+-	parameters.z = 1.0 - clamp(parameters.z, 0.0, 1.0);
+-
+-	#ifdef DEBUGSHOW
+-		parameters.y = 1.0;
+-		parameters.z = 1.0;
+-	#endif
+-
+-	parameters.w = height_timers.w;
+-	vec2 sizemodifiers = height_timers.yz;
+-
+-	if (dot(centerpos.xyz, centerpos.xyz) < 1.0) {
+-		numvertices = 0u;
+-	}
+-
+-	centerpos.y += HEIGHTOFFSET;
+-	centerpos.y += height_timers.x;
+-
+-	float relativehealth = UNITUNIFORMS.health / UNITUNIFORMS.maxHealth;
+-	parameters.x = relativehealth;
+-	if (UNIFORMLOC < 20u) {
+-		parameters.x = UNITUNIFORMS.userDefined[0].y;
+-	} else {
+-		float buildprogress = UNITUNIFORMS.userDefined[0].x;
+-		#ifndef DEBUGSHOW
+-			if (abs(buildprogress - relativehealth) < 0.03) {
+-				numvertices = 0u;
+-			}
+-		#endif
+-	}
+-
+-	if (UNIFORMLOC < 4u) parameters.x = UNITUNIFORMS.userDefined[0][UNIFORMLOC];
+-	if (UNIFORMLOC == 1u) parameters.x = UNITUNIFORMS.userDefined[0].y;
+-	if (UNIFORMLOC == 2u) parameters.x = UNITUNIFORMS.userDefined[0].z;
+-	if (UNIFORMLOC == 4u) parameters.x = UNITUNIFORMS.userDefined[1].x;
+-	if (UNIFORMLOC == 5u) parameters.x = UNITUNIFORMS.userDefined[1].y;
+-
+-	if ((BARTYPE & BITGETPROGRESS) > 0u) {
+-		parameters.x = ((timeInfo.x + timeInfo.w) - UNITUNIFORMS.userDefined[0].z) /
+-			(UNITUNIFORMS.userDefined[0].w - UNITUNIFORMS.userDefined[0].z);
+-		parameters.x = clamp(parameters.x, 0.0, 1.0);
+-	}
+-
+-	float health = parameters.x;
+-	float barAlpha = parameters.y;
+-	float glyphAlpha = parameters.z;
+-	float uvoffset = parameters.w;
+-	float sizemultiplier = sizemodifiers.x * globalSizeMult;
+-	float zoffset = 1.15 * BARHEIGHT * float(bartype_index_ssboloc.y);
+-	mat3 rotY = mat3(cameraViewInv[0].xyz, cameraViewInv[2].xyz, cameraViewInv[1].xyz);
+-
+-	if (numvertices == 0u || barAlpha < MINALPHA) {
+-		HideVertex();
+-		return;
+-	}
+-
+-	#ifndef DEBUGSHOW
+-		if (health < 0.00001) {
+-			HideVertex();
+-			return;
+-		}
+-		if ((BARTYPE & BITPERCENTAGE) > 0u) {
+-			if (health > 0.999) {
+-				HideVertex();
+-				return;
+-			}
+-		} else if ((BARTYPE & BITGETPROGRESS) > 0u) {
+-			if (health > 0.999) {
+-				HideVertex();
+-				return;
+-			}
+-		}
+-	#endif
+-
+-	uint numStockpiled = 0u;
+-	uint numStockpileQueued = 0u;
+-	if ((BARTYPE & BITINTEGERNUMBER) > 0u) {
+-		float oldhealth = health;
+-		health = fract(oldhealth);
+-		oldhealth = floor(oldhealth);
+-		numStockpiled = uint(floor(mod(oldhealth, 128.0)));
+-		numStockpileQueued = uint(floor(oldhealth / 128.0));
+-	}
+-
+-	if (idx < 18) {
+-		int s = StripIndexForTriangleVertex(idx);
+-		EmitBackgroundVertex(BackgroundPos(s), centerpos, rotY, zoffset, sizemultiplier, barAlpha, BARTYPE);
+-		return;
+-	}
+-
+-	vec4 truecolor = mix(mincolor, maxcolor, health);
+-
+-	if (idx < 36) {
+-		int s = StripIndexForTriangleVertex(idx - 18);
+-		truecolor.a = 0.2;
+-		vec4 topcolor = truecolor;
+-		topcolor.rgb *= BOTTOMDARKENFACTOR;
+-		vec4 color = ((s == 1) || (s == 3) || (s == 5) || (s == 7)) ? topcolor : truecolor;
+-		EmitBarVertex(BarBackgroundPos(s), color, 0.0, centerpos, rotY, zoffset, sizemultiplier, barAlpha, 0.0);
+-		return;
+-	}
+-
+-	float healthbasedpos = (2.0 * (BARWIDTH - BARCORNER) - 2.0 * SMALLERCORNER) * health;
+-	if ((BARTYPE & BITTIMELEFT) > 0u) {
+-		healthbasedpos = 2.0 * (BARWIDTH - BARCORNER) - 2.0 * SMALLERCORNER;
+-	}
+-	if ((BARTYPE & BITCOLORCORRECT) > 0u) {
+-		truecolor.rgb = truecolor.rgb / max(truecolor.r, truecolor.g);
+-	}
+-	truecolor.a = 1.0;
+-	vec4 botcolor = truecolor;
+-	botcolor.rgb *= BOTTOMDARKENFACTOR;
+-	float bartextureoffset = 0.0;
+-	if ((BARTYPE & BITUSEOVERLAY) > 0u) {
+-		bartextureoffset = uvoffset;
+-	}
+-
+-	if (idx < 54) {
+-		int s = StripIndexForTriangleVertex(idx - 36);
+-		vec4 color = ((s == 1) || (s == 3) || (s == 5) || (s == 7)) ? truecolor : botcolor;
+-		EmitBarVertex(BarForegroundPos(s, healthbasedpos), color, bartextureoffset, centerpos, rotY, zoffset, sizemultiplier, barAlpha, -0.001);
+-		return;
+-	}
+-
+-	if (glyphAlpha < MINALPHA || skipGlyphsNumbers > 1.5) {
+-		HideVertex();
+-		return;
+-	}
+-
+-	float currentglyphpos = 1.0;
+-	bool drawGlyphIcon = false;
+-	if (skipGlyphsNumbers < 0.5) {
+-		drawGlyphIcon = ((BARTYPE & BITSHOWGLYPH) > 0u);
+-	} else {
+-		currentglyphpos = 0.0;
+-	}
+-
+-	if (idx < 60) {
+-		if (!drawGlyphIcon) {
+-			HideVertex();
+-			return;
+-		}
+-		EmitGlyphVertex(vec2(-BARWIDTH - currentglyphpos * BARHEIGHT, 0.0), vec2(ATLASSTEP, uvoffset), vec2(ATLASSTEP, ATLASSTEP), idx - 54, centerpos, rotY, zoffset, sizemultiplier, glyphAlpha);
+-		return;
+-	}
+-
+-	if ((BARTYPE & BITINTEGERNUMBER) > 0u) {
+-		vec4 numbers = vec4(numStockpiled, numStockpiled, numStockpileQueued, numStockpileQueued);
+-		numbers = numbers * vec4(1.0, 0.1, 1.0, 0.1);
+-		numbers = floor(mod(numbers, 10.0)) * ATLASSTEP;
+-
+-		if (idx < 66) {
+-			EmitGlyphVertex(vec2(-BARWIDTH - (currentglyphpos + 1.0) * BARHEIGHT, 0.0), vec2(0.0, numbers.x), vec2(ATLASSTEP, ATLASSTEP), idx - 60, centerpos, rotY, zoffset, sizemultiplier, glyphAlpha);
+-			return;
+-		}
+-		if (idx < 72 && numbers.y > 0.0) {
+-			EmitGlyphVertex(vec2(-BARWIDTH - (currentglyphpos + 2.0) * BARHEIGHT + BARHEIGHT * 0.4, 0.0), vec2(0.0, numbers.y), vec2(ATLASSTEP, ATLASSTEP), idx - 66, centerpos, rotY, zoffset, sizemultiplier, glyphAlpha);
+-			return;
+-		}
+-		HideVertex();
+-		return;
+-	}
+-
+-	if ((BARTYPE & (BITTIMELEFT | BITPERCENTAGE)) > 0u) {
+-		float lsb;
+-		float msb;
+-		float glyphpctsecatlas;
+-		if ((BARTYPE & BITTIMELEFT) > 0u) {
+-			health = (health - 1.0) / (1.0 / 40.0);
+-			lsb = abs(floor(mod(health, 10.0)));
+-			msb = abs(floor(mod(health * 0.1, 10.0)));
+-			glyphpctsecatlas = 14.0;
+-		} else {
+-			lsb = floor(mod(health * 100.0, 10.0));
+-			msb = floor(mod(health * 10.0, 10.0));
+-			glyphpctsecatlas = 11.0;
+-		}
+-
+-		if (idx < 66) {
+-			EmitGlyphVertex(vec2(-BARWIDTH - (currentglyphpos + 1.0) * BARHEIGHT, 0.0), vec2(0.0, glyphpctsecatlas * ATLASSTEP), vec2(ATLASSTEP, ATLASSTEP), idx - 60, centerpos, rotY, zoffset, sizemultiplier, glyphAlpha);
+-			return;
+-		}
+-		if (idx < 72) {
+-			EmitGlyphVertex(vec2(-BARWIDTH - (currentglyphpos + 2.0) * BARHEIGHT + BARHEIGHT * 0.2, 0.0), vec2(0.0, lsb * ATLASSTEP), vec2(ATLASSTEP, ATLASSTEP), idx - 66, centerpos, rotY, zoffset, sizemultiplier, glyphAlpha);
+-			return;
+-		}
+-		if (idx < 78 && msb > 0.0) {
+-			EmitGlyphVertex(vec2(-BARWIDTH - (currentglyphpos + 3.0) * BARHEIGHT + BARHEIGHT * 0.5, 0.0), vec2(0.0, msb * ATLASSTEP), vec2(ATLASSTEP, ATLASSTEP), idx - 72, centerpos, rotY, zoffset, sizemultiplier, glyphAlpha);
+-			return;
+-		}
+-	}
+-
+-	HideVertex();
+-}
+--- /dev/null
++++ b/sources/bar-lobby/bundled-assets/macos-luaui-overlays/bar-lobby/LuaUI/BARMacOS/Healthbars/healthbars.vert.glsl
+@@ -0,0 +1,417 @@
++#version 420
++#extension GL_ARB_uniform_buffer_object : require
++#extension GL_ARB_shader_storage_buffer_object : require
++#extension GL_ARB_shading_language_420pack: require
++
++// macOS NoGS adaptation of BAR's HealthbarsGL4 vertex+geometry pipeline.
++// Keeps the official instance attributes and fragment shader contract.
++#line 5000
++
++layout (location = 0) in vec4 height_timers;
++layout (location = 1) in uvec4 bartype_index_ssboloc;
++layout (location = 2) in vec4 mincolor;
++layout (location = 3) in vec4 maxcolor;
++layout (location = 4) in uvec4 instData;
++layout (location = 5) in float shapeIndex;
++
++//__ENGINEUNIFORMBUFFERDEFS__
++//__DEFINES__
++
++struct SUniformsBuffer {
++	uint composite;
++
++	uint unused2;
++	uint unused3;
++	uint unused4;
++
++	float maxHealth;
++	float health;
++	float unused5;
++	float unused6;
++
++	vec4 drawPos;
++	vec4 speed;
++	vec4[4] userDefined;
++};
++
++layout(std140, binding=1) readonly buffer UniformsBuffer {
++	SUniformsBuffer uni[];
++};
++
++#line 10000
++
++uniform float iconDistance;
++uniform float cameraDistanceMult;
++uniform float cameraDistanceMultGlyph;
++uniform float skipGlyphsNumbers;
++uniform float globalSizeMult;
++
++out DataGS {
++	vec4 g_color;
++	vec4 g_uv;
++};
++
++#define UNITUNIFORMS uni[instData.y]
++#define UNIFORMLOC bartype_index_ssboloc.z
++#define BARTYPE bartype_index_ssboloc.x
++
++#define BITUSEOVERLAY 1u
++#define BITSHOWGLYPH 2u
++#define BITPERCENTAGE 4u
++#define BITTIMELEFT 8u
++#define BITINTEGERNUMBER 16u
++#define BITGETPROGRESS 32u
++#define BITFLASHBAR 64u
++#define BITCOLORCORRECT 128u
++
++#define HALFPIXEL 0.0019765625
++
++bool vertexClipped(vec4 clipspace, float tolerance)
++{
++	return any(lessThan(clipspace.xyz, -clipspace.www * tolerance)) ||
++	       any(greaterThan(clipspace.xyz, clipspace.www * tolerance));
++}
++
++void HideVertex()
++{
++	gl_Position = vec4(0.0, 0.0, 2.0, 1.0);
++	g_color = vec4(0.0);
++	g_uv = vec4(0.0);
++}
++
++int StripIndexForTriangleVertex(int i)
++{
++	if (i == 0) return 0;
++	if (i == 1) return 1;
++	if (i == 2) return 2;
++	if (i == 3) return 2;
++	if (i == 4) return 1;
++	if (i == 5) return 3;
++	if (i == 6) return 2;
++	if (i == 7) return 3;
++	if (i == 8) return 4;
++	if (i == 9) return 4;
++	if (i == 10) return 3;
++	if (i == 11) return 5;
++	if (i == 12) return 4;
++	if (i == 13) return 5;
++	if (i == 14) return 6;
++	if (i == 15) return 6;
++	if (i == 16) return 5;
++	return 7;
++}
++
++int QuadIndexForTriangleVertex(int i)
++{
++	if (i == 0) return 0;
++	if (i == 1) return 1;
++	if (i == 2) return 2;
++	if (i == 3) return 2;
++	if (i == 4) return 1;
++	return 3;
++}
++
++vec2 BackgroundPos(int s)
++{
++	if (s == 0) return vec2(-BARWIDTH, BARCORNER);
++	if (s == 1) return vec2(-BARWIDTH, BARHEIGHT - BARCORNER);
++	if (s == 2) return vec2(-BARWIDTH + BARCORNER, 0.0);
++	if (s == 3) return vec2(-BARWIDTH + BARCORNER, BARHEIGHT);
++	if (s == 4) return vec2(BARWIDTH - BARCORNER, 0.0);
++	if (s == 5) return vec2(BARWIDTH - BARCORNER, BARHEIGHT);
++	if (s == 6) return vec2(BARWIDTH, BARCORNER);
++	return vec2(BARWIDTH, BARHEIGHT - BARCORNER);
++}
++
++vec2 BarBackgroundPos(int s)
++{
++	if (s == 0) return vec2(-BARWIDTH + BARCORNER, SMALLERCORNER + BARCORNER);
++	if (s == 1) return vec2(-BARWIDTH + BARCORNER, BARHEIGHT - SMALLERCORNER - BARCORNER);
++	if (s == 2) return vec2(-BARWIDTH + SMALLERCORNER + BARCORNER, BARCORNER);
++	if (s == 3) return vec2(-BARWIDTH + SMALLERCORNER + BARCORNER, BARHEIGHT - BARCORNER);
++	if (s == 4) return vec2(BARWIDTH - SMALLERCORNER - BARCORNER, BARCORNER);
++	if (s == 5) return vec2(BARWIDTH - SMALLERCORNER - BARCORNER, BARHEIGHT - BARCORNER);
++	if (s == 6) return vec2(BARWIDTH - BARCORNER, SMALLERCORNER + BARCORNER);
++	return vec2(BARWIDTH - BARCORNER, BARHEIGHT - SMALLERCORNER - BARCORNER);
++}
++
++vec2 BarForegroundPos(int s, float healthbasedpos)
++{
++	if (s == 0) return vec2(-BARWIDTH + BARCORNER, SMALLERCORNER + BARCORNER);
++	if (s == 1) return vec2(-BARWIDTH + BARCORNER, BARHEIGHT - BARCORNER - SMALLERCORNER);
++	if (s == 2) return vec2(-BARWIDTH + BARCORNER + SMALLERCORNER, BARCORNER);
++	if (s == 3) return vec2(-BARWIDTH + BARCORNER + SMALLERCORNER, BARHEIGHT - BARCORNER);
++	if (s == 4) return vec2(-BARWIDTH + BARCORNER + SMALLERCORNER + healthbasedpos, BARCORNER);
++	if (s == 5) return vec2(-BARWIDTH + BARCORNER + SMALLERCORNER + healthbasedpos, BARHEIGHT - BARCORNER);
++	if (s == 6) return vec2(-BARWIDTH + BARCORNER + 2.0 * SMALLERCORNER + healthbasedpos, BARCORNER + SMALLERCORNER);
++	return vec2(-BARWIDTH + BARCORNER + 2.0 * SMALLERCORNER + healthbasedpos, BARHEIGHT - BARCORNER - SMALLERCORNER);
++}
++
++vec4 ProjectBarVertex(vec2 pos, vec4 centerpos, mat3 rotY, float zoffset, float sizemultiplier, float depthbuffermod)
++{
++	vec3 primitiveCoords = vec3(pos.x, 0.0, pos.y - zoffset) * BARSCALE * sizemultiplier;
++	vec4 clip = cameraViewProj * vec4(centerpos.xyz + rotY * primitiveCoords, 1.0);
++	clip.z += depthbuffermod;
++	return clip;
++}
++
++void EmitBackgroundVertex(vec2 pos, vec4 centerpos, mat3 rotY, float zoffset, float sizemultiplier, float barAlpha, uint bartype)
++{
++	g_uv.xy = vec2(0.0);
++	g_uv.z = 0.0;
++	float extracolor = 0.0;
++	if (((bartype & BITFLASHBAR) > 0u) && (mod(timeInfo.x, 10.0) > 4.0)) {
++		extracolor = 0.5;
++	}
++	g_color = mix(BGBOTTOMCOLOR + extracolor, BGTOPCOLOR + extracolor, pos.y);
++	g_color.a *= barAlpha;
++	gl_Position = ProjectBarVertex(pos, centerpos, rotY, zoffset, sizemultiplier, 0.001);
++}
++
++void EmitBarVertex(vec2 pos, vec4 color, float bartextureoffset, vec4 centerpos, mat3 rotY, float zoffset, float sizemultiplier, float barAlpha, float depthbuffermod)
++{
++	g_uv.x = pos.x * 1.0 / (2.0 * (BARWIDTH - BARCORNER));
++	g_uv.x = g_uv.x + 0.5;
++	g_uv.y = (pos.y - BARCORNER) / (BARHEIGHT - 2.0 * BARCORNER);
++	g_uv.xy = g_uv.xy * vec2(ATLASSTEP * 9.0, ATLASSTEP) + vec2(3.0 * ATLASSTEP, bartextureoffset);
++	g_uv.y = -1.0 * g_uv.y;
++	g_uv.z = clamp(10000.0 * bartextureoffset, 0.0, 1.0);
++	g_color = color;
++	g_color.a *= barAlpha;
++	gl_Position = ProjectBarVertex(pos, centerpos, rotY, zoffset, sizemultiplier, depthbuffermod);
++}
++
++void EmitGlyphVertex(vec2 bottomleft, vec2 uvbottomleft, vec2 uvsizes, int triangleVertex, vec4 centerpos, mat3 rotY, float zoffset, float sizemultiplier, float glyphAlpha)
++{
++	int q = QuadIndexForTriangleVertex(triangleVertex);
++	vec2 pos = bottomleft;
++	vec2 uv = uvbottomleft;
++	if (q == 1) {
++		pos.y += BARHEIGHT;
++		uv.y += uvsizes.y;
++	} else if (q == 2) {
++		pos.x += BARHEIGHT;
++		uv.x += uvsizes.x;
++	} else if (q == 3) {
++		pos += vec2(BARHEIGHT, BARHEIGHT);
++		uv += uvsizes;
++	}
++
++	vec2 halfAdjust = vec2((q == 2 || q == 3) ? -HALFPIXEL : HALFPIXEL, (q == 1 || q == 3) ? -HALFPIXEL : HALFPIXEL);
++	g_uv.xy = vec2(uv.x + halfAdjust.x, 1.0 - (uv.y + halfAdjust.y));
++	g_uv.z = 1.0;
++	g_color = vec4(1.0);
++	g_color.a *= glyphAlpha;
++	gl_Position = ProjectBarVertex(pos, centerpos, rotY, zoffset, sizemultiplier, 0.0);
++}
++
++void main()
++{
++	int idx = int(shapeIndex + 0.5);
++
++	vec4 drawPos = vec4(UNITUNIFORMS.drawPos.xyz, 1.0);
++	vec4 centerpos = drawPos;
++	uint numvertices = 4u;
++	vec4 centerClip = cameraViewProj * drawPos;
++	if (vertexClipped(centerClip, CLIPTOLERANCE)) {
++		numvertices = 0u;
++	}
++
++	float cameraDistance = length(cameraViewInv[3].xyz - centerpos.xyz);
++	vec4 parameters = vec4(0.0);
++	parameters.y = (clamp(cameraDistance * cameraDistanceMult, BARFADESTART, BARFADEEND) - BARFADESTART) / (BARFADEEND - BARFADESTART);
++	parameters.y = 1.0 - clamp(parameters.y, 0.0, 1.0);
++	parameters.z = (clamp(cameraDistance * cameraDistanceMult * cameraDistanceMultGlyph, BARFADESTART, BARFADEEND) - BARFADESTART) / (BARFADEEND - BARFADESTART);
++	parameters.z = 1.0 - clamp(parameters.z, 0.0, 1.0);
++
++	#ifdef DEBUGSHOW
++		parameters.y = 1.0;
++		parameters.z = 1.0;
++	#endif
++
++	parameters.w = height_timers.w;
++	vec2 sizemodifiers = height_timers.yz;
++
++	if (dot(centerpos.xyz, centerpos.xyz) < 1.0) {
++		numvertices = 0u;
++	}
++
++	centerpos.y += HEIGHTOFFSET;
++	centerpos.y += height_timers.x;
++
++	float relativehealth = UNITUNIFORMS.health / UNITUNIFORMS.maxHealth;
++	parameters.x = relativehealth;
++	if (UNIFORMLOC < 20u) {
++		parameters.x = UNITUNIFORMS.userDefined[0].y;
++	} else {
++		float buildprogress = UNITUNIFORMS.userDefined[0].x;
++		#ifndef DEBUGSHOW
++			if (abs(buildprogress - relativehealth) < 0.03) {
++				numvertices = 0u;
++			}
++		#endif
++	}
++
++	if (UNIFORMLOC < 4u) parameters.x = UNITUNIFORMS.userDefined[0][UNIFORMLOC];
++	if (UNIFORMLOC == 1u) parameters.x = UNITUNIFORMS.userDefined[0].y;
++	if (UNIFORMLOC == 2u) parameters.x = UNITUNIFORMS.userDefined[0].z;
++	if (UNIFORMLOC == 4u) parameters.x = UNITUNIFORMS.userDefined[1].x;
++	if (UNIFORMLOC == 5u) parameters.x = UNITUNIFORMS.userDefined[1].y;
++
++	if ((BARTYPE & BITGETPROGRESS) > 0u) {
++		parameters.x = ((timeInfo.x + timeInfo.w) - UNITUNIFORMS.userDefined[0].z) /
++			(UNITUNIFORMS.userDefined[0].w - UNITUNIFORMS.userDefined[0].z);
++		parameters.x = clamp(parameters.x, 0.0, 1.0);
++	}
++
++	float health = parameters.x;
++	float barAlpha = parameters.y;
++	float glyphAlpha = parameters.z;
++	float uvoffset = parameters.w;
++	float sizemultiplier = sizemodifiers.x * globalSizeMult;
++	float zoffset = 1.15 * BARHEIGHT * float(bartype_index_ssboloc.y);
++	mat3 rotY = mat3(cameraViewInv[0].xyz, cameraViewInv[2].xyz, cameraViewInv[1].xyz);
++
++	if (numvertices == 0u || barAlpha < MINALPHA) {
++		HideVertex();
++		return;
++	}
++
++	#ifndef DEBUGSHOW
++		if (health < 0.00001) {
++			HideVertex();
++			return;
++		}
++		if ((BARTYPE & BITPERCENTAGE) > 0u) {
++			if (health > 0.999) {
++				HideVertex();
++				return;
++			}
++		} else if ((BARTYPE & BITGETPROGRESS) > 0u) {
++			if (health > 0.999) {
++				HideVertex();
++				return;
++			}
++		}
++	#endif
++
++	uint numStockpiled = 0u;
++	uint numStockpileQueued = 0u;
++	if ((BARTYPE & BITINTEGERNUMBER) > 0u) {
++		float oldhealth = health;
++		health = fract(oldhealth);
++		oldhealth = floor(oldhealth);
++		numStockpiled = uint(floor(mod(oldhealth, 128.0)));
++		numStockpileQueued = uint(floor(oldhealth / 128.0));
++	}
++
++	if (idx < 18) {
++		int s = StripIndexForTriangleVertex(idx);
++		EmitBackgroundVertex(BackgroundPos(s), centerpos, rotY, zoffset, sizemultiplier, barAlpha, BARTYPE);
++		return;
++	}
++
++	vec4 truecolor = mix(mincolor, maxcolor, health);
++
++	if (idx < 36) {
++		int s = StripIndexForTriangleVertex(idx - 18);
++		truecolor.a = 0.2;
++		vec4 topcolor = truecolor;
++		topcolor.rgb *= BOTTOMDARKENFACTOR;
++		vec4 color = ((s == 1) || (s == 3) || (s == 5) || (s == 7)) ? topcolor : truecolor;
++		EmitBarVertex(BarBackgroundPos(s), color, 0.0, centerpos, rotY, zoffset, sizemultiplier, barAlpha, 0.0);
++		return;
++	}
++
++	float healthbasedpos = (2.0 * (BARWIDTH - BARCORNER) - 2.0 * SMALLERCORNER) * health;
++	if ((BARTYPE & BITTIMELEFT) > 0u) {
++		healthbasedpos = 2.0 * (BARWIDTH - BARCORNER) - 2.0 * SMALLERCORNER;
++	}
++	if ((BARTYPE & BITCOLORCORRECT) > 0u) {
++		truecolor.rgb = truecolor.rgb / max(truecolor.r, truecolor.g);
++	}
++	truecolor.a = 1.0;
++	vec4 botcolor = truecolor;
++	botcolor.rgb *= BOTTOMDARKENFACTOR;
++	float bartextureoffset = 0.0;
++	if ((BARTYPE & BITUSEOVERLAY) > 0u) {
++		bartextureoffset = uvoffset;
++	}
++
++	if (idx < 54) {
++		int s = StripIndexForTriangleVertex(idx - 36);
++		vec4 color = ((s == 1) || (s == 3) || (s == 5) || (s == 7)) ? truecolor : botcolor;
++		EmitBarVertex(BarForegroundPos(s, healthbasedpos), color, bartextureoffset, centerpos, rotY, zoffset, sizemultiplier, barAlpha, -0.001);
++		return;
++	}
++
++	if (glyphAlpha < MINALPHA || skipGlyphsNumbers > 1.5) {
++		HideVertex();
++		return;
++	}
++
++	float currentglyphpos = 1.0;
++	bool drawGlyphIcon = false;
++	if (skipGlyphsNumbers < 0.5) {
++		drawGlyphIcon = ((BARTYPE & BITSHOWGLYPH) > 0u);
++	} else {
++		currentglyphpos = 0.0;
++	}
++
++	if (idx < 60) {
++		if (!drawGlyphIcon) {
++			HideVertex();
++			return;
++		}
++		EmitGlyphVertex(vec2(-BARWIDTH - currentglyphpos * BARHEIGHT, 0.0), vec2(ATLASSTEP, uvoffset), vec2(ATLASSTEP, ATLASSTEP), idx - 54, centerpos, rotY, zoffset, sizemultiplier, glyphAlpha);
++		return;
++	}
++
++	if ((BARTYPE & BITINTEGERNUMBER) > 0u) {
++		vec4 numbers = vec4(numStockpiled, numStockpiled, numStockpileQueued, numStockpileQueued);
++		numbers = numbers * vec4(1.0, 0.1, 1.0, 0.1);
++		numbers = floor(mod(numbers, 10.0)) * ATLASSTEP;
++
++		if (idx < 66) {
++			EmitGlyphVertex(vec2(-BARWIDTH - (currentglyphpos + 1.0) * BARHEIGHT, 0.0), vec2(0.0, numbers.x), vec2(ATLASSTEP, ATLASSTEP), idx - 60, centerpos, rotY, zoffset, sizemultiplier, glyphAlpha);
++			return;
++		}
++		if (idx < 72 && numbers.y > 0.0) {
++			EmitGlyphVertex(vec2(-BARWIDTH - (currentglyphpos + 2.0) * BARHEIGHT + BARHEIGHT * 0.4, 0.0), vec2(0.0, numbers.y), vec2(ATLASSTEP, ATLASSTEP), idx - 66, centerpos, rotY, zoffset, sizemultiplier, glyphAlpha);
++			return;
++		}
++		HideVertex();
++		return;
++	}
++
++	if ((BARTYPE & (BITTIMELEFT | BITPERCENTAGE)) > 0u) {
++		float lsb;
++		float msb;
++		float glyphpctsecatlas;
++		if ((BARTYPE & BITTIMELEFT) > 0u) {
++			health = (health - 1.0) / (1.0 / 40.0);
++			lsb = abs(floor(mod(health, 10.0)));
++			msb = abs(floor(mod(health * 0.1, 10.0)));
++			glyphpctsecatlas = 14.0;
++		} else {
++			lsb = floor(mod(health * 100.0, 10.0));
++			msb = floor(mod(health * 10.0, 10.0));
++			glyphpctsecatlas = 11.0;
++		}
++
++		if (idx < 66) {
++			EmitGlyphVertex(vec2(-BARWIDTH - (currentglyphpos + 1.0) * BARHEIGHT, 0.0), vec2(0.0, glyphpctsecatlas * ATLASSTEP), vec2(ATLASSTEP, ATLASSTEP), idx - 60, centerpos, rotY, zoffset, sizemultiplier, glyphAlpha);
++			return;
++		}
++		if (idx < 72) {
++			EmitGlyphVertex(vec2(-BARWIDTH - (currentglyphpos + 2.0) * BARHEIGHT + BARHEIGHT * 0.2, 0.0), vec2(0.0, lsb * ATLASSTEP), vec2(ATLASSTEP, ATLASSTEP), idx - 66, centerpos, rotY, zoffset, sizemultiplier, glyphAlpha);
++			return;
++		}
++		if (idx < 78 && msb > 0.0) {
++			EmitGlyphVertex(vec2(-BARWIDTH - (currentglyphpos + 3.0) * BARHEIGHT + BARHEIGHT * 0.5, 0.0), vec2(0.0, msb * ATLASSTEP), vec2(ATLASSTEP, ATLASSTEP), idx - 72, centerpos, rotY, zoffset, sizemultiplier, glyphAlpha);
++			return;
++		}
++	}
++
++	HideVertex();
++}
+--- /dev/null
++++ b/sources/bar-lobby/bundled-assets/macos-luaui-overlays/bar-lobby/LuaUI/BARMacOS/Healthbars/healthbars.frag.glsl
+@@ -0,0 +1,30 @@
++#version 420
++#extension GL_ARB_uniform_buffer_object : require
++#extension GL_ARB_shading_language_420pack: require
++// SPDX-License-Identifier: MIT
++// Copyright (c) 2026 Beherith (mysterme@gmail.com)
++// This shader is part of the Beyond All Reason repository.  
++
++//__ENGINEUNIFORMBUFFERDEFS__
++//__DEFINES__
++
++#line 30000
++in DataGS {
++	vec4 g_color;
++	vec4 g_uv;
++};
++
++uniform sampler2D healthbartexture;
++out vec4 fragColor;
++
++void main(void)
++{
++	vec4 texcolor = vec4(1.0);
++	texcolor = texture(healthbartexture, g_uv.xy);
++	texcolor.a *= g_color.a;
++	fragColor.rgba = mix(g_color, texcolor, g_uv.z);
++	//fragColor.rgba += vec4(0.25);
++	//fragColor.a += 0.5;
++	//fragColor.a = 1.0;
++	if (fragColor.a < 0.05) discard;
++}--- /dev/null
++++ b/sources/bar-lobby/bundled-assets/macos-luaui-overlays/bar-chobby/LuaUI/BARMacOS/Healthbars/healthbars.vert.glsl
+@@ -0,0 +1,417 @@
++#version 420
++#extension GL_ARB_uniform_buffer_object : require
++#extension GL_ARB_shader_storage_buffer_object : require
++#extension GL_ARB_shading_language_420pack: require
++
++// macOS NoGS adaptation of BAR's HealthbarsGL4 vertex+geometry pipeline.
++// Keeps the official instance attributes and fragment shader contract.
++#line 5000
++
++layout (location = 0) in vec4 height_timers;
++layout (location = 1) in uvec4 bartype_index_ssboloc;
++layout (location = 2) in vec4 mincolor;
++layout (location = 3) in vec4 maxcolor;
++layout (location = 4) in uvec4 instData;
++layout (location = 5) in float shapeIndex;
++
++//__ENGINEUNIFORMBUFFERDEFS__
++//__DEFINES__
++
++struct SUniformsBuffer {
++	uint composite;
++
++	uint unused2;
++	uint unused3;
++	uint unused4;
++
++	float maxHealth;
++	float health;
++	float unused5;
++	float unused6;
++
++	vec4 drawPos;
++	vec4 speed;
++	vec4[4] userDefined;
++};
++
++layout(std140, binding=1) readonly buffer UniformsBuffer {
++	SUniformsBuffer uni[];
++};
++
++#line 10000
++
++uniform float iconDistance;
++uniform float cameraDistanceMult;
++uniform float cameraDistanceMultGlyph;
++uniform float skipGlyphsNumbers;
++uniform float globalSizeMult;
++
++out DataGS {
++	vec4 g_color;
++	vec4 g_uv;
++};
++
++#define UNITUNIFORMS uni[instData.y]
++#define UNIFORMLOC bartype_index_ssboloc.z
++#define BARTYPE bartype_index_ssboloc.x
++
++#define BITUSEOVERLAY 1u
++#define BITSHOWGLYPH 2u
++#define BITPERCENTAGE 4u
++#define BITTIMELEFT 8u
++#define BITINTEGERNUMBER 16u
++#define BITGETPROGRESS 32u
++#define BITFLASHBAR 64u
++#define BITCOLORCORRECT 128u
++
++#define HALFPIXEL 0.0019765625
++
++bool vertexClipped(vec4 clipspace, float tolerance)
++{
++	return any(lessThan(clipspace.xyz, -clipspace.www * tolerance)) ||
++	       any(greaterThan(clipspace.xyz, clipspace.www * tolerance));
++}
++
++void HideVertex()
++{
++	gl_Position = vec4(0.0, 0.0, 2.0, 1.0);
++	g_color = vec4(0.0);
++	g_uv = vec4(0.0);
++}
++
++int StripIndexForTriangleVertex(int i)
++{
++	if (i == 0) return 0;
++	if (i == 1) return 1;
++	if (i == 2) return 2;
++	if (i == 3) return 2;
++	if (i == 4) return 1;
++	if (i == 5) return 3;
++	if (i == 6) return 2;
++	if (i == 7) return 3;
++	if (i == 8) return 4;
++	if (i == 9) return 4;
++	if (i == 10) return 3;
++	if (i == 11) return 5;
++	if (i == 12) return 4;
++	if (i == 13) return 5;
++	if (i == 14) return 6;
++	if (i == 15) return 6;
++	if (i == 16) return 5;
++	return 7;
++}
++
++int QuadIndexForTriangleVertex(int i)
++{
++	if (i == 0) return 0;
++	if (i == 1) return 1;
++	if (i == 2) return 2;
++	if (i == 3) return 2;
++	if (i == 4) return 1;
++	return 3;
++}
++
++vec2 BackgroundPos(int s)
++{
++	if (s == 0) return vec2(-BARWIDTH, BARCORNER);
++	if (s == 1) return vec2(-BARWIDTH, BARHEIGHT - BARCORNER);
++	if (s == 2) return vec2(-BARWIDTH + BARCORNER, 0.0);
++	if (s == 3) return vec2(-BARWIDTH + BARCORNER, BARHEIGHT);
++	if (s == 4) return vec2(BARWIDTH - BARCORNER, 0.0);
++	if (s == 5) return vec2(BARWIDTH - BARCORNER, BARHEIGHT);
++	if (s == 6) return vec2(BARWIDTH, BARCORNER);
++	return vec2(BARWIDTH, BARHEIGHT - BARCORNER);
++}
++
++vec2 BarBackgroundPos(int s)
++{
++	if (s == 0) return vec2(-BARWIDTH + BARCORNER, SMALLERCORNER + BARCORNER);
++	if (s == 1) return vec2(-BARWIDTH + BARCORNER, BARHEIGHT - SMALLERCORNER - BARCORNER);
++	if (s == 2) return vec2(-BARWIDTH + SMALLERCORNER + BARCORNER, BARCORNER);
++	if (s == 3) return vec2(-BARWIDTH + SMALLERCORNER + BARCORNER, BARHEIGHT - BARCORNER);
++	if (s == 4) return vec2(BARWIDTH - SMALLERCORNER - BARCORNER, BARCORNER);
++	if (s == 5) return vec2(BARWIDTH - SMALLERCORNER - BARCORNER, BARHEIGHT - BARCORNER);
++	if (s == 6) return vec2(BARWIDTH - BARCORNER, SMALLERCORNER + BARCORNER);
++	return vec2(BARWIDTH - BARCORNER, BARHEIGHT - SMALLERCORNER - BARCORNER);
++}
++
++vec2 BarForegroundPos(int s, float healthbasedpos)
++{
++	if (s == 0) return vec2(-BARWIDTH + BARCORNER, SMALLERCORNER + BARCORNER);
++	if (s == 1) return vec2(-BARWIDTH + BARCORNER, BARHEIGHT - BARCORNER - SMALLERCORNER);
++	if (s == 2) return vec2(-BARWIDTH + BARCORNER + SMALLERCORNER, BARCORNER);
++	if (s == 3) return vec2(-BARWIDTH + BARCORNER + SMALLERCORNER, BARHEIGHT - BARCORNER);
++	if (s == 4) return vec2(-BARWIDTH + BARCORNER + SMALLERCORNER + healthbasedpos, BARCORNER);
++	if (s == 5) return vec2(-BARWIDTH + BARCORNER + SMALLERCORNER + healthbasedpos, BARHEIGHT - BARCORNER);
++	if (s == 6) return vec2(-BARWIDTH + BARCORNER + 2.0 * SMALLERCORNER + healthbasedpos, BARCORNER + SMALLERCORNER);
++	return vec2(-BARWIDTH + BARCORNER + 2.0 * SMALLERCORNER + healthbasedpos, BARHEIGHT - BARCORNER - SMALLERCORNER);
++}
++
++vec4 ProjectBarVertex(vec2 pos, vec4 centerpos, mat3 rotY, float zoffset, float sizemultiplier, float depthbuffermod)
++{
++	vec3 primitiveCoords = vec3(pos.x, 0.0, pos.y - zoffset) * BARSCALE * sizemultiplier;
++	vec4 clip = cameraViewProj * vec4(centerpos.xyz + rotY * primitiveCoords, 1.0);
++	clip.z += depthbuffermod;
++	return clip;
++}
++
++void EmitBackgroundVertex(vec2 pos, vec4 centerpos, mat3 rotY, float zoffset, float sizemultiplier, float barAlpha, uint bartype)
++{
++	g_uv.xy = vec2(0.0);
++	g_uv.z = 0.0;
++	float extracolor = 0.0;
++	if (((bartype & BITFLASHBAR) > 0u) && (mod(timeInfo.x, 10.0) > 4.0)) {
++		extracolor = 0.5;
++	}
++	g_color = mix(BGBOTTOMCOLOR + extracolor, BGTOPCOLOR + extracolor, pos.y);
++	g_color.a *= barAlpha;
++	gl_Position = ProjectBarVertex(pos, centerpos, rotY, zoffset, sizemultiplier, 0.001);
++}
++
++void EmitBarVertex(vec2 pos, vec4 color, float bartextureoffset, vec4 centerpos, mat3 rotY, float zoffset, float sizemultiplier, float barAlpha, float depthbuffermod)
++{
++	g_uv.x = pos.x * 1.0 / (2.0 * (BARWIDTH - BARCORNER));
++	g_uv.x = g_uv.x + 0.5;
++	g_uv.y = (pos.y - BARCORNER) / (BARHEIGHT - 2.0 * BARCORNER);
++	g_uv.xy = g_uv.xy * vec2(ATLASSTEP * 9.0, ATLASSTEP) + vec2(3.0 * ATLASSTEP, bartextureoffset);
++	g_uv.y = -1.0 * g_uv.y;
++	g_uv.z = clamp(10000.0 * bartextureoffset, 0.0, 1.0);
++	g_color = color;
++	g_color.a *= barAlpha;
++	gl_Position = ProjectBarVertex(pos, centerpos, rotY, zoffset, sizemultiplier, depthbuffermod);
++}
++
++void EmitGlyphVertex(vec2 bottomleft, vec2 uvbottomleft, vec2 uvsizes, int triangleVertex, vec4 centerpos, mat3 rotY, float zoffset, float sizemultiplier, float glyphAlpha)
++{
++	int q = QuadIndexForTriangleVertex(triangleVertex);
++	vec2 pos = bottomleft;
++	vec2 uv = uvbottomleft;
++	if (q == 1) {
++		pos.y += BARHEIGHT;
++		uv.y += uvsizes.y;
++	} else if (q == 2) {
++		pos.x += BARHEIGHT;
++		uv.x += uvsizes.x;
++	} else if (q == 3) {
++		pos += vec2(BARHEIGHT, BARHEIGHT);
++		uv += uvsizes;
++	}
++
++	vec2 halfAdjust = vec2((q == 2 || q == 3) ? -HALFPIXEL : HALFPIXEL, (q == 1 || q == 3) ? -HALFPIXEL : HALFPIXEL);
++	g_uv.xy = vec2(uv.x + halfAdjust.x, 1.0 - (uv.y + halfAdjust.y));
++	g_uv.z = 1.0;
++	g_color = vec4(1.0);
++	g_color.a *= glyphAlpha;
++	gl_Position = ProjectBarVertex(pos, centerpos, rotY, zoffset, sizemultiplier, 0.0);
++}
++
++void main()
++{
++	int idx = int(shapeIndex + 0.5);
++
++	vec4 drawPos = vec4(UNITUNIFORMS.drawPos.xyz, 1.0);
++	vec4 centerpos = drawPos;
++	uint numvertices = 4u;
++	vec4 centerClip = cameraViewProj * drawPos;
++	if (vertexClipped(centerClip, CLIPTOLERANCE)) {
++		numvertices = 0u;
++	}
++
++	float cameraDistance = length(cameraViewInv[3].xyz - centerpos.xyz);
++	vec4 parameters = vec4(0.0);
++	parameters.y = (clamp(cameraDistance * cameraDistanceMult, BARFADESTART, BARFADEEND) - BARFADESTART) / (BARFADEEND - BARFADESTART);
++	parameters.y = 1.0 - clamp(parameters.y, 0.0, 1.0);
++	parameters.z = (clamp(cameraDistance * cameraDistanceMult * cameraDistanceMultGlyph, BARFADESTART, BARFADEEND) - BARFADESTART) / (BARFADEEND - BARFADESTART);
++	parameters.z = 1.0 - clamp(parameters.z, 0.0, 1.0);
++
++	#ifdef DEBUGSHOW
++		parameters.y = 1.0;
++		parameters.z = 1.0;
++	#endif
++
++	parameters.w = height_timers.w;
++	vec2 sizemodifiers = height_timers.yz;
++
++	if (dot(centerpos.xyz, centerpos.xyz) < 1.0) {
++		numvertices = 0u;
++	}
++
++	centerpos.y += HEIGHTOFFSET;
++	centerpos.y += height_timers.x;
++
++	float relativehealth = UNITUNIFORMS.health / UNITUNIFORMS.maxHealth;
++	parameters.x = relativehealth;
++	if (UNIFORMLOC < 20u) {
++		parameters.x = UNITUNIFORMS.userDefined[0].y;
++	} else {
++		float buildprogress = UNITUNIFORMS.userDefined[0].x;
++		#ifndef DEBUGSHOW
++			if (abs(buildprogress - relativehealth) < 0.03) {
++				numvertices = 0u;
++			}
++		#endif
++	}
++
++	if (UNIFORMLOC < 4u) parameters.x = UNITUNIFORMS.userDefined[0][UNIFORMLOC];
++	if (UNIFORMLOC == 1u) parameters.x = UNITUNIFORMS.userDefined[0].y;
++	if (UNIFORMLOC == 2u) parameters.x = UNITUNIFORMS.userDefined[0].z;
++	if (UNIFORMLOC == 4u) parameters.x = UNITUNIFORMS.userDefined[1].x;
++	if (UNIFORMLOC == 5u) parameters.x = UNITUNIFORMS.userDefined[1].y;
++
++	if ((BARTYPE & BITGETPROGRESS) > 0u) {
++		parameters.x = ((timeInfo.x + timeInfo.w) - UNITUNIFORMS.userDefined[0].z) /
++			(UNITUNIFORMS.userDefined[0].w - UNITUNIFORMS.userDefined[0].z);
++		parameters.x = clamp(parameters.x, 0.0, 1.0);
++	}
++
++	float health = parameters.x;
++	float barAlpha = parameters.y;
++	float glyphAlpha = parameters.z;
++	float uvoffset = parameters.w;
++	float sizemultiplier = sizemodifiers.x * globalSizeMult;
++	float zoffset = 1.15 * BARHEIGHT * float(bartype_index_ssboloc.y);
++	mat3 rotY = mat3(cameraViewInv[0].xyz, cameraViewInv[2].xyz, cameraViewInv[1].xyz);
++
++	if (numvertices == 0u || barAlpha < MINALPHA) {
++		HideVertex();
++		return;
++	}
++
++	#ifndef DEBUGSHOW
++		if (health < 0.00001) {
++			HideVertex();
++			return;
++		}
++		if ((BARTYPE & BITPERCENTAGE) > 0u) {
++			if (health > 0.999) {
++				HideVertex();
++				return;
++			}
++		} else if ((BARTYPE & BITGETPROGRESS) > 0u) {
++			if (health > 0.999) {
++				HideVertex();
++				return;
++			}
++		}
++	#endif
++
++	uint numStockpiled = 0u;
++	uint numStockpileQueued = 0u;
++	if ((BARTYPE & BITINTEGERNUMBER) > 0u) {
++		float oldhealth = health;
++		health = fract(oldhealth);
++		oldhealth = floor(oldhealth);
++		numStockpiled = uint(floor(mod(oldhealth, 128.0)));
++		numStockpileQueued = uint(floor(oldhealth / 128.0));
++	}
++
++	if (idx < 18) {
++		int s = StripIndexForTriangleVertex(idx);
++		EmitBackgroundVertex(BackgroundPos(s), centerpos, rotY, zoffset, sizemultiplier, barAlpha, BARTYPE);
++		return;
++	}
++
++	vec4 truecolor = mix(mincolor, maxcolor, health);
++
++	if (idx < 36) {
++		int s = StripIndexForTriangleVertex(idx - 18);
++		truecolor.a = 0.2;
++		vec4 topcolor = truecolor;
++		topcolor.rgb *= BOTTOMDARKENFACTOR;
++		vec4 color = ((s == 1) || (s == 3) || (s == 5) || (s == 7)) ? topcolor : truecolor;
++		EmitBarVertex(BarBackgroundPos(s), color, 0.0, centerpos, rotY, zoffset, sizemultiplier, barAlpha, 0.0);
++		return;
++	}
++
++	float healthbasedpos = (2.0 * (BARWIDTH - BARCORNER) - 2.0 * SMALLERCORNER) * health;
++	if ((BARTYPE & BITTIMELEFT) > 0u) {
++		healthbasedpos = 2.0 * (BARWIDTH - BARCORNER) - 2.0 * SMALLERCORNER;
++	}
++	if ((BARTYPE & BITCOLORCORRECT) > 0u) {
++		truecolor.rgb = truecolor.rgb / max(truecolor.r, truecolor.g);
++	}
++	truecolor.a = 1.0;
++	vec4 botcolor = truecolor;
++	botcolor.rgb *= BOTTOMDARKENFACTOR;
++	float bartextureoffset = 0.0;
++	if ((BARTYPE & BITUSEOVERLAY) > 0u) {
++		bartextureoffset = uvoffset;
++	}
++
++	if (idx < 54) {
++		int s = StripIndexForTriangleVertex(idx - 36);
++		vec4 color = ((s == 1) || (s == 3) || (s == 5) || (s == 7)) ? truecolor : botcolor;
++		EmitBarVertex(BarForegroundPos(s, healthbasedpos), color, bartextureoffset, centerpos, rotY, zoffset, sizemultiplier, barAlpha, -0.001);
++		return;
++	}
++
++	if (glyphAlpha < MINALPHA || skipGlyphsNumbers > 1.5) {
++		HideVertex();
++		return;
++	}
++
++	float currentglyphpos = 1.0;
++	bool drawGlyphIcon = false;
++	if (skipGlyphsNumbers < 0.5) {
++		drawGlyphIcon = ((BARTYPE & BITSHOWGLYPH) > 0u);
++	} else {
++		currentglyphpos = 0.0;
++	}
++
++	if (idx < 60) {
++		if (!drawGlyphIcon) {
++			HideVertex();
++			return;
++		}
++		EmitGlyphVertex(vec2(-BARWIDTH - currentglyphpos * BARHEIGHT, 0.0), vec2(ATLASSTEP, uvoffset), vec2(ATLASSTEP, ATLASSTEP), idx - 54, centerpos, rotY, zoffset, sizemultiplier, glyphAlpha);
++		return;
++	}
++
++	if ((BARTYPE & BITINTEGERNUMBER) > 0u) {
++		vec4 numbers = vec4(numStockpiled, numStockpiled, numStockpileQueued, numStockpileQueued);
++		numbers = numbers * vec4(1.0, 0.1, 1.0, 0.1);
++		numbers = floor(mod(numbers, 10.0)) * ATLASSTEP;
++
++		if (idx < 66) {
++			EmitGlyphVertex(vec2(-BARWIDTH - (currentglyphpos + 1.0) * BARHEIGHT, 0.0), vec2(0.0, numbers.x), vec2(ATLASSTEP, ATLASSTEP), idx - 60, centerpos, rotY, zoffset, sizemultiplier, glyphAlpha);
++			return;
++		}
++		if (idx < 72 && numbers.y > 0.0) {
++			EmitGlyphVertex(vec2(-BARWIDTH - (currentglyphpos + 2.0) * BARHEIGHT + BARHEIGHT * 0.4, 0.0), vec2(0.0, numbers.y), vec2(ATLASSTEP, ATLASSTEP), idx - 66, centerpos, rotY, zoffset, sizemultiplier, glyphAlpha);
++			return;
++		}
++		HideVertex();
++		return;
++	}
++
++	if ((BARTYPE & (BITTIMELEFT | BITPERCENTAGE)) > 0u) {
++		float lsb;
++		float msb;
++		float glyphpctsecatlas;
++		if ((BARTYPE & BITTIMELEFT) > 0u) {
++			health = (health - 1.0) / (1.0 / 40.0);
++			lsb = abs(floor(mod(health, 10.0)));
++			msb = abs(floor(mod(health * 0.1, 10.0)));
++			glyphpctsecatlas = 14.0;
++		} else {
++			lsb = floor(mod(health * 100.0, 10.0));
++			msb = floor(mod(health * 10.0, 10.0));
++			glyphpctsecatlas = 11.0;
++		}
++
++		if (idx < 66) {
++			EmitGlyphVertex(vec2(-BARWIDTH - (currentglyphpos + 1.0) * BARHEIGHT, 0.0), vec2(0.0, glyphpctsecatlas * ATLASSTEP), vec2(ATLASSTEP, ATLASSTEP), idx - 60, centerpos, rotY, zoffset, sizemultiplier, glyphAlpha);
++			return;
++		}
++		if (idx < 72) {
++			EmitGlyphVertex(vec2(-BARWIDTH - (currentglyphpos + 2.0) * BARHEIGHT + BARHEIGHT * 0.2, 0.0), vec2(0.0, lsb * ATLASSTEP), vec2(ATLASSTEP, ATLASSTEP), idx - 66, centerpos, rotY, zoffset, sizemultiplier, glyphAlpha);
++			return;
++		}
++		if (idx < 78 && msb > 0.0) {
++			EmitGlyphVertex(vec2(-BARWIDTH - (currentglyphpos + 3.0) * BARHEIGHT + BARHEIGHT * 0.5, 0.0), vec2(0.0, msb * ATLASSTEP), vec2(ATLASSTEP, ATLASSTEP), idx - 72, centerpos, rotY, zoffset, sizemultiplier, glyphAlpha);
++			return;
++		}
++	}
++
++	HideVertex();
++}
+--- /dev/null
++++ b/sources/bar-lobby/bundled-assets/macos-luaui-overlays/bar-chobby/LuaUI/BARMacOS/Healthbars/healthbars.frag.glsl
+@@ -0,0 +1,30 @@
++#version 420
++#extension GL_ARB_uniform_buffer_object : require
++#extension GL_ARB_shading_language_420pack: require
++// SPDX-License-Identifier: MIT
++// Copyright (c) 2026 Beherith (mysterme@gmail.com)
++// This shader is part of the Beyond All Reason repository.  
++
++//__ENGINEUNIFORMBUFFERDEFS__
++//__DEFINES__
++
++#line 30000
++in DataGS {
++	vec4 g_color;
++	vec4 g_uv;
++};
++
++uniform sampler2D healthbartexture;
++out vec4 fragColor;
++
++void main(void)
++{
++	vec4 texcolor = vec4(1.0);
++	texcolor = texture(healthbartexture, g_uv.xy);
++	texcolor.a *= g_color.a;
++	fragColor.rgba = mix(g_color, texcolor, g_uv.z);
++	//fragColor.rgba += vec4(0.25);
++	//fragColor.a += 0.5;
++	//fragColor.a = 1.0;
++	if (fragColor.a < 0.05) discard;
++}

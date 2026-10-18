@@ -1,0 +1,250 @@
+{
+  "schemaVersion": 1,
+  "lane": "bar-chobby",
+  "contentContract": "Selected official BAR archive and preserved engine unchanged; unsynced LuaUI overlays plus LuaRules-unsynced explicit-GS-policy-only graphics helper adapter",
+  "files": [
+    "LuaUI/Include/DrawPrimitiveAtUnit_NoGS_Mesh.lua",
+    "LuaUI/Include/InstanceVBOTable_Local.lua",
+    "LuaUI/Include/NoGSVAO.lua",
+    "LuaUI/Include/pip_history.lua",
+    "LuaUI/BARMacOS/Healthbars/healthbars.vert.glsl",
+    "LuaUI/BARMacOS/Healthbars/healthbars.frag.glsl",
+    "LuaUI/Shaders/screen_distortion_combine_gl4.frag.glsl",
+    "LuaUI/Shaders/screen_distortion_combine_gl4.vert.glsl",
+    "LuaUI/Widgets/api_unit_tracker_gl4.lua",
+    "LuaUI/Widgets/gfx_decals_gl4.lua",
+    "LuaUI/Widgets/gfx_guishader.lua",
+    "LuaUI/Widgets/gfx_orb_effects_gl4.lua",
+    "LuaUI/Widgets/gfx_ssao.lua",
+    "LuaUI/Widgets/gfx_unit_stencil_gl4.lua",
+    "LuaUI/Widgets/gui_allySelectedUnits.lua",
+    "LuaUI/Widgets/gui_attack_aoe.lua",
+    "LuaUI/Widgets/gui_attackrange_gl4.lua",
+    "LuaUI/Widgets/gui_buildsquare_gl4.lua",
+    "LuaUI/Widgets/gui_defenserange_gl4.lua",
+    "LuaUI/Widgets/gui_enemy_spotter.lua",
+    "LuaUI/Widgets/gui_flanking_icons.lua",
+    "LuaUI/Widgets/gui_flowui.lua",
+    "LuaUI/Widgets/gui_fonthandler.lua",
+    "LuaUI/Widgets/gui_ground_ao_plates_features_gl4.lua",
+    "LuaUI/Widgets/gui_ground_ao_plates_gl4.lua",
+    "LuaUI/Widgets/gui_healthbars_gl4.lua",
+    "LuaUI/Widgets/gui_mapmarks_fx.lua",
+    "LuaUI/Widgets/gui_options.lua",
+    "LuaUI/Widgets/gui_pausescreen.lua",
+    "LuaUI/Widgets/gui_pip.lua",
+    "LuaUI/Widgets/gui_pip_macos_minimap_overlay.lua",
+    "LuaUI/Widgets/gui_rank_icons_gl4.lua",
+    "LuaUI/Widgets/gui_resurrection_halos_gl4.lua",
+    "LuaUI/Widgets/gui_runtime_graphics_diagnostic.lua",
+    "LuaUI/Widgets/gui_runtime_graphics_progress.lua",
+    "LuaUI/Widgets/gui_runtime_r2t_capture.lua",
+    "LuaUI/Widgets/gui_selectedunits_gl4.lua",
+    "LuaUI/Widgets/gui_selectionbox.lua",
+    "LuaUI/Widgets/gui_sensor_ranges_jammer.lua",
+    "LuaUI/Widgets/gui_sensor_ranges_los.lua",
+    "LuaUI/Widgets/gui_sensor_ranges_radar.lua",
+    "LuaUI/Widgets/gui_sensor_ranges_sonar.lua",
+    "LuaUI/Widgets/gui_team_platter.lua",
+    "LuaUI/Widgets/gui_unit_energy_icons.lua",
+    "LuaUI/Widgets/gui_unit_firestate_icons.lua",
+    "LuaUI/Widgets/gui_unit_group_number.lua",
+    "LuaUI/Widgets/gui_unit_idlebuilder_icons.lua",
+    "LuaUI/Widgets/gui_unit_repeat_icon.lua",
+    "LuaUI/Widgets/gui_unit_stats.lua",
+    "LuaUI/Widgets/gui_unit_wait_icons.lua",
+    "LuaUI/Widgets/map_edge_extension2.lua",
+    "modules/graphics/LuaShader.lua"
+  ],
+  "revision": "run94-cus-palette-bounds-20261002",
+  "diagnosticFiles": [
+    {
+      "path": "LuaUI/Widgets/gui_runtime_graphics_diagnostic.lua",
+      "purpose": "Normally inactive; BARGraphicsTraceOnce=1 is required for all startup/resize/command GL state observations and one-run owner tracing. Requires separate playability qualification.",
+      "enabled": true,
+      "defaultArmed": false,
+      "optInFlag": "BARGraphicsTraceOnce"
+    },
+    {
+      "path": "LuaUI/Widgets/gui_runtime_r2t_capture.lua",
+      "purpose": "Disabled normally; BARGraphicsCaptureOnce=1 arms two explicit on-request cached texture / before-and-after composite comparisons (Run69)",
+      "enabled": true
+    },
+    {
+      "path": "LuaUI/Widgets/gui_runtime_graphics_progress.lua",
+      "purpose": "Disabled normally. BARGraphicsObserverOnce=1 enables a bounded, leased CPU-only progress beacon for external observer qualification; no GL calls.",
+      "enabled": true
+    }
+  ],
+  "instanceCompaction": {
+    "revision": "run74-three-point/run75-local",
+    "scope": "Opt-in LuaUI consumers; no global gl/module replacement",
+    "consumers": [
+      "LuaUI/Include/DrawPrimitiveAtUnit_NoGS_Mesh.lua",
+      "LuaUI/Widgets/api_unit_tracker_gl4.lua",
+      "LuaUI/Widgets/gfx_decals_gl4.lua",
+      "LuaUI/Widgets/gfx_orb_effects_gl4.lua",
+      "LuaUI/Widgets/gfx_unit_stencil_gl4.lua",
+      "LuaUI/Widgets/gui_allySelectedUnits.lua",
+      "LuaUI/Widgets/gui_attackrange_gl4.lua",
+      "LuaUI/Widgets/gui_defenserange_gl4.lua",
+      "LuaUI/Widgets/gui_enemy_spotter.lua",
+      "LuaUI/Widgets/gui_flanking_icons.lua",
+      "LuaUI/Widgets/gui_ground_ao_plates_features_gl4.lua",
+      "LuaUI/Widgets/gui_ground_ao_plates_gl4.lua",
+      "LuaUI/Widgets/gui_healthbars_gl4.lua",
+      "LuaUI/Widgets/gui_rank_icons_gl4.lua",
+      "LuaUI/Widgets/gui_resurrection_halos_gl4.lua",
+      "LuaUI/Widgets/gui_selectedunits_gl4.lua",
+      "LuaUI/Widgets/gui_sensor_ranges_jammer.lua",
+      "LuaUI/Widgets/gui_sensor_ranges_los.lua",
+      "LuaUI/Widgets/gui_sensor_ranges_radar.lua",
+      "LuaUI/Widgets/gui_sensor_ranges_sonar.lua",
+      "LuaUI/Widgets/gui_team_platter.lua",
+      "LuaUI/Widgets/gui_unit_energy_icons.lua",
+      "LuaUI/Widgets/gui_unit_group_number.lua",
+      "LuaUI/Widgets/gui_unit_idlebuilder_icons.lua",
+      "LuaUI/Widgets/gui_unit_wait_icons.lua",
+      "LuaUI/Widgets/gui_unit_firestate_icons.lua",
+      "LuaUI/Widgets/gui_unit_repeat_icon.lua"
+    ]
+  },
+  "presentationCorrections": {
+    "revision": "run91-official-build-placement-20260919",
+    "scope": "Official content-owned build placement; unrelated existing presentation corrections retained",
+    "buildSquare": {
+      "activeRenderer": "Selected official BAR archive via ZIP_ONLY with a bounded VBO allocation adapter",
+      "userDecision": "2026-09-19: official BAR presentation only; no supplementary grid or custom aesthetics",
+      "retiredOverrides": [
+        "LuaUI/Widgets/gui_buildsquare_macos.lua",
+        "LuaUI/Widgets/gui_build_placement_extension.lua"
+      ],
+      "sourcePolicy": "No pinned historical widget; exact official source anchors guarded",
+      "supplementaryGrid": "Not added or enabled",
+      "engineFallback": "Engine unchanged; official shader, primitive and total record capacity retained",
+      "boundedAllocation": {
+        "chunkBytes": 9437184,
+        "maximumChunks": 2,
+        "totalCellCapacity": 262144,
+        "secondChunkLazy": true,
+        "cpuChecksPassed": 22,
+        "gpuValidated": false
+      }
+    },
+    "appleUiProfile": "Native capability preferred; when absent, positive Mesa/Zink/MoltenVK identity plus actual GL4, UI-only",
+    "clouds": "One-time Volumetric Clouds enable on next Options initialization; later user preference preserved",
+    "mapEdge": "Explicit NoGS stage selection; existing seam triangles retained",
+    "acceptance": "This isolated clone is authorized for a background Shore to Shore UI attempt; no acceptance established by packaging",
+    "healthBars": {
+      "source": "Prior BAR profile: Health Bars GL4 barScale=2, barHeight=2",
+      "migration": "Once per saved widget config; import only missing or 1 / 0.9 default fields",
+      "laterUserChoices": "Preserved through run91ReferenceHealthBars=1",
+      "eta": "Archive-owned; calculation, 44/11 text sizes and font raster unchanged",
+      "groundDecals": "Existing NoGS path retained; missing presentation unresolved"
+    },
+    "cus": {
+      "ownership": "Selected official archive owns fragment and its UBO markers; CUS remains enabled",
+      "retiredOverrides": [
+        "modelmaterials_gl4/templates/cus_gl4.frag.glsl"
+      ],
+      "gpuValidated": false
+    },
+    "remediation": {
+      "revision": "run94-gl4-remediation-candidate-20260920",
+      "content": "test-31357-b06bb1a",
+      "scope": "Unsynced displayed state/settings/persistence only; existing NoGS meshes unchanged",
+      "acceptance": "CPU candidate only; HQ owns app integration and GPU/UI acceptance",
+      "pip": "Only tracked-cursor visibility and read-only state APIs; stream/map-drawing/expanded camera paths deferred; default-off unchanged",
+      "decals": "Official packed format 2 with optional NoGS footprint sidecar; overdraw/version-consumer rebase deferred"
+    }
+  },
+  "temporalCacheRevision": "reset-attributes-backward-query-v1",
+  "engineDirectory": "2026.07.04",
+  "engineCommit": "de69361239d8c8b1012dba3f5aa3122954ea4da3",
+  "selectedContentCommit": "11f7f951bb74d9a1fe621b7f32d6b010f13c8709",
+  "acceptance": {
+    "status": "static-candidate-only",
+    "appAcceptance": "pending-HQ",
+    "matchedWindowsLinuxReference": "pending",
+    "selectedContent": "11f7f951bb74d9a1fe621b7f32d6b010f13c8709",
+    "pipWidgetAndHistoryRef": "c8b94f9f1ae2c1ab916d81697f341ab8b8216526"
+  },
+  "sourceOriginCommit": "aa9c710b97dc63628b16b836a21ecb26fba5eb2c",
+  "integration": {
+    "revision": "run94-parity-backlog-cpu-20261001",
+    "status": "source-cpu-verified-candidate-acceptance-pending",
+    "sourceFiles": {
+      "LuaUI/Widgets/gui_pip.lua": "ff7d1cc21c3c07a9f706702855f2420ee9044011e4374bacf9d0d4dd0f1cff63",
+      "LuaUI/Include/pip_history.lua": "1ef3b6f1382460732be52e4b7b3c4fc21147e9ae371d6164d11025d13d1e8a33",
+      "LuaUI/Widgets/gui_runtime_graphics_diagnostic.lua": "e0fbbc67b887c0fdb2b5cf742a1c9c408d23fe9a41b2568a269e262e98e90fe2",
+      "LuaUI/Widgets/gui_options.lua": "1c29b27349a344e5c7ae18e3b9856aaa1ba001103abaddc046e5233fd469c240",
+      "LuaUI/Include/InstanceVBOTable_Local.lua": "7024d59d80a384cca64d94ca4514ca649bd49ca4452b74874c73488e1c537f42",
+      "LuaUI/Widgets/gui_attackrange_gl4.lua": "d10bcfb29ece5ec1ba9d48d3502d769403cca795b7ff09b1d196a125fb5db491",
+      "LuaUI/Widgets/gfx_unit_stencil_gl4.lua": "5fd69b9045ac0207f441cbdc85793fd8cdd9c8b48a725089b12a1ad47228f8b9",
+      "LuaUI/Widgets/gfx_decals_gl4.lua": "3cffc882fbb79314ad793482fe7f9929afab077bddcd19536dc66b10cfefda94"
+    },
+    "diagnosticsDefault": "explicit-opt-in-only",
+    "acceptance": "Options and InstanceVBO dispositions must be satisfied; GPU/visual comparison pending",
+    "codeSourceOrigin": "aa9c710b97dc63628b16b836a21ecb26fba5eb2c",
+    "archiveContent": "11f7f951bb74d9a1fe621b7f32d6b010f13c8709",
+    "previousRevision": "run94-canonical-resource-integration-20261001",
+    "previousCanonicalLockSha256": "109571e7bd9a0100f975256b4dab56a7ebe0d59976ffdf4dc5d83d45389d1d68"
+  },
+  "parityFollowup": {
+    "revision": "run94-parity-backlog-cpu-20261001",
+    "selectedContent": "11f7f951bb74d9a1fe621b7f32d6b010f13c8709",
+    "officialGithubComparisonSha256": "239a7fabf273d2744f5898b113dffabe8a6d34cc47f5874a81693d7dc2c4f567",
+    "cpuVerificationSha256": "18536e4cf3b5fe7a78aa28689b9362b126d917f31538a731ab4de27ccce2ae7a",
+    "submarineArc": "Common official forward cone retained with a nil-safe moveDef lookup",
+    "decals": "Runtime data revision and provider lifetime only; saved format 2 and optional NoGS footprint sidecar unchanged",
+    "pip": "Invalidate on provider replacement/loss; clear last empty image once; stable revisions avoid redundant rebuilds",
+    "historicalRemediationNote": "The earlier version-consumer deferral is superseded only by this bounded CPU-verified change; 16-layer eviction remains deferred",
+    "run57MeshesDensityEffects": "Preserved; no wholesale upstream NoGS intake",
+    "appAcceptance": "Pending; no game or GPU execution"
+  },
+  "unsyncedShaderAdapter": {
+    "path": "modules/graphics/LuaShader.lua",
+    "scope": "LuaRulesUnsynced-GS-policy-and-CUS-palette",
+    "officialArchiveUnchanged": true,
+    "delegateMode": "VFS.ZIP_ONLY",
+    "policy": "Retain explicit LuaRules GS policy; at CUS Compile/Initialize only, match native 2048 palette/model layouts, widen all program stage declarations, and replace invalid raw palette indices with the renderer-provided team color.",
+    "unchangedContexts": [
+      "LuaUI",
+      "LuaIntro",
+      "other script names",
+      "non-CUS shaders"
+    ],
+    "startupEvidence": "Once per state GS-policy result and CUS palette applied/skip status; no per-frame diagnostic work.",
+    "cusPalette": {
+      "revision": "bounds-v1",
+      "upstreamPR": 8631,
+      "upstreamHead": "9e774290b348d35f1f5ef30939abdaf4e2aa0667",
+      "nativePaletteEntries": 2048,
+      "simulationStateWrites": false,
+      "invalidIndexFallback": "renderer-visible-or-last-known-team",
+      "dynamicPaletteSweepImported": false
+    }
+  },
+  "ssaoReadiness": {
+    "revision": "r83-current-init-state-20261008",
+    "path": "LuaUI/Widgets/gfx_ssao.lua",
+    "scope": "LuaUI-only",
+    "delegateMode": "VFS.ZIP_ONLY",
+    "officialArchiveUnchanged": true,
+    "sharedLuaShaderUnchanged": true,
+    "checks": "Current deferred map/model and AdvMapShading settings, plus the official actual-advanced-shading check, at each InitGL",
+    "unmatchedArchivePolicy": "Run official widget unchanged with one load-time notice",
+    "acceptance": "CPU validated in Recoil Lua 5.1 and Lua 5.4; independent review and app acceptance pending"
+  },
+  "healthbarDelivery": {
+    "revision": "healthbar-standalone-1.0.3-20261018",
+    "scope": "Actual unsynced BAR LuaUI only; immutable healthbar and unit-tracker widgets through ordinary archive loading",
+    "shaders": [
+      "LuaUI/BARMacOS/Healthbars/healthbars.vert.glsl",
+      "LuaUI/BARMacOS/Healthbars/healthbars.frag.glsl"
+    ],
+    "wholeHandlerHashRequired": false,
+    "rawWidgetPrivilegesChanged": false,
+    "officialArchivesChanged": false
+  }
+}

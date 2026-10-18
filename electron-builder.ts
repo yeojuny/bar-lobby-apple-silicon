@@ -9,15 +9,15 @@ import { createPinnedBundledAssets } from "./packaging/pinned-bundled-assets";
 // Reviewed experimental release inputs. The external lock remains mandatory;
 // protected local candidates are not modified by this packaging configuration.
 const bundledAssets = createPinnedBundledAssets(process.env, {
-    id: "spring-default-1.0.2-20261018",
+    id: "healthbar-standalone-1.0.3-20261018",
     lanes: {
         "bar-chobby": {
             engineDirectory: "2026.07.04",
-            springSha256: "d270745ef970a6c440dae7cef453b58a9a87334c0e28f4974f7465cdd475bae3",
+            springSha256: "5416abb83d5611c22e8a2c4b841b8647d5c6f2f4ef59f9b304d9b909edc0daa8",
         },
         "bar-lobby": {
             engineDirectory: "2026.09.01-24-g01efdf4 master",
-            springSha256: "777d409bc6561c503d2ab0c833078af453f6c0a27060e9f582caed378daa71fb",
+            springSha256: "7d32a46c5d0e95be1f06291757c84cdddb49c2d5b9136eab6696751076d23ae7",
         },
     },
 });
@@ -30,9 +30,9 @@ const config: Configuration = {
     // Should be the same as APP_NAME in src/main/config/app.ts and in
     // workaround in installer.nsh.
     productName: "BAR",
-    buildVersion: "1.0.2",
+    buildVersion: "1.0.3",
     extraMetadata: {
-        version: "1.0.2",
+        version: "1.0.3",
         repository: { type: "git", url: "https://github.com/yeojuny/bar-lobby-apple-silicon.git" },
     },
 

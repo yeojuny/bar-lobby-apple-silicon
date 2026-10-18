@@ -1,0 +1,11 @@
+# Corresponding source for1.0.3
+
+Use BAR-1.0.3-sources.tar.gz, notices and SHA256SUMS. GitHub's automatic launcher archive is not complete application source. The full companion contains eleven archives, pinned dependency sources/recipes, complete native postimages and generated headers, final canonical/production overlay source, generator, existing fixtures and exact app/build bindings.
+
+This commit descends from1.0.2 source09f47b9dfd8435069a329b55861e37c25e5e983b. No immutable source tag moves. Source/tag/app association is recorded externally in the companion manifest, avoiding a self-referential Git hash. Retired alpha/candidate releases or deleted local validation sessions are not restored.
+
+Both native archives replace only rts/Lua/LuaVFS.cpp, LuaBundledPresentation.h, generated LuaBundledPresentationSources.h and BAR-1.0.3 version inputs/metadata. VersionGenerated.h reproduces byte-exactly from the retained template values; official Lobby2026.09.01-24-g01efdf4 master and Chobby2026.07.04 sync identities and numeric/compiler/link policy are retained. Current raw/relocated native hashes and relocation recipes are included.
+
+The source companion contains all changed canonical manifests/widget/shader postimages and separately pinned actual production manifests used for compiled headers. The old LuaUI/Shaders/HealthbarsGL4_NoGS.vert.glsl alias is explicitly removed. The private vertex retains its original bytes; the official fragment retains MIT SPDX/copyright. Complete source patch, before/after/deletion pins, generator and existing canonical fixture are provided. Launcher package/lock change version; builder metadata binds the final assets/lock/native hashes. Launcher implementation source stays1.0.2.
+
+Use current1.0.3 build-support fixture inputs with its scratch-workspace setup instructions. Exported JSON paths are normalized to $WORKSPACE; relocating the production pin-file path requires updating only that pin-file SHA literal in the copied scratch fixture. Per-source/manifest/header pins remain exact. Existing31383/31671 lifecycle input modules and original NoGS runner invocation are included for reproduction, not as a claim of gameplay validation. No new product tests or native/launcher build is needed for publication.
