@@ -26,7 +26,15 @@ Quit BAR normally before updating. The cask installs one `/Applications/BAR.app`
 
 Alternatively, open the ARM64 DMG and drag BAR.app to Applications. The ZIP contains the same app. Game/map content downloads separately; automatic in-app updates are disabled.
 
-The app is ad-hoc signed, without Apple Developer ID signing or notarization. If macOS blocks opening, follow [Apple's per-app Open Anyway instructions](https://support.apple.com/en-us/102445).
+### First launch
+
+This build is ad-hoc signed, without Apple Developer ID signing or notarization. macOS may show an unidentified-developer or verification warning. If you downloaded it from this repository and trust it, try opening BAR once, then go to **System Settings → Privacy & Security → Open Anyway** for BAR and confirm **Open**. See [Apple’s instructions](https://support.apple.com/en-us/102445).
+
+If it still won’t launch, you can try restarting your Mac once; this is not a guaranteed fix. If it keeps failing, report the exact error message. Warnings that the app will damage your computer should be investigated rather than bypassed.
+
+### Before playing online
+
+Multiplayer follows the normal BAR Chobby handoff. This is an unofficial build, and approval for the official servers has not been confirmed. Online use may put your account at risk, including a ban. **Contact the BAR moderation team before playing online. Offline skirmishes are recommended for now.**
 
 ## Metal3 or Metal4
 
@@ -59,3 +67,9 @@ Upstream BAR, bar-lobby, Chobby, Recoil, Mesa, MoltenVK and dependency authors r
 ## Source, integrations and reusable patches
 
 See the [detailed stack and PR/MR ledger](docs/stack-records/2026-10-17/README.md) for exact devel/RC pins, inherited versus selected changes and upstream status. [r73/r75 feature patches](docs/engine-patches/README.md) include attribution, exact base files and scoped local validation.
+
+## Local play observations
+
+I’ve tested 1.0.1 locally on a 14-inch M4 Pro MacBook Pro, including notch handling. The gameplay experience feels close to seamless in my testing. I plan to check it on my iMac too; that verification is still pending.
+
+In early skirmish matches launched from the lobby, I’ve seen over 200 FPS even in Low Power Mode, depending on the map and how much is in view. This is a personal early-game observation, not a late-game guarantee, controlled benchmark or iMac result. See [detailed validation limits](docs/release-readiness/2026-10-17-v1.0.1/README.md).
