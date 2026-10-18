@@ -1,0 +1,477 @@
+{
+  "unit": "L4",
+  "originalHQResultSHA256": "77fced88316c06e2c00d50f8396c957aefc7b89603e06133a188b81bfe0e0f45",
+  "originalAppliedAuditSHA256": "79bcfc94e42562acd63e828ee27c2f033f523c81177ac3fd71645cd864c7a853",
+  "checks": {
+    "preparedBaseline": {
+      "receipt": "preparation-result.json",
+      "targetAndHunkPlan": "target-and-hunk-plan.json",
+      "existingTargets": [
+        "test_fuzzing",
+        "test_regression",
+        "test_icd_version_2",
+        "test_layer_export_version_2"
+      ],
+      "priorProductionAPIBaseline": "baseline-public-api.json",
+      "baselineTestsPassed": 5,
+      "newSourceOrBuildLane": false,
+      "GoogleTest": "Reuse pinned declared 1.14.0 dependency already in existing build _deps; no extraction/download repeated."
+    },
+    "beforeFunctionalPair": {
+      "directHelper": {
+        "receipt": "before-fix-helper.json",
+        "mode": "test-only helper export; original parser body unchanged",
+        "tests": 3,
+        "failed": 3
+      },
+      "publicAPI": {
+        "receipt": "before-fix-public-api-attempt2.json",
+        "mode": "test-only raw before parser pair; corrected discoverable regular driver fixture",
+        "tests": 4,
+        "passed": 2,
+        "failed": 2,
+        "observableFailures": "Both later-only cases select regular-driver with no active layer instead of expected later-driver/layer; first-path cases already pass."
+      },
+      "totalNewCases": 7,
+      "totalFailed": 5,
+      "initialFixtureAttemptRetained": "before-fix-public-api.json/log/xml and fixture-correction-1.json"
+    },
+    "afterFunctionalPair": {
+      "helper": {
+        "receipt": "after-fix-helper.json",
+        "mode": "BUILD_TESTS ON test-mode raw with helper export",
+        "testModeRawSHA256": "e80c39ed0883b9ab1ae852b2b6d1859876accaeea3614c027fc7569828bf4997",
+        "tests": 3,
+        "passed": 3,
+        "failed": 0,
+        "disabled": 0,
+        "sameExecutableAsBeforeFix": true,
+        "executableSHA256": "2e79b12273c5b3d9625041287a546b096b418e7efd702532faf96da28d9758ce",
+        "coverage": [
+          "Exact official first/later/consecutive/trailing/only-delimiter regression",
+          "15 table inputs: one-character path, later path, first existing match, leading/consecutive/trailing separators, empty and missing paths",
+          "Valid terminal-NUL and embedded-NUL arrays; bytes after NUL ignored; empty-before-more-bytes and NULL base/suffix rejected"
+        ],
+        "ownership": "Returned helper strings checked then freed; fixture files owned by existing fs::Folder or official tmp fixture; TMPDIR and cwd are inside existing Loader build."
+      },
+      "productionPublicAPI": {
+        "receipt": "after-fix-production-api.json",
+        "mode": "Final production BUILD_TESTS OFF raw; helper export absent",
+        "productionRawSHA256": "3124b06d6ce0341332a3a41c45431ef05f241b8bb92123c5e3f3e8649ecc8046",
+        "tests": 9,
+        "passed": 9,
+        "failed": 0,
+        "disabled": 0,
+        "sameExecutableAsCorrectedBeforeFix": true,
+        "executableSHA256": "2c5e5ca197559eaaf03d47b44745051d06cf8eb56c52317d1c76f6c993d61364",
+        "coverage": [
+          "Four XDG config/data later-only versus first-and-later selection cases verify actual device properties and active layer names through public APIs",
+          "Five existing settings-file, unsecured-location, app-specific-priority and additional/exclusive-driver cases"
+        ],
+        "actualDyldRawAndMockBindingsRecorded": true
+      },
+      "testOnlyResultsAndProductionResultsSeparated": true,
+      "totalFocusedTestsPassed": 12
+    },
+    "productionBuild": {
+      "receipt": "production-restore.json",
+      "status": "PASS",
+      "BUILD_TESTS": "OFF",
+      "UPDATE_DEPS": "OFF",
+      "ENABLE_LIVE_VERIFICATION_TESTS": "OFF",
+      "CAndASMFlagsByteExactBefore": true,
+      "linkCommandByteExactBefore": true,
+      "cacheSettingValuesExact": true,
+      "cacheByteExact": false,
+      "cacheDifference": "Compiler/linker values unchanged; explicit arguments changed cache entry types only. See cache-readback.json.",
+      "directHelperSymbolExported": false
+    },
+    "rawAndABI": {
+      "receipt": "raw-artifact.json",
+      "beforeSHA256": "ad67a255b194f1ed9e3d8b8eb5cfd39850256290954d78ca4f195e6fcbf22822",
+      "afterSHA256": "3124b06d6ce0341332a3a41c45431ef05f241b8bb92123c5e3f3e8649ecc8046",
+      "exportNamesExact": true,
+      "exportCount": 1015,
+      "dynamicDependenciesAndInstallNameExact": true,
+      "scope": "Export/dependency/install-name checks; no general binary ABI or gameplay proof."
+    },
+    "reconstruction": {
+      "allFourPreimagesExactToPublicPortArchive": true,
+      "productionAndHeaderExactToOfficialAtomicPair": true,
+      "completeFourFileApplyPostimageAndReversePreimageByteExact": true,
+      "modesAndActualBinding": "mode-and-binding-readback.json"
+    }
+  },
+  "baselineBuild": {
+    "recordedAtUTC": "2026-10-18T02:49:50.653175+00:00",
+    "stages": [
+      {
+        "command": [
+          "/opt/homebrew/bin/cmake",
+          "-S",
+          "$WORKSPACE/build/run66-vulkan-loader-src-20260903",
+          "-B",
+          "$WORKSPACE/build/run95-loader-20261002",
+          "-DBUILD_TESTS=ON",
+          "-DGOOGLETEST_INSTALL_DIR=$WORKSPACE/build/run95-loader-20261002/_deps/googletest",
+          "-DUPDATE_DEPS=OFF",
+          "-DENABLE_LIVE_VERIFICATION_TESTS=OFF",
+          "-DCMAKE_CXX_COMPILER=/usr/bin/clang++",
+          "-DCMAKE_LINKER=/usr/bin/ld",
+          "-DCMAKE_GTEST_DISCOVER_TESTS_DISCOVERY_MODE=PRE_TEST"
+        ],
+        "exitCode": 0,
+        "elapsedSeconds": 1.739,
+        "log": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L4/baseline-configure.log"
+      },
+      {
+        "command": [
+          "/opt/homebrew/bin/cmake",
+          "--build",
+          "$WORKSPACE/build/run95-loader-20261002",
+          "--target",
+          "test_regression",
+          "test_layer_export_version_2",
+          "test_icd_version_2",
+          "--parallel",
+          "3"
+        ],
+        "exitCode": 0,
+        "elapsedSeconds": 4.134,
+        "log": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L4/baseline-regression-mocks-build.log"
+      }
+    ],
+    "environmentOverrides": {
+      "PATH": "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/homebrew/bin"
+    },
+    "productionFlagsUnchangedExceptOfficialTestExportDefine": true,
+    "linkCommandByteExact": true,
+    "testModeCompileDefinitionDelta": {
+      "C_DEFINES": {
+        "before": "-DEXTRASYSCONFDIR=\\\"/etc\\\" -DFALLBACK_CONFIG_DIRS=\\\"/etc/xdg\\\" -DFALLBACK_DATA_DIRS=\\\"/usr/local/share:/usr/share\\\" -DHAVE_ALLOCA_H -DHAVE_REALPATH -DMODIFY_UNKNOWN_FUNCTION_DECLS -DSYSCONFDIR=\\\"$WORKSPACE/artifacts/runtime/run95-stack-update-20261002/runtime/vulkan-loader/etc\\\" -DUNKNOWN_FUNCTIONS_SUPPORTED -DVK_ENABLE_BETA_EXTENSIONS -DVK_USE_PLATFORM_MACOS_MVK -DVK_USE_PLATFORM_METAL_EXT -D_GNU_SOURCE -Dvulkan_EXPORTS",
+        "after": "-DEXTRASYSCONFDIR=\\\"/etc\\\" -DFALLBACK_CONFIG_DIRS=\\\"/etc/xdg\\\" -DFALLBACK_DATA_DIRS=\\\"/usr/local/share:/usr/share\\\" -DHAVE_ALLOCA_H -DHAVE_REALPATH -DMODIFY_UNKNOWN_FUNCTION_DECLS -DSHOULD_EXPORT_TEST_FUNCTIONS -DSYSCONFDIR=\\\"$WORKSPACE/artifacts/runtime/run95-stack-update-20261002/runtime/vulkan-loader/etc\\\" -DUNKNOWN_FUNCTIONS_SUPPORTED -DVK_ENABLE_BETA_EXTENSIONS -DVK_USE_PLATFORM_MACOS_MVK -DVK_USE_PLATFORM_METAL_EXT -D_GNU_SOURCE -Dvulkan_EXPORTS"
+      },
+      "ASM_DEFINES": {
+        "before": "-DEXTRASYSCONFDIR=\\\"/etc\\\" -DFALLBACK_CONFIG_DIRS=\\\"/etc/xdg\\\" -DFALLBACK_DATA_DIRS=\\\"/usr/local/share:/usr/share\\\" -DHAVE_ALLOCA_H -DHAVE_REALPATH -DMODIFY_UNKNOWN_FUNCTION_DECLS -DSYSCONFDIR=\\\"$WORKSPACE/artifacts/runtime/run95-stack-update-20261002/runtime/vulkan-loader/etc\\\" -DUNKNOWN_FUNCTIONS_SUPPORTED -DVK_ENABLE_BETA_EXTENSIONS -DVK_USE_PLATFORM_MACOS_MVK -DVK_USE_PLATFORM_METAL_EXT -D_GNU_SOURCE -Dvulkan_EXPORTS",
+        "after": "-DEXTRASYSCONFDIR=\\\"/etc\\\" -DFALLBACK_CONFIG_DIRS=\\\"/etc/xdg\\\" -DFALLBACK_DATA_DIRS=\\\"/usr/local/share:/usr/share\\\" -DHAVE_ALLOCA_H -DHAVE_REALPATH -DMODIFY_UNKNOWN_FUNCTION_DECLS -DSHOULD_EXPORT_TEST_FUNCTIONS -DSYSCONFDIR=\\\"$WORKSPACE/artifacts/runtime/run95-stack-update-20261002/runtime/vulkan-loader/etc\\\" -DUNKNOWN_FUNCTIONS_SUPPORTED -DVK_ENABLE_BETA_EXTENSIONS -DVK_USE_PLATFORM_MACOS_MVK -DVK_USE_PLATFORM_METAL_EXT -D_GNU_SOURCE -Dvulkan_EXPORTS"
+      }
+    },
+    "rawStillOriginalL5ProductionSHA256": "ad67a255b194f1ed9e3d8b8eb5cfd39850256290954d78ca4f195e6fcbf22822",
+    "sourceEdits": 0,
+    "testExecutionDeferredDuringBuild": true
+  },
+  "afterPairTestBuild": {
+    "command": [
+      "/opt/homebrew/bin/cmake",
+      "--build",
+      "$WORKSPACE/build/run95-loader-20261002",
+      "--target",
+      "test_fuzzing",
+      "--parallel",
+      "3"
+    ],
+    "exitCode": 0,
+    "elapsedSeconds": 1.849,
+    "mode": "test-only BUILD_TESTS ON; complete atomic pair",
+    "rawSHA256": "e80c39ed0883b9ab1ae852b2b6d1859876accaeea3614c027fc7569828bf4997",
+    "fuzzExecutableSHA256": "2e79b12273c5b3d9625041287a546b096b418e7efd702532faf96da28d9758ce",
+    "regressionExecutableSHA256": "2c5e5ca197559eaaf03d47b44745051d06cf8eb56c52317d1c76f6c993d61364",
+    "log": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L4/build-after-fix-test-mode.log"
+  },
+  "helperAfter": {
+    "recordedAtUTC": "2026-10-18T02:57:02.666333+00:00",
+    "command": [
+      "$WORKSPACE/build/run95-loader-20261002/tests/test_fuzzing",
+      "--gtest_filter=SettingsPathDiscovery.*",
+      "--gtest_output=xml:$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L4/after-fix-helper.xml",
+      "--gtest_color=no"
+    ],
+    "cwd": "$WORKSPACE/build/run95-loader-20261002/tests/l4-direct-fixture",
+    "environmentOverrides": {
+      "PATH": "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/homebrew/bin",
+      "DYLD_PRINT_LIBRARIES": "1",
+      "TMPDIR": "$WORKSPACE/build/run95-loader-20261002/tests/l4-direct-fixture"
+    },
+    "exitCode": 0,
+    "elapsedSeconds": 0.439,
+    "xmlSummary": {
+      "tests": "3",
+      "failures": "0",
+      "disabled": "0",
+      "errors": "0",
+      "time": "0.002",
+      "timestamp": "2026-10-17T19:57:02.554",
+      "name": "AllTests"
+    },
+    "mode": "test-only BUILD_TESTS ON; helper export present; complete L4 pair applied",
+    "rawLibrarySHA256": "e80c39ed0883b9ab1ae852b2b6d1859876accaeea3614c027fc7569828bf4997",
+    "executableSHA256": "2e79b12273c5b3d9625041287a546b096b418e7efd702532faf96da28d9758ce",
+    "sameExecutableBeforeFix": true,
+    "helperSymbolExported": true,
+    "scope": "Three focused cases: exact official later-segment case plus 15 table inputs, two terminated-NUL arrays, empty leading NUL and NULL input checks",
+    "log": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L4/after-fix-helper.log",
+    "bindingEvidenceExample": [
+      "dyld[84177]: <3FA60B02-51E4-3EF7-B91E-6DD724D80DE2> $WORKSPACE/build/run95-loader-20261002/loader/libvulkan.1.4.365.dylib"
+    ],
+    "bindingLinesRecordedCount": 1
+  },
+  "productionRestore": {
+    "recordedAtUTC": "2026-10-18T02:57:33.050314+00:00",
+    "stages": [
+      {
+        "command": [
+          "/opt/homebrew/bin/cmake",
+          "-S",
+          "$WORKSPACE/build/run66-vulkan-loader-src-20260903",
+          "-B",
+          "$WORKSPACE/build/run95-loader-20261002",
+          "-DBUILD_TESTS=OFF",
+          "-DUPDATE_DEPS=OFF"
+        ],
+        "exitCode": 0,
+        "elapsedSeconds": 0.94,
+        "log": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L4/production-restore-configure.log"
+      },
+      {
+        "command": [
+          "/opt/homebrew/bin/cmake",
+          "--build",
+          "$WORKSPACE/build/run95-loader-20261002",
+          "--target",
+          "vulkan",
+          "--parallel",
+          "3"
+        ],
+        "exitCode": 0,
+        "elapsedSeconds": 3.485,
+        "log": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L4/production-build-after-fix.log"
+      }
+    ],
+    "productionCAndASMFlagsByteExactBefore": true,
+    "productionLinkCommandByteExactBefore": true,
+    "BUILD_TESTS": "OFF",
+    "UPDATE_DEPS": "OFF",
+    "ENABLE_LIVE_VERIFICATION_TESTS": "OFF",
+    "productionRawSHA256": "3124b06d6ce0341332a3a41c45431ef05f241b8bb92123c5e3f3e8649ecc8046",
+    "directHelperSymbolExported": false,
+    "productionPublicExportCount": 1015,
+    "testOnlyHelperResultNotClaimedAsProductionAPIResult": true
+  },
+  "productionAPIAfter": {
+    "recordedAtUTC": "2026-10-18T02:58:22.737103+00:00",
+    "command": [
+      "$WORKSPACE/build/run95-loader-20261002/tests/test_regression",
+      "--gtest_filter=SettingsXDG/SettingsPathListIntegration.*:SettingsFile.FileExist:SettingsFile.SettingsInUnsecuredLocation:SettingsFile.SupportsMultipleSettingsSimultaneously:SettingsFile.AdditionalDrivers:SettingsFile.ExclusiveAdditionalDrivers",
+      "--gtest_output=xml:$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L4/after-fix-production-api.xml",
+      "--gtest_color=no"
+    ],
+    "cwd": "$WORKSPACE/build/run95-loader-20261002/tests",
+    "environmentOverrides": {
+      "PATH": "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/homebrew/bin",
+      "DYLD_PRINT_LIBRARIES": "1"
+    },
+    "exitCode": 0,
+    "elapsedSeconds": 2.046,
+    "xmlSummary": {
+      "tests": "9",
+      "failures": "0",
+      "disabled": "0",
+      "errors": "0",
+      "time": "1.963",
+      "timestamp": "2026-10-17T19:58:20.725",
+      "name": "AllTests"
+    },
+    "mode": "Final production raw; BUILD_TESTS OFF; helper export absent",
+    "productionRawSHA256": "3124b06d6ce0341332a3a41c45431ef05f241b8bb92123c5e3f3e8649ecc8046",
+    "executableSHA256": "2c5e5ca197559eaaf03d47b44745051d06cf8eb56c52317d1c76f6c993d61364",
+    "sameExecutableAsCorrectedBeforeFix": true,
+    "cases": [
+      {
+        "suite": "SettingsFile",
+        "name": "FileExist",
+        "valueParam": null,
+        "failures": []
+      },
+      {
+        "suite": "SettingsFile",
+        "name": "SettingsInUnsecuredLocation",
+        "valueParam": null,
+        "failures": []
+      },
+      {
+        "suite": "SettingsFile",
+        "name": "SupportsMultipleSettingsSimultaneously",
+        "valueParam": null,
+        "failures": []
+      },
+      {
+        "suite": "SettingsFile",
+        "name": "AdditionalDrivers",
+        "valueParam": null,
+        "failures": []
+      },
+      {
+        "suite": "SettingsFile",
+        "name": "ExclusiveAdditionalDrivers",
+        "valueParam": null,
+        "failures": []
+      },
+      {
+        "suite": "SettingsXDG/SettingsPathListIntegration",
+        "name": "SelectsDriverAndLayer/0",
+        "valueParam": "(false, false)",
+        "failures": []
+      },
+      {
+        "suite": "SettingsXDG/SettingsPathListIntegration",
+        "name": "SelectsDriverAndLayer/1",
+        "valueParam": "(false, true)",
+        "failures": []
+      },
+      {
+        "suite": "SettingsXDG/SettingsPathListIntegration",
+        "name": "SelectsDriverAndLayer/2",
+        "valueParam": "(true, false)",
+        "failures": []
+      },
+      {
+        "suite": "SettingsXDG/SettingsPathListIntegration",
+        "name": "SelectsDriverAndLayer/3",
+        "valueParam": "(true, true)",
+        "failures": []
+      }
+    ],
+    "log": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L4/after-fix-production-api.log",
+    "actualUserXDGHomeConfigWrites": false,
+    "bindingEvidenceExample": [
+      "dyld[84771]: <9CA49AB6-0DF0-3208-961D-C20841F930E5> $WORKSPACE/build/run95-loader-20261002/loader/libvulkan.1.4.365.dylib",
+      "dyld[84771]: <0B2547C9-E18A-34AA-8CD2-ED7583A864CD> $WORKSPACE/build/run95-loader-20261002/tests/executing_tests/SettingsFile_FileExist/icd_manifests/libtest_icd_version_2_0.dylib"
+    ],
+    "bindingLinesRecordedCount": 40
+  },
+  "correctedBeforeAPI": {
+    "recordedAtUTC": "2026-10-18T02:55:55.728200+00:00",
+    "command": [
+      "$WORKSPACE/build/run95-loader-20261002/tests/test_regression",
+      "--gtest_filter=SettingsXDG/SettingsPathListIntegration.*",
+      "--gtest_output=xml:$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L4/before-fix-public-api-attempt2.xml",
+      "--gtest_color=no"
+    ],
+    "exitCode": 1,
+    "elapsedSeconds": 1.627,
+    "xmlSummary": {
+      "tests": "4",
+      "failures": "2",
+      "disabled": "0",
+      "errors": "0",
+      "time": "1.312",
+      "timestamp": "2026-10-17T19:55:54.406",
+      "name": "AllTests"
+    },
+    "mode": "test-only; old parser body; corrected normal ICD env_var discovery fixture",
+    "rawLibrarySHA256": "d2f0ff78433cb4c2eb68913a452cd9e69d023c8a707bf0313cb7dfcd51eaa4fd",
+    "executableSHA256": "2c5e5ca197559eaaf03d47b44745051d06cf8eb56c52317d1c76f6c993d61364",
+    "cases": [
+      {
+        "suite": "SettingsXDG/SettingsPathListIntegration",
+        "name": "SelectsDriverAndLayer/0",
+        "valueParam": "(false, false)",
+        "failures": [
+          "$WORKSPACE/build/run66-vulkan-loader-src-20260903/tests/loader_settings_tests.cpp:149\nExpected equality of these values:\n  selected == 0 ? \"first-driver\" : \"later-driver\"\n    Which is: \"later-driver\"\n  properties.deviceName\n    Which is: \"regular-driver\"\n",
+          "$WORKSPACE/build/run66-vulkan-loader-src-20260903/tests/framework/test_environment.cpp:108\nExpected equality of these values:\n  count\n    Which is: 0\n  expected_count\n    Which is: 1\n",
+          "$WORKSPACE/build/run66-vulkan-loader-src-20260903/tests/framework/test_environment.cpp:112\nExpected equality of these values:\n  count\n    Which is: 0\n  expected_count\n    Which is: 1\n",
+          "$WORKSPACE/build/run66-vulkan-loader-src-20260903/tests/loader_settings_tests.cpp:151\nExpected equality of these values:\n  1U\n    Which is: 1\n  layers.size()\n    Which is: 0\n"
+        ]
+      },
+      {
+        "suite": "SettingsXDG/SettingsPathListIntegration",
+        "name": "SelectsDriverAndLayer/1",
+        "valueParam": "(false, true)",
+        "failures": []
+      },
+      {
+        "suite": "SettingsXDG/SettingsPathListIntegration",
+        "name": "SelectsDriverAndLayer/2",
+        "valueParam": "(true, false)",
+        "failures": [
+          "$WORKSPACE/build/run66-vulkan-loader-src-20260903/tests/loader_settings_tests.cpp:149\nExpected equality of these values:\n  selected == 0 ? \"first-driver\" : \"later-driver\"\n    Which is: \"later-driver\"\n  properties.deviceName\n    Which is: \"regular-driver\"\n",
+          "$WORKSPACE/build/run66-vulkan-loader-src-20260903/tests/framework/test_environment.cpp:108\nExpected equality of these values:\n  count\n    Which is: 0\n  expected_count\n    Which is: 1\n",
+          "$WORKSPACE/build/run66-vulkan-loader-src-20260903/tests/framework/test_environment.cpp:112\nExpected equality of these values:\n  count\n    Which is: 0\n  expected_count\n    Which is: 1\n",
+          "$WORKSPACE/build/run66-vulkan-loader-src-20260903/tests/loader_settings_tests.cpp:151\nExpected equality of these values:\n  1U\n    Which is: 1\n  layers.size()\n    Which is: 0\n"
+        ]
+      },
+      {
+        "suite": "SettingsXDG/SettingsPathListIntegration",
+        "name": "SelectsDriverAndLayer/3",
+        "valueParam": "(true, true)",
+        "failures": []
+      }
+    ],
+    "log": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L4/before-fix-public-api-attempt2.log",
+    "bindingEvidenceExample": [
+      "dyld[83795]: <C4D7F2D2-FA1D-356D-B6FA-CF3DE0EE1288> $WORKSPACE/build/run95-loader-20261002/loader/libvulkan.1.4.365.dylib",
+      "dyld[83795]: <C4D7F2D2-FA1D-356D-B6FA-CF3DE0EE1288> $WORKSPACE/build/run95-loader-20261002/loader/libvulkan.1.4.365.dylib"
+    ],
+    "bindingLinesRecordedCount": 4
+  },
+  "cacheReadback": {
+    "recordedAtUTC": "2026-10-18T03:00:43.088309+00:00",
+    "cacheByteExact": false,
+    "cacheSettingValuesExact": true,
+    "entryTypeChangesOnly": {
+      "CMAKE_CXX_COMPILER:UNINITIALIZED": {
+        "before": null,
+        "after": "/usr/bin/clang++"
+      },
+      "CMAKE_LINKER:FILEPATH": {
+        "before": "/usr/bin/ld",
+        "after": null
+      },
+      "CMAKE_CXX_COMPILER:STRING": {
+        "before": "/usr/bin/clang++",
+        "after": null
+      },
+      "CMAKE_LINKER:UNINITIALIZED": {
+        "before": null,
+        "after": "/usr/bin/ld"
+      }
+    },
+    "explanation": "Explicit configure arguments changed CMAKE_CXX_COMPILER STRING and CMAKE_LINKER FILEPATH cache types to UNINITIALIZED. The compiler/linker paths and every normalized cache value remain identical; actual production flags and link command are byte-exact. No extra configure/build/test is needed for this metadata type difference.",
+    "productionFlagsAndLinkCommandsByteExact": true
+  },
+  "retainedCorrections": [
+    {
+      "receipt": "fixture-correction-1.json",
+      "kind": "Initial API fixture omitted a discoverable regular driver after XDG directory overrides; initial results retained; only existing test data fixed and relevant API target/cases rebuilt/rerun."
+    },
+    {
+      "receipt": "preservation-guard-correction-1.json",
+      "kind": "Initial guard treated intended L4 paths in prior L5 upcoming-file list as unchanged; corrected classification uses verified L4 postimage hashes. No unplanned source change."
+    }
+  ],
+  "fixtureCorrection": {
+    "recordedAtUTC": "2026-10-18T02:55:22.938606+00:00",
+    "originalResult": "before-fix-public-api.json and log/xml retained unchanged",
+    "finding": "XDG directory variables also affect regular ICD discovery. Initial later-only cases failed at vkCreateInstance without a reachable normal ICD, so they did not compare normal versus settings-selected driver/layer.",
+    "correction": "Register the regular mock ICD through existing env_var discovery instead of default directory discovery. Existing settings exclusive-driver semantics must then deliberately replace this discoverable normal driver when the revived settings file is selected.",
+    "productionBodyChanged": false,
+    "requiredFollowup": "Rebuild only existing test_regression and rerun its four new API cases. Direct-helper failure evidence and executable remain unchanged."
+  },
+  "intendedObservableEffect": {
+    "before": "A settings file only in a later XDG directory was ignored. Corrected before-fix fixtures reach the regular mock driver and have no settings-selected layer.",
+    "after": "The later-directory settings file is discovered; its existing exclusive-driver rule replaces the regular mock driver, and its requested mock layer is active. When the first directory also has a settings file, the first driver/layer configuration still wins.",
+    "scope": "Verified for both XDG_CONFIG_DIRS and XDG_DATA_DIRS in isolated existing framework fixtures, including a discoverable regular driver supplied through VK_DRIVER_FILES. Actual user settings, home and XDG files are untouched.",
+    "notClaimed": "No FPS improvement or universal acceptance of every external configuration/driver combination."
+  },
+  "notRequiredThisUnit": [
+    "Unrelated complete regression/fuzz suite",
+    "GPU/game/FPS/multiplayer/window/audio/endurance tests"
+  ],
+  "limits": [
+    "Controlled mock-driver/layer CPU fixtures do not prove every external settings profile or real-driver combination",
+    "NUL cases use valid terminated C strings; no unsupported unterminated-string API contract or sanitizer proof claimed",
+    "Current raw Loader is local; existing frozen apps, installed/public release and Homebrew are not updated",
+    "No unrelated Loader locking fixes or broader settings redesign included"
+  ],
+  "scope": "HQ actual component/mock checks and applied Audit - MK2 PASS. Publisher did not rerun builds/tests. Helper test-only3 and final production API9 results remain distinct."
+}

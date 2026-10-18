@@ -1,0 +1,185 @@
+{
+  "schema": "bar-maintenance-public-unit-v1",
+  "unit": "L4",
+  "publicationParent": "a190072b355b145da241821c33210890b70a890a",
+  "atomicUpstreamPair": [
+    "d77a2a09597af347e171fa2830ef05b39319b4eb",
+    "a3fdec40f1a76c73747f22671ee5d4c0269cb3f1"
+  ],
+  "upstreamURLs": [
+    "https://github.com/KhronosGroup/Vulkan-Loader/commit/d77a2a09597af347e171fa2830ef05b39319b4eb",
+    "https://github.com/KhronosGroup/Vulkan-Loader/commit/a3fdec40f1a76c73747f22671ee5d4c0269cb3f1"
+  ],
+  "atomicity": "One publication commit for the full two-fix pair and related existing tests. No intermediate half-pair built or published.",
+  "component": "Vulkan-Loader",
+  "publicSourceBase": {
+    "outerURL": "https://github.com/yeojuny/bar-lobby-apple-silicon/releases/download/v0.17.0-candidate.4/BAR-0.17.0-candidate.4-sources.tar.gz",
+    "outerSHA256": "65e29a1b17c7d434fa6a4c97b5040a0236f1edb36d869f0b18c6fb27f70c792e",
+    "outerBytes": 374939453,
+    "archiveMember": "BAR-0.17.0-candidate.4-sources/archives/vulkan-loader-68cc-input.tar.gz",
+    "componentArchiveSHA256": "68269a49344a1b2fd318f56828c0ca7104ef08ea3144e4fe97ac93061e8c7420",
+    "componentArchiveBytes": 1869775,
+    "componentRoot": "vulkan-loader-68cc-input",
+    "allFourL4PreimagesIndependentlyExact": true
+  },
+  "requiredPredecessor": {
+    "unit": "L5",
+    "commit": "a190072b355b145da241821c33210890b70a890a",
+    "patchURL": "https://github.com/yeojuny/bar-lobby-apple-silicon/blob/a190072b355b145da241821c33210890b70a890a/docs/maintenance-units/2026-10-17/L5/change.patch",
+    "patchSHA256": "d144ecc2f6b8ef15f6f8d0ac2e900664e6f1d2ca897e396a63e3ea691493943c"
+  },
+  "reconstructionOrder": "Public candidate.4 port Loader archive -> complete L5 patch -> complete atomic L4 patch. SDL S1/S2 source chain stays separate and unchanged. L4 touched-file preimages are unchanged by L5 but the cumulative L5 production/test changes must be retained.",
+  "files": [
+    {
+      "path": "loader/settings.c",
+      "preimageSHA256": "14dd14b5afa94d3a4160dca4098d17b0005577a26c18a09fe6fb6759245fd091",
+      "postimageSHA256": "f698ca485c8e2cb14e0da47b084e31b2cac648b7a3596576d61b37bb0662c3c4",
+      "preimageGitBlobSHA1": "11939d0603359dc4f3a39def403f3f2e46dd1756",
+      "postimageGitBlobSHA1": "7b503cfce51ed8ef8e1e65f9f191738308a633af",
+      "preimageBytes": 58641,
+      "postimageBytes": 58888,
+      "mode": "100644",
+      "classification": "exact official atomic pair including test-only support"
+    },
+    {
+      "path": "loader/settings.h",
+      "preimageSHA256": "4bd3deadf9f689f808171c9e464dd7c2ac893652d6ef9fdf406bc6ba180281a6",
+      "postimageSHA256": "af841c2c907fa4ca84b8026340a6d5a72d82b1af3be80e89a61b058c8dd314c7",
+      "preimageGitBlobSHA1": "af4e30eee0c6179c9891c1dbeba11bc50fe894dc",
+      "postimageGitBlobSHA1": "faf42b577efdff2d94e87fcaa3851e2924fbd469",
+      "preimageBytes": 6771,
+      "postimageBytes": 7178,
+      "mode": "100644",
+      "classification": "exact official atomic pair including test-only support"
+    },
+    {
+      "path": "tests/loader_fuzz_tests.cpp",
+      "preimageSHA256": "55a6d87150423d99ec3557ee07d40c1915e562495aaad673044c501585830cb7",
+      "postimageSHA256": "765c6d621f40711468fc712df3c44278a3a195d4e16b0ea65d8fe30d579ef7b2",
+      "preimageGitBlobSHA1": "45e0b49401be0e0b0aa6be11d6b311b0c44c51d2",
+      "postimageGitBlobSHA1": "fa5fdd362096d88e868a168adaf2b7e02873088e",
+      "preimageBytes": 21158,
+      "postimageBytes": 26386,
+      "mode": "100644",
+      "classification": "exact official regression plus focused boundary/NUL extensions"
+    },
+    {
+      "path": "tests/loader_settings_tests.cpp",
+      "preimageSHA256": "a19fde1e530a985f4ae4510ac382853724aa3cd9165ef23b0a08eb092e022a40",
+      "postimageSHA256": "dfb54b9404ef13efe608b4bc2bc26ff661caf94d399064d30db06d4198214bbc",
+      "preimageGitBlobSHA1": "dc8b64d5e8e070ca12fd4baf049f86b6be5bd4ff",
+      "postimageGitBlobSHA1": "c82edc4fc12897874ca2f18ac106ffc9b83b9ee3",
+      "preimageBytes": 211720,
+      "postimageBytes": 215403,
+      "mode": "100644",
+      "classification": "four public-API XDG driver/layer discovery/priority cases in existing regression target"
+    }
+  ],
+  "patch": {
+    "path": "change.patch",
+    "sha256": "b99049e7788abe292292495b97d47dfddbef2ef19671014b8877184bfe936ac0",
+    "bytes": 12941,
+    "scope": "settings.c/settings.h exact full official pair plus existing helper/regression test extensions, four files."
+  },
+  "privateEvidenceOriginalSHA256": {
+    "unit-result.json": "77fced88316c06e2c00d50f8396c957aefc7b89603e06133a188b81bfe0e0f45",
+    "applied-audit.json": "79bcfc94e42562acd63e828ee27c2f033f523c81177ac3fd71645cd864c7a853",
+    "change.patch": "b99049e7788abe292292495b97d47dfddbef2ef19671014b8877184bfe936ac0"
+  },
+  "sourceRoot": "$WORKSPACE/build/run66-vulkan-loader-src-20260903",
+  "buildRoot": "$WORKSPACE/build/run95-loader-20261002",
+  "existingTestDependency": {
+    "name": "GoogleTest",
+    "declaredByComponentPath": "scripts/known_good.json",
+    "declaredTag": "v1.14.0",
+    "exactCommit": "f8d7d77c06936315286eb55f8de22cd23c188571",
+    "sourceURL": "https://codeload.github.com/google/googletest/tar.gz/f8d7d77c06936315286eb55f8de22cd23c188571",
+    "archiveSHA256": "7ff5db23de232a39cbb5c9f5143c355885e30ac596161a6b9fc50c4538bfbf01",
+    "archiveBytes": 868904,
+    "archiveRoot": "googletest-f8d7d77c06936315286eb55f8de22cd23c188571",
+    "existingLocalArchive": "$WORKSPACE/archives/googletest-v1.14.0-f8d7d77c.tar.gz",
+    "existingBuildDependencySource": "$WORKSPACE/build/run95-loader-20261002/_deps/googletest",
+    "configureConnection": "GOOGLETEST_INSTALL_DIR=$WORKSPACE/build/run95-loader-20261002/_deps/googletest",
+    "sourceOnlyForExistingTests": true,
+    "dependencyFilesVerifiedByHQ": 245,
+    "productionDependency": false,
+    "archiveRedistributedOrCopiedByPublisher": false
+  },
+  "testDependencyRecipeURL": "https://github.com/yeojuny/bar-lobby-apple-silicon/blob/a190072b355b145da241821c33210890b70a890a/docs/maintenance-units/2026-10-17/L5/recipe.md",
+  "testDependencyReusedWithoutDownloadOrArchiveCopy": true,
+  "productionBuild": {
+    "receipt": "production-restore.json",
+    "status": "PASS",
+    "BUILD_TESTS": "OFF",
+    "UPDATE_DEPS": "OFF",
+    "ENABLE_LIVE_VERIFICATION_TESTS": "OFF",
+    "CAndASMFlagsByteExactBefore": true,
+    "linkCommandByteExactBefore": true,
+    "cacheSettingValuesExact": true,
+    "cacheByteExact": false,
+    "cacheDifference": "Compiler/linker values unchanged; explicit arguments changed cache entry types only. See cache-readback.json.",
+    "directHelperSymbolExported": false
+  },
+  "rawAndExports": {
+    "receipt": "raw-artifact.json",
+    "beforeSHA256": "ad67a255b194f1ed9e3d8b8eb5cfd39850256290954d78ca4f195e6fcbf22822",
+    "afterSHA256": "3124b06d6ce0341332a3a41c45431ef05f241b8bb92123c5e3f3e8649ecc8046",
+    "exportNamesExact": true,
+    "exportCount": 1015,
+    "dynamicDependenciesAndInstallNameExact": true,
+    "scope": "Export/dependency/install-name checks; no general binary ABI or gameplay proof."
+  },
+  "validationModes": {
+    "helperCases": 3,
+    "helperMode": "BUILD_TESTS ON helper export; not final production",
+    "finalProductionAPICases": 9,
+    "finalProductionMode": "BUILD_TESTS OFF with helper export absent",
+    "cacheValuesExact": true,
+    "cacheBytesExact": false,
+    "cacheDifference": "CMAKE_CXX_COMPILER and CMAKE_LINKER entry type metadata changed, while values and actual C/ASM flags/link command are preserved."
+  },
+  "intendedObservableEffect": {
+    "before": "A settings file only in a later XDG directory was ignored. Corrected before-fix fixtures reach the regular mock driver and have no settings-selected layer.",
+    "after": "The later-directory settings file is discovered; its existing exclusive-driver rule replaces the regular mock driver, and its requested mock layer is active. When the first directory also has a settings file, the first driver/layer configuration still wins.",
+    "scope": "Verified for both XDG_CONFIG_DIRS and XDG_DATA_DIRS in isolated existing framework fixtures, including a discoverable regular driver supplied through VK_DRIVER_FILES. Actual user settings, home and XDG files are untouched.",
+    "notClaimed": "No FPS improvement or universal acceptance of every external configuration/driver combination."
+  },
+  "retainedCorrections": [
+    {
+      "receipt": "fixture-correction-1.json",
+      "kind": "Initial API fixture omitted a discoverable regular driver after XDG directory overrides; initial results retained; only existing test data fixed and relevant API target/cases rebuilt/rerun."
+    },
+    {
+      "receipt": "preservation-guard-correction-1.json",
+      "kind": "Initial guard treated intended L4 paths in prior L5 upcoming-file list as unchanged; corrected classification uses verified L4 postimage hashes. No unplanned source change."
+    }
+  ],
+  "preservation": {
+    "receipt": "preservation-after.json",
+    "selectedRecords": 46,
+    "realLauncherHEAD": "6a3b298c236cd10eff8fd7ce27d15cdb589f650f",
+    "realLauncherIndexSHA256": "073483d1f4a62c9cda7006b467f60da926f889d1c8f126dc0016e3a23b761c87",
+    "allSelectedExactToIntendedState": true,
+    "L5ActualSourceAndFrozenReceiptsUnchanged": true,
+    "S1S2AndCurrentSDLRawUnchanged": true,
+    "engineAIAndOtherComponentEdits": 0,
+    "appLaunchQuitInstallOrPackagingOperations": 0,
+    "remoteWrites": 0,
+    "lockedReferenceWritesOrFlagChanges": 0,
+    "fullInventories": 0,
+    "automationResumed": false
+  },
+  "sourcePublicationGate": {
+    "explicitCoordinatorPASSReceived": true,
+    "appliedAuditVerdict": "PASS",
+    "allRequiredChecksSatisfied": true
+  },
+  "license": "Existing component and test dependency source licenses and upstream attribution retained.",
+  "limits": [
+    "Controlled mock-driver/layer CPU fixtures do not prove every external settings profile or real-driver combination",
+    "NUL cases use valid terminated C strings; no unsupported unterminated-string API contract or sanitizer proof claimed",
+    "Current raw Loader is local; existing frozen apps, installed/public release and Homebrew are not updated",
+    "No unrelated Loader locking fixes or broader settings redesign included"
+  ],
+  "commitSHARule": "Actual publication commit is recorded after creation in a separate local receipt."
+}

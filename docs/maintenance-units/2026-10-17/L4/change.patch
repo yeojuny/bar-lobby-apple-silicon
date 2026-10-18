@@ -1,0 +1,255 @@
+diff --git a/loader/settings.c b/loader/settings.c
+--- a/loader/settings.c
++++ b/loader/settings.c
+@@ -433,8 +433,8 @@
+ // Given a base and suffix path, determine if a file at that location exists, and if it is return success.
+ // Since base may contain multiple paths separated by PATH_SEPARATOR, we must extract each segment and check segment + suffix
+ // individually
+-VkResult check_if_settings_path_exists(const struct loader_instance* inst, const char* base, const char* suffix,
+-                                       char** settings_file_path) {
++TEST_FUNCTION_EXPORT VkResult check_if_settings_path_exists(const struct loader_instance* inst, const char* base,
++                                                            const char* suffix, char** settings_file_path) {
+     if (NULL == base || NULL == suffix) {
+         return VK_ERROR_INITIALIZATION_FAILED;
+     }
+@@ -444,17 +444,20 @@
+ 
+     uint32_t start = 0;
+     uint32_t stop = 0;
+-    while (base[start] != '\0' && start < base_len && stop < base_len) {
+-        start = stop;
+-        stop = start + 1;
+-        while (base[stop] != PATH_SEPARATOR && base[stop] != '\0' && stop < base_len) {
++    while (base[start] != '\0' && start < base_len) {
++        // Skip any path separators preceding this segment so they don't end up in the constructed path
++        while (base[start] != '\0' && start < base_len && base[start] == PATH_SEPARATOR) {
++            start++;
++        }
++        stop = start;
++        while (base[stop] != '\0' && stop < base_len && base[stop] != PATH_SEPARATOR) {
+             stop++;
+         }
+ 
+         size_t segment_len = (stop - start);
+-        if (segment_len <= 1) {
+-            // segment is *just* a PATH_SEPARATOR, skip it
+-            continue;
++        if (segment_len == 0) {
++            // only path separators remained - no more segments
++            break;
+         }
+         size_t path_len = segment_len + suffix_len + 1;
+         *settings_file_path = loader_instance_heap_calloc(inst, path_len, VK_SYSTEM_ALLOCATION_SCOPE_COMMAND);
+@@ -469,6 +472,7 @@
+         }
+         loader_instance_heap_free(inst, *settings_file_path);
+         *settings_file_path = NULL;
++        start = stop;
+     }
+ 
+     return VK_ERROR_INITIALIZATION_FAILED;
+diff --git a/loader/settings.h b/loader/settings.h
+--- a/loader/settings.h
++++ b/loader/settings.h
+@@ -94,6 +94,13 @@
+     char* settings_file_path;
+ } loader_settings;
+ 
++#if COMMON_UNIX_PLATFORMS
++// Check each PATH_SEPARATOR separated segment of base for the file at segment + suffix, returning the first path that exists in
++// settings_file_path
++TEST_FUNCTION_EXPORT VkResult check_if_settings_path_exists(const struct loader_instance* inst, const char* base,
++                                                            const char* suffix, char** settings_file_path);
++#endif
++
+ // Call this function to get the current settings that the loader should use.
+ // It will open up the current loader settings file and return a loader_settings in out_loader_settings if it.
+ // It should be called on every call to the global functions excluding vkGetInstanceProcAddr
+diff --git a/tests/loader_fuzz_tests.cpp b/tests/loader_fuzz_tests.cpp
+--- a/tests/loader_fuzz_tests.cpp
++++ b/tests/loader_fuzz_tests.cpp
+@@ -416,3 +416,107 @@
+     free(a);
+     free(b);
+ }
++
++#if COMMON_UNIX_PLATFORMS
++// get_unix_settings_path hands colon separated path lists (XDG_CONFIG_DIRS, XDG_DATA_DIRS and their fallbacks) to
++// check_if_settings_path_exists. The segment walk kept the separator at the front of every segment after the first,
++// so the candidate path became ":<dir><suffix>" and a settings file in any segment but the first was never found.
++TEST(SettingsPathDiscovery, FindsFileInLaterPathListSegments) {
++    std::filesystem::path tmp_dir = std::filesystem::temp_directory_path() / "loader_settings_path_segments_test";
++    std::filesystem::create_directories(tmp_dir);
++    std::filesystem::path settings_file = tmp_dir / "vk_loader_settings.json";
++    {
++        std::ofstream f(settings_file, std::ios::trunc);
++        f << "{}";
++    }
++    const std::string suffix = "/vk_loader_settings.json";
++    const std::string missing_dir = "/loader_test_dir_which_does_not_exist";
++
++    // File in the first segment of a multi segment list - worked before and must keep working.
++    char* found_path = NULL;
++    std::string base = tmp_dir.string() + ":" + missing_dir;
++    EXPECT_EQ(VK_SUCCESS, check_if_settings_path_exists(NULL, base.c_str(), suffix.c_str(), &found_path));
++    ASSERT_NE(found_path, nullptr);
++    EXPECT_STREQ(found_path, settings_file.string().c_str());
++    free(found_path);
++
++    // File in the second segment: previously the loader looked for ":<tmp_dir>/vk_loader_settings.json" and failed.
++    found_path = NULL;
++    base = missing_dir + ":" + tmp_dir.string();
++    EXPECT_EQ(VK_SUCCESS, check_if_settings_path_exists(NULL, base.c_str(), suffix.c_str(), &found_path));
++    ASSERT_NE(found_path, nullptr);
++    EXPECT_STREQ(found_path, settings_file.string().c_str());
++    free(found_path);
++
++    // Consecutive and trailing separators around the segment holding the file.
++    found_path = NULL;
++    base = missing_dir + "::" + tmp_dir.string() + ":";
++    EXPECT_EQ(VK_SUCCESS, check_if_settings_path_exists(NULL, base.c_str(), suffix.c_str(), &found_path));
++    ASSERT_NE(found_path, nullptr);
++    EXPECT_STREQ(found_path, settings_file.string().c_str());
++    free(found_path);
++
++    // Nothing but separators - no segment to check.
++    found_path = NULL;
++    EXPECT_EQ(VK_ERROR_INITIALIZATION_FAILED, check_if_settings_path_exists(NULL, "::", suffix.c_str(), &found_path));
++    EXPECT_EQ(found_path, nullptr);
++
++    std::filesystem::remove_all(tmp_dir);
++}
++
++TEST(SettingsPathDiscovery, SegmentBoundariesAndFirstMatch) {
++    fs::Folder first{std::filesystem::current_path(), "a"};
++    fs::Folder second{std::filesystem::current_path(), "b"};
++    first.write_manifest("vk_loader_settings.json", "{}");
++    second.write_manifest("vk_loader_settings.json", "{}");
++    struct Case {
++        const char* base;
++        const char* expected;
++    };
++    const Case cases[] = {{"a", "a/vk_loader_settings.json"},
++                          {"missing:a", "a/vk_loader_settings.json"},
++                          {"missing:a:b", "a/vk_loader_settings.json"},
++                          {"b:a", "b/vk_loader_settings.json"},
++                          {"./a:b", "./a/vk_loader_settings.json"},
++                          {":a", "a/vk_loader_settings.json"},
++                          {"::a::", "a/vk_loader_settings.json"},
++                          {"missing::a:", "a/vk_loader_settings.json"},
++                          {"", nullptr}, {":", nullptr}, {"::", nullptr}, {"missing", nullptr},
++                          {"missing:", nullptr}, {"missing::", nullptr}, {"::missing::", nullptr}};
++    for (const auto& test : cases) {
++        SCOPED_TRACE(test.base);
++        char* found = nullptr;
++        const VkResult result = check_if_settings_path_exists(nullptr, test.base, "/vk_loader_settings.json", &found);
++        EXPECT_EQ(test.expected ? VK_SUCCESS : VK_ERROR_INITIALIZATION_FAILED, result);
++        if (test.expected) {
++            if (found) EXPECT_STREQ(test.expected, found);
++            EXPECT_NE(nullptr, found);
++        } else {
++            EXPECT_EQ(nullptr, found);
++        }
++        free(found);
++    }
++}
++
++TEST(SettingsPathDiscovery, NulTerminatesListAndNullInputsAreRejected) {
++    fs::Folder first{std::filesystem::current_path(), "a"};
++    first.write_manifest("vk_loader_settings.json", "{}");
++    const char terminal_nul[] = {'a', '\0'};
++    const char embedded_nul[] = {'a', '\0', ':', 'b', '\0'};
++    for (const char* base : {terminal_nul, embedded_nul}) {
++        char* found = nullptr;
++        EXPECT_EQ(VK_SUCCESS, check_if_settings_path_exists(nullptr, base, "/vk_loader_settings.json", &found));
++        if (found) EXPECT_STREQ("a/vk_loader_settings.json", found);
++        EXPECT_NE(nullptr, found);
++        free(found);
++    }
++    char* found = nullptr;
++    const char empty_before_more_bytes[] = {'\0', 'a', '\0'};
++    EXPECT_EQ(VK_ERROR_INITIALIZATION_FAILED,
++              check_if_settings_path_exists(nullptr, empty_before_more_bytes, "/vk_loader_settings.json", &found));
++    EXPECT_EQ(VK_ERROR_INITIALIZATION_FAILED,
++              check_if_settings_path_exists(nullptr, nullptr, "/vk_loader_settings.json", &found));
++    EXPECT_EQ(VK_ERROR_INITIALIZATION_FAILED, check_if_settings_path_exists(nullptr, "a", nullptr, &found));
++    EXPECT_EQ(nullptr, found);
++}
++#endif
+diff --git a/tests/loader_settings_tests.cpp b/tests/loader_settings_tests.cpp
+--- a/tests/loader_settings_tests.cpp
++++ b/tests/loader_settings_tests.cpp
+@@ -28,6 +28,7 @@
+ #include "test_environment.h"
+ 
+ #include <fstream>
++#include <tuple>
+ 
+ #include "util/get_executable_path.h"
+ #include "util/json_writer.h"
+@@ -94,6 +95,65 @@
+             .set_path(env.get_shimmed_layer_manifest_path(env.layers.size() - 1)));
+     return layer_name;
+ }
++
++#if TESTING_COMMON_UNIX_PLATFORMS
++class SettingsPathListIntegration : public testing::TestWithParam<std::tuple<bool, bool>> {};
++
++TEST_P(SettingsPathListIntegration, SelectsDriverAndLayer) {
++    const auto [use_data_dirs, first_path_exists] = GetParam();
++    FrameworkEnvironment env{};
++    env.add_icd(TEST_ICD_PATH_VERSION_2, ManifestOptions{}.set_discovery_type(ManifestDiscoveryType::env_var))
++        .add_physical_device(PhysicalDevice{}.set_deviceName("regular-driver"));
++    for (const char* name : {"first-driver", "later-driver"}) {
++        env.add_icd(TEST_ICD_PATH_VERSION_2, ManifestOptions{}.set_discovery_type(ManifestDiscoveryType::override_folder))
++            .add_physical_device(PhysicalDevice{}.set_deviceName(name));
++    }
++    const char* layer_names[] = {"VK_LAYER_XDG_first", "VK_LAYER_XDG_later"};
++    for (const char* name : layer_names) {
++        env.add_explicit_layer(ManifestOptions{}.set_discovery_type(ManifestDiscoveryType::override_folder),
++                               ManifestLayer{}.add_layer(ManifestLayer::LayerDescription{}
++                                                             .set_name(name)
++                                                             .set_lib_path(TEST_LAYER_PATH_EXPORT_VERSION_2)));
++    }
++    const auto root = env.get_folder(ManifestLocation::settings_location).location().parent_path();
++    const std::string first = (root / "xdg-first").string();
++    const std::string later = (root / "xdg-later").string();
++    const std::string missing = (root / "xdg-missing").string();
++    env.file_system_manager.add_path_redirect(first + "/vulkan/loader_settings.d", ManifestLocation::settings_location);
++    env.file_system_manager.add_path_redirect(later + "/vulkan/loader_settings.d", ManifestLocation::unsecured_settings);
++    // Set only child-process fixture variables. Nonempty missing homes prevent fallback to the default home fixture.
++    EnvVarWrapper config_home{"XDG_CONFIG_HOME", missing};
++    EnvVarWrapper data_home{"XDG_DATA_HOME", missing};
++    const std::string paths = first + ":" + later;
++    EnvVarWrapper config_dirs{"XDG_CONFIG_DIRS", use_data_dirs ? missing : paths};
++    EnvVarWrapper data_dirs{"XDG_DATA_DIRS", use_data_dirs ? paths : missing};
++    for (size_t i = first_path_exists ? 0 : 1; i < 2; ++i) {
++        LoaderSettings settings;
++        settings.set_file_format_version({1, 0, 0}).add_app_specific_setting(
++            AppSpecificSettings{}
++                .set_additional_drivers_use_exclusively(true)
++                .add_driver_configuration(LoaderSettingsDriverConfiguration{}.set_path(env.get_icd_manifest_path(i + 1)))
++                .add_layer_configuration(LoaderSettingsLayerConfiguration{}
++                                             .set_name(layer_names[i])
++                                             .set_path(env.get_layer_manifest_path(i))
++                                             .set_control("on")));
++        env.update_loader_settings(settings, i == 0);
++    }
++    const size_t selected = first_path_exists ? 0 : 1;
++    InstWrapper inst{env.vulkan_functions};
++    inst.CheckCreate();
++    auto devices = inst.GetPhysDevs();
++    ASSERT_EQ(1U, devices.size());
++    VkPhysicalDeviceProperties properties{};
++    inst->vkGetPhysicalDeviceProperties(devices[0], &properties);
++    EXPECT_STREQ(selected == 0 ? "first-driver" : "later-driver", properties.deviceName);
++    auto layers = inst.GetActiveLayers(devices[0], 1);
++    ASSERT_EQ(1U, layers.size());
++    EXPECT_STREQ(layer_names[selected], layers[0].layerName);
++}
++
++INSTANTIATE_TEST_SUITE_P(SettingsXDG, SettingsPathListIntegration, testing::Combine(testing::Bool(), testing::Bool()));
++#endif
+ 
+ // Make sure settings layer is found and that a layer defined in it is loaded
+ TEST(SettingsFile, FileExist) {

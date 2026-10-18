@@ -1,0 +1,152 @@
+{
+  "schema": "bar-applied-unit-audit-v1",
+  "unit": "L4",
+  "recordedAtUTC": "2026-10-18T03:03:27.376129+00:00",
+  "reviewer": "Audit - MK2",
+  "verdict": "PASS",
+  "sourcePublicationAllowed": true,
+  "requiredChecksSatisfied": true,
+  "hqResult": {
+    "path": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L4/unit-result.json",
+    "sha256": "77fced88316c06e2c00d50f8396c957aefc7b89603e06133a188b81bfe0e0f45"
+  },
+  "upstreamSHAs": [
+    "d77a2a09597af347e171fa2830ef05b39319b4eb",
+    "a3fdec40f1a76c73747f22671ee5d4c0269cb3f1"
+  ],
+  "completePatch": {
+    "path": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L4/change.patch",
+    "sha256": "b99049e7788abe292292495b97d47dfddbef2ef19671014b8877184bfe936ac0"
+  },
+  "reviewedFiles": [
+    {
+      "componentRelativePath": "loader/settings.c",
+      "path": "$WORKSPACE/build/run66-vulkan-loader-src-20260903/loader/settings.c",
+      "beforeSHA256": "14dd14b5afa94d3a4160dca4098d17b0005577a26c18a09fe6fb6759245fd091",
+      "afterSHA256": "f698ca485c8e2cb14e0da47b084e31b2cac648b7a3596576d61b37bb0662c3c4",
+      "beforeGitBlob": "11939d0603359dc4f3a39def403f3f2e46dd1756",
+      "afterGitBlob": "7b503cfce51ed8ef8e1e65f9f191738308a633af",
+      "beforeBytes": 58641,
+      "afterBytes": 58888,
+      "preimage": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L4/preimage/loader/settings.c",
+      "postimage": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L4/postimage/loader/settings.c",
+      "classification": "exact official atomic pair including test-only support"
+    },
+    {
+      "componentRelativePath": "loader/settings.h",
+      "path": "$WORKSPACE/build/run66-vulkan-loader-src-20260903/loader/settings.h",
+      "beforeSHA256": "4bd3deadf9f689f808171c9e464dd7c2ac893652d6ef9fdf406bc6ba180281a6",
+      "afterSHA256": "af841c2c907fa4ca84b8026340a6d5a72d82b1af3be80e89a61b058c8dd314c7",
+      "beforeGitBlob": "af4e30eee0c6179c9891c1dbeba11bc50fe894dc",
+      "afterGitBlob": "faf42b577efdff2d94e87fcaa3851e2924fbd469",
+      "beforeBytes": 6771,
+      "afterBytes": 7178,
+      "preimage": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L4/preimage/loader/settings.h",
+      "postimage": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L4/postimage/loader/settings.h",
+      "classification": "exact official atomic pair including test-only support"
+    },
+    {
+      "componentRelativePath": "tests/loader_fuzz_tests.cpp",
+      "path": "$WORKSPACE/build/run66-vulkan-loader-src-20260903/tests/loader_fuzz_tests.cpp",
+      "beforeSHA256": "55a6d87150423d99ec3557ee07d40c1915e562495aaad673044c501585830cb7",
+      "afterSHA256": "765c6d621f40711468fc712df3c44278a3a195d4e16b0ea65d8fe30d579ef7b2",
+      "beforeGitBlob": "45e0b49401be0e0b0aa6be11d6b311b0c44c51d2",
+      "afterGitBlob": "fa5fdd362096d88e868a168adaf2b7e02873088e",
+      "beforeBytes": 21158,
+      "afterBytes": 26386,
+      "preimage": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L4/preimage/tests/loader_fuzz_tests.cpp",
+      "postimage": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L4/postimage/tests/loader_fuzz_tests.cpp",
+      "classification": "exact official regression plus focused boundary/NUL extensions"
+    },
+    {
+      "componentRelativePath": "tests/loader_settings_tests.cpp",
+      "path": "$WORKSPACE/build/run66-vulkan-loader-src-20260903/tests/loader_settings_tests.cpp",
+      "beforeSHA256": "a19fde1e530a985f4ae4510ac382853724aa3cd9165ef23b0a08eb092e022a40",
+      "afterSHA256": "dfb54b9404ef13efe608b4bc2bc26ff661caf94d399064d30db06d4198214bbc",
+      "beforeGitBlob": "dc8b64d5e8e070ca12fd4baf049f86b6be5bd4ff",
+      "afterGitBlob": "c82edc4fc12897874ca2f18ac106ffc9b83b9ee3",
+      "beforeBytes": 211720,
+      "afterBytes": 215403,
+      "preimage": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L4/preimage/tests/loader_settings_tests.cpp",
+      "postimage": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L4/postimage/tests/loader_settings_tests.cpp",
+      "classification": "four public-API XDG driver/layer discovery/priority cases in existing regression target"
+    }
+  ],
+  "productionReview": "Exact atomic pair: skip delimiters per segment, accept nonempty one-character segments, advance after a miss, retain explicit NUL checks. Existing first-match priority, allocation/free ownership and error contract remain. Header/test-only export declaration matches upstream and is absent from final production exports.",
+  "testReview": "Official regression plus bounded first/later/single-char/empty/delimiter/NUL cases in existing test_fuzzing. Existing settings regression gains four public API matrix cases for config/data XDG lists with later-only or first-and-later settings. Corrected regular driver is always independently discoverable via existing environment-manifest fixture, so before/after compares wrong versus intended device/layer selection rather than absent-driver initialization. Private child fixture settings/TMPDIR only.",
+  "validation": {
+    "beforeFunctionalPair": {
+      "directHelper": {
+        "receipt": "before-fix-helper.json",
+        "mode": "test-only helper export; original parser body unchanged",
+        "tests": 3,
+        "failed": 3
+      },
+      "publicAPI": {
+        "receipt": "before-fix-public-api-attempt2.json",
+        "mode": "test-only raw before parser pair; corrected discoverable regular driver fixture",
+        "tests": 4,
+        "passed": 2,
+        "failed": 2,
+        "observableFailures": "Both later-only cases select regular-driver with no active layer instead of expected later-driver/layer; first-path cases already pass."
+      },
+      "totalNewCases": 7,
+      "totalFailed": 5,
+      "initialFixtureAttemptRetained": "before-fix-public-api.json/log/xml and fixture-correction-1.json"
+    },
+    "helperAfter": {
+      "tests": 3,
+      "failed": 0,
+      "mode": "official test-only helper visibility; actual changed library binding"
+    },
+    "productionAfter": {
+      "tests": 9,
+      "failed": 0,
+      "mode": "final production BUILD_TESTS OFF; helper export absent; same corrected public-API executable"
+    },
+    "finalProductionRawSHA256": "3124b06d6ce0341332a3a41c45431ef05f241b8bb92123c5e3f3e8649ecc8046",
+    "immutableAuditRawSnapshot": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L4/audit-artifacts/libvulkan.1.4.365.dylib",
+    "snapshotBytes": 732560,
+    "productionFlagsAndLinkCommandByteExact": true,
+    "cacheValuesExact": true,
+    "cacheBytesExact": false,
+    "cacheNote": "Compiler/linker cache entry type metadata changed; values and product flags/link command unchanged. No cache-byte identity claim.",
+    "publicExportNamesExactCount": 1015,
+    "dependenciesAndInstallNameExact": true,
+    "allFourPatchFilesRoundtripByteExact": true
+  },
+  "intendedObservableEffect": "A real settings file in a previously ignored later XDG path can now select configured drivers/layers. This is an intentional configuration behavior change, not a measured frame-rate improvement.",
+  "publicBase": {
+    "URL": "https://github.com/yeojuny/bar-lobby-apple-silicon/releases/download/v0.17.0-candidate.4/BAR-0.17.0-candidate.4-sources.tar.gz",
+    "archiveMember": "BAR-0.17.0-candidate.4-sources/archives/vulkan-loader-68cc-input.tar.gz",
+    "nestedArchiveSHA256": "68269a49344a1b2fd318f56828c0ca7104ef08ea3144e4fe97ac93061e8c7420",
+    "allFourPreimagesIndependentlyExact": true,
+    "sourceParentCommit": "a190072b355b145da241821c33210890b70a890a",
+    "loaderPatchChain": "Public candidate4 port Loader archive -> L5 complete patch -> L4 complete atomic patch; retain separate SDL S1/S2 chain."
+  },
+  "preserved": "46 selected records and all preservation guards, including L5 source/frozen receipts, SDL S1/S2 source/raw, real launcher HEAD/index, engine/AI and selected frozen app guards. No whole-app inventory claim.",
+  "retainedCorrections": [
+    {
+      "receipt": "fixture-correction-1.json",
+      "kind": "Initial API fixture omitted a discoverable regular driver after XDG directory overrides; initial results retained; only existing test data fixed and relevant API target/cases rebuilt/rerun."
+    },
+    {
+      "receipt": "preservation-guard-correction-1.json",
+      "kind": "Initial guard treated intended L4 paths in prior L5 upcoming-file list as unchanged; corrected classification uses verified L4 postimage hashes. No unplanned source change."
+    }
+  ],
+  "limits": [
+    "Controlled mock-driver/layer CPU fixtures do not prove every external settings profile or real-driver combination",
+    "NUL cases use valid terminated C strings; no unsupported unterminated-string API contract or sanitizer proof claimed",
+    "Current raw Loader is local; existing frozen apps, installed/public release and Homebrew are not updated",
+    "No unrelated Loader locking fixes or broader settings redesign included"
+  ],
+  "notRequiredThisUnit": [
+    "Unrelated complete regression/fuzz suite",
+    "GPU/game/FPS/multiplayer/window/audio/endurance tests"
+  ],
+  "blockingFindings": [],
+  "nextGate": "Publisher exact source commit/push/readback on L5 parent before C1; raw snapshot is evidence only, no app packaging/release.",
+  "privateOriginalAuditSHA256": "79bcfc94e42562acd63e828ee27c2f033f523c81177ac3fd71645cd864c7a853",
+  "exportNote": "Path-rebased public copy; original private audit hash identifies provenance, not this exported blob."
+}

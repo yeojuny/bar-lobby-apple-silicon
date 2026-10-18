@@ -1,0 +1,9 @@
+# L4: settings path-list parsing, atomic fix pair
+
+The complete [patch](change.patch) combines Vulkan-Loader commits [d77a2a09](https://github.com/KhronosGroup/Vulkan-Loader/commit/d77a2a09597af347e171fa2830ef05b39319b4eb) and [a3fdec40](https://github.com/KhronosGroup/Vulkan-Loader/commit/a3fdec40f1a76c73747f22671ee5d4c0269cb3f1) as one source unit. Production/header contents match the full official pair; related checks extend existing helper/regression tests. It skips separators per segment, handles one-character paths and later segments, advances after misses, and retains explicit NUL checks.
+
+An existing settings file in a previously ignored **later XDG directory can now affect driver/layer selection**. Existing first-directory priority is preserved. Corrected before-fix mock fixtures reproduced later-only selection incorrectly remaining on the regular driver with no selected layer. No actual user home/XDG settings were modified.
+
+After the pair, three helper cases passed in test-export mode and nine public-API cases passed against final production Loader with BUILD_TESTS OFF and no helper export. These are separate modes, not twelve production tests. Actual production C/ASM flags and link command, 1,015 export names, dependencies and install name were preserved. Normalized cache values match, but **cache bytes do not**: compiler/linker entry type metadata changed. The original missing-driver fixture failure and its correction remain documented.
+
+See [manifest](manifest.json), [validation](validation.json), [applied audit](applied-audit.json) and [recipe](recipe.md). Reconstruct public candidate.4 port Loader -> complete L5 patch -> complete atomic L4 patch; preserve separate SDL S1/S2. This source/raw-component checkpoint does not update apps, tags, Release, Homebrew or V1, and makes no GPU/game/FPS/MP acceptance claim.
