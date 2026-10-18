@@ -1,0 +1,372 @@
+--- before/sources/bar-lobby/src/main/game/springsettings.ts
++++ after/sources/bar-lobby/src/main/game/springsettings.ts
+@@ -48,13 +48,21 @@
+         fs.mkdirSync(path.dirname(SPRINGSETTINGS_PATH), { recursive: true });
+         const settings = readSettings(SPRINGSETTINGS_PATH);
+         let changed = false;
+-        for (const [key, value] of Object.entries({ ...configService.getConfig().springSettings, ...(process.platform === "darwin" ? { Fullscreen: 1, GeometryShadersUnsupported: 1 } : {}) })) {
++        for (const [key, value] of Object.entries({ ...configService.getConfig().springSettings, ...(process.platform === "darwin" ? { Fullscreen: 1, GeometryShadersUnsupported: 1, MSAA: 0, MSAALevel: -1 } : {}) })) {
+             if (process.platform === "darwin" && retiredMacOSSettings.has(key)) continue;
+             const restoreMacOSFullscreen = process.platform === "darwin" && key === "Fullscreen" && settings.get(key) !== "1";
+             if (!settings.has(key) || restoreMacOSFullscreen) {
+                 settings.set(key, String(value));
+                 changed = true;
+             }
++        }
++        // Apply the requested AA default once, before creating the GL context.
++        // Later choices in the game's Options remain authoritative.
++        if (process.platform === "darwin" && settings.get("BARMacOSAAStartup102") !== "1") {
++            settings.set("MSAA", "0");
++            settings.set("MSAALevel", "-1");
++            settings.set("BARMacOSAAStartup102", "1");
++            changed = true;
+         }
+         if (changed) {
+             writeSettings(settings, SPRINGSETTINGS_PATH);
+--- before/sources/bar-lobby/src/main/game/chobby-display-settings.ts
++++ after/sources/bar-lobby/src/main/game/chobby-display-settings.ts
+@@ -97,6 +97,83 @@
+     }
+ }
+ 
++// Chobby imports its own game settings after launcher startup. Change only the
++// two AA literals so its saved 4x default cannot undo the requested first run.
++export function inheritChobbyAADefaults(source: string): string {
++    const ast = luaparse.parse(source, { ranges: true, comments: false });
++    const statement = ast.body[0];
++    if (ast.body.length !== 1 || statement.type !== "ReturnStatement" || statement.arguments.length !== 1 || statement.arguments[0].type !== "TableConstructorExpression") {
++        throw new Error("Unsupported Chobby settings layout; original file preserved.");
++    }
++    const root = statement.arguments[0];
++    type Table = typeof root;
++    const range = (node: object): [number, number] => (node as { range: [number, number] }).range;
++    const keyName = (field: Table["fields"][number]): string => {
++        if (field.type === "TableKeyString") return field.key.name;
++        if (field.type === "TableKey" && field.key.type === "StringLiteral" && !field.key.raw.includes("\\")) return field.key.raw.slice(1, -1);
++        throw new Error("Unsupported Chobby setting key; original file preserved.");
++    };
++    const child = (table: Table, key: string): Table | undefined => {
++        const fields = table.fields.filter((field) => keyName(field) === key);
++        if (fields.length > 1 || (fields.length === 1 && fields[0].value.type !== "TableConstructorExpression")) {
++            throw new Error("Ambiguous Chobby settings; original file preserved.");
++        }
++        return fields[0]?.value as Table | undefined;
++    };
++    const lobby = child(root, "Chili lobby");
++    const game = lobby && child(lobby, "game_settings");
++    const values = new Map([["MSAA", 0], ["MSAALevel", -1]]);
++    const edits: { start: number; end: number; value: string }[] = [];
++    if (game) {
++        const seen = new Set<string>();
++        for (const field of game.fields) {
++            const key = keyName(field);
++            if (!values.has(key)) continue;
++            const literal = field.value.type === "NumericLiteral" ? field.value : field.value.type === "UnaryExpression" && field.value.operator === "-" && field.value.argument.type === "NumericLiteral" ? field.value.argument : undefined;
++            if (seen.has(key) || !literal || !Number.isInteger(literal.value)) {
++                throw new Error("Ambiguous Chobby AA setting; original file preserved.");
++            }
++            seen.add(key);
++            const [start, end] = range(field.value);
++            edits.push({ start, end, value: String(values.get(key)) });
++        }
++        const missing = [...values].filter(([key]) => !seen.has(key));
++        if (missing.length) edits.push({ start: range(game)[0] + 1, end: range(game)[0] + 1, value: `\n${missing.map(([key, value]) => `    ${key} = ${value},`).join("\n")}\n` });
++    } else {
++        const target = lobby ?? root;
++        const settings = "game_settings = { MSAA = 0, MSAALevel = -1 },";
++        edits.push({ start: range(target)[0] + 1, end: range(target)[0] + 1, value: `\n    ${lobby ? settings : `["Chili lobby"] = { ${settings} },`}\n` });
++    }
++    let next = source;
++    for (const edit of edits.sort((a, b) => b.start - a.start)) next = next.slice(0, edit.start) + edit.value + next.slice(edit.end);
++    luaparse.parse(next);
++    return next;
++}
++
++export async function prepareChobbyAADefaults(writeDataPath: string): Promise<void> {
++    const markerPath = path.join(writeDataPath, "bar-macos-aa-1.0.2.json");
++    const marker = await readRegular(markerPath);
++    if (marker) {
++        if (JSON.parse(marker.toString("utf8")).version === 1) return;
++        throw new Error("Unknown Chobby AA migration state; settings preserved.");
++    }
++    const configPath = path.join(writeDataPath, "LuaMenu", "Config", "IGL_data.lua");
++    const original = await readRegular(configPath);
++    const source = original ? new TextDecoder("utf-8", { fatal: true, ignoreBOM: true }).decode(original) : "return {}\n";
++    const next = inheritChobbyAADefaults(source);
++    await fs.mkdir(path.dirname(configPath), { recursive: true });
++    const current = await readRegular(configPath);
++    if (original ? !current?.equals(original) : current !== undefined) throw new Error("Chobby settings changed during launch; retry after the other writer stops.");
++    if (original && next !== source) {
++        const backupPath = `${configPath}.before-bar-aa-1.0.2`;
++        const backup = await readRegular(backupPath);
++        if (backup && !backup.equals(original)) throw new Error("Existing Chobby AA rollback differs; original settings preserved.");
++        if (!backup) await fs.writeFile(backupPath, original, { flag: "wx", mode: 0o600 });
++    }
++    if (!original || next !== source) await atomicWrite(configPath, next);
++    await atomicWrite(markerPath, `${JSON.stringify({ version: 1 })}\n`);
++}
++
+ export async function prepareChobbyDisplaySettings(writeDataPath: string, fullscreen: boolean): Promise<void> {
+     const markerPath = path.join(writeDataPath, "bar-macos-chobby-display.json");
+     const marker = await readRegular(markerPath);
+--- before/sources/bar-lobby/src/main/game/game.ts
++++ after/sources/bar-lobby/src/main/game/game.ts
+@@ -40,7 +40,7 @@
+ import { createEngineStderrLog } from "@main/game/engine-stderr-log";
+ import { requireContentWritesOpen, shutdownContentWriters, waitForContentWriterClose, withContentWrite } from "@main/content/content-write-coordinator";
+ import { acquireChecksumHold } from "@main/utils/checksums";
+-import { prepareChobbyDisplaySettings } from "@main/game/chobby-display-settings";
++import { prepareChobbyDisplaySettings, prepareChobbyAADefaults } from "@main/game/chobby-display-settings";
+ import { settingsService } from "@main/services/settings.service";
+ 
+ const log = logger("main/game/game.ts");
+@@ -193,6 +193,8 @@
+         await this.ensureChobbySpringSettings();
+         if (process.platform === "darwin") {
+             await prepareChobbyDisplaySettings(WRITE_DATA_PATH, settingsService.getSettings().fullscreen);
++            await prepareChobbyAADefaults(WRITE_DATA_PATH);
++            applyDefaultSpringsettings();
+         }
+         await this.ensureChobbyMenuArchive({ engineVersion: profile.engineVersion, menu });
+         await this.ensureChobbyMultiplayerGameContent(profile);
+--- before/sources/bar-lobby/bundled-assets/macos-luaui-overlays/bar-lobby/LuaUI/Widgets/gui_options.lua
++++ after/sources/bar-lobby/bundled-assets/macos-luaui-overlays/bar-lobby/LuaUI/Widgets/gui_options.lua
+@@ -131,8 +131,39 @@
+ 	end
+ end
+ 
++-- Use the archive's own preset and option handlers once. Keeping this closure
++-- beside presetKeys avoids depending on the translated labels or list order.
++local defaultsAnchor = "\tlocal presetNames = {}"
++local defaultsHook = [=[
++	function widget:BARMacOSApplyGraphicsDefaults()
++		if not barMacOSUiProfile or Spring.GetConfigInt("BARMacOSGraphicsDefaults102", 0) == 1 then return end
++		local ultraIndex
++		for index, key in ipairs(presetKeys) do
++			if key == "ultra" then ultraIndex = index end
++		end
++		local preset, aa, fog = getOption("preset"), getOption("msaa"), getOption("fogdiaglines")
++		if not ultraIndex or not preset or not aa or not fog then
++			Spring.Echo("[BAR macOS Options] initial graphics defaults unavailable; settings retained")
++			return
++		end
++		applyOptionValue(preset, ultraIndex, true)
++		applyOptionValue(aa, 1, true)
++		applyOptionValue(fog, 0, true)
++		Spring.SetConfigInt("BARMacOSGraphicsDefaults102", 1)
++	end
++	local presetNames = {}
++]=]
++local defaultsStart, defaultsEnd = string.find(source, defaultsAnchor, 1, true)
++if defaultsStart and not string.find(source, defaultsAnchor, defaultsEnd + 1, true) then
++	source = replaceOnce(source, defaultsAnchor, defaultsHook)
++else
++	Spring.Echo("[BAR macOS Options] initial graphics hook unavailable; archive settings retained")
++end
++
+ local archiveResult = runArchiveWidget(source)
+ local archiveInitialize = widget.Initialize
++local archiveUpdate = widget.Update
++local graphicsDefaultsPending = true
+ local cloudsRestoreKey = "BARMacOSCloudsRestoreRun91"
+ function widget:Initialize(...)
+ 	local result
+@@ -146,4 +177,14 @@
+ 	end
+ 	return result
+ end
++function widget:Update(...)
++	local result
++	if archiveUpdate then result = archiveUpdate(self, ...) end
++	-- Wait until all widgets, including saved camera and effects, initialized.
++	if graphicsDefaultsPending then
++		graphicsDefaultsPending = false
++		if self.BARMacOSApplyGraphicsDefaults then self:BARMacOSApplyGraphicsDefaults() end
++	end
++	return result
++end
+ return archiveResult
+--- before/sources/bar-lobby/bundled-assets/macos-luaui-overlays/bar-chobby/LuaUI/Widgets/gui_options.lua
++++ after/sources/bar-lobby/bundled-assets/macos-luaui-overlays/bar-chobby/LuaUI/Widgets/gui_options.lua
+@@ -131,8 +131,39 @@
+ 	end
+ end
+ 
++-- Use the archive's own preset and option handlers once. Keeping this closure
++-- beside presetKeys avoids depending on the translated labels or list order.
++local defaultsAnchor = "\tlocal presetNames = {}"
++local defaultsHook = [=[
++	function widget:BARMacOSApplyGraphicsDefaults()
++		if not barMacOSUiProfile or Spring.GetConfigInt("BARMacOSGraphicsDefaults102", 0) == 1 then return end
++		local ultraIndex
++		for index, key in ipairs(presetKeys) do
++			if key == "ultra" then ultraIndex = index end
++		end
++		local preset, aa, fog = getOption("preset"), getOption("msaa"), getOption("fogdiaglines")
++		if not ultraIndex or not preset or not aa or not fog then
++			Spring.Echo("[BAR macOS Options] initial graphics defaults unavailable; settings retained")
++			return
++		end
++		applyOptionValue(preset, ultraIndex, true)
++		applyOptionValue(aa, 1, true)
++		applyOptionValue(fog, 0, true)
++		Spring.SetConfigInt("BARMacOSGraphicsDefaults102", 1)
++	end
++	local presetNames = {}
++]=]
++local defaultsStart, defaultsEnd = string.find(source, defaultsAnchor, 1, true)
++if defaultsStart and not string.find(source, defaultsAnchor, defaultsEnd + 1, true) then
++	source = replaceOnce(source, defaultsAnchor, defaultsHook)
++else
++	Spring.Echo("[BAR macOS Options] initial graphics hook unavailable; archive settings retained")
++end
++
+ local archiveResult = runArchiveWidget(source)
+ local archiveInitialize = widget.Initialize
++local archiveUpdate = widget.Update
++local graphicsDefaultsPending = true
+ local cloudsRestoreKey = "BARMacOSCloudsRestoreRun91"
+ function widget:Initialize(...)
+ 	local result
+@@ -146,4 +177,14 @@
+ 	end
+ 	return result
+ end
++function widget:Update(...)
++	local result
++	if archiveUpdate then result = archiveUpdate(self, ...) end
++	-- Wait until all widgets, including saved camera and effects, initialized.
++	if graphicsDefaultsPending then
++		graphicsDefaultsPending = false
++		if self.BARMacOSApplyGraphicsDefaults then self:BARMacOSApplyGraphicsDefaults() end
++	end
++	return result
++end
+ return archiveResult
+--- before/sources/bar-lobby/package.json
++++ after/sources/bar-lobby/package.json
+@@ -1,7 +1,7 @@
+ {
+     "name": "bar-lobby",
+     "type": "module",
+-    "version": "1.0.1",
++    "version": "1.0.2",
+     "private": true,
+     "description": "Lobby client for the RTS game Beyond All Reason",
+     "author": "The BAR Lobby Authors",
+--- before/sources/bar-lobby/package-lock.json
++++ after/sources/bar-lobby/package-lock.json
+@@ -1,12 +1,12 @@
+ {
+     "name": "bar-lobby",
+-    "version": "1.0.1",
++    "version": "1.0.2",
+     "lockfileVersion": 3,
+     "requires": true,
+     "packages": {
+         "": {
+             "name": "bar-lobby",
+-            "version": "1.0.1",
++            "version": "1.0.2",
+             "hasInstallScript": true,
+             "license": "SEE LICENSE IN LICENSE.md",
+             "dependencies": {
+--- before/sources/bar-lobby/electron-builder.ts
++++ after/sources/bar-lobby/electron-builder.ts
+@@ -9,15 +9,15 @@
+ // Reviewed experimental release inputs. The external lock remains mandatory;
+ // protected local candidates are not modified by this packaging configuration.
+ const bundledAssets = createPinnedBundledAssets(process.env, {
+-    id: "healthbar-radar-repair-20261017",
++    id: "graphics-defaults-1.0.2-20261017",
+     lanes: {
+         "bar-chobby": {
+             engineDirectory: "2026.07.04",
+-            springSha256: "3c786c1230d53bf0bc7c20005a099a528b6bc54d37979d4667af0489f0077445",
++            springSha256: "b0830d3893d8463fef0a9bf30ec180b7421f0995b0a26cbfff9971dfd02076c9",
+         },
+         "bar-lobby": {
+             engineDirectory: "2026.09.01-24-g01efdf4 master",
+-            springSha256: "47e2fec5df139fc559553188161003e74fcef18aed3b4d7372c0817822034f40",
++            springSha256: "65fd009c9ba86a00d1001317a9041fdf523ae23d9f1fd9b3e410f4677745d1f8",
+         },
+     },
+ });
+@@ -30,9 +30,9 @@
+     // Should be the same as APP_NAME in src/main/config/app.ts and in
+     // workaround in installer.nsh.
+     productName: "BAR",
+-    buildVersion: "1.0.1",
++    buildVersion: "1.0.2",
+     extraMetadata: {
+-        version: "1.0.1",
++        version: "1.0.2",
+         repository: { type: "git", url: "https://github.com/yeojuny/bar-lobby-apple-silicon.git" },
+     },
+ 
+--- before/tools/test-run94-graphics-optin-signals.lua
++++ after/tools/test-run94-graphics-optin-signals.lua
+@@ -336,6 +336,50 @@
+         assert(env.WG.BARMacOSOverlayStatus.optionsSearch.satisfied)
+         assert(#observed.writes == 1 and observed.writes[1][1] == "MSAALevel" and observed.writes[1][2] == 4)
+     end)
++
++    for _, scenario in ipairs({
++        {name = "normal preset order", keys = '"low","medium","high","ultra","custom"', index = 4},
++        {name = "developer preset order", keys = '"lowest","low","medium","high","ultra","custom"', index = 5},
++        {name = "missing fog option", keys = '"low","ultra","custom"', missing = true},
++        {name = "non-Apple backend", keys = '"low","ultra","custom"', otherBackend = true},
++    }) do
++        check("options", lane .. " / one-time graphics / " .. scenario.name, function()
++            local archive = [[local samples = {"x4", "x8"}
++local options = {preset={id="preset"}, msaa={id="msaa"}, fogdiaglines={id="fogdiaglines"}}
++local function getOption(id) return options[id] end
++function applyOptionValue(option, value)
++    widget.applied[#widget.applied+1] = {option.id, value}
++end
++function widget:Initialize()
++    self.applied = self.applied or {}
++    local presetKeys = {]] .. scenario.keys .. [[}
++	local presetNames = {}
++end
++return "archive-ok"
++]]
++            if scenario.missing then archive = archive:gsub(', fogdiaglines={id="fogdiaglines"}', '') end
++            local env, observed = optionsEnv(archive)
++            if scenario.otherBackend then env.Platform.glHaveZinkMoltenVK = false end
++            assert(run(input.options, env) == "archive-ok")
++            env.widget:Initialize()
++            assert(#env.widget.applied == 0, "defaults ran before all widgets initialized")
++            env.widget:Update()
++            if scenario.index then
++                assert(#env.widget.applied == 3)
++                assert(env.widget.applied[1][1] == "preset" and env.widget.applied[1][2] == scenario.index)
++                assert(env.widget.applied[2][1] == "msaa" and env.widget.applied[2][2] == 1)
++                assert(env.widget.applied[3][1] == "fogdiaglines" and env.widget.applied[3][2] == 0)
++                assert(#observed.writes == 1 and observed.writes[1][1] == "BARMacOSGraphicsDefaults102")
++                env.widget.applied = {} -- a later user choice must not be reset
++                env.widget:Initialize()
++                env.widget:Update()
++                env.widget:BARMacOSApplyGraphicsDefaults()
++                assert(#env.widget.applied == 0 and #observed.writes == 1)
++            else
++                assert(#env.widget.applied == 0 and #observed.writes == 0)
++            end
++        end)
++    end
+ 
+     check("instanceVBO", lane .. " / applied private module", function()
+         local env, observed, baseline = instanceEnv(instanceFixture)
+--- before/tools/tests/run94-canonical-overlay-intake.test.mjs
++++ after/tools/tests/run94-canonical-overlay-intake.test.mjs
+@@ -396,8 +396,8 @@
+ });
+ 
+ test('final pinned production tables roundtrip every compiled byte and generate actual LuaRules wrappers', () => {
+-  const pinBytes = fs.readFileSync('artifacts/validation/healthbar-radar-regression-20261017/repair-hq/presentation-source-pins.json');
+-  assert.equal(sha(pinBytes), 'ec67d2f23185a7c1fcc2117f6cf3538e6ef7445e1d9c5d7a41131ec73579c069');
++  const pinBytes = fs.readFileSync('artifacts/validation/graphics-defaults-1.0.2-20261017/presentation-source-pins.json');
++  assert.equal(sha(pinBytes), '77aa940fcc1e5f2e523fc6941628f223ba38db08661787d74c54dc495c081fa4');
+   const pins = JSON.parse(pinBytes);
+   const evidence = path.resolve('artifacts/validation/release-imac-fix-20261015/provider');
+   const cpu = fs.realpathSync(fs.mkdtempSync(path.join(os.tmpdir(), 'bar-production-presentation-cpu-')));

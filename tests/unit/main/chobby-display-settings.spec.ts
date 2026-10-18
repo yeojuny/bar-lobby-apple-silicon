@@ -5,7 +5,7 @@ import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import { afterEach, describe, expect, it } from "vitest";
-import { inheritChobbyDisplaySettings, prepareChobbyDisplaySettings } from "@main/game/chobby-display-settings";
+import { inheritChobbyDisplaySettings, prepareChobbyDisplaySettings, inheritChobbyAADefaults, prepareChobbyAADefaults } from "@main/game/chobby-display-settings";
 
 describe("Chobby display intent", () => {
     const directories: string[] = [];
@@ -63,5 +63,38 @@ describe("Chobby display intent", () => {
         await fs.symlink(target, config);
         await expect(prepareChobbyDisplaySettings(root, true)).rejects.toThrow(/Unsafe/);
         expect(await fs.readFile(target, "utf8")).toBe("return {}\n");
+    });
+
+    it("changes only Chobby game AA literals and is idempotent", () => {
+        const source = '-- retained\r\nreturn {["Chili lobby"]={game_settings={MSAA=1, MSAALevel=4, Water=4}, other={MSAA=1}}, ["Other"]={MSAALevel=4}}\r\n';
+        const expected = source.replace("MSAA=1, MSAALevel=4", "MSAA=0, MSAALevel=-1");
+        expect(inheritChobbyAADefaults(source)).toBe(expected);
+        expect(inheritChobbyAADefaults(expected)).toBe(expected);
+    });
+
+    it.each(["return {}", 'return {["Chili lobby"]={}}', 'return {["Chili lobby"]={game_settings={Water=4}}}'])("seeds missing AA settings in a valid Chobby table", (source) => {
+        const next = inheritChobbyAADefaults(source);
+        expect(next).toContain("MSAA = 0");
+        expect(next).toContain("MSAALevel = -1");
+        expect(inheritChobbyAADefaults(next)).toBe(next);
+    });
+
+    it.each(['return {["Chili lobby"]={game_settings={MSAA=1, MSAA=0}}}', 'return {["Chili lobby"]={game_settings={MSAALevel=choose()}}}', 'return {["Chili lobby"]={game_settings=4}}'])("rejects ambiguous AA settings", (source) => {
+        expect(() => inheritChobbyAADefaults(source)).toThrow(/original file preserved/);
+    });
+
+    it("applies AA once and preserves a later user choice", async () => {
+        const root = await fs.mkdtemp(path.join(os.tmpdir(), "bar-chobby-aa-"));
+        directories.push(root);
+        const config = path.join(root, "LuaMenu/Config/IGL_data.lua");
+        await fs.mkdir(path.dirname(config), { recursive: true });
+        const original = 'return {["Chili lobby"]={game_settings={MSAA=1,MSAALevel=4},password="fixture"}}\n';
+        await fs.writeFile(config, original);
+        await prepareChobbyAADefaults(root);
+        expect(await fs.readFile(`${config}.before-bar-aa-1.0.2`, "utf8")).toBe(original);
+        expect(await fs.readFile(config, "utf8")).toContain("MSAALevel=-1");
+        await fs.writeFile(config, original);
+        await prepareChobbyAADefaults(root);
+        expect(await fs.readFile(config, "utf8")).toBe(original);
     });
 });

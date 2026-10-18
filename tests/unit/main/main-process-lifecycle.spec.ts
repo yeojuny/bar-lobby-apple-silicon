@@ -477,7 +477,7 @@ describe("Detached Chobby helper ownership", () => {
         });
         vi.doMock("electron", () => ({ app, BrowserWindow: { fromId: vi.fn(() => null) }, screen: { getDisplayMatching: vi.fn() }, shell: { openExternal: vi.fn() } }));
         vi.doMock("@main/services/settings.service", () => ({ settingsService: { getSettings: () => ({ fullscreen: true }) } }));
-        vi.doMock("@main/game/chobby-display-settings", () => ({ prepareChobbyDisplaySettings: vi.fn().mockResolvedValue(undefined) }));
+        vi.doMock("@main/game/chobby-display-settings", () => ({ prepareChobbyDisplaySettings: vi.fn().mockResolvedValue(undefined), prepareChobbyAADefaults: vi.fn().mockResolvedValue(undefined) }));
         vi.doMock("fs", () => ({ promises: fsPromises }));
         vi.doMock("net", () => ({
             createConnection: connect,

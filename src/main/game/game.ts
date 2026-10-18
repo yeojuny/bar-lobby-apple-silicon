@@ -40,7 +40,7 @@ import { createEngineLobbyLogMirror } from "@main/game/engine-log-mirror";
 import { createEngineStderrLog } from "@main/game/engine-stderr-log";
 import { requireContentWritesOpen, shutdownContentWriters, waitForContentWriterClose, withContentWrite } from "@main/content/content-write-coordinator";
 import { acquireChecksumHold } from "@main/utils/checksums";
-import { prepareChobbyDisplaySettings } from "@main/game/chobby-display-settings";
+import { prepareChobbyDisplaySettings, prepareChobbyAADefaults } from "@main/game/chobby-display-settings";
 import { settingsService } from "@main/services/settings.service";
 
 const log = logger("main/game/game.ts");
@@ -193,6 +193,8 @@ export class GameAPI {
         await this.ensureChobbySpringSettings();
         if (process.platform === "darwin") {
             await prepareChobbyDisplaySettings(WRITE_DATA_PATH, settingsService.getSettings().fullscreen);
+            await prepareChobbyAADefaults(WRITE_DATA_PATH);
+            applyDefaultSpringsettings();
         }
         await this.ensureChobbyMenuArchive({ engineVersion: profile.engineVersion, menu });
         await this.ensureChobbyMultiplayerGameContent(profile);

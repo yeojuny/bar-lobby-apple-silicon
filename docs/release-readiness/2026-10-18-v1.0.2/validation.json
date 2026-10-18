@@ -1,0 +1,130 @@
+{
+  "version": "1.0.2",
+  "app": {
+    "version": "1.0.2",
+    "path": "$WORKSPACE/artifacts/runtime/graphics-defaults-1.0.2-20261017/app-builder-output-spring/mac-arm64/BAR.app",
+    "inventorySHA256": "b2d8d1b237328ae0e5b30bf7011b1ee6bd54eed10270fea3a763b3a048710f9b",
+    "entries": 1192,
+    "asarSHA256": "f49798aacf0388d22b4faa079fcc3d0b2c8c68c3c1975aaac8bfe8760e86819a",
+    "inputLockSHA256": "da7160870d623d231e9a21416b545bc41e633b800a446ff313efc4f75d757bc1",
+    "nativeAdditionalVersion": "BAR-1.0.2",
+    "syncIdentities": [
+      "2026.09.01-24-g01efdf4 master",
+      "2026.07.04"
+    ],
+    "qualification": "Offline/package checks only for final1.0.2; no new game/GPU/iMac/FPS/MP acceptance. Human confirmed Spring camera behavior in comparison, then chose Spring as default; this is not a final1.0.2 manual-game result."
+  },
+  "finalValidation": {
+    "luaCPUCases": 119,
+    "cameraCases": 12,
+    "canonicalCases": 28,
+    "actualOfficialOptionsSyntaxLanes": 2,
+    "nativeBuilds": 2,
+    "strictSignaturePassed": true,
+    "packagedGroupsExact": 7,
+    "entries": 1192,
+    "deltaFromEarlier102": [
+      "Contents/MacOS/BAR",
+      "Contents/Resources/bundled-assets/engine/2026.07.04/spring",
+      "Contents/Resources/bundled-assets/engine/2026.09.01-24-g01efdf4 master/spring",
+      "Contents/Resources/bundled-assets/macos-luaui-overlays/bar-chobby/LuaUI/Widgets/gui_options.lua",
+      "Contents/Resources/bundled-assets/macos-luaui-overlays/bar-lobby/LuaUI/Widgets/gui_options.lua",
+      "Contents/Resources/bundled-assets/release-input-lock.json",
+      "Contents/_CodeSignature/CodeResources"
+    ],
+    "earlier102AppUnchanged": true,
+    "launcherASARUnchanged": true,
+    "loaderAndVersionsPassed": true,
+    "sourceHEAD": "6a3b298c236cd10eff8fd7ce27d15cdb589f650f",
+    "indexSHA256": "073483d1f4a62c9cda7006b467f60da926f889d1c8f126dc0016e3a23b761c87"
+  },
+  "initialGraphicsChecks": {
+    "launcherFocusedTests": {
+      "status": "pass",
+      "cases": 67,
+      "scope": "22 Chobby display/AA + 45 main-process lifecycle; observed earlier this turn"
+    },
+    "nodeTypes": {
+      "status": "pass",
+      "scope": "No renderer source edits"
+    },
+    "launcherDefaults": {
+      "status": "pass",
+      "cases": 4,
+      "evidence": "default-settings-check.json"
+    },
+    "luaOverlayCPU": {
+      "status": "pass",
+      "cases": 107,
+      "optionsCases": 42,
+      "newCases": 8,
+      "scope": "Existing Lua CPU suite; observed earlier this turn"
+    },
+    "officialOptionsSyntax": {
+      "status": "pass",
+      "lanes": 2,
+      "content": "retained test31671; observed earlier this turn"
+    },
+    "canonicalPresentation": {
+      "status": "pass",
+      "cases": 28,
+      "evidence": "canonical-fixture.log"
+    },
+    "nativeBuilds": {
+      "status": "pass",
+      "lanes": 2,
+      "evidence": "final-header-build.json"
+    },
+    "nativeLoader": {
+      "status": "pass",
+      "checks": 4,
+      "evidence": "native-loader-validation.json"
+    },
+    "nativeVersion": {
+      "status": "pass",
+      "checks": 4,
+      "evidence": "native-version-cli.json"
+    },
+    "nativeClosure": {
+      "status": "pass",
+      "edges": 211,
+      "evidence": "native-closure.json"
+    },
+    "packagedAssets": {
+      "status": "pass",
+      "groups": 7,
+      "evidence": "packaged-entry-readback.json"
+    },
+    "strictDeepSignature": {
+      "status": "pass",
+      "evidence": "nested-signing.json"
+    },
+    "appInventory": {
+      "status": "pass",
+      "entries": 1192,
+      "changedEntries": 17,
+      "evidence": "package-delta-audit.json"
+    },
+    "runtimeGame": {
+      "status": "not run"
+    },
+    "independentAgentReview": {
+      "status": "not performed"
+    }
+  },
+  "limits": {
+    "gameLaunched": false,
+    "manualGameAcceptance": false,
+    "independentAgentReview": false,
+    "overheadRepaired": false,
+    "installed": false,
+    "published": false,
+    "githubAndHomebrewRemain": "1.0.1",
+    "cleanup": false,
+    "automation": "PAUSED"
+  },
+  "receiptBindings": {
+    "artifacts/validation/spring-default-1.0.2-20261018/completion.json": "0893825c9dfbb6195336b350edf54150dd557c32200e3679e54fa10c9f327785",
+    "artifacts/validation/graphics-defaults-1.0.2-20261017/completion.json": "7ae374c9e1fb0cdced5c7023c3b1ce883a6caa0a06866f708aa2ee7b50c8a0d7"
+  }
+}

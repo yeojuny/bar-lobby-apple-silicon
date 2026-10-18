@@ -1,0 +1,157 @@
+--- before/sources/bar-lobby/bundled-assets/macos-luaui-overlays/bar-lobby/LuaUI/Widgets/gui_options.lua
++++ after/sources/bar-lobby/bundled-assets/macos-luaui-overlays/bar-lobby/LuaUI/Widgets/gui_options.lua
+@@ -151,6 +151,18 @@
+ 		applyOptionValue(fog, 0, true)
+ 		Spring.SetConfigInt("BARMacOSGraphicsDefaults102", 1)
+ 	end
++	function widget:BARMacOSApplyCameraDefault()
++		if not barMacOSUiProfile or Spring.GetConfigInt("BARMacOSSpringCamera102", 0) == 1 then return end
++		local camera = getOption("camera")
++		if not camera or not camera.options or #camera.options ~= 5 then
++			Spring.Echo("[BAR macOS Options] initial Spring camera unavailable; settings retained")
++			return
++		end
++		-- Official camera index 3 selects engine mode 2 via viewspring. Run after
++		-- Camera Remember has restored its saved state, then preserve later choices.
++		applyOptionValue(camera, 3, true)
++		Spring.SetConfigInt("BARMacOSSpringCamera102", 1)
++	end
+ 	local presetNames = {}
+ ]=]
+ local defaultsStart, defaultsEnd = string.find(source, defaultsAnchor, 1, true)
+@@ -184,6 +196,7 @@
+ 	if graphicsDefaultsPending then
+ 		graphicsDefaultsPending = false
+ 		if self.BARMacOSApplyGraphicsDefaults then self:BARMacOSApplyGraphicsDefaults() end
++		if self.BARMacOSApplyCameraDefault then self:BARMacOSApplyCameraDefault() end
+ 	end
+ 	return result
+ end
+--- before/sources/bar-lobby/bundled-assets/macos-luaui-overlays/bar-chobby/LuaUI/Widgets/gui_options.lua
++++ after/sources/bar-lobby/bundled-assets/macos-luaui-overlays/bar-chobby/LuaUI/Widgets/gui_options.lua
+@@ -151,6 +151,18 @@
+ 		applyOptionValue(fog, 0, true)
+ 		Spring.SetConfigInt("BARMacOSGraphicsDefaults102", 1)
+ 	end
++	function widget:BARMacOSApplyCameraDefault()
++		if not barMacOSUiProfile or Spring.GetConfigInt("BARMacOSSpringCamera102", 0) == 1 then return end
++		local camera = getOption("camera")
++		if not camera or not camera.options or #camera.options ~= 5 then
++			Spring.Echo("[BAR macOS Options] initial Spring camera unavailable; settings retained")
++			return
++		end
++		-- Official camera index 3 selects engine mode 2 via viewspring. Run after
++		-- Camera Remember has restored its saved state, then preserve later choices.
++		applyOptionValue(camera, 3, true)
++		Spring.SetConfigInt("BARMacOSSpringCamera102", 1)
++	end
+ 	local presetNames = {}
+ ]=]
+ local defaultsStart, defaultsEnd = string.find(source, defaultsAnchor, 1, true)
+@@ -184,6 +196,7 @@
+ 	if graphicsDefaultsPending then
+ 		graphicsDefaultsPending = false
+ 		if self.BARMacOSApplyGraphicsDefaults then self:BARMacOSApplyGraphicsDefaults() end
++		if self.BARMacOSApplyCameraDefault then self:BARMacOSApplyCameraDefault() end
+ 	end
+ 	return result
+ end
+--- before/sources/bar-lobby/electron-builder.ts
++++ after/sources/bar-lobby/electron-builder.ts
+@@ -9,15 +9,15 @@
+ // Reviewed experimental release inputs. The external lock remains mandatory;
+ // protected local candidates are not modified by this packaging configuration.
+ const bundledAssets = createPinnedBundledAssets(process.env, {
+-    id: "graphics-defaults-1.0.2-20261017",
++    id: "spring-default-1.0.2-20261018",
+     lanes: {
+         "bar-chobby": {
+             engineDirectory: "2026.07.04",
+-            springSha256: "b0830d3893d8463fef0a9bf30ec180b7421f0995b0a26cbfff9971dfd02076c9",
++            springSha256: "d270745ef970a6c440dae7cef453b58a9a87334c0e28f4974f7465cdd475bae3",
+         },
+         "bar-lobby": {
+             engineDirectory: "2026.09.01-24-g01efdf4 master",
+-            springSha256: "65fd009c9ba86a00d1001317a9041fdf523ae23d9f1fd9b3e410f4677745d1f8",
++            springSha256: "777d409bc6561c503d2ab0c833078af453f6c0a27060e9f582caed378daa71fb",
+         },
+     },
+ });
+--- before/tools/test-run94-graphics-optin-signals.lua
++++ after/tools/test-run94-graphics-optin-signals.lua
+@@ -377,6 +377,62 @@
+                 assert(#env.widget.applied == 0 and #observed.writes == 1)
+             else
+                 assert(#env.widget.applied == 0 and #observed.writes == 0)
++            end
++        end)
++    end
++
++    for _, scenario in ipairs({
++        {name="saved overhead restored before update", expected=2},
++        {name="graphics migration already applied", graphicsDone=true, expected=2},
++        {name="later user camera choice", cameraDone=true, expected=3},
++        {name="missing camera option", missing=true, expected=3},
++        {name="unexpected camera list", shortList=true, expected=3},
++        {name="non-Apple camera unchanged", otherBackend=true, expected=3},
++    }) do
++        check("options", lane .. " / Spring default / " .. scenario.name, function()
++            local archive = [[local samples = {"x4", "x8"}
++local camera = {id="camera", options={"fps","overhead","spring","rot","free"}}
++local function getOption(id) if id == "camera" then return camera end end
++function applyOptionValue(option, value)
++    assert(option == camera and value == 3)
++    Spring.SetConfigInt("CamMode", value - 1)
++    Spring.SendCommands("viewspring")
++end
++function widget:Initialize()
++    local presetKeys = {"low","ultra","custom"}
++	local presetNames = {}
++end
++return "archive-ok"
++]]
++            if scenario.missing then archive = archive:gsub('return camera', 'return nil') end
++            if scenario.shortList then archive = archive:gsub(',"free"', '') end
++            local env, observed = optionsEnv(archive)
++            local liveMode = 3
++            env.Spring.SendCommands = function(command)
++                observed.commands[#observed.commands + 1] = command
++                if command == "viewspring" then liveMode = 2 end
++            end
++            if scenario.otherBackend then env.Platform.glHaveZinkMoltenVK = false end
++            if scenario.graphicsDone then env.Spring.SetConfigInt("BARMacOSGraphicsDefaults102", 1) end
++            if scenario.cameraDone then env.Spring.SetConfigInt("BARMacOSSpringCamera102", 1) end
++            assert(run(input.options, env) == "archive-ok")
++            env.widget:Initialize()
++            assert(liveMode == 3 and #observed.commands == 0, "camera changed before saved-camera initialization")
++            liveMode = 3 -- Camera Remember restores the previous overhead state.
++            env.widget:Update()
++            assert(liveMode == scenario.expected)
++            if scenario.expected == 2 then
++                assert(env.Spring.GetConfigInt("CamMode") == 2)
++                assert(env.Spring.GetConfigInt("BARMacOSSpringCamera102") == 1)
++                assert(#observed.commands == 1)
++                liveMode = 4 -- Later user preference, including a LuaUI reload.
++                env.Spring.SetConfigInt("CamMode", 4)
++                env.widget:Initialize()
++                env.widget:Update()
++                env.widget:BARMacOSApplyCameraDefault()
++                assert(liveMode == 4 and #observed.commands == 1)
++            else
++                assert(#observed.commands == 0)
+             end
+         end)
+     end
+--- before/tools/tests/run94-canonical-overlay-intake.test.mjs
++++ after/tools/tests/run94-canonical-overlay-intake.test.mjs
+@@ -396,8 +396,8 @@
+ });
+ 
+ test('final pinned production tables roundtrip every compiled byte and generate actual LuaRules wrappers', () => {
+-  const pinBytes = fs.readFileSync('artifacts/validation/graphics-defaults-1.0.2-20261017/presentation-source-pins.json');
+-  assert.equal(sha(pinBytes), '77aa940fcc1e5f2e523fc6941628f223ba38db08661787d74c54dc495c081fa4');
++  const pinBytes = fs.readFileSync('artifacts/validation/spring-default-1.0.2-20261018/presentation-source-pins.json');
++  assert.equal(sha(pinBytes), '0e19907b2f5918063280a156279b01a1af966e19cb669319fcd0e5faeb28659d');
+   const pins = JSON.parse(pinBytes);
+   const evidence = path.resolve('artifacts/validation/release-imac-fix-20261015/provider');
+   const cpu = fs.realpathSync(fs.mkdtempSync(path.join(os.tmpdir(), 'bar-production-presentation-cpu-')));

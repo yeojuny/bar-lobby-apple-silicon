@@ -1,0 +1,308 @@
+{
+  "changedInputs": [
+    {
+      "path": "sources/bar-lobby/src/main/game/springsettings.ts",
+      "beforeSHA256": "098a1e42d6047f4cbc54680d45d0af995c51c9cac08e4121436424c64fcbad71",
+      "afterSHA256": "c445956742a646e405a82939f40f2a71cfc1f845ddc07fdfdd2f24e042dceb9d",
+      "stages": [
+        "artifacts/validation/graphics-defaults-1.0.2-20261017"
+      ]
+    },
+    {
+      "path": "sources/bar-lobby/src/main/game/chobby-display-settings.ts",
+      "beforeSHA256": "f70e248218d2fa3a4e300a9519f45d47e5fc2baa267031ab8acb43392bdeecb5",
+      "afterSHA256": "e3d46e893dfd5f853e4f86ffc6507cd16d3c7c82555f5a422ba13120fa9f69d0",
+      "stages": [
+        "artifacts/validation/graphics-defaults-1.0.2-20261017"
+      ]
+    },
+    {
+      "path": "sources/bar-lobby/src/main/game/game.ts",
+      "beforeSHA256": "6006dd5bb5d8a73056a9b8e23e2d29876d0d31d156948212a05721554b4ccdbb",
+      "afterSHA256": "ca4a9c978ab69abff8fc205c32e143dddb2f4fdde25155e2babd6b3c8bb874f6",
+      "stages": [
+        "artifacts/validation/graphics-defaults-1.0.2-20261017"
+      ]
+    },
+    {
+      "path": "sources/bar-lobby/bundled-assets/macos-luaui-overlays/bar-lobby/LuaUI/Widgets/gui_options.lua",
+      "beforeSHA256": "8c5e05c8e08978050bc39b4683cbe50b76d0f8f1d9ca8fe6807b342052d33bed",
+      "afterSHA256": "38074738e33067326fe394d606c51516bb2192ffe6d5f25b0dc5aaf956544672",
+      "stages": [
+        "artifacts/validation/graphics-defaults-1.0.2-20261017",
+        "artifacts/validation/spring-default-1.0.2-20261018"
+      ]
+    },
+    {
+      "path": "sources/bar-lobby/bundled-assets/macos-luaui-overlays/bar-chobby/LuaUI/Widgets/gui_options.lua",
+      "beforeSHA256": "8c5e05c8e08978050bc39b4683cbe50b76d0f8f1d9ca8fe6807b342052d33bed",
+      "afterSHA256": "38074738e33067326fe394d606c51516bb2192ffe6d5f25b0dc5aaf956544672",
+      "stages": [
+        "artifacts/validation/graphics-defaults-1.0.2-20261017",
+        "artifacts/validation/spring-default-1.0.2-20261018"
+      ]
+    },
+    {
+      "path": "sources/bar-lobby/package.json",
+      "beforeSHA256": "fba2c14dcb54e7d7e706c98761b34529d9da469c2b74b3153ccb43ca64d6ed7a",
+      "afterSHA256": "0ee94235960883e4c86160e040aa6f8a8e70aeb228b7e621888f6074ba1f5f37",
+      "stages": [
+        "artifacts/validation/graphics-defaults-1.0.2-20261017"
+      ]
+    },
+    {
+      "path": "sources/bar-lobby/package-lock.json",
+      "beforeSHA256": "0a9260ed498398019b14072d1537a20bd4f64ae065a6f0ffb8f93cde2040687c",
+      "afterSHA256": "6114506b8f9cd4983048501de4c62055a10d0fb7be10651408fa13370a65979e",
+      "stages": [
+        "artifacts/validation/graphics-defaults-1.0.2-20261017"
+      ]
+    },
+    {
+      "path": "sources/bar-lobby/electron-builder.ts",
+      "beforeSHA256": "60c329bb062c7634e299619f6146a618df70a2884fe3d0669a22edb3ca139ab5",
+      "afterSHA256": "a59c0bce912a0d26818ea88d0f4e0a55fb80dca1ff7fff250550340684a72531",
+      "stages": [
+        "artifacts/validation/graphics-defaults-1.0.2-20261017",
+        "artifacts/validation/spring-default-1.0.2-20261018"
+      ]
+    },
+    {
+      "path": "tools/test-run94-graphics-optin-signals.lua",
+      "beforeSHA256": "84be6ebc12515911c0f5f9f1ddb516b914bac2fc0bb3bd1dc4a54d50c27ad009",
+      "afterSHA256": "8338a87c9942dad6a02bbb7be15850fce1281c79aef4e5943229a4bd0696a012",
+      "stages": [
+        "artifacts/validation/graphics-defaults-1.0.2-20261017",
+        "artifacts/validation/spring-default-1.0.2-20261018"
+      ]
+    },
+    {
+      "path": "tools/tests/run94-canonical-overlay-intake.test.mjs",
+      "beforeSHA256": "92a73ac10e30def47237a93ea544f3d26ab0e22ad5c508afafd813b16a60555a",
+      "afterSHA256": "113a6e3018f0d1fd0f36c80315ab0b5ed32c83189d0717313244ae5d0746f250",
+      "stages": [
+        "artifacts/validation/graphics-defaults-1.0.2-20261017",
+        "artifacts/validation/spring-default-1.0.2-20261018"
+      ]
+    },
+    {
+      "path": "sources/bar-lobby/tests/unit/main/chobby-display-settings.spec.ts",
+      "afterSHA256": "384d96cbb9087bf93c5bf1756da4747d0243e1f1ec19ecb72f0f83b4319928e1",
+      "classification": "existing-focused-check-source"
+    },
+    {
+      "path": "sources/bar-lobby/tests/unit/main/main-process-lifecycle.spec.ts",
+      "afterSHA256": "37fccaa8e0f7d7188eaee603b5eb2364dc3c2f682f19de8319bef4f0049b0aad",
+      "classification": "existing-focused-check-source"
+    }
+  ],
+  "native": [
+    {
+      "component": "bar-lobby",
+      "sourceRoot": "$WORKSPACE/build/run91-recoil-src-694e9df7",
+      "buildRoot": "$WORKSPACE/build/run91-recoil-engine-694e9df7-macos27",
+      "generatedSources": {
+        "path": "$WORKSPACE/build/run91-recoil-src-694e9df7/rts/Lua/LuaBundledPresentationSources.h",
+        "sha256": "676746f564050fd4aa73e35b80cf31371a18ba4c99e880b5a636d753c0b7d48b"
+      },
+      "versionHeader": {
+        "path": "$WORKSPACE/build/run91-recoil-engine-694e9df7-macos27/src-generated/engine/System/VersionGenerated.h",
+        "sha256": "66c5f36ef12784135afa03babc370e4aa06c953b66397529f2368259587ed5cc"
+      },
+      "binary": {
+        "component": "bar-lobby",
+        "rawPath": "$WORKSPACE/build/run91-recoil-engine-694e9df7-macos27/spring",
+        "rawSHA256": "de045ccc62f07907b7487b505270b9e32dbd6addc25dd3b653fa89fde5fc8693",
+        "assetRelativePath": "engine/2026.09.01-24-g01efdf4 master/spring",
+        "packagedPath": "$WORKSPACE/artifacts/runtime/graphics-defaults-1.0.2-20261017/assets/engine/2026.09.01-24-g01efdf4 master/spring",
+        "commands": [
+          {
+            "argv": [
+              "/usr/bin/install_name_tool",
+              "-change",
+              "$WORKSPACE/artifacts/runtime/run90-devel-heads-20260910/runtime/mesa-zink/lib/libEGL.1.dylib",
+              "@rpath/libEGL.1.dylib",
+              "-change",
+              "/opt/homebrew/opt/fontconfig/lib/libfontconfig.1.dylib",
+              "@rpath/libfontconfig.1.dylib",
+              "-change",
+              "/opt/homebrew/opt/freetype/lib/libfreetype.6.dylib",
+              "@rpath/libfreetype.6.dylib",
+              "-change",
+              "/opt/homebrew/opt/devil/lib/libIL.dylib",
+              "@rpath/libIL.dylib",
+              "-change",
+              "/opt/homebrew/opt/minizip/lib/libminizip.1.dylib",
+              "@rpath/libminizip.1.dylib",
+              "-change",
+              "/opt/homebrew/opt/libvorbis/lib/libvorbisfile.3.dylib",
+              "@rpath/libvorbisfile.3.dylib",
+              "-change",
+              "/opt/homebrew/opt/libvorbis/lib/libvorbis.0.dylib",
+              "@rpath/libvorbis.0.dylib",
+              "-change",
+              "/opt/homebrew/opt/libogg/lib/libogg.0.dylib",
+              "@rpath/libogg.0.dylib",
+              "-delete_rpath",
+              "$WORKSPACE/artifacts/runtime/run90-devel-stack-20260910/runtime/sdl3/lib",
+              "-delete_rpath",
+              "$WORKSPACE/artifacts/runtime/run90-devel-heads-20260910/runtime/mesa-zink/lib",
+              "-delete_rpath",
+              "$WORKSPACE/artifacts/runtime/run90-devel-heads-20260910/runtime/openal/lib",
+              "-delete_rpath",
+              "$WORKSPACE/artifacts/runtime/run90-devel-heads-20260910/runtime/moltenvk-pr2746/lib",
+              "-delete_rpath",
+              "$WORKSPACE/artifacts/runtime/run90-devel-stack-20260910/runtime/vulkan-loader/lib",
+              "-add_rpath",
+              "@loader_path",
+              "-add_rpath",
+              "@loader_path/lib",
+              "-add_rpath",
+              "@loader_path/../../runtime/sdl3/lib",
+              "-add_rpath",
+              "@loader_path/../../runtime/mesa-zink/lib",
+              "-add_rpath",
+              "@loader_path/../../runtime/vulkan-loader/lib",
+              "-add_rpath",
+              "@loader_path/../../runtime/moltenvk-pr2746/lib",
+              "-add_rpath",
+              "@loader_path/../../runtime/deps/lib",
+              "-add_rpath",
+              "@loader_path/../../runtime/audio/lib",
+              "$WORKSPACE/artifacts/runtime/graphics-defaults-1.0.2-20261017/assets/engine/2026.09.01-24-g01efdf4 master/spring"
+            ],
+            "exit": 0,
+            "stderr": ""
+          },
+          {
+            "argv": [
+              "/usr/bin/codesign",
+              "--force",
+              "--sign",
+              "-",
+              "$WORKSPACE/artifacts/runtime/graphics-defaults-1.0.2-20261017/assets/engine/2026.09.01-24-g01efdf4 master/spring"
+            ],
+            "exit": 0,
+            "stderr": "$WORKSPACE/artifacts/runtime/graphics-defaults-1.0.2-20261017/assets/engine/2026.09.01-24-g01efdf4 master/spring: replacing existing signature\n"
+          }
+        ],
+        "packagedSHA256": "777d409bc6561c503d2ab0c833078af453f6c0a27060e9f582caed378daa71fb"
+      }
+    },
+    {
+      "component": "bar-chobby",
+      "sourceRoot": "$WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source",
+      "buildRoot": "$WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/build",
+      "generatedSources": {
+        "path": "$WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Lua/LuaBundledPresentationSources.h",
+        "sha256": "f57b70cdc2abe08e7b21b79bffa6f4a849d4e6103c304674d53d31ea569405a9"
+      },
+      "versionHeader": {
+        "path": "$WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/build/src-generated/engine/System/VersionGenerated.h",
+        "sha256": "39abb68febbed2c8c4a4adf211d534cdff7c51a97c4d910019930505372773f4"
+      },
+      "binary": {
+        "component": "bar-chobby",
+        "rawPath": "$WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/build/spring",
+        "rawSHA256": "68c870daa9ff830de087185467c9433fc11f24f574a665adec6edbed080c017c",
+        "assetRelativePath": "engine/2026.07.04/spring",
+        "packagedPath": "$WORKSPACE/artifacts/runtime/graphics-defaults-1.0.2-20261017/assets/engine/2026.07.04/spring",
+        "commands": [
+          {
+            "argv": [
+              "/usr/bin/install_name_tool",
+              "-change",
+              "$WORKSPACE/artifacts/runtime/run90-devel-heads-20260910/runtime/mesa-zink/lib/libEGL.1.dylib",
+              "@rpath/libEGL.1.dylib",
+              "-change",
+              "/opt/homebrew/opt/fontconfig/lib/libfontconfig.1.dylib",
+              "@rpath/libfontconfig.1.dylib",
+              "-change",
+              "/opt/homebrew/opt/freetype/lib/libfreetype.6.dylib",
+              "@rpath/libfreetype.6.dylib",
+              "-change",
+              "/opt/homebrew/opt/devil/lib/libIL.dylib",
+              "@rpath/libIL.dylib",
+              "-change",
+              "/opt/homebrew/opt/minizip/lib/libminizip.1.dylib",
+              "@rpath/libminizip.1.dylib",
+              "-change",
+              "/opt/homebrew/opt/xz/lib/liblzma.5.dylib",
+              "@rpath/liblzma.5.dylib",
+              "-change",
+              "/opt/homebrew/opt/gcc/lib/gcc/current/libatomic.1.dylib",
+              "@rpath/libatomic.1.dylib",
+              "-change",
+              "/opt/homebrew/opt/libvorbis/lib/libvorbisfile.3.dylib",
+              "@rpath/libvorbisfile.3.dylib",
+              "-change",
+              "/opt/homebrew/opt/libvorbis/lib/libvorbis.0.dylib",
+              "@rpath/libvorbis.0.dylib",
+              "-change",
+              "/opt/homebrew/opt/libogg/lib/libogg.0.dylib",
+              "@rpath/libogg.0.dylib",
+              "-change",
+              "/opt/homebrew/opt/gcc/lib/gcc/current/libstdc++.6.dylib",
+              "@rpath/libstdc++.6.dylib",
+              "-delete_rpath",
+              "$WORKSPACE/artifacts/runtime/run90-devel-stack-20260910/runtime/sdl3/lib",
+              "-delete_rpath",
+              "$WORKSPACE/artifacts/runtime/run90-devel-heads-20260910/runtime/mesa-zink/lib",
+              "-delete_rpath",
+              "$WORKSPACE/artifacts/runtime/run90-devel-heads-20260910/runtime/openal/lib",
+              "-delete_rpath",
+              "$WORKSPACE/artifacts/runtime/run90-devel-heads-20260910/runtime/moltenvk-pr2746/lib",
+              "-delete_rpath",
+              "$WORKSPACE/artifacts/runtime/run90-devel-stack-20260910/runtime/vulkan-loader/lib",
+              "-delete_rpath",
+              "@loader_path",
+              "-delete_rpath",
+              "/Library/Developer/CommandLineTools/usr/bin",
+              "-delete_rpath",
+              "/opt/homebrew/Cellar/gcc/16.2.0/lib/gcc/current/gcc/aarch64-apple-darwin25/16",
+              "-delete_rpath",
+              "/opt/homebrew/Cellar/gcc/16.2.0/lib/gcc/current/gcc",
+              "-delete_rpath",
+              "/usr/local/lib",
+              "-delete_rpath",
+              "/opt/homebrew/Cellar/gcc/16.2.0/lib/gcc/current",
+              "-add_rpath",
+              "@loader_path/lib",
+              "-add_rpath",
+              "@loader_path/../../runtime/sdl3/lib",
+              "-add_rpath",
+              "@loader_path/../../runtime/mesa-zink/lib",
+              "-add_rpath",
+              "@loader_path/../../runtime/vulkan-loader/lib",
+              "-add_rpath",
+              "@loader_path/../../runtime/moltenvk-pr2746/lib",
+              "-add_rpath",
+              "@loader_path/../../runtime/audio/lib",
+              "-add_rpath",
+              "@loader_path/../../runtime/deps/lib",
+              "$WORKSPACE/artifacts/runtime/graphics-defaults-1.0.2-20261017/assets/engine/2026.07.04/spring"
+            ],
+            "exit": 0,
+            "stderr": ""
+          },
+          {
+            "argv": [
+              "/usr/bin/codesign",
+              "--force",
+              "--sign",
+              "-",
+              "$WORKSPACE/artifacts/runtime/graphics-defaults-1.0.2-20261017/assets/engine/2026.07.04/spring"
+            ],
+            "exit": 0,
+            "stderr": "$WORKSPACE/artifacts/runtime/graphics-defaults-1.0.2-20261017/assets/engine/2026.07.04/spring: replacing existing signature\n"
+          }
+        ],
+        "packagedSHA256": "d270745ef970a6c440dae7cef453b58a9a87334c0e28f4974f7465cdd475bae3"
+      }
+    }
+  ],
+  "finalReceiptSHA256": "0893825c9dfbb6195336b350edf54150dd557c32200e3679e54fa10c9f327785",
+  "initialReceiptSHA256": "7ae374c9e1fb0cdced5c7023c3b1ce883a6caa0a06866f708aa2ee7b50c8a0d7",
+  "finalBuildEnvSHA256": "e9753839fb863f5d3bad662c7ac45e125152667ac8a350d5b02c1c035418b3c4",
+  "frozenSourceLockSHA256": "da7160870d623d231e9a21416b545bc41e633b800a446ff313efc4f75d757bc1"
+}

@@ -48,13 +48,21 @@ export function applyDefaultSpringsettings(): void {
         fs.mkdirSync(path.dirname(SPRINGSETTINGS_PATH), { recursive: true });
         const settings = readSettings(SPRINGSETTINGS_PATH);
         let changed = false;
-        for (const [key, value] of Object.entries({ ...configService.getConfig().springSettings, ...(process.platform === "darwin" ? { Fullscreen: 1, GeometryShadersUnsupported: 1 } : {}) })) {
+        for (const [key, value] of Object.entries({ ...configService.getConfig().springSettings, ...(process.platform === "darwin" ? { Fullscreen: 1, GeometryShadersUnsupported: 1, MSAA: 0, MSAALevel: -1 } : {}) })) {
             if (process.platform === "darwin" && retiredMacOSSettings.has(key)) continue;
             const restoreMacOSFullscreen = process.platform === "darwin" && key === "Fullscreen" && settings.get(key) !== "1";
             if (!settings.has(key) || restoreMacOSFullscreen) {
                 settings.set(key, String(value));
                 changed = true;
             }
+        }
+        // Apply the requested AA default once, before creating the GL context.
+        // Later choices in the game's Options remain authoritative.
+        if (process.platform === "darwin" && settings.get("BARMacOSAAStartup102") !== "1") {
+            settings.set("MSAA", "0");
+            settings.set("MSAALevel", "-1");
+            settings.set("BARMacOSAAStartup102", "1");
+            changed = true;
         }
         if (changed) {
             writeSettings(settings, SPRINGSETTINGS_PATH);

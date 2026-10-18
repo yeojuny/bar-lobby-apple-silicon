@@ -97,6 +97,83 @@ async function atomicWrite(file: string, content: string) {
     }
 }
 
+// Chobby imports its own game settings after launcher startup. Change only the
+// two AA literals so its saved 4x default cannot undo the requested first run.
+export function inheritChobbyAADefaults(source: string): string {
+    const ast = luaparse.parse(source, { ranges: true, comments: false });
+    const statement = ast.body[0];
+    if (ast.body.length !== 1 || statement.type !== "ReturnStatement" || statement.arguments.length !== 1 || statement.arguments[0].type !== "TableConstructorExpression") {
+        throw new Error("Unsupported Chobby settings layout; original file preserved.");
+    }
+    const root = statement.arguments[0];
+    type Table = typeof root;
+    const range = (node: object): [number, number] => (node as { range: [number, number] }).range;
+    const keyName = (field: Table["fields"][number]): string => {
+        if (field.type === "TableKeyString") return field.key.name;
+        if (field.type === "TableKey" && field.key.type === "StringLiteral" && !field.key.raw.includes("\\")) return field.key.raw.slice(1, -1);
+        throw new Error("Unsupported Chobby setting key; original file preserved.");
+    };
+    const child = (table: Table, key: string): Table | undefined => {
+        const fields = table.fields.filter((field) => keyName(field) === key);
+        if (fields.length > 1 || (fields.length === 1 && fields[0].value.type !== "TableConstructorExpression")) {
+            throw new Error("Ambiguous Chobby settings; original file preserved.");
+        }
+        return fields[0]?.value as Table | undefined;
+    };
+    const lobby = child(root, "Chili lobby");
+    const game = lobby && child(lobby, "game_settings");
+    const values = new Map([["MSAA", 0], ["MSAALevel", -1]]);
+    const edits: { start: number; end: number; value: string }[] = [];
+    if (game) {
+        const seen = new Set<string>();
+        for (const field of game.fields) {
+            const key = keyName(field);
+            if (!values.has(key)) continue;
+            const literal = field.value.type === "NumericLiteral" ? field.value : field.value.type === "UnaryExpression" && field.value.operator === "-" && field.value.argument.type === "NumericLiteral" ? field.value.argument : undefined;
+            if (seen.has(key) || !literal || !Number.isInteger(literal.value)) {
+                throw new Error("Ambiguous Chobby AA setting; original file preserved.");
+            }
+            seen.add(key);
+            const [start, end] = range(field.value);
+            edits.push({ start, end, value: String(values.get(key)) });
+        }
+        const missing = [...values].filter(([key]) => !seen.has(key));
+        if (missing.length) edits.push({ start: range(game)[0] + 1, end: range(game)[0] + 1, value: `\n${missing.map(([key, value]) => `    ${key} = ${value},`).join("\n")}\n` });
+    } else {
+        const target = lobby ?? root;
+        const settings = "game_settings = { MSAA = 0, MSAALevel = -1 },";
+        edits.push({ start: range(target)[0] + 1, end: range(target)[0] + 1, value: `\n    ${lobby ? settings : `["Chili lobby"] = { ${settings} },`}\n` });
+    }
+    let next = source;
+    for (const edit of edits.sort((a, b) => b.start - a.start)) next = next.slice(0, edit.start) + edit.value + next.slice(edit.end);
+    luaparse.parse(next);
+    return next;
+}
+
+export async function prepareChobbyAADefaults(writeDataPath: string): Promise<void> {
+    const markerPath = path.join(writeDataPath, "bar-macos-aa-1.0.2.json");
+    const marker = await readRegular(markerPath);
+    if (marker) {
+        if (JSON.parse(marker.toString("utf8")).version === 1) return;
+        throw new Error("Unknown Chobby AA migration state; settings preserved.");
+    }
+    const configPath = path.join(writeDataPath, "LuaMenu", "Config", "IGL_data.lua");
+    const original = await readRegular(configPath);
+    const source = original ? new TextDecoder("utf-8", { fatal: true, ignoreBOM: true }).decode(original) : "return {}\n";
+    const next = inheritChobbyAADefaults(source);
+    await fs.mkdir(path.dirname(configPath), { recursive: true });
+    const current = await readRegular(configPath);
+    if (original ? !current?.equals(original) : current !== undefined) throw new Error("Chobby settings changed during launch; retry after the other writer stops.");
+    if (original && next !== source) {
+        const backupPath = `${configPath}.before-bar-aa-1.0.2`;
+        const backup = await readRegular(backupPath);
+        if (backup && !backup.equals(original)) throw new Error("Existing Chobby AA rollback differs; original settings preserved.");
+        if (!backup) await fs.writeFile(backupPath, original, { flag: "wx", mode: 0o600 });
+    }
+    if (!original || next !== source) await atomicWrite(configPath, next);
+    await atomicWrite(markerPath, `${JSON.stringify({ version: 1 })}\n`);
+}
+
 export async function prepareChobbyDisplaySettings(writeDataPath: string, fullscreen: boolean): Promise<void> {
     const markerPath = path.join(writeDataPath, "bar-macos-chobby-display.json");
     const marker = await readRegular(markerPath);

@@ -1,0 +1,11 @@
+# Complete corresponding source for1.0.2
+
+Use BAR-1.0.2-sources.tar.gz, notices and SHA256SUMS. GitHub's automatic launcher-only archive omits complete engine/dependency source. The companion contains eleven archives, exact changed launcher/Options/generated native source, build support, pinned dependency recipes and release bindings. Unchanged dependencies are reused byte-for-byte; launcher, overlay/profile and both engine source archives are refreshed.
+
+The source commit descends from the preserved1.0.1 documentation master9bc979b8eda391ed48a50e0484d4a14104ea2c2d. Immutable old tags/releases are retained. The companion binds the new commit/tree externally without a self-referential hash inside Git source.
+
+Use the final Spring source-edits and presentation-source-pins, not the superseded initial1.0.2 Options postimage. Configure both engines with VERSION_ADDITIONAL=BAR-1.0.2. Production LuaBundledPresentationSources.h and VersionGenerated.h are included in the complete native archives; version template-values reproduce the latter exactly. Existing engine implementation, compiler/link/numeric flags and official sync identities are retained. New embedded bytes come from the updated Options delegate only. Preserve original relocation/signing recipes; current raw and relocated native SHA bindings are provided.
+
+Launcher game/springsettings/chobby-display-settings implement the AA initialization and one-time marker. package.json/package-lock.json change the version. electron-builder.ts binds the final Spring input lock, release version and both packaged native SHA values. Exact postimages and both chronological source patches are included. Fixture drivers and all required current handler/production source/manifest/header inputs are in build-support with explicit scratch-workspace relocation instructions. A normalized exported pin-file path requires updating only that relocated pin-file SHA literal in the scratch fixture; per-source byte hashes remain unchanged.
+
+The final input lock, build environment, native generation receipts and app inventory supersede initial1.0.2 stage associations. Earlier records are historical. No native/launcher rebuild or app execution is part of publication preparation.
