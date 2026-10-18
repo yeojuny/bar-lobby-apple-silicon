@@ -1,0 +1,268 @@
+{
+  "schema": "bar-maintenance-public-unit-v1",
+  "unit": "L3",
+  "status": "applied-audit-PASS-final-source-checkpoint-export",
+  "publicationParent": "154fd335ed128765140e55afddbc5c128e487665",
+  "targetRef": "refs/heads/maintenance/20261017-low-risk",
+  "component": "Vulkan-Loader",
+  "upstream": {
+    "repository": "KhronosGroup/Vulkan-Loader",
+    "orderedAtomicPair": [
+      "e38751a7c03588c2f1fec742f611cbafff864158",
+      "73cf5326e8c87d7922b235666198988064b0f294"
+    ],
+    "officialPairAppliedWithoutContextAdaptation": true,
+    "officialThreadingAddedLines": 63,
+    "partialPairBuiltOrAccepted": false,
+    "officialApplyReceipt": "official-apply.json"
+  },
+  "upstreamURLs": [
+    "https://github.com/KhronosGroup/Vulkan-Loader/commit/e38751a7c03588c2f1fec742f611cbafff864158",
+    "https://github.com/KhronosGroup/Vulkan-Loader/commit/73cf5326e8c87d7922b235666198988064b0f294"
+  ],
+  "currentBase": "Run95+VBO cumulative port plus candidate.5 maintenance and S1/S2/L5/L4/C1/L1/L2; run66 is historical directory naming only",
+  "sourceRoot": "$WORKSPACE/build/run66-vulkan-loader-src-20260903",
+  "buildRoot": "$WORKSPACE/build/run95-loader-20261002",
+  "publicBase": {
+    "URL": "https://github.com/yeojuny/bar-lobby-apple-silicon/releases/download/v0.17.0-candidate.4/BAR-0.17.0-candidate.4-sources.tar.gz",
+    "outerSHA256": "65e29a1b17c7d434fa6a4c97b5040a0236f1edb36d869f0b18c6fb27f70c792e",
+    "outerBytes": 374939453,
+    "archiveMember": "BAR-0.17.0-candidate.4-sources/archives/vulkan-loader-68cc-input.tar.gz",
+    "nestedArchiveSHA256": "68269a49344a1b2fd318f56828c0ca7104ef08ea3144e4fe97ac93061e8c7420",
+    "nestedArchiveBytes": 1869775,
+    "componentRoot": "vulkan-loader-68cc-input",
+    "verification": "Fresh in-memory reads/hash of existing nested archive and selected original member bytes; earlier outer integrity record reused without another full hash/download. Actual prior postimage snapshots match published manifests and L2 HQ saved preimage bytes."
+  },
+  "sourceChain": [
+    {
+      "unit": "L5",
+      "commit": "a190072b355b145da241821c33210890b70a890a",
+      "patchSHA256": "d144ecc2f6b8ef15f6f8d0ac2e900664e6f1d2ca897e396a63e3ea691493943c",
+      "atomicPair": false
+    },
+    {
+      "unit": "L4",
+      "commit": "47d52489a4525c0a5a040dd4aef11512d8b0d3af",
+      "patchSHA256": "b99049e7788abe292292495b97d47dfddbef2ef19671014b8877184bfe936ac0",
+      "atomicPair": true
+    },
+    {
+      "unit": "L1",
+      "commit": "f8e72e44a908c27b46767b99aa15c9afaf983964",
+      "patchSHA256": "51fb56a36769d02014853d17f62be947e6c7d73f7733ed280962aa4a3a34c763",
+      "atomicPair": false
+    },
+    {
+      "unit": "L2",
+      "commit": "154fd335ed128765140e55afddbc5c128e487665",
+      "patchSHA256": "0a467ad93681575de69ff42de23cffc3d1e11bdf29d0b2cde7fc7388243ca7b9",
+      "atomicPair": false
+    },
+    {
+      "unit": "L3",
+      "atomicPair": true,
+      "upstreamSHAs": [
+        "e38751a7c03588c2f1fec742f611cbafff864158",
+        "73cf5326e8c87d7922b235666198988064b0f294"
+      ],
+      "patchSHA256": "bfb232fa60b4f666dd5ad9eb9058aaea1a094bb1861326bc1cd1cd27a7f84ca0"
+    }
+  ],
+  "preimages": [
+    {
+      "path": "loader/debug_utils.c",
+      "originalPublicArchiveSHA256": "2cb34a248a5b4e33104b1aef7a717c454ef19cdfd8565ff5a7554e986cce526f",
+      "cumulativePreimageSHA256": "2cb34a248a5b4e33104b1aef7a717c454ef19cdfd8565ff5a7554e986cce526f",
+      "bytes": 38003,
+      "mode": "100644",
+      "cumulativeFrom": "unchanged original public port archive",
+      "publicArchiveBytesExact": true
+    },
+    {
+      "path": "tests/loader_threading_tests.cpp",
+      "originalPublicArchiveSHA256": "74136c5154c2651f553e1dfd7e85742ed0f6492419f3df3e5333831763cb28fd",
+      "cumulativePreimageSHA256": "2d529217856296859ed61dcc9257ef7201560e617a5ee0f747fc2c720a88b947",
+      "bytes": 22622,
+      "mode": "100644",
+      "cumulativeFrom": "Complete L1 then complete L2 including82-line test supplement",
+      "publishedL2PostimageAndHQPreimageByteExact": true
+    }
+  ],
+  "sourceFiles": [
+    {
+      "path": "loader/debug_utils.c",
+      "preimageSHA256": "2cb34a248a5b4e33104b1aef7a717c454ef19cdfd8565ff5a7554e986cce526f",
+      "postimageSHA256": "7466fb0d7203ce3016223c2d1e183f25c701988b33dc01851a858c43f3664fbc",
+      "preimageGitBlobSHA1": "2ebab6914ecd01c9315ffa59c434153810bb39e5",
+      "postimageGitBlobSHA1": "913a4740b5032c8428c5148e2623ab6bc99409d6",
+      "preimageBytes": 38003,
+      "postimageBytes": 38198,
+      "mode": "100644"
+    },
+    {
+      "path": "tests/loader_threading_tests.cpp",
+      "preimageSHA256": "2d529217856296859ed61dcc9257ef7201560e617a5ee0f747fc2c720a88b947",
+      "postimageSHA256": "511896e3068fdbc70d2712292a7b6351809af2f989a8f4978eec2a9b2a4d51bb",
+      "preimageGitBlobSHA1": "4feb31184f44e34ba20d41720544af24a951677d",
+      "postimageGitBlobSHA1": "bbd86c2cbd9fb6bb13f16335d1ca27238555b168",
+      "preimageBytes": 22622,
+      "postimageBytes": 29000,
+      "mode": "100644"
+    }
+  ],
+  "patch": {
+    "path": "change.patch",
+    "sha256": "bfb232fa60b4f666dd5ad9eb9058aaea1a094bb1861326bc1cd1cd27a7f84ca0",
+    "bytes": 9198,
+    "scope": "Exact ordered official production pair and63 official threading additions plus51 local test-only observation additions. One production file and one existing test file; no partial pair."
+  },
+  "intendedEffect": "Protect common messenger/report list traversal and callbacks against concurrent messenger creation/destruction, including loader_log calls before stderr filtering, while preserving explicit-submit/report filtering and removing redundant terminator locking.",
+  "testSupplement": {
+    "path": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L3/test-supplement.patch",
+    "sha256": "7cb7d1cb96f4038484a8bc5cc24f52d6b42ce3ec9f93983702d39abf864bacd2",
+    "addedLines": 51,
+    "productionChanges": 0,
+    "cases": 2,
+    "newHarness": false,
+    "reason": "Observe actual common-chain callback walk under both stderr INFO filter modes while reusing official churn/query helpers and existing RAII messenger wrapper.",
+    "receipt": "test-supplement.json"
+  },
+  "productionChecks": {
+    "baseline": {
+      "tests": 7,
+      "failures": 0,
+      "actualProductionRawSHA256": "90f8a48234bd14d5eb19154a1104a27b555dd9c6b2750e4568636b108c0b8920",
+      "receipt": "baseline-debug.json"
+    },
+    "after": {
+      "tests": 23,
+      "unitSpecificTests": 10,
+      "cumulativeL1L2Tests": 13,
+      "failures": 0,
+      "actualProductionRawSHA256": "61ff2158bcf1169dd08c4e8a84c3e1aa53cbf6a76b6e40dbaa1e1fa65911cc12",
+      "mode": "Final complete atomic-pair production BUILD_TESTS OFF; ordinary mock debug/threading and selected regression checks",
+      "actualLoadedLoaderAndMockBindingsRecorded": true,
+      "receipts": [
+        "after-fix-test_threading.json",
+        "after-fix-test_regression.json",
+        "cumulative-L1-L2-test_threading.json",
+        "cumulative-L1-L2-test_regression.json"
+      ],
+      "summaryReceipt": "focused-check-summary.json",
+      "MoltenVKLoaded": false,
+      "sanitizerRun": false,
+      "raceFreedomEstablished": false
+    },
+    "stderrFilterObservations": [
+      {
+        "test": "StderrInfo/DebugMessengerLogFilter.WalkObservedWithConcurrentMessengerLifetime/0",
+        "stderrInfoEnabled": false,
+        "emulatedQueryCallbacks": 64,
+        "stderrEmulationMessageLines": 0,
+        "observerDestroyedAfterJoins": true
+      },
+      {
+        "test": "StderrInfo/DebugMessengerLogFilter.WalkObservedWithConcurrentMessengerLifetime/1",
+        "stderrInfoEnabled": true,
+        "emulatedQueryCallbacks": 64,
+        "stderrEmulationMessageLines": 64,
+        "observerDestroyedAfterJoins": true
+      }
+    ],
+    "cumulativeL1L2Gate": {
+      "tests": 13,
+      "failures": 0,
+      "receipts": [
+        "cumulative-L1-L2-test_threading.json",
+        "cumulative-L1-L2-test_regression.json"
+      ],
+      "runOnceOnSameFinalRawAndExecutables": true,
+      "additionalBuilds": 0,
+      "existingDirectCallbackObservationsReconfirmed": "All three result conditions still record 32 callback creation attempts, two owner devices until cleanup, one fresh-worker retry, and zero devices after cleanup."
+    },
+    "productionBuild": {
+      "target": "vulkan",
+      "receipt": "production-build.json",
+      "BUILD_TESTS": "OFF",
+      "partialPairBuilt": false,
+      "flagsAndLinkByteExact": true,
+      "cacheValuesExact": true,
+      "cacheTypeDifferencesOnly": {},
+      "exportNames": 1015,
+      "exportNamesExact": true,
+      "dependenciesAndInstallNameExact": true,
+      "rawArtifactReceipt": "raw-artifact.json"
+    },
+    "staticReview": {
+      "helperListHeadAndMessengerReportCallbacksInsideBalancedLock": true,
+      "terminatorOwnLocksRemovedAndHelperCalledOnce": true,
+      "loggingHelperBeforeStderrFilter": true,
+      "outputOffDoesNotRemoveHelperLockCost": true,
+      "recursiveMutexMeansFirstHunkAloneNeedNotDeadlock": true,
+      "callbackUserdataAliveThroughJoinsAndMessengerDestroy": true,
+      "callbackMakesNoVulkanAPICalls": true,
+      "receipt": "static-lock-review.json"
+    },
+    "scopeLimits": [
+      "Ordinary mock stress; no ThreadSanitizer, race-freedom or global deadlock-freedom claim",
+      "No prohibited Vulkan reentry from callbacks tested",
+      "Output-off still reaches helper locking; no zero-lock-cost/FPS/energy improvement claim",
+      "No GPU/window/app/game/FPS/multiplayer/endurance test"
+    ]
+  },
+  "preservation": {
+    "receipt": "preservation-after.json",
+    "unchangedPriorGuardCount": 57,
+    "unchangedStaticContextFileCount": 5,
+    "priorS1S2L5L4C1L1L2Preserved": true,
+    "L2ProductionSourceAndTestLayerSupportUnchanged": true,
+    "L1L2ExistingThreadingBytesPreserved": true,
+    "C1SourceRuntimeIdentityAndFrozenReceiptsPreserved": true,
+    "MVK_GIT_REV": "f52facf7",
+    "realLauncherHEAD": "6a3b298c236cd10eff8fd7ce27d15cdb589f650f",
+    "realLauncherIndexSHA256": "073483d1f4a62c9cda7006b467f60da926f889d1c8f126dc0016e3a23b761c87",
+    "ordinaryFrozenInstalledAppsAndUserCachesUnchanged": true,
+    "automaticAppQuitPerformed": false
+  },
+  "cacheIdentityNote": {
+    "cacheValuesAndTypesExact": true,
+    "cacheBytesExactClaimed": false,
+    "flagsAndLinkByteExact": true,
+    "MVK_GIT_REV": "f52facf7 unchanged"
+  },
+  "existingTestDependency": {
+    "name": "GoogleTest",
+    "declaredByComponentPath": "scripts/known_good.json",
+    "declaredTag": "v1.14.0",
+    "exactCommit": "f8d7d77c06936315286eb55f8de22cd23c188571",
+    "sourceURL": "https://codeload.github.com/google/googletest/tar.gz/f8d7d77c06936315286eb55f8de22cd23c188571",
+    "archiveSHA256": "7ff5db23de232a39cbb5c9f5143c355885e30ac596161a6b9fc50c4538bfbf01",
+    "archiveBytes": 868904,
+    "archiveRoot": "googletest-f8d7d77c06936315286eb55f8de22cd23c188571",
+    "existingLocalArchive": "$WORKSPACE/archives/googletest-v1.14.0-f8d7d77c.tar.gz",
+    "existingBuildDependencySource": "$WORKSPACE/build/run95-loader-20261002/_deps/googletest",
+    "configureConnection": "GOOGLETEST_INSTALL_DIR=$WORKSPACE/build/run95-loader-20261002/_deps/googletest",
+    "sourceOnlyForExistingTests": true,
+    "dependencyFilesVerifiedByHQ": 245,
+    "productionDependency": false,
+    "archiveRedistributedOrCopiedByPublisher": false
+  },
+  "existingDependencyRecipeURL": "https://github.com/yeojuny/bar-lobby-apple-silicon/blob/a190072b355b145da241821c33210890b70a890a/docs/maintenance-units/2026-10-17/L5/recipe.md",
+  "frozenInputBindings": {
+    "coordinatorSourcePublicationPASS": true,
+    "privateFrozenInputs": {
+      "unit-result.json": "7e625d2de494d14a9cb30183243cbf22428a28805579cc1d258bdd0df6927212",
+      "applied-audit.json": "fae15929dd515b78559c94ed888923fae5705e83939a93339597813bcf8cb699",
+      "change.patch": "bfb232fa60b4f666dd5ad9eb9058aaea1a094bb1861326bc1cd1cd27a7f84ca0"
+    },
+    "publicCopies": "Workspace paths in keys and values rebased to $WORKSPACE. Original private receipt SHA256 values identify exact inputs and differ from sanitized public blob hashes."
+  },
+  "claimLimits": [
+    "Ordinary mock stress and static whole-file review do not establish ThreadSanitizer race freedom, all external callback/layer lock interactions or global deadlock freedom.",
+    "Controlled callback userdata lifetime is covered; arbitrary forbidden Vulkan calls from callbacks are not authorized or tested.",
+    "No GPU/window/app/game/FPS/MP/endurance acceptance or app/Release/Homebrew change."
+  ],
+  "performanceScope": "The logging helper is reached before stderr filtering, so output-off still incurs its lock. No speed/FPS/energy or zero-cost improvement claim.",
+  "atomicPairNote": "The macOS mutex is recursive. First-hunk inevitable deadlock is not asserted. Both selected commits are one policy-required source unit.",
+  "completionScope": "Last of8 source units. No next source expansion, app, Release, Homebrew, V1, tag or master update is included."
+}

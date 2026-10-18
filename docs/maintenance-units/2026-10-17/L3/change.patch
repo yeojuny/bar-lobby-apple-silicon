@@ -1,0 +1,168 @@
+diff --git a/loader/debug_utils.c b/loader/debug_utils.c
+--- a/loader/debug_utils.c
++++ b/loader/debug_utils.c
+@@ -79,6 +79,9 @@
+     VkBool32 bail = false;
+ 
+     if (NULL != pCallbackData) {
++        // The messenger/report chain is guarded by loader_lock everywhere it is modified (see the create/destroy
++        // terminators). loader_lock is recursive, so taking it here is safe even when a caller already holds it.
++        loader_platform_thread_lock_mutex(&loader_lock);
+         VkLayerDbgFunctionNode *pTrav = inst->current_dbg_function_head;
+         VkDebugReportObjectTypeEXT object_type = VK_DEBUG_REPORT_OBJECT_TYPE_UNKNOWN_EXT;
+         VkDebugReportFlagsEXT object_flags = 0;
+@@ -103,6 +106,7 @@
+             }
+             pTrav = pTrav->pNext;
+         }
++        loader_platform_thread_unlock_mutex(&loader_lock);
+     }
+ 
+     return bail;
+@@ -303,14 +307,11 @@
+                                                                  VkDebugUtilsMessageSeverityFlagBitsEXT messageSeverity,
+                                                                  VkDebugUtilsMessageTypeFlagsEXT messageTypes,
+                                                                  const VkDebugUtilsMessengerCallbackDataEXT *pCallbackData) {
+-    loader_platform_thread_lock_mutex(&loader_lock);
+     // NOTE: Just make the callback ourselves because there could be one or more ICDs that support this extension
+     //       and each one will trigger the callback to the user.  This would result in multiple callback triggers
+     //       per message.  Instead, if we get a messaged up to here, then just trigger the message ourselves and
+     //       return.  This would still allow the ICDs to trigger their own messages, but won't get any external ones.
+-    struct loader_instance *inst = (struct loader_instance *)instance;
+-    util_SubmitDebugUtilsMessageEXT(inst, messageSeverity, messageTypes, pCallbackData);
+-    loader_platform_thread_unlock_mutex(&loader_lock);
++    util_SubmitDebugUtilsMessageEXT((struct loader_instance *)instance, messageSeverity, messageTypes, pCallbackData);
+ }
+ 
+ // VK_EXT_debug_report related items
+diff --git a/tests/loader_threading_tests.cpp b/tests/loader_threading_tests.cpp
+--- a/tests/loader_threading_tests.cpp
++++ b/tests/loader_threading_tests.cpp
+@@ -27,6 +27,9 @@
+ 
+ #include "test_environment.h"
+ 
++#include <algorithm>
++#include <atomic>
++#include <cstring>
+ #include <thread>
+ 
+ void create_destroy_instance_loop_with_function_queries(FrameworkEnvironment* env, uint32_t num_loops_create_destroy_instance,
+@@ -266,6 +269,117 @@
+         }
+     }
+ }
++VKAPI_ATTR VkBool32 VKAPI_CALL test_threading_debug_messenger_callback(VkDebugUtilsMessageSeverityFlagBitsEXT,
++                                                                       VkDebugUtilsMessageTypeFlagsEXT,
++                                                                       const VkDebugUtilsMessengerCallbackDataEXT*, void*) {
++    return VK_FALSE;
++}
++
++void create_destroy_messenger_loop(uint32_t num_loops, VkInstance inst, PFN_vkCreateDebugUtilsMessengerEXT create,
++                                   PFN_vkDestroyDebugUtilsMessengerEXT destroy) {
++    VkDebugUtilsMessengerCreateInfoEXT info{VK_STRUCTURE_TYPE_DEBUG_UTILS_MESSENGER_CREATE_INFO_EXT};
++    info.messageSeverity = VK_DEBUG_UTILS_MESSAGE_SEVERITY_VERBOSE_BIT_EXT | VK_DEBUG_UTILS_MESSAGE_SEVERITY_INFO_BIT_EXT |
++                           VK_DEBUG_UTILS_MESSAGE_SEVERITY_WARNING_BIT_EXT | VK_DEBUG_UTILS_MESSAGE_SEVERITY_ERROR_BIT_EXT;
++    info.messageType = VK_DEBUG_UTILS_MESSAGE_TYPE_GENERAL_BIT_EXT | VK_DEBUG_UTILS_MESSAGE_TYPE_VALIDATION_BIT_EXT |
++                       VK_DEBUG_UTILS_MESSAGE_TYPE_PERFORMANCE_BIT_EXT;
++    info.pfnUserCallback = test_threading_debug_messenger_callback;
++    for (uint32_t i = 0; i < num_loops; i++) {
++        VkDebugUtilsMessengerEXT messenger = VK_NULL_HANDLE;
++        if (create(inst, &info, nullptr, &messenger) == VK_SUCCESS) {
++            destroy(inst, messenger, nullptr);
++        }
++    }
++}
++
++// The emulated GetPhysicalDeviceFeatures2 path (1.1 app on a 1.0 ICD) logs an info message, which walks the
++// instance's debug messenger chain, and this trampoline does not hold loader_lock while it does so.
++void emulated_features2_query_loop(uint32_t num_loops, VkPhysicalDevice phys_dev, PFN_vkGetPhysicalDeviceFeatures2 query) {
++    for (uint32_t i = 0; i < num_loops; i++) {
++        VkPhysicalDeviceFeatures2 features{VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FEATURES_2};
++        query(phys_dev, &features);
++    }
++}
++
++// One thread creates and destroys debug messengers (mutating the messenger chain under loader_lock) while another
++// thread triggers loader logging that walks that same chain. Run under the thread sanitizer this catches an
++// unsynchronised access to the messenger chain if the logging walk is not taken under loader_lock.
++TEST(Threading, DebugUtilsMessengerLoggingLoop) {
++    const uint32_t thread_pairs = std::max(std::thread::hardware_concurrency() / 2, 1u);
++    uint32_t num_loops = 2000;
++    FrameworkEnvironment env{FrameworkSettings{}.set_log_filter("")};
++    env.add_icd(TEST_ICD_PATH_VERSION_2).add_physical_device("physical_device_0");
++
++    InstWrapper inst{env.vulkan_functions};
++    inst.create_info.set_api_version(VK_API_VERSION_1_1).add_extension(VK_EXT_DEBUG_UTILS_EXTENSION_NAME);
++    inst.CheckCreate();
++    VkPhysicalDevice phys_dev = inst.GetPhysDev();
++
++    PFN_vkCreateDebugUtilsMessengerEXT create = inst.load("vkCreateDebugUtilsMessengerEXT");
++    PFN_vkDestroyDebugUtilsMessengerEXT destroy = inst.load("vkDestroyDebugUtilsMessengerEXT");
++    PFN_vkGetPhysicalDeviceFeatures2 query = inst.load("vkGetPhysicalDeviceFeatures2");
++    ASSERT_NE(create, nullptr);
++    ASSERT_NE(destroy, nullptr);
++    ASSERT_NE(query, nullptr);
++
++    std::vector<std::thread> threads;
++    for (uint32_t i = 0; i < thread_pairs; i++) {
++        threads.emplace_back(create_destroy_messenger_loop, num_loops, inst.inst, create, destroy);
++        threads.emplace_back(emulated_features2_query_loop, num_loops, phys_dev, query);
++    }
++    for (auto& thread : threads) {
++        thread.join();
++    }
++}
++
++VKAPI_ATTR VkBool32 VKAPI_CALL test_count_features2_log_callback(VkDebugUtilsMessageSeverityFlagBitsEXT,
++                                                                 VkDebugUtilsMessageTypeFlagsEXT,
++                                                                 const VkDebugUtilsMessengerCallbackDataEXT* data, void* userdata) {
++    if (data && data->pMessage && std::strstr(data->pMessage, "vkGetPhysicalDeviceFeatures2: Emulating call in ICD")) {
++        static_cast<std::atomic<uint32_t>*>(userdata)->fetch_add(1, std::memory_order_relaxed);
++    }
++    return VK_FALSE;
++}
++
++class DebugMessengerLogFilter : public testing::TestWithParam<bool> {};
++
++TEST_P(DebugMessengerLogFilter, WalkObservedWithConcurrentMessengerLifetime) {
++    // This counter outlives all workers, the observer messenger, the instance and the framework.
++    std::atomic<uint32_t> observed_queries{0};
++    FrameworkEnvironment env{FrameworkSettings{}.set_log_filter(GetParam() ? "info" : "")};
++    env.add_icd(TEST_ICD_PATH_VERSION_2).add_physical_device("physical_device_0");
++    InstWrapper inst{env.vulkan_functions};
++    inst.create_info.set_api_version(VK_API_VERSION_1_1).add_extension(VK_EXT_DEBUG_UTILS_EXTENSION_NAME);
++    ASSERT_NO_FATAL_FAILURE(inst.CheckCreate());
++    VkPhysicalDevice phys_dev = inst.GetPhysDev();
++
++    PFN_vkCreateDebugUtilsMessengerEXT create = inst.load("vkCreateDebugUtilsMessengerEXT");
++    PFN_vkDestroyDebugUtilsMessengerEXT destroy = inst.load("vkDestroyDebugUtilsMessengerEXT");
++    PFN_vkGetPhysicalDeviceFeatures2 query = inst.load("vkGetPhysicalDeviceFeatures2");
++    ASSERT_NE(nullptr, create);
++    ASSERT_NE(nullptr, destroy);
++    ASSERT_NE(nullptr, query);
++
++    DebugUtilsWrapper observer{inst, VK_DEBUG_UTILS_MESSAGE_SEVERITY_INFO_BIT_EXT};
++    observer.get()->pfnUserCallback = test_count_features2_log_callback;
++    observer.get()->pUserData = &observed_queries;
++    ASSERT_EQ(VK_SUCCESS, CreateDebugUtilsMessenger(observer));
++    const uint32_t query_loops = 64;
++    std::thread churn(create_destroy_messenger_loop, query_loops, inst.inst, create, destroy);
++    std::thread queries(emulated_features2_query_loop, query_loops, phys_dev, query);
++    churn.join();
++    queries.join();
++
++    EXPECT_EQ(query_loops, observed_queries.load(std::memory_order_relaxed));
++    RecordProperty("stderr_info_enabled", GetParam() ? "1" : "0");
++    RecordProperty("features2_callback_count", std::to_string(observed_queries.load(std::memory_order_relaxed)));
++    RecordProperty("query_loops", std::to_string(query_loops));
++    destroy(inst.inst, observer.messenger, observer.callbacks);
++    observer.messenger = VK_NULL_HANDLE;
++    RecordProperty("observer_destroyed_after_join", "1");
++}
++
++INSTANTIATE_TEST_SUITE_P(StderrInfo, DebugMessengerLogFilter, testing::Values(false, true));
++
+ TEST(Threading, SetDebugUtilsNameCreateDestroyLoop) {
+     const auto processor_count = std::thread::hardware_concurrency();
+     uint32_t num_loops = 1000;

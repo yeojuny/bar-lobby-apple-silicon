@@ -1,0 +1,125 @@
+{
+  "schema": "bar-applied-unit-audit-v1",
+  "unit": "L3",
+  "recordedAtUTC": "2026-10-18T04:01:25.164568+00:00",
+  "reviewer": "Audit - MK2",
+  "verdict": "PASS",
+  "sourcePublicationAllowed": true,
+  "requiredChecksSatisfied": true,
+  "hqResult": {
+    "path": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L3/unit-result.json",
+    "sha256": "7e625d2de494d14a9cb30183243cbf22428a28805579cc1d258bdd0df6927212"
+  },
+  "upstreamSHAs": [
+    "e38751a7c03588c2f1fec742f611cbafff864158",
+    "73cf5326e8c87d7922b235666198988064b0f294"
+  ],
+  "completePatch": {
+    "path": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L3/change.patch",
+    "sha256": "bfb232fa60b4f666dd5ad9eb9058aaea1a094bb1861326bc1cd1cd27a7f84ca0"
+  },
+  "reviewedFiles": [
+    {
+      "componentRelativePath": "loader/debug_utils.c",
+      "path": "$WORKSPACE/build/run66-vulkan-loader-src-20260903/loader/debug_utils.c",
+      "beforeSHA256": "2cb34a248a5b4e33104b1aef7a717c454ef19cdfd8565ff5a7554e986cce526f",
+      "afterSHA256": "7466fb0d7203ce3016223c2d1e183f25c701988b33dc01851a858c43f3664fbc",
+      "beforeGitBlob": "2ebab6914ecd01c9315ffa59c434153810bb39e5",
+      "afterGitBlob": "913a4740b5032c8428c5148e2623ab6bc99409d6",
+      "beforeBytes": 38003,
+      "afterBytes": 38198,
+      "beforeMode": "0o644",
+      "afterMode": "0o644",
+      "preimage": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L3/preimage/loader/debug_utils.c",
+      "postimage": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L3/postimage/loader/debug_utils.c"
+    },
+    {
+      "componentRelativePath": "tests/loader_threading_tests.cpp",
+      "path": "$WORKSPACE/build/run66-vulkan-loader-src-20260903/tests/loader_threading_tests.cpp",
+      "beforeSHA256": "2d529217856296859ed61dcc9257ef7201560e617a5ee0f747fc2c720a88b947",
+      "afterSHA256": "511896e3068fdbc70d2712292a7b6351809af2f989a8f4978eec2a9b2a4d51bb",
+      "beforeGitBlob": "4feb31184f44e34ba20d41720544af24a951677d",
+      "afterGitBlob": "bbd86c2cbd9fb6bb13f16335d1ca27238555b168",
+      "beforeBytes": 22622,
+      "afterBytes": 29000,
+      "beforeMode": "0o644",
+      "afterMode": "0o644",
+      "preimage": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L3/preimage/tests/loader_threading_tests.cpp",
+      "postimage": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L3/postimage/tests/loader_threading_tests.cpp"
+    }
+  ],
+  "coordinatorSourceReview": {
+    "path": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L3/coordinator-source-review.json",
+    "sha256": "565945e185ca636e9bd1ce9407bb419917d4113852c99431ac9a8d593a947ff0"
+  },
+  "productionReview": "Entire production file independently reconstructed byte-exactly from the actual preimage plus the exact two selected changes. Common helper acquires loader_lock before reading the messenger/report head and retains it through list traversal/callbacks, with one balanced release. Redundant terminator acquire/release removed and cast folded into its single helper call. Non-null-data guard and other file bytes unchanged. Both commits applied before any build/acceptance. Current recursive mutex means first hunk alone is not necessarily deadlocking; atomic pair remains adopted policy.",
+  "testReview": "Exact official63-line logging/messenger-churn threading regression plus51-line test-only observation supplement within the same target. Features2 emulation drives real loader_log traversal. Persistent INFO observer counts64 callbacks under both stderr filter modes while transient messengers churn. Counter precedes framework/instance/observer and survives every join and explicit messenger destruction. Callback reads only target text and increments atomic state; no Vulkan API reentry.",
+  "validation": {
+    "baselineDebugCasesPassed": 7,
+    "afterProductionRelatedCasesPassed": 23,
+    "unitSpecificCases": 10,
+    "cumulativeL1L2Cases": 13,
+    "failed": 0,
+    "stderrFilterObservations": [
+      {
+        "test": "StderrInfo/DebugMessengerLogFilter.WalkObservedWithConcurrentMessengerLifetime/0",
+        "stderrInfoEnabled": false,
+        "emulatedQueryCallbacks": 64,
+        "stderrEmulationMessageLines": 0,
+        "observerDestroyedAfterJoins": true
+      },
+      {
+        "test": "StderrInfo/DebugMessengerLogFilter.WalkObservedWithConcurrentMessengerLifetime/1",
+        "stderrInfoEnabled": true,
+        "emulatedQueryCallbacks": 64,
+        "stderrEmulationMessageLines": 64,
+        "observerDestroyedAfterJoins": true
+      }
+    ],
+    "actualProductionRawBinding": true,
+    "finalProductionRawSHA256": "61ff2158bcf1169dd08c4e8a84c3e1aa53cbf6a76b6e40dbaa1e1fa65911cc12",
+    "immutableRawSnapshot": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L3/audit-artifacts/libvulkan.1.4.365.dylib",
+    "productionBuildTestsMode": "OFF",
+    "partialPairBuiltOrAccepted": false,
+    "productionFlagsAndLinkCommandByteExact": true,
+    "cacheValuesAndTypesExact": true,
+    "cacheBytesExactClaimed": false,
+    "publicExportNamesExactCount": 1015,
+    "dependenciesAndInstallNameExact": true,
+    "twoFileOfficialPairPlusSupplementRoundtripsByteExact": true,
+    "cumulativeThirteenRunOnceWithoutExtraBuilds": true,
+    "sanitizerRun": false,
+    "raceFreedomEstablished": false
+  },
+  "publicBase": {
+    "URL": "https://github.com/yeojuny/bar-lobby-apple-silicon/releases/download/v0.17.0-candidate.4/BAR-0.17.0-candidate.4-sources.tar.gz",
+    "archiveMember": "BAR-0.17.0-candidate.4-sources/archives/vulkan-loader-68cc-input.tar.gz",
+    "nestedArchiveSHA256": "68269a49344a1b2fd318f56828c0ca7104ef08ea3144e4fe97ac93061e8c7420",
+    "bothCumulativePreimagesReconstructedByteExact": true,
+    "sourceParentCommit": "154fd335ed128765140e55afddbc5c128e487665",
+    "reconstruction": "Public candidate4 port Loader archive -> L5 -> L4 -> L1 -> complete L2 including82-line test supplement -> complete atomic L3. The debug_utils preimage is unchanged original port bytes; threading preimage binds accepted L2 postimage. Retain separate S1/S2/C1 chains and MVK_GIT_REV=f52facf7."
+  },
+  "preserved": "57 bounded prior guards plus five static context files; L2 production/test-layer support, L1/L2 existing threading bytes, all earlier source units/frozen receipts, C1 source/raw/cache identity and real launcher HEAD/index unchanged. Selected frozen/ordinary app/runtime anchors retained, not a whole-app/source inventory.",
+  "performanceScope": "The logging helper is reached before stderr filtering, so output-off still incurs its lock. No speed/FPS/energy or zero-cost improvement claim.",
+  "retainedCorrections": [],
+  "limits": [
+    "Ordinary mock stress and static whole-file review do not establish ThreadSanitizer race freedom, all external callback/layer lock interactions or global deadlock freedom.",
+    "Controlled callback userdata lifetime is covered; arbitrary forbidden Vulkan calls from callbacks are not authorized or tested.",
+    "No GPU/window/app/game/FPS/MP/endurance acceptance or app/Release/Homebrew change."
+  ],
+  "notRequiredThisUnit": [
+    "Unrelated full Loader suites",
+    "Game/FPS/MP repetition"
+  ],
+  "blockingFindings": [],
+  "nextGate": "Separate publisher exact final L3 source checkpoint and remote readback on L2 parent, then close eight-unit source execution; final V1 integration/publication remains separate.",
+  "publicExportProvenance": {
+    "coordinatorSourcePublicationPASS": true,
+    "privateFrozenInputs": {
+      "unit-result.json": "7e625d2de494d14a9cb30183243cbf22428a28805579cc1d258bdd0df6927212",
+      "applied-audit.json": "fae15929dd515b78559c94ed888923fae5705e83939a93339597813bcf8cb699",
+      "change.patch": "bfb232fa60b4f666dd5ad9eb9058aaea1a094bb1861326bc1cd1cd27a7f84ca0"
+    },
+    "publicCopies": "Workspace paths in keys and values rebased to $WORKSPACE. Original private receipt SHA256 values identify exact inputs and differ from sanitized public blob hashes."
+  }
+}

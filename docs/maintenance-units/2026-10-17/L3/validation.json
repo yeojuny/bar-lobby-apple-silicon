@@ -1,0 +1,710 @@
+{
+  "schema": "bar-maintenance-public-validation-v1",
+  "unit": "L3",
+  "status": "applied-audit-PASS-23-final-production-cases",
+  "frozenInputBindings": {
+    "coordinatorSourcePublicationPASS": true,
+    "privateFrozenInputs": {
+      "unit-result.json": "7e625d2de494d14a9cb30183243cbf22428a28805579cc1d258bdd0df6927212",
+      "applied-audit.json": "fae15929dd515b78559c94ed888923fae5705e83939a93339597813bcf8cb699",
+      "change.patch": "bfb232fa60b4f666dd5ad9eb9058aaea1a094bb1861326bc1cd1cd27a7f84ca0"
+    },
+    "publicCopies": "Workspace paths in keys and values rebased to $WORKSPACE. Original private receipt SHA256 values identify exact inputs and differ from sanitized public blob hashes."
+  },
+  "finalChecks": {
+    "baseline": {
+      "tests": 7,
+      "failures": 0,
+      "actualProductionRawSHA256": "90f8a48234bd14d5eb19154a1104a27b555dd9c6b2750e4568636b108c0b8920",
+      "receipt": "baseline-debug.json"
+    },
+    "after": {
+      "tests": 23,
+      "unitSpecificTests": 10,
+      "cumulativeL1L2Tests": 13,
+      "failures": 0,
+      "actualProductionRawSHA256": "61ff2158bcf1169dd08c4e8a84c3e1aa53cbf6a76b6e40dbaa1e1fa65911cc12",
+      "mode": "Final complete atomic-pair production BUILD_TESTS OFF; ordinary mock debug/threading and selected regression checks",
+      "actualLoadedLoaderAndMockBindingsRecorded": true,
+      "receipts": [
+        "after-fix-test_threading.json",
+        "after-fix-test_regression.json",
+        "cumulative-L1-L2-test_threading.json",
+        "cumulative-L1-L2-test_regression.json"
+      ],
+      "summaryReceipt": "focused-check-summary.json",
+      "MoltenVKLoaded": false,
+      "sanitizerRun": false,
+      "raceFreedomEstablished": false
+    },
+    "stderrFilterObservations": [
+      {
+        "test": "StderrInfo/DebugMessengerLogFilter.WalkObservedWithConcurrentMessengerLifetime/0",
+        "stderrInfoEnabled": false,
+        "emulatedQueryCallbacks": 64,
+        "stderrEmulationMessageLines": 0,
+        "observerDestroyedAfterJoins": true
+      },
+      {
+        "test": "StderrInfo/DebugMessengerLogFilter.WalkObservedWithConcurrentMessengerLifetime/1",
+        "stderrInfoEnabled": true,
+        "emulatedQueryCallbacks": 64,
+        "stderrEmulationMessageLines": 64,
+        "observerDestroyedAfterJoins": true
+      }
+    ],
+    "cumulativeL1L2Gate": {
+      "tests": 13,
+      "failures": 0,
+      "receipts": [
+        "cumulative-L1-L2-test_threading.json",
+        "cumulative-L1-L2-test_regression.json"
+      ],
+      "runOnceOnSameFinalRawAndExecutables": true,
+      "additionalBuilds": 0,
+      "existingDirectCallbackObservationsReconfirmed": "All three result conditions still record 32 callback creation attempts, two owner devices until cleanup, one fresh-worker retry, and zero devices after cleanup."
+    },
+    "productionBuild": {
+      "target": "vulkan",
+      "receipt": "production-build.json",
+      "BUILD_TESTS": "OFF",
+      "partialPairBuilt": false,
+      "flagsAndLinkByteExact": true,
+      "cacheValuesExact": true,
+      "cacheTypeDifferencesOnly": {},
+      "exportNames": 1015,
+      "exportNamesExact": true,
+      "dependenciesAndInstallNameExact": true,
+      "rawArtifactReceipt": "raw-artifact.json"
+    },
+    "staticReview": {
+      "helperListHeadAndMessengerReportCallbacksInsideBalancedLock": true,
+      "terminatorOwnLocksRemovedAndHelperCalledOnce": true,
+      "loggingHelperBeforeStderrFilter": true,
+      "outputOffDoesNotRemoveHelperLockCost": true,
+      "recursiveMutexMeansFirstHunkAloneNeedNotDeadlock": true,
+      "callbackUserdataAliveThroughJoinsAndMessengerDestroy": true,
+      "callbackMakesNoVulkanAPICalls": true,
+      "receipt": "static-lock-review.json"
+    },
+    "scopeLimits": [
+      "Ordinary mock stress; no ThreadSanitizer, race-freedom or global deadlock-freedom claim",
+      "No prohibited Vulkan reentry from callbacks tested",
+      "Output-off still reaches helper locking; no zero-lock-cost/FPS/energy improvement claim",
+      "No GPU/window/app/game/FPS/multiplayer/endurance test"
+    ]
+  },
+  "actualCommandReceipts": {
+    "after-fix-test_threading.json": {
+      "recordedAtUTC": "2026-10-18T03:59:02.507122+00:00",
+      "command": [
+        "$WORKSPACE/build/run95-loader-20261002/tests/test_threading",
+        "--gtest_filter=Threading.DebugUtilsMessengerLoggingLoop:StderrInfo/DebugMessengerLogFilter.WalkObservedWithConcurrentMessengerLifetime/*",
+        "--gtest_output=xml:$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L3/after-fix-test_threading.xml",
+        "--gtest_color=no"
+      ],
+      "exitCode": 0,
+      "elapsedSeconds": 0.518,
+      "xmlSummary": {
+        "tests": "3",
+        "failures": "0",
+        "disabled": "0",
+        "errors": "0",
+        "time": "0.237",
+        "timestamp": "2026-10-17T20:59:02.227",
+        "name": "AllTests"
+      },
+      "actualRawSHA256": "61ff2158bcf1169dd08c4e8a84c3e1aa53cbf6a76b6e40dbaa1e1fa65911cc12",
+      "mode": "Final complete-pair production BUILD_TESTS OFF; ordinary mock debug/threading/related regression checks",
+      "bindingLines": [
+        "dyld[9103]: <4775ACAB-6819-3A6D-8C40-0169214A6B6F> $WORKSPACE/build/run95-loader-20261002/loader/libvulkan.1.4.365.dylib",
+        "dyld[9103]: <0B2547C9-E18A-34AA-8CD2-ED7583A864CD> $WORKSPACE/build/run95-loader-20261002/tests/executing_tests/Threading_DebugUtilsMessengerLoggingLoop/icd_manifests/libtest_icd_version_2_0.dylib",
+        "dyld[9103]: <4775ACAB-6819-3A6D-8C40-0169214A6B6F> $WORKSPACE/build/run95-loader-20261002/loader/libvulkan.1.4.365.dylib",
+        "dyld[9103]: <0B2547C9-E18A-34AA-8CD2-ED7583A864CD> $WORKSPACE/build/run95-loader-20261002/tests/executing_tests/StderrInfo/DebugMessengerLogFilter_WalkObservedWithConcurrentMessengerLifetime/0/icd_manifests/libtest_icd_version_2_0.dylib",
+        "dyld[9103]: <4775ACAB-6819-3A6D-8C40-0169214A6B6F> $WORKSPACE/build/run95-loader-20261002/loader/libvulkan.1.4.365.dylib",
+        "dyld[9103]: <0B2547C9-E18A-34AA-8CD2-ED7583A864CD> $WORKSPACE/build/run95-loader-20261002/tests/executing_tests/StderrInfo/DebugMessengerLogFilter_WalkObservedWithConcurrentMessengerLifetime/1/icd_manifests/libtest_icd_version_2_0.dylib"
+      ],
+      "MoltenVKLoaded": false,
+      "testExecutableSHA256": "2e79085bb8a8c249cd5300b76d23718b56f554cf3ab38ef593f69bce72c3f264",
+      "observedCaseProperties": [
+        {
+          "test": "StderrInfo/DebugMessengerLogFilter.WalkObservedWithConcurrentMessengerLifetime/0",
+          "properties": {
+            "stderr_info_enabled": "0",
+            "features2_callback_count": "64",
+            "query_loops": "64",
+            "observer_destroyed_after_join": "1"
+          }
+        },
+        {
+          "test": "StderrInfo/DebugMessengerLogFilter.WalkObservedWithConcurrentMessengerLifetime/1",
+          "properties": {
+            "stderr_info_enabled": "1",
+            "features2_callback_count": "64",
+            "query_loops": "64",
+            "observer_destroyed_after_join": "1"
+          }
+        }
+      ],
+      "stderrFilterObservations": [
+        {
+          "test": "StderrInfo/DebugMessengerLogFilter.WalkObservedWithConcurrentMessengerLifetime/0",
+          "stderrInfoEnabled": false,
+          "emulatedQueryCallbacks": 64,
+          "stderrEmulationMessageLines": 0,
+          "observerDestroyedAfterJoins": true
+        },
+        {
+          "test": "StderrInfo/DebugMessengerLogFilter.WalkObservedWithConcurrentMessengerLifetime/1",
+          "stderrInfoEnabled": true,
+          "emulatedQueryCallbacks": 64,
+          "stderrEmulationMessageLines": 64,
+          "observerDestroyedAfterJoins": true
+        }
+      ],
+      "log": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L3/after-fix-test_threading.log"
+    },
+    "after-fix-test_regression.json": {
+      "recordedAtUTC": "2026-10-18T03:59:03.202933+00:00",
+      "command": [
+        "$WORKSPACE/build/run95-loader-20261002/tests/test_regression",
+        "--gtest_filter=ManualReport.InfoMessage:ManualMessage.InfoMessage:ManualMessage.InfoMessageIgnoredSeverity:ManualMessage.InfoMessageIgnoredObject:SeparateMessenger.ErrorInEnumDevs:SeparateMessenger.InfoInEnumDevs:CreateDestroyInstanceMessenger.WarnInCreate",
+        "--gtest_output=xml:$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L3/after-fix-test_regression.xml",
+        "--gtest_color=no"
+      ],
+      "exitCode": 0,
+      "elapsedSeconds": 1.213,
+      "xmlSummary": {
+        "tests": "7",
+        "failures": "0",
+        "disabled": "0",
+        "errors": "0",
+        "time": "1.152",
+        "timestamp": "2026-10-17T20:59:02.029",
+        "name": "AllTests"
+      },
+      "actualRawSHA256": "61ff2158bcf1169dd08c4e8a84c3e1aa53cbf6a76b6e40dbaa1e1fa65911cc12",
+      "mode": "Final complete-pair production BUILD_TESTS OFF; ordinary mock debug/threading/related regression checks",
+      "bindingLines": [
+        "dyld[9104]: <4775ACAB-6819-3A6D-8C40-0169214A6B6F> $WORKSPACE/build/run95-loader-20261002/loader/libvulkan.1.4.365.dylib",
+        "dyld[9104]: <618A2F2A-2A5E-3545-81F5-B28659847262> $WORKSPACE/build/run95-loader-20261002/tests/executing_tests/ManualReport_InfoMessage/icd_manifests/libtest_icd_version_2_export_icd_gpdpa_0.dylib",
+        "dyld[9104]: <618A2F2A-2A5E-3545-81F5-B28659847262> $WORKSPACE/build/run95-loader-20261002/tests/executing_tests/ManualReport_InfoMessage/icd_manifests/libtest_icd_version_2_export_icd_gpdpa_1.dylib",
+        "dyld[9104]: <618A2F2A-2A5E-3545-81F5-B28659847262> $WORKSPACE/build/run95-loader-20261002/tests/executing_tests/ManualReport_InfoMessage/icd_manifests/libtest_icd_version_2_export_icd_gpdpa_2.dylib",
+        "dyld[9104]: <4775ACAB-6819-3A6D-8C40-0169214A6B6F> $WORKSPACE/build/run95-loader-20261002/loader/libvulkan.1.4.365.dylib",
+        "dyld[9104]: <618A2F2A-2A5E-3545-81F5-B28659847262> $WORKSPACE/build/run95-loader-20261002/tests/executing_tests/CreateDestroyInstanceMessenger_WarnInCreate/icd_manifests/libtest_icd_version_2_export_icd_gpdpa_0.dylib",
+        "dyld[9104]: <618A2F2A-2A5E-3545-81F5-B28659847262> $WORKSPACE/build/run95-loader-20261002/tests/executing_tests/CreateDestroyInstanceMessenger_WarnInCreate/icd_manifests/libtest_icd_version_2_export_icd_gpdpa_1.dylib",
+        "dyld[9104]: <618A2F2A-2A5E-3545-81F5-B28659847262> $WORKSPACE/build/run95-loader-20261002/tests/executing_tests/CreateDestroyInstanceMessenger_WarnInCreate/icd_manifests/libtest_icd_version_2_export_icd_gpdpa_2.dylib",
+        "dyld[9104]: <4775ACAB-6819-3A6D-8C40-0169214A6B6F> $WORKSPACE/build/run95-loader-20261002/loader/libvulkan.1.4.365.dylib",
+        "dyld[9104]: <618A2F2A-2A5E-3545-81F5-B28659847262> $WORKSPACE/build/run95-loader-20261002/tests/executing_tests/SeparateMessenger_ErrorInEnumDevs/icd_manifests/libtest_icd_version_2_export_icd_gpdpa_0.dylib",
+        "dyld[9104]: <618A2F2A-2A5E-3545-81F5-B28659847262> $WORKSPACE/build/run95-loader-20261002/tests/executing_tests/SeparateMessenger_ErrorInEnumDevs/icd_manifests/libtest_icd_version_2_export_icd_gpdpa_1.dylib",
+        "dyld[9104]: <618A2F2A-2A5E-3545-81F5-B28659847262> $WORKSPACE/build/run95-loader-20261002/tests/executing_tests/SeparateMessenger_ErrorInEnumDevs/icd_manifests/libtest_icd_version_2_export_icd_gpdpa_2.dylib",
+        "dyld[9104]: <4775ACAB-6819-3A6D-8C40-0169214A6B6F> $WORKSPACE/build/run95-loader-20261002/loader/libvulkan.1.4.365.dylib",
+        "dyld[9104]: <618A2F2A-2A5E-3545-81F5-B28659847262> $WORKSPACE/build/run95-loader-20261002/tests/executing_tests/SeparateMessenger_InfoInEnumDevs/icd_manifests/libtest_icd_version_2_export_icd_gpdpa_0.dylib",
+        "dyld[9104]: <618A2F2A-2A5E-3545-81F5-B28659847262> $WORKSPACE/build/run95-loader-20261002/tests/executing_tests/SeparateMessenger_InfoInEnumDevs/icd_manifests/libtest_icd_version_2_export_icd_gpdpa_1.dylib",
+        "dyld[9104]: <618A2F2A-2A5E-3545-81F5-B28659847262> $WORKSPACE/build/run95-loader-20261002/tests/executing_tests/SeparateMessenger_InfoInEnumDevs/icd_manifests/libtest_icd_version_2_export_icd_gpdpa_2.dylib",
+        "dyld[9104]: <4775ACAB-6819-3A6D-8C40-0169214A6B6F> $WORKSPACE/build/run95-loader-20261002/loader/libvulkan.1.4.365.dylib",
+        "dyld[9104]: <618A2F2A-2A5E-3545-81F5-B28659847262> $WORKSPACE/build/run95-loader-20261002/tests/executing_tests/ManualMessage_InfoMessageIgnoredSeverity/icd_manifests/libtest_icd_version_2_export_icd_gpdpa_0.dylib",
+        "dyld[9104]: <618A2F2A-2A5E-3545-81F5-B28659847262> $WORKSPACE/build/run95-loader-20261002/tests/executing_tests/ManualMessage_InfoMessageIgnoredSeverity/icd_manifests/libtest_icd_version_2_export_icd_gpdpa_1.dylib",
+        "dyld[9104]: <618A2F2A-2A5E-3545-81F5-B28659847262> $WORKSPACE/build/run95-loader-20261002/tests/executing_tests/ManualMessage_InfoMessageIgnoredSeverity/icd_manifests/libtest_icd_version_2_export_icd_gpdpa_2.dylib",
+        "dyld[9104]: <4775ACAB-6819-3A6D-8C40-0169214A6B6F> $WORKSPACE/build/run95-loader-20261002/loader/libvulkan.1.4.365.dylib",
+        "dyld[9104]: <618A2F2A-2A5E-3545-81F5-B28659847262> $WORKSPACE/build/run95-loader-20261002/tests/executing_tests/ManualMessage_InfoMessageIgnoredObject/icd_manifests/libtest_icd_version_2_export_icd_gpdpa_0.dylib",
+        "dyld[9104]: <618A2F2A-2A5E-3545-81F5-B28659847262> $WORKSPACE/build/run95-loader-20261002/tests/executing_tests/ManualMessage_InfoMessageIgnoredObject/icd_manifests/libtest_icd_version_2_export_icd_gpdpa_1.dylib",
+        "dyld[9104]: <618A2F2A-2A5E-3545-81F5-B28659847262> $WORKSPACE/build/run95-loader-20261002/tests/executing_tests/ManualMessage_InfoMessageIgnoredObject/icd_manifests/libtest_icd_version_2_export_icd_gpdpa_2.dylib",
+        "dyld[9104]: <4775ACAB-6819-3A6D-8C40-0169214A6B6F> $WORKSPACE/build/run95-loader-20261002/loader/libvulkan.1.4.365.dylib",
+        "dyld[9104]: <618A2F2A-2A5E-3545-81F5-B28659847262> $WORKSPACE/build/run95-loader-20261002/tests/executing_tests/ManualMessage_InfoMessage/icd_manifests/libtest_icd_version_2_export_icd_gpdpa_0.dylib",
+        "dyld[9104]: <618A2F2A-2A5E-3545-81F5-B28659847262> $WORKSPACE/build/run95-loader-20261002/tests/executing_tests/ManualMessage_InfoMessage/icd_manifests/libtest_icd_version_2_export_icd_gpdpa_1.dylib",
+        "dyld[9104]: <618A2F2A-2A5E-3545-81F5-B28659847262> $WORKSPACE/build/run95-loader-20261002/tests/executing_tests/ManualMessage_InfoMessage/icd_manifests/libtest_icd_version_2_export_icd_gpdpa_2.dylib"
+      ],
+      "MoltenVKLoaded": false,
+      "testExecutableSHA256": "2210ef98cb28f0b3a21dcc3874689fc33d56e5bcf20964168896f9369c04f5bc",
+      "observedCaseProperties": [],
+      "stderrFilterObservations": [],
+      "log": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L3/after-fix-test_regression.log"
+    },
+    "cumulative-L1-L2-test_threading.json": {
+      "recordedAtUTC": "2026-10-18T03:59:04.159916+00:00",
+      "command": [
+        "$WORKSPACE/build/run95-loader-20261002/tests/test_threading",
+        "--gtest_filter=Threading.SurfaceCreateDestroyLoop:Threading.SurfaceQueryWhileCreateDestroySurfaceLoop:Threading.DeviceCreateDestroyLoop:Threading.LayersDeviceCreateDestroyLoop:DirectCallbacks/LayerDeviceCallbackResult.GetQueueCreatesDestroysAndRecovers/*",
+        "--gtest_output=xml:$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L3/cumulative-L1-L2-test_threading.xml",
+        "--gtest_color=no"
+      ],
+      "exitCode": 0,
+      "elapsedSeconds": 0.952,
+      "xmlSummary": {
+        "tests": "7",
+        "failures": "0",
+        "disabled": "0",
+        "errors": "0",
+        "time": "0.842",
+        "timestamp": "2026-10-17T20:59:03.262",
+        "name": "AllTests"
+      },
+      "actualRawSHA256": "61ff2158bcf1169dd08c4e8a84c3e1aa53cbf6a76b6e40dbaa1e1fa65911cc12",
+      "mode": "Final complete-pair production BUILD_TESTS OFF; ordinary mock debug/threading/related regression checks",
+      "bindingLines": [
+        "dyld[9120]: <4775ACAB-6819-3A6D-8C40-0169214A6B6F> $WORKSPACE/build/run95-loader-20261002/loader/libvulkan.1.4.365.dylib",
+        "dyld[9120]: <618A2F2A-2A5E-3545-81F5-B28659847262> $WORKSPACE/build/run95-loader-20261002/tests/executing_tests/Threading_DeviceCreateDestroyLoop/icd_manifests/libtest_icd_version_2_export_icd_gpdpa_0.dylib",
+        "dyld[9120]: <4775ACAB-6819-3A6D-8C40-0169214A6B6F> $WORKSPACE/build/run95-loader-20261002/loader/libvulkan.1.4.365.dylib",
+        "dyld[9120]: <618A2F2A-2A5E-3545-81F5-B28659847262> $WORKSPACE/build/run95-loader-20261002/tests/executing_tests/Threading_LayersDeviceCreateDestroyLoop/icd_manifests/libtest_icd_version_2_export_icd_gpdpa_0.dylib",
+        "dyld[9120]: <B693AE83-B3A5-31B1-AD8A-24E06EB54283> $WORKSPACE/build/run95-loader-20261002/tests/executing_tests/Threading_LayersDeviceCreateDestroyLoop/implicit_layer_manifests/libtest_layer_export_version_2_0.dylib",
+        "dyld[9120]: <4775ACAB-6819-3A6D-8C40-0169214A6B6F> $WORKSPACE/build/run95-loader-20261002/loader/libvulkan.1.4.365.dylib",
+        "dyld[9120]: <0B2547C9-E18A-34AA-8CD2-ED7583A864CD> $WORKSPACE/build/run95-loader-20261002/tests/executing_tests/Threading_SurfaceCreateDestroyLoop/icd_manifests/libtest_icd_version_2_0.dylib",
+        "dyld[9120]: <4775ACAB-6819-3A6D-8C40-0169214A6B6F> $WORKSPACE/build/run95-loader-20261002/loader/libvulkan.1.4.365.dylib",
+        "dyld[9120]: <0B2547C9-E18A-34AA-8CD2-ED7583A864CD> $WORKSPACE/build/run95-loader-20261002/tests/executing_tests/Threading_SurfaceQueryWhileCreateDestroySurfaceLoop/icd_manifests/libtest_icd_version_2_0.dylib",
+        "dyld[9120]: <4775ACAB-6819-3A6D-8C40-0169214A6B6F> $WORKSPACE/build/run95-loader-20261002/loader/libvulkan.1.4.365.dylib",
+        "dyld[9120]: <618A2F2A-2A5E-3545-81F5-B28659847262> $WORKSPACE/build/run95-loader-20261002/tests/executing_tests/DirectCallbacks/LayerDeviceCallbackResult_GetQueueCreatesDestroysAndRecovers/0/icd_manifests/libtest_icd_version_2_export_icd_gpdpa_0.dylib",
+        "dyld[9120]: <B693AE83-B3A5-31B1-AD8A-24E06EB54283> $WORKSPACE/build/run95-loader-20261002/tests/executing_tests/DirectCallbacks/LayerDeviceCallbackResult_GetQueueCreatesDestroysAndRecovers/0/implicit_layer_manifests/libtest_layer_export_version_2_0.dylib",
+        "dyld[9120]: <4775ACAB-6819-3A6D-8C40-0169214A6B6F> $WORKSPACE/build/run95-loader-20261002/loader/libvulkan.1.4.365.dylib",
+        "dyld[9120]: <618A2F2A-2A5E-3545-81F5-B28659847262> $WORKSPACE/build/run95-loader-20261002/tests/executing_tests/DirectCallbacks/LayerDeviceCallbackResult_GetQueueCreatesDestroysAndRecovers/1/icd_manifests/libtest_icd_version_2_export_icd_gpdpa_0.dylib",
+        "dyld[9120]: <B693AE83-B3A5-31B1-AD8A-24E06EB54283> $WORKSPACE/build/run95-loader-20261002/tests/executing_tests/DirectCallbacks/LayerDeviceCallbackResult_GetQueueCreatesDestroysAndRecovers/1/implicit_layer_manifests/libtest_layer_export_version_2_0.dylib",
+        "dyld[9120]: <4775ACAB-6819-3A6D-8C40-0169214A6B6F> $WORKSPACE/build/run95-loader-20261002/loader/libvulkan.1.4.365.dylib",
+        "dyld[9120]: <618A2F2A-2A5E-3545-81F5-B28659847262> $WORKSPACE/build/run95-loader-20261002/tests/executing_tests/DirectCallbacks/LayerDeviceCallbackResult_GetQueueCreatesDestroysAndRecovers/2/icd_manifests/libtest_icd_version_2_export_icd_gpdpa_0.dylib",
+        "dyld[9120]: <B693AE83-B3A5-31B1-AD8A-24E06EB54283> $WORKSPACE/build/run95-loader-20261002/tests/executing_tests/DirectCallbacks/LayerDeviceCallbackResult_GetQueueCreatesDestroysAndRecovers/2/implicit_layer_manifests/libtest_layer_export_version_2_0.dylib"
+      ],
+      "MoltenVKLoaded": false,
+      "testExecutableSHA256": "2e79085bb8a8c249cd5300b76d23718b56f554cf3ab38ef593f69bce72c3f264",
+      "observedCaseProperties": [
+        {
+          "test": "DirectCallbacks/LayerDeviceCallbackResult.GetQueueCreatesDestroysAndRecovers/0",
+          "properties": {
+            "injected_callback_result": "0",
+            "callback_create_attempts": "32",
+            "live_devices_after_callbacks": "2",
+            "recovery_create_attempts": "1",
+            "live_devices_after_cleanup": "0"
+          }
+        },
+        {
+          "test": "DirectCallbacks/LayerDeviceCallbackResult.GetQueueCreatesDestroysAndRecovers/1",
+          "properties": {
+            "injected_callback_result": "-3",
+            "callback_create_attempts": "32",
+            "live_devices_after_callbacks": "2",
+            "recovery_create_attempts": "1",
+            "live_devices_after_cleanup": "0"
+          }
+        },
+        {
+          "test": "DirectCallbacks/LayerDeviceCallbackResult.GetQueueCreatesDestroysAndRecovers/2",
+          "properties": {
+            "injected_callback_result": "-2",
+            "callback_create_attempts": "32",
+            "live_devices_after_callbacks": "2",
+            "recovery_create_attempts": "1",
+            "live_devices_after_cleanup": "0"
+          }
+        }
+      ],
+      "stderrFilterObservations": [],
+      "log": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L3/cumulative-L1-L2-test_threading.log"
+    },
+    "cumulative-L1-L2-test_regression.json": {
+      "recordedAtUTC": "2026-10-18T03:59:03.878058+00:00",
+      "command": [
+        "$WORKSPACE/build/run95-loader-20261002/tests/test_regression",
+        "--gtest_filter=WsiTests.GoogleSurfacelessQuery:WsiTests.GetPhysicalDeviceSurfaceCapabilities2EXTEmulationDriverError:WsiTests.CreateMetalSurfaceWithoutEnablingExtension:LayerCreatesDevice.Basic:LayerCreatesDevice.DifferentPhysicalDevice:CreateDevice.DeviceGroupPNextRestoredOnFailure",
+        "--gtest_output=xml:$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L3/cumulative-L1-L2-test_regression.xml",
+        "--gtest_color=no"
+      ],
+      "exitCode": 0,
+      "elapsedSeconds": 0.67,
+      "xmlSummary": {
+        "tests": "6",
+        "failures": "0",
+        "disabled": "0",
+        "errors": "0",
+        "time": "0.583",
+        "timestamp": "2026-10-17T20:59:03.275",
+        "name": "AllTests"
+      },
+      "actualRawSHA256": "61ff2158bcf1169dd08c4e8a84c3e1aa53cbf6a76b6e40dbaa1e1fa65911cc12",
+      "mode": "Final complete-pair production BUILD_TESTS OFF; ordinary mock debug/threading/related regression checks",
+      "bindingLines": [
+        "dyld[9121]: <4775ACAB-6819-3A6D-8C40-0169214A6B6F> $WORKSPACE/build/run95-loader-20261002/loader/libvulkan.1.4.365.dylib",
+        "dyld[9121]: <0B2547C9-E18A-34AA-8CD2-ED7583A864CD> $WORKSPACE/build/run95-loader-20261002/tests/executing_tests/CreateDevice_DeviceGroupPNextRestoredOnFailure/icd_manifests/libtest_icd_version_2_0.dylib",
+        "dyld[9121]: <4775ACAB-6819-3A6D-8C40-0169214A6B6F> $WORKSPACE/build/run95-loader-20261002/loader/libvulkan.1.4.365.dylib",
+        "dyld[9121]: <0B2547C9-E18A-34AA-8CD2-ED7583A864CD> $WORKSPACE/build/run95-loader-20261002/tests/executing_tests/LayerCreatesDevice_Basic/icd_manifests/libtest_icd_version_2_0.dylib",
+        "dyld[9121]: <B693AE83-B3A5-31B1-AD8A-24E06EB54283> $WORKSPACE/build/run95-loader-20261002/tests/executing_tests/LayerCreatesDevice_Basic/implicit_layer_manifests/libtest_layer_export_version_2_0.dylib",
+        "dyld[9121]: <B693AE83-B3A5-31B1-AD8A-24E06EB54283> $WORKSPACE/build/run95-loader-20261002/tests/executing_tests/LayerCreatesDevice_Basic/implicit_layer_manifests/libtest_layer_export_version_2_1.dylib",
+        "dyld[9121]: <4775ACAB-6819-3A6D-8C40-0169214A6B6F> $WORKSPACE/build/run95-loader-20261002/loader/libvulkan.1.4.365.dylib",
+        "dyld[9121]: <0B2547C9-E18A-34AA-8CD2-ED7583A864CD> $WORKSPACE/build/run95-loader-20261002/tests/executing_tests/LayerCreatesDevice_DifferentPhysicalDevice/icd_manifests/libtest_icd_version_2_0.dylib",
+        "dyld[9121]: <0B2547C9-E18A-34AA-8CD2-ED7583A864CD> $WORKSPACE/build/run95-loader-20261002/tests/executing_tests/LayerCreatesDevice_DifferentPhysicalDevice/icd_manifests/libtest_icd_version_2_1.dylib",
+        "dyld[9121]: <B693AE83-B3A5-31B1-AD8A-24E06EB54283> $WORKSPACE/build/run95-loader-20261002/tests/executing_tests/LayerCreatesDevice_DifferentPhysicalDevice/implicit_layer_manifests/libtest_layer_export_version_2_0.dylib",
+        "dyld[9121]: <B693AE83-B3A5-31B1-AD8A-24E06EB54283> $WORKSPACE/build/run95-loader-20261002/tests/executing_tests/LayerCreatesDevice_DifferentPhysicalDevice/implicit_layer_manifests/libtest_layer_export_version_2_1.dylib",
+        "dyld[9121]: <4775ACAB-6819-3A6D-8C40-0169214A6B6F> $WORKSPACE/build/run95-loader-20261002/loader/libvulkan.1.4.365.dylib",
+        "dyld[9121]: <0B2547C9-E18A-34AA-8CD2-ED7583A864CD> $WORKSPACE/build/run95-loader-20261002/tests/executing_tests/WsiTests_GoogleSurfacelessQuery/icd_manifests/libtest_icd_version_2_0.dylib",
+        "dyld[9121]: <4775ACAB-6819-3A6D-8C40-0169214A6B6F> $WORKSPACE/build/run95-loader-20261002/loader/libvulkan.1.4.365.dylib",
+        "dyld[9121]: <0B2547C9-E18A-34AA-8CD2-ED7583A864CD> $WORKSPACE/build/run95-loader-20261002/tests/executing_tests/WsiTests_GetPhysicalDeviceSurfaceCapabilities2EXTEmulationDriverError/icd_manifests/libtest_icd_version_2_0.dylib",
+        "dyld[9121]: <4775ACAB-6819-3A6D-8C40-0169214A6B6F> $WORKSPACE/build/run95-loader-20261002/loader/libvulkan.1.4.365.dylib",
+        "dyld[9121]: <0B2547C9-E18A-34AA-8CD2-ED7583A864CD> $WORKSPACE/build/run95-loader-20261002/tests/executing_tests/WsiTests_CreateMetalSurfaceWithoutEnablingExtension/icd_manifests/libtest_icd_version_2_0.dylib"
+      ],
+      "MoltenVKLoaded": false,
+      "testExecutableSHA256": "2210ef98cb28f0b3a21dcc3874689fc33d56e5bcf20964168896f9369c04f5bc",
+      "observedCaseProperties": [],
+      "stderrFilterObservations": [],
+      "log": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L3/cumulative-L1-L2-test_regression.log"
+    }
+  },
+  "productionBuild": {
+    "recordedAtUTC": "2026-10-18T03:58:18.794005+00:00",
+    "unit": "L3",
+    "stages": [
+      {
+        "stage": "production-configure",
+        "command": [
+          "/opt/homebrew/bin/cmake",
+          "-S",
+          "$WORKSPACE/build/run66-vulkan-loader-src-20260903",
+          "-B",
+          "$WORKSPACE/build/run95-loader-20261002",
+          "-DBUILD_TESTS=OFF",
+          "-DUPDATE_DEPS=OFF",
+          "-DENABLE_LIVE_VERIFICATION_TESTS=OFF",
+          "-DCMAKE_GTEST_DISCOVER_TESTS_DISCOVERY_MODE=PRE_TEST"
+        ],
+        "exitCode": 0,
+        "elapsedSeconds": 0.78,
+        "log": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L3/production-configure.log"
+      },
+      {
+        "stage": "production-build",
+        "command": [
+          "/opt/homebrew/bin/cmake",
+          "--build",
+          "$WORKSPACE/build/run95-loader-20261002",
+          "--target",
+          "vulkan",
+          "--parallel",
+          "3"
+        ],
+        "exitCode": 0,
+        "elapsedSeconds": 2.781,
+        "log": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L3/production-build.log"
+      }
+    ],
+    "BUILD_TESTS": "OFF",
+    "sanitizerEnabled": false,
+    "environmentOverrides": {
+      "PATH": "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/homebrew/bin"
+    },
+    "partialPairBuilt": false
+  },
+  "relatedTestBuild": {
+    "recordedAtUTC": "2026-10-18T03:56:57.987547+00:00",
+    "command": [
+      "/opt/homebrew/bin/cmake",
+      "--build",
+      "$WORKSPACE/build/run95-loader-20261002",
+      "--target",
+      "test_threading",
+      "--parallel",
+      "3"
+    ],
+    "exitCode": 0,
+    "elapsedSeconds": 3.11,
+    "log": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L3/related-test-build.log",
+    "rawSHA256StillL2": "90f8a48234bd14d5eb19154a1104a27b555dd9c6b2750e4568636b108c0b8920",
+    "testExecutables": {
+      "test_threading": "2e79085bb8a8c249cd5300b76d23718b56f554cf3ab38ef593f69bce72c3f264",
+      "test_regression": "2210ef98cb28f0b3a21dcc3874689fc33d56e5bcf20964168896f9369c04f5bc"
+    },
+    "testOnlyBuildBeforeProductionRestore": true
+  },
+  "focusedCheckSummary": {
+    "recordedAtUTC": "2026-10-18T03:59:04.162127+00:00",
+    "unit": "L3",
+    "totalTests": 23,
+    "unitSpecificTests": 10,
+    "cumulativeL1L2Tests": 13,
+    "failures": 0,
+    "actualProductionRawSHA256": "61ff2158bcf1169dd08c4e8a84c3e1aa53cbf6a76b6e40dbaa1e1fa65911cc12",
+    "stderrFilterObservations": [
+      {
+        "test": "StderrInfo/DebugMessengerLogFilter.WalkObservedWithConcurrentMessengerLifetime/0",
+        "stderrInfoEnabled": false,
+        "emulatedQueryCallbacks": 64,
+        "stderrEmulationMessageLines": 0,
+        "observerDestroyedAfterJoins": true
+      },
+      {
+        "test": "StderrInfo/DebugMessengerLogFilter.WalkObservedWithConcurrentMessengerLifetime/1",
+        "stderrInfoEnabled": true,
+        "emulatedQueryCallbacks": 64,
+        "stderrEmulationMessageLines": 64,
+        "observerDestroyedAfterJoins": true
+      }
+    ],
+    "receipts": [
+      "after-fix-test_threading.json",
+      "after-fix-test_regression.json",
+      "cumulative-L1-L2-test_threading.json",
+      "cumulative-L1-L2-test_regression.json"
+    ],
+    "sanitizerRun": false,
+    "raceFreedomEstablished": false
+  },
+  "rawArtifact": {
+    "recordedAtUTC": "2026-10-18T03:59:31.423929+00:00",
+    "path": "$WORKSPACE/build/run95-loader-20261002/loader/libvulkan.1.4.365.dylib",
+    "beforeSHA256": "90f8a48234bd14d5eb19154a1104a27b555dd9c6b2750e4568636b108c0b8920",
+    "afterSHA256": "61ff2158bcf1169dd08c4e8a84c3e1aa53cbf6a76b6e40dbaa1e1fa65911cc12",
+    "beforeBytes": 732560,
+    "afterBytes": 732560,
+    "mode": "Complete ordered pair, final production BUILD_TESTS OFF; prior C/ASM flags, link and all CMake values unchanged",
+    "exports": {
+      "countBefore": 1015,
+      "countAfter": 1015,
+      "namesExact": true,
+      "namesSHA256": "4c3c6eaf7661b573228aff710af1e24fa9f5576852a86f179b6a2417108b4315"
+    },
+    "dynamicDependenciesAndInstallNameExact": true,
+    "previousActualProductionRaw": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L3/before-build/loader/libvulkan.1.4.365.dylib",
+    "retainedActualProductionRaw": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L3/audit-artifacts/libvulkan.1.4.365.dylib",
+    "retainedActualProductionRawSHA256": "61ff2158bcf1169dd08c4e8a84c3e1aa53cbf6a76b6e40dbaa1e1fa65911cc12",
+    "appsOrInstalledRuntimeUpdated": false
+  },
+  "testSupplement": {
+    "recordedAtUTC": "2026-10-18T03:56:54.875227+00:00",
+    "path": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L3/test-supplement.patch",
+    "sha256": "7cb7d1cb96f4038484a8bc5cc24f52d6b42ce3ec9f93983702d39abf864bacd2",
+    "preimage": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L3/test-supplement/preimage/tests/loader_threading_tests.cpp",
+    "preimageSHA256": "6987f55264a52374ae0588ecfdaec57883d19aa5bec602a4f1272294c89e3fb1",
+    "postimageSHA256": "511896e3068fdbc70d2712292a7b6351809af2f989a8f4978eec2a9b2a4d51bb",
+    "addedLines": 51,
+    "removedLines": 0,
+    "productionChanges": 0,
+    "newHarness": false,
+    "newGTestCases": 2,
+    "observation": "Existing official churn/query helpers plus existing DebugUtilsWrapper; an atomic INFO callback counts exactly 64 emulated queries under each stderr filter. Userdata outlives joins and messenger/instance destruction; no Vulkan calls from callback. Existing per-case process log is used for stderr visibility checks."
+  },
+  "patchVerification": {
+    "recordedAtUTC": "2026-10-18T03:57:55.751334+00:00",
+    "status": "ordered-official-pair-plus-test-supplement-and-complete-patch-roundtrip-byte-exact",
+    "officialProductionPairExact": true,
+    "commands": [
+      {
+        "command": [
+          "/usr/bin/git",
+          "apply",
+          "--check",
+          "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L3/upstream-e38751a7.patch"
+        ],
+        "exitCode": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "/usr/bin/git",
+          "apply",
+          "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L3/upstream-e38751a7.patch"
+        ],
+        "exitCode": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "/usr/bin/git",
+          "apply",
+          "--check",
+          "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L3/upstream-73cf5326.patch"
+        ],
+        "exitCode": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "/usr/bin/git",
+          "apply",
+          "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L3/upstream-73cf5326.patch"
+        ],
+        "exitCode": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "/usr/bin/git",
+          "apply",
+          "--check",
+          "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L3/test-supplement.patch"
+        ],
+        "exitCode": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "/usr/bin/git",
+          "apply",
+          "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L3/test-supplement.patch"
+        ],
+        "exitCode": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "/usr/bin/git",
+          "apply",
+          "--reverse",
+          "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L3/test-supplement.patch"
+        ],
+        "exitCode": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "/usr/bin/git",
+          "apply",
+          "--reverse",
+          "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L3/upstream-73cf5326.patch"
+        ],
+        "exitCode": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "/usr/bin/git",
+          "apply",
+          "--reverse",
+          "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L3/upstream-e38751a7.patch"
+        ],
+        "exitCode": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "/usr/bin/git",
+          "apply",
+          "--check",
+          "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L3/change.patch"
+        ],
+        "exitCode": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "/usr/bin/git",
+          "apply",
+          "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L3/change.patch"
+        ],
+        "exitCode": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "/usr/bin/git",
+          "apply",
+          "--reverse",
+          "--check",
+          "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L3/change.patch"
+        ],
+        "exitCode": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "/usr/bin/git",
+          "apply",
+          "--reverse",
+          "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L3/change.patch"
+        ],
+        "exitCode": 0,
+        "stdout": "",
+        "stderr": ""
+      }
+    ],
+    "files": [
+      {
+        "componentRelativePath": "loader/debug_utils.c",
+        "path": "$WORKSPACE/build/run66-vulkan-loader-src-20260903/loader/debug_utils.c",
+        "beforeSHA256": "2cb34a248a5b4e33104b1aef7a717c454ef19cdfd8565ff5a7554e986cce526f",
+        "afterSHA256": "7466fb0d7203ce3016223c2d1e183f25c701988b33dc01851a858c43f3664fbc",
+        "beforeGitBlob": "2ebab6914ecd01c9315ffa59c434153810bb39e5",
+        "afterGitBlob": "913a4740b5032c8428c5148e2623ab6bc99409d6",
+        "beforeBytes": 38003,
+        "afterBytes": 38198,
+        "beforeMode": "0o644",
+        "afterMode": "0o644",
+        "preimage": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L3/preimage/loader/debug_utils.c",
+        "postimage": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L3/postimage/loader/debug_utils.c"
+      },
+      {
+        "componentRelativePath": "tests/loader_threading_tests.cpp",
+        "path": "$WORKSPACE/build/run66-vulkan-loader-src-20260903/tests/loader_threading_tests.cpp",
+        "beforeSHA256": "2d529217856296859ed61dcc9257ef7201560e617a5ee0f747fc2c720a88b947",
+        "afterSHA256": "511896e3068fdbc70d2712292a7b6351809af2f989a8f4978eec2a9b2a4d51bb",
+        "beforeGitBlob": "4feb31184f44e34ba20d41720544af24a951677d",
+        "afterGitBlob": "bbd86c2cbd9fb6bb13f16335d1ca27238555b168",
+        "beforeBytes": 22622,
+        "afterBytes": 29000,
+        "beforeMode": "0o644",
+        "afterMode": "0o644",
+        "preimage": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L3/preimage/tests/loader_threading_tests.cpp",
+        "postimage": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L3/postimage/tests/loader_threading_tests.cpp"
+      }
+    ],
+    "patchSHA256": "bfb232fa60b4f666dd5ad9eb9058aaea1a094bb1861326bc1cd1cd27a7f84ca0",
+    "productionPatchSHA256": "7403bb61b94ea18809b46020870bc9f02ec5ed2d676affa6c3237d5f7c368a65",
+    "testSupplementSHA256": "7cb7d1cb96f4038484a8bc5cc24f52d6b42ce3ec9f93983702d39abf864bacd2",
+    "scratch": "Only two affected files; removed after successful roundtrip"
+  },
+  "staticLockReview": {
+    "recordedAtUTC": "2026-10-18T03:57:55.751941+00:00",
+    "helper": {
+      "line": 76,
+      "lockCount": 1,
+      "unlockCount": 1,
+      "headReadAndMessengerAndReportCallbacksInsideLock": true,
+      "nullCallbackDataSkipsLock": true,
+      "singleReturnAfterBalancedGuard": true
+    },
+    "terminator": {
+      "line": 306,
+      "ownLockAndUnlockRemoved": true,
+      "helperCalledOnce": true
+    },
+    "loggingBeforeStderrFilter": {
+      "source": "$WORKSPACE/build/run66-vulkan-loader-src-20260903/loader/log.c",
+      "callbackHelperBeforeStderrEarlyReturn": true,
+      "outputOffDoesNotAvoidTheNewHelperLock": true
+    },
+    "atomicPair": "Both exact production patches applied before any build/check/acceptance. Existing macOS recursive mutex means first hunk alone need not deadlock.",
+    "callbackContract": "Supplement callback only reads message text and increments an atomic counter; no Vulkan reentry. Counter declared before framework/instance/RAII observer and survives worker joins and explicit observer destruction. Official transient callbacks have no userdata.",
+    "previousThreadingTests": "Only exact official additions plus supplement additions; roundtrip retains all existing L1/L2 test bytes.",
+    "limits": [
+      "Ordinary mock stress, not ThreadSanitizer or race-freedom",
+      "No global deadlock guarantee or output-off zero-lock-cost claim"
+    ]
+  },
+  "preservation": {
+    "receipt": "preservation-after.json",
+    "unchangedPriorGuardCount": 57,
+    "unchangedStaticContextFileCount": 5,
+    "priorS1S2L5L4C1L1L2Preserved": true,
+    "L2ProductionSourceAndTestLayerSupportUnchanged": true,
+    "L1L2ExistingThreadingBytesPreserved": true,
+    "C1SourceRuntimeIdentityAndFrozenReceiptsPreserved": true,
+    "MVK_GIT_REV": "f52facf7",
+    "realLauncherHEAD": "6a3b298c236cd10eff8fd7ce27d15cdb589f650f",
+    "realLauncherIndexSHA256": "073483d1f4a62c9cda7006b467f60da926f889d1c8f126dc0016e3a23b761c87",
+    "ordinaryFrozenInstalledAppsAndUserCachesUnchanged": true,
+    "automaticAppQuitPerformed": false
+  },
+  "publisherReranBuildsOrTests": false,
+  "limits": [
+    "Ordinary mock stress and static whole-file review do not establish ThreadSanitizer race freedom, all external callback/layer lock interactions or global deadlock freedom.",
+    "Controlled callback userdata lifetime is covered; arbitrary forbidden Vulkan calls from callbacks are not authorized or tested.",
+    "No GPU/window/app/game/FPS/MP/endurance acceptance or app/Release/Homebrew change."
+  ]
+}
