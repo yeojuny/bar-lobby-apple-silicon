@@ -1,0 +1,130 @@
+{
+  "schema": "bar-applied-unit-audit-v1",
+  "unit": "L5",
+  "recordedAtUTC": "2026-10-18T02:46:08.794564+00:00",
+  "reviewer": "Audit - MK2",
+  "verdict": "PASS",
+  "sourcePublicationAllowed": true,
+  "requiredChecksSatisfied": true,
+  "hqResult": {
+    "path": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L5/unit-result.json",
+    "sha256": "5552d42e25038747f4598ece2a8be21b85feaecfe31a34579892bf67a3723ead"
+  },
+  "upstreamSHA": "77406fdfcd5706fd2a5d8f4473a6408fa6218b32",
+  "completePatch": {
+    "path": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L5/change.patch",
+    "sha256": "d144ecc2f6b8ef15f6f8d0ac2e900664e6f1d2ca897e396a63e3ea691493943c"
+  },
+  "reviewedFiles": [
+    {
+      "componentRelativePath": "loader/loader.c",
+      "path": "$WORKSPACE/build/run66-vulkan-loader-src-20260903/loader/loader.c",
+      "beforeSHA256": "8a3104bf36b387f668e2d5a64a55487a37df7afbdeea88a3744dfc9f0409da64",
+      "afterSHA256": "255ceae1fcc62ebee73f7f80772dc8735a1d429c6d8747878bc9af748f35840e",
+      "beforeGitBlob": "d16f117f5dfa3364dedd7c61d5bbcd3913f24e80",
+      "afterGitBlob": "0261e4b1f1647cbea1dcf308dda02ba2d8a1cc22",
+      "beforeBytes": 406101,
+      "afterBytes": 406236,
+      "preimage": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L5/preimage/loader/loader.c",
+      "postimage": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L5/postimage/loader/loader.c",
+      "classification": "exact selected upstream production hunk"
+    },
+    {
+      "componentRelativePath": "tests/framework/icd/test_icd.cpp",
+      "path": "$WORKSPACE/build/run66-vulkan-loader-src-20260903/tests/framework/icd/test_icd.cpp",
+      "beforeSHA256": "9950c50587244537d000896ebd688daa5db66e3cd2106fac4ed2549670d4f124",
+      "afterSHA256": "ff1f572e86b899efae93cf0f207bae1b302b0012cb94842a661c13e4a16b9ff0",
+      "beforeGitBlob": "56094061e8e38d1e3c63bace0bca395fb77c57a3",
+      "afterGitBlob": "5e83035a17c14f2ba8b853878b4ce4f42af8d5c2",
+      "beforeBytes": 116967,
+      "afterBytes": 117111,
+      "preimage": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L5/preimage/tests/framework/icd/test_icd.cpp",
+      "postimage": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L5/postimage/tests/framework/icd/test_icd.cpp",
+      "classification": "minimal existing mock ICD result/call-count support"
+    },
+    {
+      "componentRelativePath": "tests/framework/icd/test_icd.h",
+      "path": "$WORKSPACE/build/run66-vulkan-loader-src-20260903/tests/framework/icd/test_icd.h",
+      "beforeSHA256": "75fa6ea5b156f26db14ada7f6113443a211ad8ae9da2a60eb4640e641030711b",
+      "afterSHA256": "d4e5d3a8f45405892f1fa58fcadfbc888c51fdf570b8094d83900c5fb39de048",
+      "beforeGitBlob": "5bc2a3b4196dca87505382a54244d7cd7a267d6c",
+      "afterGitBlob": "db50f8c46ef458e9212ed3310cc1e2abdda50036",
+      "beforeBytes": 17051,
+      "afterBytes": 17175,
+      "preimage": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L5/preimage/tests/framework/icd/test_icd.h",
+      "postimage": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L5/postimage/tests/framework/icd/test_icd.h",
+      "classification": "minimal existing mock ICD result/call-count support"
+    },
+    {
+      "componentRelativePath": "tests/loader_regression_tests.cpp",
+      "path": "$WORKSPACE/build/run66-vulkan-loader-src-20260903/tests/loader_regression_tests.cpp",
+      "beforeSHA256": "40c433c48688886ce81167531adab408121d22175f6e26b7689567b26aa48812",
+      "afterSHA256": "1c7ee4cd3f6ad2f63d1332d2b22f6cd8c3c3dc3548b992c637881433c1deb708",
+      "beforeGitBlob": "71b56cda085f936bddfc01ec5fefd06b93c8e5d5",
+      "afterGitBlob": "ad7a95ad3ca3c06f905fe553d5a301cf1915ad53",
+      "beforeBytes": 281701,
+      "afterBytes": 286387,
+      "preimage": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L5/preimage/tests/loader_regression_tests.cpp",
+      "postimage": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L5/postimage/tests/loader_regression_tests.cpp",
+      "classification": "exact upstream regression plus 12 valid-node mock success/failure cases"
+    }
+  ],
+  "productionReview": "Only the selected upstream move of the unchanged failure return and success chain_device assignment to after the existing pNext restoration loop, plus its explanatory comment. Lower error result remains unchanged; no new allocation, lock, callback or normal query loop. Existing port preimage/2050 retained.",
+  "testReview": "Exact official rejection regression plus 12 parameterized valid-chain cases: success/init-error/out-of-device-memory, group first or after Features2, optional ProtectedMemoryFeatures tail. Original caller-owned pointers checked before following any returned link. Mock actual CreateDevice call count must be one, original VkResult propagated, pointer/count/value/type/feature payloads retained and live device count matches success/failure. Minimal default-success controls added only to existing mock ICD under its existing mutex.",
+  "validation": {
+    "beforeFix": {
+      "tests": 13,
+      "failed": 5,
+      "buildMode": "Official test export mode; unmodified production source before L5"
+    },
+    "afterFix": {
+      "tests": 16,
+      "passed": 16,
+      "failed": 0,
+      "buildMode": "Final production raw BUILD_TESTS OFF; no SHOULD_EXPORT_TEST_FUNCTIONS"
+    },
+    "sameTestExecutableAndMockICD": true,
+    "actualFinalProductionLibraryDyldBinding": true,
+    "productionFlagsAndLinkCommandRestoredByteExact": true,
+    "exportNamesExactCount": 1015,
+    "dependenciesAndInstallNameExact": true,
+    "newRawSHA256": "ad67a255b194f1ed9e3d8b8eb5cfd39850256290954d78ca4f195e6fcbf22822",
+    "immutableAuditRawSnapshot": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L5/audit-artifacts/libvulkan.1.4.365.dylib",
+    "snapshotBytes": 732560,
+    "allFourPatchFilesRoundtripByteExact": true
+  },
+  "publicBase": {
+    "URL": "https://github.com/yeojuny/bar-lobby-apple-silicon/releases/download/v0.17.0-candidate.4/BAR-0.17.0-candidate.4-sources.tar.gz",
+    "archiveMember": "BAR-0.17.0-candidate.4-sources/archives/vulkan-loader-68cc-input.tar.gz",
+    "nestedArchiveSHA256": "68269a49344a1b2fd318f56828c0ca7104ef08ea3144e4fe97ac93061e8c7420",
+    "allFourPreimagesIndependentlyExact": true,
+    "changedFiles": [
+      "loader/loader.c",
+      "tests/framework/icd/test_icd.cpp",
+      "tests/framework/icd/test_icd.h",
+      "tests/loader_regression_tests.cpp"
+    ],
+    "sourceParentCommit": "50b07ce49f430e2b2a1ec83dc63b751e5bdffd31",
+    "SDLPredecessorChain": "Retain public S1/S2 separately; this is the first Loader unit, no L1-L4 imported."
+  },
+  "preserved": "31 selected source/artifact guards including cumulative SDL raw/source, upcoming Loader/Cross guards, real launcher HEAD/index and selected frozen app files. No whole-app inventory claim.",
+  "testDependency": "Existing declared GoogleTest v1.14.0 exact f8d7d77c06936315286eb55f8de22cd23c188571 from pinned archive, used only in existing Loader build _deps; locked references not edited.",
+  "retainedPreparationFailure": {
+    "receipt": "configuration-guard-failure-1.json",
+    "kind": "Over-strict local assertion rejected expected makefile-count/pkg-config internal discovery changes; no product compile failure, no production option changes."
+  },
+  "limits": [
+    "Addresses only the selected lower fpCreateDevice failure-return path; does not claim all other early returns are repaired",
+    "Mock-driver CPU success/failure checks do not establish real GPU or gameplay acceptance",
+    "Raw component build is local; existing frozen apps and installed/public releases are not updated",
+    "No performance or memory-leak-wide acceptance claim"
+  ],
+  "notRequiredThisUnit": [
+    "game/GPU/FPS/multiplayer/window/audio/endurance tests",
+    "unrelated full regression suite"
+  ],
+  "blockingFindings": [],
+  "nextGate": "Source commit/push/readback on S2 parent, then L4. New raw snapshot retained as small immutable evidence; app packages untouched.",
+  "privateOriginalAuditSHA256": "cb7ddc5ba944cae0303b7a62f0a1b9633c00fb0952a5192ab4c377063a01ac85",
+  "exportNote": "Path-rebased public copy; original private audit hash identifies original provenance, not this exported blob."
+}

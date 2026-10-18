@@ -1,0 +1,356 @@
+{
+  "unit": "L5",
+  "originalHQResultSHA256": "5552d42e25038747f4598ece2a8be21b85feaecfe31a34579892bf67a3723ead",
+  "originalAppliedAuditSHA256": "cb7ddc5ba944cae0303b7a62f0a1b9633c00fb0952a5192ab4c377063a01ac85",
+  "checks": {
+    "officialBaselineInfrastructure": {
+      "receipt": "preparation-result.json",
+      "baselineBuild": "baseline-build.json",
+      "existingDeviceGroupChecks": "baseline-existing-groups.json",
+      "passedTests": 2,
+      "productionSourceEditsAtBaseline": 0
+    },
+    "beforeFix": {
+      "receipt": "regression-before-fix.json",
+      "tests": 13,
+      "passed": 8,
+      "failed": 5,
+      "expectedFailure": "Exact upstream rejection regression and four actual mock-driver error cases with caller-owned Features2 preceding the group fail pointer equality; no dangling pointer dereference occurs."
+    },
+    "afterFix": {
+      "receipt": "regression-after-fix.json",
+      "tests": 16,
+      "passed": 16,
+      "failed": 0,
+      "disabled": 0,
+      "errors": 0,
+      "runsAgainst": "Final production raw Loader with BUILD_TESTS OFF",
+      "sameExecutableAndMockICDAsBeforeFix": true,
+      "actualDyldBindingRecorded": true,
+      "testExecutableSHA256": "e2ed776318da5bd530dc92e55f5df1feb349dae92beadae1418a77020ceca0c0",
+      "mockICDSHA256": "89325956c9e29192a4d9ba653e9171c189c8e04e06a8ed8fc9a2a822971d68bb",
+      "coverage": [
+        "12-case matrix: success, initialization failure and out-of-device-memory; group first/preceded by valid Features2; successor absent/present",
+        "Every matrix case proves actual mock vkCreateDevice was reached exactly once and the original VkResult propagated",
+        "Pointer equality checked first for caller-owned links; group/head/tail structure types, pPhysicalDevices pointer/count/values and feature members preserved",
+        "Mock live device count is one on success and zero on lower failure",
+        "Exact official upstream failure regression retained",
+        "Existing OneCall and TwoCall core/KHR group success checks",
+        "Existing 100-device consecutive creation without early destruction checks the no-group success/cleanup path"
+      ]
+    },
+    "productionBuild": {
+      "receipt": "production-restore.json",
+      "result": "PASS",
+      "BUILD_TESTS": "OFF",
+      "UPDATE_DEPS": "OFF",
+      "ENABLE_LIVE_VERIFICATION_TESTS": "OFF",
+      "CAndASMFlagsByteExactBefore": true,
+      "linkCommandByteExactBefore": true,
+      "note": "Official BUILD_TESTS ON was used only to compile existing regression framework. It temporarily adds SHOULD_EXPORT_TEST_FUNCTIONS. The same build was returned to production OFF and rebuilt before the sole post-fix test run. Full cache differs from the old cache by test/CXX discovery metadata; product flags and link command are byte-exact."
+    },
+    "abiAndRawLibrary": {
+      "receipt": "raw-artifact.json",
+      "beforeSHA256": "fc79e60453c3f71c3a8a971eab2dbc1ae7a0f1c795cf90eb12e262048d14f087",
+      "afterSHA256": "ad67a255b194f1ed9e3d8b8eb5cfd39850256290954d78ca4f195e6fcbf22822",
+      "exportNamesExact": true,
+      "exportCount": 1015,
+      "dynamicDependenciesAndInstallNameExact": true
+    },
+    "patchReconstruction": {
+      "all4FilesForwardAndReverseByteExact": true,
+      "all4PreimagesExactToPublicComponentArchive": true
+    }
+  },
+  "baselineConfigure": {
+    "recordedAtUTC": "2026-10-18T02:35:07.818947+00:00",
+    "purpose": "Prepare existing official Loader tests without editing production/test sources",
+    "command": [
+      "/opt/homebrew/bin/cmake",
+      "-S",
+      "$WORKSPACE/build/run66-vulkan-loader-src-20260903",
+      "-B",
+      "$WORKSPACE/build/run95-loader-20261002",
+      "-DBUILD_TESTS=ON",
+      "-DGOOGLETEST_INSTALL_DIR=$WORKSPACE/build/run95-loader-20261002/_deps/googletest",
+      "-DUPDATE_DEPS=OFF",
+      "-DENABLE_LIVE_VERIFICATION_TESTS=OFF",
+      "-DCMAKE_CXX_COMPILER=/usr/bin/clang++",
+      "-DCMAKE_LINKER=/usr/bin/ld",
+      "-DCMAKE_GTEST_DISCOVER_TESTS_DISCOVERY_MODE=PRE_TEST"
+    ],
+    "environmentOverrides": {
+      "PATH": "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/homebrew/bin",
+      "CXX": "/usr/bin/clang++"
+    },
+    "selectedAppleLinker": "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld",
+    "exitCode": 0,
+    "elapsedSeconds": 3.961,
+    "testExecution": "deferred by PRE_TEST discovery",
+    "log": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L5/baseline-configure.log"
+  },
+  "baselineBuild": {
+    "recordedAtUTC": "2026-10-18T02:36:23.738163+00:00",
+    "command": [
+      "/opt/homebrew/bin/cmake",
+      "--build",
+      "$WORKSPACE/build/run95-loader-20261002",
+      "--target",
+      "vulkan",
+      "test_regression",
+      "test_icd_version_2",
+      "--parallel",
+      "3"
+    ],
+    "environmentOverrides": {
+      "PATH": "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/homebrew/bin"
+    },
+    "exitCode": 0,
+    "elapsedSeconds": 43.0,
+    "log": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L5/baseline-build.log",
+    "sourceEdits": 0,
+    "testsRun": 0
+  },
+  "productionRestore": {
+    "recordedAtUTC": "2026-10-18T02:40:41.721054+00:00",
+    "stages": [
+      {
+        "command": [
+          "/opt/homebrew/bin/cmake",
+          "-S",
+          "$WORKSPACE/build/run66-vulkan-loader-src-20260903",
+          "-B",
+          "$WORKSPACE/build/run95-loader-20261002",
+          "-DBUILD_TESTS=OFF",
+          "-DUPDATE_DEPS=OFF"
+        ],
+        "exitCode": 0,
+        "elapsedSeconds": 0.94,
+        "log": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L5/production-restore-configure.log"
+      },
+      {
+        "command": [
+          "/opt/homebrew/bin/cmake",
+          "--build",
+          "$WORKSPACE/build/run95-loader-20261002",
+          "--target",
+          "vulkan",
+          "--parallel",
+          "3"
+        ],
+        "exitCode": 0,
+        "elapsedSeconds": 3.629,
+        "log": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L5/production-build-after-fix.log"
+      }
+    ],
+    "productionCAndASMFlagsByteExactBefore": true,
+    "productionLinkCommandByteExactBefore": true,
+    "BUILD_TESTS": "OFF",
+    "UPDATE_DEPS": "OFF",
+    "productionRawSHA256": "ad67a255b194f1ed9e3d8b8eb5cfd39850256290954d78ca4f195e6fcbf22822",
+    "validationPlan": "Run selected existing regression executable against this final production raw library; do not run an extra test-mode post-fix suite"
+  },
+  "beforeFixExecution": {
+    "command": [
+      "$WORKSPACE/build/run95-loader-20261002/tests/test_regression",
+      "--gtest_filter=CreateDevice.DeviceGroupPNextRestoredOnFailure:CreateDevice/DeviceGroupPNextRestore.*",
+      "--gtest_output=xml:$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L5/regression-before-fix.xml",
+      "--gtest_color=no"
+    ],
+    "exitCode": 1,
+    "xmlSummary": {
+      "tests": "13",
+      "failures": "5",
+      "disabled": "0",
+      "errors": "0",
+      "time": "0.926",
+      "timestamp": "2026-10-17T19:39:38.772",
+      "name": "AllTests"
+    }
+  },
+  "afterFixExecution": {
+    "recordedAtUTC": "2026-10-18T02:41:26.931919+00:00",
+    "command": [
+      "$WORKSPACE/build/run95-loader-20261002/tests/test_regression",
+      "--gtest_filter=CreateDevice.DeviceGroupPNextRestoredOnFailure:CreateDevice/DeviceGroupPNextRestore.*:EnumeratePhysicalDeviceGroups.OneCall:EnumeratePhysicalDeviceGroups.TwoCall:CreateDevice.ConsecutiveCreateWithoutDestruction",
+      "--gtest_output=xml:$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L5/regression-after-fix.xml",
+      "--gtest_color=no"
+    ],
+    "environmentOverrides": {
+      "PATH": "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/homebrew/bin",
+      "DYLD_PRINT_LIBRARIES": "1"
+    },
+    "exitCode": 0,
+    "elapsedSeconds": 1.202,
+    "xmlSummary": {
+      "tests": "16",
+      "failures": "0",
+      "disabled": "0",
+      "errors": "0",
+      "time": "1.137",
+      "timestamp": "2026-10-17T19:41:25.772",
+      "name": "AllTests"
+    },
+    "productionRawSHA256": "ad67a255b194f1ed9e3d8b8eb5cfd39850256290954d78ca4f195e6fcbf22822",
+    "testExecutableSHA256": "e2ed776318da5bd530dc92e55f5df1feb349dae92beadae1418a77020ceca0c0",
+    "mockICDSHA256": "89325956c9e29192a4d9ba653e9171c189c8e04e06a8ed8fc9a2a822971d68bb",
+    "sameTestExecutableAndMockAsBeforeFix": true,
+    "BUILD_TESTS": "OFF; final production library, no SHOULD_EXPORT_TEST_FUNCTIONS",
+    "cases": [
+      {
+        "suite": "CreateDevice",
+        "name": "ConsecutiveCreateWithoutDestruction",
+        "valueParam": null,
+        "failed": false
+      },
+      {
+        "suite": "CreateDevice",
+        "name": "DeviceGroupPNextRestoredOnFailure",
+        "valueParam": null,
+        "failed": false
+      },
+      {
+        "suite": "EnumeratePhysicalDeviceGroups",
+        "name": "OneCall",
+        "valueParam": null,
+        "failed": false
+      },
+      {
+        "suite": "EnumeratePhysicalDeviceGroups",
+        "name": "TwoCall",
+        "valueParam": null,
+        "failed": false
+      },
+      {
+        "suite": "CreateDevice/DeviceGroupPNextRestore",
+        "name": "PreservesCallerChain/0",
+        "valueParam": "(VK_SUCCESS, false, false)",
+        "failed": false
+      },
+      {
+        "suite": "CreateDevice/DeviceGroupPNextRestore",
+        "name": "PreservesCallerChain/1",
+        "valueParam": "(VK_SUCCESS, false, true)",
+        "failed": false
+      },
+      {
+        "suite": "CreateDevice/DeviceGroupPNextRestore",
+        "name": "PreservesCallerChain/2",
+        "valueParam": "(VK_SUCCESS, true, false)",
+        "failed": false
+      },
+      {
+        "suite": "CreateDevice/DeviceGroupPNextRestore",
+        "name": "PreservesCallerChain/3",
+        "valueParam": "(VK_SUCCESS, true, true)",
+        "failed": false
+      },
+      {
+        "suite": "CreateDevice/DeviceGroupPNextRestore",
+        "name": "PreservesCallerChain/4",
+        "valueParam": "(VK_ERROR_INITIALIZATION_FAILED, false, false)",
+        "failed": false
+      },
+      {
+        "suite": "CreateDevice/DeviceGroupPNextRestore",
+        "name": "PreservesCallerChain/5",
+        "valueParam": "(VK_ERROR_INITIALIZATION_FAILED, false, true)",
+        "failed": false
+      },
+      {
+        "suite": "CreateDevice/DeviceGroupPNextRestore",
+        "name": "PreservesCallerChain/6",
+        "valueParam": "(VK_ERROR_INITIALIZATION_FAILED, true, false)",
+        "failed": false
+      },
+      {
+        "suite": "CreateDevice/DeviceGroupPNextRestore",
+        "name": "PreservesCallerChain/7",
+        "valueParam": "(VK_ERROR_INITIALIZATION_FAILED, true, true)",
+        "failed": false
+      },
+      {
+        "suite": "CreateDevice/DeviceGroupPNextRestore",
+        "name": "PreservesCallerChain/8",
+        "valueParam": "(VK_ERROR_OUT_OF_DEVICE_MEMORY, false, false)",
+        "failed": false
+      },
+      {
+        "suite": "CreateDevice/DeviceGroupPNextRestore",
+        "name": "PreservesCallerChain/9",
+        "valueParam": "(VK_ERROR_OUT_OF_DEVICE_MEMORY, false, true)",
+        "failed": false
+      },
+      {
+        "suite": "CreateDevice/DeviceGroupPNextRestore",
+        "name": "PreservesCallerChain/10",
+        "valueParam": "(VK_ERROR_OUT_OF_DEVICE_MEMORY, true, false)",
+        "failed": false
+      },
+      {
+        "suite": "CreateDevice/DeviceGroupPNextRestore",
+        "name": "PreservesCallerChain/11",
+        "valueParam": "(VK_ERROR_OUT_OF_DEVICE_MEMORY, true, true)",
+        "failed": false
+      }
+    ],
+    "log": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L5/regression-after-fix.log",
+    "bindingEvidenceExample": [
+      "dyld[76642]: <56F264F0-DE96-3C55-A7FC-F25F111F6C04> $WORKSPACE/build/run95-loader-20261002/loader/libvulkan.1.4.365.dylib",
+      "dyld[76642]: <0B2547C9-E18A-34AA-8CD2-ED7583A864CD> $WORKSPACE/build/run95-loader-20261002/tests/executing_tests/CreateDevice_ConsecutiveCreateWithoutDestruction/icd_manifests/libtest_icd_version_2_0.dylib"
+    ],
+    "bindingLinesRecordedCount": 32
+  },
+  "rawArtifact": {
+    "recordedAtUTC": "2026-10-18T02:43:17.233549+00:00",
+    "path": "$WORKSPACE/build/run95-loader-20261002/loader/libvulkan.1.4.365.dylib",
+    "beforeSHA256": "fc79e60453c3f71c3a8a971eab2dbc1ae7a0f1c795cf90eb12e262048d14f087",
+    "afterSHA256": "ad67a255b194f1ed9e3d8b8eb5cfd39850256290954d78ca4f195e6fcbf22822",
+    "beforeBytes": 732560,
+    "afterBytes": 732560,
+    "buildVersion": "Vulkan Loader 1.4.365, original source base plus preserved port corrections and selected L5 only",
+    "mode": "Production BUILD_TESTS OFF; original C/ASM flags and link command byte-exact",
+    "exports": {
+      "countBefore": 1015,
+      "countAfter": 1015,
+      "namesExact": true,
+      "namesSHA256": "4c3c6eaf7661b573228aff710af1e24fa9f5576852a86f179b6a2417108b4315"
+    },
+    "dynamicDependenciesAndInstallNameExact": true,
+    "previousActualLibrary": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L5/before-build/loader/libvulkan.1.4.365.dylib",
+    "testOnlyExportDefineAbsent": true,
+    "appsOrInstalledRuntimeUpdated": false
+  },
+  "testDependency": {
+    "name": "GoogleTest",
+    "declaredByComponentPath": "scripts/known_good.json",
+    "declaredTag": "v1.14.0",
+    "exactCommit": "f8d7d77c06936315286eb55f8de22cd23c188571",
+    "sourceURL": "https://codeload.github.com/google/googletest/tar.gz/f8d7d77c06936315286eb55f8de22cd23c188571",
+    "archiveSHA256": "7ff5db23de232a39cbb5c9f5143c355885e30ac596161a6b9fc50c4538bfbf01",
+    "archiveBytes": 868904,
+    "archiveRoot": "googletest-f8d7d77c06936315286eb55f8de22cd23c188571",
+    "existingLocalArchive": "$WORKSPACE/archives/googletest-v1.14.0-f8d7d77c.tar.gz",
+    "existingBuildDependencySource": "$WORKSPACE/build/run95-loader-20261002/_deps/googletest",
+    "configureConnection": "GOOGLETEST_INSTALL_DIR=$WORKSPACE/build/run95-loader-20261002/_deps/googletest",
+    "sourceOnlyForExistingTests": true,
+    "dependencyFilesVerifiedByHQ": 245,
+    "productionDependency": false,
+    "archiveRedistributedOrCopiedByPublisher": false
+  },
+  "retainedPreparationFailure": {
+    "receipt": "configuration-guard-failure-1.json",
+    "kind": "Over-strict local assertion rejected expected makefile-count/pkg-config internal discovery changes; no product compile failure, no production option changes."
+  },
+  "notRequired": [
+    "game/GPU/FPS/multiplayer/window/audio/endurance tests",
+    "unrelated full regression suite"
+  ],
+  "limits": [
+    "Addresses only the selected lower fpCreateDevice failure-return path; does not claim all other early returns are repaired",
+    "Mock-driver CPU success/failure checks do not establish real GPU or gameplay acceptance",
+    "Raw component build is local; existing frozen apps and installed/public releases are not updated",
+    "No performance or memory-leak-wide acceptance claim"
+  ],
+  "scope": "HQ component/mock-driver execution accepted by applied Audit - MK2; publisher did not rerun build/tests."
+}

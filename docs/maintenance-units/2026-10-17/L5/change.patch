@@ -1,0 +1,159 @@
+diff --git a/loader/loader.c b/loader/loader.c
+--- a/loader/loader.c
++++ b/loader/loader.c
+@@ -5587,13 +5587,10 @@
+         create_info_disp.pNext = loader_create_info.pNext;
+         loader_create_info.pNext = &create_info_disp;
+         res = fpCreateDevice(pd, &loader_create_info, pAllocator, &created_device);
+-        if (res != VK_SUCCESS) {
+-            return res;
+-        }
+-        dev->chain_device = created_device;
+ 
+         // Because we changed the pNext chain to use our own VkDeviceGroupDeviceCreateInfo, we need to fixup the chain to
+-        // point back at the original VkDeviceGroupDeviceCreateInfo.
++        // point back at the original VkDeviceGroupDeviceCreateInfo. This must happen even if device creation failed, otherwise
++        // the caller's chain is left pointing at our stack allocated copy.
+         VkBaseOutStructure *pNext = (VkBaseOutStructure *)loader_create_info.pNext;
+         VkBaseOutStructure *pPrev = (VkBaseOutStructure *)&loader_create_info;
+         while (NULL != pNext) {
+@@ -5609,6 +5606,10 @@
+             pNext = pNext->pNext;
+         }
+ 
++        if (res != VK_SUCCESS) {
++            return res;
++        }
++        dev->chain_device = created_device;
+     } else {
+         loader_log(inst, VULKAN_LOADER_ERROR_BIT, 0,
+                    "loader_create_device_chain: Failed to find \'vkCreateDevice\' in layers or ICD");
+diff --git a/tests/framework/icd/test_icd.cpp b/tests/framework/icd/test_icd.cpp
+--- a/tests/framework/icd/test_icd.cpp
++++ b/tests/framework/icd/test_icd.cpp
+@@ -729,6 +729,11 @@
+     std::lock_guard lg(icd.mutex);
+ 
+     auto& physical_device_info = GetPhysDevice(physicalDevice);
++
++    icd.create_device_call_count++;
++    if (icd.create_device_return_code != VK_SUCCESS) {
++        return icd.create_device_return_code;
++    }
+ 
+     CreatedDeviceDetails new_device_details{};
+     new_device_details.physical_device_created_from =
+diff --git a/tests/framework/icd/test_icd.h b/tests/framework/icd/test_icd.h
+--- a/tests/framework/icd/test_icd.h
++++ b/tests/framework/icd/test_icd.h
+@@ -328,6 +328,8 @@
+ 
+     BUILDER_VALUE_WITH_DEFAULT(VkResult, enum_physical_devices_return_code, VK_SUCCESS);
+     BUILDER_VALUE_WITH_DEFAULT(VkResult, enum_adapter_physical_devices_return_code, VK_SUCCESS);
++    BUILDER_VALUE_WITH_DEFAULT(VkResult, create_device_return_code, VK_SUCCESS);
++    uint32_t create_device_call_count = 0;
+ 
+     InstanceCreateInfo GetVkInstanceCreateInfo() {
+         InstanceCreateInfo info;
+diff --git a/tests/loader_regression_tests.cpp b/tests/loader_regression_tests.cpp
+--- a/tests/loader_regression_tests.cpp
++++ b/tests/loader_regression_tests.cpp
+@@ -30,6 +30,8 @@
+ #include "manifest_builders.h"
+ #include "test_environment.h"
+ 
++#include <tuple>
++
+ // Test case origin
+ // LX = lunar exchange
+ // LVLGH = loader and validation github
+@@ -1674,6 +1676,89 @@
+         dev.CheckCreate(phys_devs[i]);
+     }
+ }
++
++// The loader swaps its own copy of VkDeviceGroupDeviceCreateInfo into the pNext chain while creating the device. Make sure the
++// caller's chain is restored when device creation fails, otherwise it is left pointing at the loader's stack.
++TEST(CreateDevice, DeviceGroupPNextRestoredOnFailure) {
++    FrameworkEnvironment env{};
++    // A 1.0 driver without VK_KHR_device_group_creation, so the loader rejects a device group with more than one device
++    env.add_icd(TEST_ICD_PATH_VERSION_2).add_physical_device("physical_device_0");
++
++    InstWrapper inst{env.vulkan_functions};
++    inst.CheckCreate();
++
++    VkPhysicalDevice phys_dev = inst.GetPhysDev();
++    std::array<VkPhysicalDevice, 2> group_devices{phys_dev, phys_dev};
++
++    VkDeviceGroupDeviceCreateInfo group_info{};
++    group_info.sType = VK_STRUCTURE_TYPE_DEVICE_GROUP_DEVICE_CREATE_INFO;
++    group_info.physicalDeviceCount = static_cast<uint32_t>(group_devices.size());
++    group_info.pPhysicalDevices = group_devices.data();
++    VkBaseInStructure spacer_structure{};
++    spacer_structure.sType = static_cast<VkStructureType>(100000);
++    spacer_structure.pNext = reinterpret_cast<const VkBaseInStructure*>(&group_info);
++
++    DeviceWrapper dev{inst};
++    dev.create_info.dev.pNext = &spacer_structure;
++    dev.CheckCreate(phys_dev, VK_ERROR_INITIALIZATION_FAILED);
++
++    ASSERT_EQ(reinterpret_cast<const VkBaseInStructure*>(&group_info), spacer_structure.pNext);
++}
++
++class DeviceGroupPNextRestore : public testing::TestWithParam<std::tuple<VkResult, bool, bool>> {};
++
++TEST_P(DeviceGroupPNextRestore, PreservesCallerChain) {
++    const auto [expected_result, prepend_features, append_features] = GetParam();
++    FrameworkEnvironment env{};
++    auto& driver = env.add_icd(TEST_ICD_PATH_VERSION_2, {}, ManifestICD{}.set_api_version(VK_API_VERSION_1_1))
++                       .set_min_icd_interface_version(5)
++                       .set_icd_api_version(VK_API_VERSION_1_1)
++                       .add_instance_extension({VK_KHR_GET_PHYSICAL_DEVICE_PROPERTIES_2_EXTENSION_NAME});
++    driver.add_physical_device(PhysicalDevice{"physical_device_0"}.set_api_version(VK_API_VERSION_1_1));
++    driver.add_physical_device(PhysicalDevice{"physical_device_1"}.set_api_version(VK_API_VERSION_1_1));
++    driver.physical_device_groups.emplace_back(std::vector<size_t>{0, 1});
++    driver.set_create_device_return_code(expected_result);
++
++    InstWrapper inst{env.vulkan_functions};
++    inst.create_info.set_api_version(VK_API_VERSION_1_1);
++    inst.CheckCreate();
++    auto physical_devices = inst.GetPhysDevs(2U);
++    ASSERT_EQ(2U, physical_devices.size());
++    const auto original_physical_devices = physical_devices;
++
++    VkPhysicalDeviceProtectedMemoryFeatures tail{VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PROTECTED_MEMORY_FEATURES};
++    VkDeviceGroupDeviceCreateInfo group{VK_STRUCTURE_TYPE_DEVICE_GROUP_DEVICE_CREATE_INFO};
++    group.physicalDeviceCount = static_cast<uint32_t>(physical_devices.size());
++    group.pPhysicalDevices = physical_devices.data();
++    group.pNext = append_features ? &tail : nullptr;
++    VkPhysicalDeviceFeatures2 head{VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FEATURES_2};
++    head.pNext = &group;
++    const void* original_head = prepend_features ? static_cast<const void*>(&head) : static_cast<const void*>(&group);
++
++    DeviceWrapper dev{inst};
++    dev.create_info.dev.pNext = original_head;
++    dev.CheckCreate(physical_devices[0], expected_result);
++    ASSERT_EQ(1U, driver.create_device_call_count);
++
++    // Compare original caller-owned links before following any returned pNext value. A broken link may point at dead stack.
++    ASSERT_EQ(original_head, dev.create_info.dev.pNext);
++    ASSERT_EQ(&group, head.pNext);
++    ASSERT_EQ(append_features ? &tail : nullptr, group.pNext);
++    ASSERT_EQ(physical_devices.data(), group.pPhysicalDevices);
++    ASSERT_EQ(2U, group.physicalDeviceCount);
++    ASSERT_EQ(original_physical_devices, physical_devices);
++    ASSERT_EQ(VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FEATURES_2, head.sType);
++    ASSERT_EQ(VK_FALSE, head.features.robustBufferAccess);
++    ASSERT_EQ(VK_STRUCTURE_TYPE_DEVICE_GROUP_DEVICE_CREATE_INFO, group.sType);
++    ASSERT_EQ(VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PROTECTED_MEMORY_FEATURES, tail.sType);
++    ASSERT_EQ(nullptr, tail.pNext);
++    ASSERT_EQ(VK_FALSE, tail.protectedMemory);
++    ASSERT_EQ(expected_result == VK_SUCCESS ? 1U : 0U, driver.created_device_details.size());
++}
++
++INSTANTIATE_TEST_SUITE_P(CreateDevice, DeviceGroupPNextRestore,
++                        testing::Combine(testing::Values(VK_SUCCESS, VK_ERROR_INITIALIZATION_FAILED, VK_ERROR_OUT_OF_DEVICE_MEMORY),
++                                         testing::Bool(), testing::Bool()));
+ 
+ TEST(TryLoadWrongBinaries, WrongICD) {
+     FrameworkEnvironment env{};
