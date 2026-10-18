@@ -53,8 +53,6 @@ Drawable acquisition, GPU completion and swapchain availability still impose syn
 
 This guide is an extraction map, not a claim that one small patch can be applied to every engine. Reuse the narrow relevant changes with their original licenses and attribution; leave unrelated simulation and gameplay changes out of the porting exercise. Mesa, MoltenVK, SDL and Recoil retain their respective upstream credits. No upstream approval of this local integration is implied.
 
-## Why this port took this route
-
-The maintainer's development account began with a KosmicKrisp-based macOS build, then explored MoltenVK because performance was unsatisfactory in the scenes being played. Removing the X11/XQuartz dependency and integrating native windows became a further goal. This records the project's motivation, not a controlled KK-versus-MVK benchmark or a claim to worldwide priority.
+## Validation scope
 
 The [validation records](../release-readiness/2026-10-18-v1.0.3/README.md) distinguish historical gameplay observations, CPU/package checks and pending acceptance on other machines. This documentation update adds no new runtime test result.
