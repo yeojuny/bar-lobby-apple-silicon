@@ -1,0 +1,105 @@
+{
+  "schema": "bar-applied-unit-audit-v1",
+  "unit": "S1",
+  "recordedAtUTC": "2026-10-18T02:08:43.361730+00:00",
+  "reviewer": "Audit - MK2",
+  "verdict": "PASS",
+  "sourcePublicationAllowed": true,
+  "requiredChecksSatisfied": true,
+  "hqResult": {
+    "path": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/S1/unit-result.json",
+    "sha256": "a1c8ffd80b4adc4d994d21de598917142c259827f61ffcd8e2cc0830af9c79b4"
+  },
+  "upstreamSHA": "57f22e6e43ad7c40912645d6cc76083107b4c367",
+  "completePatch": {
+    "path": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/S1/change.patch",
+    "sha256": "1639ed588fef528ccc1b676872c847e807a1e597cbd74b7b341216d51debcfda"
+  },
+  "reviewedFiles": [
+    {
+      "componentRelativePath": "src/stdlib/SDL_string.c",
+      "path": "$WORKSPACE/build/run66-sdl-src-20260903/src/stdlib/SDL_string.c",
+      "preimage": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/S1/preimage/src/stdlib/SDL_string.c",
+      "preimageSHA256": "842cc2ad97c678b6a5ff323e885b99ab9d432ca1ec7ca457dbe7fe85484fdf1e",
+      "postimage": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/S1/postimage/src/stdlib/SDL_string.c",
+      "postimageSHA256": "7d0e3d3cdbd00d6b961b4c53d49deb73f68155690f7d30c7dcc0cda5cc333b8f",
+      "mode": 420,
+      "bytes": 77697
+    },
+    {
+      "componentRelativePath": "test/testautomation_stdlib.c",
+      "path": "$WORKSPACE/build/run66-sdl-src-20260903/test/testautomation_stdlib.c",
+      "preimage": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/S1/preimage/test/testautomation_stdlib.c",
+      "preimageSHA256": "4773e2d380470028b3dfa210d1088a3038834195dfdd307b002311fe75390f07",
+      "postimage": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/S1/postimage/test/testautomation_stdlib.c",
+      "postimageSHA256": "60c240c1cb452536716dc7d2896839ff95612fefac92efcaf2aa92ba6b2c3c77",
+      "mode": 420,
+      "bytes": 85221
+    }
+  ],
+  "productionReview": "Exactly the upstream one-byte 0x1F -> 0x3F continuation payload mask; no allocation, synchronization, ABI, display or audio changes. The discarded sixth payload bit explains the four pre-fix upper-plane failures.",
+  "testReview": "One added case in existing Stdlib suite, 24 specified valid/boundary/malformed/truncated inputs through actual public forward/reverse/remaining-length APIs. Same rebuilt test executable failed before and passed after loading the changed raw SDL. No standalone tool/harness.",
+  "validation": {
+    "beforeFixExpectedFailure": {
+      "total": 116,
+      "passed": 102,
+      "failed": 14
+    },
+    "afterFixAssertions": 272,
+    "afterFixFailures": 0,
+    "testNames": [
+      "stdlib_stepUTF8",
+      "stdlib_strstr",
+      "stdlib_strpbrk",
+      "stdlib_iconv"
+    ],
+    "minimalComponentBuildPassed": true,
+    "actualChangedLibraryBinding": true,
+    "rawSDL": {
+      "path": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/S1/artifacts/libSDL3.0.dylib",
+      "builtPath": "$WORKSPACE/build/run95-sdl-20261002/libSDL3.0.dylib",
+      "sha256": "1915ccbbdee9a017115850ee297a018ff9f8bbc2dcb07b121e8dfb780a9cb9f2",
+      "bytes": 3009664,
+      "beforeSHA256": "48cad18382891fe9d83c51aa0f61c3701265431e43ab1cc41391c7c1d74c4718",
+      "buildRawOnly": true,
+      "installedOrPackagedIntoApp": false
+    },
+    "compileFlagsUnchanged": true,
+    "patchRoundtripByteExact": true,
+    "publicABIDeclarationsChangedByDiff": false,
+    "publicABIScope": "Source signatures/layouts and build flags unchanged; no binary export census claimed.",
+    "dependencyLoadCommandsAndInstallNameUnchanged": true
+  },
+  "publicBase": {
+    "publicURL": "https://github.com/yeojuny/bar-lobby-apple-silicon/releases/download/v0.17.0-candidate.4/BAR-0.17.0-candidate.4-sources.tar.gz",
+    "outerSHA256": "65e29a1b17c7d434fa6a4c97b5040a0236f1edb36d869f0b18c6fb27f70c792e",
+    "componentArchive": "BAR-0.17.0-candidate.4-sources/archives/sdl3-4a17e772.tar.gz",
+    "componentArchiveSHA256": "a0d0c257c748660936e2b19c561e338ba8198982c44b9e9dfbaf4312c515197f",
+    "changedFilePreimages": {
+      "src/stdlib/SDL_string.c": {
+        "preimageSHA256": "842cc2ad97c678b6a5ff323e885b99ab9d432ca1ec7ca457dbe7fe85484fdf1e",
+        "publicArchiveMode": 420,
+        "publicPreimageExact": true
+      },
+      "test/testautomation_stdlib.c": {
+        "preimageSHA256": "4773e2d380470028b3dfa210d1088a3038834195dfdd307b002311fe75390f07",
+        "publicArchiveMode": 420,
+        "publicPreimageExact": true
+      }
+    }
+  },
+  "preserved": "Three local property corrections, S2 getenv, selected Cocoa/bridge files, real launcher HEAD/index and selected frozen app SDL/metadata hashes unchanged. No whole-app inventory claim.",
+  "notRequiredThisUnit": [
+    "Repeated property runtime tests: property source unchanged and only the StepUTF8 object rebuilt with unchanged flags and public ABI",
+    "Game/GPU/FPS/MP, display/fullscreen/IME acceptance, whole application build; not related to this isolated decoding change"
+  ],
+  "retainedFailure": "Initial optional FFmpeg test discovery referenced missing old headers; test-only package discovery disabled, production options and flags unchanged; original failure receipt retained.",
+  "limits": [
+    "Raw component/source checkpoint only; no app repackaging, installation or public app/Release/Homebrew update",
+    "No claim of Korean IME correction, measured FPS/audio improvement or runtime acceptance of a newly integrated app"
+  ],
+  "blockingFindings": [],
+  "nextGate": "Publisher verifies exact input hashes/allowlisted export and commits source checkpoint; no S2 until remote readback.",
+  "privateOriginalAuditSHA256": "510847cfb92d3853a12792e7bc09ed5e220568cff01bdd3e8edc751a7553c0f2",
+  "exportNote": "Path-rebased public copy; original private receipt hash is a provenance identity, not this exported blob hash."
+}

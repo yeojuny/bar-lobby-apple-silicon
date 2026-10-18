@@ -1,0 +1,373 @@
+{
+  "unit": "S1",
+  "originalHQResultSHA256": "a1c8ffd80b4adc4d994d21de598917142c259827f61ffcd8e2cc0830af9c79b4",
+  "appliedAuditOriginalSHA256": "510847cfb92d3853a12792e7bc09ed5e220568cff01bdd3e8edc751a7553c0f2",
+  "builds": {
+    "initialBaselineBuildFailure": {
+      "phase": "baseline-test-extension-production-unmodified",
+      "command": [
+        "/opt/homebrew/bin/cmake",
+        "--build",
+        "$WORKSPACE/build/run95-sdl-20261002",
+        "--target",
+        "SDL3-shared",
+        "testautomation",
+        "--parallel",
+        "3"
+      ],
+      "cwd": "$WORKSPACE",
+      "returncode": 2,
+      "seconds": 8.103410208,
+      "log": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/S1/baseline-build.log",
+      "finishedAtUTC": "2026-10-18T02:03:12.806050+00:00",
+      "scope": "Only existing SDL shared component and existing testautomation targets; no install, app or game launch"
+    },
+    "testOnlyConfigureRepair": {
+      "phase": "configure-focused-tests",
+      "command": [
+        "/opt/homebrew/bin/cmake",
+        "-S",
+        "$WORKSPACE/build/run66-sdl-src-20260903",
+        "-B",
+        "$WORKSPACE/build/run95-sdl-20261002",
+        "-DCMAKE_DISABLE_FIND_PACKAGE_FFmpeg=ON"
+      ],
+      "cwd": "$WORKSPACE",
+      "returncode": 0,
+      "seconds": 1.6378852499999998,
+      "log": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/S1/configure-focused-tests.log",
+      "finishedAtUTC": "2026-10-18T02:04:11.825837+00:00",
+      "scope": "SDL shared/testautomation only; optional unrelated testffmpeg excluded, no production source change yet"
+    },
+    "baselineBuildAfterRepair": {
+      "phase": "baseline-build-attempt2",
+      "command": [
+        "/opt/homebrew/bin/cmake",
+        "--build",
+        "$WORKSPACE/build/run95-sdl-20261002",
+        "--target",
+        "SDL3-shared",
+        "testautomation",
+        "--parallel",
+        "3"
+      ],
+      "cwd": "$WORKSPACE",
+      "returncode": 0,
+      "seconds": 45.099340459000004,
+      "log": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/S1/baseline-build-attempt2.log",
+      "finishedAtUTC": "2026-10-18T02:04:56.926041+00:00",
+      "scope": "SDL shared/testautomation only; optional unrelated testffmpeg excluded, no production source change yet"
+    },
+    "afterFixIncrementalBuild": {
+      "phase": "after-production-fix",
+      "command": [
+        "/opt/homebrew/bin/cmake",
+        "--build",
+        "$WORKSPACE/build/run95-sdl-20261002",
+        "--target",
+        "SDL3-shared",
+        "testautomation",
+        "--parallel",
+        "3"
+      ],
+      "cwd": "$WORKSPACE",
+      "returncode": 0,
+      "seconds": 3.3029467919999997,
+      "log": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/S1/after-fix-build.log",
+      "finishedAtUTC": "2026-10-18T02:05:29.522573+00:00"
+    },
+    "afterFixCompileScope": "Only src/stdlib/SDL_string.c object, SDL dylib link and existing testautomation relink; original compile flags unchanged.",
+    "selectedComponentsOnly": true,
+    "newSourceOrBuildLanes": 0,
+    "installedPrefixUpdated": false
+  },
+  "testResults": {
+    "beforeFix": {
+      "phase": "before-production-fix",
+      "command": [
+        "$WORKSPACE/build/run95-sdl-20261002/test/testautomation",
+        "--video",
+        "dummy",
+        "--audio",
+        "dummy",
+        "--filter",
+        "stdlib_stepUTF8",
+        "--seed",
+        "S1UTF8FIXEDSEED"
+      ],
+      "cwd": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/S1",
+      "environmentOverrides": {
+        "DYLD_PRINT_LIBRARIES": "1"
+      },
+      "processOnlyArguments": "dummy video/audio, existing runner num_windows=0",
+      "returncode": 1,
+      "seconds": 1.708262375,
+      "log": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/S1/before-fix-step-utf8.log",
+      "loadedSDL": [
+        "dyld[41025]: <127C60FF-A873-3A80-A4F6-736DF06031B8> $WORKSPACE/build/run95-sdl-20261002/libSDL3.0.dylib"
+      ],
+      "expectedFailure": true,
+      "rawSDLSHA256": "48cad18382891fe9d83c51aa0f61c3701265431e43ab1cc41391c7c1d74c4718",
+      "testExecutableSHA256": "6e97fa951e9f5da7205e31672654d142e4733976433b4a0ef466983958acf322",
+      "productionSourceStillPreimage": true,
+      "finishedAtUTC": "2026-10-18T02:05:17.784443+00:00"
+    },
+    "beforeFixAssertions": {
+      "total": 116,
+      "passed": 102,
+      "failed": 14
+    },
+    "beforeFixFailureCause": "Expected four upper-bit codepoints misdecoded; 14 failed assertions, runner exit1. Not an initialization/crash failure.",
+    "afterFix": [
+      {
+        "name": "stdlib_stepUTF8",
+        "phase": "after-production-fix",
+        "command": [
+          "$WORKSPACE/build/run95-sdl-20261002/test/testautomation",
+          "--video",
+          "dummy",
+          "--audio",
+          "dummy",
+          "--filter",
+          "stdlib_stepUTF8",
+          "--seed",
+          "S1UTF8FIXEDSEED"
+        ],
+        "cwd": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/S1",
+        "returncode": 0,
+        "seconds": 1.560350167,
+        "log": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/S1/after-fix-stdlib_stepUTF8.log",
+        "loadedSDL": [
+          "dyld[41891]: <D582BC44-ACC9-3CDD-B2FF-537EEF3B5DFE> $WORKSPACE/build/run95-sdl-20261002/libSDL3.0.dylib"
+        ],
+        "environmentOverrides": {
+          "DYLD_PRINT_LIBRARIES": "1"
+        },
+        "rawSDLSHA256": "1915ccbbdee9a017115850ee297a018ff9f8bbc2dcb07b121e8dfb780a9cb9f2",
+        "testExecutableSHA256": "6e97fa951e9f5da7205e31672654d142e4733976433b4a0ef466983958acf322",
+        "assertionSummaries": [
+          {
+            "total": 117,
+            "passed": 117,
+            "failed": 0
+          }
+        ],
+        "runSummary": {
+          "total": 1,
+          "passed": 1,
+          "failed": 0,
+          "skipped": 0
+        },
+        "finishedAtUTC": "2026-10-18T02:06:00.078816+00:00"
+      },
+      {
+        "name": "stdlib_strstr",
+        "phase": "after-production-fix",
+        "command": [
+          "$WORKSPACE/build/run95-sdl-20261002/test/testautomation",
+          "--video",
+          "dummy",
+          "--audio",
+          "dummy",
+          "--filter",
+          "stdlib_strstr",
+          "--seed",
+          "S1UTF8FIXEDSEED"
+        ],
+        "cwd": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/S1",
+        "returncode": 0,
+        "seconds": 2.028109084,
+        "log": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/S1/after-fix-stdlib_strstr.log",
+        "loadedSDL": [
+          "dyld[42091]: <D582BC44-ACC9-3CDD-B2FF-537EEF3B5DFE> $WORKSPACE/build/run95-sdl-20261002/libSDL3.0.dylib"
+        ],
+        "environmentOverrides": {
+          "DYLD_PRINT_LIBRARIES": "1"
+        },
+        "rawSDLSHA256": "1915ccbbdee9a017115850ee297a018ff9f8bbc2dcb07b121e8dfb780a9cb9f2",
+        "testExecutableSHA256": "6e97fa951e9f5da7205e31672654d142e4733976433b4a0ef466983958acf322",
+        "assertionSummaries": [
+          {
+            "total": 20,
+            "passed": 20,
+            "failed": 0
+          }
+        ],
+        "runSummary": {
+          "total": 1,
+          "passed": 1,
+          "failed": 0,
+          "skipped": 0
+        },
+        "finishedAtUTC": "2026-10-18T02:06:02.111682+00:00"
+      },
+      {
+        "name": "stdlib_strpbrk",
+        "phase": "after-production-fix",
+        "command": [
+          "$WORKSPACE/build/run95-sdl-20261002/test/testautomation",
+          "--video",
+          "dummy",
+          "--audio",
+          "dummy",
+          "--filter",
+          "stdlib_strpbrk",
+          "--seed",
+          "S1UTF8FIXEDSEED"
+        ],
+        "cwd": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/S1",
+        "returncode": 0,
+        "seconds": 1.4704625839999999,
+        "log": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/S1/after-fix-stdlib_strpbrk.log",
+        "loadedSDL": [
+          "dyld[42298]: <D582BC44-ACC9-3CDD-B2FF-537EEF3B5DFE> $WORKSPACE/build/run95-sdl-20261002/libSDL3.0.dylib"
+        ],
+        "environmentOverrides": {
+          "DYLD_PRINT_LIBRARIES": "1"
+        },
+        "rawSDLSHA256": "1915ccbbdee9a017115850ee297a018ff9f8bbc2dcb07b121e8dfb780a9cb9f2",
+        "testExecutableSHA256": "6e97fa951e9f5da7205e31672654d142e4733976433b4a0ef466983958acf322",
+        "assertionSummaries": [
+          {
+            "total": 54,
+            "passed": 54,
+            "failed": 0
+          }
+        ],
+        "runSummary": {
+          "total": 1,
+          "passed": 1,
+          "failed": 0,
+          "skipped": 0
+        },
+        "finishedAtUTC": "2026-10-18T02:06:03.585773+00:00"
+      },
+      {
+        "name": "stdlib_iconv",
+        "phase": "after-production-fix",
+        "command": [
+          "$WORKSPACE/build/run95-sdl-20261002/test/testautomation",
+          "--video",
+          "dummy",
+          "--audio",
+          "dummy",
+          "--filter",
+          "stdlib_iconv",
+          "--seed",
+          "S1UTF8FIXEDSEED"
+        ],
+        "cwd": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/S1",
+        "returncode": 0,
+        "seconds": 1.415303625,
+        "log": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/S1/after-fix-stdlib_iconv.log",
+        "loadedSDL": [
+          "dyld[42533]: <D582BC44-ACC9-3CDD-B2FF-537EEF3B5DFE> $WORKSPACE/build/run95-sdl-20261002/libSDL3.0.dylib"
+        ],
+        "environmentOverrides": {
+          "DYLD_PRINT_LIBRARIES": "1"
+        },
+        "rawSDLSHA256": "1915ccbbdee9a017115850ee297a018ff9f8bbc2dcb07b121e8dfb780a9cb9f2",
+        "testExecutableSHA256": "6e97fa951e9f5da7205e31672654d142e4733976433b4a0ef466983958acf322",
+        "assertionSummaries": [
+          {
+            "total": 81,
+            "passed": 81,
+            "failed": 0
+          }
+        ],
+        "runSummary": {
+          "total": 1,
+          "passed": 1,
+          "failed": 0,
+          "skipped": 0
+        },
+        "finishedAtUTC": "2026-10-18T02:06:05.004530+00:00"
+      }
+    ],
+    "focusedUTF8": {
+      "inputs": 24,
+      "assertions": 117,
+      "passed": 117,
+      "failed": 0
+    },
+    "existingRelatedStrings": {
+      "tests": [
+        "stdlib_strstr",
+        "stdlib_strpbrk",
+        "stdlib_iconv"
+      ],
+      "assertions": 155,
+      "failed": 0
+    },
+    "totalPostFixAssertions": 272,
+    "actualLibraryBindingConfirmed": true,
+    "sameNewlyBuiltTestExecutableAcrossBeforeAndAfter": true,
+    "linkProof": "Existing testautomation rebuilt with extended Stdlib suite, @rpath points at this build. DYLD_PRINT_LIBRARIES records exact active SDL path in before and all after processes; raw SDL SHA changed while test executable SHA stayed fixed.",
+    "dummyVideoAndAudio": "Per-test command arguments only. Existing runner num_windows=0, no real window/audio device; no product/user settings changed."
+  },
+  "configuration": {
+    "unrelatedOptionalTestDependencyRepair": {
+      "option": "CMAKE_DISABLE_FIND_PACKAGE_FFmpeg",
+      "before": null,
+      "after": "ON",
+      "reason": "Existing optional testffmpeg imported include points at deleted /opt/homebrew/Cellar/ffmpeg/9.0.2/include. Only optional test discovery disabled; no package installed/updated and production FFmpeg dependency not introduced.",
+      "sourceProof": "test/CMakeLists.txt find_package(FFmpeg) controls testffmpeg only",
+      "initialFailureRetained": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/S1/baseline-build.json"
+    },
+    "selectedProductionAndTestConfigDifferences": {},
+    "compileFlagsExactBefore": "b3fb884bcc10994e7dc403a1692c06a53f7f660e0a3196216283342b12ae26df",
+    "compileFlagsExactAfter": "b3fb884bcc10994e7dc403a1692c06a53f7f660e0a3196216283342b12ae26df",
+    "compileFlagsUnchanged": true,
+    "noInstallOrAppStaging": true
+  },
+  "artifacts": {
+    "newRawSDL": {
+      "path": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/S1/artifacts/libSDL3.0.dylib",
+      "builtPath": "$WORKSPACE/build/run95-sdl-20261002/libSDL3.0.dylib",
+      "sha256": "1915ccbbdee9a017115850ee297a018ff9f8bbc2dcb07b121e8dfb780a9cb9f2",
+      "bytes": 3009664,
+      "beforeSHA256": "48cad18382891fe9d83c51aa0f61c3701265431e43ab1cc41391c7c1d74c4718",
+      "buildRawOnly": true,
+      "installedOrPackagedIntoApp": false
+    },
+    "testExecutable": {
+      "path": "$WORKSPACE/build/run95-sdl-20261002/test/testautomation",
+      "sha256": "6e97fa951e9f5da7205e31672654d142e4733976433b4a0ef466983958acf322"
+    },
+    "dependencyLoadCommandsAndInstallNameUnchanged": true
+  },
+  "retainedFailuresAndGaps": {
+    "baselineCMakeFailure": "Optional testffmpeg discovery used deleted ffmpeg/9.0.2/include. Recorded failure preserved; repaired only CMAKE_DISABLE_FIND_PACKAGE_FFmpeg=ON. No package install/update or runtime-option change.",
+    "expectedPreFixRegressionFailure": "116 assertions / 14 failures retained; same unchanged-production library as original raw artifact.",
+    "notRequired": [
+      {
+        "check": "whole app/game/FPS/MP suite",
+        "reason": "S1 is isolated UTF-8 mask; adopted risk-tier1 policy requires component+focused checks only"
+      },
+      {
+        "check": "screen/fullscreen/audio/AI runtime",
+        "reason": "No window/audio/engine path change; focused tests use dummy backends and no window"
+      },
+      {
+        "check": "full launcher/types/Lua/VBO/native52/signature/installer",
+        "reason": "No launcher/engine/app package mutation in S1; final V1 integration is separate"
+      }
+    ],
+    "notRun": [
+      "fresh GUI/native GPU/game/MP/other-Mac/endurance acceptance",
+      "actual-applied Audit - MK2 review",
+      "publisher source commit/remote readback",
+      "app packaging/install/release/Homebrew"
+    ],
+    "claimLimits": "Fix establishes selected UTF-8 decoding behavior. No Korean IME-wide repair, FPS/energy improvement, whole Unicode parser certification or frozen-app update claim."
+  },
+  "notRequiredThisUnit": [
+    "Repeated property runtime tests: property source unchanged and only the StepUTF8 object rebuilt with unchanged flags and public ABI",
+    "Game/GPU/FPS/MP, display/fullscreen/IME acceptance, whole application build; not related to this isolated decoding change"
+  ],
+  "limits": [
+    "Raw component/source checkpoint only; no app repackaging, installation or public app/Release/Homebrew update",
+    "No claim of Korean IME correction, measured FPS/audio improvement or runtime acceptance of a newly integrated app"
+  ],
+  "scope": "HQ build/test execution and Audit - MK2 applied-code review; publisher did not rerun product checks."
+}

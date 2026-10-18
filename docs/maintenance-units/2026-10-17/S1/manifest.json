@@ -1,0 +1,192 @@
+{
+  "schema": "bar-maintenance-public-unit-v1",
+  "unit": "S1",
+  "upstream": {
+    "sha": "57f22e6e43ad7c40912645d6cc76083107b4c367",
+    "url": "https://github.com/libsdl-org/SDL/commit/57f22e6e43ad7c40912645d6cc76083107b4c367"
+  },
+  "componentBaseUpstream": "4a17e772ea9a4ff77dd10fa6ea6f45fc6731eb01",
+  "localBase": "Public candidate.4 SDL component archive includes the retained port property corrections. Candidate.5 did not change SDL. This checkpoint contains the S1 final production/test delta.",
+  "publicationParent": "1893fa132a5b35197a9ec353ff48291ece9eb898",
+  "publicSourceBase": {
+    "publicURL": "https://github.com/yeojuny/bar-lobby-apple-silicon/releases/download/v0.17.0-candidate.4/BAR-0.17.0-candidate.4-sources.tar.gz",
+    "outerSHA256": "65e29a1b17c7d434fa6a4c97b5040a0236f1edb36d869f0b18c6fb27f70c792e",
+    "componentArchive": "BAR-0.17.0-candidate.4-sources/archives/sdl3-4a17e772.tar.gz",
+    "componentArchiveSHA256": "a0d0c257c748660936e2b19c561e338ba8198982c44b9e9dfbaf4312c515197f",
+    "changedFilePreimages": {
+      "src/stdlib/SDL_string.c": {
+        "preimageSHA256": "842cc2ad97c678b6a5ff323e885b99ab9d432ca1ec7ca457dbe7fe85484fdf1e",
+        "publicArchiveMode": 420,
+        "publicPreimageExact": true
+      },
+      "test/testautomation_stdlib.c": {
+        "preimageSHA256": "4773e2d380470028b3dfa210d1088a3038834195dfdd307b002311fe75390f07",
+        "publicArchiveMode": 420,
+        "publicPreimageExact": true
+      }
+    }
+  },
+  "files": [
+    {
+      "path": "src/stdlib/SDL_string.c",
+      "preimageSHA256": "842cc2ad97c678b6a5ff323e885b99ab9d432ca1ec7ca457dbe7fe85484fdf1e",
+      "postimageSHA256": "7d0e3d3cdbd00d6b961b4c53d49deb73f68155690f7d30c7dcc0cda5cc333b8f",
+      "mode": "100644"
+    },
+    {
+      "path": "test/testautomation_stdlib.c",
+      "preimageSHA256": "4773e2d380470028b3dfa210d1088a3038834195dfdd307b002311fe75390f07",
+      "postimageSHA256": "60c240c1cb452536716dc7d2896839ff95612fefac92efcaf2aa92ba6b2c3c77",
+      "mode": "100644"
+    }
+  ],
+  "patch": {
+    "path": "change.patch",
+    "sha256": "1639ed588fef528ccc1b676872c847e807a1e597cbd74b7b341216d51debcfda",
+    "bytes": 5280,
+    "includes": "One production line plus one existing testautomation Stdlib regression case; the test hunk is part of this same unit."
+  },
+  "privateEvidenceOriginalSHA256": {
+    "unit-result.json": "a1c8ffd80b4adc4d994d21de598917142c259827f61ffcd8e2cc0830af9c79b4",
+    "applied-audit.json": "510847cfb92d3853a12792e7bc09ed5e220568cff01bdd3e8edc751a7553c0f2",
+    "change.patch": "1639ed588fef528ccc1b676872c847e807a1e597cbd74b7b341216d51debcfda"
+  },
+  "buildInputs": {
+    "sourceRoot": "$WORKSPACE/build/run66-sdl-src-20260903",
+    "buildRoot": "$WORKSPACE/build/run95-sdl-20261002",
+    "originalInputLockSHA256": "58bf15f9cd5485aa960c8c8ec18a5732117d84457cdcd011171283300b2a5dbc",
+    "beforeCMakeCacheSHA256": "b8f754b36eb266e7eddf7d0a134e82064d74d3ea2fd0b9ca25d74873d6d39990",
+    "selectedCMakeOptions": {
+      "CMAKE_BUILD_TYPE": "Release",
+      "CMAKE_CXX_COMPILER": "/usr/bin/c++",
+      "CMAKE_CXX_FLAGS": "",
+      "CMAKE_C_COMPILER": "/usr/bin/cc",
+      "CMAKE_C_FLAGS": "",
+      "CMAKE_OSX_ARCHITECTURES": "arm64",
+      "CMAKE_OSX_DEPLOYMENT_TARGET": "27.0",
+      "CMAKE_OSX_SYSROOT": "",
+      "CMAKE_SHARED_LINKER_FLAGS": "",
+      "SDL_ALSA": "OFF",
+      "SDL_ARMNEON": "ON",
+      "SDL_ARMSVE2": "ON",
+      "SDL_ASAN": "OFF",
+      "SDL_ASSEMBLY": "ON",
+      "SDL_ASSERTIONS": "auto",
+      "SDL_AUDIO": "ON",
+      "SDL_BACKGROUNDING_SIGNAL": "OFF",
+      "SDL_CAMERA": "ON",
+      "SDL_CCACHE": "OFF",
+      "SDL_CHECK_REQUIRED_INCLUDES": "",
+      "SDL_CHECK_REQUIRED_LINK_OPTIONS": "",
+      "SDL_CLANG_TIDY": "OFF",
+      "SDL_CLOCK_GETTIME": "OFF",
+      "SDL_COCOA": "ON",
+      "SDL_DEPS_SHARED": "ON",
+      "SDL_DIALOG": "ON",
+      "SDL_DISKAUDIO": "ON",
+      "SDL_DUMMYAUDIO": "ON",
+      "SDL_DUMMYCAMERA": "ON",
+      "SDL_DUMMYVIDEO": "ON",
+      "SDL_EXAMPLES": "OFF",
+      "SDL_FOREGROUNDING_SIGNAL": "OFF",
+      "SDL_FRAMEWORK": "OFF",
+      "SDL_GCC_ATOMICS": "ON",
+      "SDL_GPU": "ON",
+      "SDL_GPU_OPENXR": "ON",
+      "SDL_HAPTIC": "ON",
+      "SDL_HIDAPI": "ON",
+      "SDL_HIDAPI_JOYSTICK": "ON",
+      "SDL_HIDAPI_LIBUSB": "ON",
+      "SDL_HIDAPI_LIBUSB_SHARED": "ON",
+      "SDL_INSTALL": "ON",
+      "SDL_INSTALL_CMAKEDIR_ROOT": "lib/cmake/SDL3",
+      "SDL_INSTALL_CPACK": "ON",
+      "SDL_INSTALL_DOCS": "OFF",
+      "SDL_INSTALL_TESTS": "OFF",
+      "SDL_JACK": "OFF",
+      "SDL_JOYSTICK": "ON",
+      "SDL_KMSDRM": "OFF",
+      "SDL_LEAN_AND_MEAN": "OFF",
+      "SDL_LIBC": "ON",
+      "SDL_LIBICONV": "OFF",
+      "SDL_METAL": "ON",
+      "SDL_NOTIFICATION": "ON",
+      "SDL_OFFSCREEN": "ON",
+      "SDL_OPENGL": "ON",
+      "SDL_OPENGLES": "ON",
+      "SDL_OPENVR": "OFF",
+      "SDL_PIPEWIRE": "OFF",
+      "SDL_POWER": "ON",
+      "SDL_PTHREADS": "ON",
+      "SDL_PTHREADS_SEM": "ON",
+      "SDL_PULSEAUDIO": "OFF",
+      "SDL_RELOCATABLE": "OFF",
+      "SDL_RENDER": "ON",
+      "SDL_RENDER_GPU": "ON",
+      "SDL_RENDER_METAL": "ON",
+      "SDL_RENDER_VULKAN": "ON",
+      "SDL_REVISION": "",
+      "SDL_RPATH": "ON",
+      "SDL_SENSOR": "ON",
+      "SDL_SHARED": "ON",
+      "SDL_SNDIO": "OFF",
+      "SDL_STATIC": "OFF",
+      "SDL_SYSTEM_ICONV": "OFF",
+      "SDL_TESTS": "ON",
+      "SDL_TESTS_TIMEOUT_MULTIPLIER": "1",
+      "SDL_TEST_LIBRARY": "ON",
+      "SDL_TRAY": "ON",
+      "SDL_UNINSTALL": "ON",
+      "SDL_VENDOR_INFO": "",
+      "SDL_VIDEO": "ON",
+      "SDL_VIRTUAL_JOYSTICK": "ON",
+      "SDL_VULKAN": "ON",
+      "SDL_WAYLAND": "OFF",
+      "SDL_WERROR": "OFF",
+      "SDL_X11": "OFF",
+      "CMAKE_DISABLE_FIND_PACKAGE_FFmpeg": "ON"
+    },
+    "productionCompileFlagsSHA256": "b3fb884bcc10994e7dc403a1692c06a53f7f660e0a3196216283342b12ae26df",
+    "jobs": 3,
+    "initialOptionalFFmpegDiscoveryRepair": {
+      "option": "CMAKE_DISABLE_FIND_PACKAGE_FFmpeg",
+      "before": null,
+      "after": "ON",
+      "reason": "Existing optional testffmpeg imported include points at deleted /opt/homebrew/Cellar/ffmpeg/9.0.2/include. Only optional test discovery disabled; no package installed/updated and production FFmpeg dependency not introduced.",
+      "sourceProof": "test/CMakeLists.txt find_package(FFmpeg) controls testffmpeg only",
+      "initialFailureRetained": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/S1/baseline-build.json"
+    }
+  },
+  "rawSDL": {
+    "path": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/S1/artifacts/libSDL3.0.dylib",
+    "builtPath": "$WORKSPACE/build/run95-sdl-20261002/libSDL3.0.dylib",
+    "sha256": "1915ccbbdee9a017115850ee297a018ff9f8bbc2dcb07b121e8dfb780a9cb9f2",
+    "bytes": 3009664,
+    "beforeSHA256": "48cad18382891fe9d83c51aa0f61c3701265431e43ab1cc41391c7c1d74c4718",
+    "buildRawOnly": true,
+    "installedOrPackagedIntoApp": false
+  },
+  "testExecutable": {
+    "path": "$WORKSPACE/build/run95-sdl-20261002/test/testautomation",
+    "sha256": "6e97fa951e9f5da7205e31672654d142e4733976433b4a0ef466983958acf322"
+  },
+  "preserved": {
+    "propertyThreeCorrections": "SDL_properties.c exact before/after SHA unchanged; no redundant Properties runtime re-test required for a different source file.",
+    "S2Environment": "SDL_getenv.c exact before/after SHA unchanged; S2 not applied.",
+    "displayPolicy": "Selected Cocoa and both native MacSDL3EGLBridge sources unchanged; target-screen/safe-area/fullscreen/display tests not required for this mask change.",
+    "launcherHEADAndRealIndex": "unchanged in bounded readback",
+    "frozenApps": "No writes/install/repackage; selected app metadata and packaged SDL file hashes unchanged. Full inventories not rerun.",
+    "numericMPNoGSCUSWaitCost": "outside edit/build scope, preserved; no engine/AI/MVK/Mesa/Loader source or build invoked.",
+    "receipt": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/S1/preservation-after.json"
+  },
+  "sourcePublicABIScope": "Source signatures/layouts and build flags unchanged; no binary export census claimed.",
+  "sourcePublicationGate": {
+    "appliedAuditVerdict": "PASS",
+    "requiredChecksSatisfied": true,
+    "explicitCoordinatorPASSReceived": true,
+    "gameGPUFPSMPAccepted": false
+  },
+  "license": "Existing SDL source license and attribution remain in the pinned component archive; no upstream license/credit change.",
+  "appReleaseScope": "Source/raw-component checkpoint only. No app repackaging, installation, public app release, tag or Homebrew update.",
+  "commitSHARule": "Actual publication commit SHA is recorded after commit creation in a separate local receipt."
+}

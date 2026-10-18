@@ -1,0 +1,112 @@
+--- a/src/stdlib/SDL_string.c
++++ b/src/stdlib/SDL_string.c
+@@ -240,7 +240,7 @@
+         const Uint8 str2 = str[2];
+         const Uint8 str3 = str[3];
+         if (((str1 & 0xC0) == 0x80) && ((str2 & 0xC0) == 0x80) && ((str3 & 0xC0) == 0x80)) {  // If trailing bytes aren't 10xxxxxx, sequence is bogus.
+-            const Uint32 octet2 = ((Uint32) (str1 & 0x1F)) << 12;
++            const Uint32 octet2 = ((Uint32) (str1 & 0x3F)) << 12;
+             const Uint32 octet3 = ((Uint32) (str2 & 0x3F)) << 6;
+             const Uint32 octet4 = ((Uint32) (str3 & 0x3F));
+             const Uint32 result = ((octet & 0x07) << 18) | octet2 | octet3 | octet4;
+--- a/test/testautomation_stdlib.c
++++ b/test/testautomation_stdlib.c
+@@ -6,6 +6,79 @@
+ #include "testautomation_suites.h"
+ 
+ /* Test case functions */
++
++/**
++ * Decode UTF-8 through the public stepping APIs, including four-byte values
++ * whose second continuation byte has all six payload bits in use.
++ */
++static int SDLCALL stdlib_stepUTF8(void *arg)
++{
++    static const struct
++    {
++        const char *name;
++        const char *text;
++        Uint32 expected;
++        size_t consumed;
++        bool valid;
++    } cases[] = {
++        { "empty", "", 0, 0, false },
++        { "ASCII", "A", 0x0041, 1, true },
++        { "U+0080", "\xC2\x80", 0x0080, 2, true },
++        { "U+07FF", "\xDF\xBF", 0x07FF, 2, true },
++        { "U+0800", "\xE0\xA0\x80", 0x0800, 3, true },
++        { "Korean U+D55C", "\xED\x95\x9C", 0xD55C, 3, true },
++        { "U+FFFF", "\xEF\xBF\xBF", 0xFFFF, 3, true },
++        { "U+10000", "\xF0\x90\x80\x80", 0x10000, 4, true },
++        { "U+1F4BB", "\xF0\x9F\x92\xBB", 0x1F4BB, 4, true },
++        { "U+20000", "\xF0\xA0\x80\x80", 0x20000, 4, true },
++        { "U+3FFFF", "\xF0\xBF\xBF\xBF", 0x3FFFF, 4, true },
++        { "U+40000", "\xF1\x80\x80\x80", 0x40000, 4, true },
++        { "U+60000", "\xF1\xA0\x80\x80", 0x60000, 4, true },
++        { "U+FFFFF", "\xF3\xBF\xBF\xBF", 0xFFFFF, 4, true },
++        { "U+10FFFF", "\xF4\x8F\xBF\xBF", 0x10FFFF, 4, true },
++        { "overlong two-byte", "\xC0\xAF", SDL_INVALID_UNICODE_CODEPOINT, 1, false },
++        { "overlong three-byte", "\xE0\x80\x80", SDL_INVALID_UNICODE_CODEPOINT, 1, false },
++        { "surrogate", "\xED\xA0\x80", SDL_INVALID_UNICODE_CODEPOINT, 1, false },
++        { "overlong four-byte", "\xF0\x80\x80\x80", SDL_INVALID_UNICODE_CODEPOINT, 1, false },
++        { "invalid continuation", "\xF0\x28\x8C\xBC", SDL_INVALID_UNICODE_CODEPOINT, 1, false },
++        { "invalid lead", "\xFF", SDL_INVALID_UNICODE_CODEPOINT, 1, false },
++        { "stray continuation", "\x80", SDL_INVALID_UNICODE_CODEPOINT, 1, false },
++        { "truncated two-byte", "\xF0\x9F", SDL_INVALID_UNICODE_CODEPOINT, 1, false },
++        { "truncated three-byte", "\xF0\x9F\x92", SDL_INVALID_UNICODE_CODEPOINT, 1, false }
++    };
++    size_t i;
++
++    for (i = 0; i < SDL_arraysize(cases); ++i) {
++        const char *cursor = cases[i].text;
++        const size_t length = SDL_strlen(cursor);
++        size_t remaining = length;
++        Uint32 decoded = SDL_StepUTF8(&cursor, &remaining);
++
++        SDLTest_AssertCheck(decoded == cases[i].expected,
++                            "%s bounded codepoint: expected 0x%06x, got 0x%06x",
++                            cases[i].name, (unsigned int)cases[i].expected, (unsigned int)decoded);
++        SDLTest_AssertCheck(cursor == cases[i].text + cases[i].consumed,
++                            "%s bounded cursor consumed %zu bytes", cases[i].name, cases[i].consumed);
++        SDLTest_AssertCheck(remaining == length - cases[i].consumed,
++                            "%s bounded remaining length", cases[i].name);
++        if (remaining == 0) {
++            const char *end = cursor;
++            decoded = SDL_StepUTF8(&cursor, &remaining);
++            SDLTest_AssertCheck(decoded == 0 && cursor == end && remaining == 0,
++                                "%s zero length does not advance", cases[i].name);
++        }
++        if (cases[i].valid) {
++            cursor = cases[i].text;
++            decoded = SDL_StepUTF8(&cursor, NULL);
++            SDLTest_AssertCheck(decoded == cases[i].expected && cursor == cases[i].text + length,
++                                "%s NUL-terminated stepping", cases[i].name);
++            decoded = SDL_StepBackUTF8(cases[i].text, &cursor);
++            SDLTest_AssertCheck(decoded == cases[i].expected && cursor == cases[i].text,
++                                "%s reverse stepping", cases[i].name);
++        }
++    }
++    return TEST_COMPLETED;
++}
+ 
+ /**
+  * Call to SDL_strnlen
+@@ -1474,6 +1547,10 @@
+ /* ================= Test References ================== */
+ 
+ /* Standard C routine test cases */
++static const SDLTest_TestCaseReference stdlibTest_stepUTF8 = {
++    stdlib_stepUTF8, "stdlib_stepUTF8", "UTF-8 stepping payload bits, boundaries and invalid input", TEST_ENABLED
++};
++
+ static const SDLTest_TestCaseReference stdlibTest_strnlen = {
+     stdlib_strnlen, "stdlib_strnlen", "Call to SDL_strnlen", TEST_ENABLED
+ };
+@@ -1532,6 +1609,7 @@
+ 
+ /* Sequence of Standard C routine test cases */
+ static const SDLTest_TestCaseReference *stdlibTests[] = {
++    &stdlibTest_stepUTF8,
+     &stdlibTest_strnlen,
+     &stdlibTest_strlcpy,
+     &stdlibTest_strstr,
