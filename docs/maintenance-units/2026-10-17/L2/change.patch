@@ -1,0 +1,345 @@
+diff --git a/loader/loader.c b/loader/loader.c
+--- a/loader/loader.c
++++ b/loader/loader.c
+@@ -4874,6 +4874,8 @@
+     struct loader_device *dev = NULL;
+     struct loader_instance *inst = NULL;
+ 
++    loader_platform_thread_lock_mutex(&loader_lock);
++
+     if (instance != VK_NULL_HANDLE) {
+         inst = loader_get_instance(instance);
+         internal_device = physicalDevice;
+@@ -4974,6 +4976,8 @@
+     if (NULL != icd_exts.list) {
+         loader_destroy_generic_list(inst, (struct loader_generic_list *)&icd_exts);
+     }
++    loader_platform_thread_unlock_mutex(&loader_lock);
++
+     return res;
+ }
+ 
+@@ -4984,6 +4988,8 @@
+     if (device == VK_NULL_HANDLE) {
+         return;
+     }
++
++    loader_platform_thread_lock_mutex(&loader_lock);
+ 
+     struct loader_icd_term *icd_term = loader_get_icd_and_device(device, &dev);
+ 
+@@ -4993,6 +4999,7 @@
+         dev->icd_device = NULL;
+         loader_remove_logical_device(icd_term, dev, pAllocator);
+     }
++    loader_platform_thread_unlock_mutex(&loader_lock);
+ }
+ 
+ // Given the list of layers to activate in the loader_instance
+diff --git a/loader/trampoline.c b/loader/trampoline.c
+--- a/loader/trampoline.c
++++ b/loader/trampoline.c
+@@ -1034,10 +1034,7 @@
+                    "vkCreateDevice: Invalid physicalDevice [VUID-vkCreateDevice-physicalDevice-parameter]");
+         abort(); /* Intentionally fail so user can correct issue. */
+     }
+-    loader_platform_thread_lock_mutex(&loader_lock);
+-    VkResult res = loader_layer_create_device(NULL, physicalDevice, pCreateInfo, pAllocator, pDevice, NULL, NULL);
+-    loader_platform_thread_unlock_mutex(&loader_lock);
+-    return res;
++    return loader_layer_create_device(NULL, physicalDevice, pCreateInfo, pAllocator, pDevice, NULL, NULL);
+ }
+ 
+ LOADER_EXPORT VKAPI_ATTR void VKAPI_CALL vkDestroyDevice(VkDevice device, const VkAllocationCallbacks *pAllocator) {
+@@ -1053,11 +1050,7 @@
+         abort(); /* Intentionally fail so user can correct issue. */
+     }
+ 
+-    loader_platform_thread_lock_mutex(&loader_lock);
+-
+     loader_layer_destroy_device(device, pAllocator, disp->DestroyDevice);
+-
+-    loader_platform_thread_unlock_mutex(&loader_lock);
+ }
+ 
+ LOADER_EXPORT VKAPI_ATTR VkResult VKAPI_CALL vkEnumerateDeviceExtensionProperties(VkPhysicalDevice physicalDevice,
+diff --git a/tests/framework/layer/test_layer.cpp b/tests/framework/layer/test_layer.cpp
+--- a/tests/framework/layer/test_layer.cpp
++++ b/tests/framework/layer/test_layer.cpp
+@@ -256,7 +256,7 @@
+         return VK_ERROR_INITIALIZATION_FAILED;
+     }
+ 
+-    if (layer.call_create_device_while_create_device_is_called) {
++    if (layer.call_create_device_while_create_device_is_called || layer.call_create_and_destroy_device_in_GetQueue) {
+         auto* createDeviceCallback = get_chain_info(pCreateInfo, VK_LOADER_LAYER_CREATE_DEVICE_CALLBACK);
+         layer.callback_vkCreateDevice = createDeviceCallback->u.layerDevice.pfnLayerCreateDevice;
+         layer.callback_vkDestroyDevice = createDeviceCallback->u.layerDevice.pfnLayerDestroyDevice;
+@@ -381,7 +381,7 @@
+             reinterpret_cast<PFN_vkCreateDevice>(fpGetInstanceProcAddr(nullptr, "vkCreateDevice"));
+     }
+ 
+-    if (layer.call_create_device_while_create_device_is_called) {
++    if (layer.call_create_device_while_create_device_is_called || layer.call_create_and_destroy_device_in_GetQueue) {
+         uint32_t phys_dev_count = 0;
+         result = layer.instance_dispatch_table.EnumeratePhysicalDevices(layer.instance_handle, &phys_dev_count, nullptr);
+         if (result != VK_SUCCESS) {
+@@ -433,8 +433,6 @@
+         return VK_ERROR_INITIALIZATION_FAILED;
+     }
+ 
+-    layer.next_vkGetDeviceProcAddr = fpGetDeviceProcAddr;
+-
+     if (layer.check_if_EnumDevExtProps_is_same_as_queried_function) {
+         auto chain_info_EnumDeviceExtProps = reinterpret_cast<PFN_vkEnumerateDeviceExtensionProperties>(
+             fpGetInstanceProcAddr(layer.instance_handle, "vkEnumerateDeviceExtensionProperties"));
+@@ -455,6 +453,7 @@
+     }
+     TestLayer::Device device{};
+     device.device_handle = *pDevice;
++    device.next_vkGetDeviceProcAddr = fpGetDeviceProcAddr;
+ 
+     // initialize layer's dispatch table
+     layer_init_device_dispatch_table(device.device_handle, &device.dispatch_table, fpGetDeviceProcAddr);
+@@ -464,7 +463,7 @@
+     }
+ 
+     for (auto& func : layer.custom_device_interception_functions) {
+-        auto next_func = layer.next_vkGetDeviceProcAddr(*pDevice, func.name.c_str());
++        auto next_func = fpGetDeviceProcAddr(*pDevice, func.name.c_str());
+         layer.custom_dispatch_functions.at(func.name.c_str()) = next_func;
+     }
+ 
+@@ -485,7 +484,7 @@
+     }
+ 
+     if (layer.call_create_device_while_create_device_is_called) {
+-        PFN_vkGetDeviceProcAddr next_gdpa = layer.next_vkGetDeviceProcAddr;
++        PFN_vkGetDeviceProcAddr next_gdpa = fpGetDeviceProcAddr;
+         result = layer.callback_vkCreateDevice(
+             instance_to_use, layer.queried_physical_devices.at(layer.physical_device_index_to_use_during_create_device),
+             pCreateInfo, pAllocator, &layer.second_device_created_during_create_device.device_handle, get_instance_func,
+@@ -684,6 +683,30 @@
+ 
+ // device functions
+ 
++VKAPI_ATTR void VKAPI_CALL test_vkGetDeviceQueue(VkDevice device, uint32_t queueFamilyIndex, uint32_t queueIndex, VkQueue* pQueue) {
++    auto it = layer.get_created_device(device);
++
++    if (layer.call_create_and_destroy_device_in_GetQueue) {
++        TestLayer::Device local_device{};
++        VkDeviceCreateInfo pCreateInfo{};
++
++        pCreateInfo.sType = VK_STRUCTURE_TYPE_DEVICE_CREATE_INFO;
++        PFN_vkGetDeviceProcAddr next_gdpa = it->next_vkGetDeviceProcAddr;
++        VkResult result = layer.callback_vkCreateDevice(
++            layer.instance_handle, layer.queried_physical_devices.at(layer.physical_device_index_to_use_during_create_device),
++            &pCreateInfo, nullptr, &local_device.device_handle, get_instance_func, &next_gdpa);
++        if (result != VK_SUCCESS) {
++            return;
++        }
++        // initialize the other device's dispatch table
++        layer_init_device_dispatch_table(local_device.device_handle, &local_device.dispatch_table, next_gdpa);
++
++        layer.callback_vkDestroyDevice(local_device.device_handle, nullptr, local_device.dispatch_table.DestroyDevice);
++    }
++
++    it->dispatch_table.GetDeviceQueue(device, queueFamilyIndex, queueIndex, pQueue);
++}
++
+ VKAPI_ATTR void VKAPI_CALL test_vkDestroyDevice(VkDevice device, const VkAllocationCallbacks* pAllocator) {
+     for (uint32_t i = 0; i < layer.spurious_device_memory_allocations.size();) {
+         auto& allocation = layer.spurious_device_memory_allocations[i];
+@@ -830,9 +853,10 @@
+ 
+ // trampolines
+ VKAPI_ATTR PFN_vkVoidFunction VKAPI_CALL get_device_func(VkDevice device, const char* pName);
+-VKAPI_ATTR PFN_vkVoidFunction VKAPI_CALL get_device_func_impl([[maybe_unused]] VkDevice device, const char* pName) {
++VKAPI_ATTR PFN_vkVoidFunction VKAPI_CALL get_device_func_impl(VkDevice device, const char* pName) {
+     if (string_eq(pName, "vkGetDeviceProcAddr")) return to_vkVoidFunction(get_device_func);
+     if (string_eq(pName, "vkDestroyDevice")) return to_vkVoidFunction(test_vkDestroyDevice);
++    if (string_eq(pName, "vkGetDeviceQueue")) return to_vkVoidFunction(test_vkGetDeviceQueue);
+ 
+     if (IsDeviceExtensionAvailable(device, VK_EXT_DEBUG_MARKER_EXTENSION_NAME)) {
+         if (string_eq(pName, "vkDebugMarkerSetObjectTagEXT")) return to_vkVoidFunction(test_vkDebugMarkerSetObjectTagEXT);
+@@ -867,11 +891,11 @@
+     return nullptr;
+ }
+ 
+-VKAPI_ATTR PFN_vkVoidFunction VKAPI_CALL get_device_func([[maybe_unused]] VkDevice device, const char* pName) {
++VKAPI_ATTR PFN_vkVoidFunction VKAPI_CALL get_device_func(VkDevice device, const char* pName) {
+     PFN_vkVoidFunction ret_dev = get_device_func_impl(device, pName);
+     if (ret_dev != nullptr) return ret_dev;
+-
+-    return layer.next_vkGetDeviceProcAddr(device, pName);
++    auto it = layer.get_created_device(device);
++    return it != layer.created_devices.end() ? it->next_vkGetDeviceProcAddr(device, pName) : nullptr;
+ }
+ 
+ VKAPI_ATTR PFN_vkVoidFunction VKAPI_CALL get_physical_device_func([[maybe_unused]] VkInstance instance, const char* pName) {
+diff --git a/tests/framework/layer/test_layer.h b/tests/framework/layer/test_layer.h
+--- a/tests/framework/layer/test_layer.h
++++ b/tests/framework/layer/test_layer.h
+@@ -27,6 +27,7 @@
+ 
+ #pragma once
+ 
++#include <algorithm>
+ #include <functional>
+ #include <filesystem>
+ 
+@@ -194,6 +195,7 @@
+ 
+     // Makes the layer try to create a device using the loader provided function in the layer chain
+     BUILDER_VALUE(bool, call_create_device_while_create_device_is_called)
++    BUILDER_VALUE(bool, call_create_and_destroy_device_in_GetQueue)
+     BUILDER_VALUE(uint32_t, physical_device_index_to_use_during_create_device)
+ 
+     BUILDER_VALUE(bool, check_if_EnumDevExtProps_is_same_as_queried_function)
+@@ -209,7 +211,6 @@
+ 
+     PFN_vkGetInstanceProcAddr next_vkGetInstanceProcAddr = VK_NULL_HANDLE;
+     PFN_GetPhysicalDeviceProcAddr next_GetPhysicalDeviceProcAddr = VK_NULL_HANDLE;
+-    PFN_vkGetDeviceProcAddr next_vkGetDeviceProcAddr = VK_NULL_HANDLE;
+ 
+     VkInstance instance_handle = VK_NULL_HANDLE;
+     VkLayerInstanceDispatchTable instance_dispatch_table{};
+@@ -218,8 +219,13 @@
+         VkDevice device_handle = VK_NULL_HANDLE;
+         VkLayerDispatchTable dispatch_table{};
+         std::vector<Extension> enabled_extensions;
++        PFN_vkGetDeviceProcAddr next_vkGetDeviceProcAddr;
+     };
+     std::vector<Device> created_devices;
++    auto get_created_device(VkDevice device) {
++        return std::find_if(std::begin(created_devices), std::end(created_devices),
++                            [device](const TestLayer::Device& dev) { return device == dev.device_handle; });
++    }
+ 
+     // Stores the callback that allows layers to create devices on their own
+     PFN_vkLayerCreateDevice callback_vkCreateDevice{};
+diff --git a/tests/loader_threading_tests.cpp b/tests/loader_threading_tests.cpp
+--- a/tests/loader_threading_tests.cpp
++++ b/tests/loader_threading_tests.cpp
+@@ -130,6 +130,121 @@
+     }
+ }
+ 
++TEST(Threading, LayersDeviceCreateDestroyLoop) {
++    const auto processor_count = std::thread::hardware_concurrency();
++
++    FrameworkEnvironment env{FrameworkSettings{}.set_log_filter("")};
++    auto& driver = env.add_icd(TEST_ICD_PATH_VERSION_2_EXPORT_ICD_GPDPA);
++
++    env.add_implicit_layer({}, ManifestLayer{}.add_layer(ManifestLayer::LayerDescription{}
++                                                             .set_name("implicit_layer_name")
++                                                             .set_lib_path(TEST_LAYER_PATH_EXPORT_VERSION_2)
++                                                             .set_disable_environment("DISABLE_ME")));
++    env.get_test_layer(0).set_call_create_and_destroy_device_in_GetQueue(true);
++
++    uint32_t num_loops_create_destroy_device = 100;
++    uint32_t num_loops_try_get_device_proc_addr = 5;
++
++    driver.add_and_get_physical_device("physical_device_0").known_device_functions = {
++        {"vkCmdBindPipeline", to_vkVoidFunction(test_vkCmdBindPipeline)},
++        {"vkCmdBindDescriptorSets", to_vkVoidFunction(test_vkCmdBindDescriptorSets)},
++        {"vkCmdBindVertexBuffers", to_vkVoidFunction(test_vkCmdBindVertexBuffers)},
++        {"vkCmdBindIndexBuffer", to_vkVoidFunction(test_vkCmdBindIndexBuffer)},
++        {"vkCmdDraw", to_vkVoidFunction(test_vkCmdDraw)}};
++
++    std::vector<std::thread> device_creation_threads;
++
++    for (uint32_t i = 0; i < processor_count; i++) {
++        device_creation_threads.emplace_back(create_destroy_device_loop, &env, num_loops_create_destroy_device,
++                                             num_loops_try_get_device_proc_addr);
++    }
++    for (uint32_t i = 0; i < processor_count; i++) {
++        device_creation_threads[i].join();
++    }
++}
++
++// Keep the owning layer's device vector fixed while the GetQueue hook creates devices below that layer.
++// The official loop above never calls GetQueue; these cases exercise and count the direct callbacks explicitly.
++class LayerDeviceCallbackResult : public testing::TestWithParam<VkResult> {};
++
++TEST_P(LayerDeviceCallbackResult, GetQueueCreatesDestroysAndRecovers) {
++    FrameworkEnvironment env{FrameworkSettings{}.set_log_filter("")};
++    auto& driver = env.add_icd(TEST_ICD_PATH_VERSION_2_EXPORT_ICD_GPDPA);
++    driver.add_and_get_physical_device("physical_device_0")
++        .add_queue_family_properties({{VK_QUEUE_GRAPHICS_BIT, 1, 0, {1, 1, 1}}, false});
++    env.add_implicit_layer({}, ManifestLayer{}.add_layer(ManifestLayer::LayerDescription{}
++                                                             .set_name("implicit_layer_name")
++                                                             .set_lib_path(TEST_LAYER_PATH_EXPORT_VERSION_2)
++                                                             .set_disable_environment("DISABLE_ME")));
++    auto& layer = env.get_test_layer(0);
++    layer.set_call_create_and_destroy_device_in_GetQueue(true);
++
++    InstWrapper inst{env.vulkan_functions};
++    ASSERT_NO_FATAL_FAILURE(inst.CheckCreate());
++    ASSERT_NE(nullptr, layer.callback_vkCreateDevice);
++    ASSERT_NE(nullptr, layer.callback_vkDestroyDevice);
++    VkPhysicalDevice phys_dev = inst.GetPhysDev();
++
++    const uint32_t worker_count = 2;
++    const uint32_t query_loops = 16;
++    std::vector<DeviceWrapper> devices;
++    devices.reserve(worker_count);
++    for (uint32_t i = 0; i < worker_count; i++) {
++        auto& device = devices.emplace_back(inst);
++        device.create_info.add_device_queue(DeviceQueueCreateInfo{}.add_priority(1.0f));
++        ASSERT_NO_FATAL_FAILURE(device.CheckCreate(phys_dev));
++    }
++    ASSERT_EQ(worker_count, layer.created_devices.size());
++    ASSERT_EQ(worker_count, driver.created_device_details.size());
++
++    const VkResult callback_result = GetParam();
++    const uint32_t calls_before = driver.create_device_call_count;
++    driver.set_create_device_return_code(callback_result);
++    std::vector<std::thread> threads;
++    for (uint32_t i = 0; i < worker_count; i++) {
++        threads.emplace_back([&, i]() {
++            for (uint32_t j = 0; j < query_loops; j++) {
++                VkQueue queue = VK_NULL_HANDLE;
++                env.vulkan_functions.vkGetDeviceQueue(devices[i], 0, 0, &queue);
++                if (callback_result == VK_SUCCESS) {
++                    EXPECT_NE(VK_NULL_HANDLE, queue);
++                } else {
++                    EXPECT_EQ(VK_NULL_HANDLE, queue);
++                }
++            }
++        });
++    }
++    for (auto& thread : threads) thread.join();
++    const uint32_t callback_calls = driver.create_device_call_count - calls_before;
++    EXPECT_EQ(worker_count * query_loops, callback_calls);
++    EXPECT_EQ(worker_count, driver.created_device_details.size());
++    EXPECT_EQ(worker_count, layer.created_devices.size());
++    RecordProperty("injected_callback_result", std::to_string(callback_result));
++    RecordProperty("callback_create_attempts", std::to_string(callback_calls));
++    RecordProperty("live_devices_after_callbacks", std::to_string(driver.created_device_details.size()));
++
++    // A new worker must acquire the lock after the failure/success workers have exited.
++    driver.set_create_device_return_code(VK_SUCCESS);
++    const uint32_t calls_before_recovery = driver.create_device_call_count;
++    std::thread recovery([&]() {
++        VkQueue queue = VK_NULL_HANDLE;
++        env.vulkan_functions.vkGetDeviceQueue(devices[0], 0, 0, &queue);
++        EXPECT_NE(VK_NULL_HANDLE, queue);
++    });
++    recovery.join();
++    EXPECT_EQ(1U, driver.create_device_call_count - calls_before_recovery);
++    EXPECT_EQ(worker_count, driver.created_device_details.size());
++    RecordProperty("recovery_create_attempts", std::to_string(driver.create_device_call_count - calls_before_recovery));
++
++    devices.clear();
++    EXPECT_TRUE(driver.created_device_details.empty());
++    EXPECT_TRUE(layer.created_devices.empty());
++    RecordProperty("live_devices_after_cleanup", std::to_string(driver.created_device_details.size()));
++}
++
++INSTANTIATE_TEST_SUITE_P(DirectCallbacks, LayerDeviceCallbackResult,
++                        testing::Values(VK_SUCCESS, VK_ERROR_INITIALIZATION_FAILED, VK_ERROR_OUT_OF_DEVICE_MEMORY));
++
+ void set_debug_utils_name_loop(FrameworkEnvironment* env, uint32_t num_loops, InstWrapper* inst,
+                                std::vector<VkPhysicalDevice>* phys_devs) {
+     auto load_function = [&inst](const char* func_name) { return inst->load(func_name); };

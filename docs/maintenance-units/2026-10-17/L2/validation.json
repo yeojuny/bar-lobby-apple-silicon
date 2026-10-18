@@ -1,0 +1,639 @@
+{
+  "schema": "bar-maintenance-public-validation-v1",
+  "unit": "L2",
+  "status": "applied-audit-PASS-13-final-production-cases",
+  "frozenInputBindings": {
+    "coordinatorSourcePublicationPASS": true,
+    "privateFrozenInputs": {
+      "unit-result.json": "40ed7ffb323d084881e6af401d028c6cdbd11c626c55fbe92a65b5592614fb53",
+      "applied-audit.json": "221f5e303d243260fe153b500fcd8e4382769c7d6ab71ee31746b6922713f9e6",
+      "change.patch": "0a467ad93681575de69ff42de23cffc3d1e11bdf29d0b2cde7fc7388243ca7b9"
+    },
+    "publicCopies": "Workspace paths in keys and values are rebased to $WORKSPACE. Original private receipt SHA256 values identify exact audit inputs, not the sanitized public blob hashes."
+  },
+  "finalChecks": {
+    "baseline": {
+      "tests": 4,
+      "failures": 0,
+      "actualProductionRawSHA256": "28124bfa19b9145aceb9cc7a87b7c8ba61db293e8e26305404f663e2e4a5b55d",
+      "receipts": [
+        "baseline-test_threading.json",
+        "baseline-test_regression.json"
+      ]
+    },
+    "after": {
+      "tests": 13,
+      "failures": 0,
+      "mode": "Final production BUILD_TESTS OFF; ordinary mock threading/callback and related regression checks",
+      "actualProductionRawSHA256": "90f8a48234bd14d5eb19154a1104a27b555dd9c6b2750e4568636b108c0b8920",
+      "actualLoadedLoaderPathAndMockBindingsRecorded": true,
+      "receipts": [
+        "after-fix-test_threading.json",
+        "after-fix-test_regression.json",
+        "cumulative-L1-test_threading.json",
+        "cumulative-L1-test_regression.json"
+      ],
+      "MoltenVKLoaded": false,
+      "sanitizerRun": false,
+      "raceFreedomEstablished": false,
+      "newDirectCallbackCasesRunBeforeProductionFix": false,
+      "unitSpecificTests": 8,
+      "cumulativeL1WSITests": 5
+    },
+    "directCallbackObservations": [
+      {
+        "test": "DirectCallbacks/LayerDeviceCallbackResult.GetQueueCreatesDestroysAndRecovers/0",
+        "properties": {
+          "injected_callback_result": "0",
+          "callback_create_attempts": "32",
+          "live_devices_after_callbacks": "2",
+          "recovery_create_attempts": "1",
+          "live_devices_after_cleanup": "0"
+        }
+      },
+      {
+        "test": "DirectCallbacks/LayerDeviceCallbackResult.GetQueueCreatesDestroysAndRecovers/1",
+        "properties": {
+          "injected_callback_result": "-3",
+          "callback_create_attempts": "32",
+          "live_devices_after_callbacks": "2",
+          "recovery_create_attempts": "1",
+          "live_devices_after_cleanup": "0"
+        }
+      },
+      {
+        "test": "DirectCallbacks/LayerDeviceCallbackResult.GetQueueCreatesDestroysAndRecovers/2",
+        "properties": {
+          "injected_callback_result": "-2",
+          "callback_create_attempts": "32",
+          "live_devices_after_callbacks": "2",
+          "recovery_create_attempts": "1",
+          "live_devices_after_cleanup": "0"
+        }
+      }
+    ],
+    "productionBuild": {
+      "target": "vulkan",
+      "receipt": "production-build.json",
+      "BUILD_TESTS": "OFF",
+      "flagsAndLinkByteExact": true,
+      "cacheValuesExact": true,
+      "cacheTypeDifferencesOnly": {},
+      "exportNames": 1015,
+      "exportNamesExact": true,
+      "dependenciesAndInstallNameExact": true,
+      "rawArtifactReceipt": "raw-artifact.json"
+    },
+    "staticReview": {
+      "createCommonReturnAfterUnlock": true,
+      "destroyNullReturnBeforeLockAndNonNullUnlockAtEnd": true,
+      "publicOuterLocksRemovedTogether": true,
+      "L5DeviceCreationChainAndLoaderTailByteExact": true,
+      "L1SurfaceThreadingRegionByteExact": true,
+      "fixtureVectorAndOwnerLifetimeStableDuringWorkers": true,
+      "receipt": "static-lock-review.json"
+    },
+    "scopeLimits": [
+      "Ordinary mock concurrency; no ThreadSanitizer run or race-freedom claim",
+      "Injected lower-driver initialization/device-memory failure plus existing early rejection; not exhaustive allocation failure injection",
+      "No GPU/window/app/game/FPS/multiplayer/endurance check"
+    ],
+    "cumulativeL1WSIGate": {
+      "tests": 5,
+      "failures": 0,
+      "receipts": [
+        "cumulative-L1-test_threading.json",
+        "cumulative-L1-test_regression.json"
+      ],
+      "sameFinalProductionRawAndTestExecutables": true,
+      "additionalBuilds": 0,
+      "eightUnitSpecificCasesRerun": false,
+      "adoptedPolicy": "bar-cleanup-and-change-policy-20261017/build-policy-review.json L2 unitSpecificPassConditions",
+      "actualProductionRawSHA256": "90f8a48234bd14d5eb19154a1104a27b555dd9c6b2750e4568636b108c0b8920"
+    }
+  },
+  "actualCommandReceipts": {
+    "after-fix-test_threading.json": {
+      "recordedAtUTC": "2026-10-18T03:47:58.302079+00:00",
+      "command": [
+        "$WORKSPACE/build/run95-loader-20261002/tests/test_threading",
+        "--gtest_filter=Threading.DeviceCreateDestroyLoop:Threading.LayersDeviceCreateDestroyLoop:DirectCallbacks/LayerDeviceCallbackResult.GetQueueCreatesDestroysAndRecovers/*",
+        "--gtest_output=xml:$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L2/after-fix-test_threading.xml",
+        "--gtest_color=no"
+      ],
+      "exitCode": 0,
+      "elapsedSeconds": 1.47,
+      "xmlSummary": {
+        "tests": "5",
+        "failures": "0",
+        "disabled": "0",
+        "errors": "0",
+        "time": "1.088",
+        "timestamp": "2026-10-17T20:47:57.198",
+        "name": "AllTests"
+      },
+      "actualRawSHA256": "90f8a48234bd14d5eb19154a1104a27b555dd9c6b2750e4568636b108c0b8920",
+      "mode": "Final production BUILD_TESTS OFF; ordinary mock device/callback stress and failure cleanup/recovery, no sanitizer",
+      "bindingLines": [
+        "dyld[3169]: <6000AD3C-949F-322A-B034-6E513BEC018B> $WORKSPACE/build/run95-loader-20261002/loader/libvulkan.1.4.365.dylib",
+        "dyld[3169]: <618A2F2A-2A5E-3545-81F5-B28659847262> $WORKSPACE/build/run95-loader-20261002/tests/executing_tests/Threading_DeviceCreateDestroyLoop/icd_manifests/libtest_icd_version_2_export_icd_gpdpa_0.dylib",
+        "dyld[3169]: <6000AD3C-949F-322A-B034-6E513BEC018B> $WORKSPACE/build/run95-loader-20261002/loader/libvulkan.1.4.365.dylib",
+        "dyld[3169]: <618A2F2A-2A5E-3545-81F5-B28659847262> $WORKSPACE/build/run95-loader-20261002/tests/executing_tests/Threading_LayersDeviceCreateDestroyLoop/icd_manifests/libtest_icd_version_2_export_icd_gpdpa_0.dylib",
+        "dyld[3169]: <B693AE83-B3A5-31B1-AD8A-24E06EB54283> $WORKSPACE/build/run95-loader-20261002/tests/executing_tests/Threading_LayersDeviceCreateDestroyLoop/implicit_layer_manifests/libtest_layer_export_version_2_0.dylib",
+        "dyld[3169]: <6000AD3C-949F-322A-B034-6E513BEC018B> $WORKSPACE/build/run95-loader-20261002/loader/libvulkan.1.4.365.dylib",
+        "dyld[3169]: <618A2F2A-2A5E-3545-81F5-B28659847262> $WORKSPACE/build/run95-loader-20261002/tests/executing_tests/DirectCallbacks/LayerDeviceCallbackResult_GetQueueCreatesDestroysAndRecovers/0/icd_manifests/libtest_icd_version_2_export_icd_gpdpa_0.dylib",
+        "dyld[3169]: <B693AE83-B3A5-31B1-AD8A-24E06EB54283> $WORKSPACE/build/run95-loader-20261002/tests/executing_tests/DirectCallbacks/LayerDeviceCallbackResult_GetQueueCreatesDestroysAndRecovers/0/implicit_layer_manifests/libtest_layer_export_version_2_0.dylib",
+        "dyld[3169]: <6000AD3C-949F-322A-B034-6E513BEC018B> $WORKSPACE/build/run95-loader-20261002/loader/libvulkan.1.4.365.dylib",
+        "dyld[3169]: <618A2F2A-2A5E-3545-81F5-B28659847262> $WORKSPACE/build/run95-loader-20261002/tests/executing_tests/DirectCallbacks/LayerDeviceCallbackResult_GetQueueCreatesDestroysAndRecovers/1/icd_manifests/libtest_icd_version_2_export_icd_gpdpa_0.dylib",
+        "dyld[3169]: <B693AE83-B3A5-31B1-AD8A-24E06EB54283> $WORKSPACE/build/run95-loader-20261002/tests/executing_tests/DirectCallbacks/LayerDeviceCallbackResult_GetQueueCreatesDestroysAndRecovers/1/implicit_layer_manifests/libtest_layer_export_version_2_0.dylib",
+        "dyld[3169]: <6000AD3C-949F-322A-B034-6E513BEC018B> $WORKSPACE/build/run95-loader-20261002/loader/libvulkan.1.4.365.dylib",
+        "dyld[3169]: <618A2F2A-2A5E-3545-81F5-B28659847262> $WORKSPACE/build/run95-loader-20261002/tests/executing_tests/DirectCallbacks/LayerDeviceCallbackResult_GetQueueCreatesDestroysAndRecovers/2/icd_manifests/libtest_icd_version_2_export_icd_gpdpa_0.dylib",
+        "dyld[3169]: <B693AE83-B3A5-31B1-AD8A-24E06EB54283> $WORKSPACE/build/run95-loader-20261002/tests/executing_tests/DirectCallbacks/LayerDeviceCallbackResult_GetQueueCreatesDestroysAndRecovers/2/implicit_layer_manifests/libtest_layer_export_version_2_0.dylib"
+      ],
+      "MoltenVKLoaded": false,
+      "observedCaseProperties": [
+        {
+          "test": "DirectCallbacks/LayerDeviceCallbackResult.GetQueueCreatesDestroysAndRecovers/0",
+          "properties": {
+            "injected_callback_result": "0",
+            "callback_create_attempts": "32",
+            "live_devices_after_callbacks": "2",
+            "recovery_create_attempts": "1",
+            "live_devices_after_cleanup": "0"
+          }
+        },
+        {
+          "test": "DirectCallbacks/LayerDeviceCallbackResult.GetQueueCreatesDestroysAndRecovers/1",
+          "properties": {
+            "injected_callback_result": "-3",
+            "callback_create_attempts": "32",
+            "live_devices_after_callbacks": "2",
+            "recovery_create_attempts": "1",
+            "live_devices_after_cleanup": "0"
+          }
+        },
+        {
+          "test": "DirectCallbacks/LayerDeviceCallbackResult.GetQueueCreatesDestroysAndRecovers/2",
+          "properties": {
+            "injected_callback_result": "-2",
+            "callback_create_attempts": "32",
+            "live_devices_after_callbacks": "2",
+            "recovery_create_attempts": "1",
+            "live_devices_after_cleanup": "0"
+          }
+        }
+      ],
+      "testExecutableSHA256": "471d7edc8cceeaee68867c9fb34c7bb5dbbf28bed2453e95018ffaf919a4b885",
+      "log": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L2/after-fix-test_threading.log"
+    },
+    "after-fix-test_regression.json": {
+      "recordedAtUTC": "2026-10-18T03:47:57.977403+00:00",
+      "command": [
+        "$WORKSPACE/build/run95-loader-20261002/tests/test_regression",
+        "--gtest_filter=LayerCreatesDevice.Basic:LayerCreatesDevice.DifferentPhysicalDevice:CreateDevice.DeviceGroupPNextRestoredOnFailure",
+        "--gtest_output=xml:$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L2/after-fix-test_regression.xml",
+        "--gtest_color=no"
+      ],
+      "exitCode": 0,
+      "elapsedSeconds": 1.145,
+      "xmlSummary": {
+        "tests": "3",
+        "failures": "0",
+        "disabled": "0",
+        "errors": "0",
+        "time": "0.718",
+        "timestamp": "2026-10-17T20:47:57.228",
+        "name": "AllTests"
+      },
+      "actualRawSHA256": "90f8a48234bd14d5eb19154a1104a27b555dd9c6b2750e4568636b108c0b8920",
+      "mode": "Final production BUILD_TESTS OFF; ordinary mock device/callback stress and failure cleanup/recovery, no sanitizer",
+      "bindingLines": [
+        "dyld[3170]: <6000AD3C-949F-322A-B034-6E513BEC018B> $WORKSPACE/build/run95-loader-20261002/loader/libvulkan.1.4.365.dylib",
+        "dyld[3170]: <0B2547C9-E18A-34AA-8CD2-ED7583A864CD> $WORKSPACE/build/run95-loader-20261002/tests/executing_tests/CreateDevice_DeviceGroupPNextRestoredOnFailure/icd_manifests/libtest_icd_version_2_0.dylib",
+        "dyld[3170]: <6000AD3C-949F-322A-B034-6E513BEC018B> $WORKSPACE/build/run95-loader-20261002/loader/libvulkan.1.4.365.dylib",
+        "dyld[3170]: <0B2547C9-E18A-34AA-8CD2-ED7583A864CD> $WORKSPACE/build/run95-loader-20261002/tests/executing_tests/LayerCreatesDevice_Basic/icd_manifests/libtest_icd_version_2_0.dylib",
+        "dyld[3170]: <B693AE83-B3A5-31B1-AD8A-24E06EB54283> $WORKSPACE/build/run95-loader-20261002/tests/executing_tests/LayerCreatesDevice_Basic/implicit_layer_manifests/libtest_layer_export_version_2_0.dylib",
+        "dyld[3170]: <B693AE83-B3A5-31B1-AD8A-24E06EB54283> $WORKSPACE/build/run95-loader-20261002/tests/executing_tests/LayerCreatesDevice_Basic/implicit_layer_manifests/libtest_layer_export_version_2_1.dylib",
+        "dyld[3170]: <6000AD3C-949F-322A-B034-6E513BEC018B> $WORKSPACE/build/run95-loader-20261002/loader/libvulkan.1.4.365.dylib",
+        "dyld[3170]: <0B2547C9-E18A-34AA-8CD2-ED7583A864CD> $WORKSPACE/build/run95-loader-20261002/tests/executing_tests/LayerCreatesDevice_DifferentPhysicalDevice/icd_manifests/libtest_icd_version_2_0.dylib",
+        "dyld[3170]: <0B2547C9-E18A-34AA-8CD2-ED7583A864CD> $WORKSPACE/build/run95-loader-20261002/tests/executing_tests/LayerCreatesDevice_DifferentPhysicalDevice/icd_manifests/libtest_icd_version_2_1.dylib",
+        "dyld[3170]: <B693AE83-B3A5-31B1-AD8A-24E06EB54283> $WORKSPACE/build/run95-loader-20261002/tests/executing_tests/LayerCreatesDevice_DifferentPhysicalDevice/implicit_layer_manifests/libtest_layer_export_version_2_0.dylib",
+        "dyld[3170]: <B693AE83-B3A5-31B1-AD8A-24E06EB54283> $WORKSPACE/build/run95-loader-20261002/tests/executing_tests/LayerCreatesDevice_DifferentPhysicalDevice/implicit_layer_manifests/libtest_layer_export_version_2_1.dylib"
+      ],
+      "MoltenVKLoaded": false,
+      "observedCaseProperties": [],
+      "testExecutableSHA256": "2210ef98cb28f0b3a21dcc3874689fc33d56e5bcf20964168896f9369c04f5bc",
+      "log": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L2/after-fix-test_regression.log"
+    },
+    "cumulative-L1-test_threading.json": {
+      "recordedAtUTC": "2026-10-18T03:50:14.754879+00:00",
+      "command": [
+        "$WORKSPACE/build/run95-loader-20261002/tests/test_threading",
+        "--gtest_filter=Threading.SurfaceCreateDestroyLoop:Threading.SurfaceQueryWhileCreateDestroySurfaceLoop",
+        "--gtest_output=xml:$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L2/cumulative-L1-test_threading.xml",
+        "--gtest_color=no"
+      ],
+      "exitCode": 0,
+      "elapsedSeconds": 0.515,
+      "xmlSummary": {
+        "tests": "2",
+        "failures": "0",
+        "disabled": "0",
+        "errors": "0",
+        "time": "0.427",
+        "timestamp": "2026-10-17T20:50:14.276",
+        "name": "AllTests"
+      },
+      "actualRawSHA256": "90f8a48234bd14d5eb19154a1104a27b555dd9c6b2750e4568636b108c0b8920",
+      "mode": "Same final L2 production BUILD_TESTS OFF raw and already-built executables; cumulative adopted L1 WSI gate only",
+      "bindingLines": [
+        "dyld[4113]: <6000AD3C-949F-322A-B034-6E513BEC018B> $WORKSPACE/build/run95-loader-20261002/loader/libvulkan.1.4.365.dylib",
+        "dyld[4113]: <0B2547C9-E18A-34AA-8CD2-ED7583A864CD> $WORKSPACE/build/run95-loader-20261002/tests/executing_tests/Threading_SurfaceCreateDestroyLoop/icd_manifests/libtest_icd_version_2_0.dylib",
+        "dyld[4113]: <6000AD3C-949F-322A-B034-6E513BEC018B> $WORKSPACE/build/run95-loader-20261002/loader/libvulkan.1.4.365.dylib",
+        "dyld[4113]: <0B2547C9-E18A-34AA-8CD2-ED7583A864CD> $WORKSPACE/build/run95-loader-20261002/tests/executing_tests/Threading_SurfaceQueryWhileCreateDestroySurfaceLoop/icd_manifests/libtest_icd_version_2_0.dylib"
+      ],
+      "testExecutableSHA256": "471d7edc8cceeaee68867c9fb34c7bb5dbbf28bed2453e95018ffaf919a4b885",
+      "MoltenVKLoaded": false,
+      "log": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L2/cumulative-L1-test_threading.log",
+      "additionalBuilds": 0
+    },
+    "cumulative-L1-test_regression.json": {
+      "recordedAtUTC": "2026-10-18T03:50:14.916871+00:00",
+      "command": [
+        "$WORKSPACE/build/run95-loader-20261002/tests/test_regression",
+        "--gtest_filter=WsiTests.GoogleSurfacelessQuery:WsiTests.GetPhysicalDeviceSurfaceCapabilities2EXTEmulationDriverError:WsiTests.CreateMetalSurfaceWithoutEnablingExtension",
+        "--gtest_output=xml:$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L2/cumulative-L1-test_regression.xml",
+        "--gtest_color=no"
+      ],
+      "exitCode": 0,
+      "elapsedSeconds": 0.676,
+      "xmlSummary": {
+        "tests": "3",
+        "failures": "0",
+        "disabled": "0",
+        "errors": "0",
+        "time": "0.598",
+        "timestamp": "2026-10-17T20:50:14.289",
+        "name": "AllTests"
+      },
+      "actualRawSHA256": "90f8a48234bd14d5eb19154a1104a27b555dd9c6b2750e4568636b108c0b8920",
+      "mode": "Same final L2 production BUILD_TESTS OFF raw and already-built executables; cumulative adopted L1 WSI gate only",
+      "bindingLines": [
+        "dyld[4114]: <6000AD3C-949F-322A-B034-6E513BEC018B> $WORKSPACE/build/run95-loader-20261002/loader/libvulkan.1.4.365.dylib",
+        "dyld[4114]: <0B2547C9-E18A-34AA-8CD2-ED7583A864CD> $WORKSPACE/build/run95-loader-20261002/tests/executing_tests/WsiTests_GoogleSurfacelessQuery/icd_manifests/libtest_icd_version_2_0.dylib",
+        "dyld[4114]: <6000AD3C-949F-322A-B034-6E513BEC018B> $WORKSPACE/build/run95-loader-20261002/loader/libvulkan.1.4.365.dylib",
+        "dyld[4114]: <0B2547C9-E18A-34AA-8CD2-ED7583A864CD> $WORKSPACE/build/run95-loader-20261002/tests/executing_tests/WsiTests_GetPhysicalDeviceSurfaceCapabilities2EXTEmulationDriverError/icd_manifests/libtest_icd_version_2_0.dylib",
+        "dyld[4114]: <6000AD3C-949F-322A-B034-6E513BEC018B> $WORKSPACE/build/run95-loader-20261002/loader/libvulkan.1.4.365.dylib",
+        "dyld[4114]: <0B2547C9-E18A-34AA-8CD2-ED7583A864CD> $WORKSPACE/build/run95-loader-20261002/tests/executing_tests/WsiTests_CreateMetalSurfaceWithoutEnablingExtension/icd_manifests/libtest_icd_version_2_0.dylib"
+      ],
+      "testExecutableSHA256": "2210ef98cb28f0b3a21dcc3874689fc33d56e5bcf20964168896f9369c04f5bc",
+      "MoltenVKLoaded": false,
+      "log": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L2/cumulative-L1-test_regression.log",
+      "additionalBuilds": 0
+    }
+  },
+  "productionBuild": {
+    "recordedAtUTC": "2026-10-18T03:46:57.813933+00:00",
+    "unit": "L2",
+    "stages": [
+      {
+        "stage": "production-configure",
+        "command": [
+          "/opt/homebrew/bin/cmake",
+          "-S",
+          "$WORKSPACE/build/run66-vulkan-loader-src-20260903",
+          "-B",
+          "$WORKSPACE/build/run95-loader-20261002",
+          "-DBUILD_TESTS=OFF",
+          "-DUPDATE_DEPS=OFF",
+          "-DENABLE_LIVE_VERIFICATION_TESTS=OFF",
+          "-DCMAKE_GTEST_DISCOVER_TESTS_DISCOVERY_MODE=PRE_TEST"
+        ],
+        "exitCode": 0,
+        "elapsedSeconds": 0.988,
+        "log": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L2/production-configure.log"
+      },
+      {
+        "stage": "production-build",
+        "command": [
+          "/opt/homebrew/bin/cmake",
+          "--build",
+          "$WORKSPACE/build/run95-loader-20261002",
+          "--target",
+          "vulkan",
+          "--parallel",
+          "3"
+        ],
+        "exitCode": 0,
+        "elapsedSeconds": 3.463,
+        "log": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L2/production-build.log"
+      }
+    ],
+    "BUILD_TESTS": "OFF",
+    "sanitizerEnabled": false,
+    "environmentOverrides": {
+      "PATH": "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/homebrew/bin"
+    }
+  },
+  "relatedTestBuild": {
+    "recordedAtUTC": "2026-10-18T03:46:21.148118+00:00",
+    "command": [
+      "/opt/homebrew/bin/cmake",
+      "--build",
+      "$WORKSPACE/build/run95-loader-20261002",
+      "--target",
+      "test_threading",
+      "test_regression",
+      "test_layer_export_version_2",
+      "--parallel",
+      "3"
+    ],
+    "exitCode": 0,
+    "elapsedSeconds": 29.288,
+    "log": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L2/related-test-build.log",
+    "rawSHA256StillL1": "28124bfa19b9145aceb9cc7a87b7c8ba61db293e8e26305404f663e2e4a5b55d",
+    "testExecutables": {
+      "test_threading": "471d7edc8cceeaee68867c9fb34c7bb5dbbf28bed2453e95018ffaf919a4b885",
+      "test_regression": "2210ef98cb28f0b3a21dcc3874689fc33d56e5bcf20964168896f9369c04f5bc"
+    },
+    "testOnlyBuildBeforeProductionRestore": true
+  },
+  "rawArtifact": {
+    "recordedAtUTC": "2026-10-18T03:48:26.488557+00:00",
+    "path": "$WORKSPACE/build/run95-loader-20261002/loader/libvulkan.1.4.365.dylib",
+    "beforeSHA256": "28124bfa19b9145aceb9cc7a87b7c8ba61db293e8e26305404f663e2e4a5b55d",
+    "afterSHA256": "90f8a48234bd14d5eb19154a1104a27b555dd9c6b2750e4568636b108c0b8920",
+    "beforeBytes": 732560,
+    "afterBytes": 732560,
+    "mode": "Final production BUILD_TESTS OFF; previous C/ASM flags, link command and all CMake values unchanged",
+    "exports": {
+      "countBefore": 1015,
+      "countAfter": 1015,
+      "namesExact": true,
+      "namesSHA256": "4c3c6eaf7661b573228aff710af1e24fa9f5576852a86f179b6a2417108b4315"
+    },
+    "dynamicDependenciesAndInstallNameExact": true,
+    "previousActualProductionRaw": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L2/before-build/loader/libvulkan.1.4.365.dylib",
+    "retainedActualProductionRaw": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L2/audit-artifacts/libvulkan.1.4.365.dylib",
+    "retainedActualProductionRawSHA256": "90f8a48234bd14d5eb19154a1104a27b555dd9c6b2750e4568636b108c0b8920",
+    "appsOrInstalledRuntimeUpdated": false
+  },
+  "testSupplement": {
+    "recordedAtUTC": "2026-10-18T03:45:51.858945+00:00",
+    "path": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L2/test-supplement.patch",
+    "sha256": "9315046b7d4e70637b18f74c6c60ab807c08418d3e16ef1b4bbb9e61bd3a427b",
+    "preimage": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L2/test-supplement/preimage/tests/loader_threading_tests.cpp",
+    "preimageSHA256": "4e858d86def4a23d8ef5057b358be61e93aa690c7bed449e831fffdd8042b15c",
+    "postimageSHA256": "2d529217856296859ed61dcc9257ef7201560e617a5ee0f747fc2c720a88b947",
+    "addedLines": 82,
+    "removedLines": 0,
+    "productionChanges": 0,
+    "newHarness": false,
+    "scope": "Three parameter cases in existing threading target, using official GetQueue hook and existing mutex-protected ICD count/result/live-device map. Persistent owner devices and top-layer vector remain fixed during callbacks.",
+    "newGTestCases": 3
+  },
+  "patchVerification": {
+    "recordedAtUTC": "2026-10-18T03:47:29.390598+00:00",
+    "status": "official-five-file-patch-plus-test-only-supplement-and-complete-patch-roundtrips-byte-exact",
+    "officialProductionAndTestSupportExact": true,
+    "localTestSupplementOnly": "tests/loader_threading_tests.cpp, 82 added lines, three parameter cases",
+    "commands": [
+      {
+        "command": [
+          "/usr/bin/git",
+          "apply",
+          "--check",
+          "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L2/upstream-6b45d762.patch"
+        ],
+        "exitCode": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "/usr/bin/git",
+          "apply",
+          "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L2/upstream-6b45d762.patch"
+        ],
+        "exitCode": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "/usr/bin/git",
+          "apply",
+          "--check",
+          "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L2/test-supplement.patch"
+        ],
+        "exitCode": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "/usr/bin/git",
+          "apply",
+          "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L2/test-supplement.patch"
+        ],
+        "exitCode": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "/usr/bin/git",
+          "apply",
+          "--reverse",
+          "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L2/test-supplement.patch"
+        ],
+        "exitCode": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "/usr/bin/git",
+          "apply",
+          "--reverse",
+          "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L2/upstream-6b45d762.patch"
+        ],
+        "exitCode": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "/usr/bin/git",
+          "apply",
+          "--check",
+          "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L2/change.patch"
+        ],
+        "exitCode": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "/usr/bin/git",
+          "apply",
+          "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L2/change.patch"
+        ],
+        "exitCode": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "/usr/bin/git",
+          "apply",
+          "--reverse",
+          "--check",
+          "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L2/change.patch"
+        ],
+        "exitCode": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "/usr/bin/git",
+          "apply",
+          "--reverse",
+          "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L2/change.patch"
+        ],
+        "exitCode": 0,
+        "stdout": "",
+        "stderr": ""
+      }
+    ],
+    "files": [
+      {
+        "componentRelativePath": "loader/loader.c",
+        "path": "$WORKSPACE/build/run66-vulkan-loader-src-20260903/loader/loader.c",
+        "beforeSHA256": "255ceae1fcc62ebee73f7f80772dc8735a1d429c6d8747878bc9af748f35840e",
+        "afterSHA256": "17b046f38f5cd58e11a572d18b2e5d001826a6c1268da3d619056a8d372dc7c9",
+        "beforeGitBlob": "0261e4b1f1647cbea1dcf308dda02ba2d8a1cc22",
+        "afterGitBlob": "31b766c5667cc607feaf67101287109d4130a907",
+        "beforeBytes": 406236,
+        "afterBytes": 406455,
+        "beforeMode": "0o644",
+        "afterMode": "0o644",
+        "preimage": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L2/preimage/loader/loader.c",
+        "postimage": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L2/postimage/loader/loader.c"
+      },
+      {
+        "componentRelativePath": "loader/trampoline.c",
+        "path": "$WORKSPACE/build/run66-vulkan-loader-src-20260903/loader/trampoline.c",
+        "beforeSHA256": "73fa8558e64acb8ad70d6079cf5911b1d04ad2d4c95f097ec4c5db84fed8fe11",
+        "afterSHA256": "247fe2859e1e725c784b4862f775e0cb80b7b4a53c434ec573f6513350c2b696",
+        "beforeGitBlob": "d39f1872ca60c01b327643c4a49d2790615db40b",
+        "afterGitBlob": "450740b5fa0508c327b50efd7f3e13519e65bd65",
+        "beforeBytes": 223598,
+        "afterBytes": 223356,
+        "beforeMode": "0o644",
+        "afterMode": "0o644",
+        "preimage": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L2/preimage/loader/trampoline.c",
+        "postimage": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L2/postimage/loader/trampoline.c"
+      },
+      {
+        "componentRelativePath": "tests/framework/layer/test_layer.cpp",
+        "path": "$WORKSPACE/build/run66-vulkan-loader-src-20260903/tests/framework/layer/test_layer.cpp",
+        "beforeSHA256": "30b90796afcdc308e9a7768f6a2de25791ba11e646bbddf0ef991ac1692b5802",
+        "afterSHA256": "ac4fb9c04791df463c19b70ecdd675cd67620231bc963653d2d52d0f299030ad",
+        "beforeGitBlob": "575ad68fdd233ce8542e3e836bac221ac4ca9dd3",
+        "afterGitBlob": "0ab865eb532f9ff21fe3e7a439a56f91f0062422",
+        "beforeBytes": 53055,
+        "afterBytes": 54485,
+        "beforeMode": "0o644",
+        "afterMode": "0o644",
+        "preimage": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L2/preimage/tests/framework/layer/test_layer.cpp",
+        "postimage": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L2/postimage/tests/framework/layer/test_layer.cpp"
+      },
+      {
+        "componentRelativePath": "tests/framework/layer/test_layer.h",
+        "path": "$WORKSPACE/build/run66-vulkan-loader-src-20260903/tests/framework/layer/test_layer.h",
+        "beforeSHA256": "609d427436948861482354deefec05c18ace6862b8ead7acb16dc4ea0c0c50b8",
+        "afterSHA256": "1c9dec0407364492168f2a983353e357e7331b2bd384f3c5dc25c07332e74b83",
+        "beforeGitBlob": "badb219383a7cf663bceac74b30c9dd446fd4435",
+        "afterGitBlob": "d5e88f2c3ce939c05b04221c0184f541cd4f3506",
+        "beforeBytes": 10190,
+        "afterBytes": 10512,
+        "beforeMode": "0o644",
+        "afterMode": "0o644",
+        "preimage": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L2/preimage/tests/framework/layer/test_layer.h",
+        "postimage": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L2/postimage/tests/framework/layer/test_layer.h"
+      },
+      {
+        "componentRelativePath": "tests/loader_threading_tests.cpp",
+        "path": "$WORKSPACE/build/run66-vulkan-loader-src-20260903/tests/loader_threading_tests.cpp",
+        "beforeSHA256": "87a72cdd865c4e93f5f3dbb19f791aa234f02e33d92fa594175bc3d136be5a65",
+        "afterSHA256": "2d529217856296859ed61dcc9257ef7201560e617a5ee0f747fc2c720a88b947",
+        "beforeGitBlob": "17318033203f3171a1fe07a4bee1e65195fcb674",
+        "afterGitBlob": "4feb31184f44e34ba20d41720544af24a951677d",
+        "beforeBytes": 16503,
+        "afterBytes": 22622,
+        "beforeMode": "0o644",
+        "afterMode": "0o644",
+        "preimage": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L2/preimage/tests/loader_threading_tests.cpp",
+        "postimage": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L2/postimage/tests/loader_threading_tests.cpp"
+      }
+    ],
+    "patchSHA256": "0a467ad93681575de69ff42de23cffc3d1e11bdf29d0b2cde7fc7388243ca7b9",
+    "productionPatchSHA256": "e24aa1768646bac4777e488330b16a78d12f0c7c6ed3781dda908b195e522ba9",
+    "testSupplementSHA256": "9315046b7d4e70637b18f74c6c60ab807c08418d3e16ef1b4bbb9e61bd3a427b",
+    "scratch": "Only five affected files; removed after successful roundtrip"
+  },
+  "staticLockReview": {
+    "recordedAtUTC": "2026-10-18T03:47:29.393407+00:00",
+    "createCallback": {
+      "firstLine": 4868,
+      "lockCount": 1,
+      "unlockCount": 1,
+      "commonOutReturnImmediatelyAfterUnlock": true,
+      "successAndAllGotoOutFailurePathsShareUnlock": true
+    },
+    "destroyCallback": {
+      "firstLine": 4984,
+      "lockCount": 1,
+      "unlockCount": 1,
+      "nullDeviceReturnBeforeLock": true,
+      "nonNullPathReleasesAtFunctionEnd": true
+    },
+    "publicTrampolines": {
+      "createAndDestroyOwnLocksRemovedTogether": true,
+      "callSameCallbackHelpers": true
+    },
+    "recursiveMutex": "Existing POSIX loader_lock uses PTHREAD_MUTEX_RECURSIVE; nested create/destroy callbacks retain recursive behavior.",
+    "L5CreateDeviceChainAndAllLoaderTailByteExact": true,
+    "L1SurfaceThreadingRegionByteExact": true,
+    "mockFixtureLifetime": "Two owner devices are created before workers; each worker uses its own persistent device/queue. The parent layer vector remains fixed during workers; callback-created devices begin below the calling layer and never enter that vector. All owners are destroyed serially after joins.",
+    "mockObservations": "Existing ICD create-device result, count and live-device map; count/map protected by ICD mutex; result setters run only between joined phases; reads recorded only after joins.",
+    "scope": "Ordinary mock concurrency and cleanup/recovery checks; no sanitizer/race-freedom or exhaustive allocation-failure claim"
+  },
+  "preservation": {
+    "receipt": "preservation-after.json",
+    "unchangedGuardCount": 41,
+    "priorS1S2L5L4C1L1Preserved": true,
+    "C1SourceRuntimeCacheIdentityAndFrozenReceiptsPreserved": true,
+    "L1WsiSourceAndFrozenReceiptsPreserved": true,
+    "existingRegressionTestsUnchanged": true,
+    "MVK_GIT_REV": "f52facf7",
+    "realLauncherHEAD": "6a3b298c236cd10eff8fd7ce27d15cdb589f650f",
+    "realLauncherIndexSHA256": "073483d1f4a62c9cda7006b467f60da926f889d1c8f126dc0016e3a23b761c87",
+    "ordinaryFrozenAppsInstalledRuntimesUserCachesUnchanged": true,
+    "automaticAppQuitPerformed": false
+  },
+  "retainedCorrections": [
+    {
+      "receipt": "cumulative-gate-completion.json",
+      "kind": "Added the adopted five-case cumulative L1 WSI gate before applied audit. The first eight-case result and manifest remain as intermediate snapshots; no source/binary change, extra build or repetition of the eight cases."
+    }
+  ],
+  "publisherReranBuildsOrTests": false,
+  "limits": [
+    "Ordinary mock concurrency and static source review do not establish ThreadSanitizer race freedom, every external layer combination or all interleavings.",
+    "Injected lower-driver init/device-memory errors cover those common cleanup paths; exhaustive allocator-failure injection was not required or performed.",
+    "No GPU/window/app/game/FPS/MP/endurance acceptance or app/Release/Homebrew change."
+  ]
+}

@@ -1,0 +1,335 @@
+{
+  "schema": "bar-maintenance-public-unit-v1",
+  "unit": "L2",
+  "status": "applied-audit-PASS-source-checkpoint-export",
+  "publicationParent": "f8e72e44a908c27b46767b99aa15c9afaf983964",
+  "targetRef": "refs/heads/maintenance/20261017-low-risk",
+  "component": "Vulkan-Loader",
+  "upstream": {
+    "repository": "KhronosGroup/Vulkan-Loader",
+    "commit": "6b45d76280a9525740c38c1796060eadb9267488",
+    "url": "https://github.com/KhronosGroup/Vulkan-Loader/commit/6b45d76280a9525740c38c1796060eadb9267488",
+    "officialFiveFilePatchAppliedWithoutContextAdaptation": true,
+    "officialPatch": "upstream-6b45d762.patch",
+    "officialApplyReceipt": "official-apply.json"
+  },
+  "currentBase": "Run95+VBO cumulative port plus candidate.5 maintenance and S1/S2/L5/L4/C1/L1; run66 is historical directory naming only",
+  "sourceRoot": "$WORKSPACE/build/run66-vulkan-loader-src-20260903",
+  "buildRoot": "$WORKSPACE/build/run95-loader-20261002",
+  "publicBase": {
+    "URL": "https://github.com/yeojuny/bar-lobby-apple-silicon/releases/download/v0.17.0-candidate.4/BAR-0.17.0-candidate.4-sources.tar.gz",
+    "outerSHA256": "65e29a1b17c7d434fa6a4c97b5040a0236f1edb36d869f0b18c6fb27f70c792e",
+    "outerBytes": 374939453,
+    "archiveMember": "BAR-0.17.0-candidate.4-sources/archives/vulkan-loader-68cc-input.tar.gz",
+    "nestedArchiveSHA256": "68269a49344a1b2fd318f56828c0ca7104ef08ea3144e4fe97ac93061e8c7420",
+    "nestedArchiveBytes": 1869775,
+    "componentRoot": "vulkan-loader-68cc-input",
+    "verification": "Fresh in-memory reads/hash of existing nested archive and selected original member bytes; earlier outer integrity record reused without another full hash/download. Actual prior postimage snapshots match published manifests and L2 HQ saved preimage bytes."
+  },
+  "sourceChain": [
+    {
+      "unit": "L5",
+      "commit": "a190072b355b145da241821c33210890b70a890a",
+      "patchSHA256": "d144ecc2f6b8ef15f6f8d0ac2e900664e6f1d2ca897e396a63e3ea691493943c"
+    },
+    {
+      "unit": "L4",
+      "commit": "47d52489a4525c0a5a040dd4aef11512d8b0d3af",
+      "patchSHA256": "b99049e7788abe292292495b97d47dfddbef2ef19671014b8877184bfe936ac0",
+      "atomicPair": true
+    },
+    {
+      "unit": "L1",
+      "commit": "f8e72e44a908c27b46767b99aa15c9afaf983964",
+      "patchSHA256": "51fb56a36769d02014853d17f62be947e6c7d73f7733ed280962aa4a3a34c763"
+    },
+    {
+      "unit": "L2",
+      "patchSHA256": "0a467ad93681575de69ff42de23cffc3d1e11bdf29d0b2cde7fc7388243ca7b9",
+      "scope": "Complete official five-file change plus82 test-only added lines in existing threading target"
+    }
+  ],
+  "preimages": [
+    {
+      "path": "loader/loader.c",
+      "publicArchivePreimageSHA256": "8a3104bf36b387f668e2d5a64a55487a37df7afbdeea88a3744dfc9f0409da64",
+      "cumulativePreimageSHA256": "255ceae1fcc62ebee73f7f80772dc8735a1d429c6d8747878bc9af748f35840e",
+      "cumulativeFromUnit": "L5",
+      "publishedPriorPostimageMatchesActualBytes": true,
+      "HQPreimageByteExact": true,
+      "bytes": 406236,
+      "mode": "100644"
+    },
+    {
+      "path": "loader/trampoline.c",
+      "publicArchivePreimageSHA256": "73fa8558e64acb8ad70d6079cf5911b1d04ad2d4c95f097ec4c5db84fed8fe11",
+      "cumulativePreimageSHA256": "73fa8558e64acb8ad70d6079cf5911b1d04ad2d4c95f097ec4c5db84fed8fe11",
+      "cumulativeFromUnit": "unchanged public port archive",
+      "HQPreimageByteExact": true,
+      "bytes": 223598,
+      "mode": "100644"
+    },
+    {
+      "path": "tests/framework/layer/test_layer.cpp",
+      "publicArchivePreimageSHA256": "30b90796afcdc308e9a7768f6a2de25791ba11e646bbddf0ef991ac1692b5802",
+      "cumulativePreimageSHA256": "30b90796afcdc308e9a7768f6a2de25791ba11e646bbddf0ef991ac1692b5802",
+      "cumulativeFromUnit": "unchanged public port archive",
+      "HQPreimageByteExact": true,
+      "bytes": 53055,
+      "mode": "100644"
+    },
+    {
+      "path": "tests/framework/layer/test_layer.h",
+      "publicArchivePreimageSHA256": "609d427436948861482354deefec05c18ace6862b8ead7acb16dc4ea0c0c50b8",
+      "cumulativePreimageSHA256": "609d427436948861482354deefec05c18ace6862b8ead7acb16dc4ea0c0c50b8",
+      "cumulativeFromUnit": "unchanged public port archive",
+      "HQPreimageByteExact": true,
+      "bytes": 10190,
+      "mode": "100644"
+    },
+    {
+      "path": "tests/loader_threading_tests.cpp",
+      "publicArchivePreimageSHA256": "74136c5154c2651f553e1dfd7e85742ed0f6492419f3df3e5333831763cb28fd",
+      "cumulativePreimageSHA256": "87a72cdd865c4e93f5f3dbb19f791aa234f02e33d92fa594175bc3d136be5a65",
+      "cumulativeFromUnit": "L1",
+      "publishedPriorPostimageMatchesActualBytes": true,
+      "HQPreimageByteExact": true,
+      "bytes": 16503,
+      "mode": "100644"
+    }
+  ],
+  "sourceFiles": [
+    {
+      "path": "loader/loader.c",
+      "preimageSHA256": "255ceae1fcc62ebee73f7f80772dc8735a1d429c6d8747878bc9af748f35840e",
+      "postimageSHA256": "17b046f38f5cd58e11a572d18b2e5d001826a6c1268da3d619056a8d372dc7c9",
+      "preimageGitBlobSHA1": "0261e4b1f1647cbea1dcf308dda02ba2d8a1cc22",
+      "postimageGitBlobSHA1": "31b766c5667cc607feaf67101287109d4130a907",
+      "preimageBytes": 406236,
+      "postimageBytes": 406455,
+      "mode": "100644"
+    },
+    {
+      "path": "loader/trampoline.c",
+      "preimageSHA256": "73fa8558e64acb8ad70d6079cf5911b1d04ad2d4c95f097ec4c5db84fed8fe11",
+      "postimageSHA256": "247fe2859e1e725c784b4862f775e0cb80b7b4a53c434ec573f6513350c2b696",
+      "preimageGitBlobSHA1": "d39f1872ca60c01b327643c4a49d2790615db40b",
+      "postimageGitBlobSHA1": "450740b5fa0508c327b50efd7f3e13519e65bd65",
+      "preimageBytes": 223598,
+      "postimageBytes": 223356,
+      "mode": "100644"
+    },
+    {
+      "path": "tests/framework/layer/test_layer.cpp",
+      "preimageSHA256": "30b90796afcdc308e9a7768f6a2de25791ba11e646bbddf0ef991ac1692b5802",
+      "postimageSHA256": "ac4fb9c04791df463c19b70ecdd675cd67620231bc963653d2d52d0f299030ad",
+      "preimageGitBlobSHA1": "575ad68fdd233ce8542e3e836bac221ac4ca9dd3",
+      "postimageGitBlobSHA1": "0ab865eb532f9ff21fe3e7a439a56f91f0062422",
+      "preimageBytes": 53055,
+      "postimageBytes": 54485,
+      "mode": "100644"
+    },
+    {
+      "path": "tests/framework/layer/test_layer.h",
+      "preimageSHA256": "609d427436948861482354deefec05c18ace6862b8ead7acb16dc4ea0c0c50b8",
+      "postimageSHA256": "1c9dec0407364492168f2a983353e357e7331b2bd384f3c5dc25c07332e74b83",
+      "preimageGitBlobSHA1": "badb219383a7cf663bceac74b30c9dd446fd4435",
+      "postimageGitBlobSHA1": "d5e88f2c3ce939c05b04221c0184f541cd4f3506",
+      "preimageBytes": 10190,
+      "postimageBytes": 10512,
+      "mode": "100644"
+    },
+    {
+      "path": "tests/loader_threading_tests.cpp",
+      "preimageSHA256": "87a72cdd865c4e93f5f3dbb19f791aa234f02e33d92fa594175bc3d136be5a65",
+      "postimageSHA256": "2d529217856296859ed61dcc9257ef7201560e617a5ee0f747fc2c720a88b947",
+      "preimageGitBlobSHA1": "17318033203f3171a1fe07a4bee1e65195fcb674",
+      "postimageGitBlobSHA1": "4feb31184f44e34ba20d41720544af24a951677d",
+      "preimageBytes": 16503,
+      "postimageBytes": 22622,
+      "mode": "100644"
+    }
+  ],
+  "patch": {
+    "path": "change.patch",
+    "sha256": "0a467ad93681575de69ff42de23cffc3d1e11bdf29d0b2cde7fc7388243ca7b9",
+    "bytes": 16668,
+    "scope": "Complete official five-file patch plus82 test-only added lines; two production and three test files. Production lock ownership moves as a pair."
+  },
+  "intendedEffect": "Serialize device create/destroy callback work for both public Vulkan entry points and layer-provided direct callback entry, including failure cleanup, by moving recursive loader_lock ownership into both callback functions together.",
+  "officialCoverageGap": {
+    "flag": "call_create_and_destroy_device_in_GetQueue",
+    "newOfficialCaseDoesNotInvokeGetQueue": true,
+    "helper": "create_destroy_device_loop only creates a device and invokes five stub commands; DeviceWrapper::CheckCreate calls only vkCreateDevice",
+    "consequence": "An official new-case PASS alone does not establish execution of direct layer callbacks."
+  },
+  "existingThreadingSupplement": {
+    "path": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L2/test-supplement.patch",
+    "sha256": "9315046b7d4e70637b18f74c6c60ab807c08418d3e16ef1b4bbb9e61bd3a427b",
+    "addedLines": 82,
+    "productionChanges": 0,
+    "cases": 3,
+    "reason": "Official LayersDeviceCreateDestroyLoop enables the GetQueue hook but neither its helper nor DeviceWrapper::CheckCreate calls vkGetDeviceQueue; add explicit counted direct-callback cases within existing threading target.",
+    "receipt": "test-supplement.json"
+  },
+  "productionChecks": {
+    "baseline": {
+      "tests": 4,
+      "failures": 0,
+      "actualProductionRawSHA256": "28124bfa19b9145aceb9cc7a87b7c8ba61db293e8e26305404f663e2e4a5b55d",
+      "receipts": [
+        "baseline-test_threading.json",
+        "baseline-test_regression.json"
+      ]
+    },
+    "after": {
+      "tests": 13,
+      "failures": 0,
+      "mode": "Final production BUILD_TESTS OFF; ordinary mock threading/callback and related regression checks",
+      "actualProductionRawSHA256": "90f8a48234bd14d5eb19154a1104a27b555dd9c6b2750e4568636b108c0b8920",
+      "actualLoadedLoaderPathAndMockBindingsRecorded": true,
+      "receipts": [
+        "after-fix-test_threading.json",
+        "after-fix-test_regression.json",
+        "cumulative-L1-test_threading.json",
+        "cumulative-L1-test_regression.json"
+      ],
+      "MoltenVKLoaded": false,
+      "sanitizerRun": false,
+      "raceFreedomEstablished": false,
+      "newDirectCallbackCasesRunBeforeProductionFix": false,
+      "unitSpecificTests": 8,
+      "cumulativeL1WSITests": 5
+    },
+    "directCallbackObservations": [
+      {
+        "test": "DirectCallbacks/LayerDeviceCallbackResult.GetQueueCreatesDestroysAndRecovers/0",
+        "properties": {
+          "injected_callback_result": "0",
+          "callback_create_attempts": "32",
+          "live_devices_after_callbacks": "2",
+          "recovery_create_attempts": "1",
+          "live_devices_after_cleanup": "0"
+        }
+      },
+      {
+        "test": "DirectCallbacks/LayerDeviceCallbackResult.GetQueueCreatesDestroysAndRecovers/1",
+        "properties": {
+          "injected_callback_result": "-3",
+          "callback_create_attempts": "32",
+          "live_devices_after_callbacks": "2",
+          "recovery_create_attempts": "1",
+          "live_devices_after_cleanup": "0"
+        }
+      },
+      {
+        "test": "DirectCallbacks/LayerDeviceCallbackResult.GetQueueCreatesDestroysAndRecovers/2",
+        "properties": {
+          "injected_callback_result": "-2",
+          "callback_create_attempts": "32",
+          "live_devices_after_callbacks": "2",
+          "recovery_create_attempts": "1",
+          "live_devices_after_cleanup": "0"
+        }
+      }
+    ],
+    "productionBuild": {
+      "target": "vulkan",
+      "receipt": "production-build.json",
+      "BUILD_TESTS": "OFF",
+      "flagsAndLinkByteExact": true,
+      "cacheValuesExact": true,
+      "cacheTypeDifferencesOnly": {},
+      "exportNames": 1015,
+      "exportNamesExact": true,
+      "dependenciesAndInstallNameExact": true,
+      "rawArtifactReceipt": "raw-artifact.json"
+    },
+    "staticReview": {
+      "createCommonReturnAfterUnlock": true,
+      "destroyNullReturnBeforeLockAndNonNullUnlockAtEnd": true,
+      "publicOuterLocksRemovedTogether": true,
+      "L5DeviceCreationChainAndLoaderTailByteExact": true,
+      "L1SurfaceThreadingRegionByteExact": true,
+      "fixtureVectorAndOwnerLifetimeStableDuringWorkers": true,
+      "receipt": "static-lock-review.json"
+    },
+    "scopeLimits": [
+      "Ordinary mock concurrency; no ThreadSanitizer run or race-freedom claim",
+      "Injected lower-driver initialization/device-memory failure plus existing early rejection; not exhaustive allocation failure injection",
+      "No GPU/window/app/game/FPS/multiplayer/endurance check"
+    ],
+    "cumulativeL1WSIGate": {
+      "tests": 5,
+      "failures": 0,
+      "receipts": [
+        "cumulative-L1-test_threading.json",
+        "cumulative-L1-test_regression.json"
+      ],
+      "sameFinalProductionRawAndTestExecutables": true,
+      "additionalBuilds": 0,
+      "eightUnitSpecificCasesRerun": false,
+      "adoptedPolicy": "bar-cleanup-and-change-policy-20261017/build-policy-review.json L2 unitSpecificPassConditions",
+      "actualProductionRawSHA256": "90f8a48234bd14d5eb19154a1104a27b555dd9c6b2750e4568636b108c0b8920"
+    }
+  },
+  "publicBaseReconstruction": "Public candidate4 port Loader archive -> L5 -> atomic L4 -> L1 -> complete L2. loader.c preimage is L5 postimage; threading preimage is L1 postimage.",
+  "preservation": {
+    "receipt": "preservation-after.json",
+    "unchangedGuardCount": 41,
+    "priorS1S2L5L4C1L1Preserved": true,
+    "C1SourceRuntimeCacheIdentityAndFrozenReceiptsPreserved": true,
+    "L1WsiSourceAndFrozenReceiptsPreserved": true,
+    "existingRegressionTestsUnchanged": true,
+    "MVK_GIT_REV": "f52facf7",
+    "realLauncherHEAD": "6a3b298c236cd10eff8fd7ce27d15cdb589f650f",
+    "realLauncherIndexSHA256": "073483d1f4a62c9cda7006b467f60da926f889d1c8f126dc0016e3a23b761c87",
+    "ordinaryFrozenAppsInstalledRuntimesUserCachesUnchanged": true,
+    "automaticAppQuitPerformed": false
+  },
+  "cacheIdentityNote": {
+    "valuesAndTypesExact": true,
+    "cacheBytesExactClaimed": false,
+    "flagsAndLinkByteExact": true,
+    "MVK_GIT_REV": "f52facf7 unchanged"
+  },
+  "existingTestDependency": {
+    "name": "GoogleTest",
+    "declaredByComponentPath": "scripts/known_good.json",
+    "declaredTag": "v1.14.0",
+    "exactCommit": "f8d7d77c06936315286eb55f8de22cd23c188571",
+    "sourceURL": "https://codeload.github.com/google/googletest/tar.gz/f8d7d77c06936315286eb55f8de22cd23c188571",
+    "archiveSHA256": "7ff5db23de232a39cbb5c9f5143c355885e30ac596161a6b9fc50c4538bfbf01",
+    "archiveBytes": 868904,
+    "archiveRoot": "googletest-f8d7d77c06936315286eb55f8de22cd23c188571",
+    "existingLocalArchive": "$WORKSPACE/archives/googletest-v1.14.0-f8d7d77c.tar.gz",
+    "existingBuildDependencySource": "$WORKSPACE/build/run95-loader-20261002/_deps/googletest",
+    "configureConnection": "GOOGLETEST_INSTALL_DIR=$WORKSPACE/build/run95-loader-20261002/_deps/googletest",
+    "sourceOnlyForExistingTests": true,
+    "dependencyFilesVerifiedByHQ": 245,
+    "productionDependency": false,
+    "archiveRedistributedOrCopiedByPublisher": false
+  },
+  "existingDependencyRecipeURL": "https://github.com/yeojuny/bar-lobby-apple-silicon/blob/a190072b355b145da241821c33210890b70a890a/docs/maintenance-units/2026-10-17/L5/recipe.md",
+  "frozenInputBindings": {
+    "coordinatorSourcePublicationPASS": true,
+    "privateFrozenInputs": {
+      "unit-result.json": "40ed7ffb323d084881e6af401d028c6cdbd11c626c55fbe92a65b5592614fb53",
+      "applied-audit.json": "221f5e303d243260fe153b500fcd8e4382769c7d6ab71ee31746b6922713f9e6",
+      "change.patch": "0a467ad93681575de69ff42de23cffc3d1e11bdf29d0b2cde7fc7388243ca7b9"
+    },
+    "publicCopies": "Workspace paths in keys and values are rebased to $WORKSPACE. Original private receipt SHA256 values identify exact audit inputs, not the sanitized public blob hashes."
+  },
+  "claimLimits": [
+    "Ordinary mock concurrency and static source review do not establish ThreadSanitizer race freedom, every external layer combination or all interleavings.",
+    "Injected lower-driver init/device-memory errors cover those common cleanup paths; exhaustive allocator-failure injection was not required or performed.",
+    "No GPU/window/app/game/FPS/MP/endurance acceptance or app/Release/Homebrew change."
+  ],
+  "retainedCorrections": [
+    {
+      "receipt": "cumulative-gate-completion.json",
+      "kind": "Added the adopted five-case cumulative L1 WSI gate before applied audit. The first eight-case result and manifest remain as intermediate snapshots; no source/binary change, extra build or repetition of the eight cases."
+    }
+  ],
+  "scope": "Source checkpoint only. Public app, Release, Homebrew, master and immutable tags are not changed."
+}

@@ -1,0 +1,188 @@
+{
+  "schema": "bar-applied-unit-audit-v1",
+  "unit": "L2",
+  "recordedAtUTC": "2026-10-18T03:51:38.506982+00:00",
+  "reviewer": "Audit - MK2",
+  "verdict": "PASS",
+  "sourcePublicationAllowed": true,
+  "requiredChecksSatisfied": true,
+  "hqResult": {
+    "path": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L2/unit-result.json",
+    "sha256": "40ed7ffb323d084881e6af401d028c6cdbd11c626c55fbe92a65b5592614fb53"
+  },
+  "upstreamSHAs": [
+    "6b45d76280a9525740c38c1796060eadb9267488"
+  ],
+  "completePatch": {
+    "path": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L2/change.patch",
+    "sha256": "0a467ad93681575de69ff42de23cffc3d1e11bdf29d0b2cde7fc7388243ca7b9"
+  },
+  "reviewedFiles": [
+    {
+      "componentRelativePath": "loader/loader.c",
+      "path": "$WORKSPACE/build/run66-vulkan-loader-src-20260903/loader/loader.c",
+      "beforeSHA256": "255ceae1fcc62ebee73f7f80772dc8735a1d429c6d8747878bc9af748f35840e",
+      "afterSHA256": "17b046f38f5cd58e11a572d18b2e5d001826a6c1268da3d619056a8d372dc7c9",
+      "beforeGitBlob": "0261e4b1f1647cbea1dcf308dda02ba2d8a1cc22",
+      "afterGitBlob": "31b766c5667cc607feaf67101287109d4130a907",
+      "beforeBytes": 406236,
+      "afterBytes": 406455,
+      "beforeMode": "0o644",
+      "afterMode": "0o644",
+      "preimage": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L2/preimage/loader/loader.c",
+      "postimage": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L2/postimage/loader/loader.c"
+    },
+    {
+      "componentRelativePath": "loader/trampoline.c",
+      "path": "$WORKSPACE/build/run66-vulkan-loader-src-20260903/loader/trampoline.c",
+      "beforeSHA256": "73fa8558e64acb8ad70d6079cf5911b1d04ad2d4c95f097ec4c5db84fed8fe11",
+      "afterSHA256": "247fe2859e1e725c784b4862f775e0cb80b7b4a53c434ec573f6513350c2b696",
+      "beforeGitBlob": "d39f1872ca60c01b327643c4a49d2790615db40b",
+      "afterGitBlob": "450740b5fa0508c327b50efd7f3e13519e65bd65",
+      "beforeBytes": 223598,
+      "afterBytes": 223356,
+      "beforeMode": "0o644",
+      "afterMode": "0o644",
+      "preimage": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L2/preimage/loader/trampoline.c",
+      "postimage": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L2/postimage/loader/trampoline.c"
+    },
+    {
+      "componentRelativePath": "tests/framework/layer/test_layer.cpp",
+      "path": "$WORKSPACE/build/run66-vulkan-loader-src-20260903/tests/framework/layer/test_layer.cpp",
+      "beforeSHA256": "30b90796afcdc308e9a7768f6a2de25791ba11e646bbddf0ef991ac1692b5802",
+      "afterSHA256": "ac4fb9c04791df463c19b70ecdd675cd67620231bc963653d2d52d0f299030ad",
+      "beforeGitBlob": "575ad68fdd233ce8542e3e836bac221ac4ca9dd3",
+      "afterGitBlob": "0ab865eb532f9ff21fe3e7a439a56f91f0062422",
+      "beforeBytes": 53055,
+      "afterBytes": 54485,
+      "beforeMode": "0o644",
+      "afterMode": "0o644",
+      "preimage": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L2/preimage/tests/framework/layer/test_layer.cpp",
+      "postimage": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L2/postimage/tests/framework/layer/test_layer.cpp"
+    },
+    {
+      "componentRelativePath": "tests/framework/layer/test_layer.h",
+      "path": "$WORKSPACE/build/run66-vulkan-loader-src-20260903/tests/framework/layer/test_layer.h",
+      "beforeSHA256": "609d427436948861482354deefec05c18ace6862b8ead7acb16dc4ea0c0c50b8",
+      "afterSHA256": "1c9dec0407364492168f2a983353e357e7331b2bd384f3c5dc25c07332e74b83",
+      "beforeGitBlob": "badb219383a7cf663bceac74b30c9dd446fd4435",
+      "afterGitBlob": "d5e88f2c3ce939c05b04221c0184f541cd4f3506",
+      "beforeBytes": 10190,
+      "afterBytes": 10512,
+      "beforeMode": "0o644",
+      "afterMode": "0o644",
+      "preimage": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L2/preimage/tests/framework/layer/test_layer.h",
+      "postimage": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L2/postimage/tests/framework/layer/test_layer.h"
+    },
+    {
+      "componentRelativePath": "tests/loader_threading_tests.cpp",
+      "path": "$WORKSPACE/build/run66-vulkan-loader-src-20260903/tests/loader_threading_tests.cpp",
+      "beforeSHA256": "87a72cdd865c4e93f5f3dbb19f791aa234f02e33d92fa594175bc3d136be5a65",
+      "afterSHA256": "2d529217856296859ed61dcc9257ef7201560e617a5ee0f747fc2c720a88b947",
+      "beforeGitBlob": "17318033203f3171a1fe07a4bee1e65195fcb674",
+      "afterGitBlob": "4feb31184f44e34ba20d41720544af24a951677d",
+      "beforeBytes": 16503,
+      "afterBytes": 22622,
+      "beforeMode": "0o644",
+      "afterMode": "0o644",
+      "preimage": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L2/preimage/tests/loader_threading_tests.cpp",
+      "postimage": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L2/postimage/tests/loader_threading_tests.cpp"
+    }
+  ],
+  "coordinatorSourceReview": {
+    "path": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L2/coordinator-source-review.json",
+    "sha256": "882e3be15de460c7de485046eab5674f9d78e47e5eeee3fcc0c360f9d5a10d96"
+  },
+  "productionReview": "Exact official loader.c/trampoline.c lock movement as a pair. Shared create callback takes loader_lock before instance/device-list work and releases at common cleanup/return. Shared destroy callback keeps null-handle return before acquire and unlocks at common end. Public outer locks are removed together, so normal API and direct layer callbacks share protection. Full preimage independently matches prior accepted L5 loader.c; L5 creation-chain/tail and L1 surface regions retained.",
+  "supportReview": "Exact official layer.cpp/layer.h changes give each device its next GetDeviceProcAddr and introduce the GetQueue hook. Official threading case alone never calls GetQueue; its PASS cannot establish direct callback execution. An82-line supplement in the same existing threading target adds three explicit success/initialization-failure/device-memory-failure cases, no product instrumentation or new harness.",
+  "testLifetimeReview": "Two persistent public owner devices in a single instance keep the top layer vector stable. Two workers perform16 GetQueue calls each; callback-created lower devices skip that layer. No concurrent vector mutation or owner destruction. ICD mutex protects count/map; observations only after joins. New-worker retry verifies reacquisition after each failure/success phase.",
+  "validation": {
+    "baselineExistingCasesPassed": 4,
+    "afterProductionRelatedCasesPassed": 13,
+    "unitSpecificCases": 8,
+    "cumulativeL1WSICases": 5,
+    "failed": 0,
+    "directCallbackObservations": [
+      {
+        "test": "DirectCallbacks/LayerDeviceCallbackResult.GetQueueCreatesDestroysAndRecovers/0",
+        "properties": {
+          "injected_callback_result": "0",
+          "callback_create_attempts": "32",
+          "live_devices_after_callbacks": "2",
+          "recovery_create_attempts": "1",
+          "live_devices_after_cleanup": "0"
+        }
+      },
+      {
+        "test": "DirectCallbacks/LayerDeviceCallbackResult.GetQueueCreatesDestroysAndRecovers/1",
+        "properties": {
+          "injected_callback_result": "-3",
+          "callback_create_attempts": "32",
+          "live_devices_after_callbacks": "2",
+          "recovery_create_attempts": "1",
+          "live_devices_after_cleanup": "0"
+        }
+      },
+      {
+        "test": "DirectCallbacks/LayerDeviceCallbackResult.GetQueueCreatesDestroysAndRecovers/2",
+        "properties": {
+          "injected_callback_result": "-2",
+          "callback_create_attempts": "32",
+          "live_devices_after_callbacks": "2",
+          "recovery_create_attempts": "1",
+          "live_devices_after_cleanup": "0"
+        }
+      }
+    ],
+    "totalObservedDirectCreateAttemptsIncludingRecovery": 99,
+    "actualProductionRawBinding": true,
+    "finalProductionRawSHA256": "90f8a48234bd14d5eb19154a1104a27b555dd9c6b2750e4568636b108c0b8920",
+    "immutableRawSnapshot": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L2/audit-artifacts/libvulkan.1.4.365.dylib",
+    "productionBuildTestsMode": "OFF",
+    "productionFlagsAndLinkCommandByteExact": true,
+    "cacheValuesAndTypesExact": true,
+    "cacheBytesExactClaimed": false,
+    "publicExportNamesExactCount": 1015,
+    "dependenciesAndInstallNameExact": true,
+    "allFiveFilesRoundtripAndOfficialPlusSupplementCompositionByteExact": true,
+    "noNewBuildForCumulativeFiveCases": true,
+    "firstEightCasesNotRepeated": true,
+    "sanitizerRun": false,
+    "newDirectCasePreFixFailureReproduced": false
+  },
+  "publicBase": {
+    "URL": "https://github.com/yeojuny/bar-lobby-apple-silicon/releases/download/v0.17.0-candidate.4/BAR-0.17.0-candidate.4-sources.tar.gz",
+    "archiveMember": "BAR-0.17.0-candidate.4-sources/archives/vulkan-loader-68cc-input.tar.gz",
+    "nestedArchiveSHA256": "68269a49344a1b2fd318f56828c0ca7104ef08ea3144e4fe97ac93061e8c7420",
+    "allFiveCumulativePreimagesReconstructedByteExact": true,
+    "sourceParentCommit": "f8e72e44a908c27b46767b99aa15c9afaf983964",
+    "reconstruction": "Public candidate4 port Loader archive -> L5 -> L4 -> L1 -> complete L2 patch. loader.c preimage includes L5, threading preimage includes L1. Retain separate S1/S2/C1 component chains and MVK_GIT_REV=f52facf7."
+  },
+  "preserved": "41 bounded prior source/runtime/identity/frozen receipt guards; real launcher HEAD/index, C1 source/raw/cache identity, prior selected units and app/runtime anchors unchanged. No whole-app/source inventory claim.",
+  "retainedCorrections": [
+    {
+      "receipt": "cumulative-gate-completion.json",
+      "kind": "Added the adopted five-case cumulative L1 WSI gate before applied audit. The first eight-case result and manifest remain as intermediate snapshots; no source/binary change, extra build or repetition of the eight cases."
+    }
+  ],
+  "limits": [
+    "Ordinary mock concurrency and static source review do not establish ThreadSanitizer race freedom, every external layer combination or all interleavings.",
+    "Injected lower-driver init/device-memory errors cover those common cleanup paths; exhaustive allocator-failure injection was not required or performed.",
+    "No GPU/window/app/game/FPS/MP/endurance acceptance or app/Release/Homebrew change."
+  ],
+  "notRequiredThisUnit": [
+    "Unrelated full Loader suites",
+    "Game/FPS/MP repetition"
+  ],
+  "blockingFindings": [],
+  "nextGate": "Separate publisher exact L2 source checkpoint and remote readback on L1 parent before atomic L3 pair.",
+  "publicExportProvenance": {
+    "coordinatorSourcePublicationPASS": true,
+    "privateFrozenInputs": {
+      "unit-result.json": "40ed7ffb323d084881e6af401d028c6cdbd11c626c55fbe92a65b5592614fb53",
+      "applied-audit.json": "221f5e303d243260fe153b500fcd8e4382769c7d6ab71ee31746b6922713f9e6",
+      "change.patch": "0a467ad93681575de69ff42de23cffc3d1e11bdf29d0b2cde7fc7388243ca7b9"
+    },
+    "publicCopies": "Workspace paths in keys and values are rebased to $WORKSPACE. Original private receipt SHA256 values identify exact audit inputs, not the sanitized public blob hashes."
+  }
+}
