@@ -1,0 +1,496 @@
+{
+  "schema": "bar-maintenance-units-v1",
+  "recordedAtUTC": "2026-10-18T01:30:52.628056+00:00",
+  "allowedWorkspace": "$WORKSPACE",
+  "section": "BAR 배포판 관리",
+  "policy": "$WORKSPACE/MAINTENANCE-POLICY.md",
+  "sourceAudit": "$WORKSPACE/reports/stack-maintenance-audit-mk2-20261017.md",
+  "unitCount": 8,
+  "upstreamCommitCount": 10,
+  "units": [
+    {
+      "id": "S1",
+      "title": "SDL four-byte UTF8 mask",
+      "component": "SDL",
+      "upstreamCommits": [
+        {
+          "sha": "57f22e6e43ad7c40912645d6cc76083107b4c367",
+          "url": "https://github.com/libsdl-org/SDL/commit/57f22e6e43ad7c40912645d6cc76083107b4c367"
+        }
+      ],
+      "atomic": true,
+      "minimumRelatedFiles": [
+        "src/stdlib/SDL_string.c"
+      ],
+      "requiredScopeAndChecks": "Affected upper-bit codepoints, valid boundaries, malformed and truncated input; preserve the three local property corrections",
+      "orderingAfter": "cleanup-and-current-base-check",
+      "status": "planned-not-applied",
+      "validation": "not-run-in-policy-writing-turn",
+      "publication": "not-committed-not-uploaded",
+      "recordRequired": [
+        "base-content",
+        "preimages-and-metadata",
+        "postimages-and-patch",
+        "preserved-local-changes",
+        "test-commands-results-and-gaps",
+        "raw-artifact-hashes",
+        "review-verdict",
+        "rollback",
+        "source-commit-and-remote-readback",
+        "next-base"
+      ],
+      "sequenceId": "U1",
+      "auditId": "S1",
+      "plannedProductionFiles": [
+        "$WORKSPACE/build/run66-sdl-src-20260903/src/stdlib/SDL_string.c"
+      ],
+      "reviewSources": {
+        "build": "$WORKSPACE/artifacts/validation/bar-cleanup-and-change-policy-20261017/build-policy-review.json",
+        "buildUnitId": "S1",
+        "publication": "$WORKSPACE/artifacts/validation/bar-cleanup-and-change-policy-20261017/publication-policy-review.json",
+        "publicationUnitId": "S1"
+      },
+      "publicUnitDirectory": "docs/maintenance-units/2026-10-17/S1/",
+      "riskTier": 1,
+      "riskReason": "isolated UTF-8 bit mask; no allocation/locking/display changes",
+      "notRequiredPerUnit": [
+        "full game/FPS/multiplayer benchmark",
+        "unrelated whole-app rebuild or full tree backup",
+        "display-resolution/fullscreen test when no display path changes"
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "SDL environment mutex failure",
+      "component": "SDL",
+      "upstreamCommits": [
+        {
+          "sha": "52ef28aebadaf6fd3478cf06a8c3337c7214262d",
+          "url": "https://github.com/libsdl-org/SDL/commit/52ef28aebadaf6fd3478cf06a8c3337c7214262d"
+        }
+      ],
+      "atomic": true,
+      "minimumRelatedFiles": [
+        "src/stdlib/SDL_getenv.c"
+      ],
+      "requiredScopeAndChecks": "Mutex-creation failure, later hash creation failure and exactly-once cleanup, normal environment behavior",
+      "orderingAfter": "S1",
+      "status": "planned-not-applied",
+      "validation": "not-run-in-policy-writing-turn",
+      "publication": "not-committed-not-uploaded",
+      "recordRequired": [
+        "base-content",
+        "preimages-and-metadata",
+        "postimages-and-patch",
+        "preserved-local-changes",
+        "test-commands-results-and-gaps",
+        "raw-artifact-hashes",
+        "review-verdict",
+        "rollback",
+        "source-commit-and-remote-readback",
+        "next-base"
+      ],
+      "sequenceId": "U2",
+      "auditId": "S2",
+      "plannedProductionFiles": [
+        "$WORKSPACE/build/run66-sdl-src-20260903/src/stdlib/SDL_getenv.c"
+      ],
+      "reviewSources": {
+        "build": "$WORKSPACE/artifacts/validation/bar-cleanup-and-change-policy-20261017/build-policy-review.json",
+        "buildUnitId": "S2",
+        "publication": "$WORKSPACE/artifacts/validation/bar-cleanup-and-change-policy-20261017/publication-policy-review.json",
+        "publicationUnitId": "S2"
+      },
+      "publicUnitDirectory": "docs/maintenance-units/2026-10-17/S2/",
+      "riskTier": 1,
+      "riskReason": "initialization/failure cleanup; no new query-time mutex",
+      "notRequiredPerUnit": [
+        "full game/FPS/multiplayer benchmark",
+        "unrelated whole-app rebuild or full tree backup",
+        "display-resolution/fullscreen test when no display path changes"
+      ]
+    },
+    {
+      "id": "L5",
+      "title": "Loader failed device-group pNext restore",
+      "component": "Vulkan-Loader",
+      "upstreamCommits": [
+        {
+          "sha": "77406fdfcd5706fd2a5d8f4473a6408fa6218b32",
+          "url": "https://github.com/KhronosGroup/Vulkan-Loader/commit/77406fdfcd5706fd2a5d8f4473a6408fa6218b32"
+        }
+      ],
+      "atomic": true,
+      "minimumRelatedFiles": [
+        "loader/loader.c"
+      ],
+      "requiredScopeAndChecks": "Restore caller pNext before failure branching; test success and lower creation failure with pointer lifetime preserved",
+      "orderingAfter": "S2",
+      "status": "planned-not-applied",
+      "validation": "not-run-in-policy-writing-turn",
+      "publication": "not-committed-not-uploaded",
+      "recordRequired": [
+        "base-content",
+        "preimages-and-metadata",
+        "postimages-and-patch",
+        "preserved-local-changes",
+        "test-commands-results-and-gaps",
+        "raw-artifact-hashes",
+        "review-verdict",
+        "rollback",
+        "source-commit-and-remote-readback",
+        "next-base"
+      ],
+      "sequenceId": "U3",
+      "auditId": "L5",
+      "plannedProductionFiles": [
+        "$WORKSPACE/build/run66-vulkan-loader-src-20260903/loader/loader.c"
+      ],
+      "reviewSources": {
+        "build": "$WORKSPACE/artifacts/validation/bar-cleanup-and-change-policy-20261017/build-policy-review.json",
+        "buildUnitId": "L5",
+        "publication": "$WORKSPACE/artifacts/validation/bar-cleanup-and-change-policy-20261017/publication-policy-review.json",
+        "publicationUnitId": "L5"
+      },
+      "publicUnitDirectory": "docs/maintenance-units/2026-10-17/L5/",
+      "riskTier": 2,
+      "riskReason": "caller pNext restoration across device-creation success/failure",
+      "notRequiredPerUnit": [
+        "full game/FPS/multiplayer benchmark",
+        "unrelated whole-app rebuild or full tree backup",
+        "display-resolution/fullscreen test when no display path changes"
+      ]
+    },
+    {
+      "id": "L4",
+      "title": "Loader settings path parser pair",
+      "component": "Vulkan-Loader",
+      "upstreamCommits": [
+        {
+          "sha": "d77a2a09597af347e171fa2830ef05b39319b4eb",
+          "url": "https://github.com/KhronosGroup/Vulkan-Loader/commit/d77a2a09597af347e171fa2830ef05b39319b4eb"
+        },
+        {
+          "sha": "a3fdec40f1a76c73747f22671ee5d4c0269cb3f1",
+          "url": "https://github.com/KhronosGroup/Vulkan-Loader/commit/a3fdec40f1a76c73747f22671ee5d4c0269cb3f1"
+        }
+      ],
+      "atomic": true,
+      "minimumRelatedFiles": [
+        "loader/settings.c"
+      ],
+      "requiredScopeAndChecks": "Atomic pair: later colon-separated paths, one-character and empty boundary cases; external settings and bundled driver/layer selection",
+      "orderingAfter": "L5",
+      "status": "planned-not-applied",
+      "validation": "not-run-in-policy-writing-turn",
+      "publication": "not-committed-not-uploaded",
+      "recordRequired": [
+        "base-content",
+        "preimages-and-metadata",
+        "postimages-and-patch",
+        "preserved-local-changes",
+        "test-commands-results-and-gaps",
+        "raw-artifact-hashes",
+        "review-verdict",
+        "rollback",
+        "source-commit-and-remote-readback",
+        "next-base"
+      ],
+      "sequenceId": "U4",
+      "auditId": "L4",
+      "plannedProductionFiles": [
+        "$WORKSPACE/build/run66-vulkan-loader-src-20260903/loader/settings.c"
+      ],
+      "reviewSources": {
+        "build": "$WORKSPACE/artifacts/validation/bar-cleanup-and-change-policy-20261017/build-policy-review.json",
+        "buildUnitId": "L4",
+        "publication": "$WORKSPACE/artifacts/validation/bar-cleanup-and-change-policy-20261017/publication-policy-review.json",
+        "publicationUnitId": "L4"
+      },
+      "publicUnitDirectory": "docs/maintenance-units/2026-10-17/L4/",
+      "riskTier": 2,
+      "riskReason": "parser boundaries; previously ignored external settings can become active",
+      "notRequiredPerUnit": [
+        "full game/FPS/multiplayer benchmark",
+        "unrelated whole-app rebuild or full tree backup",
+        "display-resolution/fullscreen test when no display path changes"
+      ]
+    },
+    {
+      "id": "C1",
+      "title": "Cross precise negative zero",
+      "component": "SPIRV-Cross",
+      "upstreamCommits": [
+        {
+          "sha": "300681bbcb8365a8d1eacdacdbdd0249bbf1d6b1",
+          "url": "https://github.com/KhronosGroup/SPIRV-Cross/commit/300681bbcb8365a8d1eacdacdbdd0249bbf1d6b1"
+        }
+      ],
+      "atomic": true,
+      "minimumRelatedFiles": [
+        "spirv_msl.cpp",
+        "existing official expected-output fixtures"
+      ],
+      "requiredScopeAndChecks": "Preserve local #2687; precise multiply/matrix and alias regression; rebuild owning MVK/Cross and update cache identity",
+      "orderingAfter": "L4",
+      "status": "planned-not-applied",
+      "validation": "not-run-in-policy-writing-turn",
+      "publication": "not-committed-not-uploaded",
+      "recordRequired": [
+        "base-content",
+        "preimages-and-metadata",
+        "postimages-and-patch",
+        "preserved-local-changes",
+        "test-commands-results-and-gaps",
+        "raw-artifact-hashes",
+        "review-verdict",
+        "rollback",
+        "source-commit-and-remote-readback",
+        "next-base"
+      ],
+      "sequenceId": "U5",
+      "auditId": "C1",
+      "plannedProductionFiles": [
+        "$WORKSPACE/build/run66-moltenvk-src-20260903/External/SPIRV-Cross/spirv_msl.cpp"
+      ],
+      "reviewSources": {
+        "build": "$WORKSPACE/artifacts/validation/bar-cleanup-and-change-policy-20261017/build-policy-review.json",
+        "buildUnitId": "C1",
+        "publication": "$WORKSPACE/artifacts/validation/bar-cleanup-and-change-policy-20261017/publication-policy-review.json",
+        "publicationUnitId": "C1"
+      },
+      "publicUnitDirectory": "docs/maintenance-units/2026-10-17/C1/",
+      "riskTier": 3,
+      "riskReason": "shader code-generation semantics and cache identity",
+      "notRequiredPerUnit": [
+        "full game/FPS/multiplayer benchmark",
+        "unrelated whole-app rebuild or full tree backup"
+      ]
+    },
+    {
+      "id": "L1",
+      "title": "Loader surface unwrap lock",
+      "component": "Vulkan-Loader",
+      "upstreamCommits": [
+        {
+          "sha": "2d3e7b9bae969ebd662a2df36ec4251848aab435",
+          "url": "https://github.com/KhronosGroup/Vulkan-Loader/commit/2d3e7b9bae969ebd662a2df36ec4251848aab435"
+        }
+      ],
+      "atomic": true,
+      "minimumRelatedFiles": [
+        "loader/wsi.c"
+      ],
+      "requiredScopeAndChecks": "Preserve existing creation/destruction fixes; balanced lock/unlock including early returns; relevant threading/lifetime cases",
+      "orderingAfter": "C1",
+      "status": "planned-not-applied",
+      "validation": "not-run-in-policy-writing-turn",
+      "publication": "not-committed-not-uploaded",
+      "recordRequired": [
+        "base-content",
+        "preimages-and-metadata",
+        "postimages-and-patch",
+        "preserved-local-changes",
+        "test-commands-results-and-gaps",
+        "raw-artifact-hashes",
+        "review-verdict",
+        "rollback",
+        "source-commit-and-remote-readback",
+        "next-base"
+      ],
+      "sequenceId": "U6",
+      "auditId": "L1",
+      "plannedProductionFiles": [
+        "$WORKSPACE/build/run66-vulkan-loader-src-20260903/loader/wsi.c"
+      ],
+      "reviewSources": {
+        "build": "$WORKSPACE/artifacts/validation/bar-cleanup-and-change-policy-20261017/build-policy-review.json",
+        "buildUnitId": "L1",
+        "publication": "$WORKSPACE/artifacts/validation/bar-cleanup-and-change-policy-20261017/publication-policy-review.json",
+        "publicationUnitId": "L1"
+      },
+      "publicUnitDirectory": "docs/maintenance-units/2026-10-17/L1/",
+      "riskTier": 3,
+      "riskReason": "surface lookup and delayed-creation shared locking",
+      "notRequiredPerUnit": [
+        "full game/FPS/multiplayer benchmark",
+        "unrelated whole-app rebuild or full tree backup"
+      ]
+    },
+    {
+      "id": "L2",
+      "title": "Loader device callback locking",
+      "component": "Vulkan-Loader",
+      "upstreamCommits": [
+        {
+          "sha": "6b45d76280a9525740c38c1796060eadb9267488",
+          "url": "https://github.com/KhronosGroup/Vulkan-Loader/commit/6b45d76280a9525740c38c1796060eadb9267488"
+        }
+      ],
+      "atomic": true,
+      "minimumRelatedFiles": [
+        "loader/loader.c",
+        "loader/trampoline.c"
+      ],
+      "requiredScopeAndChecks": "Move lock ownership consistently across public and direct callback paths; create/destroy and failure cases",
+      "orderingAfter": "L1",
+      "status": "planned-not-applied",
+      "validation": "not-run-in-policy-writing-turn",
+      "publication": "not-committed-not-uploaded",
+      "recordRequired": [
+        "base-content",
+        "preimages-and-metadata",
+        "postimages-and-patch",
+        "preserved-local-changes",
+        "test-commands-results-and-gaps",
+        "raw-artifact-hashes",
+        "review-verdict",
+        "rollback",
+        "source-commit-and-remote-readback",
+        "next-base"
+      ],
+      "sequenceId": "U7",
+      "auditId": "L2",
+      "plannedProductionFiles": [
+        "$WORKSPACE/build/run66-vulkan-loader-src-20260903/loader/loader.c",
+        "$WORKSPACE/build/run66-vulkan-loader-src-20260903/loader/trampoline.c"
+      ],
+      "reviewSources": {
+        "build": "$WORKSPACE/artifacts/validation/bar-cleanup-and-change-policy-20261017/build-policy-review.json",
+        "buildUnitId": "L2",
+        "publication": "$WORKSPACE/artifacts/validation/bar-cleanup-and-change-policy-20261017/publication-policy-review.json",
+        "publicationUnitId": "L2"
+      },
+      "publicUnitDirectory": "docs/maintenance-units/2026-10-17/L2/",
+      "riskTier": 3,
+      "riskReason": "lock ownership across trampoline and direct device callbacks",
+      "notRequiredPerUnit": [
+        "full game/FPS/multiplayer benchmark",
+        "unrelated whole-app rebuild or full tree backup"
+      ]
+    },
+    {
+      "id": "L3",
+      "title": "Loader debug messenger lock pair",
+      "component": "Vulkan-Loader",
+      "upstreamCommits": [
+        {
+          "sha": "e38751a7c03588c2f1fec742f611cbafff864158",
+          "url": "https://github.com/KhronosGroup/Vulkan-Loader/commit/e38751a7c03588c2f1fec742f611cbafff864158"
+        },
+        {
+          "sha": "73cf5326e8c87d7922b235666198988064b0f294",
+          "url": "https://github.com/KhronosGroup/Vulkan-Loader/commit/73cf5326e8c87d7922b235666198988064b0f294"
+        }
+      ],
+      "atomic": true,
+      "minimumRelatedFiles": [
+        "loader/debug_utils.c"
+      ],
+      "requiredScopeAndChecks": "Atomic pair: common list protection plus redundant outer lock removal; callback/delete concurrency, filtered logging and reentrancy constraints",
+      "orderingAfter": "L2",
+      "status": "planned-not-applied",
+      "validation": "not-run-in-policy-writing-turn",
+      "publication": "not-committed-not-uploaded",
+      "recordRequired": [
+        "base-content",
+        "preimages-and-metadata",
+        "postimages-and-patch",
+        "preserved-local-changes",
+        "test-commands-results-and-gaps",
+        "raw-artifact-hashes",
+        "review-verdict",
+        "rollback",
+        "source-commit-and-remote-readback",
+        "next-base"
+      ],
+      "sequenceId": "U8",
+      "auditId": "L3",
+      "plannedProductionFiles": [
+        "$WORKSPACE/build/run66-vulkan-loader-src-20260903/loader/debug_utils.c"
+      ],
+      "reviewSources": {
+        "build": "$WORKSPACE/artifacts/validation/bar-cleanup-and-change-policy-20261017/build-policy-review.json",
+        "buildUnitId": "L3",
+        "publication": "$WORKSPACE/artifacts/validation/bar-cleanup-and-change-policy-20261017/publication-policy-review.json",
+        "publicationUnitId": "L3"
+      },
+      "publicUnitDirectory": "docs/maintenance-units/2026-10-17/L3/",
+      "riskTier": 3,
+      "riskReason": "debug callback lifetime/concurrency and recursive-lock avoidance",
+      "notRequiredPerUnit": [
+        "full game/FPS/multiplayer benchmark",
+        "unrelated whole-app rebuild or full tree backup"
+      ]
+    }
+  ],
+  "finalUnit": {
+    "id": "V1",
+    "title": "Product version, native additional labels, one signed app and matching installers/source/notices/checksums/Homebrew",
+    "targetVersion": "1.0.0",
+    "includedFunctionalUnits": "exact selected-and-validated IDs frozen at packaging, not assumed from this queue",
+    "officialEngineSyncIdentities": "preserved",
+    "status": "planned-not-built-not-published",
+    "preparation": "$WORKSPACE/artifacts/validation/storage-and-stable-version-plan-20261017/release-v1.0.0-preparation.json"
+  },
+  "held": [
+    "whole cJSON",
+    "MVK depth-clip without local Metal4 integration",
+    "new SDL keymap ownership",
+    "new OpenAL HRTF cache",
+    "whole Mesa/component upgrades",
+    "already-equivalent Loader #2050"
+  ],
+  "currentTurnAuthority": "Execute bounded verified BAR cleanup and write/adopt policy only; no current upstream patch/build/push/tag/release operations",
+  "noAutomaticRuntimeQuit": true,
+  "automation": "PAUSED unchanged",
+  "publicPolicyExport": {
+    "workspaceSource": "$WORKSPACE/MAINTENANCE-POLICY.md",
+    "futureRepositoryPath": "docs/MAINTENANCE-POLICY.md",
+    "unitDefinitionFuturePath": "docs/maintenance-units/2026-10-17/units.json",
+    "state": "mapping only, no public write",
+    "linkRule": "Publisher rewrites local absolute documentation links to the reviewed public relative files when exporting; never publish a private local path as the only reconstructible input."
+  },
+  "reviewsComplete": true,
+  "reviewConclusion": "Both BAR owner reviews cover unchanged eight-unit scope, two atomic pairs, required related checks/applied audit, exact-source upload and separate V1. Coordinator reordered scheduling by human low-risk-first direction; no unit was applied.",
+  "riskOrderingHumanDirection": "낮은 위험부터 확인을 생략해도 되는 변경과 필요한 변경을 나누어 높은 위험 순으로 진행",
+  "orderingIsSchedulingNotUpstreamDependency": true,
+  "riskTierPolicy": {
+    "0": "Docs/comments/CI only without product effect: diff/export readback only; no runtime test. Skip irrelevant platform changes.",
+    "1": "Isolated SDL correctness and selected small OpenAL initialization hunks: component build and existing focused checks only.",
+    "2": "Bounded Loader failure/parser behavior: focused lifetime/boundary/settings-selection checks.",
+    "3": "Shader generation/shared locks/window/input: affected semantics/cache/threading/display checks only.",
+    "4": "Audio routing migration, whole library upgrades, broad Mesa/MVK/new features: separate scope; known HRTF/keymap intake issues held."
+  },
+  "optionalCandidates": [
+    {
+      "id": "A1",
+      "component": "OpenAL Soft",
+      "upstreamSha": "e77723fff1a28ac2c4c98d8ec108d8563f7f42d1",
+      "url": "https://github.com/kcat/openal-soft/commit/e77723fff1a28ac2c4c98d8ec108d8563f7f42d1",
+      "scope": "Only alc/alc.cpp default-effect-slot updateProps hunk after initEffect in alcCreateContext; exclude constructor/consteval changes",
+      "riskTier": 1,
+      "status": "optional-not-selected-not-applied",
+      "benefitCondition": "Default reverb/effect slot is actually used; explicit BAR EFX slots are separate",
+      "checksIfSelected": "Component build and context default-reverb off/on plus effect-initialization failure scope; no full game/FPS/MP suite",
+      "notClaimed": "Whole 147-commit OpenAL update is low risk or required; current BAR default-effect bug or speed improvement is not established."
+    }
+  ],
+  "audioDecision": {
+    "current": "OpenAL mixing -> OpenAL CoreAudio -> macOS device; SDL audio path explicitly returns false for RECOIL_MACOS_SDL3_EGL in both native lanes",
+    "alternative": "OpenAL loopback mixing -> SDL3 audio stream -> playback device; retains OpenAL",
+    "benefit": "Potential SDL default-device migration/common device handling; no measured speed/latency/size benefit",
+    "cost": "Port old SDL2 callback to SDL3 streams; format/channel/conversion/buffering and callback/device lifecycle work",
+    "recommendation": "Keep current CoreAudio route; consider a separate change only for a concrete device/output requirement",
+    "sourcePaths": [
+      "build/run91-recoil-src-694e9df7/rts/System/Sound/OpenAL/Sound.cpp",
+      "artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/System/Sound/OpenAL/Sound.cpp",
+      "build/run90-openal-build-20260910/CMakeCache.txt"
+    ],
+    "officialDocumentation": [
+      "https://wiki.libsdl.org/SDL3/README-migration",
+      "https://wiki.libsdl.org/SDL3/SDL_OpenAudioDeviceStream"
+    ]
+  },
+  "updatedAtUTC": "2026-10-18T01:36:42.789240+00:00"
+}

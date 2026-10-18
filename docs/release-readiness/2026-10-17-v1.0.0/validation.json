@@ -1,0 +1,544 @@
+{
+  "schema": "bar-v1-release-validation-v1",
+  "status": "CPU-and-package-qualified",
+  "app": {
+    "inventorySHA256": "596366c0bcc13101c193381a3c83aee0d9e693a5265246817ead6ab877d5396d",
+    "entries": 1191,
+    "asarSHA256": "6dbb84c183e533b5f99c61e27c3db578b658ae41c302151ee911727dbdd8ca30",
+    "inputLockSHA256": "7ba30dded23abde059bb2806c59f16f838952754e84bc90795c313f36fd87bfd",
+    "nativeAdditionalVersion": "BAR-1.0.0",
+    "officialSyncIdentities": {
+      "bar-lobby": "2026.09.01-24-g01efdf4 master",
+      "bar-chobby": "2026.07.04"
+    },
+    "qualification": "CPU/package only; no new graphical gameplay/MP/FPS/other-Mac/clean-machine acceptance",
+    "publicationGate": "Exact final-output audit and remote readbacks are recorded separately."
+  },
+  "checks": {
+    "launcherUnitTests": 859,
+    "nodeAndWebTypes": "PASS",
+    "nativeLoaderFiles": 52,
+    "nativeLoaderAllPassed": true,
+    "appLocalClosureEdges": 247,
+    "strictAdHocSignature": "PASS",
+    "appFileModeLinkBindings": 1191,
+    "sameAppDMGZIPReadback": "PASS",
+    "freshLobbyStartup": "PASS: visible window, renderer ready, both bundled engines discovered; normal audio environment; left open for human"
+  },
+  "nativeComponentInputs": {
+    "recordedAtUTC": "2026-10-18T04:23:28.319456+00:00",
+    "items": [
+      {
+        "component": "SDL",
+        "rawPath": "$WORKSPACE/build/run95-sdl-20261002/libSDL3.0.dylib",
+        "rawSHA256": "1e4c4ad59e8dd36bcb0e333446eae24c7c164ebe3fd2921054a1fdceecd579c6",
+        "packagedPath": "$WORKSPACE/artifacts/runtime/release-v1.0.0-20261017/assets/runtime/sdl3/lib/libSDL3.0.dylib",
+        "assetRelativePath": "runtime/sdl3/lib/libSDL3.0.dylib",
+        "packagedSHA256": "6a76d38b6cfcd75122ea51215af9dd8be1972c984a431adb2cfa0c6731354820",
+        "rawTextSHA256": "1f23eff716f3259d1b6cb0a599c64f26b162b89640bd469bc78b040bd545db37",
+        "packagedTextSHA256": "1f23eff716f3259d1b6cb0a599c64f26b162b89640bd469bc78b040bd545db37",
+        "parentLoadsAndRpathsAndIdExact": true,
+        "relocations": [],
+        "commands": [
+          [
+            "/usr/bin/install_name_tool",
+            "-id",
+            "@rpath/libSDL3.0.dylib",
+            "-add_rpath",
+            "@loader_path/.",
+            "-add_rpath",
+            "@loader_path/../../mesa-zink/lib",
+            "-add_rpath",
+            "@loader_path/../../vulkan-loader/lib",
+            "-add_rpath",
+            "@loader_path/../../moltenvk-pr2746/lib",
+            "-add_rpath",
+            "@loader_path/../../deps/lib",
+            "-add_rpath",
+            "@loader_path/../../audio/lib",
+            "$WORKSPACE/artifacts/runtime/release-v1.0.0-20261017/assets/runtime/sdl3/lib/libSDL3.0.dylib"
+          ],
+          [
+            "/usr/bin/codesign",
+            "--force",
+            "--sign",
+            "-",
+            "$WORKSPACE/artifacts/runtime/release-v1.0.0-20261017/assets/runtime/sdl3/lib/libSDL3.0.dylib"
+          ]
+        ]
+      },
+      {
+        "component": "Loader",
+        "rawPath": "$WORKSPACE/build/run95-loader-20261002/loader/libvulkan.1.4.365.dylib",
+        "rawSHA256": "61ff2158bcf1169dd08c4e8a84c3e1aa53cbf6a76b6e40dbaa1e1fa65911cc12",
+        "packagedPath": "$WORKSPACE/artifacts/runtime/release-v1.0.0-20261017/assets/runtime/vulkan-loader/lib/libvulkan.1.4.365.dylib",
+        "assetRelativePath": "runtime/vulkan-loader/lib/libvulkan.1.4.365.dylib",
+        "packagedSHA256": "b2b4bb1c9db72ff8639958e3137b308c67c15fe35cb846ffd5b1f7703cc0f7cd",
+        "rawTextSHA256": "f697687b1a280968759ccb3aae3b4792d8ae04768e4c0abbb695ac6a1683d38a",
+        "packagedTextSHA256": "f697687b1a280968759ccb3aae3b4792d8ae04768e4c0abbb695ac6a1683d38a",
+        "parentLoadsAndRpathsAndIdExact": true,
+        "relocations": [],
+        "commands": [
+          [
+            "/usr/bin/install_name_tool",
+            "-id",
+            "@rpath/libvulkan.1.4.365.dylib",
+            "-add_rpath",
+            "@loader_path/../../sdl3/lib",
+            "-add_rpath",
+            "@loader_path/../../mesa-zink/lib",
+            "-add_rpath",
+            "@loader_path/.",
+            "-add_rpath",
+            "@loader_path/../../moltenvk-pr2746/lib",
+            "-add_rpath",
+            "@loader_path/../../deps/lib",
+            "-add_rpath",
+            "@loader_path/../../audio/lib",
+            "$WORKSPACE/artifacts/runtime/release-v1.0.0-20261017/assets/runtime/vulkan-loader/lib/libvulkan.1.4.365.dylib"
+          ],
+          [
+            "/usr/bin/codesign",
+            "--force",
+            "--sign",
+            "-",
+            "$WORKSPACE/artifacts/runtime/release-v1.0.0-20261017/assets/runtime/vulkan-loader/lib/libvulkan.1.4.365.dylib"
+          ]
+        ]
+      },
+      {
+        "component": "MoltenVK",
+        "rawPath": "$WORKSPACE/build/metal4-mvk-20261002/MoltenVK/libMoltenVK.1.4.3.dylib",
+        "rawSHA256": "6973721f4bc0b63d3e00a969eb65836cc2eab4e2dc988f24a5489c48c13233f6",
+        "packagedPath": "$WORKSPACE/artifacts/runtime/release-v1.0.0-20261017/assets/runtime/moltenvk-pr2746/lib/libMoltenVK.1.4.3.dylib",
+        "assetRelativePath": "runtime/moltenvk-pr2746/lib/libMoltenVK.1.4.3.dylib",
+        "packagedSHA256": "7aea926e4c5e815e523bbaf8a301df53363291254c20bd1df97aa015e150c7fe",
+        "rawTextSHA256": "45250e48d612943030be31f249397c9c11e0fe7aac258ef2644213f17cfadfc3",
+        "packagedTextSHA256": "45250e48d612943030be31f249397c9c11e0fe7aac258ef2644213f17cfadfc3",
+        "parentLoadsAndRpathsAndIdExact": true,
+        "relocations": [],
+        "commands": [
+          [
+            "/usr/bin/install_name_tool",
+            "-id",
+            "@rpath/libMoltenVK.1.4.3.dylib",
+            "$WORKSPACE/artifacts/runtime/release-v1.0.0-20261017/assets/runtime/moltenvk-pr2746/lib/libMoltenVK.1.4.3.dylib"
+          ],
+          [
+            "/usr/bin/codesign",
+            "--force",
+            "--sign",
+            "-",
+            "$WORKSPACE/artifacts/runtime/release-v1.0.0-20261017/assets/runtime/moltenvk-pr2746/lib/libMoltenVK.1.4.3.dylib"
+          ]
+        ]
+      },
+      {
+        "component": "bar-lobby",
+        "rawPath": "$WORKSPACE/build/run91-recoil-engine-694e9df7-macos27/spring",
+        "rawSHA256": "49c51221a809e0c85056941758f2e9e17f39aba8b48c8ad6e4c0ee826b24229f",
+        "packagedPath": "$WORKSPACE/artifacts/runtime/release-v1.0.0-20261017/assets/engine/2026.09.01-24-g01efdf4 master/spring",
+        "assetRelativePath": "engine/2026.09.01-24-g01efdf4 master/spring",
+        "packagedSHA256": "ce71db8fdd4b02a8c5e0206ac7e3c3aa18dafc2c4a30360e033ea5052c7021ab",
+        "rawTextSHA256": "b49e1b2fec1d7de60ab41c71032d65fea1be6d88bc1388c05f8e592a490f61d7",
+        "packagedTextSHA256": "b49e1b2fec1d7de60ab41c71032d65fea1be6d88bc1388c05f8e592a490f61d7",
+        "parentLoadsAndRpathsAndIdExact": true,
+        "relocations": [
+          {
+            "from": "$WORKSPACE/artifacts/runtime/run90-devel-heads-20260910/runtime/mesa-zink/lib/libEGL.1.dylib",
+            "to": "@rpath/libEGL.1.dylib"
+          },
+          {
+            "from": "/opt/homebrew/opt/fontconfig/lib/libfontconfig.1.dylib",
+            "to": "@rpath/libfontconfig.1.dylib"
+          },
+          {
+            "from": "/opt/homebrew/opt/freetype/lib/libfreetype.6.dylib",
+            "to": "@rpath/libfreetype.6.dylib"
+          },
+          {
+            "from": "/opt/homebrew/opt/devil/lib/libIL.dylib",
+            "to": "@rpath/libIL.dylib"
+          },
+          {
+            "from": "/opt/homebrew/opt/minizip/lib/libminizip.1.dylib",
+            "to": "@rpath/libminizip.1.dylib"
+          },
+          {
+            "from": "/opt/homebrew/opt/libvorbis/lib/libvorbisfile.3.dylib",
+            "to": "@rpath/libvorbisfile.3.dylib"
+          },
+          {
+            "from": "/opt/homebrew/opt/libvorbis/lib/libvorbis.0.dylib",
+            "to": "@rpath/libvorbis.0.dylib"
+          },
+          {
+            "from": "/opt/homebrew/opt/libogg/lib/libogg.0.dylib",
+            "to": "@rpath/libogg.0.dylib"
+          }
+        ],
+        "commands": [
+          [
+            "/usr/bin/install_name_tool",
+            "-change",
+            "$WORKSPACE/artifacts/runtime/run90-devel-heads-20260910/runtime/mesa-zink/lib/libEGL.1.dylib",
+            "@rpath/libEGL.1.dylib",
+            "-change",
+            "/opt/homebrew/opt/fontconfig/lib/libfontconfig.1.dylib",
+            "@rpath/libfontconfig.1.dylib",
+            "-change",
+            "/opt/homebrew/opt/freetype/lib/libfreetype.6.dylib",
+            "@rpath/libfreetype.6.dylib",
+            "-change",
+            "/opt/homebrew/opt/devil/lib/libIL.dylib",
+            "@rpath/libIL.dylib",
+            "-change",
+            "/opt/homebrew/opt/minizip/lib/libminizip.1.dylib",
+            "@rpath/libminizip.1.dylib",
+            "-change",
+            "/opt/homebrew/opt/libvorbis/lib/libvorbisfile.3.dylib",
+            "@rpath/libvorbisfile.3.dylib",
+            "-change",
+            "/opt/homebrew/opt/libvorbis/lib/libvorbis.0.dylib",
+            "@rpath/libvorbis.0.dylib",
+            "-change",
+            "/opt/homebrew/opt/libogg/lib/libogg.0.dylib",
+            "@rpath/libogg.0.dylib",
+            "-delete_rpath",
+            "$WORKSPACE/artifacts/runtime/run90-devel-stack-20260910/runtime/sdl3/lib",
+            "-delete_rpath",
+            "$WORKSPACE/artifacts/runtime/run90-devel-heads-20260910/runtime/mesa-zink/lib",
+            "-delete_rpath",
+            "$WORKSPACE/artifacts/runtime/run90-devel-heads-20260910/runtime/openal/lib",
+            "-delete_rpath",
+            "$WORKSPACE/artifacts/runtime/run90-devel-heads-20260910/runtime/moltenvk-pr2746/lib",
+            "-delete_rpath",
+            "$WORKSPACE/artifacts/runtime/run90-devel-stack-20260910/runtime/vulkan-loader/lib",
+            "-add_rpath",
+            "@loader_path",
+            "-add_rpath",
+            "@loader_path/lib",
+            "-add_rpath",
+            "@loader_path/../../runtime/sdl3/lib",
+            "-add_rpath",
+            "@loader_path/../../runtime/mesa-zink/lib",
+            "-add_rpath",
+            "@loader_path/../../runtime/vulkan-loader/lib",
+            "-add_rpath",
+            "@loader_path/../../runtime/moltenvk-pr2746/lib",
+            "-add_rpath",
+            "@loader_path/../../runtime/deps/lib",
+            "-add_rpath",
+            "@loader_path/../../runtime/audio/lib",
+            "$WORKSPACE/artifacts/runtime/release-v1.0.0-20261017/assets/engine/2026.09.01-24-g01efdf4 master/spring"
+          ],
+          [
+            "/usr/bin/codesign",
+            "--force",
+            "--sign",
+            "-",
+            "$WORKSPACE/artifacts/runtime/release-v1.0.0-20261017/assets/engine/2026.09.01-24-g01efdf4 master/spring"
+          ]
+        ]
+      },
+      {
+        "component": "bar-chobby",
+        "rawPath": "$WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/build/spring",
+        "rawSHA256": "2be16f827205d44a41f82f798cacfcad88c87d8de551c4783901bc57db96924f",
+        "packagedPath": "$WORKSPACE/artifacts/runtime/release-v1.0.0-20261017/assets/engine/2026.07.04/spring",
+        "assetRelativePath": "engine/2026.07.04/spring",
+        "packagedSHA256": "f4af59ca41f64268d5d5856c0e6ba10b5ff2003551b6dd60f8408a590b994156",
+        "rawTextSHA256": "ff357bdca1d270fc6d675cc69f8ffcf2e200db93531e8cdc6ad61a37017846db",
+        "packagedTextSHA256": "ff357bdca1d270fc6d675cc69f8ffcf2e200db93531e8cdc6ad61a37017846db",
+        "parentLoadsAndRpathsAndIdExact": true,
+        "relocations": [
+          {
+            "from": "$WORKSPACE/artifacts/runtime/run90-devel-heads-20260910/runtime/mesa-zink/lib/libEGL.1.dylib",
+            "to": "@rpath/libEGL.1.dylib"
+          },
+          {
+            "from": "/opt/homebrew/opt/fontconfig/lib/libfontconfig.1.dylib",
+            "to": "@rpath/libfontconfig.1.dylib"
+          },
+          {
+            "from": "/opt/homebrew/opt/freetype/lib/libfreetype.6.dylib",
+            "to": "@rpath/libfreetype.6.dylib"
+          },
+          {
+            "from": "/opt/homebrew/opt/devil/lib/libIL.dylib",
+            "to": "@rpath/libIL.dylib"
+          },
+          {
+            "from": "/opt/homebrew/opt/minizip/lib/libminizip.1.dylib",
+            "to": "@rpath/libminizip.1.dylib"
+          },
+          {
+            "from": "/opt/homebrew/opt/xz/lib/liblzma.5.dylib",
+            "to": "@rpath/liblzma.5.dylib"
+          },
+          {
+            "from": "/opt/homebrew/opt/gcc/lib/gcc/current/libatomic.1.dylib",
+            "to": "@rpath/libatomic.1.dylib"
+          },
+          {
+            "from": "/opt/homebrew/opt/libvorbis/lib/libvorbisfile.3.dylib",
+            "to": "@rpath/libvorbisfile.3.dylib"
+          },
+          {
+            "from": "/opt/homebrew/opt/libvorbis/lib/libvorbis.0.dylib",
+            "to": "@rpath/libvorbis.0.dylib"
+          },
+          {
+            "from": "/opt/homebrew/opt/libogg/lib/libogg.0.dylib",
+            "to": "@rpath/libogg.0.dylib"
+          },
+          {
+            "from": "/opt/homebrew/opt/gcc/lib/gcc/current/libstdc++.6.dylib",
+            "to": "@rpath/libstdc++.6.dylib"
+          }
+        ],
+        "commands": [
+          [
+            "/usr/bin/install_name_tool",
+            "-change",
+            "$WORKSPACE/artifacts/runtime/run90-devel-heads-20260910/runtime/mesa-zink/lib/libEGL.1.dylib",
+            "@rpath/libEGL.1.dylib",
+            "-change",
+            "/opt/homebrew/opt/fontconfig/lib/libfontconfig.1.dylib",
+            "@rpath/libfontconfig.1.dylib",
+            "-change",
+            "/opt/homebrew/opt/freetype/lib/libfreetype.6.dylib",
+            "@rpath/libfreetype.6.dylib",
+            "-change",
+            "/opt/homebrew/opt/devil/lib/libIL.dylib",
+            "@rpath/libIL.dylib",
+            "-change",
+            "/opt/homebrew/opt/minizip/lib/libminizip.1.dylib",
+            "@rpath/libminizip.1.dylib",
+            "-change",
+            "/opt/homebrew/opt/xz/lib/liblzma.5.dylib",
+            "@rpath/liblzma.5.dylib",
+            "-change",
+            "/opt/homebrew/opt/gcc/lib/gcc/current/libatomic.1.dylib",
+            "@rpath/libatomic.1.dylib",
+            "-change",
+            "/opt/homebrew/opt/libvorbis/lib/libvorbisfile.3.dylib",
+            "@rpath/libvorbisfile.3.dylib",
+            "-change",
+            "/opt/homebrew/opt/libvorbis/lib/libvorbis.0.dylib",
+            "@rpath/libvorbis.0.dylib",
+            "-change",
+            "/opt/homebrew/opt/libogg/lib/libogg.0.dylib",
+            "@rpath/libogg.0.dylib",
+            "-change",
+            "/opt/homebrew/opt/gcc/lib/gcc/current/libstdc++.6.dylib",
+            "@rpath/libstdc++.6.dylib",
+            "-delete_rpath",
+            "$WORKSPACE/artifacts/runtime/run90-devel-stack-20260910/runtime/sdl3/lib",
+            "-delete_rpath",
+            "$WORKSPACE/artifacts/runtime/run90-devel-heads-20260910/runtime/mesa-zink/lib",
+            "-delete_rpath",
+            "$WORKSPACE/artifacts/runtime/run90-devel-heads-20260910/runtime/openal/lib",
+            "-delete_rpath",
+            "$WORKSPACE/artifacts/runtime/run90-devel-heads-20260910/runtime/moltenvk-pr2746/lib",
+            "-delete_rpath",
+            "$WORKSPACE/artifacts/runtime/run90-devel-stack-20260910/runtime/vulkan-loader/lib",
+            "-delete_rpath",
+            "@loader_path",
+            "-delete_rpath",
+            "/Library/Developer/CommandLineTools/usr/bin",
+            "-delete_rpath",
+            "/opt/homebrew/Cellar/gcc/16.2.0/lib/gcc/current/gcc/aarch64-apple-darwin25/16",
+            "-delete_rpath",
+            "/opt/homebrew/Cellar/gcc/16.2.0/lib/gcc/current/gcc",
+            "-delete_rpath",
+            "/usr/local/lib",
+            "-delete_rpath",
+            "/opt/homebrew/Cellar/gcc/16.2.0/lib/gcc/current",
+            "-add_rpath",
+            "@loader_path/lib",
+            "-add_rpath",
+            "@loader_path/../../runtime/sdl3/lib",
+            "-add_rpath",
+            "@loader_path/../../runtime/mesa-zink/lib",
+            "-add_rpath",
+            "@loader_path/../../runtime/vulkan-loader/lib",
+            "-add_rpath",
+            "@loader_path/../../runtime/moltenvk-pr2746/lib",
+            "-add_rpath",
+            "@loader_path/../../runtime/audio/lib",
+            "-add_rpath",
+            "@loader_path/../../runtime/deps/lib",
+            "$WORKSPACE/artifacts/runtime/release-v1.0.0-20261017/assets/engine/2026.07.04/spring"
+          ],
+          [
+            "/usr/bin/codesign",
+            "--force",
+            "--sign",
+            "-",
+            "$WORKSPACE/artifacts/runtime/release-v1.0.0-20261017/assets/engine/2026.07.04/spring"
+          ]
+        ]
+      }
+    ],
+    "MVK_GIT_REV": "f52facf7",
+    "method": "Use final raw files; retain parent packaged load commands/rpaths and ad-hoc sign; raw __TEXT,__text is byte-exact after relocation/signing",
+    "engineDirectoriesUnchanged": true
+  },
+  "nativeVersionCLI": [
+    {
+      "lane": "bar-lobby",
+      "flag": "--sync-version",
+      "stdout": "2026.09.01-24-g01efdf4 master\n",
+      "returncode": 0,
+      "springSHA256": "ce71db8fdd4b02a8c5e0206ac7e3c3aa18dafc2c4a30360e033ea5052c7021ab"
+    },
+    {
+      "lane": "bar-lobby",
+      "flag": "--version",
+      "stdout": "spring version 2026.09.01-24-g01efdf4 master (BAR-1.0.0 )\n",
+      "returncode": 0,
+      "springSHA256": "ce71db8fdd4b02a8c5e0206ac7e3c3aa18dafc2c4a30360e033ea5052c7021ab"
+    },
+    {
+      "lane": "bar-chobby",
+      "flag": "--sync-version",
+      "stdout": "2026.07.04\n",
+      "returncode": 0,
+      "springSHA256": "f4af59ca41f64268d5d5856c0e6ba10b5ff2003551b6dd60f8408a590b994156"
+    },
+    {
+      "lane": "bar-chobby",
+      "flag": "--version",
+      "stdout": "spring version 2026.07.04 (BAR-1.0.0 )\n",
+      "returncode": 0,
+      "springSHA256": "f4af59ca41f64268d5d5856c0e6ba10b5ff2003551b6dd60f8408a590b994156"
+    }
+  ],
+  "installers": [
+    {
+      "name": "BAR-1.0.0-arm64.dmg",
+      "bytes": 231742839,
+      "sha256": "6efcb3080785aa8653e98ff8601527b88c9368112d54757d8e6d001d455e76c0"
+    },
+    {
+      "name": "BAR-1.0.0-arm64.zip",
+      "bytes": 231630475,
+      "sha256": "a7202b0f3249b6296c00c65160f834223677afc754f166f855c520f354b8da79"
+    }
+  ],
+  "sourceUnits": [
+    {
+      "unit": "S1",
+      "name": "SDL four-byte UTF-8 decoding",
+      "reason": "Keep all six payload bits of the second continuation byte, so four-byte sequences decode correctly.",
+      "componentChecks": "272 focused/related assertions after the fix; the new case failed14 assertions before it.",
+      "sourceCheckpoint": "11bb59e12b0d4d7a7c8175fd21cd9d574e660867",
+      "publicationReceiptSHA256": "78a4f25891cf00b7fdc7da46bf44d5bc66f0deb50994a3fcad1ad72ecc6d8982",
+      "finalIntegration": "Included in the observed1.0.0 app/runtime/source association above; no component suite repeated for publication."
+    },
+    {
+      "unit": "S2",
+      "name": "SDL environment failure cleanup",
+      "reason": "Check mutex creation before table construction and free the correct resources on failure.",
+      "componentChecks": "227 final focused/existing/cumulative assertions; one expected pre-fix failure.",
+      "sourceCheckpoint": "50b07ce49f430e2b2a1ec83dc63b751e5bdffd31",
+      "publicationReceiptSHA256": "734ff96833fd6ccde0894fc70ea7114c3eb6f4a4d3f41f05879edde3076cd12a",
+      "finalIntegration": "Included in the observed1.0.0 app/runtime/source association above; no component suite repeated for publication."
+    },
+    {
+      "unit": "L5",
+      "name": "Vulkan device-create failure pNext restoration",
+      "reason": "Restore the caller chain before forwarding a lower-driver creation error.",
+      "componentChecks": "16 final production cases passed; five of13 selected pre-fix cases failed.",
+      "sourceCheckpoint": "a190072b355b145da241821c33210890b70a890a",
+      "publicationReceiptSHA256": "59420054f85c33fd73a574dfb36ce8002b584eec03531e3b6197330a04d65f27",
+      "finalIntegration": "Included in the observed1.0.0 app/runtime/source association above; no component suite repeated for publication."
+    },
+    {
+      "unit": "L4",
+      "name": "Vulkan settings path-list parsing",
+      "reason": "Handle separators, one-character paths and later XDG directories while retaining first-directory priority. A previously ignored later file can now change driver/layer selection.",
+      "componentChecks": "Three helper-mode and nine final production cases; these are separate test modes.",
+      "sourceCheckpoint": "47d52489a4525c0a5a040dd4aef11512d8b0d3af",
+      "publicationReceiptSHA256": "dcd4b3e556a0adc311351d62ccf629a3d0ddd2b8f764c5ca28f78d1da9edbfd9",
+      "finalIntegration": "Included in the observed1.0.0 app/runtime/source association above; no component suite repeated for publication."
+    },
+    {
+      "unit": "C1",
+      "name": "SPIRV-Cross precise negative zero",
+      "reason": "Retain typed negative-zero fma addends/accumulator seeds while preserving existing alias fixes.",
+      "componentChecks": "Six official outputs and two existing alias outputs byte-exact; current MVK build identity f52facf7.",
+      "sourceCheckpoint": "ddd5f63c182ef9726ea7469d5bf9af24c7035d6b",
+      "publicationReceiptSHA256": "d94362c66ee2ca0a7494f1c8d1473d4548583335abd14768985bca66faa3f871",
+      "finalIntegration": "Included in the observed1.0.0 app/runtime/source association above; no component suite repeated for publication."
+    },
+    {
+      "unit": "L1",
+      "name": "Vulkan surface-list locking",
+      "reason": "Protect shared surface lookup/lazy creation with the existing recursive Loader lock.",
+      "componentChecks": "Five final production threading/WSI cases; no same-surface concurrent-destruction claim.",
+      "sourceCheckpoint": "f8e72e44a908c27b46767b99aa15c9afaf983964",
+      "publicationReceiptSHA256": "bebdd1d22ab0adaeac12edf0938d2b9d7a279c64dcde04b716bb75bdd47d401f",
+      "finalIntegration": "Included in the observed1.0.0 app/runtime/source association above; no component suite repeated for publication."
+    },
+    {
+      "unit": "L2",
+      "name": "Vulkan direct device callback locking",
+      "reason": "Move create/destroy lock ownership together into shared callbacks for public and layer-direct entry.",
+      "componentChecks": "13 final production cases; each explicit success/failure condition records32 calls plus one recovery and no live devices after cleanup.",
+      "sourceCheckpoint": "154fd335ed128765140e55afddbc5c128e487665",
+      "publicationReceiptSHA256": "90399710305c3d4a32c30d02d7f829dc1daa6e981aa7eb088faf2946601329d1",
+      "finalIntegration": "Included in the observed1.0.0 app/runtime/source association above; no component suite repeated for publication."
+    },
+    {
+      "unit": "L3",
+      "name": "Vulkan debug callback-list locking",
+      "reason": "Guard the common messenger/report walk and callback dispatch; remove redundant terminator locking as one pair.",
+      "componentChecks": "23 final production cases; stderr off/on each64 callbacks, with0/64 output lines and valid userdata lifetime.",
+      "sourceCheckpoint": "1429cc0c10e54549f13406f03922ec32cda181e0",
+      "publicationReceiptSHA256": "d8210f3fcfda326985261d8b1a4a42521ca043204e669e0fecc2f283b1402a7a",
+      "finalIntegration": "Included in the observed1.0.0 app/runtime/source association above; no component suite repeated for publication."
+    }
+  ],
+  "evidenceInputSHA256": {
+    "app-readback-audit.json": "7770e8b1f3ed1e7ff62906733b7779f47757271659b58d45f9cc021c6a1be4a3",
+    "input-audit.json": "becaa8480a26998e5a11a19a5945b7ccc045d7421c3e2643a53b1e3e8d65ee2d",
+    "component-archive-audit.json": "359105db6806e0fd55ecde9a3cd22e8ce85485a297fbd1335018db73c180c8de",
+    "compatibility-review.json": "3737767994d00a6e6e8ef443672279f89eb36bd5b8c1448fd9e6f03360bd0308",
+    "hq/app-signature.json": "12873c34663dc13d2e9ec09d52fa0fa6ef2879097752f9386bd6acbe159b048a",
+    "hq/packaged-entry-readback.json": "44429880f8da122e8cc2154f71e2832da4103fc6eed8f057430e36343c59b88d",
+    "hq/component-integration.json": "a23df09ecbf5d44d502109f642471f0aadb1bf1beb7067bae337339798cba0e8",
+    "hq/native-version-build.json": "ff601eb6f1405edc7a76b950caacc13cdb8afca63c7426ded6f8cc0391522962",
+    "hq/native-version-cli.json": "ff1df24c9b1585e52d78b9947dfa67ff6cb7e6873b77df20e25f670daca47233",
+    "hq/launcher-cpu.json": "a0666d0aee5a22efa8fa4c59503bb168e5f8a1b093fc3aa8d719098a20388f09",
+    "runtime-check/completion.json": "92685acf4308ff35350e7b0992fd18bbeefb6e2f6de54ba50bf76c740a1463fd"
+  },
+  "sourceArchiveHashes": "Recorded in the outer source companion manifest and publication receipt; not embedded recursively in this launcher archive.",
+  "signing": {
+    "adHoc": true,
+    "DeveloperID": false,
+    "notarized": false
+  },
+  "limits": [
+    "No new GPU/game/FPS/energy/endurance/full multiplayer or replay synchronization acceptance.",
+    "Other-Mac and clean-machine installation/rebuild remain unverified.",
+    "Ordinary mock concurrency is not sanitizer-backed race/global-deadlock freedom."
+  ],
+  "publication": "Exact frozen-output approval and actual source/tag/asset/Homebrew readbacks are separate recorded steps.",
+  "runtimeObservation": {
+    "status": "PASS-lobby-window-visible-renderer-ready-engines-discovered-left-open",
+    "ASAR_SHA256": "6dbb84c183e533b5f99c61e27c3db578b658ae41c302151ee911727dbdd8ca30",
+    "normalAudioEnvironment": true,
+    "rendererReady": true,
+    "bundledEngineVersionsDiscovered": [
+      "2026.07.04",
+      "2026.09.01-24-g01efdf4 master"
+    ],
+    "gameOrNativeMenuStartedByAgent": false,
+    "automaticQuit": false,
+    "leftOpenForHuman": true,
+    "runtimeQualificationLimit": "Launcher startup/window/renderer only. No fresh native GPU/game/audio-audibility/FPS/MP/AI acceptance."
+  },
+  "newNativeGameMPAcceptance": false
+}

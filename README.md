@@ -2,7 +2,7 @@
 
 Play **Beyond All Reason on Apple Silicon Macs** in one **BAR.app**: use **bar-lobby** for skirmish and **Multiplayer (Chobby)** for the public multiplayer route.
 
-**[Download](https://github.com/yeojuny/bar-lobby-apple-silicon/releases)** · **[Runtime stack and integrated patches](docs/release-readiness/2026-10-17-candidate5/STACK-AND-PATCHES.md)** · **[Sources and build information](docs/release-readiness/2026-10-17-candidate5/SOURCE-STATUS.md)**
+**[Download](https://github.com/yeojuny/bar-lobby-apple-silicon/releases)** · **[Runtime stack and integrated patches](docs/release-readiness/2026-10-17-v1.0.0/STACK-AND-PATCHES.md)** · **[Sources and build information](docs/release-readiness/2026-10-17-v1.0.0/SOURCE-STATUS.md)**
 
 ## Requirements and installation
 
@@ -44,13 +44,13 @@ In launcher **Settings**, select **Metal3** (default) or **Metal4** (experimenta
 
 **SDL3** handles native macOS windows, input and events; SDL2 is not the active window backend. X11 is a display system and XQuartz its macOS implementation. This app uses native macOS windows and does not require an X11 server or XQuartz installation. OpenGL-to-Metal translation is handled by the graphics stack, not SDL3.
 
-See the [exact versions, source commits and integrated PR/MR ledger](docs/release-readiness/2026-10-17-candidate5/STACK-AND-PATCHES.md).
+See the [exact versions, source commits and integrated PR/MR ledger](docs/release-readiness/2026-10-17-v1.0.0/STACK-AND-PATCHES.md).
 
 A separate **Native Metal 4 project will be made public soon**. Its performance relative to this MoltenVK-based version is not yet known; it may be faster or slower.
 
 ## Documentation, validation and credits
 
-Detailed [validation scope](docs/release-readiness/2026-10-17-candidate5/README.md), [development history](docs/release-readiness/2026-10-17-candidate5/DEVELOPMENT-HISTORY.md), and [source/build status](docs/release-readiness/2026-10-17-candidate5/SOURCE-STATUS.md) are kept separately. The unreleased maintenance build has CPU/package checks only; other-Mac, full multiplayer/replay synchronization and clean-machine acceptance remain pending.
+Detailed [validation scope](docs/release-readiness/2026-10-17-v1.0.0/README.md), [development history](docs/release-readiness/2026-10-17-v1.0.0/DEVELOPMENT-HISTORY.md), and [source/build status](docs/release-readiness/2026-10-17-v1.0.0/SOURCE-STATUS.md) are kept separately. The 1.0.0 source combines macOS compatibility maintenance with eight reviewed SDL/Vulkan/SPIRV-Cross fixes. Other-Mac, full multiplayer/replay synchronization and clean-machine acceptance remain separately documented.
 
 Download the matching sources, notices and SHA256SUMS alongside each release. GitHub's automatic launcher-only archive is not the complete application source.
 

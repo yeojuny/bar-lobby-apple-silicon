@@ -1,0 +1,276 @@
+{
+  "schema": "bar-eight-unit-maintenance-completion-v1",
+  "recordedAtUTC": "2026-10-18T04:06:12.391232+00:00",
+  "status": "COMPLETE-eight-units-applied-checked-audited-source-published-and-remote-verified",
+  "humanRequest": "갑자기 튕겼네 채찍 갈겨서 하던 일 해",
+  "scope": "BAR distribution workspace source maintenance only; agreed eight functional units in low-risk-first order. Final V1 app integration/publication separate.",
+  "unitOrder": [
+    "S1",
+    "S2",
+    "L5",
+    "L4",
+    "C1",
+    "L1",
+    "L2",
+    "L3"
+  ],
+  "completedUnits": 8,
+  "selectedUpstreamCommits": 10,
+  "sourceCheckpointCommits": 8,
+  "remotePublicFilesVerifiedAcrossUnits": 48,
+  "branch": "maintenance/20261017-low-risk",
+  "finalSourceCommit": "1429cc0c10e54549f13406f03922ec32cda181e0",
+  "finalSourceBundlesURL": "https://github.com/yeojuny/bar-lobby-apple-silicon/tree/1429cc0c10e54549f13406f03922ec32cda181e0/docs/maintenance-units/2026-10-17",
+  "defaultBranchUnchanged": "1893fa132a5b35197a9ec353ff48291ece9eb898",
+  "units": [
+    {
+      "unit": "S1",
+      "upstreamCommits": [
+        "57f22e6e43ad7c40912645d6cc76083107b4c367"
+      ],
+      "sourceCommit": "11bb59e12b0d4d7a7c8175fd21cd9d574e660867",
+      "sourceURL": "https://github.com/yeojuny/bar-lobby-apple-silicon/commit/11bb59e12b0d4d7a7c8175fd21cd9d574e660867",
+      "parent": "1893fa132a5b35197a9ec353ff48291ece9eb898",
+      "unitResultSHA256": "a1c8ffd80b4adc4d994d21de598917142c259827f61ffcd8e2cc0830af9c79b4",
+      "appliedAuditSHA256": "510847cfb92d3853a12792e7bc09ed5e220568cff01bdd3e8edc751a7553c0f2",
+      "completePatchSHA256": "1639ed588fef528ccc1b676872c847e807a1e597cbd74b7b341216d51debcfda",
+      "publicationReceipt": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/S1/publication-result.json",
+      "publicationReceiptSHA256": "78a4f25891cf00b7fdc7da46bf44d5bc66f0deb50994a3fcad1ad72ecc6d8982",
+      "remoteReadbackPassed": true,
+      "publicFiles": 6
+    },
+    {
+      "unit": "S2",
+      "upstreamCommits": [
+        "52ef28aebadaf6fd3478cf06a8c3337c7214262d"
+      ],
+      "sourceCommit": "50b07ce49f430e2b2a1ec83dc63b751e5bdffd31",
+      "sourceURL": "https://github.com/yeojuny/bar-lobby-apple-silicon/commit/50b07ce49f430e2b2a1ec83dc63b751e5bdffd31",
+      "parent": "11bb59e12b0d4d7a7c8175fd21cd9d574e660867",
+      "unitResultSHA256": "c8effd58243c95130086bcd8328545c62d505d45eb98c3dfb11451814495dea9",
+      "appliedAuditSHA256": "3ae361752a9e23ac3758d872117f80acab4f06095c95dbe69a8a15fa94466d0e",
+      "completePatchSHA256": "069012342337a66d09e7bd8e76fd3529b771c44887255a5b10e92b7d5e22a0dc",
+      "publicationReceipt": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/S2/publication-result.json",
+      "publicationReceiptSHA256": "734ff96833fd6ccde0894fc70ea7114c3eb6f4a4d3f41f05879edde3076cd12a",
+      "remoteReadbackPassed": true,
+      "publicFiles": 6
+    },
+    {
+      "unit": "L5",
+      "upstreamCommits": [
+        "77406fdfcd5706fd2a5d8f4473a6408fa6218b32"
+      ],
+      "sourceCommit": "a190072b355b145da241821c33210890b70a890a",
+      "sourceURL": "https://github.com/yeojuny/bar-lobby-apple-silicon/commit/a190072b355b145da241821c33210890b70a890a",
+      "parent": "50b07ce49f430e2b2a1ec83dc63b751e5bdffd31",
+      "unitResultSHA256": "5552d42e25038747f4598ece2a8be21b85feaecfe31a34579892bf67a3723ead",
+      "appliedAuditSHA256": "cb7ddc5ba944cae0303b7a62f0a1b9633c00fb0952a5192ab4c377063a01ac85",
+      "completePatchSHA256": "d144ecc2f6b8ef15f6f8d0ac2e900664e6f1d2ca897e396a63e3ea691493943c",
+      "publicationReceipt": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L5/publication-result.json",
+      "publicationReceiptSHA256": "59420054f85c33fd73a574dfb36ce8002b584eec03531e3b6197330a04d65f27",
+      "remoteReadbackPassed": true,
+      "publicFiles": 6
+    },
+    {
+      "unit": "L4",
+      "upstreamCommits": [
+        "d77a2a09597af347e171fa2830ef05b39319b4eb",
+        "a3fdec40f1a76c73747f22671ee5d4c0269cb3f1"
+      ],
+      "sourceCommit": "47d52489a4525c0a5a040dd4aef11512d8b0d3af",
+      "sourceURL": "https://github.com/yeojuny/bar-lobby-apple-silicon/commit/47d52489a4525c0a5a040dd4aef11512d8b0d3af",
+      "parent": "a190072b355b145da241821c33210890b70a890a",
+      "unitResultSHA256": "77fced88316c06e2c00d50f8396c957aefc7b89603e06133a188b81bfe0e0f45",
+      "appliedAuditSHA256": "79bcfc94e42562acd63e828ee27c2f033f523c81177ac3fd71645cd864c7a853",
+      "completePatchSHA256": "b99049e7788abe292292495b97d47dfddbef2ef19671014b8877184bfe936ac0",
+      "publicationReceipt": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L4/publication-result.json",
+      "publicationReceiptSHA256": "dcd4b3e556a0adc311351d62ccf629a3d0ddd2b8f764c5ca28f78d1da9edbfd9",
+      "remoteReadbackPassed": true,
+      "publicFiles": 6
+    },
+    {
+      "unit": "C1",
+      "upstreamCommits": [
+        "300681bbcb8365a8d1eacdacdbdd0249bbf1d6b1"
+      ],
+      "sourceCommit": "ddd5f63c182ef9726ea7469d5bf9af24c7035d6b",
+      "sourceURL": "https://github.com/yeojuny/bar-lobby-apple-silicon/commit/ddd5f63c182ef9726ea7469d5bf9af24c7035d6b",
+      "parent": "47d52489a4525c0a5a040dd4aef11512d8b0d3af",
+      "unitResultSHA256": "2bf2edc7df27453baeb6bec51389fb9a522da5b83dd81eb2e8ca7216462c025b",
+      "appliedAuditSHA256": "87c026c2698f8a19f2fc8a8e6d1b1b7e8afe508fb49e919ab81861e00d534293",
+      "completePatchSHA256": "7b14573f3a29af57d52100a521c3ba3a5b932a8e739301ef85f22c0ed1e9ed18",
+      "publicationReceipt": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/C1/publication-result.json",
+      "publicationReceiptSHA256": "d94362c66ee2ca0a7494f1c8d1473d4548583335abd14768985bca66faa3f871",
+      "remoteReadbackPassed": true,
+      "publicFiles": 6
+    },
+    {
+      "unit": "L1",
+      "upstreamCommits": [
+        "2d3e7b9bae969ebd662a2df36ec4251848aab435"
+      ],
+      "sourceCommit": "f8e72e44a908c27b46767b99aa15c9afaf983964",
+      "sourceURL": "https://github.com/yeojuny/bar-lobby-apple-silicon/commit/f8e72e44a908c27b46767b99aa15c9afaf983964",
+      "parent": "ddd5f63c182ef9726ea7469d5bf9af24c7035d6b",
+      "unitResultSHA256": "8b151c61d64ccb8b8478f98801430f4525f090240418589232c4ee16565f54d9",
+      "appliedAuditSHA256": "94c7a29f3f767f35237b5ae5e986470430e1eb2bf44983dce961e85d272b57f9",
+      "completePatchSHA256": "51fb56a36769d02014853d17f62be947e6c7d73f7733ed280962aa4a3a34c763",
+      "publicationReceipt": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L1/publication-result.json",
+      "publicationReceiptSHA256": "bebdd1d22ab0adaeac12edf0938d2b9d7a279c64dcde04b716bb75bdd47d401f",
+      "remoteReadbackPassed": true,
+      "publicFiles": 6
+    },
+    {
+      "unit": "L2",
+      "upstreamCommits": [
+        "6b45d76280a9525740c38c1796060eadb9267488"
+      ],
+      "sourceCommit": "154fd335ed128765140e55afddbc5c128e487665",
+      "sourceURL": "https://github.com/yeojuny/bar-lobby-apple-silicon/commit/154fd335ed128765140e55afddbc5c128e487665",
+      "parent": "f8e72e44a908c27b46767b99aa15c9afaf983964",
+      "unitResultSHA256": "40ed7ffb323d084881e6af401d028c6cdbd11c626c55fbe92a65b5592614fb53",
+      "appliedAuditSHA256": "221f5e303d243260fe153b500fcd8e4382769c7d6ab71ee31746b6922713f9e6",
+      "completePatchSHA256": "0a467ad93681575de69ff42de23cffc3d1e11bdf29d0b2cde7fc7388243ca7b9",
+      "publicationReceipt": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L2/publication-result.json",
+      "publicationReceiptSHA256": "90399710305c3d4a32c30d02d7f829dc1daa6e981aa7eb088faf2946601329d1",
+      "remoteReadbackPassed": true,
+      "publicFiles": 6
+    },
+    {
+      "unit": "L3",
+      "upstreamCommits": [
+        "e38751a7c03588c2f1fec742f611cbafff864158",
+        "73cf5326e8c87d7922b235666198988064b0f294"
+      ],
+      "sourceCommit": "1429cc0c10e54549f13406f03922ec32cda181e0",
+      "sourceURL": "https://github.com/yeojuny/bar-lobby-apple-silicon/commit/1429cc0c10e54549f13406f03922ec32cda181e0",
+      "parent": "154fd335ed128765140e55afddbc5c128e487665",
+      "unitResultSHA256": "7e625d2de494d14a9cb30183243cbf22428a28805579cc1d258bdd0df6927212",
+      "appliedAuditSHA256": "fae15929dd515b78559c94ed888923fae5705e83939a93339597813bcf8cb699",
+      "completePatchSHA256": "bfb232fa60b4f666dd5ad9eb9058aaea1a094bb1861326bc1cd1cd27a7f84ca0",
+      "publicationReceipt": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L3/publication-result.json",
+      "publicationReceiptSHA256": "d8210f3fcfda326985261d8b1a4a42521ca043204e669e0fecc2f283b1402a7a",
+      "remoteReadbackPassed": true,
+      "publicFiles": 6
+    }
+  ],
+  "sourceConsistency": {
+    "path": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/cumulative-source-consistency.json",
+    "sha256": "b72b1f6cfdc2260f26f83948b9601d0689cf1b89c8037a1fcedef5e06f2f9e44",
+    "unitStageFileOccurrences": 29,
+    "uniqueFinalCurrentFiles": 25,
+    "overlapTransitions": 4,
+    "allLastPostimagesExact": true
+  },
+  "finalLocalRemoteBinding": {
+    "path": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/final-local-remote-binding.json",
+    "sha256": "f2523407ffb777dce91183c79c4dafd2412775f12146e9435404cfd9826a8c2c",
+    "freshRemoteRefExact": true,
+    "threeComponentRawArtifactsExact": true,
+    "launcherHEADIndexPreserved": true
+  },
+  "relatedChecksByUnit": {
+    "S1": {
+      "kind": "SDL assertions",
+      "passed": 272
+    },
+    "S2": {
+      "kind": "SDL assertions",
+      "passed": 227
+    },
+    "L5": {
+      "kind": "production Loader cases",
+      "passed": 16
+    },
+    "L4": {
+      "kind": "Loader cases",
+      "helperPassed": 3,
+      "productionPassed": 9
+    },
+    "C1": {
+      "kind": "canonical generated MSL outputs",
+      "passed": 8,
+      "C1Expected": 6,
+      "existingAlias": 2
+    },
+    "L1": {
+      "kind": "production Loader cases",
+      "passed": 5
+    },
+    "L2": {
+      "kind": "production Loader cases",
+      "passed": 13,
+      "unitSpecific": 8,
+      "cumulative": 5,
+      "observedDirectCreateAttemptsIncludingRecovery": 99
+    },
+    "L3": {
+      "kind": "production Loader cases",
+      "passed": 23,
+      "unitSpecific": 10,
+      "cumulative": 13,
+      "stderrOffOnCallbacksEach": 64,
+      "stderrOffOnTargetLines": [
+        0,
+        64
+      ]
+    }
+  },
+  "checkCountScope": "Per-unit counts include reused/cumulative cases and different assertion/fixture types; no aggregate unique-runtime-test count is claimed. Ordinary Loader mock stress is not ThreadSanitizer race freedom.",
+  "rawArtifacts": [
+    {
+      "component": "SDL",
+      "path": "$WORKSPACE/build/run95-sdl-20261002/libSDL3.0.dylib",
+      "sha256": "1e4c4ad59e8dd36bcb0e333446eae24c7c164ebe3fd2921054a1fdceecd579c6",
+      "bytes": 3009664
+    },
+    {
+      "component": "Vulkan-Loader",
+      "path": "$WORKSPACE/build/run95-loader-20261002/loader/libvulkan.1.4.365.dylib",
+      "sha256": "61ff2158bcf1169dd08c4e8a84c3e1aa53cbf6a76b6e40dbaa1e1fa65911cc12",
+      "bytes": 732560
+    },
+    {
+      "component": "MoltenVK",
+      "path": "$WORKSPACE/build/metal4-mvk-20261002/MoltenVK/libMoltenVK.1.4.3.dylib",
+      "sha256": "6973721f4bc0b63d3e00a969eb65836cc2eab4e2dc988f24a5489c48c13233f6",
+      "bytes": 6474816
+    }
+  ],
+  "MVK_GIT_REV": "f52facf7",
+  "previousCleanup": {
+    "alreadyComplete": true,
+    "receipt": "$WORKSPACE/artifacts/validation/bar-cleanup-and-change-policy-20261017/cleanup/completion.json",
+    "sha256": "0fcf4d27b81902a5ab11ae16ed32ea37f76c1394e6c709671cc1e850460ddf74",
+    "deletionRepeatedDuringSourceExecution": false
+  },
+  "preserved": {
+    "realLauncherHEAD": "6a3b298c236cd10eff8fd7ce27d15cdb589f650f",
+    "realLauncherIndexSHA256": "073483d1f4a62c9cda7006b467f60da926f889d1c8f126dc0016e3a23b761c87",
+    "publicApp": "0.17.0-candidate.4",
+    "frozenLocalApp": "0.17.0-candidate.5",
+    "installedApp": "alpha.3 unchanged by source units",
+    "ordinaryApp": "Run95 unchanged by source units",
+    "candidate5TransportParts": "retained held",
+    "currentAudio": "OpenAL mixing/CoreAudio; SDL audio routing unchanged",
+    "automation": "PAUSED unchanged"
+  },
+  "scopeBoundaries": {
+    "noOtherProjectReadsWritesMessages": true,
+    "noAppGameWindowLaunchOrAutomaticQuit": true,
+    "noInstallReleaseTagHomebrewChange": true,
+    "noPaidModelOrGenCodeCalls": true,
+    "noNewProductHarnessProbeBenchmarkOrSourceBuildLane": true,
+    "declaredStandardTestToolsRestoredInExistingBuildOnly": true,
+    "noUnrelatedFullGameFPSMPRuns": true
+  },
+  "remainingWithinThisSourceExecution": [],
+  "finalV1Integration": {
+    "status": "separate-not-started",
+    "plannedProductVersion": "1.0.0",
+    "plannedTag": "v1.0.0",
+    "publishedStableAppClaimed": false,
+    "appReleaseHomebrewQueued": false
+  },
+  "newExecutionQueued": false
+}
