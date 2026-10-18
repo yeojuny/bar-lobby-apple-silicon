@@ -1,0 +1,209 @@
+{
+  "schema": "bar-maintenance-public-unit-v1",
+  "unit": "L1",
+  "publicationParent": "ddd5f63c182ef9726ea7469d5bf9af24c7035d6b",
+  "upstream": {
+    "repository": "KhronosGroup/Vulkan-Loader",
+    "commit": "2d3e7b9bae969ebd662a2df36ec4251848aab435",
+    "patch": "upstream-2d3e7b9b.patch",
+    "productionAddedLines": 8,
+    "officialRegressionAddedLines": 57,
+    "allAddedLinesByteExactOfficial": true,
+    "contextAdaptation": "Insert upstream locking after the current VK_USE_PLATFORM_MACOS_MVK legacy-iOS early-return block; retain that guard, uintptr_t handle conversion, existing creation/destroy locks, and all L5/L4 changes. The eight added production lines and 57 added test lines are byte-exact official additions."
+  },
+  "upstreamURL": "https://github.com/KhronosGroup/Vulkan-Loader/commit/2d3e7b9bae969ebd662a2df36ec4251848aab435",
+  "component": "Vulkan-Loader",
+  "sourceRoot": "$WORKSPACE/build/run66-vulkan-loader-src-20260903",
+  "buildRoot": "$WORKSPACE/build/run95-loader-20261002",
+  "currentBase": "Run95+VBO cumulative port plus candidate.5 custom maintenance and S1/S2/L5/L4/C1; run66 is historical source-folder naming only",
+  "publicBase": {
+    "outerURL": "https://github.com/yeojuny/bar-lobby-apple-silicon/releases/download/v0.17.0-candidate.4/BAR-0.17.0-candidate.4-sources.tar.gz",
+    "outerSHA256": "65e29a1b17c7d434fa6a4c97b5040a0236f1edb36d869f0b18c6fb27f70c792e",
+    "outerBytes": 374939453,
+    "archiveMember": "BAR-0.17.0-candidate.4-sources/archives/vulkan-loader-68cc-input.tar.gz",
+    "nestedArchiveSHA256": "68269a49344a1b2fd318f56828c0ca7104ef08ea3144e4fe97ac93061e8c7420",
+    "nestedArchiveBytes": 1869775,
+    "componentRoot": "vulkan-loader-68cc-input",
+    "bothPreimagesExistAndByteExact": true
+  },
+  "sourceChain": {
+    "Loader": [
+      "Public candidate.4 port Loader archive",
+      "L5 complete patch at a190072b355b145da241821c33210890b70a890a SHA256 d144ecc2f6b8ef15f6f8d0ac2e900664e6f1d2ca897e396a63e3ea691493943c",
+      "L4 atomic complete patch at47d52489a4525c0a5a040dd4aef11512d8b0d3af SHA256 b99049e7788abe292292495b97d47dfddbef2ef19671014b8877184bfe936ac0",
+      "L1 complete accepted patch"
+    ],
+    "otherComponents": "Retain separate SDL S1/S2 and C1 MVK port patch/build identity; MVK_GIT_REV=f52facf7 remains unchanged."
+  },
+  "sourceFiles": [
+    {
+      "path": "loader/wsi.c",
+      "preimageSHA256": "5c956aa22fdb22d85fc79b1cd11a508c90429b6a86a7f37d409a4bf8e21a413a",
+      "postimageSHA256": "ea866053ea3364ff76b076e1635cd2bcc9d8e1146467e46de1a50cea36245140",
+      "preimageGitBlobSHA1": "cf3f7c6778a7b9de0197a23b4e3aa5870d0256fe",
+      "postimageGitBlobSHA1": "1b107ace2e9316cf13b243ff9935fbdc2bf164ba",
+      "preimageBytes": 172858,
+      "postimageBytes": 173475,
+      "mode": "100644"
+    },
+    {
+      "path": "tests/loader_threading_tests.cpp",
+      "preimageSHA256": "74136c5154c2651f553e1dfd7e85742ed0f6492419f3df3e5333831763cb28fd",
+      "postimageSHA256": "87a72cdd865c4e93f5f3dbb19f791aa234f02e33d92fa594175bc3d136be5a65",
+      "preimageGitBlobSHA1": "65206ccb4bfb6e5e3290531ef2523649b66d06b2",
+      "postimageGitBlobSHA1": "17318033203f3171a1fe07a4bee1e65195fcb674",
+      "preimageBytes": 13632,
+      "postimageBytes": 16503,
+      "mode": "100644"
+    }
+  ],
+  "patch": {
+    "path": "change.patch",
+    "sha256": "51fb56a36769d02014853d17f62be947e6c7d73f7733ed280962aa4a3a34c763",
+    "bytes": 4710,
+    "scope": "Exactly8 official production and57 official existing-target test added lines; no removals. Current port MACOS_MVK legacy early-return context retained, hunk position adapted only."
+  },
+  "liveSurfaceContract": "Keep query_surface alive until all workers join; distinct other surfaces are grown/destroyed in70-surface batches. No same-surface query/destruction lifetime-race acceptance.",
+  "intendedEffect": "Protect shared driver surface-list lookup and lazy creation with the same recursive loader lock used by surface creation/destruction, preserving existing platform behavior and error forwarding.",
+  "productionChecks": {
+    "baseline": {
+      "tests": 4,
+      "failures": 0,
+      "actualProductionRawSHA256": "3124b06d6ce0341332a3a41c45431ef05f241b8bb92123c5e3f3e8649ecc8046",
+      "receipts": [
+        "baseline-test_threading.json",
+        "baseline-test_regression.json"
+      ]
+    },
+    "after": {
+      "tests": 5,
+      "failures": 0,
+      "mode": "Ordinary mock stress and selected WSI normal/error checks against final production BUILD_TESTS=OFF raw",
+      "actualProductionRawSHA256": "28124bfa19b9145aceb9cc7a87b7c8ba61db293e8e26305404f663e2e4a5b55d",
+      "receipts": [
+        "after-fix-test_threading.json",
+        "after-fix-test_regression.json"
+      ],
+      "actualLoadedLoaderPathRecorded": true,
+      "MoltenVKLoaded": false,
+      "sanitizerRun": false,
+      "raceFreedomEstablished": false,
+      "newOfficialCasePreFixFailureReproduced": false
+    },
+    "productionBuild": {
+      "target": "vulkan",
+      "receipt": "production-build.json",
+      "BUILD_TESTS": "OFF",
+      "flagsAndLinkByteExact": true,
+      "allCacheValuesExact": true,
+      "cacheMetadataTypeDifference": {
+        "ENABLE_LIVE_VERIFICATION_TESTS": {
+          "before": {
+            "type": "BOOL",
+            "value": "OFF"
+          },
+          "after": {
+            "type": "UNINITIALIZED",
+            "value": "OFF"
+          }
+        }
+      },
+      "exportNames": 1015,
+      "exportNamesExact": true,
+      "dependenciesAndInstallNameExact": true,
+      "rawArtifactReceipt": "raw-artifact.json"
+    },
+    "staticReview": {
+      "twoPostLockReturnsHaveUnlock": true,
+      "legacyPreLockEarlyReturnsUnchanged": true,
+      "allOtherWsiFunctionsByteExact": true,
+      "recursiveMutexConfirmed": true,
+      "receipt": "static-lock-review.json"
+    },
+    "scopeLimits": [
+      "No ThreadSanitizer run or race-freedom claim",
+      "No GPU/window/app/game/FPS/multiplayer/endurance test",
+      "Selected error test checks error forwarding, not every lazy-creation failure branch"
+    ]
+  },
+  "existingTestDependency": {
+    "name": "GoogleTest",
+    "declaredByComponentPath": "scripts/known_good.json",
+    "declaredTag": "v1.14.0",
+    "exactCommit": "f8d7d77c06936315286eb55f8de22cd23c188571",
+    "sourceURL": "https://codeload.github.com/google/googletest/tar.gz/f8d7d77c06936315286eb55f8de22cd23c188571",
+    "archiveSHA256": "7ff5db23de232a39cbb5c9f5143c355885e30ac596161a6b9fc50c4538bfbf01",
+    "archiveBytes": 868904,
+    "archiveRoot": "googletest-f8d7d77c06936315286eb55f8de22cd23c188571",
+    "existingLocalArchive": "$WORKSPACE/archives/googletest-v1.14.0-f8d7d77c.tar.gz",
+    "existingBuildDependencySource": "$WORKSPACE/build/run95-loader-20261002/_deps/googletest",
+    "configureConnection": "GOOGLETEST_INSTALL_DIR=$WORKSPACE/build/run95-loader-20261002/_deps/googletest",
+    "sourceOnlyForExistingTests": true,
+    "dependencyFilesVerifiedByHQ": 245,
+    "productionDependency": false,
+    "archiveRedistributedOrCopiedByPublisher": false
+  },
+  "existingDependencyRecipeURL": "https://github.com/yeojuny/bar-lobby-apple-silicon/blob/a190072b355b145da241821c33210890b70a890a/docs/maintenance-units/2026-10-17/L5/recipe.md",
+  "cacheIdentityNote": {
+    "settingValuesExact": true,
+    "flagsAndLinkByteExact": true,
+    "cacheBytesExact": false,
+    "metadataOnlyDifference": {
+      "ENABLE_LIVE_VERIFICATION_TESTS": {
+        "before": {
+          "type": "BOOL",
+          "value": "OFF"
+        },
+        "after": {
+          "type": "UNINITIALIZED",
+          "value": "OFF"
+        }
+      }
+    }
+  },
+  "sourcePublicationGate": {
+    "explicitCoordinatorPASSReceived": true,
+    "appliedAuditVerdict": "PASS",
+    "requiredChecksSatisfied": true,
+    "finalProductionRelatedTestsPassed": 5
+  },
+  "privateEvidenceOriginalSHA256": {
+    "unit-result.json": "8b151c61d64ccb8b8478f98801430f4525f090240418589232c4ee16565f54d9",
+    "applied-audit.json": "94c7a29f3f767f35237b5ae5e986470430e1eb2bf44983dce961e85d272b57f9",
+    "change.patch": "51fb56a36769d02014853d17f62be947e6c7d73f7733ed280962aa4a3a34c763"
+  },
+  "preservation": {
+    "receipt": "preservation-after.json",
+    "unchangedGuardCount": 32,
+    "priorS1S2L5L4SourcesPreserved": true,
+    "existingWSITestsUnchanged": true,
+    "C1SourceRuntimeIdentityAndFrozenReceiptsPreserved": true,
+    "MVK_GIT_REV": "f52facf7",
+    "realLauncherHEAD": "6a3b298c236cd10eff8fd7ce27d15cdb589f650f",
+    "realLauncherIndexSHA256": "073483d1f4a62c9cda7006b467f60da926f889d1c8f126dc0016e3a23b761c87",
+    "ordinaryAppsFrozenAppsInstalledRuntimeUserCachesUnchanged": true,
+    "automaticAppQuitPerformed": false
+  },
+  "retainedCorrections": [
+    {
+      "receipt": "official-preimage-check.json",
+      "kind": "Upstream full production hunk context differs at retained Mac legacy-iOS guard; only exact upstream additions applied."
+    },
+    {
+      "receipt": "cache-inspection-correction-1.json",
+      "kind": "Unchanged-value CMake metadata type difference was initially asserted too strictly; no product failure or rerun."
+    },
+    {
+      "receipt": "static-inspection-correction-1.json",
+      "kind": "Static return matcher included a comment; statement-line matcher corrected without source/build/test changes."
+    }
+  ],
+  "license": "Existing component/test dependency source licenses and attribution retained.",
+  "limits": [
+    "Ordinary mock threading repetition and static lock review do not establish sanitizer-backed race freedom or every interleaving.",
+    "Selected WSI error test checks error forwarding; it does not execute every lazy creation failure branch.",
+    "Caller must keep the queried surface alive; this patch does not authorize same-surface use/destruction races.",
+    "No GPU/window/app/game/FPS/MP/endurance acceptance or app/Release/Homebrew change."
+  ],
+  "commitSHARule": "Actual publication commit is recorded separately after commit creation."
+}

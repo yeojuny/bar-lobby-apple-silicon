@@ -1,0 +1,296 @@
+{
+  "unit": "L1",
+  "originalHQResultSHA256": "8b151c61d64ccb8b8478f98801430f4525f090240418589232c4ee16565f54d9",
+  "originalAppliedAuditSHA256": "94c7a29f3f767f35237b5ae5e986470430e1eb2bf44983dce961e85d272b57f9",
+  "checks": {
+    "baseline": {
+      "tests": 4,
+      "failures": 0,
+      "actualProductionRawSHA256": "3124b06d6ce0341332a3a41c45431ef05f241b8bb92123c5e3f3e8649ecc8046",
+      "receipts": [
+        "baseline-test_threading.json",
+        "baseline-test_regression.json"
+      ]
+    },
+    "after": {
+      "tests": 5,
+      "failures": 0,
+      "mode": "Ordinary mock stress and selected WSI normal/error checks against final production BUILD_TESTS=OFF raw",
+      "actualProductionRawSHA256": "28124bfa19b9145aceb9cc7a87b7c8ba61db293e8e26305404f663e2e4a5b55d",
+      "receipts": [
+        "after-fix-test_threading.json",
+        "after-fix-test_regression.json"
+      ],
+      "actualLoadedLoaderPathRecorded": true,
+      "MoltenVKLoaded": false,
+      "sanitizerRun": false,
+      "raceFreedomEstablished": false,
+      "newOfficialCasePreFixFailureReproduced": false
+    },
+    "productionBuild": {
+      "target": "vulkan",
+      "receipt": "production-build.json",
+      "BUILD_TESTS": "OFF",
+      "flagsAndLinkByteExact": true,
+      "allCacheValuesExact": true,
+      "cacheMetadataTypeDifference": {
+        "ENABLE_LIVE_VERIFICATION_TESTS": {
+          "before": {
+            "type": "BOOL",
+            "value": "OFF"
+          },
+          "after": {
+            "type": "UNINITIALIZED",
+            "value": "OFF"
+          }
+        }
+      },
+      "exportNames": 1015,
+      "exportNamesExact": true,
+      "dependenciesAndInstallNameExact": true,
+      "rawArtifactReceipt": "raw-artifact.json"
+    },
+    "staticReview": {
+      "twoPostLockReturnsHaveUnlock": true,
+      "legacyPreLockEarlyReturnsUnchanged": true,
+      "allOtherWsiFunctionsByteExact": true,
+      "recursiveMutexConfirmed": true,
+      "receipt": "static-lock-review.json"
+    },
+    "scopeLimits": [
+      "No ThreadSanitizer run or race-freedom claim",
+      "No GPU/window/app/game/FPS/multiplayer/endurance test",
+      "Selected error test checks error forwarding, not every lazy-creation failure branch"
+    ]
+  },
+  "afterThreading": {
+    "recordedAtUTC": "2026-10-18T03:35:42.076276+00:00",
+    "command": [
+      "$WORKSPACE/build/run95-loader-20261002/tests/test_threading",
+      "--gtest_filter=Threading.SurfaceCreateDestroyLoop:Threading.SurfaceQueryWhileCreateDestroySurfaceLoop",
+      "--gtest_output=xml:$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L1/after-fix-test_threading.xml",
+      "--gtest_color=no"
+    ],
+    "exitCode": 0,
+    "elapsedSeconds": 0.484,
+    "xmlSummary": {
+      "tests": "2",
+      "failures": "0",
+      "disabled": "0",
+      "errors": "0",
+      "time": "0.204",
+      "timestamp": "2026-10-17T20:35:41.827",
+      "name": "AllTests"
+    },
+    "actualRawSHA256": "28124bfa19b9145aceb9cc7a87b7c8ba61db293e8e26305404f663e2e4a5b55d",
+    "mode": "Final production BUILD_TESTS=OFF; ordinary mock ICD surface stress and WSI checks; sanitizer not enabled",
+    "boundLibraryPostRunReadback": [
+      {
+        "path": "$WORKSPACE/build/run95-loader-20261002/loader/libvulkan.1.4.365.dylib",
+        "existsAfterRun": true,
+        "sha256AfterRun": "28124bfa19b9145aceb9cc7a87b7c8ba61db293e8e26305404f663e2e4a5b55d"
+      },
+      {
+        "path": "$WORKSPACE/build/run95-loader-20261002/tests/executing_tests/Threading_SurfaceCreateDestroyLoop/icd_manifests/libtest_icd_version_2_0.dylib",
+        "existsAfterRun": false,
+        "sha256AfterRun": null
+      },
+      {
+        "path": "$WORKSPACE/build/run95-loader-20261002/tests/executing_tests/Threading_SurfaceQueryWhileCreateDestroySurfaceLoop/icd_manifests/libtest_icd_version_2_0.dylib",
+        "existsAfterRun": false,
+        "sha256AfterRun": null
+      }
+    ],
+    "MoltenVKLoaded": false,
+    "log": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L1/after-fix-test_threading.log",
+    "testExecutableSHA256": "310787d4e57da9b4e8b936e7f8fd2b7ca9e63e50b136824797fa79b662e2b708",
+    "bindingEvidenceExample": [
+      "dyld[98328]: <D2C4627C-A021-3AEF-A290-71CE056E7AD2> $WORKSPACE/build/run95-loader-20261002/loader/libvulkan.1.4.365.dylib",
+      "dyld[98328]: <0B2547C9-E18A-34AA-8CD2-ED7583A864CD> $WORKSPACE/build/run95-loader-20261002/tests/executing_tests/Threading_SurfaceCreateDestroyLoop/icd_manifests/libtest_icd_version_2_0.dylib"
+    ],
+    "recordedBindingLineCount": 4
+  },
+  "afterWSI": {
+    "recordedAtUTC": "2026-10-18T03:35:42.138595+00:00",
+    "command": [
+      "$WORKSPACE/build/run95-loader-20261002/tests/test_regression",
+      "--gtest_filter=WsiTests.GoogleSurfacelessQuery:WsiTests.GetPhysicalDeviceSurfaceCapabilities2EXTEmulationDriverError:WsiTests.CreateMetalSurfaceWithoutEnablingExtension",
+      "--gtest_output=xml:$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L1/after-fix-test_regression.xml",
+      "--gtest_color=no"
+    ],
+    "exitCode": 0,
+    "elapsedSeconds": 0.546,
+    "xmlSummary": {
+      "tests": "3",
+      "failures": "0",
+      "disabled": "0",
+      "errors": "0",
+      "time": "0.43",
+      "timestamp": "2026-10-17T20:35:41.644",
+      "name": "AllTests"
+    },
+    "actualRawSHA256": "28124bfa19b9145aceb9cc7a87b7c8ba61db293e8e26305404f663e2e4a5b55d",
+    "mode": "Final production BUILD_TESTS=OFF; ordinary mock ICD surface stress and WSI checks; sanitizer not enabled",
+    "boundLibraryPostRunReadback": [
+      {
+        "path": "$WORKSPACE/build/run95-loader-20261002/loader/libvulkan.1.4.365.dylib",
+        "existsAfterRun": true,
+        "sha256AfterRun": "28124bfa19b9145aceb9cc7a87b7c8ba61db293e8e26305404f663e2e4a5b55d"
+      },
+      {
+        "path": "$WORKSPACE/build/run95-loader-20261002/tests/executing_tests/WsiTests_GoogleSurfacelessQuery/icd_manifests/libtest_icd_version_2_0.dylib",
+        "existsAfterRun": false,
+        "sha256AfterRun": null
+      },
+      {
+        "path": "$WORKSPACE/build/run95-loader-20261002/tests/executing_tests/WsiTests_GetPhysicalDeviceSurfaceCapabilities2EXTEmulationDriverError/icd_manifests/libtest_icd_version_2_0.dylib",
+        "existsAfterRun": false,
+        "sha256AfterRun": null
+      },
+      {
+        "path": "$WORKSPACE/build/run95-loader-20261002/tests/executing_tests/WsiTests_CreateMetalSurfaceWithoutEnablingExtension/icd_manifests/libtest_icd_version_2_0.dylib",
+        "existsAfterRun": false,
+        "sha256AfterRun": null
+      }
+    ],
+    "MoltenVKLoaded": false,
+    "log": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L1/after-fix-test_regression.log",
+    "testExecutableSHA256": "2c5e5ca197559eaaf03d47b44745051d06cf8eb56c52317d1c76f6c993d61364",
+    "bindingEvidenceExample": [
+      "dyld[98329]: <D2C4627C-A021-3AEF-A290-71CE056E7AD2> $WORKSPACE/build/run95-loader-20261002/loader/libvulkan.1.4.365.dylib",
+      "dyld[98329]: <0B2547C9-E18A-34AA-8CD2-ED7583A864CD> $WORKSPACE/build/run95-loader-20261002/tests/executing_tests/WsiTests_GoogleSurfacelessQuery/icd_manifests/libtest_icd_version_2_0.dylib"
+    ],
+    "recordedBindingLineCount": 6
+  },
+  "productionBuild": {
+    "recordedAtUTC": "2026-10-18T03:34:47.291331+00:00",
+    "unit": "L1",
+    "stages": [
+      {
+        "stage": "production-configure",
+        "command": [
+          "/opt/homebrew/bin/cmake",
+          "-S",
+          "$WORKSPACE/build/run66-vulkan-loader-src-20260903",
+          "-B",
+          "$WORKSPACE/build/run95-loader-20261002",
+          "-DBUILD_TESTS=OFF",
+          "-DUPDATE_DEPS=OFF",
+          "-DENABLE_LIVE_VERIFICATION_TESTS=OFF",
+          "-DCMAKE_GTEST_DISCOVER_TESTS_DISCOVERY_MODE=PRE_TEST"
+        ],
+        "exitCode": 0,
+        "elapsedSeconds": 0.894,
+        "log": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L1/production-configure.log"
+      },
+      {
+        "stage": "production-build",
+        "command": [
+          "/opt/homebrew/bin/cmake",
+          "--build",
+          "$WORKSPACE/build/run95-loader-20261002",
+          "--target",
+          "vulkan",
+          "--parallel",
+          "3"
+        ],
+        "exitCode": 0,
+        "elapsedSeconds": 3.723,
+        "log": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L1/production-build.log"
+      }
+    ],
+    "productionBuildTestsMode": "OFF",
+    "sanitizerEnabled": false,
+    "environmentOverrides": {
+      "PATH": "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/homebrew/bin"
+    }
+  },
+  "rawArtifact": {
+    "recordedAtUTC": "2026-10-18T03:37:06.260910+00:00",
+    "path": "$WORKSPACE/build/run95-loader-20261002/loader/libvulkan.1.4.365.dylib",
+    "beforeSHA256": "3124b06d6ce0341332a3a41c45431ef05f241b8bb92123c5e3f3e8649ecc8046",
+    "afterSHA256": "28124bfa19b9145aceb9cc7a87b7c8ba61db293e8e26305404f663e2e4a5b55d",
+    "beforeBytes": 732560,
+    "afterBytes": 732560,
+    "mode": "Final production BUILD_TESTS OFF; prior C/ASM flags/link and every cache value restored",
+    "exports": {
+      "countBefore": 1015,
+      "countAfter": 1015,
+      "namesExact": true,
+      "namesSHA256": "4c3c6eaf7661b573228aff710af1e24fa9f5576852a86f179b6a2417108b4315"
+    },
+    "dynamicDependenciesAndInstallNameExact": true,
+    "L4TestHelperSymbolExported": false,
+    "previousActualProductionRaw": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L1/before-build/loader/libvulkan.1.4.365.dylib",
+    "retainedActualProductionRaw": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L1/audit-artifacts/libvulkan.1.4.365.dylib",
+    "retainedActualProductionRawSHA256": "28124bfa19b9145aceb9cc7a87b7c8ba61db293e8e26305404f663e2e4a5b55d",
+    "appsOrInstalledRuntimeUpdated": false
+  },
+  "staticLockReview": {
+    "recordedAtUTC": "2026-10-18T03:37:41.756777+00:00",
+    "wsiSourceSHA256": "ea866053ea3364ff76b076e1635cd2bcc9d8e1146467e46de1a50cea36245140",
+    "function": "wsi_unwrap_icd_surface",
+    "lockBeforeFirstDriverSurfaceListRead": true,
+    "preLockLegacyEarlyReturns": {
+      "count": 2,
+      "platforms": [
+        "Android",
+        "iOS"
+      ],
+      "currentMacOSGuardUnchanged": true
+    },
+    "postLockReturns": [
+      {
+        "line": 94,
+        "statement": "return VK_SUCCESS;",
+        "immediatelyPrecededByUnlock": true
+      },
+      {
+        "line": 276,
+        "statement": "return result;",
+        "immediatelyPrecededByUnlock": true
+      }
+    ],
+    "recursiveMutex": {
+      "path": "$WORKSPACE/build/run66-vulkan-loader-src-20260903/loader/vk_loader_platform.h",
+      "line": 453,
+      "definition": "pthread_mutexattr_settype(&attr, PTHREAD_MUTEX_RECURSIVE)"
+    },
+    "allOtherWsiFunctionsByteExactPreimage": true,
+    "existingSurfaceCreationAndDestroyLocksPreserved": true,
+    "officialTestLifetime": "query_surface persists until all query and create/destroy batch threads join; separate batch surfaces are created and destroyed; batch_size=70 crosses initial capacity 32",
+    "mockWSISelection": {
+      "extension": "VK_EXT_metal_surface",
+      "getPlatformWSISource": "$WORKSPACE/build/run66-vulkan-loader-src-20260903/tests/framework/util/platform_wsi.cpp",
+      "createSurfaceHelperSource": "$WORKSPACE/build/run66-vulkan-loader-src-20260903/tests/framework/test_environment.cpp",
+      "actualWindowGPUOrMoltenVKNotRequired": true
+    },
+    "scope": "Static two-return unlock balance plus ordinary mock stress and selected WSI normal/error checks; no sanitizer or race-freedom claim",
+    "inspectionCorrection": "static-inspection-correction-1.json"
+  },
+  "retainedCorrections": [
+    {
+      "receipt": "official-preimage-check.json",
+      "kind": "Upstream full production hunk context differs at retained Mac legacy-iOS guard; only exact upstream additions applied."
+    },
+    {
+      "receipt": "cache-inspection-correction-1.json",
+      "kind": "Unchanged-value CMake metadata type difference was initially asserted too strictly; no product failure or rerun."
+    },
+    {
+      "receipt": "static-inspection-correction-1.json",
+      "kind": "Static return matcher included a comment; statement-line matcher corrected without source/build/test changes."
+    }
+  ],
+  "limits": [
+    "Ordinary mock threading repetition and static lock review do not establish sanitizer-backed race freedom or every interleaving.",
+    "Selected WSI error test checks error forwarding; it does not execute every lazy creation failure branch.",
+    "Caller must keep the queried surface alive; this patch does not authorize same-surface use/destruction races.",
+    "No GPU/window/app/game/FPS/MP/endurance acceptance or app/Release/Homebrew change."
+  ],
+  "notRequired": [
+    "Unrelated full Loader regression suite",
+    "Extra game/FPS/multiplayer repetition"
+  ],
+  "scope": "Actual HQ final-production mock component checks and applied Audit - MK2 PASS. Publisher did not rerun tests. No sanitizer, deterministic pre-fix stress failure, race-freedom, GPU/window/app/game acceptance claimed."
+}

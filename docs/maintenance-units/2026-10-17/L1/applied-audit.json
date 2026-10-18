@@ -1,0 +1,122 @@
+{
+  "schema": "bar-applied-unit-audit-v1",
+  "unit": "L1",
+  "recordedAtUTC": "2026-10-18T03:39:44.847704+00:00",
+  "reviewer": "Audit - MK2",
+  "verdict": "PASS",
+  "sourcePublicationAllowed": true,
+  "requiredChecksSatisfied": true,
+  "hqResult": {
+    "path": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L1/unit-result.json",
+    "sha256": "8b151c61d64ccb8b8478f98801430f4525f090240418589232c4ee16565f54d9"
+  },
+  "upstreamSHAs": [
+    "2d3e7b9bae969ebd662a2df36ec4251848aab435"
+  ],
+  "completePatch": {
+    "path": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L1/change.patch",
+    "sha256": "51fb56a36769d02014853d17f62be947e6c7d73f7733ed280962aa4a3a34c763"
+  },
+  "reviewedFiles": [
+    {
+      "componentRelativePath": "loader/wsi.c",
+      "path": "$WORKSPACE/build/run66-vulkan-loader-src-20260903/loader/wsi.c",
+      "beforeSHA256": "5c956aa22fdb22d85fc79b1cd11a508c90429b6a86a7f37d409a4bf8e21a413a",
+      "afterSHA256": "ea866053ea3364ff76b076e1635cd2bcc9d8e1146467e46de1a50cea36245140",
+      "beforeGitBlob": "cf3f7c6778a7b9de0197a23b4e3aa5870d0256fe",
+      "afterGitBlob": "1b107ace2e9316cf13b243ff9935fbdc2bf164ba",
+      "beforeBytes": 172858,
+      "afterBytes": 173475,
+      "preimage": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L1/preimage/loader/wsi.c",
+      "postimage": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L1/postimage/loader/wsi.c"
+    },
+    {
+      "componentRelativePath": "tests/loader_threading_tests.cpp",
+      "path": "$WORKSPACE/build/run66-vulkan-loader-src-20260903/tests/loader_threading_tests.cpp",
+      "beforeSHA256": "74136c5154c2651f553e1dfd7e85742ed0f6492419f3df3e5333831763cb28fd",
+      "afterSHA256": "87a72cdd865c4e93f5f3dbb19f791aa234f02e33d92fa594175bc3d136be5a65",
+      "beforeGitBlob": "65206ccb4bfb6e5e3290531ef2523649b66d06b2",
+      "afterGitBlob": "17318033203f3171a1fe07a4bee1e65195fcb674",
+      "beforeBytes": 13632,
+      "afterBytes": 16503,
+      "preimage": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L1/preimage/tests/loader_threading_tests.cpp",
+      "postimage": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L1/postimage/tests/loader_threading_tests.cpp"
+    }
+  ],
+  "coordinatorSourceReview": {
+    "path": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L1/coordinator-source-review.json",
+    "sha256": "b3bee224b909ce6756ef9e8a5572c743f417e709a1cc7262ff27db8bf8c676ae"
+  },
+  "productionReview": "One recursive loader_lock acquire before the driver surface array lookup/lazy creation; both subsequent return statements immediately unlock. Android and current port legacy-iOS early-outs remain before the acquire. Exactly eight official added lines, no production removals, preserve MACOS_MVK guard/uintptr_t conversion and prior creation/destruction locks. Other WSI function bytes unchanged.",
+  "testReview": "Exact official57-line extension to existing test_threading. One persistent query surface remains valid until all threads join. Separate batches of70 surfaces grow the shared list; no concurrent query/destroy of the same surface. Standard mock ICD selects Metal surface semantics without loading MoltenVK or creating an actual window.",
+  "validation": {
+    "baselineExistingCasesPassed": 4,
+    "afterProductionRelatedCasesPassed": 5,
+    "failed": 0,
+    "threadingCases": 2,
+    "WSICases": 3,
+    "actualProductionRawBinding": true,
+    "finalProductionRawSHA256": "28124bfa19b9145aceb9cc7a87b7c8ba61db293e8e26305404f663e2e4a5b55d",
+    "immutableRawSnapshot": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/L1/audit-artifacts/libvulkan.1.4.365.dylib",
+    "snapshotBytes": 732560,
+    "productionBuildTestsMode": "OFF",
+    "productionFlagsAndLinkCommandByteExact": true,
+    "cacheValuesExact": true,
+    "cacheBytesExact": false,
+    "cacheTypeDifference": {
+      "ENABLE_LIVE_VERIFICATION_TESTS": {
+        "before": {
+          "type": "BOOL",
+          "value": "OFF"
+        },
+        "after": {
+          "type": "UNINITIALIZED",
+          "value": "OFF"
+        }
+      }
+    },
+    "publicExportNamesExactCount": 1015,
+    "dependenciesAndInstallNameExact": true,
+    "testOnlyHelperExportAbsent": true,
+    "twoPatchFilesForwardReverseByteExact": true,
+    "sanitizerRun": false,
+    "newOfficialCasePreFixFailureReproduced": false
+  },
+  "publicBase": {
+    "URL": "https://github.com/yeojuny/bar-lobby-apple-silicon/releases/download/v0.17.0-candidate.4/BAR-0.17.0-candidate.4-sources.tar.gz",
+    "archiveMember": "BAR-0.17.0-candidate.4-sources/archives/vulkan-loader-68cc-input.tar.gz",
+    "nestedArchiveSHA256": "68269a49344a1b2fd318f56828c0ca7104ef08ea3144e4fe97ac93061e8c7420",
+    "bothPreimagesByteExact": true,
+    "sourceParentCommit": "ddd5f63c182ef9726ea7469d5bf9af24c7035d6b",
+    "reconstruction": "Public candidate4 port Loader archive -> L5 -> L4 -> L1 patch. L5/L4 change other files; retain separate S1/S2/C1 chains and MVK_GIT_REV=f52facf7."
+  },
+  "preserved": "32 bounded prior source/runtime/identity/frozen receipt guards; real launcher HEAD/index, selected app/runtime anchors, earlier SDL/Loader units and C1 source/raw/cache identity unchanged. No whole-source/app inventory claim.",
+  "retainedCorrections": [
+    {
+      "receipt": "official-preimage-check.json",
+      "kind": "Upstream full production hunk context differs at retained Mac legacy-iOS guard; only exact upstream additions applied."
+    },
+    {
+      "receipt": "cache-inspection-correction-1.json",
+      "kind": "Unchanged-value CMake metadata type difference was initially asserted too strictly; no product failure or rerun."
+    },
+    {
+      "receipt": "static-inspection-correction-1.json",
+      "kind": "Static return matcher included a comment; statement-line matcher corrected without source/build/test changes."
+    }
+  ],
+  "limits": [
+    "Ordinary mock threading repetition and static lock review do not establish sanitizer-backed race freedom or every interleaving.",
+    "Selected WSI error test checks error forwarding; it does not execute every lazy creation failure branch.",
+    "Caller must keep the queried surface alive; this patch does not authorize same-surface use/destruction races.",
+    "No GPU/window/app/game/FPS/MP/endurance acceptance or app/Release/Homebrew change."
+  ],
+  "notRequiredThisUnit": [
+    "Unrelated full Loader regression suite",
+    "Extra game/FPS/multiplayer repetition"
+  ],
+  "blockingFindings": [],
+  "nextGate": "Separate publisher exact L1 source checkpoint and remote readback on C1 parent before L2 production apply.",
+  "privateOriginalAuditSHA256": "94c7a29f3f767f35237b5ae5e986470430e1eb2bf44983dce961e85d272b57f9",
+  "exportNote": "Path-rebased public copy; original private audit hash identifies provenance, not this exported blob."
+}
