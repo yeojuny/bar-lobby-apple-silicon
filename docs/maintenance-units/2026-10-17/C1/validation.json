@@ -1,0 +1,897 @@
+{
+  "unit": "C1",
+  "originalHQResultSHA256": "2bf2edc7df27453baeb6bec51389fb9a522da5b83dd81eb2e8ca7216462c025b",
+  "originalAppliedAuditSHA256": "87c026c2698f8a19f2fc8a8e6d1b1b7e8afe508fb49e919ab81861e00d534293",
+  "checks": {
+    "before": {
+      "canonicalCases": 8,
+      "expectedOldOutputsByteExact": 8,
+      "receipts": [
+        "baseline-canonical-checks.json",
+        "baseline-glsl-checks.json",
+        "baseline-optimized-checks.json"
+      ],
+      "newExpectedOutputComparison": "before-output-versus-C1-expectations.json: all six captured pre-C1 generated outputs differ from the new exact official expectations, while both alias outputs still match. This comparison is explicitly captured old output, not a new-library rerun."
+    },
+    "after": {
+      "receipt": "canonical-checks-after.json",
+      "totalCases": 8,
+      "C1ExpectedCases": 6,
+      "existing2687AliasCases": 2,
+      "passedByteExact": 8,
+      "failed": 0,
+      "MSLOutputScopes": [
+        "No-opt SPIR-V 1.6 compilation-loop-edge-case",
+        "No-opt precise non-square matrix",
+        "No-contraction normal and optimized",
+        "Invariant-float-math normal and optimized",
+        "Two existing BDA/custom-array-stride alias fixtures"
+      ],
+      "allSixExpectedOutputsContainFourRequiredNegativeZeroAddendAndSeedMarkers": true,
+      "inputSourceHashesUnchanged": true,
+      "canonicalRunner": "Existing test_shaders.py cross_compile_msl and its filename-dependent options; iterations=1; assembler/GLSL compiler/optimizer/validator arguments recorded per case.",
+      "actualTools": "test-tool-readiness.json",
+      "shaderSPIRVValidationExecuted": true,
+      "MSLCompilerExecuted": false,
+      "GPUExecuted": false
+    },
+    "currentLibraryBinding": {
+      "receipt": "translator-relink-after.json",
+      "oldTranslatorSHA256": "dc34906431be76be2277f59ad2834afdcd1fd051e5ce1a6aa73493b6e3304c20",
+      "newTranslatorSHA256": "180a84e30574034030df07c5c6ed0b3c3a703d63788ff88a3fd2f1b68d4dd335",
+      "newTranslatorRelinkedAfterCurrentMSLArchiveChanged": true,
+      "actualArchiveSHA256": {
+        "$WORKSPACE/build/metal4-mvk-20261002/_deps/spirv-cross-build/libspirv-cross-msl.a": "5c1c6653d57b58b17d6668309d858013cf90df62b6dbcffa58aecdbacaba638d",
+        "$WORKSPACE/build/metal4-mvk-20261002/_deps/spirv-cross-build/libspirv-cross-glsl.a": "3f1981752095509630d8be821f7f9f248c1a57e61bd0bb1b3c0168397b11f209",
+        "$WORKSPACE/build/metal4-mvk-20261002/_deps/spirv-cross-build/libspirv-cross-reflect.a": "f7398ddd506503bb747e3133eaf03145af72f87a43ecd9a997e8a3eddf83a671",
+        "$WORKSPACE/build/metal4-mvk-20261002/_deps/spirv-cross-build/libspirv-cross-core.a": "d25185bc8849db3a61b2d686a20e8b0db781b80377f07c9fb3b29526c80ee60e"
+      },
+      "linkMap": "spirv-cross-link-after.map",
+      "allFourActualCurrentArchivePathsListed": true,
+      "namespace": "MVK_spirv_cross",
+      "oldHardcodedRun95Wrapper": "Read only, not executed or written; canonical current runner/official CLI and new C1 evidence replace its historical build/output binding."
+    },
+    "productionBuild": {
+      "receipt": "production-build.json",
+      "result": "PASS",
+      "target": "MoltenVK in existing metal4-mvk-20261002 build",
+      "rebuilt": "Only changed Cross MSL source and MVKDevice revision-header dependency, then static/dylib relink/symlinks (five Ninja actions).",
+      "productionCompileCommandListByteExactToBefore": true,
+      "compileCommands": 142,
+      "compileProof": "production-compile-commands-before.json and production-compile-commands-after.json",
+      "compilerNumericDiagnosticAndOtherMVKOptionsPreserved": true
+    },
+    "rawAndABI": {
+      "receipt": "raw-artifact.json",
+      "oldRawSHA256": "914c33887fdb2284dedbd67dd017d09e9661ed8adbad9015e7e789f8feb25d59",
+      "newRawSHA256": "6973721f4bc0b63d3e00a969eb65836cc2eab4e2dc988f24a5489c48c13233f6",
+      "newMSLStaticSHA256": "5c1c6653d57b58b17d6668309d858013cf90df62b6dbcffa58aecdbacaba638d",
+      "changedExistingOutputs": [
+        "libspirv-cross-msl.a",
+        "libMoltenVK.1.4.3.dylib"
+      ],
+      "otherFourRelatedArchivesByteExact": true,
+      "publicExportNamesExact": true,
+      "publicExportCount": 4482,
+      "dynamicDependenciesAndInstallNameExact": true,
+      "scope": "Symbol-name/dependency/install-name and source/build association checks, not a general gameplay/GPU ABI acceptance claim."
+    }
+  },
+  "canonicalAfter": {
+    "recordedAtUTC": "2026-10-18T03:21:20.573913+00:00",
+    "status": "all-eight-canonical-current-library-fixtures-byte-exact",
+    "canonicalRunner": "$WORKSPACE/build/run66-moltenvk-src-20260903/External/SPIRV-Cross/test_shaders.py",
+    "runnerSHA256": "4498d20d1ee78c2a95d67a0c1c7c0c703088054d864d42373789644f938dba05",
+    "function": "cross_compile_msl",
+    "translatorSHA256": "180a84e30574034030df07c5c6ed0b3c3a703d63788ff88a3fd2f1b68d4dd335",
+    "actualCurrentStaticLibraries": {
+      "$WORKSPACE/build/metal4-mvk-20261002/_deps/spirv-cross-build/libspirv-cross-msl.a": "5c1c6653d57b58b17d6668309d858013cf90df62b6dbcffa58aecdbacaba638d",
+      "$WORKSPACE/build/metal4-mvk-20261002/_deps/spirv-cross-build/libspirv-cross-glsl.a": "3f1981752095509630d8be821f7f9f248c1a57e61bd0bb1b3c0168397b11f209",
+      "$WORKSPACE/build/metal4-mvk-20261002/_deps/spirv-cross-build/libspirv-cross-reflect.a": "f7398ddd506503bb747e3133eaf03145af72f87a43ecd9a997e8a3eddf83a671",
+      "$WORKSPACE/build/metal4-mvk-20261002/_deps/spirv-cross-build/libspirv-cross-core.a": "d25185bc8849db3a61b2d686a20e8b0db781b80377f07c9fb3b29526c80ee60e"
+    },
+    "cases": [
+      {
+        "fixture": "$WORKSPACE/build/run66-moltenvk-src-20260903/External/SPIRV-Cross/shaders-msl-no-opt/asm/comp/compilation-loop-edge-case.spv16.asm.comp",
+        "fixtureSHA256": "9b912a42f1fb0a08384a0bf264e21b3a195db7769a0d07108eafa31cb95866c8",
+        "opt": false,
+        "MSLVersion": 10200,
+        "invariantFloatMathFlag": false,
+        "expected": "$WORKSPACE/build/run66-moltenvk-src-20260903/External/SPIRV-Cross/reference/shaders-msl-no-opt/asm/comp/compilation-loop-edge-case.spv16.asm.comp",
+        "expectedSHA256": "35a025152e272e8e6ec9c308c5886547a857f2fef3cecb0cf76ff888ba3c9ac5",
+        "actual": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/C1/after-output/no-opt/shaders-msl-no-opt/asm/comp/compilation-loop-edge-case.spv16.asm.comp",
+        "actualSHA256": "35a025152e272e8e6ec9c308c5886547a857f2fef3cecb0cf76ff888ba3c9ac5",
+        "expectedByteExact": true,
+        "isC1Expected": true,
+        "negativeZeroMarkers": {
+          "return fma(l, r, T(-0.0));": true,
+          "vec<T, Cols> res = vec<T, Cols>(T(-0.0));": true,
+          "vec<T, Rows> res = vec<T, Rows>(T(-0.0));": true,
+          "vec<T, LRows> tmp(T(-0.0));": true
+        },
+        "commands": [
+          {
+            "command": [
+              "$WORKSPACE/build/metal4-mvk-20261002/_deps/spirv-tools-build/tools/spirv-as",
+              "--preserve-numeric-ids",
+              "--target-env",
+              "spv1.6",
+              "-o",
+              "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/C1/after-canonical-temp/tmpyok6gq99",
+              "$WORKSPACE/build/run66-moltenvk-src-20260903/External/SPIRV-Cross/shaders-msl-no-opt/asm/comp/compilation-loop-edge-case.spv16.asm.comp"
+            ],
+            "exitCode": 0,
+            "stdout": "",
+            "stderr": ""
+          },
+          {
+            "command": [
+              "$WORKSPACE/build/metal4-mvk-20261002/_deps/spirv-cross-build/spirv-cross",
+              "--output",
+              "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/C1/after-canonical-temp/tmp244kvd1_compilation-loop-edge-case.spv16.asm.comp",
+              "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/C1/after-canonical-temp/tmpyok6gq99",
+              "--msl",
+              "--iterations",
+              "1",
+              "--msl-version",
+              "10200",
+              "--entry",
+              "main"
+            ],
+            "exitCode": 0,
+            "stdout": "",
+            "stderr": ""
+          },
+          {
+            "command": [
+              "$WORKSPACE/build/metal4-mvk-20261002/_deps/spirv-tools-build/tools/spirv-val",
+              "--allow-localsizeid",
+              "--scalar-block-layout",
+              "--target-env",
+              "spv1.6",
+              "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/C1/after-canonical-temp/tmpyok6gq99"
+            ],
+            "exitCode": 0,
+            "stdout": "",
+            "stderr": ""
+          }
+        ]
+      },
+      {
+        "fixture": "$WORKSPACE/build/run66-moltenvk-src-20260903/External/SPIRV-Cross/shaders-msl-no-opt/comp/precise-non-square-matrix.comp",
+        "fixtureSHA256": "bddf26e7552d8c8e29c7512a6c955b3b0e45cc7cc6974845f54dbcd0a440dcd1",
+        "opt": false,
+        "MSLVersion": 10200,
+        "invariantFloatMathFlag": false,
+        "expected": "$WORKSPACE/build/run66-moltenvk-src-20260903/External/SPIRV-Cross/reference/shaders-msl-no-opt/comp/precise-non-square-matrix.comp",
+        "expectedSHA256": "0769b7455524c563a9e0a9dd2a4f1a341ce50ddfc8e4d7ffb7a931a446f5b593",
+        "actual": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/C1/after-output/no-opt/shaders-msl-no-opt/comp/precise-non-square-matrix.comp",
+        "actualSHA256": "0769b7455524c563a9e0a9dd2a4f1a341ce50ddfc8e4d7ffb7a931a446f5b593",
+        "expectedByteExact": true,
+        "isC1Expected": true,
+        "negativeZeroMarkers": {
+          "return fma(l, r, T(-0.0));": true,
+          "vec<T, Cols> res = vec<T, Cols>(T(-0.0));": true,
+          "vec<T, Rows> res = vec<T, Rows>(T(-0.0));": true,
+          "vec<T, LRows> tmp(T(-0.0));": true
+        },
+        "commands": [
+          {
+            "command": [
+              "$WORKSPACE/build/metal4-mvk-20261002/_deps/glslang-build/StandAlone/glslang",
+              "--amb",
+              "--target-env",
+              "vulkan1.1",
+              "-V",
+              "-o",
+              "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/C1/after-canonical-temp/tmptp0is__q",
+              "$WORKSPACE/build/run66-moltenvk-src-20260903/External/SPIRV-Cross/shaders-msl-no-opt/comp/precise-non-square-matrix.comp"
+            ],
+            "exitCode": 0,
+            "stdout": "",
+            "stderr": "$WORKSPACE/build/run66-moltenvk-src-20260903/External/SPIRV-Cross/shaders-msl-no-opt/comp/precise-non-square-matrix.comp\n"
+          },
+          {
+            "command": [
+              "$WORKSPACE/build/metal4-mvk-20261002/_deps/spirv-cross-build/spirv-cross",
+              "--output",
+              "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/C1/after-canonical-temp/tmp0p2c0ayeprecise-non-square-matrix.comp",
+              "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/C1/after-canonical-temp/tmptp0is__q",
+              "--msl",
+              "--iterations",
+              "1",
+              "--msl-version",
+              "10200",
+              "--entry",
+              "main"
+            ],
+            "exitCode": 0,
+            "stdout": "",
+            "stderr": ""
+          },
+          {
+            "command": [
+              "$WORKSPACE/build/metal4-mvk-20261002/_deps/spirv-tools-build/tools/spirv-val",
+              "--allow-localsizeid",
+              "--scalar-block-layout",
+              "--target-env",
+              "vulkan1.1",
+              "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/C1/after-canonical-temp/tmptp0is__q"
+            ],
+            "exitCode": 0,
+            "stdout": "",
+            "stderr": ""
+          }
+        ]
+      },
+      {
+        "fixture": "$WORKSPACE/build/run66-moltenvk-src-20260903/External/SPIRV-Cross/shaders-msl/vert/no-contraction.vert",
+        "fixtureSHA256": "512954e5755d87eee9620e504eecd91e69084892b8c9443fb461dc5d23191e81",
+        "opt": false,
+        "MSLVersion": 10200,
+        "invariantFloatMathFlag": false,
+        "expected": "$WORKSPACE/build/run66-moltenvk-src-20260903/External/SPIRV-Cross/reference/shaders-msl/vert/no-contraction.vert",
+        "expectedSHA256": "c5e0bdf9837c976c74adf2fbc25856cae22832a9a87f1fec9e2e05467f6ef01b",
+        "actual": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/C1/after-output/no-opt/shaders-msl/vert/no-contraction.vert",
+        "actualSHA256": "c5e0bdf9837c976c74adf2fbc25856cae22832a9a87f1fec9e2e05467f6ef01b",
+        "expectedByteExact": true,
+        "isC1Expected": true,
+        "negativeZeroMarkers": {
+          "return fma(l, r, T(-0.0));": true,
+          "vec<T, Cols> res = vec<T, Cols>(T(-0.0));": true,
+          "vec<T, Rows> res = vec<T, Rows>(T(-0.0));": true,
+          "vec<T, LRows> tmp(T(-0.0));": true
+        },
+        "commands": [
+          {
+            "command": [
+              "$WORKSPACE/build/metal4-mvk-20261002/_deps/glslang-build/StandAlone/glslang",
+              "--amb",
+              "--target-env",
+              "vulkan1.1",
+              "-V",
+              "-o",
+              "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/C1/after-canonical-temp/tmp6bakhv2c",
+              "$WORKSPACE/build/run66-moltenvk-src-20260903/External/SPIRV-Cross/shaders-msl/vert/no-contraction.vert"
+            ],
+            "exitCode": 0,
+            "stdout": "",
+            "stderr": "$WORKSPACE/build/run66-moltenvk-src-20260903/External/SPIRV-Cross/shaders-msl/vert/no-contraction.vert\n"
+          },
+          {
+            "command": [
+              "$WORKSPACE/build/metal4-mvk-20261002/_deps/spirv-cross-build/spirv-cross",
+              "--output",
+              "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/C1/after-canonical-temp/tmptl_k19vzno-contraction.vert",
+              "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/C1/after-canonical-temp/tmp6bakhv2c",
+              "--msl",
+              "--iterations",
+              "1",
+              "--msl-version",
+              "10200",
+              "--entry",
+              "main"
+            ],
+            "exitCode": 0,
+            "stdout": "",
+            "stderr": ""
+          },
+          {
+            "command": [
+              "$WORKSPACE/build/metal4-mvk-20261002/_deps/spirv-tools-build/tools/spirv-val",
+              "--allow-localsizeid",
+              "--scalar-block-layout",
+              "--target-env",
+              "vulkan1.1",
+              "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/C1/after-canonical-temp/tmp6bakhv2c"
+            ],
+            "exitCode": 0,
+            "stdout": "",
+            "stderr": ""
+          }
+        ]
+      },
+      {
+        "fixture": "$WORKSPACE/build/run66-moltenvk-src-20260903/External/SPIRV-Cross/shaders-msl/vert/float-math.invariant-float-math.vert",
+        "fixtureSHA256": "ec03ad15c871cde4d1787874c0fb1f4dc9dc3bb805bbd20cb93a49ea23da0156",
+        "opt": false,
+        "MSLVersion": 10200,
+        "invariantFloatMathFlag": true,
+        "expected": "$WORKSPACE/build/run66-moltenvk-src-20260903/External/SPIRV-Cross/reference/shaders-msl/vert/float-math.invariant-float-math.vert",
+        "expectedSHA256": "d211fd1d616276853838d064a9e0590291fdd37d7871be51cdecb32df50b6349",
+        "actual": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/C1/after-output/no-opt/shaders-msl/vert/float-math.invariant-float-math.vert",
+        "actualSHA256": "d211fd1d616276853838d064a9e0590291fdd37d7871be51cdecb32df50b6349",
+        "expectedByteExact": true,
+        "isC1Expected": true,
+        "negativeZeroMarkers": {
+          "return fma(l, r, T(-0.0));": true,
+          "vec<T, Cols> res = vec<T, Cols>(T(-0.0));": true,
+          "vec<T, Rows> res = vec<T, Rows>(T(-0.0));": true,
+          "vec<T, LRows> tmp(T(-0.0));": true
+        },
+        "commands": [
+          {
+            "command": [
+              "$WORKSPACE/build/metal4-mvk-20261002/_deps/glslang-build/StandAlone/glslang",
+              "--amb",
+              "--target-env",
+              "vulkan1.1",
+              "-V",
+              "-o",
+              "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/C1/after-canonical-temp/tmpz4b3d9ne",
+              "$WORKSPACE/build/run66-moltenvk-src-20260903/External/SPIRV-Cross/shaders-msl/vert/float-math.invariant-float-math.vert"
+            ],
+            "exitCode": 0,
+            "stdout": "",
+            "stderr": "$WORKSPACE/build/run66-moltenvk-src-20260903/External/SPIRV-Cross/shaders-msl/vert/float-math.invariant-float-math.vert\n"
+          },
+          {
+            "command": [
+              "$WORKSPACE/build/metal4-mvk-20261002/_deps/spirv-cross-build/spirv-cross",
+              "--output",
+              "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/C1/after-canonical-temp/tmp44f4jmqafloat-math.invariant-float-math.vert",
+              "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/C1/after-canonical-temp/tmpz4b3d9ne",
+              "--msl",
+              "--iterations",
+              "1",
+              "--msl-version",
+              "10200",
+              "--entry",
+              "main",
+              "--msl-invariant-float-math"
+            ],
+            "exitCode": 0,
+            "stdout": "",
+            "stderr": ""
+          },
+          {
+            "command": [
+              "$WORKSPACE/build/metal4-mvk-20261002/_deps/spirv-tools-build/tools/spirv-val",
+              "--allow-localsizeid",
+              "--scalar-block-layout",
+              "--target-env",
+              "vulkan1.1",
+              "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/C1/after-canonical-temp/tmpz4b3d9ne"
+            ],
+            "exitCode": 0,
+            "stdout": "",
+            "stderr": ""
+          }
+        ]
+      },
+      {
+        "fixture": "$WORKSPACE/build/run66-moltenvk-src-20260903/External/SPIRV-Cross/shaders-msl/vert/no-contraction.vert",
+        "fixtureSHA256": "512954e5755d87eee9620e504eecd91e69084892b8c9443fb461dc5d23191e81",
+        "opt": true,
+        "MSLVersion": 10200,
+        "invariantFloatMathFlag": false,
+        "expected": "$WORKSPACE/build/run66-moltenvk-src-20260903/External/SPIRV-Cross/reference/opt/shaders-msl/vert/no-contraction.vert",
+        "expectedSHA256": "d74d90024deb933bdeda847f454c6c68ccbdbceff2377505afc42370a98d4fa8",
+        "actual": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/C1/after-output/opt/shaders-msl/vert/no-contraction.vert",
+        "actualSHA256": "d74d90024deb933bdeda847f454c6c68ccbdbceff2377505afc42370a98d4fa8",
+        "expectedByteExact": true,
+        "isC1Expected": true,
+        "negativeZeroMarkers": {
+          "return fma(l, r, T(-0.0));": true,
+          "vec<T, Cols> res = vec<T, Cols>(T(-0.0));": true,
+          "vec<T, Rows> res = vec<T, Rows>(T(-0.0));": true,
+          "vec<T, LRows> tmp(T(-0.0));": true
+        },
+        "commands": [
+          {
+            "command": [
+              "$WORKSPACE/build/metal4-mvk-20261002/_deps/glslang-build/StandAlone/glslang",
+              "--amb",
+              "--target-env",
+              "vulkan1.1",
+              "-V",
+              "-o",
+              "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/C1/after-canonical-temp/tmp34dzcr21",
+              "$WORKSPACE/build/run66-moltenvk-src-20260903/External/SPIRV-Cross/shaders-msl/vert/no-contraction.vert"
+            ],
+            "exitCode": 0,
+            "stdout": "",
+            "stderr": "$WORKSPACE/build/run66-moltenvk-src-20260903/External/SPIRV-Cross/shaders-msl/vert/no-contraction.vert\n"
+          },
+          {
+            "command": [
+              "$WORKSPACE/build/metal4-mvk-20261002/_deps/spirv-tools-build/tools/spirv-opt",
+              "--skip-validation",
+              "-O",
+              "-o",
+              "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/C1/after-canonical-temp/tmp34dzcr21",
+              "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/C1/after-canonical-temp/tmp34dzcr21"
+            ],
+            "exitCode": 0,
+            "stdout": "",
+            "stderr": ""
+          },
+          {
+            "command": [
+              "$WORKSPACE/build/metal4-mvk-20261002/_deps/spirv-cross-build/spirv-cross",
+              "--output",
+              "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/C1/after-canonical-temp/tmpc7grxj7kno-contraction.vert",
+              "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/C1/after-canonical-temp/tmp34dzcr21",
+              "--msl",
+              "--iterations",
+              "1",
+              "--msl-version",
+              "10200",
+              "--entry",
+              "main"
+            ],
+            "exitCode": 0,
+            "stdout": "",
+            "stderr": ""
+          },
+          {
+            "command": [
+              "$WORKSPACE/build/metal4-mvk-20261002/_deps/spirv-tools-build/tools/spirv-val",
+              "--allow-localsizeid",
+              "--scalar-block-layout",
+              "--target-env",
+              "vulkan1.1",
+              "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/C1/after-canonical-temp/tmp34dzcr21"
+            ],
+            "exitCode": 0,
+            "stdout": "",
+            "stderr": ""
+          }
+        ]
+      },
+      {
+        "fixture": "$WORKSPACE/build/run66-moltenvk-src-20260903/External/SPIRV-Cross/shaders-msl/vert/float-math.invariant-float-math.vert",
+        "fixtureSHA256": "ec03ad15c871cde4d1787874c0fb1f4dc9dc3bb805bbd20cb93a49ea23da0156",
+        "opt": true,
+        "MSLVersion": 10200,
+        "invariantFloatMathFlag": true,
+        "expected": "$WORKSPACE/build/run66-moltenvk-src-20260903/External/SPIRV-Cross/reference/opt/shaders-msl/vert/float-math.invariant-float-math.vert",
+        "expectedSHA256": "c0f18ed6fa2a253f2d2f02ec6f38d9a0b768e217117a9c2c20bd8dd8556d6a85",
+        "actual": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/C1/after-output/opt/shaders-msl/vert/float-math.invariant-float-math.vert",
+        "actualSHA256": "c0f18ed6fa2a253f2d2f02ec6f38d9a0b768e217117a9c2c20bd8dd8556d6a85",
+        "expectedByteExact": true,
+        "isC1Expected": true,
+        "negativeZeroMarkers": {
+          "return fma(l, r, T(-0.0));": true,
+          "vec<T, Cols> res = vec<T, Cols>(T(-0.0));": true,
+          "vec<T, Rows> res = vec<T, Rows>(T(-0.0));": true,
+          "vec<T, LRows> tmp(T(-0.0));": true
+        },
+        "commands": [
+          {
+            "command": [
+              "$WORKSPACE/build/metal4-mvk-20261002/_deps/glslang-build/StandAlone/glslang",
+              "--amb",
+              "--target-env",
+              "vulkan1.1",
+              "-V",
+              "-o",
+              "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/C1/after-canonical-temp/tmpusx9m6ke",
+              "$WORKSPACE/build/run66-moltenvk-src-20260903/External/SPIRV-Cross/shaders-msl/vert/float-math.invariant-float-math.vert"
+            ],
+            "exitCode": 0,
+            "stdout": "",
+            "stderr": "$WORKSPACE/build/run66-moltenvk-src-20260903/External/SPIRV-Cross/shaders-msl/vert/float-math.invariant-float-math.vert\n"
+          },
+          {
+            "command": [
+              "$WORKSPACE/build/metal4-mvk-20261002/_deps/spirv-tools-build/tools/spirv-opt",
+              "--skip-validation",
+              "-O",
+              "-o",
+              "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/C1/after-canonical-temp/tmpusx9m6ke",
+              "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/C1/after-canonical-temp/tmpusx9m6ke"
+            ],
+            "exitCode": 0,
+            "stdout": "",
+            "stderr": ""
+          },
+          {
+            "command": [
+              "$WORKSPACE/build/metal4-mvk-20261002/_deps/spirv-cross-build/spirv-cross",
+              "--output",
+              "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/C1/after-canonical-temp/tmpftqe5iw1float-math.invariant-float-math.vert",
+              "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/C1/after-canonical-temp/tmpusx9m6ke",
+              "--msl",
+              "--iterations",
+              "1",
+              "--msl-version",
+              "10200",
+              "--entry",
+              "main",
+              "--msl-invariant-float-math"
+            ],
+            "exitCode": 0,
+            "stdout": "",
+            "stderr": ""
+          },
+          {
+            "command": [
+              "$WORKSPACE/build/metal4-mvk-20261002/_deps/spirv-tools-build/tools/spirv-val",
+              "--allow-localsizeid",
+              "--scalar-block-layout",
+              "--target-env",
+              "vulkan1.1",
+              "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/C1/after-canonical-temp/tmpusx9m6ke"
+            ],
+            "exitCode": 0,
+            "stdout": "",
+            "stderr": ""
+          }
+        ]
+      },
+      {
+        "fixture": "$WORKSPACE/build/run66-moltenvk-src-20260903/External/SPIRV-Cross/shaders-msl-no-opt/asm/comp/bda-aliasing.msl23.asm.comp",
+        "fixtureSHA256": "01ff8eaf1593f7c404f263a199f15d68372637d18a4af88437bae454b47b5f83",
+        "opt": false,
+        "MSLVersion": 20300,
+        "invariantFloatMathFlag": false,
+        "expected": "$WORKSPACE/build/run66-moltenvk-src-20260903/External/SPIRV-Cross/reference/shaders-msl-no-opt/asm/comp/bda-aliasing.msl23.asm.comp",
+        "expectedSHA256": "5d89eadfb5c0278c5bd026bb40a0be99ac5c63608cbdcda35525af02e22ff0e6",
+        "actual": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/C1/after-output/no-opt/shaders-msl-no-opt/asm/comp/bda-aliasing.msl23.asm.comp",
+        "actualSHA256": "5d89eadfb5c0278c5bd026bb40a0be99ac5c63608cbdcda35525af02e22ff0e6",
+        "expectedByteExact": true,
+        "isC1Expected": false,
+        "negativeZeroMarkers": "not-applicable alias fixture",
+        "commands": [
+          {
+            "command": [
+              "$WORKSPACE/build/metal4-mvk-20261002/_deps/spirv-tools-build/tools/spirv-as",
+              "--preserve-numeric-ids",
+              "--target-env",
+              "vulkan1.1",
+              "-o",
+              "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/C1/after-canonical-temp/tmpfldzj607",
+              "$WORKSPACE/build/run66-moltenvk-src-20260903/External/SPIRV-Cross/shaders-msl-no-opt/asm/comp/bda-aliasing.msl23.asm.comp"
+            ],
+            "exitCode": 0,
+            "stdout": "",
+            "stderr": ""
+          },
+          {
+            "command": [
+              "$WORKSPACE/build/metal4-mvk-20261002/_deps/spirv-cross-build/spirv-cross",
+              "--output",
+              "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/C1/after-canonical-temp/tmp4b743jdebda-aliasing.msl23.asm.comp",
+              "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/C1/after-canonical-temp/tmpfldzj607",
+              "--msl",
+              "--iterations",
+              "1",
+              "--msl-version",
+              "20300",
+              "--entry",
+              "main"
+            ],
+            "exitCode": 0,
+            "stdout": "",
+            "stderr": ""
+          },
+          {
+            "command": [
+              "$WORKSPACE/build/metal4-mvk-20261002/_deps/spirv-tools-build/tools/spirv-val",
+              "--allow-localsizeid",
+              "--scalar-block-layout",
+              "--target-env",
+              "vulkan1.1",
+              "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/C1/after-canonical-temp/tmpfldzj607"
+            ],
+            "exitCode": 0,
+            "stdout": "",
+            "stderr": ""
+          }
+        ]
+      },
+      {
+        "fixture": "$WORKSPACE/build/run66-moltenvk-src-20260903/External/SPIRV-Cross/shaders-msl-no-opt/asm/comp/ptr-access-chain-custom-array-stride.asm.msl23.comp",
+        "fixtureSHA256": "b526ee1c452c29955cd4f52bb1b30e3a79261b175a32e240bc7aacf69104d9b9",
+        "opt": false,
+        "MSLVersion": 20300,
+        "invariantFloatMathFlag": false,
+        "expected": "$WORKSPACE/build/run66-moltenvk-src-20260903/External/SPIRV-Cross/reference/shaders-msl-no-opt/asm/comp/ptr-access-chain-custom-array-stride.asm.msl23.comp",
+        "expectedSHA256": "7abd2db6845e54c13f55d6c3eaf6090e1b2e01565ee43da6c6bce455c8a976dd",
+        "actual": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/C1/after-output/no-opt/shaders-msl-no-opt/asm/comp/ptr-access-chain-custom-array-stride.asm.msl23.comp",
+        "actualSHA256": "7abd2db6845e54c13f55d6c3eaf6090e1b2e01565ee43da6c6bce455c8a976dd",
+        "expectedByteExact": true,
+        "isC1Expected": false,
+        "negativeZeroMarkers": "not-applicable alias fixture",
+        "commands": [
+          {
+            "command": [
+              "$WORKSPACE/build/metal4-mvk-20261002/_deps/spirv-tools-build/tools/spirv-as",
+              "--preserve-numeric-ids",
+              "--target-env",
+              "vulkan1.1",
+              "-o",
+              "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/C1/after-canonical-temp/tmpd7dtdfl0",
+              "$WORKSPACE/build/run66-moltenvk-src-20260903/External/SPIRV-Cross/shaders-msl-no-opt/asm/comp/ptr-access-chain-custom-array-stride.asm.msl23.comp"
+            ],
+            "exitCode": 0,
+            "stdout": "",
+            "stderr": ""
+          },
+          {
+            "command": [
+              "$WORKSPACE/build/metal4-mvk-20261002/_deps/spirv-cross-build/spirv-cross",
+              "--output",
+              "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/C1/after-canonical-temp/tmpwrncvvm0ptr-access-chain-custom-array-stride.asm.msl23.comp",
+              "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/C1/after-canonical-temp/tmpd7dtdfl0",
+              "--msl",
+              "--iterations",
+              "1",
+              "--msl-version",
+              "20300",
+              "--entry",
+              "main"
+            ],
+            "exitCode": 0,
+            "stdout": "",
+            "stderr": ""
+          },
+          {
+            "command": [
+              "$WORKSPACE/build/metal4-mvk-20261002/_deps/spirv-tools-build/tools/spirv-val",
+              "--allow-localsizeid",
+              "--scalar-block-layout",
+              "--target-env",
+              "vulkan1.1",
+              "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/C1/after-canonical-temp/tmpd7dtdfl0"
+            ],
+            "exitCode": 0,
+            "stdout": "",
+            "stderr": ""
+          }
+        ]
+      }
+    ],
+    "iterations": 1,
+    "shaderSPIRVValidation": true,
+    "MSLCompilationExecuted": false,
+    "GPUExecuted": false
+  },
+  "actualFinalTools": {
+    "recordedAtUTC": "2026-10-18T03:23:24.115734+00:00",
+    "status": "initial-GLSL-tool-gap-resolved-by-declared-pinned-test-dependency-and-existing-official-targets",
+    "initialGapReceipt": "tool-gaps.json (historical initial state; no longer an outstanding gap)",
+    "glslangDependency": {
+      "commit": "31b9aacfaf3adf9c514f53d0f43f390a578f00f1",
+      "archiveSHA256": "11d455eb87549488e4dbd85d40f088e3084e25b95a48d936bc9150932239e2e8",
+      "archiveBytes": 4647618,
+      "sourceURL": "https://codeload.github.com/KhronosGroup/glslang/tar.gz/31b9aacfaf3adf9c514f53d0f43f390a578f00f1",
+      "sourceCache": "$WORKSPACE/build/metal4-mvk-20261002/_deps/glslang-src",
+      "globalInstallation": false
+    },
+    "optimizerTarget": "Existing current MVK build SPIRV-Tools-opt, same pinned SPIRV-Tools source; root product options unchanged",
+    "tools": [
+      {
+        "path": "$WORKSPACE/build/metal4-mvk-20261002/_deps/spirv-cross-build/spirv-cross",
+        "sha256": "180a84e30574034030df07c5c6ed0b3c3a703d63788ff88a3fd2f1b68d4dd335"
+      },
+      {
+        "path": "$WORKSPACE/build/metal4-mvk-20261002/_deps/glslang-build/StandAlone/glslang",
+        "sha256": "9fdc555360439260a7d6229fda8dc9ed95c087e6fc041f7b24c92218add11cee"
+      },
+      {
+        "path": "$WORKSPACE/build/metal4-mvk-20261002/_deps/spirv-tools-build/tools/spirv-as",
+        "sha256": "6a673b48ca0fa15182a1fed295434facfd3a077cf537bba5ebce22fa3f97f97e"
+      },
+      {
+        "path": "$WORKSPACE/build/metal4-mvk-20261002/_deps/spirv-tools-build/tools/spirv-val",
+        "sha256": "ac327a413d3dad970698a432a11251b1378bb47377e2bb1a6c259ae01a8bddba"
+      },
+      {
+        "path": "$WORKSPACE/build/metal4-mvk-20261002/_deps/spirv-tools-build/tools/spirv-opt",
+        "sha256": "b2c59999b5ccd67848252209682161a30569a7c6504dae3d17f0aefbfe72e39c"
+      }
+    ],
+    "translatorBinding": "translator-relink-after.json and spirv-cross-link-after.map: exact current MSL/GLSL/Core/Reflect archives in MVK_spirv_cross namespace",
+    "allRequiredCanonicalC1ExpectedOutputsChecked": 6,
+    "existingAliasOutputsChecked": 2,
+    "noNewProductCompilerSDKInstallation": true,
+    "noNewIndependentProductHarness": true,
+    "noProductFlagsChangedForTools": true,
+    "metalCompilationAndGPUAcceptance": "not run; not claimed"
+  },
+  "translatorRelinkAfter": {
+    "recordedAtUTC": "2026-10-18T03:21:18.090972+00:00",
+    "command": [
+      "/usr/bin/clang++",
+      "-std=c++17",
+      "-O2",
+      "-arch",
+      "arm64",
+      "-mmacosx-version-min=27.0",
+      "-DSPIRV_CROSS_NAMESPACE_OVERRIDE=MVK_spirv_cross",
+      "-I",
+      "$WORKSPACE/build/run66-moltenvk-src-20260903/External/SPIRV-Cross",
+      "$WORKSPACE/build/run66-moltenvk-src-20260903/External/SPIRV-Cross/main.cpp",
+      "$WORKSPACE/build/run66-moltenvk-src-20260903/External/SPIRV-Cross/spirv_cpp.cpp",
+      "$WORKSPACE/build/run66-moltenvk-src-20260903/External/SPIRV-Cross/spirv_hlsl.cpp",
+      "$WORKSPACE/build/run66-moltenvk-src-20260903/External/SPIRV-Cross/spirv_cross_util.cpp",
+      "$WORKSPACE/build/metal4-mvk-20261002/_deps/spirv-cross-build/libspirv-cross-msl.a",
+      "$WORKSPACE/build/metal4-mvk-20261002/_deps/spirv-cross-build/libspirv-cross-glsl.a",
+      "$WORKSPACE/build/metal4-mvk-20261002/_deps/spirv-cross-build/libspirv-cross-reflect.a",
+      "$WORKSPACE/build/metal4-mvk-20261002/_deps/spirv-cross-build/libspirv-cross-core.a",
+      "-Wl,-map,$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/C1/spirv-cross-link-after.map",
+      "-o",
+      "$WORKSPACE/build/metal4-mvk-20261002/_deps/spirv-cross-build/spirv-cross"
+    ],
+    "exitCode": 0,
+    "elapsedSeconds": 7.936,
+    "translatorSHA256": "180a84e30574034030df07c5c6ed0b3c3a703d63788ff88a3fd2f1b68d4dd335",
+    "actualCurrentLibraries": {
+      "$WORKSPACE/build/metal4-mvk-20261002/_deps/spirv-cross-build/libspirv-cross-msl.a": "5c1c6653d57b58b17d6668309d858013cf90df62b6dbcffa58aecdbacaba638d",
+      "$WORKSPACE/build/metal4-mvk-20261002/_deps/spirv-cross-build/libspirv-cross-glsl.a": "3f1981752095509630d8be821f7f9f248c1a57e61bd0bb1b3c0168397b11f209",
+      "$WORKSPACE/build/metal4-mvk-20261002/_deps/spirv-cross-build/libspirv-cross-reflect.a": "f7398ddd506503bb747e3133eaf03145af72f87a43ecd9a997e8a3eddf83a671",
+      "$WORKSPACE/build/metal4-mvk-20261002/_deps/spirv-cross-build/libspirv-cross-core.a": "d25185bc8849db3a61b2d686a20e8b0db781b80377f07c9fb3b29526c80ee60e"
+    },
+    "linkMap": "spirv-cross-link-after.map",
+    "linkMapListsAllActualCurrentLibraryPaths": true,
+    "beforeTranslatorSHA256": "dc34906431be76be2277f59ad2834afdcd1fd051e5ce1a6aa73493b6e3304c20"
+  },
+  "productionBuild": {
+    "recordedAtUTC": "2026-10-18T03:19:45.342403+00:00",
+    "stages": [
+      {
+        "command": [
+          "/opt/homebrew/bin/cmake",
+          "-S",
+          "$WORKSPACE/build/run66-moltenvk-src-20260903",
+          "-B",
+          "$WORKSPACE/build/metal4-mvk-20261002",
+          "-DMVK_GIT_REV=f52facf7"
+        ],
+        "exitCode": 0,
+        "elapsedSeconds": 2.372,
+        "log": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/C1/configure-c1-identity.log"
+      },
+      {
+        "command": [
+          "/opt/homebrew/bin/cmake",
+          "--build",
+          "$WORKSPACE/build/metal4-mvk-20261002",
+          "--target",
+          "MoltenVK",
+          "--parallel",
+          "3"
+        ],
+        "exitCode": 0,
+        "elapsedSeconds": 11.413,
+        "log": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/C1/build-c1-mvk.log"
+      }
+    ],
+    "oldMVK_GIT_REV": "0e7c41b9",
+    "newMVK_GIT_REV": "f52facf7",
+    "rawSHA256": "6973721f4bc0b63d3e00a969eb65836cc2eab4e2dc988f24a5489c48c13233f6",
+    "MSLStaticSHA256": "5c1c6653d57b58b17d6668309d858013cf90df62b6dbcffa58aecdbacaba638d"
+  },
+  "rawAndStaticLibraries": {
+    "recordedAtUTC": "2026-10-18T03:22:28.305273+00:00",
+    "rawAndStaticLibraries": [
+      {
+        "path": "$WORKSPACE/build/metal4-mvk-20261002/MoltenVK/libMoltenVK.1.4.3.dylib",
+        "buildRelativePath": "MoltenVK/libMoltenVK.1.4.3.dylib",
+        "beforeSHA256": "914c33887fdb2284dedbd67dd017d09e9661ed8adbad9015e7e789f8feb25d59",
+        "afterSHA256": "6973721f4bc0b63d3e00a969eb65836cc2eab4e2dc988f24a5489c48c13233f6",
+        "beforeBytes": 6474816,
+        "afterBytes": 6474816,
+        "changed": true
+      },
+      {
+        "path": "$WORKSPACE/build/metal4-mvk-20261002/_deps/spirv-cross-build/libspirv-cross-msl.a",
+        "buildRelativePath": "_deps/spirv-cross-build/libspirv-cross-msl.a",
+        "beforeSHA256": "3a881fcbcbab6c27353b578a0240957e2f91d1853f90c3df5b9841ea10dc969b",
+        "afterSHA256": "5c1c6653d57b58b17d6668309d858013cf90df62b6dbcffa58aecdbacaba638d",
+        "beforeBytes": 2669200,
+        "afterBytes": 2669224,
+        "changed": true
+      },
+      {
+        "path": "$WORKSPACE/build/metal4-mvk-20261002/_deps/spirv-cross-build/libspirv-cross-glsl.a",
+        "buildRelativePath": "_deps/spirv-cross-build/libspirv-cross-glsl.a",
+        "beforeSHA256": "3f1981752095509630d8be821f7f9f248c1a57e61bd0bb1b3c0168397b11f209",
+        "afterSHA256": "3f1981752095509630d8be821f7f9f248c1a57e61bd0bb1b3c0168397b11f209",
+        "beforeBytes": 1984088,
+        "afterBytes": 1984088,
+        "changed": false
+      },
+      {
+        "path": "$WORKSPACE/build/metal4-mvk-20261002/_deps/spirv-cross-build/libspirv-cross-core.a",
+        "buildRelativePath": "_deps/spirv-cross-build/libspirv-cross-core.a",
+        "beforeSHA256": "d25185bc8849db3a61b2d686a20e8b0db781b80377f07c9fb3b29526c80ee60e",
+        "afterSHA256": "d25185bc8849db3a61b2d686a20e8b0db781b80377f07c9fb3b29526c80ee60e",
+        "beforeBytes": 771992,
+        "afterBytes": 771992,
+        "changed": false
+      },
+      {
+        "path": "$WORKSPACE/build/metal4-mvk-20261002/_deps/spirv-cross-build/libspirv-cross-reflect.a",
+        "buildRelativePath": "_deps/spirv-cross-build/libspirv-cross-reflect.a",
+        "beforeSHA256": "f7398ddd506503bb747e3133eaf03145af72f87a43ecd9a997e8a3eddf83a671",
+        "afterSHA256": "f7398ddd506503bb747e3133eaf03145af72f87a43ecd9a997e8a3eddf83a671",
+        "beforeBytes": 112032,
+        "afterBytes": 112032,
+        "changed": false
+      },
+      {
+        "path": "$WORKSPACE/build/metal4-mvk-20261002/_deps/spirv-tools-build/source/libSPIRV-Tools.a",
+        "buildRelativePath": "_deps/spirv-tools-build/source/libSPIRV-Tools.a",
+        "beforeSHA256": "00898494878bab7644896fc9985080d61077eeeb41bd2ce9e2f7d978dc58d8c4",
+        "afterSHA256": "00898494878bab7644896fc9985080d61077eeeb41bd2ce9e2f7d978dc58d8c4",
+        "beforeBytes": 3128744,
+        "afterBytes": 3128744,
+        "changed": false
+      }
+    ],
+    "rawBeforeSHA256": "914c33887fdb2284dedbd67dd017d09e9661ed8adbad9015e7e789f8feb25d59",
+    "rawAfterSHA256": "6973721f4bc0b63d3e00a969eb65836cc2eab4e2dc988f24a5489c48c13233f6",
+    "MSLStaticAfterSHA256": "5c1c6653d57b58b17d6668309d858013cf90df62b6dbcffa58aecdbacaba638d",
+    "exportNamesExact": true,
+    "exportCount": 4482,
+    "exportNamesSHA256": "283b68ccd7f9bebcded738db326f5b407b03e8a5467be3d7ef3ede0a62342735",
+    "dynamicDependenciesAndInstallNameExact": true,
+    "oldMVK_GIT_REV": "0e7c41b9",
+    "newMVK_GIT_REV": "f52facf7",
+    "derivedHeader": "$WORKSPACE/build/metal4-mvk-20261002/MoltenVK/mvkGitRevDerived.h",
+    "derivedHeaderSHA256": "d4b37774cbc39879e58edc90b60628273be33aa50b1d620d97a50dfcb725b9e7",
+    "embeddedRevisionChecks": {
+      "oldRevisionInOldRaw": true,
+      "newRevisionInNewRaw": true,
+      "oldRevisionAbsentFromNewRaw": true
+    },
+    "pipelineUUIDConstruction": "Unchanged MVKDevice.mm initPipelineCacheUUID uses getMoltenVKGitRevision first four big-endian bytes. New source-derived eight-hex REV changes that component for the same device/features. Static source/header/raw-embedding verification only, not a GPU UUID query.",
+    "cacheIdentityPayload": "identity-payload.canonical.json",
+    "cacheIdentityFullSHA256": "f52facf761992e8d64a3e3c18bfa108565364fb5416b5708b5aeec5e3d26bb3a",
+    "actualUserCacheInvalidationOrDeletionPerformed": false,
+    "appsOrInstalledRuntimeUpdated": false
+  },
+  "cacheIdentityReadback": {
+    "recordedAtUTC": "2026-10-18T03:23:24.112485+00:00",
+    "canonicalPayloadRecomputedExact": true,
+    "currentAllSevenPostimagesMatchPayload": true,
+    "currentAllPreservedBuildConditionValuesMatchPayload": true,
+    "currentCacheMVK_GIT_REV": "f52facf7",
+    "sha256PrefixMatchesCurrentRev": true,
+    "fullSHA256": "f52facf761992e8d64a3e3c18bfa108565364fb5416b5708b5aeec5e3d26bb3a",
+    "derivedHeaderAndActualRawEmbedding": "raw-artifact.json",
+    "UUIDFirstComponentStaticConstructionVerified": true,
+    "actualGPUUUIDQueried": false,
+    "userPipelineCachesReadOrDeleted": false
+  },
+  "testInfrastructure": {
+    "initialGap": "tool-gaps.json retains initial absence of GLSL compiler and optimizer CLI.",
+    "gapResolution": "test-tool-readiness.json: exact already-declared test dependency restored in existing build _deps and official existing tool sources/targets minimally built; all six required outputs now executed.",
+    "glslang": {
+      "declaredBy": "Existing Cross checkout_glslang_spirv_tools.sh GLSLANG_REV; existing build script uses ENABLE_OPT=OFF",
+      "commit": "31b9aacfaf3adf9c514f53d0f43f390a578f00f1",
+      "sourceURL": "https://codeload.github.com/KhronosGroup/glslang/tar.gz/31b9aacfaf3adf9c514f53d0f43f390a578f00f1",
+      "archiveSHA256": "11d455eb87549488e4dbd85d40f088e3084e25b95a48d936bc9150932239e2e8",
+      "archiveBytes": 4647618,
+      "sourceFiles": 3644,
+      "sourceBytes": 46085483,
+      "allSourceReadbacksExactToArchive": true,
+      "sourceCache": "$WORKSPACE/build/metal4-mvk-20261002/_deps/glslang-src",
+      "buildReceipt": "glslang-tool-build.json",
+      "ENABLE_OPT": "OFF",
+      "globalInstall": false
+    },
+    "SPIRVTools": "Use current pinned ba9a9e32160e2500ce1e48cc563a8fedaf596e6e core and optimizer. Standard optimizer library target built once with unchanged production CMake options; official assembler/validator/optimizer sources linked those current archives.",
+    "CrossCLI": "Official main.cpp plus required official C++/HLSL/utility sources satisfy unconditional CLI references. MSL/GLSL/Core/Reflect link exact current product static archives; extra backends are test-CLI-only and are not added to MoltenVK.",
+    "noNewIndependentProductHarnessOrProbeOrBench": true,
+    "noGlobalCompilerOrSDKInstallation": true,
+    "noLockedReferenceCloneFetchCheckoutOrFlagChanges": true
+  },
+  "retainedCorrection": {
+    "receipt": "preservation-guard-correction-1.json",
+    "kind": "Initial generic preservation guard included spirv_msl.cpp from a prior upcoming-source list. It is the intended selected C1 delta; final guard uses verified C1 postimage only for that path. No unplanned source change or product test failure."
+  },
+  "notRequired": [
+    "Unrelated full Cross/Tools suites",
+    "App/game/FPS/multiplayer/window/audio/endurance repetition"
+  ],
+  "limits": [
+    "Generated MSL bytes/SPIR-V validation and component build do not prove GPU negative-zero arithmetic, Metal compiler execution, BAR shader reachability or game/FPS/MP behavior.",
+    "Export names/dependencies/install name checks are bounded compatibility evidence, not general GPU/game ABI acceptance.",
+    "Existing apps/public release/Homebrew/installed runtime are unchanged; selected source component outputs are local."
+  ],
+  "scope": "Actual HQ current-library source translation/component build and Audit - MK2 PASS; publisher did not rerun build/tests. No Metal compiler or GPU execution."
+}

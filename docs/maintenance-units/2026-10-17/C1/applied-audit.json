@@ -1,0 +1,183 @@
+{
+  "schema": "bar-applied-unit-audit-v1",
+  "unit": "C1",
+  "recordedAtUTC": "2026-10-18T03:25:39.935926+00:00",
+  "reviewer": "Audit - MK2",
+  "verdict": "PASS",
+  "sourcePublicationAllowed": true,
+  "requiredChecksSatisfied": true,
+  "hqResult": {
+    "path": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/C1/unit-result.json",
+    "sha256": "2bf2edc7df27453baeb6bec51389fb9a522da5b83dd81eb2e8ca7216462c025b"
+  },
+  "upstreamSHAs": [
+    "300681bbcb8365a8d1eacdacdbdd0249bbf1d6b1"
+  ],
+  "completePatch": {
+    "path": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/C1/change.patch",
+    "sha256": "7b14573f3a29af57d52100a521c3ba3a5b932a8e739301ef85f22c0ed1e9ed18"
+  },
+  "reviewedFiles": [
+    {
+      "componentRelativePath": "reference/opt/shaders-msl/vert/float-math.invariant-float-math.vert",
+      "path": "$WORKSPACE/build/run66-moltenvk-src-20260903/External/SPIRV-Cross/reference/opt/shaders-msl/vert/float-math.invariant-float-math.vert",
+      "beforeSHA256": "7db427b8c5324b909768ee00e7d0b581faf4a56231b42c4f3f124f2ea3c7dcd5",
+      "afterSHA256": "c0f18ed6fa2a253f2d2f02ec6f38d9a0b768e217117a9c2c20bd8dd8556d6a85",
+      "beforeGitBlob": "974d5844c0b576cb7a397d91361d0b4fa85a407e",
+      "afterGitBlob": "c1d45d9fe0b27995cadce9c5a9789d1190fe4d34",
+      "beforeBytes": 3656,
+      "afterBytes": 3677,
+      "preimage": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/C1/preimage/reference/opt/shaders-msl/vert/float-math.invariant-float-math.vert",
+      "postimage": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/C1/postimage/reference/opt/shaders-msl/vert/float-math.invariant-float-math.vert",
+      "classification": "exact upstream expected output"
+    },
+    {
+      "componentRelativePath": "reference/opt/shaders-msl/vert/no-contraction.vert",
+      "path": "$WORKSPACE/build/run66-moltenvk-src-20260903/External/SPIRV-Cross/reference/opt/shaders-msl/vert/no-contraction.vert",
+      "beforeSHA256": "c67b029428a455e5661dd26578ca182342bf78aac75abd925bc81533ace3cea0",
+      "afterSHA256": "d74d90024deb933bdeda847f454c6c68ccbdbceff2377505afc42370a98d4fa8",
+      "beforeGitBlob": "d8698aa606abc70ba2cfa6c96df238f88c4db2dd",
+      "afterGitBlob": "4cbfb3943e5fc167e64d71fdf25a103b64bea42d",
+      "beforeBytes": 2090,
+      "afterBytes": 2111,
+      "preimage": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/C1/preimage/reference/opt/shaders-msl/vert/no-contraction.vert",
+      "postimage": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/C1/postimage/reference/opt/shaders-msl/vert/no-contraction.vert",
+      "classification": "exact upstream expected output"
+    },
+    {
+      "componentRelativePath": "reference/shaders-msl-no-opt/asm/comp/compilation-loop-edge-case.spv16.asm.comp",
+      "path": "$WORKSPACE/build/run66-moltenvk-src-20260903/External/SPIRV-Cross/reference/shaders-msl-no-opt/asm/comp/compilation-loop-edge-case.spv16.asm.comp",
+      "beforeSHA256": "e6f17c5c8a915337f37f759a406acfd5d03fae97bcfa70cc4c7336b217a6019e",
+      "afterSHA256": "35a025152e272e8e6ec9c308c5886547a857f2fef3cecb0cf76ff888ba3c9ac5",
+      "beforeGitBlob": "88421c38894d5d02f41bcb9ac280387b0c7ded90",
+      "afterGitBlob": "48e890a650823fd842f82c70859b7b6e6dbde3c8",
+      "beforeBytes": 4906,
+      "afterBytes": 4927,
+      "preimage": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/C1/preimage/reference/shaders-msl-no-opt/asm/comp/compilation-loop-edge-case.spv16.asm.comp",
+      "postimage": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/C1/postimage/reference/shaders-msl-no-opt/asm/comp/compilation-loop-edge-case.spv16.asm.comp",
+      "classification": "exact upstream expected output"
+    },
+    {
+      "componentRelativePath": "reference/shaders-msl-no-opt/comp/precise-non-square-matrix.comp",
+      "path": "$WORKSPACE/build/run66-moltenvk-src-20260903/External/SPIRV-Cross/reference/shaders-msl-no-opt/comp/precise-non-square-matrix.comp",
+      "beforeSHA256": "37c41e47cc17d5e1a6c28d45965ff0331ae97196ded83e0ace60da8b19db4521",
+      "afterSHA256": "0769b7455524c563a9e0a9dd2a4f1a341ce50ddfc8e4d7ffb7a931a446f5b593",
+      "beforeGitBlob": "563f75b10c10b581d3dcea3bace14bdf44d17468",
+      "afterGitBlob": "c6e8885ddbc2e653bdbe2351cd790cf919772974",
+      "beforeBytes": 1888,
+      "afterBytes": 1909,
+      "preimage": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/C1/preimage/reference/shaders-msl-no-opt/comp/precise-non-square-matrix.comp",
+      "postimage": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/C1/postimage/reference/shaders-msl-no-opt/comp/precise-non-square-matrix.comp",
+      "classification": "exact upstream expected output"
+    },
+    {
+      "componentRelativePath": "reference/shaders-msl/vert/float-math.invariant-float-math.vert",
+      "path": "$WORKSPACE/build/run66-moltenvk-src-20260903/External/SPIRV-Cross/reference/shaders-msl/vert/float-math.invariant-float-math.vert",
+      "beforeSHA256": "37782971f8bf1ac8a2a30ebf10cb8cdbf9cb0fafbba6a536cb36abfd55200c3f",
+      "afterSHA256": "d211fd1d616276853838d064a9e0590291fdd37d7871be51cdecb32df50b6349",
+      "beforeGitBlob": "802efa73cd0404cd35a4a7bbb78967d028c34386",
+      "afterGitBlob": "3cfde6e9c080c9da557312bbf609c22ccc23b29e",
+      "beforeBytes": 3670,
+      "afterBytes": 3691,
+      "preimage": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/C1/preimage/reference/shaders-msl/vert/float-math.invariant-float-math.vert",
+      "postimage": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/C1/postimage/reference/shaders-msl/vert/float-math.invariant-float-math.vert",
+      "classification": "exact upstream expected output"
+    },
+    {
+      "componentRelativePath": "reference/shaders-msl/vert/no-contraction.vert",
+      "path": "$WORKSPACE/build/run66-moltenvk-src-20260903/External/SPIRV-Cross/reference/shaders-msl/vert/no-contraction.vert",
+      "beforeSHA256": "5dd237bd8b11365334e62aed54eff2564387d3841d4c77afce37449e31633d57",
+      "afterSHA256": "c5e0bdf9837c976c74adf2fbc25856cae22832a9a87f1fec9e2e05467f6ef01b",
+      "beforeGitBlob": "36d400ab4a2d815c004cce42adf78419c636b48e",
+      "afterGitBlob": "2cfd0d6a7be6d474e62cbe5a9a23e2ae04fe483e",
+      "beforeBytes": 2202,
+      "afterBytes": 2223,
+      "preimage": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/C1/preimage/reference/shaders-msl/vert/no-contraction.vert",
+      "postimage": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/C1/postimage/reference/shaders-msl/vert/no-contraction.vert",
+      "classification": "exact upstream expected output"
+    },
+    {
+      "componentRelativePath": "spirv_msl.cpp",
+      "path": "$WORKSPACE/build/run66-moltenvk-src-20260903/External/SPIRV-Cross/spirv_msl.cpp",
+      "beforeSHA256": "98d3a9ef64004796014bab6b5325a389756f0ba571c0a86793c6513e3fa90ff7",
+      "afterSHA256": "d74136375bbd7d644df9d52aeca42fc4bc7d157eb22043474c827c292dc5e10e",
+      "beforeGitBlob": "0553aa3ac137a813dd8a100efcbc3b569943c691",
+      "afterGitBlob": "1a936f583c43c1f53741b784039e2295bd8504f4",
+      "beforeBytes": 778632,
+      "afterBytes": 778653,
+      "preimage": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/C1/preimage/spirv_msl.cpp",
+      "postimage": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/C1/postimage/spirv_msl.cpp",
+      "classification": "four exact upstream production string changes"
+    }
+  ],
+  "coordinatorSourceReview": {
+    "path": "$WORKSPACE/artifacts/validation/bar-maintenance-execution-20261017/C1/coordinator-source-review.json",
+    "sha256": "af0d3e2beb19bbf477df626a145c9a55d743fcd7ed3a599e9f44b0480ce03258"
+  },
+  "productionReview": "Exact four official generated MSL string replacements: typed negative-zero addend for precise multiply and negative-zero seeds for vector/matrix, matrix/vector and matrix/matrix helpers. Seven complete preimage/postimage deltas contain only those selected changes and six official expected-output updates. Full spirv_msl.cpp delta retains prior #2687 pointer aliasing and other generator logic. Other compiler/numeric/MVK flags stay unchanged.",
+  "validation": {
+    "beforeCanonicalOldOutputs": 8,
+    "capturedBeforeOutputsFailNewC1Expectations": 6,
+    "beforeAliasOutputsStillMatch": 2,
+    "afterCanonicalOutputsByteExact": 8,
+    "C1ExpectedOutputs": 6,
+    "unchangedAliasOutputs": 2,
+    "actualInputAndOutputSHA256IndependentlyBound": true,
+    "canonicalRunner": "existing test_shaders.py cross_compile_msl; per-fixture target-env/MSL/invariant/optimization options recorded",
+    "shaderSPIRVValidatorExecuted": true,
+    "translator": {
+      "beforeSHA256": "dc34906431be76be2277f59ad2834afdcd1fd051e5ce1a6aa73493b6e3304c20",
+      "afterSHA256": "180a84e30574034030df07c5c6ed0b3c3a703d63788ff88a3fd2f1b68d4dd335",
+      "currentStaticArchiveLinkMapVerified": true,
+      "namespace": "MVK_spirv_cross"
+    },
+    "productionBuild": "existing MoltenVK target, five changed compile/relink actions; 142 production compile commands byte-exact to pre-unit",
+    "finalRawSHA256": "6973721f4bc0b63d3e00a969eb65836cc2eab4e2dc988f24a5489c48c13233f6",
+    "finalMSLStaticSHA256": "5c1c6653d57b58b17d6668309d858013cf90df62b6dbcffa58aecdbacaba638d",
+    "publicExportNamesExactCount": 4482,
+    "dependenciesAndInstallNameExact": true,
+    "allSevenPatchFilesRoundtripByteExact": true
+  },
+  "cacheIdentity": {
+    "oldMVK_GIT_REV": "0e7c41b9",
+    "newMVK_GIT_REV": "f52facf7",
+    "fullSHA256": "f52facf761992e8d64a3e3c18bfa108565364fb5416b5708b5aeec5e3d26bb3a",
+    "canonicalPayload": "identity-payload.canonical.json",
+    "actualPostimagesAndPreservedBuildConditionsIndependentlyRecomputed": true,
+    "onlyRootCacheValueChanged": "MVK_GIT_REV",
+    "derivedHeaderAndActualRawEmbeddingVerified": true,
+    "construction": "Unchanged MVKDevice initPipelineCacheUUID consumes the revision in its first four bytes; static source/header/raw binding, no GPU UUID query.",
+    "userCacheReadOrDeleted": false,
+    "publicationRequirement": "Embed the complete canonical identity payload and derivation algorithm in the source manifest/recipe; configure MVK_GIT_REV=f52facf7 for this exact input."
+  },
+  "publicBase": {
+    "URL": "https://github.com/yeojuny/bar-lobby-apple-silicon/releases/download/v0.17.0-candidate.4/BAR-0.17.0-candidate.4-sources.tar.gz",
+    "archiveMember": "BAR-0.17.0-candidate.4-sources/archives/moltenvk-68cc-functional-diagnostics-off.tar.gz",
+    "nestedArchiveSHA256": "7ce7b6fee52a78cedae5ec55bb8e8076763393cefcff0b5656d0d49d8ce4c56c",
+    "allSevenPreimagesByteExact": true,
+    "includesPriorPortCorrectionsAnd2687": true,
+    "sourceParentCommit": "47d52489a4525c0a5a040dd4aef11512d8b0d3af",
+    "reconstruction": "Public candidate4 port MVK archive -> exact C1 Cross patch; use the declared source-derived build identity. Existing separate SDL S1/S2 and Loader L5/L4 chains remain cumulative."
+  },
+  "testDependencyPreparation": "Initial GLSL/optimizer tool gap was resolved with already-declared exact glslang31b9aacf and existing current SPIRV-Tools/Cross sources in the same build _deps. Standard test tools only, no system compiler/SDK installation, new product harness/probe/benchmark or product option change. Official fixture options and actual current archives are bound in receipts.",
+  "preserved": "59 bounded guards including earlier unit sources/raw/frozen receipts, launcher HEAD/index, selected frozen app/runtime/source and local NoGS/CUS/port anchors. This is not a whole-app/source inventory.",
+  "retainedCorrections": [
+    {
+      "receipt": "preservation-guard-correction-1.json",
+      "kind": "Initial generic preservation guard included spirv_msl.cpp from a prior upcoming-source list. It is the intended selected C1 delta; final guard uses verified C1 postimage only for that path. No unplanned source change or product test failure."
+    }
+  ],
+  "limits": [
+    "Generated MSL bytes/SPIR-V validation and component build do not prove GPU negative-zero arithmetic, Metal compiler execution, BAR shader reachability or game/FPS/MP behavior.",
+    "Export names/dependencies/install name checks are bounded compatibility evidence, not general GPU/game ABI acceptance.",
+    "Existing apps/public release/Homebrew/installed runtime are unchanged; selected source component outputs are local."
+  ],
+  "notRequiredThisUnit": [
+    "Unrelated full Cross/Tools suites",
+    "App/game/FPS/multiplayer/window/audio/endurance repetition"
+  ],
+  "blockingFindings": [],
+  "nextGate": "Separate publisher commits exact source bundle on L4 parent and verifies remote bytes before L1 production application.",
+  "privateOriginalAuditSHA256": "87c026c2698f8a19f2fc8a8e6d1b1b7e8afe508fb49e919ab81861e00d534293",
+  "exportNote": "Path-rebased public copy; original private receipt hash identifies provenance, not this exported blob."
+}

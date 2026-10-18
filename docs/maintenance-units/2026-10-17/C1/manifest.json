@@ -1,0 +1,316 @@
+{
+  "schema": "bar-maintenance-public-unit-v1",
+  "unit": "C1",
+  "publicationParent": "47d52489a4525c0a5a040dd4aef11512d8b0d3af",
+  "upstream": {
+    "commit": "300681bbcb8365a8d1eacdacdbdd0249bbf1d6b1",
+    "officialURL": "https://github.com/KhronosGroup/SPIRV-Cross/commit/300681bbcb8365a8d1eacdacdbdd0249bbf1d6b1",
+    "inputReceipt": "upstream-input.json",
+    "productionScope": "Exactly four generated-string replacements in spirv_msl.cpp",
+    "expectedScope": "Exactly six official reference output files",
+    "allSevenPostimagesExactToSelectedOfficialPatchOnActualPortPreimage": true,
+    "componentBaseRemains": "aa217aeb6c9f0ace7a0ab233b28807edf45eb165 plus preserved #2687 and selected C1; no upstream tree reset or whole component update"
+  },
+  "componentPathMapping": {
+    "outerComponentRoot": "moltenvk-68cc-functional-diagnostics-off",
+    "patchComponentRoot": "External/SPIRV-Cross",
+    "localSourceRoot": "$WORKSPACE/build/run66-moltenvk-src-20260903/External/SPIRV-Cross",
+    "MVKSourceRoot": "$WORKSPACE/build/run66-moltenvk-src-20260903",
+    "buildRoot": "$WORKSPACE/build/metal4-mvk-20261002"
+  },
+  "publicBase": {
+    "outerURL": "https://github.com/yeojuny/bar-lobby-apple-silicon/releases/download/v0.17.0-candidate.4/BAR-0.17.0-candidate.4-sources.tar.gz",
+    "outerSHA256": "65e29a1b17c7d434fa6a4c97b5040a0236f1edb36d869f0b18c6fb27f70c792e",
+    "outerBytes": 374939453,
+    "archiveMember": "BAR-0.17.0-candidate.4-sources/archives/moltenvk-68cc-functional-diagnostics-off.tar.gz",
+    "nestedArchiveSHA256": "7ce7b6fee52a78cedae5ec55bb8e8076763393cefcff0b5656d0d49d8ce4c56c",
+    "nestedArchiveBytes": 8142625,
+    "includesPriorPortCorrectionsAnd2687": true,
+    "allSevenPreimagesExact": true
+  },
+  "sourceFiles": [
+    {
+      "path": "reference/opt/shaders-msl/vert/float-math.invariant-float-math.vert",
+      "preimageSHA256": "7db427b8c5324b909768ee00e7d0b581faf4a56231b42c4f3f124f2ea3c7dcd5",
+      "postimageSHA256": "c0f18ed6fa2a253f2d2f02ec6f38d9a0b768e217117a9c2c20bd8dd8556d6a85",
+      "preimageGitBlobSHA1": "974d5844c0b576cb7a397d91361d0b4fa85a407e",
+      "postimageGitBlobSHA1": "c1d45d9fe0b27995cadce9c5a9789d1190fe4d34",
+      "preimageBytes": 3656,
+      "postimageBytes": 3677,
+      "mode": "100644"
+    },
+    {
+      "path": "reference/opt/shaders-msl/vert/no-contraction.vert",
+      "preimageSHA256": "c67b029428a455e5661dd26578ca182342bf78aac75abd925bc81533ace3cea0",
+      "postimageSHA256": "d74d90024deb933bdeda847f454c6c68ccbdbceff2377505afc42370a98d4fa8",
+      "preimageGitBlobSHA1": "d8698aa606abc70ba2cfa6c96df238f88c4db2dd",
+      "postimageGitBlobSHA1": "4cbfb3943e5fc167e64d71fdf25a103b64bea42d",
+      "preimageBytes": 2090,
+      "postimageBytes": 2111,
+      "mode": "100644"
+    },
+    {
+      "path": "reference/shaders-msl-no-opt/asm/comp/compilation-loop-edge-case.spv16.asm.comp",
+      "preimageSHA256": "e6f17c5c8a915337f37f759a406acfd5d03fae97bcfa70cc4c7336b217a6019e",
+      "postimageSHA256": "35a025152e272e8e6ec9c308c5886547a857f2fef3cecb0cf76ff888ba3c9ac5",
+      "preimageGitBlobSHA1": "88421c38894d5d02f41bcb9ac280387b0c7ded90",
+      "postimageGitBlobSHA1": "48e890a650823fd842f82c70859b7b6e6dbde3c8",
+      "preimageBytes": 4906,
+      "postimageBytes": 4927,
+      "mode": "100644"
+    },
+    {
+      "path": "reference/shaders-msl-no-opt/comp/precise-non-square-matrix.comp",
+      "preimageSHA256": "37c41e47cc17d5e1a6c28d45965ff0331ae97196ded83e0ace60da8b19db4521",
+      "postimageSHA256": "0769b7455524c563a9e0a9dd2a4f1a341ce50ddfc8e4d7ffb7a931a446f5b593",
+      "preimageGitBlobSHA1": "563f75b10c10b581d3dcea3bace14bdf44d17468",
+      "postimageGitBlobSHA1": "c6e8885ddbc2e653bdbe2351cd790cf919772974",
+      "preimageBytes": 1888,
+      "postimageBytes": 1909,
+      "mode": "100644"
+    },
+    {
+      "path": "reference/shaders-msl/vert/float-math.invariant-float-math.vert",
+      "preimageSHA256": "37782971f8bf1ac8a2a30ebf10cb8cdbf9cb0fafbba6a536cb36abfd55200c3f",
+      "postimageSHA256": "d211fd1d616276853838d064a9e0590291fdd37d7871be51cdecb32df50b6349",
+      "preimageGitBlobSHA1": "802efa73cd0404cd35a4a7bbb78967d028c34386",
+      "postimageGitBlobSHA1": "3cfde6e9c080c9da557312bbf609c22ccc23b29e",
+      "preimageBytes": 3670,
+      "postimageBytes": 3691,
+      "mode": "100644"
+    },
+    {
+      "path": "reference/shaders-msl/vert/no-contraction.vert",
+      "preimageSHA256": "5dd237bd8b11365334e62aed54eff2564387d3841d4c77afce37449e31633d57",
+      "postimageSHA256": "c5e0bdf9837c976c74adf2fbc25856cae22832a9a87f1fec9e2e05467f6ef01b",
+      "preimageGitBlobSHA1": "36d400ab4a2d815c004cce42adf78419c636b48e",
+      "postimageGitBlobSHA1": "2cfd0d6a7be6d474e62cbe5a9a23e2ae04fe483e",
+      "preimageBytes": 2202,
+      "postimageBytes": 2223,
+      "mode": "100644"
+    },
+    {
+      "path": "spirv_msl.cpp",
+      "preimageSHA256": "98d3a9ef64004796014bab6b5325a389756f0ba571c0a86793c6513e3fa90ff7",
+      "postimageSHA256": "d74136375bbd7d644df9d52aeca42fc4bc7d157eb22043474c827c292dc5e10e",
+      "preimageGitBlobSHA1": "0553aa3ac137a813dd8a100efcbc3b569943c691",
+      "postimageGitBlobSHA1": "1a936f583c43c1f53741b784039e2295bd8504f4",
+      "preimageBytes": 778632,
+      "postimageBytes": 778653,
+      "mode": "100644"
+    }
+  ],
+  "patch": {
+    "path": "change.patch",
+    "sha256": "7b14573f3a29af57d52100a521c3ba3a5b932a8e739301ef85f22c0ed1e9ed18",
+    "bytes": 9695,
+    "scope": "Four official production generated-string replacements plus six reference files, seven source files total."
+  },
+  "buildIdentity": {
+    "canonicalPayloadObject": {
+      "schema": "bar-mvk-c1-source-build-identity-v1",
+      "parentMVKBuildDigest": "0e7c41b9",
+      "CrossBaseCommit": "aa217aeb6c9f0ace7a0ab233b28807edf45eb165",
+      "selectedC1Commit": "300681bbcb8365a8d1eacdacdbdd0249bbf1d6b1",
+      "actualC1InputSHA256": {
+        "reference/opt/shaders-msl/vert/float-math.invariant-float-math.vert": "c0f18ed6fa2a253f2d2f02ec6f38d9a0b768e217117a9c2c20bd8dd8556d6a85",
+        "reference/opt/shaders-msl/vert/no-contraction.vert": "d74d90024deb933bdeda847f454c6c68ccbdbceff2377505afc42370a98d4fa8",
+        "reference/shaders-msl-no-opt/asm/comp/compilation-loop-edge-case.spv16.asm.comp": "35a025152e272e8e6ec9c308c5886547a857f2fef3cecb0cf76ff888ba3c9ac5",
+        "reference/shaders-msl-no-opt/comp/precise-non-square-matrix.comp": "0769b7455524c563a9e0a9dd2a4f1a341ce50ddfc8e4d7ffb7a931a446f5b593",
+        "reference/shaders-msl/vert/float-math.invariant-float-math.vert": "d211fd1d616276853838d064a9e0590291fdd37d7871be51cdecb32df50b6349",
+        "reference/shaders-msl/vert/no-contraction.vert": "c5e0bdf9837c976c74adf2fbc25856cae22832a9a87f1fec9e2e05467f6ef01b",
+        "spirv_msl.cpp": "d74136375bbd7d644df9d52aeca42fc4bc7d157eb22043474c827c292dc5e10e"
+      },
+      "preservedBuildConditionValues": {
+        "CMAKE_BUILD_TYPE": "Release",
+        "CMAKE_C_COMPILER": "/usr/bin/cc",
+        "CMAKE_CXX_COMPILER": "/usr/bin/c++",
+        "CMAKE_OBJC_COMPILER": "/usr/bin/cc",
+        "CMAKE_OBJCXX_COMPILER": "/usr/bin/c++",
+        "CMAKE_LINKER": "/usr/bin/ld",
+        "CMAKE_OSX_ARCHITECTURES": "arm64",
+        "CMAKE_OSX_DEPLOYMENT_TARGET": "27.0",
+        "CMAKE_OSX_SYSROOT": "",
+        "CMAKE_C_FLAGS": "-DMVK_ENABLE_CUSTOM_DIAGNOSTICS=0",
+        "CMAKE_C_FLAGS_RELEASE": "-O3 -DNDEBUG",
+        "CMAKE_CXX_FLAGS": "-DMVK_ENABLE_CUSTOM_DIAGNOSTICS=0",
+        "CMAKE_CXX_FLAGS_RELEASE": "-O3 -DNDEBUG",
+        "CMAKE_OBJC_FLAGS": "-DMVK_ENABLE_CUSTOM_DIAGNOSTICS=0",
+        "CMAKE_OBJC_FLAGS_RELEASE": "-O3 -DNDEBUG",
+        "CMAKE_OBJCXX_FLAGS": "-DMVK_ENABLE_CUSTOM_DIAGNOSTICS=0",
+        "CMAKE_OBJCXX_FLAGS_RELEASE": "-O3 -DNDEBUG",
+        "MVK_BUILD_METAL4_FOUNDATION": "ON",
+        "MVK_USE_METAL_PRIVATE_API": "ON",
+        "MVK_EXCLUDE_CEREAL": "OFF",
+        "MVK_EXCLUDE_SPIRV_TOOLS": "OFF",
+        "MVK_CONFIG_LOG_LEVEL": "info",
+        "MVK_BUILD_SHADER_CONVERTER_TOOL": "OFF"
+      },
+      "CrossNamespace": "MVK_spirv_cross",
+      "preservedCrossPreimageWith2687SHA256": "98d3a9ef64004796014bab6b5325a389756f0ba571c0a86793c6513e3fa90ff7"
+    },
+    "canonicalPayloadUTF8": "{\"CrossBaseCommit\":\"aa217aeb6c9f0ace7a0ab233b28807edf45eb165\",\"CrossNamespace\":\"MVK_spirv_cross\",\"actualC1InputSHA256\":{\"reference/opt/shaders-msl/vert/float-math.invariant-float-math.vert\":\"c0f18ed6fa2a253f2d2f02ec6f38d9a0b768e217117a9c2c20bd8dd8556d6a85\",\"reference/opt/shaders-msl/vert/no-contraction.vert\":\"d74d90024deb933bdeda847f454c6c68ccbdbceff2377505afc42370a98d4fa8\",\"reference/shaders-msl-no-opt/asm/comp/compilation-loop-edge-case.spv16.asm.comp\":\"35a025152e272e8e6ec9c308c5886547a857f2fef3cecb0cf76ff888ba3c9ac5\",\"reference/shaders-msl-no-opt/comp/precise-non-square-matrix.comp\":\"0769b7455524c563a9e0a9dd2a4f1a341ce50ddfc8e4d7ffb7a931a446f5b593\",\"reference/shaders-msl/vert/float-math.invariant-float-math.vert\":\"d211fd1d616276853838d064a9e0590291fdd37d7871be51cdecb32df50b6349\",\"reference/shaders-msl/vert/no-contraction.vert\":\"c5e0bdf9837c976c74adf2fbc25856cae22832a9a87f1fec9e2e05467f6ef01b\",\"spirv_msl.cpp\":\"d74136375bbd7d644df9d52aeca42fc4bc7d157eb22043474c827c292dc5e10e\"},\"parentMVKBuildDigest\":\"0e7c41b9\",\"preservedBuildConditionValues\":{\"CMAKE_BUILD_TYPE\":\"Release\",\"CMAKE_CXX_COMPILER\":\"/usr/bin/c++\",\"CMAKE_CXX_FLAGS\":\"-DMVK_ENABLE_CUSTOM_DIAGNOSTICS=0\",\"CMAKE_CXX_FLAGS_RELEASE\":\"-O3 -DNDEBUG\",\"CMAKE_C_COMPILER\":\"/usr/bin/cc\",\"CMAKE_C_FLAGS\":\"-DMVK_ENABLE_CUSTOM_DIAGNOSTICS=0\",\"CMAKE_C_FLAGS_RELEASE\":\"-O3 -DNDEBUG\",\"CMAKE_LINKER\":\"/usr/bin/ld\",\"CMAKE_OBJCXX_COMPILER\":\"/usr/bin/c++\",\"CMAKE_OBJCXX_FLAGS\":\"-DMVK_ENABLE_CUSTOM_DIAGNOSTICS=0\",\"CMAKE_OBJCXX_FLAGS_RELEASE\":\"-O3 -DNDEBUG\",\"CMAKE_OBJC_COMPILER\":\"/usr/bin/cc\",\"CMAKE_OBJC_FLAGS\":\"-DMVK_ENABLE_CUSTOM_DIAGNOSTICS=0\",\"CMAKE_OBJC_FLAGS_RELEASE\":\"-O3 -DNDEBUG\",\"CMAKE_OSX_ARCHITECTURES\":\"arm64\",\"CMAKE_OSX_DEPLOYMENT_TARGET\":\"27.0\",\"CMAKE_OSX_SYSROOT\":\"\",\"MVK_BUILD_METAL4_FOUNDATION\":\"ON\",\"MVK_BUILD_SHADER_CONVERTER_TOOL\":\"OFF\",\"MVK_CONFIG_LOG_LEVEL\":\"info\",\"MVK_EXCLUDE_CEREAL\":\"OFF\",\"MVK_EXCLUDE_SPIRV_TOOLS\":\"OFF\",\"MVK_USE_METAL_PRIVATE_API\":\"ON\"},\"preservedCrossPreimageWith2687SHA256\":\"98d3a9ef64004796014bab6b5325a389756f0ba571c0a86793c6513e3fa90ff7\",\"schema\":\"bar-mvk-c1-source-build-identity-v1\",\"selectedC1Commit\":\"300681bbcb8365a8d1eacdacdbdd0249bbf1d6b1\"}",
+    "canonicalPayloadBytes": 2153,
+    "fullSHA256": "f52facf761992e8d64a3e3c18bfa108565364fb5416b5708b5aeec5e3d26bb3a",
+    "algorithm": "UTF-8 JSON with sort_keys=True,separators=(comma,colon),ensure_ascii=True; no BOM/newline. SHA256 first eight lowercase hexadecimal digits become MVK_GIT_REV.",
+    "oldMVK_GIT_REV": "0e7c41b9",
+    "newMVK_GIT_REV": "f52facf7",
+    "configureArgument": "-DMVK_GIT_REV=f52facf7",
+    "verification": {
+      "recordedAtUTC": "2026-10-18T03:23:24.112485+00:00",
+      "canonicalPayloadRecomputedExact": true,
+      "currentAllSevenPostimagesMatchPayload": true,
+      "currentAllPreservedBuildConditionValuesMatchPayload": true,
+      "currentCacheMVK_GIT_REV": "f52facf7",
+      "sha256PrefixMatchesCurrentRev": true,
+      "fullSHA256": "f52facf761992e8d64a3e3c18bfa108565364fb5416b5708b5aeec5e3d26bb3a",
+      "derivedHeaderAndActualRawEmbedding": "raw-artifact.json",
+      "UUIDFirstComponentStaticConstructionVerified": true,
+      "actualGPUUUIDQueried": false,
+      "userPipelineCachesReadOrDeleted": false
+    },
+    "derivedHeaderSHA256": "d4b37774cbc39879e58edc90b60628273be33aa50b1d620d97a50dfcb725b9e7",
+    "headerAndRawEmbedding": {
+      "oldRevisionInOldRaw": true,
+      "newRevisionInNewRaw": true,
+      "oldRevisionAbsentFromNewRaw": true
+    },
+    "pipelineUUIDConstruction": "Unchanged MVKDevice.mm initPipelineCacheUUID uses getMoltenVKGitRevision first four big-endian bytes. New source-derived eight-hex REV changes that component for the same device/features. Static source/header/raw-embedding verification only, not a GPU UUID query.",
+    "actualGPUUUIDQueried": false,
+    "userCachesReadOrDeleted": false
+  },
+  "finalTools": {
+    "recordedAtUTC": "2026-10-18T03:23:24.115734+00:00",
+    "status": "initial-GLSL-tool-gap-resolved-by-declared-pinned-test-dependency-and-existing-official-targets",
+    "initialGapReceipt": "tool-gaps.json (historical initial state; no longer an outstanding gap)",
+    "glslangDependency": {
+      "commit": "31b9aacfaf3adf9c514f53d0f43f390a578f00f1",
+      "archiveSHA256": "11d455eb87549488e4dbd85d40f088e3084e25b95a48d936bc9150932239e2e8",
+      "archiveBytes": 4647618,
+      "sourceURL": "https://codeload.github.com/KhronosGroup/glslang/tar.gz/31b9aacfaf3adf9c514f53d0f43f390a578f00f1",
+      "sourceCache": "$WORKSPACE/build/metal4-mvk-20261002/_deps/glslang-src",
+      "globalInstallation": false
+    },
+    "optimizerTarget": "Existing current MVK build SPIRV-Tools-opt, same pinned SPIRV-Tools source; root product options unchanged",
+    "tools": [
+      {
+        "path": "$WORKSPACE/build/metal4-mvk-20261002/_deps/spirv-cross-build/spirv-cross",
+        "sha256": "180a84e30574034030df07c5c6ed0b3c3a703d63788ff88a3fd2f1b68d4dd335"
+      },
+      {
+        "path": "$WORKSPACE/build/metal4-mvk-20261002/_deps/glslang-build/StandAlone/glslang",
+        "sha256": "9fdc555360439260a7d6229fda8dc9ed95c087e6fc041f7b24c92218add11cee"
+      },
+      {
+        "path": "$WORKSPACE/build/metal4-mvk-20261002/_deps/spirv-tools-build/tools/spirv-as",
+        "sha256": "6a673b48ca0fa15182a1fed295434facfd3a077cf537bba5ebce22fa3f97f97e"
+      },
+      {
+        "path": "$WORKSPACE/build/metal4-mvk-20261002/_deps/spirv-tools-build/tools/spirv-val",
+        "sha256": "ac327a413d3dad970698a432a11251b1378bb47377e2bb1a6c259ae01a8bddba"
+      },
+      {
+        "path": "$WORKSPACE/build/metal4-mvk-20261002/_deps/spirv-tools-build/tools/spirv-opt",
+        "sha256": "b2c59999b5ccd67848252209682161a30569a7c6504dae3d17f0aefbfe72e39c"
+      }
+    ],
+    "translatorBinding": "translator-relink-after.json and spirv-cross-link-after.map: exact current MSL/GLSL/Core/Reflect archives in MVK_spirv_cross namespace",
+    "allRequiredCanonicalC1ExpectedOutputsChecked": 6,
+    "existingAliasOutputsChecked": 2,
+    "noNewProductCompilerSDKInstallation": true,
+    "noNewIndependentProductHarness": true,
+    "noProductFlagsChangedForTools": true,
+    "metalCompilationAndGPUAcceptance": "not run; not claimed"
+  },
+  "SPIRVToolsSourcePin": "ba9a9e32160e2500ce1e48cc563a8fedaf596e6e",
+  "testDependency": {
+    "declaredBy": "Existing Cross checkout_glslang_spirv_tools.sh GLSLANG_REV; existing build script uses ENABLE_OPT=OFF",
+    "commit": "31b9aacfaf3adf9c514f53d0f43f390a578f00f1",
+    "sourceURL": "https://codeload.github.com/KhronosGroup/glslang/tar.gz/31b9aacfaf3adf9c514f53d0f43f390a578f00f1",
+    "archiveSHA256": "11d455eb87549488e4dbd85d40f088e3084e25b95a48d936bc9150932239e2e8",
+    "archiveBytes": 4647618,
+    "sourceFiles": 3644,
+    "sourceBytes": 46085483,
+    "allSourceReadbacksExactToArchive": true,
+    "sourceCache": "$WORKSPACE/build/metal4-mvk-20261002/_deps/glslang-src",
+    "buildReceipt": "glslang-tool-build.json",
+    "ENABLE_OPT": "OFF",
+    "globalInstall": false
+  },
+  "currentArchiveAndTranslatorAssociation": {
+    "receipt": "translator-relink-after.json",
+    "oldTranslatorSHA256": "dc34906431be76be2277f59ad2834afdcd1fd051e5ce1a6aa73493b6e3304c20",
+    "newTranslatorSHA256": "180a84e30574034030df07c5c6ed0b3c3a703d63788ff88a3fd2f1b68d4dd335",
+    "newTranslatorRelinkedAfterCurrentMSLArchiveChanged": true,
+    "actualArchiveSHA256": {
+      "$WORKSPACE/build/metal4-mvk-20261002/_deps/spirv-cross-build/libspirv-cross-msl.a": "5c1c6653d57b58b17d6668309d858013cf90df62b6dbcffa58aecdbacaba638d",
+      "$WORKSPACE/build/metal4-mvk-20261002/_deps/spirv-cross-build/libspirv-cross-glsl.a": "3f1981752095509630d8be821f7f9f248c1a57e61bd0bb1b3c0168397b11f209",
+      "$WORKSPACE/build/metal4-mvk-20261002/_deps/spirv-cross-build/libspirv-cross-reflect.a": "f7398ddd506503bb747e3133eaf03145af72f87a43ecd9a997e8a3eddf83a671",
+      "$WORKSPACE/build/metal4-mvk-20261002/_deps/spirv-cross-build/libspirv-cross-core.a": "d25185bc8849db3a61b2d686a20e8b0db781b80377f07c9fb3b29526c80ee60e"
+    },
+    "linkMap": "spirv-cross-link-after.map",
+    "allFourActualCurrentArchivePathsListed": true,
+    "namespace": "MVK_spirv_cross",
+    "oldHardcodedRun95Wrapper": "Read only, not executed or written; canonical current runner/official CLI and new C1 evidence replace its historical build/output binding."
+  },
+  "productionBuild": {
+    "receipt": "production-build.json",
+    "result": "PASS",
+    "target": "MoltenVK in existing metal4-mvk-20261002 build",
+    "rebuilt": "Only changed Cross MSL source and MVKDevice revision-header dependency, then static/dylib relink/symlinks (five Ninja actions).",
+    "productionCompileCommandListByteExactToBefore": true,
+    "compileCommands": 142,
+    "compileProof": "production-compile-commands-before.json and production-compile-commands-after.json",
+    "compilerNumericDiagnosticAndOtherMVKOptionsPreserved": true
+  },
+  "rawAndExports": {
+    "receipt": "raw-artifact.json",
+    "oldRawSHA256": "914c33887fdb2284dedbd67dd017d09e9661ed8adbad9015e7e789f8feb25d59",
+    "newRawSHA256": "6973721f4bc0b63d3e00a969eb65836cc2eab4e2dc988f24a5489c48c13233f6",
+    "newMSLStaticSHA256": "5c1c6653d57b58b17d6668309d858013cf90df62b6dbcffa58aecdbacaba638d",
+    "changedExistingOutputs": [
+      "libspirv-cross-msl.a",
+      "libMoltenVK.1.4.3.dylib"
+    ],
+    "otherFourRelatedArchivesByteExact": true,
+    "publicExportNamesExact": true,
+    "publicExportCount": 4482,
+    "dynamicDependenciesAndInstallNameExact": true,
+    "scope": "Symbol-name/dependency/install-name and source/build association checks, not a general gameplay/GPU ABI acceptance claim."
+  },
+  "sourcePublicationGate": {
+    "explicitCoordinatorPASSReceived": true,
+    "appliedAuditVerdict": "PASS",
+    "requiredChecksSatisfied": true,
+    "canonicalExpectedCasesPassed": 6,
+    "existing2687AliasCasesPassed": 2
+  },
+  "privateEvidenceOriginalSHA256": {
+    "unit-result.json": "2bf2edc7df27453baeb6bec51389fb9a522da5b83dd81eb2e8ca7216462c025b",
+    "applied-audit.json": "87c026c2698f8a19f2fc8a8e6d1b1b7e8afe508fb49e919ab81861e00d534293",
+    "change.patch": "7b14573f3a29af57d52100a521c3ba3a5b932a8e739301ef85f22c0ed1e9ed18"
+  },
+  "preservation": {
+    "receipt": "preservation-after.json",
+    "selectedRecords": 59,
+    "allSelectedExactToIntendedState": true,
+    "launcherHEAD": "6a3b298c236cd10eff8fd7ce27d15cdb589f650f",
+    "launcherIndexSHA256": "073483d1f4a62c9cda7006b467f60da926f889d1c8f126dc0016e3a23b761c87",
+    "priorS1S2L5L4SourcesRawAndFrozenReceiptsPreserved": true,
+    "existing2687Preserved": "Exact before and after current-library alias outputs match unchanged official reference hashes.",
+    "NoGSCUSAndOtherLocalMVKProductSourceFlags": "Unchanged selected local source guards and all 142 product compile commands; root cache changes only REV.",
+    "appEngineAISettingsInstallLaunchQuitOrOtherProjectOperations": 0,
+    "userPipelineCacheDeletion": 0,
+    "remoteWrites": 0,
+    "automationResumed": false,
+    "fullSourceOrAppInventories": 0
+  },
+  "cumulativeUnits": "Separate SDL S1/S2 and Loader L5/L4 source bundles remain unchanged. C1 applies inside the public #2687 MVK port archive with explicit source-derived build revision.",
+  "license": "Existing Cross/MVK/dependency licenses and attribution retained; no dependency/source archive redistributed in this unit bundle.",
+  "limits": [
+    "Generated MSL bytes/SPIR-V validation and component build do not prove GPU negative-zero arithmetic, Metal compiler execution, BAR shader reachability or game/FPS/MP behavior.",
+    "Export names/dependencies/install name checks are bounded compatibility evidence, not general GPU/game ABI acceptance.",
+    "Existing apps/public release/Homebrew/installed runtime are unchanged; selected source component outputs are local."
+  ],
+  "commitSHARule": "Actual publication commit is recorded separately after creation."
+}
