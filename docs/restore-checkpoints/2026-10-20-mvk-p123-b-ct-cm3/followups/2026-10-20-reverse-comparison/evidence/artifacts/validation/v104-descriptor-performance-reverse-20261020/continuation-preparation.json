@@ -1,0 +1,114 @@
+{
+  "plans": [
+    {
+      "ordinal": 3,
+      "role": "parent",
+      "backend": "metal3",
+      "folder": "$WORKSPACE/artifacts/validation/v104-descriptor-performance-reverse-20261020/3-parent-metal3-startup-continuation",
+      "schema": "v104-descriptor-reverse-3-parent-metal3-startup-continuation-v1",
+      "plan": {
+        "path": "$WORKSPACE/artifacts/validation/v104-descriptor-performance-reverse-20261020/3-parent-metal3-startup-continuation/plan.json",
+        "sha256": "264867b67624d68c955914c4dcef4d3e29cb4823591769755f6c162b22311e9e"
+      },
+      "host": {
+        "path": "$WORKSPACE/artifacts/validation/v104-descriptor-performance-reverse-20261020/3-parent-metal3-startup-continuation/effective-host.mjs",
+        "sha256": "465511441df5e653449f9cfe6c3548118110b419f5c27776804cdefb2a1b8bde"
+      }
+    },
+    {
+      "ordinal": 4,
+      "role": "candidate",
+      "backend": "metal3",
+      "folder": "$WORKSPACE/artifacts/validation/v104-descriptor-performance-reverse-20261020/4-candidate-metal3",
+      "schema": "v104-descriptor-reverse-4-candidate-metal3-v1",
+      "plan": {
+        "path": "$WORKSPACE/artifacts/validation/v104-descriptor-performance-reverse-20261020/4-candidate-metal3/plan.json",
+        "sha256": "1fb46ad9301abb514d04ed04edcc4017bb7659fcbf6cfbdf4b9f9b621784b736"
+      },
+      "host": {
+        "path": "$WORKSPACE/artifacts/validation/v104-descriptor-performance-reverse-20261020/4-candidate-metal3/effective-host.mjs",
+        "sha256": "de78f3657fac93b79b97bfc036da6d01e2ac97168f16042a4cc5d9dc631d1e9b"
+      }
+    },
+    {
+      "ordinal": 5,
+      "role": "candidate",
+      "backend": "metal4",
+      "folder": "$WORKSPACE/artifacts/validation/v104-descriptor-performance-reverse-20261020/5-candidate-metal4",
+      "schema": "v104-descriptor-reverse-5-candidate-metal4-v1",
+      "plan": {
+        "path": "$WORKSPACE/artifacts/validation/v104-descriptor-performance-reverse-20261020/5-candidate-metal4/plan.json",
+        "sha256": "17b7211e97052c8c08864ddc0d30f8ac1611545eef2074724fd0068208386303"
+      },
+      "host": {
+        "path": "$WORKSPACE/artifacts/validation/v104-descriptor-performance-reverse-20261020/5-candidate-metal4/effective-host.mjs",
+        "sha256": "afb6bea431940d894683597a7fa1cccf4ddb356192a64ba5ee7c3c1b9411d532"
+      }
+    },
+    {
+      "ordinal": 6,
+      "role": "parent",
+      "backend": "metal4",
+      "folder": "$WORKSPACE/artifacts/validation/v104-descriptor-performance-reverse-20261020/6-parent-metal4",
+      "schema": "v104-descriptor-reverse-6-parent-metal4-v1",
+      "plan": {
+        "path": "$WORKSPACE/artifacts/validation/v104-descriptor-performance-reverse-20261020/6-parent-metal4/plan.json",
+        "sha256": "fe5e12ba40be2f117edd5e880422ad8dd769c0a604abc32e3bdcab274e7d4787"
+      },
+      "host": {
+        "path": "$WORKSPACE/artifacts/validation/v104-descriptor-performance-reverse-20261020/6-parent-metal4/effective-host.mjs",
+        "sha256": "094cfdcfa5c940d45cdf6937636bf4ebf8e9c0ba1355ebed4a8416eabab5467b"
+      }
+    },
+    {
+      "ordinal": 7,
+      "role": "parent",
+      "backend": "metal4",
+      "folder": "$WORKSPACE/artifacts/validation/v104-descriptor-performance-reverse-20261020/7-parent-metal4",
+      "schema": "v104-descriptor-reverse-7-parent-metal4-v1",
+      "plan": {
+        "path": "$WORKSPACE/artifacts/validation/v104-descriptor-performance-reverse-20261020/7-parent-metal4/plan.json",
+        "sha256": "ef15d6e08d108cbbf8c09574aba75491397aaf5a66a860133b38f38a7e238ba0"
+      },
+      "host": {
+        "path": "$WORKSPACE/artifacts/validation/v104-descriptor-performance-reverse-20261020/7-parent-metal4/effective-host.mjs",
+        "sha256": "5572c468e3e1cb067014750a0c233889358f02d54b69f3cb064f9fe3c4d67367"
+      }
+    },
+    {
+      "ordinal": 8,
+      "role": "candidate",
+      "backend": "metal4",
+      "folder": "$WORKSPACE/artifacts/validation/v104-descriptor-performance-reverse-20261020/8-candidate-metal4",
+      "schema": "v104-descriptor-reverse-8-candidate-metal4-v1",
+      "plan": {
+        "path": "$WORKSPACE/artifacts/validation/v104-descriptor-performance-reverse-20261020/8-candidate-metal4/plan.json",
+        "sha256": "9340a65ebc5c0f3e945b3d45239f5d7816211a33af5119358d162e443ae27a37"
+      },
+      "host": {
+        "path": "$WORKSPACE/artifacts/validation/v104-descriptor-performance-reverse-20261020/8-candidate-metal4/effective-host.mjs",
+        "sha256": "b5600cafea7723f7dc3a2392d2677312129027643918439ef5ac2d10953afdb0"
+      }
+    }
+  ],
+  "parent": "$WORKSPACE/artifacts/runtime/v104-performance-ab-candidate-20261020/BAR.app",
+  "candidate": "$WORKSPACE/artifacts/runtime/v104-descriptor-candidate-20261020/BAR.app",
+  "controllerByteIdenticalToSuccessfulPreviousTest": true,
+  "hostChanges": "Only fixture paths/schema/test identity; actual app variants and measurement logic unchanged",
+  "parentMvk": {
+    "path": "$WORKSPACE/artifacts/runtime/v104-performance-ab-candidate-20261020/BAR.app/Contents/Resources/bundled-assets/runtime/moltenvk-pr2746/lib/libMoltenVK.1.4.3.dylib",
+    "sha256": "99cf887139c8022dcb65e30e9331c8dc0b6ebd4cf6edf59c0d8a1cd942b59ac2"
+  },
+  "candidateMvk": {
+    "path": "$WORKSPACE/artifacts/runtime/v104-descriptor-candidate-20261020/BAR.app/Contents/Resources/bundled-assets/runtime/moltenvk-pr2746/lib/libMoltenVK.1.4.3.dylib",
+    "sha256": "7ac71989ca27a99a2f9adf219ac0dcb12f16804cd35733bf7fd2c078635c5c4a"
+  },
+  "previousEvidence": "$WORKSPACE/artifacts/validation/v104-descriptor-performance-comparison-20261020",
+  "order": "candidate,parent,parent,candidate for each backend",
+  "consoleLockAllowedByHuman": true,
+  "localGuard": {
+    "path": "$WORKSPACE/artifacts/validation/v104-descriptor-performance-reverse-20261020/screen-guard-locked-allowed.py",
+    "sha256": "dde091d5a04f40d6e69be2df4740cd15bad2c7bea8d084f5be68dcf133a7a4cf"
+  },
+  "startupReadinessFix": "Only repeat safe read-only document readiness checks; one launchScript call. No benchmark/controller/render changes."
+}

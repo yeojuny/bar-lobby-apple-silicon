@@ -1,0 +1,53 @@
+{
+  "ordinal": 7,
+  "role": "parent",
+  "backend": "metal4",
+  "exit": 0,
+  "status": "completed-not-promoted",
+  "error": null,
+  "cacheError": null,
+  "receipt": "$WORKSPACE/artifacts/validation/v104-descriptor-performance-reverse-20261020/7-parent-metal4/sessions/lobby-no-native-hook-1792538727971/execution-receipt.json",
+  "fps": 35.757183074951,
+  "p50Ms": 26.471000671387,
+  "p95Ms": 42.95299911499,
+  "p99Ms": 61.034000396729,
+  "remainingOwnedProcesses": [],
+  "protectedInputsUnchanged": true,
+  "resolution": {
+    "height": 902,
+    "width": 1432
+  },
+  "camera": {
+    "dist": 2254.7705078125,
+    "dx": 0,
+    "dy": -0.924302399158,
+    "dz": -0.381660997868,
+    "fov": 45,
+    "mode": 2,
+    "name": "spring",
+    "px": 4096,
+    "py": 254.770629882813,
+    "pz": 3072,
+    "rx": 2.75,
+    "ry": 0,
+    "rz": 0
+  },
+  "runtimeUUID": {
+    "prefix": "f52facf7",
+    "uuids": [
+      "f52facf7-1b02-0209-0000-000100000000"
+    ],
+    "driverLog": {
+      "path": "$WORKSPACE/artifacts/validation/v104-descriptor-performance-reverse-20261020/7-parent-metal4/sessions/lobby-no-native-hook-1792538727971/state/data/stack-game.stderr.log",
+      "sha256": "5289eb9a2a70c89bde3450b00a3fe369d99870d6b7f01260408101727a116f1a"
+    }
+  },
+  "nativeMetal4": {
+    "requested": true,
+    "activeQueues": 1,
+    "completedSubmissions": [
+      14635
+    ],
+    "proved": true
+  }
+}

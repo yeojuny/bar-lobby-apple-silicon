@@ -1,0 +1,100 @@
+{
+  "role": "parent",
+  "benchmarkRole": "parent",
+  "app": "$WORKSPACE/artifacts/runtime/v104-performance-ab-candidate-20261020/BAR.app",
+  "run": "$WORKSPACE/artifacts/validation/v104-descriptor-performance-reverse-20261020/3-parent-metal3/sessions/lobby-no-native-hook-1792538186747",
+  "mesaGitSha1": "9ba10f0aab543df342535ac4d7d3e559fe825793636f9175232ae23b700a6cb1",
+  "strictHiddenWindow": true,
+  "promotionAllowed": false,
+  "nativeMetal4Requested": false,
+  "powerContract": {
+    "source": "AC Power",
+    "lowPowerMode": true,
+    "thermalStateRecorded": true,
+    "periodicIntervalMs": 15000,
+    "settingsChanged": false
+  },
+  "powerObservations": [
+    {
+      "label": "preflight",
+      "atUTC": "2026-10-20T23:16:26.747Z",
+      "passed": true,
+      "battery": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=36634723)\t95%; AC attached; not charging present: true\n",
+      "isLowPowerModeEnabled": true,
+      "thermalState": 0,
+      "awakeAssertions": "2026-10-20 16:16:26 -0700 \nAssertion status system-wide:\n   BackgroundTask                 0\n   ApplePushServiceTask           0\n   UserIsActive                   1\n   PreventUserIdleDisplaySleep    1\n   SoftwareUpdateTask             0\n   PreventSystemSleep             0\n   PreventSystemSleepSecurityIndicator 0\n   ExternalMedia                  0\n   InternalPreventDisplaySleep    1\n   PreventUserIdleSystemSleep     1\n   NetworkClientActive            0\nListed by owning process:\n   pid 559(powerd): [0x0000de45000184f8] 00:03:57 PreventUserIdleSystemSleep named: \"Powerd - Prevent sleep while display is on\"  \n   pid 559(powerd): [0x0000de6a0010851e] 00:00:12 InternalPreventDisplaySleep named: \"com.apple.powermanagement.delayDisplayOff\"  \n\tTimeout will fire in 288 secs Action=TimeoutActionTurnOff\n   pid 1378(ChatGPT): [0x00007c83000191ed] 07:41:27 NoIdleSleepAssertion named: \"Electron\"  \n   pid 29533(caffeinate): [0x0000de45000184f5] 00:03:57 PreventUserIdleSystemSleep named: \"caffeinate command-line tool\"  \n\tDetails: caffeinate asserting on behalf of Process ID 29509 for 3600 secs\n\tCreated for PID: 29509. \n\tLocalized=THE CAFFEINATE TOOL IS PREVENTING SLEEP.\n\tTimeout will fire in 3362 secs Action=TimeoutActionRelease\n   pid 29533(caffeinate): [0x0000de45000584f6] 00:03:57 PreventUserIdleDisplaySleep named: \"caffeinate command-line tool\"  \n\tDetails: caffeinate asserting on behalf of Process ID 29509 for 3600 secs\n\tCreated for PID: 29509. \n\tLocalized=THE CAFFEINATE TOOL IS PREVENTING SLEEP.\n\tTimeout will fire in 3362 secs Action=TimeoutActionRelease\n   pid 29533(caffeinate): [0x0000de45000984f7] 00:03:57 UserIsActive named: \"caffeinate command-line tool\"  \n\tDetails: caffeinate asserting on behalf of Process ID 29509 for 3600 secs\n\tCreated for PID: 29509. \n\tLocalized=THE CAFFEINATE TOOL IS PREVENTING SLEEP.\n\tTimeout will fire in 3362 secs Action=TimeoutActionRelease\nKernel Assertions: 0x100=MAGICWAKE\n   id=556  level=255 0x100=MAGICWAKE creat=  mod= description=en0 owner=IOSkywalkNetworkBSDClient\n",
+      "displayAwakeProtectionPassed": true,
+      "finishedAtUTC": "2026-10-20T23:16:26.865Z"
+    },
+    {
+      "label": "before-launch",
+      "atUTC": "2026-10-20T23:16:50.529Z",
+      "passed": true,
+      "battery": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=36634723)\t95%; AC attached; not charging present: true\n",
+      "isLowPowerModeEnabled": true,
+      "thermalState": 0,
+      "awakeAssertions": "2026-10-20 16:16:50 -0700 \nAssertion status system-wide:\n   BackgroundTask                 0\n   ApplePushServiceTask           0\n   UserIsActive                   1\n   PreventUserIdleDisplaySleep    1\n   SoftwareUpdateTask             0\n   PreventSystemSleep             0\n   PreventSystemSleepSecurityIndicator 0\n   ExternalMedia                  0\n   InternalPreventDisplaySleep    1\n   PreventUserIdleSystemSleep     1\n   NetworkClientActive            0\nListed by owning process:\n   pid 29533(caffeinate): [0x0000de45000184f5] 00:04:21 PreventUserIdleSystemSleep named: \"caffeinate command-line tool\"  \n\tDetails: caffeinate asserting on behalf of Process ID 29509 for 3600 secs\n\tCreated for PID: 29509. \n\tLocalized=THE CAFFEINATE TOOL IS PREVENTING SLEEP.\n\tTimeout will fire in 3339 secs Action=TimeoutActionRelease\n   pid 29533(caffeinate): [0x0000de45000584f6] 00:04:21 PreventUserIdleDisplaySleep named: \"caffeinate command-line tool\"  \n\tDetails: caffeinate asserting on behalf of Process ID 29509 for 3600 secs\n\tCreated for PID: 29509. \n\tLocalized=THE CAFFEINATE TOOL IS PREVENTING SLEEP.\n\tTimeout will fire in 3339 secs Action=TimeoutActionRelease\n   pid 29533(caffeinate): [0x0000de45000984f7] 00:04:21 UserIsActive named: \"caffeinate command-line tool\"  \n\tDetails: caffeinate asserting on behalf of Process ID 29509 for 3600 secs\n\tCreated for PID: 29509. \n\tLocalized=THE CAFFEINATE TOOL IS PREVENTING SLEEP.\n\tTimeout will fire in 3339 secs Action=TimeoutActionRelease\n   pid 1378(ChatGPT): [0x00007c83000191ed] 07:41:51 NoIdleSleepAssertion named: \"Electron\"  \n   pid 559(powerd): [0x0000de45000184f8] 00:04:21 PreventUserIdleSystemSleep named: \"Powerd - Prevent sleep while display is on\"  \n   pid 559(powerd): [0x0000de6a0010851e] 00:00:36 InternalPreventDisplaySleep named: \"com.apple.powermanagement.delayDisplayOff\"  \n\tTimeout will fire in 264 secs Action=TimeoutActionTurnOff\n   pid 863(mds_stores): [0x0000df46000b8541] 00:00:04 BackgroundTask named: \"com.apple.metadata.mds_stores.power\"  \n   pid 573(mds): [0x0000df3b000b8540] 00:00:15 BackgroundTask named: \"com.apple.metadata.mds.power\"  \nKernel Assertions: 0x100=MAGICWAKE\n   id=556  level=255 0x100=MAGICWAKE creat=  mod= description=en0 owner=IOSkywalkNetworkBSDClient\n",
+      "displayAwakeProtectionPassed": true,
+      "finishedAtUTC": "2026-10-20T23:16:50.672Z"
+    },
+    {
+      "label": "post-exit",
+      "atUTC": "2026-10-20T23:16:57.938Z",
+      "passed": true,
+      "battery": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=36634723)\t95%; AC attached; not charging present: true\n",
+      "isLowPowerModeEnabled": true,
+      "thermalState": 0,
+      "awakeAssertions": "2026-10-20 16:16:58 -0700 \nAssertion status system-wide:\n   BackgroundTask                 0\n   ApplePushServiceTask           0\n   UserIsActive                   1\n   PreventUserIdleDisplaySleep    1\n   SoftwareUpdateTask             0\n   PreventSystemSleep             0\n   PreventSystemSleepSecurityIndicator 0\n   ExternalMedia                  0\n   InternalPreventDisplaySleep    1\n   PreventUserIdleSystemSleep     1\n   NetworkClientActive            0\nListed by owning process:\n   pid 29533(caffeinate): [0x0000de45000184f5] 00:04:28 PreventUserIdleSystemSleep named: \"caffeinate command-line tool\"  \n\tDetails: caffeinate asserting on behalf of Process ID 29509 for 3600 secs\n\tCreated for PID: 29509. \n\tLocalized=THE CAFFEINATE TOOL IS PREVENTING SLEEP.\n\tTimeout will fire in 3331 secs Action=TimeoutActionRelease\n   pid 29533(caffeinate): [0x0000de45000584f6] 00:04:28 PreventUserIdleDisplaySleep named: \"caffeinate command-line tool\"  \n\tDetails: caffeinate asserting on behalf of Process ID 29509 for 3600 secs\n\tCreated for PID: 29509. \n\tLocalized=THE CAFFEINATE TOOL IS PREVENTING SLEEP.\n\tTimeout will fire in 3331 secs Action=TimeoutActionRelease\n   pid 29533(caffeinate): [0x0000de45000984f7] 00:04:28 UserIsActive named: \"caffeinate command-line tool\"  \n\tDetails: caffeinate asserting on behalf of Process ID 29509 for 3600 secs\n\tCreated for PID: 29509. \n\tLocalized=THE CAFFEINATE TOOL IS PREVENTING SLEEP.\n\tTimeout will fire in 3331 secs Action=TimeoutActionRelease\n   pid 1378(ChatGPT): [0x00007c83000191ed] 07:41:58 NoIdleSleepAssertion named: \"Electron\"  \n   pid 559(powerd): [0x0000de45000184f8] 00:04:28 PreventUserIdleSystemSleep named: \"Powerd - Prevent sleep while display is on\"  \n   pid 559(powerd): [0x0000de6a0010851e] 00:00:05 InternalPreventDisplaySleep named: \"com.apple.powermanagement.delayDisplayOff\"  \n\tTimeout will fire in 295 secs Action=TimeoutActionTurnOff\n   pid 573(mds): [0x0000df3b000b8540] 00:00:22 BackgroundTask named: \"com.apple.metadata.mds.power\"  \nKernel Assertions: 0x100=MAGICWAKE\n   id=556  level=255 0x100=MAGICWAKE creat=  mod= description=en0 owner=IOSkywalkNetworkBSDClient\n",
+      "displayAwakeProtectionPassed": true,
+      "finishedAtUTC": "2026-10-20T23:16:58.091Z"
+    }
+  ],
+  "lane": "lobby",
+  "cacheMode": "single",
+  "maximumTotalAttempts": 1,
+  "sessionOrdinal": 1,
+  "planSha256": "9c4726339ea08a83479bfde0812b04bf622c78020341d483e06e52bad7be2284",
+  "startedAt": "2026-10-20T23:16:26.747Z",
+  "privateLobbyWindowSettings": {
+    "fullscreenBefore": true,
+    "fullscreenAfter": false,
+    "appliedBeforeAppLaunch": true,
+    "foregroundAllowed": false
+  },
+  "cache": {
+    "directory": "$WORKSPACE/artifacts/validation/v104-descriptor-performance-reverse-20261020/3-parent-metal3/sessions/lobby-no-native-hook-1792538186747/state/data/cache/metal3/mesa_shader_cache",
+    "mode": "cold",
+    "before": {
+      "entries": [],
+      "bytes": 0,
+      "digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    }
+  },
+  "preparationMs": 21897,
+  "status": "failed",
+  "error": "Error: {\"code\":-32000,\"message\":\"Execution context was destroyed.\"}",
+  "remainingOwnedProcesses": [],
+  "cacheError": "Error: ENOENT: no such file or directory, open '$WORKSPACE/artifacts/validation/v104-descriptor-performance-reverse-20261020/3-parent-metal3/sessions/lobby-no-native-hook-1792538186747/state/data/stack-game.stderr.log'",
+  "cleanup": {
+    "schemaVersion": 1,
+    "status": "private-clones-removed",
+    "run": "$WORKSPACE/artifacts/validation/v104-descriptor-performance-reverse-20261020/3-parent-metal3/sessions/lobby-no-native-hook-1792538186747",
+    "targets": [
+      "$WORKSPACE/artifacts/validation/v104-descriptor-performance-reverse-20261020/3-parent-metal3/sessions/lobby-no-native-hook-1792538186747/assets/maps",
+      "$WORKSPACE/artifacts/validation/v104-descriptor-performance-reverse-20261020/3-parent-metal3/sessions/lobby-no-native-hook-1792538186747/assets/pool",
+      "$WORKSPACE/artifacts/validation/v104-descriptor-performance-reverse-20261020/3-parent-metal3/sessions/lobby-no-native-hook-1792538186747/assets/packages",
+      "$WORKSPACE/artifacts/validation/v104-descriptor-performance-reverse-20261020/3-parent-metal3/sessions/lobby-no-native-hook-1792538186747/assets/rapid"
+    ],
+    "files": 19978,
+    "symlinks": 0,
+    "directories": 263,
+    "logicalBytes": 2316290517,
+    "physicalBytesMeasured": false,
+    "sourceCacheTouched": false,
+    "trialStateAndLogsPreserved": true
+  },
+  "protectedInputsUnchanged": true,
+  "powerConditionsPassed": true,
+  "foregroundChecks": 2,
+  "finishedAt": "2026-10-20T23:16:58.092Z"
+}

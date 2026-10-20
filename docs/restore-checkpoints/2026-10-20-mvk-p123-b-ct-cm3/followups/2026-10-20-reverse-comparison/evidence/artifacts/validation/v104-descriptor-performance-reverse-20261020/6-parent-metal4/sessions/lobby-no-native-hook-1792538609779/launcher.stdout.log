@@ -1,0 +1,4309 @@
+ASSETS_PATH: $WORKSPACE/artifacts/validation/v104-descriptor-performance-reverse-20261020/6-parent-metal4/sessions/lobby-no-native-hook-1792538609779/assets
+STATE_PATH: $WORKSPACE/artifacts/validation/v104-descriptor-performance-reverse-20261020/6-parent-metal4/sessions/lobby-no-native-hook-1792538609779/state
+[16:23:54.512] [32mINFO[39m: [36mmain - 2026-10-20T23:23:54.512Z - main/index.ts - Starting Electron main process[39m
+[16:23:54.515] [32mINFO[39m: [36mmain - 2026-10-20T23:23:54.512Z - main/index.ts - App instance lock acquired successfully.[39m
+[16:23:54.856] [32mINFO[39m: [36mmain - 2026-10-20T23:23:54.481Z - config.service.ts - Fetched config successfully from https://lobby-config.beyondallreason.dev/config.json[39m
+[16:23:54.860] [32mINFO[39m: [36mmain - 2026-10-20T23:23:54.489Z - engine-provider.ts - Initializing engine content API[39m
+[16:23:54.861] [32mINFO[39m: [36mmain - 2026-10-20T23:23:54.489Z - engine-provider.ts - Found 2 installed engine versions[39m
+[16:23:54.862] [32mINFO[39m: [36mmain - 2026-10-20T23:23:54.489Z - engine-provider.ts - -- Engine 2026.07.04 at $WORKSPACE/artifacts/runtime/v104-performance-ab-candidate-20261020/BAR.app/Contents/Resources/bundled-assets/engine/2026.07.04[39m
+[16:23:54.872] [32mINFO[39m: [36mmain - 2026-10-20T23:23:54.489Z - engine-provider.ts - -- Engine 2026.09.01-24-g01efdf4 master at $WORKSPACE/artifacts/runtime/v104-performance-ab-candidate-20261020/BAR.app/Contents/Resources/bundled-assets/engine/2026.09.01-24-g01efdf4 master[39m
+[16:23:54.877] [32mINFO[39m: [36mmain - 2026-10-20T23:23:54.489Z - engine-provider.ts - Found 2 engine versions total.[39m
+[16:23:54.940] [32mINFO[39m: [36mmain - 2026-10-20T23:23:54.489Z - map-provider.ts - 1 maps installed[39m
+[16:23:54.996] [33mWARN[39m: [36mmain - 2026-10-20T23:23:54.489Z - game-provider.ts - Not found matching game version for bee54bdf0301b8043cf585c53f57cf68.sdp[39m
+[16:23:54.996] [32mINFO[39m: [36mmain - 2026-10-20T23:23:54.489Z - game-provider.ts - Found 1 installed game versions[39m
+[16:23:54.996] [32mINFO[39m: [36mmain - 2026-10-20T23:23:54.489Z - game-provider.ts - -- Beyond All Reason test-31671-ad2e1b7[39m
+[16:23:54.996] [32mINFO[39m: [36mmain - 2026-10-20T23:23:54.489Z - game-provider.ts - Scanning for local games[39m
+[16:23:55.001] [32mINFO[39m: [36mmain - 2026-10-20T23:23:54.495Z - auto-updater.ts - Initializing AutoUpdaterAPI[39m
+[16:23:55.001] [32mINFO[39m: [36mmain - 2026-10-20T23:23:54.495Z - auto-updater.ts - macOS update metadata is unavailable. Skipping initialization[39m
+[16:23:55.002] [32mINFO[39m: [36mmain - 2026-10-20T23:23:54.496Z - main-window - Creating main window with settings: [39m
+[16:23:57.279] [32mINFO[39m: [36mmain - 2026-10-20T23:23:54.489Z - main/game/game.ts - Launching game with engine: 2026.09.01-24-g01efdf4 master, game: Beyond All Reason test-31671-ad2e1b7[39m
+[16:23:59.335] [32mINFO[39m: [36mmain - 2026-10-20T23:23:54.489Z - main/game/game.ts - Prepared bar-lobby macOS LuaUI overlay: $WORKSPACE/artifacts/runtime/v104-performance-ab-candidate-20261020/BAR.app/Contents/Resources/bundled-assets/macos-luaui-overlays/bar-lobby; quarantined=0; preserved=0[39m
+[16:23:59.336] [32mINFO[39m: [36mmain - 2026-10-20T23:23:54.489Z - main/game/springsettings.ts - Applied default springsettings[39m
+[16:23:59.336] [32mINFO[39m: [36mmain - 2026-10-20T23:23:54.489Z - main/game/game.ts - MACOS_DIAGNOSTIC_PROBE native-engine-env: {"SPRING_DATADIR":"$WORKSPACE/artifacts/validation/v104-descriptor-performance-reverse-20261020/6-parent-metal4/sessions/lobby-no-native-hook-1792538609779/assets:$WORKSPACE/artifacts/runtime/v104-performance-ab-candidate-20261020/BAR.app/Contents/Resources/bundled-assets/engine-fonts:$WORKSPACE/artifacts/runtime/v104-performance-ab-candidate-20261020/BAR.app/Contents/Resources/bundled-assets/fonts:$WORKSPACE/artifacts/runtime/v104-performance-ab-candidate-20261020/BAR.app/Contents/Resources/bundled-assets/engine/2026.09.01-24-g01efdf4 master","DYLD_LIBRARY_PATH":"$WORKSPACE/artifacts/runtime/v104-performance-ab-candidate-20261020/BAR.app/Contents/Resources/bundled-assets/runtime/sdl3/lib:$WORKSPACE/artifacts/runtime/v104-performance-ab-candidate-20261020/BAR.app/Contents/Resources/bundled-assets/runtime/mesa-zink/lib:$WORKSPACE/artifacts/runtime/v104-performance-ab-candidate-20261020/BAR.app/Contents/Resources/bundled-assets/runtime/vulkan-loader/lib:$WORKSPACE/artifacts/runtime/v104-performance-ab-candidate-20261020/BAR.app/Contents/Resources/bundled-assets/runtime/moltenvk-pr2746/lib","VK_DRIVER_FILES":"$WORKSPACE/artifacts/runtime/v104-performance-ab-candidate-20261020/BAR.app/Contents/Resources/bundled-assets/runtime/moltenvk-pr2746/MoltenVK_icd.json","VK_ICD_FILENAMES":"$WORKSPACE/artifacts/runtime/v104-performance-ab-candidate-20261020/BAR.app/Contents/Resources/bundled-assets/runtime/moltenvk-pr2746/MoltenVK_icd.json","MESA_LOADER_DRIVER_OVERRIDE":"zink","GALLIUM_DRIVER":"zink","EGL_PLATFORM":"cocoa","MESA_GL_VERSION_OVERRIDE":"4.6COMPAT","MESA_GLSL_VERSION_OVERRIDE":"460","VK_LOADER_SEARCH_ONLY_IN_BUNDLE":"1","FONTCONFIG_FILE":"$WORKSPACE/artifacts/runtime/v104-performance-ab-candidate-20261020/BAR.app/Contents/Resources/bundled-assets/runtime/fontconfig/fonts.conf","FONTCONFIG_PATH":"$WORKSPACE/artifacts/runtime/v104-performance-ab-candidate-20261020/BAR.app/Contents/Resources/bundled-assets/runtime/fontconfig","XDG_CACHE_HOME":"$WORKSPACE/artifacts/validation/v104-descriptor-performance-reverse-20261020/6-parent-metal4/sessions/lobby-no-native-hook-1792538609779/state/data/cache/metal4","MESA_SHADER_CACHE_DIR":"<unset>","MESA_GLSL_CACHE_DIR":"<unset>","BAR_MACOS_VULKAN_BACKEND":"moltenvk","BAR_METAL_BACKEND_REQUESTED":"METAL4","MVK_CONFIG_USE_METAL4":"1","BAR_MACOS_ALLOW_DIAGNOSTIC_ENGINE_ENV":"<unset>","BAR_MACOS_ENABLE_MINIMAL_FPS_WORKAROUND":"<unset>","BAR_MACOS_DISABLE_MINIMAL_FPS_WORKAROUND":"<unset>","VK_ADD_DRIVER_FILES":"<unset>","DYLD_FALLBACK_LIBRARY_PATH":"<unset>","ZINK_DEBUG":"<unset>","MESA_GLTHREAD":"<unset>","GALLIUM_THREAD":"<unset>"}[39m
+[16:23:59.337] [32mINFO[39m: [36mmain - 2026-10-20T23:23:54.489Z - main/game/game.ts - MACOS_DIAGNOSTIC_PROBE native-engine-data-dirs: [{"index":0,"path":"$WORKSPACE/artifacts/validation/v104-descriptor-performance-reverse-20261020/6-parent-metal4/sessions/lobby-no-native-hook-1792538609779/assets","exists":true,"hasLuaUI":false,"hasLuaRules":false,"hasEngineFonts":false,"hasEngineBinary":false},{"index":1,"path":"$WORKSPACE/artifacts/runtime/v104-performance-ab-candidate-20261020/BAR.app/Contents/Resources/bundled-assets/engine-fonts","exists":true,"hasLuaUI":false,"hasLuaRules":false,"hasEngineFonts":true,"hasEngineBinary":false},{"index":2,"path":"$WORKSPACE/artifacts/runtime/v104-performance-ab-candidate-20261020/BAR.app/Contents/Resources/bundled-assets/fonts","exists":true,"hasLuaUI":false,"hasLuaRules":false,"hasEngineFonts":false,"hasEngineBinary":false},{"index":3,"path":"$WORKSPACE/artifacts/runtime/v104-performance-ab-candidate-20261020/BAR.app/Contents/Resources/bundled-assets/engine/2026.09.01-24-g01efdf4 master","exists":true,"hasLuaUI":true,"hasLuaRules":false,"hasEngineFonts":false,"hasEngineBinary":true}][39m
+[16:24:02.622] [32mINFO[39m: [36mmain - 2026-10-20T23:23:54.489Z - main/game/game.ts - Bounded engine stderr capture: $WORKSPACE/artifacts/validation/v104-descriptor-performance-reverse-20261020/6-parent-metal4/sessions/lobby-no-native-hook-1792538609779/state/logs/engine-diagnostics/engine-1792538642622-34387-69018062.stderr.log[39m
+[16:24:03.036] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:00.000000] [DataDirLocater::FindWriteableDataDir] using writeable data-directory "$WORKSPACE/artifacts/validation/v104-descriptor-performance-reverse-20261020/6-parent-metal4/sessions/lobby-no-native-hook-1792538609779/state/data/"
+[39m
+[16:24:03.037] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:00.000275] Using writeable configuration source: "$WORKSPACE/artifacts/validation/v104-descriptor-performance-reverse-20261020/6-parent-metal4/sessions/lobby-no-native-hook-1792538609779/state/data/springsettings.cfg"
+[39m
+[16:24:03.042] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:00.006107] LogOutput initialized. Logging to $WORKSPACE/artifacts/validation/v104-descriptor-performance-reverse-20261020/6-parent-metal4/sessions/lobby-no-native-hook-1792538609779/state/data/infolog.txt
+[39m
+[16:24:03.043] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:00.006154] ============== <Log Sections ([A]vailable, [E]nabled)> ==============
+[t=00:00:00.006162]   
+    [A] ArchiveScanner
+    [A] AutohostInterface
+    [A] BumpWater
+    [A] CSMFGroundTextures
+    [A] CrashHandler
+    [A] CregSerializer
+    [A] DynWater
+    [A] Font
+    [A] GameServer
+    [A] GroundMoveType
+    [A] KeyBindings
+    [A] LuaSocket
+    [A] Model
+    [A] Net
+    [A] Path
+    [A] Piece
+    [A] RoamMeshDrawer
+    [A] Shader
+    [A] SkyBox
+    [A] Sound
+    [A] Texture
+    [A] VFS
+    [E] Sound (Notice)
+    [E] VFS (Info)
+[t=00:00:00.006166]   
+[t=00:00:00.006169]   Enable or disable log sections using the LogSections configuration key
+[t=00:00:00.006171]   or the SPRING_LOG_SECTIONS environment variable (both comma separated).
+[t=00:00:00.006173]   Use "none" to disable the default log sections.
+[t=00:00:00.006175] ============== </Log Sections> ==============
+
+[t=00:00:00.006177] ============== <User Config> ==============
+[t=00:00:00.006244]   AllowDeferredMapRendering = 1
+[t=00:00:00.006250]   AllowDeferredModelRendering = 1
+[t=00:00:00.006253]   AllowDrawMapDeferredEvents = 1
+[t=00:00:00.006256]   BumpWaterAnisotropy = 2
+[t=00:00:00.006258]   BumpWaterBlurReflection = 1
+[t=00:00:00.006260]   BumpWaterDepthBits = 32
+[t=00:00:00.006262]   BumpWaterReflection = 2
+[t=00:00:00.006264]   BumpWaterTexSizeReflection = 1024
+[t=00:00:00.006267]   CamMode = 1
+[t=00:00:00.006269]   CamSpringMinZoomDistance = 300
+[t=00:00:00.006272]   CrossAlpha = 0
+[t=00:00:00.006274]   CubeTexGenerateMipMaps = 1
+[t=00:00:00.006276]   CubeTexSizeReflection = 1024
+[t=00:00:00.006278]   DemoFileExtension = barreplay,sdfz
+[t=00:00:00.006281]   DualScreenMiniMapOnLeft = 1
+[t=00:00:00.006283]   EdgeMoveDynamic = 0
+[t=00:00:00.006285]   EdgeMoveWidth = 0.003
+[t=00:00:00.006287]   FPSFOV = 90
+[t=00:00:00.006290]   FeatureDrawDistance = 600000
+[t=00:00:00.006292]   FeatureFadeDistance = 600000
+[t=00:00:00.006294]   FontFile = FreeSansBold.otf
+[t=00:00:00.006305]   FontOutlineWeight = 2
+[t=00:00:00.006308]   FontOutlineWidth = 4
+[t=00:00:00.006310]   FontSize = 27
+[t=00:00:00.006313]   Fullscreen = 0
+[t=00:00:00.006315]   GeometryShadersUnsupported = 1
+[t=00:00:00.006317]   GrassDetail = 0
+[t=00:00:00.006319]   GroundDecals = 0
+[t=00:00:00.006322]   GroundDetail = 200
+[t=00:00:00.006324]   HangTimeout = 30
+[t=00:00:00.006326]   HardwareCursor = 1
+[t=00:00:00.006328]   InitialNetworkTimeout = 0
+[t=00:00:00.006330]   InputTextGeo = 0.35 0.72 0.03 0.04
+[t=00:00:00.006332]   KeyChainTimeout = 333
+[t=00:00:00.006335]   LinkIncomingMaxPacketRate = 2048
+[t=00:00:00.006337]   LinkIncomingPeakBandwidth = 1048576
+[t=00:00:00.006340]   LinkIncomingSustainedBandwidth = 1048576
+[t=00:00:00.006342]   LinkOutgoingBandwidth = 196608
+[39m
+[16:24:03.043] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:00.006344]   LuaGarbageCollectionMemLoadMult = 1
+[t=00:00:00.006347]   LuaGarbageCollectionRunTimeMult = 1
+[t=00:00:00.006349]   MSAALevel = -1
+[t=00:00:00.006352]   MaxDynamicModelLights = 0
+[t=00:00:00.006354]   MaxNanoParticles = 0
+[t=00:00:00.006373]   MaxParticles = 20000
+[t=00:00:00.006377]   MaxSounds = 256
+[t=00:00:00.006379]   MaxTextureAtlasSizeX = 8192
+[t=00:00:00.006382]   MaxTextureAtlasSizeY = 8192
+[t=00:00:00.006384]   MaximumTransmissionUnit = 0
+[t=00:00:00.006386]   MiddleClickScrollSpeed = -0.001
+[t=00:00:00.006388]   MiniMapDrawPings = 0
+[t=00:00:00.006391]   MiniMapMarker = 0
+[t=00:00:00.006393]   MouseDragBoxCommandThreshold = 29
+[t=00:00:00.006396]   MouseDragCircleCommandThreshold = 29
+[t=00:00:00.006398]   MouseDragFrontCommandThreshold = 29
+[t=00:00:00.006401]   MouseDragScrollThreshold = 0
+[t=00:00:00.006403]   MouseDragSelectionThreshold = 13
+[t=00:00:00.006406]   NanoParticlesGL4 = 1
+[t=00:00:00.006408]   NanoParticlesReclaimBurst = 1
+[t=00:00:00.006410]   NetworkLossFactor = 2
+[t=00:00:00.006413]   OverheadMaxHeightFactor = 1.39999998
+[t=00:00:00.006416]   OverheadMinZoomDistance = 300
+[t=00:00:00.006418]   OverheadScrollSpeed = 50
+[t=00:00:00.006420]   RapidTagResolutionOrder = repos-cdn.beyondallreason.dev
+[t=00:00:00.006428]   ReconnectTimeout = 0
+[t=00:00:00.006432]   RotateLogFiles = 1
+[t=00:00:00.006434]   ScrollWheelSpeed = -20
+[t=00:00:00.006437]   ServerSleepTime = 1
+[t=00:00:00.006439]   ShadowMapSize = 600
+[t=00:00:00.006441]   Shadows = 0
+[t=00:00:00.006443]   ShowClock = 0
+[t=00:00:00.006446]   ShowFPS = 1
+[t=00:00:00.006448]   ShowPlayerInfo = 0
+[t=00:00:00.006450]   ShowSpeed = 1
+[t=00:00:00.006452]   SmallFontFile = FreeSansBold.otf
+[t=00:00:00.006454]   SmallFontOutlineWeight = 2
+[t=00:00:00.006456]   SmallFontOutlineWidth = 4
+[t=00:00:00.006459]   SmallFontSize = 27
+[t=00:00:00.006461]   SmoothTimeOffset = 2
+[t=00:00:00.006463]   Sound = 0
+[t=00:00:00.006465]   SplashScreenDir = ./MenuLoadscreens
+[t=00:00:00.006468]   UnitIconDist = 160
+[t=00:00:00.006470]   UnitIconFadeVanish = 3000
+[t=00:00:00.006472]   UnitIconScaleUI = 1.05
+[t=00:00:00.006474]   UnitIconsAsUI = 1
+[t=00:00:00.006477]   UnitIconsHideWithUI = 1
+[t=00:00:00.006479]   UnitIconsSortedByDepth = 1
+[t=00:00:00.006487]   UseDistToGroundForIcons = 1.10000002
+[t=00:00:00.006490]   UseHighResTimer = 1
+[t=00:00:00.006492]   UseLuaMemPools = 0
+[t=00:00:00.006494]   UseNetMessageSmoothingBuffer = 0
+[t=00:00:00.006497]   VFSCacheArchiveFiles = 0
+[t=00:00:00.006499]   VSync = 0
+[39m
+[16:24:03.043] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:00.006502]   Water = 4
+[t=00:00:00.006504]   WindowPosX = 80
+[t=00:00:00.006506]   WindowPosY = 80
+[t=00:00:00.006509]   XResolution = 1512
+[t=00:00:00.006511]   XResolutionWindowed = 1512
+[t=00:00:00.006513]   YResolution = 982
+[t=00:00:00.006515]   YResolutionWindowed = 950
+[t=00:00:00.006518]   snd_airAbsorption = 0.35
+[t=00:00:00.006521]   snd_volbattle = 15
+[t=00:00:00.006523]   snd_volmaster = 30
+[t=00:00:00.006525]   snd_volmusic = 30
+[t=00:00:00.006530] ============== </User Config> ==============
+
+[t=00:00:00.006533] ============== <User System> ==============
+[t=00:00:00.006535]   Spring Engine Version: 2026.09.01-24-g01efdf4 master (BAR-1.0.3 )
+[t=00:00:00.006538]       Build Environment: clang libc++ version 220106
+[t=00:00:00.006547]        Compiler Version: gcc-Apple LLVM 21.0.0 (clang-2100.3.34.2)
+[t=00:00:00.006562]        Operating System: Darwin 27.2.0 Darwin Kernel Version 27.2.0: Wed Oct 14 23:44:56 PDT 2026; root:xnu-13432.41.4~25/RELEASE_ARM64_T6041 (arm64)
+[t=00:00:00.006573]         Hardware Config: Apple M4 Pro; 24576MB RAM
+[t=00:00:00.006576]        Binary Word Size: 64-bit (native)
+[t=00:00:00.006578]           Process Clock: std::chrono::high_resolution_clock
+[t=00:00:00.006580]      Physical CPU Cores: 14
+[t=00:00:00.006582]       Logical CPU Cores: 14
+[t=00:00:00.006584] ============== </User System> ==============
+
+[t=00:00:00.006587] Run: thread affinity 0
+[t=00:00:00.006597] [good_fpu_init][STREFLOP_NEON]
+[t=00:00:00.006600] 	NEON: available (mandatory on AArch64)
+[t=00:00:00.006602] 	Streflop NEON mode, FPCR verification active
+[t=00:00:00.006605] 	FPCR: 0x00000000
+[39m
+[16:24:03.043] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:00.006760] [WatchDog::Install] installed (hang-timeout: 30s)
+[t=00:00:00.006767] [WatchDog::RegisterThread] registering controls for thread [main]
+[39m
+[16:24:03.144] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:00.108149] [GL::CheckAvailableVideoModes] desktop={1512x982x32bpp@0Hz} current={1512x982x32bpp@0Hz}
+[39m
+[16:24:03.155] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:00.118887] 	Display (Built-in Retina Display)=1 modes=132 bounds={x=0, y=0, w=1512, h=982}
+[t=00:00:00.118906] 		[ 1] 3024x1964x32bpp@120Hz
+[t=00:00:00.118912] 		[ 7] 3024x1890x32bpp@120Hz
+[39m
+[16:24:03.155] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:00.118918] 		[13] 2704x1756x32bpp@120Hz
+[t=00:00:00.118922] 		[19] 2704x1690x32bpp@120Hz
+[t=00:00:00.118926] 		[25] 2560x1600x32bpp@120Hz
+[t=00:00:00.118930] 		[31] 2294x1490x32bpp@120Hz
+[t=00:00:00.118934] 		[37] 2294x1432x32bpp@120Hz
+[t=00:00:00.118937] 		[43] 2048x1330x32bpp@120Hz
+[t=00:00:00.118942] 		[49] 2048x1280x32bpp@120Hz
+[t=00:00:00.118945] 		[55] 1920x1200x32bpp@120Hz
+[t=00:00:00.118948] 		[61] 1800x1169x32bpp@120Hz
+[t=00:00:00.118951] 		[67] 1800x1125x32bpp@120Hz
+[t=00:00:00.118954] 		[73] 1512x982x32bpp@120Hz
+[t=00:00:00.118957] 		[79] 1512x945x32bpp@120Hz
+[t=00:00:00.118960] 		[85] 1352x878x32bpp@120Hz
+[t=00:00:00.118964] 		[91] 1352x845x32bpp@120Hz
+[t=00:00:00.118967] 		[97] 1280x800x32bpp@120Hz
+[t=00:00:00.118996] 		[103] 1147x745x32bpp@120Hz
+[t=00:00:00.119006] 		[109] 1147x716x32bpp@120Hz
+[t=00:00:00.119010] 		[115] 1024x665x32bpp@120Hz
+[t=00:00:00.119014] 		[121] 1024x640x32bpp@120Hz
+[t=00:00:00.119017] 		[127] 960x600x32bpp@120Hz
+[39m
+[16:24:03.190] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:00.153656] [GR::CreateSDLWindow] using 0x anti-aliasing and 24-bit depth-buffer (PF="SDL_PIXELFORMAT_ARGB8888") for main window
+[39m
+[16:24:03.190] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:00.154261] [GR::SetWindowAttributes][1] cfgFullScreen=0 numDisplays=1 winPos=<80,80> newRes=<1512,950>
+[39m
+[16:24:03.191] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:00.154307] [GR::SetWindowAttributes][2] cfgFullScreen=0 numDisplays=1 winPos=<80,80> newRes=<1432,902>
+[39m
+[16:24:03.205] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:00.169212] [MacSDL3EGL::Initialize] cocoa nswindow=0x7868c99680 nsview=0x7868c9b480 metalDevice="Apple M4 Pro" cametallayer=0x7869820030 pixelFormat=MTLPixelFormatBGRA8Unorm(80) appOwned=true
+[39m
+[16:24:03.221] [31mERROR[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[mvk-info] MoltenVK version 1.4.3, supporting Vulkan version 1.4.365.
+	The following 158 Vulkan extensions are supported:
+	VK_KHR_16bit_storage v1
+	VK_KHR_8bit_storage v1
+	VK_KHR_bind_memory2 v1
+	VK_KHR_buffer_device_address v1
+	VK_KHR_calibrated_timestamps v1
+	VK_KHR_copy_commands2 v1
+	VK_KHR_create_renderpass2 v1
+	VK_KHR_dedicated_allocation v3
+	VK_KHR_deferred_host_operations v4
+	VK_KHR_depth_stencil_resolve v1
+	VK_KHR_descriptor_update_template v1
+	VK_KHR_device_group v4
+	VK_KHR_device_group_creation v1
+	VK_KHR_draw_indirect_count v1
+	VK_KHR_driver_properties v1
+	VK_KHR_dynamic_rendering v1
+	VK_KHR_dynamic_rendering_local_read v1
+	VK_KHR_external_fence v1
+	VK_KHR_external_fence_capabilities v1
+	VK_KHR_external_memory v1
+	VK_KHR_external_memory_capabilities v1
+	VK_KHR_external_semaphore v1
+	VK_KHR_external_semaphore_capabilities v1
+	VK_KHR_format_feature_flags2 v2
+	VK_KHR_fragment_shader_barycentric v1
+	VK_KHR_get_memory_requirements2 v1
+	VK_KHR_get_physical_device_properties2 v2
+	VK_KHR_get_surface_capabilities2 v1
+	VK_KHR_global_priority v1
+	VK_KHR_image_format_list v1
+	VK_KHR_imageless_framebuffer v1
+	VK_KHR_incremental_present v2
+	VK_KHR_index_type_uint8 v1
+	VK_KHR_line_rasterization v1
+	VK_KHR_load_store_op_none v1
+	VK_KHR_maintenance1 v2
+	VK_KHR_maintenance2 v1
+	VK_KHR_maintenance3 v1
+	VK_KHR_maintenance4 v2
+	VK_KHR_maintenance5 v1
+	VK_KHR_maintenance6 v1
+	VK_KHR_maintenance7 v1
+	VK_KHR_maintenance8 v1
+	VK_KHR_maintenance9 v1
+	VK_KHR_map_memory2 v1
+	VK_KHR_multiview v1
+	VK_KHR_portability_subset v1
+	VK_KHR_present_id v1
+	VK_KHR_present_id2 v1
+	VK_KHR_present_wait v1
+	VK_KHR_present_wait2 v1
+	VK_KHR_push_descriptor v2
+	VK_KHR_relaxed_block_layout v1
+	VK_KHR_robustness2 v1
+	VK_KHR_sampler_mirror_clamp_to_edge v3
+	VK_KHR_sampler_ycbcr_conversion v14
+	VK_KHR_separate_depth_stencil_layouts v1
+	VK_KHR_shader_draw_parameters v1
+	VK_KHR_shader_expect_assume v1
+	VK_KHR_shader_float_controls v4
+	VK_KHR_shader_float_controls2 v1
+	VK_KHR_shader_float16_int8 v1
+	VK_KHR_shader_fma v1
+	VK_KHR_shader_integer_dot_product v1
+	VK_KHR_shader_maximal_reconvergence v1
+	VK_KHR_shader_non_semantic_info v1
+	VK_KHR_shader_quad_control v1
+	VK_KHR_shader_relaxed_extended_instruction v1
+	VK_KHR_shader_subgroup_extended_types v1
+	VK_KHR_shader_subgroup_rotate v2
+	VK_KHR_shader_subgroup_uniform_control_flow v1
+	VK_KHR_shader_terminate_invocation v1
+	VK_KHR_spirv_1_4 v1
+	VK_KHR_storage_buffer_storage_class v1
+	VK_KHR_surface v25
+	VK_KHR_surface_maintenance1 v1
+	VK_KHR_surface_protected_capabilities v1
+	VK_KHR_swapchain v70
+	VK_KHR_swapchain_maintenance1 v1
+	VK_KHR_swapchain_mutable_format v1
+	VK_KHR_synchronization2 v1
+	VK_KHR_timeline_semaphore v2
+	VK_KHR_uniform_buffer_standard_layout v1
+	VK_KHR_variable_pointers v1
+	VK_KHR_vertex_attribute_divisor v1
+	VK_KHR_vulkan_memory_model v3
+	VK_KHR_zero_initialize_workgroup_memory v1
+	VK_EXT_4444_formats v1
+	VK_EXT_buffer_device_address v2
+	VK_EXT_calibrated_timestamps v2
+	VK_EXT_debug_marker v4
+	VK_EXT_debug_report v10
+	VK_EXT_debug_utils v2
+	VK_EXT_depth_clip_control v1
+	VK_EXT_descriptor_indexing v2
+	VK_EXT_extended_dynamic_state v1
+	VK_EXT_extended_dynamic_state2 v1
+	VK_EXT_extended_dynamic_state3 v2
+	VK_EXT_external_memory_host v1
+	VK_EXT_external_memory_metal v1
+	VK_EXT_fragment_shader_interlock v1
+	VK_EXT_global_priority v2
+	VK_EXT_global_priority_query v1
+	VK_EXT_hdr_metadata v3
+	VK_EXT_headless_surface v1
+	VK_EXT_host_image_copy v1
+	VK_EXT_host_query_reset v1
+	VK_EXT_image_2d_view_of_3d v1
+	VK_EXT_image_robustness v1
+	VK_EXT_index_type_uint8 v1
+	VK_EXT_inline_uniform_block v1
+	VK_EXT_layer_settings v2
+	VK_EXT_legacy_dithering v2
+	VK_EXT_line_rasterization v1
+	VK_EXT_load_store_op_none v1
+	VK_EXT_memory_budget v1
+	VK_EXT_metal_objects v2
+	VK_EXT_metal_surface v1
+	VK_EXT_multi_draw v1
+	VK_EXT_nested_command_buffer v1
+	VK_EXT_non_seamless_cube_map v1
+	VK_EXT_pipeline_creation_cache_control v3
+	VK_EXT_pipeline_creation_feedback v1
+	VK_EXT_pipeline_robustness v1
+	VK_EXT_post_depth_coverage v1
+	VK_EXT_primitive_topology_list_restart v1
+	VK_EXT_private_data v1
+	VK_EXT_provoking_vertex v1
+	VK_EXT_robustness2 v1
+	VK_EXT_sample_locations v1
+	VK_EXT_sampler_filter_minmax v2
+	VK_EXT_scalar_block_layout v1
+	VK_EXT_separate_stencil_usage v1
+	VK_EXT_shader_atomic_float v1
+	VK_EXT_shader_demote_to_helper_invocation v1
+	VK_EXT_shader_stencil_export v1
+	VK_EXT_shader_subgroup_ballot v1
+	VK_EXT_shader_subgroup_vote v1
+	VK_EXT_shader_viewport_index_layer v1
+	VK_EXT_subgroup_size_control v2
+	VK_EXT_surface_maintenance1 v1
+	VK_EXT_swapchain_colorspace v5
+	VK_EXT_swapchain_maintenance1 v1
+	VK_EXT_texel_buffer_alignment v1
+	VK_EXT_texture_compression_astc_hdr v1
+	VK_EXT_tooling_info v1
+	VK_EXT_vertex_attribute_divisor v3
+	VK_EXT_ycbcr_2plane_444_formats v1
+	VK_AMD_gpu_shader_half_float v2
+	VK_AMD_negative_viewport_height v1
+	VK_AMD_shader_image_load_store_lod v1
+	VK_AMD_shader_trinary_minmax v1
+	VK_GOOGLE_display_timing v1
+	VK_IMG_format_pvrtc v1
+	VK_INTEL_shader_integer_functions2 v1
+	VK_MVK_macos_surface v3
+	VK_MVK_moltenvk v37
+	VK_NV_fragment_shader_barycentric v1
+[39m
+[16:24:03.221] [31mERROR[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[mvk-info] GPU device:
+	model: Apple M4 Pro
+	type: Integrated
+	vendorID: 0x106b
+	deviceID: 0x1b020209
+	pipelineCacheUUID: F52FACF7-1B02-0209-0000-000100000000
+	GPU memory available: 18186 MB
+	GPU memory used: 0 MB
+	Metal Shading Language 4.0
+	supports the following GPU Features:
+		GPU Family Metal 4
+		GPU Family Apple 9
+		GPU Family Mac 1
+		GPU Family Mac 2
+		Read-Write Texture Tier 2
+[mvk-info] Created VkInstance for Vulkan version 1.4.365, as requested by app, with the following 9 Vulkan extensions enabled:
+	VK_KHR_external_memory_capabilities v1
+	VK_KHR_external_semaphore_capabilities v1
+	VK_KHR_get_physical_device_properties2 v2
+	VK_KHR_surface v25
+	VK_EXT_debug_utils v2
+	VK_EXT_headless_surface v1
+	VK_EXT_layer_settings v2
+	VK_EXT_metal_surface v1
+	VK_EXT_swapchain_colorspace v5
+[39m
+[16:24:03.222] [31mERROR[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[mvk-info] Vulkan semaphores using MTLEvent.
+[39m
+[16:24:03.222] [31mERROR[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[mvk-info] Native Metal 4 command backend active on queue MoltenVKQueue-0-0-0.0.
+[39m
+[16:24:03.223] [31mERROR[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[mvk-info] Descriptor sets binding resources using Metal3 argument buffers.
+[39m
+[16:24:03.225] [31mERROR[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[mvk-info] Created VkDevice to run on GPU Apple M4 Pro with the following 29 Vulkan extensions enabled:
+	VK_KHR_calibrated_timestamps v1
+	VK_KHR_incremental_present v2
+	VK_KHR_maintenance7 v1
+	VK_KHR_maintenance8 v1
+	VK_KHR_maintenance9 v1
+	VK_KHR_portability_subset v1
+	VK_KHR_shader_fma v1
+	VK_KHR_swapchain v70
+	VK_KHR_swapchain_mutable_format v1
+	VK_EXT_4444_formats v1
+	VK_EXT_depth_clip_control v1
+	VK_EXT_extended_dynamic_state v1
+	VK_EXT_extended_dynamic_state2 v1
+	VK_EXT_extended_dynamic_state3 v2
+	VK_EXT_external_memory_host v1
+	VK_EXT_fragment_shader_interlock v1
+	VK_EXT_image_2d_view_of_3d v1
+	VK_EXT_memory_budget v1
+	VK_EXT_multi_draw v1
+	VK_EXT_non_seamless_cube_map v1
+	VK_EXT_post_depth_coverage v1
+	VK_EXT_primitive_topology_list_restart v1
+	VK_EXT_provoking_vertex v1
+	VK_EXT_sample_locations v1
+	VK_EXT_shader_atomic_float v1
+	VK_EXT_shader_stencil_export v1
+	VK_EXT_shader_subgroup_ballot v1
+	VK_EXT_shader_subgroup_vote v1
+	VK_INTEL_shader_integer_functions2 v1
+[39m
+[16:24:03.225] [31mERROR[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+WARNING: Some incorrect rendering might occur because the selected Vulkan device (Apple M4 Pro) doesn't support base Zink requirements: [39m
+[16:24:03.226] [31mERROR[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+have_EXT_custom_border_color 
+[39m
+[16:24:03.227] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:00.190408] [MacSDL3EGL::Initialize] EGL_VERSION=1.5 EGL_VENDOR="Mesa Project" EGL_VERSION_STRING="1.5"
+[39m
+[16:24:03.227] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:00.190454] [MacSDL3EGL::TryChooseExactConfig] configured=0 requested=0 selected=0 sampleBuffers=0 depth=24 stencil=8
+[39m
+[16:24:03.231] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:00.195201] [MacSDL3EGL::CreateContext] eglCreateContext requested=4.6 core=0 result=success
+[t=00:00:00.195222] [MacSDL3EGL::Initialize] eglCreateWindowSurface target=BarOnMVKPrivateCocoaSurface surface=0x7868f04000 privateSurface=0x1058ed858 magic=0x434f4341 version=1 layer=0x7869820030 size=1432x902
+[39m
+[16:24:03.232] [31mERROR[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[mvk-info] Created 2 swapchain images with size (1432, 902) and contents scale 1.0 in layer (null) (0x7869820030) on screen Built-in Retina Display.
+[39m
+[16:24:03.233] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:00.196765] [GR::CreateWindowAndContext] gladLoadGLLoader via Mesa EGL returned 1
+[39m
+[16:24:03.238] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:00.201723] [GR::LogVersionInfo]
+[t=00:00:00.201739] 	SDL version : 3.5.0 (linked) / 3.5.0 (compiled)
+[39m
+[16:24:03.238] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:00.201743] 	GL version  : 4.6 (Compatibility Profile) Mesa 26.3.0-devel (git-9ba10f0aab)
+[t=00:00:00.201745] 	GL vendor   : Mesa
+[t=00:00:00.201747] 	GL renderer : zink Vulkan 1.4(Apple M4 Pro (MOLTENVK))
+[t=00:00:00.201749] 	GLSL version: 4.60
+[t=00:00:00.201752] 	GLAD version: 0.1.36
+[t=00:00:00.201754] 	GPU memory  : 18186MB (total) / 18186MB (available)
+[t=00:00:00.201758] 	SDL swap-int: 0
+[t=00:00:00.201761] 	SDL driver  : cocoa
+[t=00:00:00.201763] 	
+[t=00:00:00.201776] 	Initialized OpenGL Context: 4.6 (Compat)
+[t=00:00:00.201780] 	GLSL shader support       : 1
+[t=00:00:00.201783] 	GL4 support               : 1
+[t=00:00:00.201785] 	Zink/MoltenVK custom border unsafe: 1
+[t=00:00:00.201787] 	Zink/MoltenVK logic-op unsafe      : 1
+[t=00:00:00.201789] 	geometry shaders unsupported       : 1
+[t=00:00:00.201791] 	FBO extension support     : 1
+[t=00:00:00.201794] 	NVX GPU mem-info support  : 1
+[t=00:00:00.201796] 	ATI GPU mem-info support  : 1
+[t=00:00:00.201798] 	Texture clamping to edge  : 1
+[t=00:00:00.201800] 	S3TC/DXT1 texture support : 1/1
+[t=00:00:00.201803] 	texture query-LOD support : 1 (1)
+[t=00:00:00.201805] 	MSAA frame-buffer support : 1 (1)
+[t=00:00:00.201808] 	Z-buffer depth            : 32 (-)
+[t=00:00:00.201810] 	primitive-restart support : 1 (1)
+[t=00:00:00.201813] 	clip-space control support: 1 (1)
+[t=00:00:00.201815] 	seamless cube-map support : 1 (1)
+[t=00:00:00.201818] 	frag-depth layout support : 1 (1)
+[t=00:00:00.201820] 	persistent maps support   : 1 (1)
+[t=00:00:00.201837] 	explicit attribs location : 1 (1)
+[t=00:00:00.201841] 	multi draw indirect       : 1 (-)
+[39m
+[16:24:03.238] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:00.201844] 	array textures            : 1 (-)
+[t=00:00:00.201847] 	buffer copy support       : 1 (-)
+[t=00:00:00.201849] 	indirect draw             : 1 (-)
+[t=00:00:00.201851] 	base instance             : 1 (-)
+[t=00:00:00.201854] 	
+[t=00:00:00.201856] 	max. FBO samples              : 4
+[t=00:00:00.201858] 	max. texture slots            : 8
+[t=00:00:00.201860] 	max. FS/program texture slots : 16/32
+[t=00:00:00.201862] 	max. texture size             : 16384
+[t=00:00:00.201866] 	max. texture anisotropy level : 16.000000
+[t=00:00:00.201868] 	max. vec4 varyings/attributes : 15/16
+[t=00:00:00.201870] 	max. draw-buffers             : 8
+[t=00:00:00.201872] 	max. rec. indices/vertices    : 3000/3000
+[t=00:00:00.201874] 	max. uniform buffer-bindings  : 105
+[t=00:00:00.201877] 	max. uniform block-size       : 2097151KB
+[t=00:00:00.201879] 	max. storage buffer-bindings  : 56
+[t=00:00:00.201888] 	max. storage block-size       : 2047MB
+[t=00:00:00.201891] 	
+[t=00:00:00.201893] 	enable AMD-hacks : 0
+[t=00:00:00.201895] 	compress MIP-maps: 0
+[t=00:00:00.201906] 	Number of compressed texture formats: 10
+[t=00:00:00.201912] 	Compressed texture formats: GL_COMPRESSED_RGB_S3TC_DXT1_EXT, GL_COMPRESSED_RGBA_S3TC_DXT3_EXT, GL_COMPRESSED_RGBA_S3TC_DXT5_EXT, GL_COMPRESSED_RGB8_ETC2, GL_COMPRESSED_RGBA8_ETC2_EAC, GL_COMPRESSED_R11_EAC, GL_COMPRESSED_RG11_EAC, GL_COMPRESSED_SIGNED_R11_EAC, GL_COMPRESSED_SIGNED_RG11_EAC, GL_COMPRESSED_RGB8_PUNCHTHROUGH_ALPHA1_ETC2. 
+[39m
+[16:24:03.238] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:00.202124] [GR::ToggleGLDebugOutput] OpenGL debug-message callback disabled
+[39m
+[16:24:03.239] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:00.202954] [GR::UpdateGLConfigs]
+[t=00:00:00.202971] [VSync::SetInterval] interval=0 (disabled)
+[t=00:00:00.202974] [GR::UpdateGLGeometry][1] winSize=<1,1>
+[39m
+[16:24:03.239] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:00.203109] [GR::UpdateScreenMatrices] vpx=80.000000, vpy=0.000000, vsx=1432.000000, vsy=902.000000, ssx=1512.000000, ssy=982.000000, screenPosX=0, screenPosY=0
+[t=00:00:00.203118] [GR::UpdateGLGeometry][2] winSize=<1432,902>
+[39m
+[16:24:03.239] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:00.203128] [GR::InitGLState]
+[39m
+[16:24:03.240] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:00.203365] [GR::LogDisplayMode] display-mode set to 1432x902x32bpp@120Hz (windowed::decorated)
+[39m
+[16:24:03.274] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:00.237399] [TexMemPool::Resize] poolSize=536870912u allocSize=0u texCount=0u
+[39m
+[16:24:03.275] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:00.238792] [Font] [InitFontconfig] Using Fontconfig light init
+[39m
+[16:24:03.663] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:00.626873] [Font] [InitFontconfig] Using Fontconfig cache dir "$WORKSPACE/artifacts/validation/v104-descriptor-performance-reverse-20261020/6-parent-metal4/sessions/lobby-no-native-hook-1792538609779/state/data/fontcache"
+[t=00:00:00.626891] [~ScopedOnceTimer][InitFontconfig::FontConfigInit (version 2.18.3)] 389ms
+[39m
+[16:24:03.663] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:00.627018] [CglFont::CglShaderFontRenderer] Creating Font shaders: GLAD_GL_ARB_explicit_attrib_location = true
+[39m
+[16:24:03.668] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:00.631423] [WatchDog::RegisterThread] registering controls for thread [vfsi]
+[39m
+[16:24:03.711] [31mERROR[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+MESA: warning: WARNING: Incorrect rendering will happen because the Vulkan device doesn't support the 'VK_EXT_depth_clip_enable' feature
+[39m
+[16:24:03.970] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:00.933569] [DataDirLocater::FindWriteableDataDir] using writeable data-directory "$WORKSPACE/artifacts/validation/v104-descriptor-performance-reverse-20261020/6-parent-metal4/sessions/lobby-no-native-hook-1792538609779/state/data/"
+[t=00:00:00.933590] [DataDirLocater::Check] Isolation Mode!
+[t=00:00:00.933607] [DataDirLocater::FilterUsableDataDirs] using read-write data directory: $WORKSPACE/artifacts/validation/v104-descriptor-performance-reverse-20261020/6-parent-metal4/sessions/lobby-no-native-hook-1792538609779/state/data/
+[t=00:00:00.933618] [DataDirLocater::FilterUsableDataDirs] using read-only data directory: $WORKSPACE/artifacts/runtime/v104-performance-ab-candidate-20261020/BAR.app/Contents/Resources/bundled-assets/engine/2026.09.01-24-g01efdf4 master/
+[39m
+[16:24:03.970] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:00.933630] [DataDirLocater::FilterUsableDataDirs] using read-only data directory: $WORKSPACE/artifacts/validation/v104-descriptor-performance-reverse-20261020/6-parent-metal4/sessions/lobby-no-native-hook-1792538609779/assets/
+[t=00:00:00.933664] [DataDirLocater::FilterUsableDataDirs] using read-only data directory: $WORKSPACE/artifacts/runtime/v104-performance-ab-candidate-20261020/BAR.app/Contents/Resources/bundled-assets/engine-fonts/
+[t=00:00:00.933677] [DataDirLocater::FilterUsableDataDirs] using read-only data directory: $WORKSPACE/artifacts/runtime/v104-performance-ab-candidate-20261020/BAR.app/Contents/Resources/bundled-assets/fonts/
+[39m
+[16:24:03.971] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:00.934625] Scanning: $WORKSPACE/artifacts/validation/v104-descriptor-performance-reverse-20261020/6-parent-metal4/sessions/lobby-no-native-hook-1792538609779/assets/maps
+[39m
+[16:24:03.971] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:00.934758] Scanning: $WORKSPACE/artifacts/validation/v104-descriptor-performance-reverse-20261020/6-parent-metal4/sessions/lobby-no-native-hook-1792538609779/assets/packages
+[39m
+[16:24:03.971] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:00.934850] Scanning: $WORKSPACE/artifacts/runtime/v104-performance-ab-candidate-20261020/BAR.app/Contents/Resources/bundled-assets/engine/2026.09.01-24-g01efdf4 master/base
+[39m
+[16:24:03.972] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:00.935324] [~ScopedOnceTimer][CArchiveScanner::ScanAllDirs] 0ms
+[t=00:00:00.935336] [VFS] [SpringVFS::ReserveArchives<this=0x7032210c80>]
+[39m
+[16:24:03.972] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:00.935352] [VFS] [SpringVFS::AddArchive<this=0x7032210c80>(arName="Spring content v1", overwrite=false)] section=2 cached=0
+[39m
+[16:24:03.974] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:00.938108] [VFS] [VFSHandler::SetGlobalInstanceRaw] handler=0x7032210c80 (SpringVFS) global=0x0 (null)
+[t=00:00:00.938116] [WatchDog::DeregisterThread] deregistering controls for thread [vfsi]
+[39m
+[16:24:03.978] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:00.941976] [Threading] Optimal thread count is 10
+[39m
+[16:24:03.978] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:00.941994] [ThreadPool::SetThreadCount][1] wanted=10 current=1 maximum=14 (init=1)
+[t=00:00:00.942161] [ThreadPool::SetThreadCount][2] workers=9
+[t=00:00:00.942167] CPU Affinity Mask Details detected:
+[t=00:00:00.942170] -- Performance Core Mask:      0x000003ff
+[t=00:00:00.942174] -- Efficiency  Core Mask:      0x00003c00
+[t=00:00:00.942177] -- Hyper Thread/SMT Low Mask:  0x00000000
+[t=00:00:00.942189] -- Hyper Thread/SMT High Mask: 0x00000000
+[t=00:00:00.942194] -- Optimal Cache Mask:         0x000003ff
+[39m
+[16:24:03.979] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:00.942211] [ThreadPool] Main thread affinity requested as 0x00000000
+[t=00:00:00.942254] [Threading] Worker 3 thread CPU affinity not set
+[t=00:00:00.942258] [Threading] Worker 1 thread CPU affinity not set
+[t=00:00:00.942269] [Threading] Worker 6 thread CPU affinity not set
+[t=00:00:00.942270] [Threading] Worker 5 thread CPU affinity not set
+[t=00:00:00.942279] [Threading] Worker 8 thread CPU affinity not set
+[t=00:00:00.942281] [Threading] Worker 7 thread CPU affinity not set
+[t=00:00:00.942255] [Threading] Worker 2 thread CPU affinity not set
+[t=00:00:00.942275] [Threading] Worker 9 thread CPU affinity not set
+[t=00:00:00.942261] [Threading] Worker 4 thread CPU affinity not set
+[t=00:00:00.942343] [Threading] Main thread CPU affinity not set
+[39m
+[16:24:03.981] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[Info] $WORKSPACE/build/run91-recoil-src-694e9df7/tools/pr-downloader/src/Downloader/CurlWrapper.cpp:32:DumpVersion():libcurl 8.7.1 SecureTransport (LibreSSL/3.3.6)
+[Info] $WORKSPACE/build/run91-recoil-src-694e9df7/tools/pr-downloader/src/Downloader/CurlWrapper.cpp:81:ConfigureCertificates():CURLOPT_CAINFO is nullptr (can be overriden by PRD_SSL_CERT_FILE env variable)
+[Info] $WORKSPACE/build/run91-recoil-src-694e9df7/tools/pr-downloader/src/Downloader/CurlWrapper.cpp:83:ConfigureCertificates():CURLOPT_CAPATH is nullptr (can be overriden by PRD_SSL_CERT_DIR env variable)
+[Info] $WORKSPACE/build/run91-recoil-src-694e9df7/tools/pr-downloader/src/FileSystem/FileSystem.cpp:203:setWritePath():Using filesystem-writepath: $WORKSPACE/artifacts/validation/v104-descriptor-performance-reverse-20261020/6-parent-metal4/sessions/lobby-no-native-hook-1792538609779/state/data
+[Info] $WORKSPACE/build/run91-recoil-src-694e9df7/tools/pr-downloader/src/pr-downloader.cpp:202:DownloadSetConfig():Free disk space: 112402 MB
+[t=00:00:00.944392][f=-000001] [StartScript] Loading StartScript from: $WORKSPACE/artifacts/validation/v104-descriptor-performance-reverse-20261020/6-parent-metal4/sessions/lobby-no-native-hook-1792538609779/state/data/script.txt
+[39m
+[16:24:03.981] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:00.944914][f=-000001] [CPreGame] using server IP 127.0.0.1 and port 18452
+[t=00:00:00.944935][f=-000001] [NetProto::InitLocalClient] connecting to local server
+[39m
+[16:24:03.982] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:00.946075][f=-000001] [PreGame::AddMapArchivesToVFS][server=0x0] using map "Seths Ravine Remake 1.3.1" (loaded=0 cached=0)
+[t=00:00:00.946103][f=-000001] [VFS] [SpringVFS::AddArchive<this=0x7032210c80>(arName="Seths Ravine Remake 1.3.1", overwrite=false)] section=1 cached=0
+[39m
+[16:24:03.987] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:00.950617][f=-000001] [VFS] [SpringVFS::AddArchive<this=0x7032210c80>(arName="Map Helper v1", overwrite=false)] section=2 cached=0
+[39m
+[16:24:03.988] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:00.951543][f=-000001] [CAS::GASCB] Archive file="seths_ravine_remake_1.3.1.sd7" cs="82667fbbd422ee2ef7d2cf078c4170184c43fc9239d0f6500b3a4b1dd7e8b9dac8c6db2463110322e3eb6dad274cf186cd3231af53f92eb78c37e9c7c3a71510"
+[39m
+[16:24:03.988] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:00.951585][f=-000001] [CAS::GASCB] Archive file="maphelper.sdz" cs="6ecfd8e47b2c0bde27517e92bd171d1d036e0482cbfc929a1925b5239e4d5947ed335df18ba4775b16843a9affe42b5fcd2aad9957bacb63a48ae005c799524e"
+[39m
+[16:24:06.702] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:03.665320][f=-000001] [~CPoolArchive] archiveFile="$WORKSPACE/artifacts/validation/v104-descriptor-performance-reverse-20261020/6-parent-metal4/sessions/lobby-no-native-hook-1792538609779/assets/packages/5f5916abbedbb6a873e1d6ab4c78fe02.sdp" numZipFiles=18600 sumInflSize=3310626kb sumReadTime=10024ms
+[t=00:00:03.665349][f=-000001] 	file="unittextures/leg_wreck_normal.dds" indx=18514 inflSize=87381kb readTime=313ms
+[t=00:00:03.665365][f=-000001] 	file="unittextures/leg_normal.dds" indx=18511 inflSize=87381kb readTime=222ms
+[t=00:00:03.665369][f=-000001] 	file="bitmaps/default/barshockwave1.tga" indx=5777 inflSize=45110kb readTime=146ms
+[39m
+[16:24:06.702] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:03.665372][f=-000001] 	file="fonts/fallbacks/sourcehansans-regular.ttc" indx=6156 inflSize=19029kb readTime=91ms
+[t=00:00:03.665422][f=-000001] 	file="luaui/images/raptor_scum/alien_guts_normalspec_u8888.dds" indx=8452 inflSize=21845kb readTime=70ms
+[t=00:00:03.665428][f=-000001] 	file="luaui/images/decals_gl4/decalsgl4_atlas_diffuse.dds" indx=7980 inflSize=21845kb readTime=66ms
+[t=00:00:03.665431][f=-000001] 	file="luaui/images/raptor_scum/alien_guts_colorheight.tga" indx=8449 inflSize=16384kb readTime=58ms
+[t=00:00:03.665434][f=-000001] 	file="luaui/images/raptor_scum/alien_guts_normalspec.tga" indx=8451 inflSize=16384kb readTime=55ms
+[t=00:00:03.665437][f=-000001] 	file="unittextures/cor_color_wreck.dds" indx=17594 inflSize=21845kb readTime=49ms
+[t=00:00:03.665440][f=-000001] 	file="unittextures/arm_wreck_color_normal.dds" indx=17496 inflSize=21845kb readTime=47ms
+[t=00:00:03.665509][f=-000001] [~CBufferedArchive][name=$WORKSPACE/artifacts/validation/v104-descriptor-performance-reverse-20261020/6-parent-metal4/sessions/lobby-no-native-hook-1792538609779/assets/packages/5f5916abbedbb6a873e1d6ab4c78fe02.sdp] 0 bytes cached in 0 files, 0 bytes cached in 0 files
+[t=00:00:03.665710][f=-000001] [CAS::GASCB] Archive file="5f5916abbedbb6a873e1d6ab4c78fe02.sdp" cs="99e9198c39b315433e73c7b0cefdaa33516e60c7df7876e0b07d24253c7eddab6d41d98120c991d6714b5c9aa31b6ea0137a689adeecca516eaf6e48ed13ec67"
+[39m
+[16:24:06.708] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:03.671626][f=-000001] [~CBufferedArchive][name=$WORKSPACE/artifacts/runtime/v104-performance-ab-candidate-20261020/BAR.app/Contents/Resources/bundled-assets/engine/2026.09.01-24-g01efdf4 master/base/springcontent.sdz] 0 bytes cached in 0 files, 0 bytes cached in 0 files
+[39m
+[16:24:06.708] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:03.671659][f=-000001] [CAS::GASCB] Archive file="springcontent.sdz" cs="de60527c7c860677f3e5f2221cccfa210f0521c6813279b03ee9521dd0ed84dc26b80907649662b806277ba5b638e01d8bf31339434bc8b8ef9d8beab9f72a34"
+[39m
+[16:24:06.733] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:03.696803][f=-000001] [~CBufferedArchive][name=$WORKSPACE/artifacts/runtime/v104-performance-ab-candidate-20261020/BAR.app/Contents/Resources/bundled-assets/engine/2026.09.01-24-g01efdf4 master/base/spring/bitmaps.sdz] 0 bytes cached in 0 files, 0 bytes cached in 0 files
+[39m
+[16:24:06.733] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:03.696858][f=-000001] [CAS::GASCB] Archive file="bitmaps.sdz" cs="13e1d0e6c3383afef7cda84eff1342271b1c82d13c66b376918ee61a25f77d5c662f6160ec74a121d59dbd8f29d9f10a00ab316cd1b3204a8be2c958c84a38eb"
+[39m
+[16:24:06.940] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:03.903433][f=-000001] [PreGame::StartServer]
+	mod-checksum=54689b16860d29ca3a5b9ddc2d2212354577c3d0622cbc261f1a9022c964242b2dd6b1e6a82b524fa2f19ab03cfa7fb798224acf4c1422a30ad02cfa9caefeb8
+	map-checksum=eca9a75faf0ee5f0d083b19531566d054f2df810f22c64ca121ffe3e49a5e09d25f586d5e8b57479f56f5737d8a8dad900189c360443e5d428bd09c2043e475e
+[t=00:00:03.903456][f=-000001] [PreGame::StartServer] Game/Map archives checksum acquisition took = 2958 microseconds
+[39m
+[16:24:06.940] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:03.903510][f=-000001] Warning: [UDPListener::TryBindSocket] opening socket on loopback address, other users will not be able to connect!
+[t=00:00:03.903538][f=-000001] [UDPListener::TryBindSocket] binding UDP socket to IPv4-address 127.0.0.1 (127.0.0.1) on port 18452
+[t=00:00:03.903544][f=-000001] [UDPListener] successfully bound socket on port 18452
+[39m
+[16:24:06.940] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:03.904082][f=-000001] [GameServer] Initialize: thread affinity 0
+[39m
+[16:24:06.940] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:03.904098][f=-000001] [~ScopedOnceTimer][PreGame::StartServer] 2959ms
+[39m
+[16:24:06.946] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:03.909875][f=-000001] [PreGame::AddMapArchivesToVFS][server=0x7033631000] using map "Seths Ravine Remake 1.3.1" (loaded=1 cached=0)
+[t=00:00:03.909899][f=-000001] [VFS] [SpringVFS::AddArchive<this=0x7032210c80>(arName="Seths Ravine Remake 1.3.1", overwrite=false)] section=1 cached=0
+[39m
+[16:24:06.946] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:03.910024][f=-000001] [VFS] [SpringVFS::AddArchive<this=0x7032210c80>(arName="Map Helper v1", overwrite=false)] section=2 cached=0
+[t=00:00:03.910042][f=-000001] [PreGame::AddModArchivesToVFS][server=0x7033631000] using game "Beyond All Reason test-31671-ad2e1b7" (loaded=0 cached=0)
+[39m
+[16:24:06.946] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:03.910054][f=-000001] [VFS] [SpringVFS::AddArchive<this=0x7032210c80>(arName="Beyond All Reason test-31671-ad2e1b7", overwrite=false)] section=0 cached=0
+[39m
+[16:24:06.954] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:03.917966][f=-000001] [VFS] [SpringVFS::AddArchive<this=0x7032210c80>(arName="Spring content v1", overwrite=false)] section=2 cached=0
+[39m
+[16:24:06.954] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:03.918041][f=-000001] [VFS] [SpringVFS::AddArchive<this=0x7032210c80>(arName="Spring Bitmaps", overwrite=false)] section=2 cached=0
+[39m
+[16:24:06.956] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:03.920146][f=-000001] [CAS::GASCB] Archive file="seths_ravine_remake_1.3.1.sd7" cs="82667fbbd422ee2ef7d2cf078c4170184c43fc9239d0f6500b3a4b1dd7e8b9dac8c6db2463110322e3eb6dad274cf186cd3231af53f92eb78c37e9c7c3a71510"
+[39m
+[16:24:06.956] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:03.920187][f=-000001] [CAS::GASCB] Archive file="maphelper.sdz" cs="6ecfd8e47b2c0bde27517e92bd171d1d036e0482cbfc929a1925b5239e4d5947ed335df18ba4775b16843a9affe42b5fcd2aad9957bacb63a48ae005c799524e"
+[t=00:00:03.920214][f=-000001] [CAS::GASCB] Archive file="5f5916abbedbb6a873e1d6ab4c78fe02.sdp" cs="99e9198c39b315433e73c7b0cefdaa33516e60c7df7876e0b07d24253c7eddab6d41d98120c991d6714b5c9aa31b6ea0137a689adeecca516eaf6e48ed13ec67"
+[t=00:00:03.920245][f=-000001] [CAS::GASCB] Archive file="springcontent.sdz" cs="de60527c7c860677f3e5f2221cccfa210f0521c6813279b03ee9521dd0ed84dc26b80907649662b806277ba5b638e01d8bf31339434bc8b8ef9d8beab9f72a34"
+[t=00:00:03.920266][f=-000001] [CAS::GASCB] Archive file="bitmaps.sdz" cs="13e1d0e6c3383afef7cda84eff1342271b1c82d13c66b376918ee61a25f77d5c662f6160ec74a121d59dbd8f29d9f10a00ab316cd1b3204a8be2c958c84a38eb"
+[39m
+[16:24:06.957] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:03.920518][f=-000001] [CDemoRecorder::WriteSetupText] SetupText="W2dhbWVdCnsKW2FsbHl0ZWFtMV0KewpudW1hbGxpZXM9MDsKfQpbdGVhbTBdCnsKYWxseXRlYW09MDsKdGVhbWxlYWRlcj0wOwpyZ2Jjb2xvcj0wLjE1IDAuNCAxOwpzaWRlPUFybWFkYTsKfQpbYWxseXRlYW0wXQp7Cm51bWFsbGllcz0wOwp9Clttb2RvcHRpb25zXQp7Cm1heHVuaXRzPTIwMDA7CnN0YXJ0ZW5lcmd5PTEwMDA7CnN0YXJ0bWV0YWw9MTAwMDsKZGVhdGhtb2RlPW5ldmVyZW5kOwp9CltwbGF5ZXIwXQp7CnRlYW09MDsKc3BlY3RhdG9yPTA7Cm5hbWU9U3RhY2tCZW5jaG1hcms7Cn0KW2FpMF0Kewp0ZWFtPTE7Cmhvc3Q9MDsKdmVyc2lvbj0wLjE7Cm5hbWU9QmVuY2htYXJrSWRsZTsKc2hvcnRuYW1lPU51bGxBSTsKfQpbdGVhbTFdCnsKYWxseXRlYW09MTsKdGVhbWxlYWRlcj0wOwpyZ2Jjb2xvcj0xIDAuMiAwLjI7CnNpZGU9Q29ydGV4Owp9CmlzaG9zdD0xOwpob3N0aXA9MTI3LjAuMC4xOwpudW1hbGx5dGVhbXM9MjsKbnVtdXNlcnM9MjsKbnVtdGVhbXM9MjsKc3RhcnRwb3N0eXBlPTA7CmdhbWV0eXBlPUJleW9uZCBBbGwgUmVhc29uIHRlc3QtMzE2NzEtYWQyZTFiNzsKbWFwbmFtZT1TZXRocyBSYXZpbmUgUmVtYWtlIDEuMy4xOwpteXBsYXllcm5hbWU9U3RhY2tCZW5jaG1hcms7CmZpeGVkcm5nc2VlZD0zMTQ0MzsKbnVtcGxheWVycz0xOwpob3N0cG9ydD0xODQ1MjsKfQo="
+[t=00:00:03.920530][f=-000001] [PreGame::GameDataReceived] recording demo to "demos/2026-10-20_23-24-06-957_Seths Ravine Remake 1.3.1_2026.09.01-24-g01efdf4 master.barreplay"
+[t=00:00:03.920535][f=-000001] [~ScopedOnceTimer][PreGame::GameDataReceived] 11ms
+[39m
+[16:24:06.961] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:03.924545][f=-000001] [PreGame::UpdateClientNet] received local player number 0 (team 0, allyteam 0), creating LoadScreen
+[39m
+[16:24:06.972] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:03.935315][f=-000001] Deprecated: [CMapInfo::ReadAtmosphere] atmosphere.skyDir in mapinfo.lua was never used and now deprecated, use atmosphere.skyAxisAngle instead
+[39m
+[16:24:06.973] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:03.936433][f=-000001] [CAS::GASCB] Archive file="seths_ravine_remake_1.3.1.sd7" cs="82667fbbd422ee2ef7d2cf078c4170184c43fc9239d0f6500b3a4b1dd7e8b9dac8c6db2463110322e3eb6dad274cf186cd3231af53f92eb78c37e9c7c3a71510"
+[39m
+[16:24:06.973] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:03.936478][f=-000001] [CAS::GASCB] Archive file="maphelper.sdz" cs="6ecfd8e47b2c0bde27517e92bd171d1d036e0482cbfc929a1925b5239e4d5947ed335df18ba4775b16843a9affe42b5fcd2aad9957bacb63a48ae005c799524e"
+[t=00:00:03.936507][f=-000001] [CAS::GASCB] Archive file="5f5916abbedbb6a873e1d6ab4c78fe02.sdp" cs="99e9198c39b315433e73c7b0cefdaa33516e60c7df7876e0b07d24253c7eddab6d41d98120c991d6714b5c9aa31b6ea0137a689adeecca516eaf6e48ed13ec67"
+[t=00:00:03.936522][f=-000001] [CAS::GASCB] Archive file="springcontent.sdz" cs="de60527c7c860677f3e5f2221cccfa210f0521c6813279b03ee9521dd0ed84dc26b80907649662b806277ba5b638e01d8bf31339434bc8b8ef9d8beab9f72a34"
+[t=00:00:03.936535][f=-000001] [CAS::GASCB] Archive file="bitmaps.sdz" cs="13e1d0e6c3383afef7cda84eff1342271b1c82d13c66b376918ee61a25f77d5c662f6160ec74a121d59dbd8f29d9f10a00ab316cd1b3204a8be2c958c84a38eb"
+[39m
+[16:24:07.023] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:03.986614][f=-000001] [LuaIntro] Searching for new Widgets
+[t=00:00:03.986634][f=-000001] [LuaIntro] Scanning: LuaIntro/Addons/
+[39m
+[16:24:07.023] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:03.986661][f=-000001] [LuaIntro] Scanning: LuaIntro/Widgets/
+[t=00:00:03.986683][f=-000001] [LuaIntro] Scanning: LuaIntro/SystemAddons/
+[t=00:00:03.986693][f=-000001] [LuaIntro] Scanning: LuaIntro/SystemWidgets/
+[t=00:00:03.986700][f=-000001] [LuaIntro] Scanning: LuaIntro/chili/
+[39m
+[16:24:07.023] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:03.987049][f=-000001] [LuaIntro] Found new widget "SpringLogo"
+[39m
+[16:24:07.023] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:03.987139][f=-000001] [LuaIntro] Found new widget "LoadTexture"
+[39m
+[16:24:07.024] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:03.987458][f=-000001] [LuaIntro] Found new widget "LoadProgress"
+[39m
+[16:24:07.024] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:03.988176][f=-000001] [LuaIntro] Found new widget "Main"
+[39m
+[16:24:07.025] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:03.988426][f=-000001] [LuaIntro] Found new widget "Music"
+[t=00:00:03.988439][f=-000001] [LuaIntro] Loading widgets   <>=vfs  **=raw  ()=unknown
+[39m
+[16:24:07.025] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:03.988706][f=-000001] [LuaIntro] Loading widget:      Engine Taskbar Stuff   <engine_taskbar_control.lua>
+[39m
+[16:24:07.029] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:03.992937][f=-000001] [LuaIntro] Loading widget:      LoadProgress           <loadprogress.lua>
+[39m
+[16:24:07.034] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:03.998049][f=-000001] [LuaIntro] Loading widget:      Main                   <main.lua>
+[39m
+[16:24:07.035] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:03.998650][f=-000001] [LuaIntro] Loading widget:      Music                  <music.lua>
+[39m
+[16:24:07.036] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:03.999390][f=-000001] [LuaIntro] Loading widget:      LoadTexture            <bg_texture.lua>
+[39m
+[16:24:07.036] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:03.999525][f=-000001] [LuaIntro] LuaIntro v1.0 (Lua 5.1 with Recoil-specific changes)
+[39m
+[16:24:07.036] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:03.999932][f=-000001] Error: [SetConfigInt] key "AdvSky" is deprecated
+[39m
+[16:24:07.036] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:03.999990][f=-000001] Setting Mouse Drag thresholds based on resolution (1512x982) for Selection to 13, and Command to 29
+[39m
+[16:24:07.038] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:04.001787][f=-000001] [LoadScreen::Init] single-threaded
+[39m
+[16:24:07.038] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:04.001813][f=-000001] [WatchDog::RegisterThread] registering controls for thread [load]
+[t=00:00:04.001873][f=-000001] [Game::Load][1] globalQuit=0 threaded=0
+[39m
+[16:24:07.038] [32mINFO[39m: [36mmain - 2026-10-20T23:23:54.496Z - main-window - Game launched - hiding main window[39m
+[16:24:07.040] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:04.003423][f=-000001] [LoadScreen::SetLoadMessage] text="Parsing Map Information"
+[39m
+[16:24:07.229] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:04.193006][f=-000001] [LoadScreen::SetLoadMessage] text="Loading SMF"
+[39m
+[16:24:07.311] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:04.274496][f=-000001] [LoadScreen::SetLoadMessage] text="Loading Map (80 MB)"
+[39m
+[16:24:08.447] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:05.410992][f=-000001] Warning: [CSMFReadMap::CreateSplatDetailTextures] Invalid SMF splatDetailTex maps/iwantDNTS.tga. Creating fallback texture
+[39m
+[16:24:08.740] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:05.703412][f=-000001] [~ScopedOnceTimer][Game::LoadMap] 1701ms
+[39m
+[16:24:08.740] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:05.703931][f=-000001] [LoadScreen::SetLoadMessage] text="Loading GameData Definitions"
+[39m
+[16:24:08.753] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:05.716300][f=-000001] [CAS::GASCB] Archive file="seths_ravine_remake_1.3.1.sd7" cs="82667fbbd422ee2ef7d2cf078c4170184c43fc9239d0f6500b3a4b1dd7e8b9dac8c6db2463110322e3eb6dad274cf186cd3231af53f92eb78c37e9c7c3a71510"
+[t=00:00:05.716341][f=-000001] [CAS::GASCB] Archive file="maphelper.sdz" cs="6ecfd8e47b2c0bde27517e92bd171d1d036e0482cbfc929a1925b5239e4d5947ed335df18ba4775b16843a9affe42b5fcd2aad9957bacb63a48ae005c799524e"
+[39m
+[16:24:08.753] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:05.716374][f=-000001] [CAS::GASCB] Archive file="5f5916abbedbb6a873e1d6ab4c78fe02.sdp" cs="99e9198c39b315433e73c7b0cefdaa33516e60c7df7876e0b07d24253c7eddab6d41d98120c991d6714b5c9aa31b6ea0137a689adeecca516eaf6e48ed13ec67"
+[t=00:00:05.716392][f=-000001] [CAS::GASCB] Archive file="springcontent.sdz" cs="de60527c7c860677f3e5f2221cccfa210f0521c6813279b03ee9521dd0ed84dc26b80907649662b806277ba5b638e01d8bf31339434bc8b8ef9d8beab9f72a34"
+[t=00:00:05.716442][f=-000001] [CAS::GASCB] Archive file="bitmaps.sdz" cs="13e1d0e6c3383afef7cda84eff1342271b1c82d13c66b376918ee61a25f77d5c662f6160ec74a121d59dbd8f29d9f10a00ab316cd1b3204a8be2c958c84a38eb"
+[39m
+[16:24:08.861] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:05.824537][f=-000001] Loading tweakdefs modoption
+[t=00:00:05.824561][f=-000001] 
+[t=00:00:05.824568][f=-000001] Loading tweakdefs1 modoption
+[t=00:00:05.824571][f=-000001] 
+[t=00:00:05.824575][f=-000001] Loading tweakdefs2 modoption
+[t=00:00:05.824578][f=-000001] 
+[t=00:00:05.824582][f=-000001] Loading tweakdefs3 modoption
+[t=00:00:05.824584][f=-000001] 
+[39m
+[16:24:08.861] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:05.824588][f=-000001] Loading tweakdefs4 modoption
+[t=00:00:05.824591][f=-000001] 
+[t=00:00:05.824594][f=-000001] Loading tweakdefs5 modoption
+[t=00:00:05.824597][f=-000001] 
+[t=00:00:05.824601][f=-000001] Loading tweakdefs6 modoption
+[t=00:00:05.824604][f=-000001] 
+[t=00:00:05.824607][f=-000001] Loading tweakdefs7 modoption
+[t=00:00:05.824610][f=-000001] 
+[t=00:00:05.824613][f=-000001] Loading tweakdefs8 modoption
+[t=00:00:05.824616][f=-000001] 
+[t=00:00:05.824619][f=-000001] Loading tweakdefs9 modoption
+[t=00:00:05.824622][f=-000001] 
+[t=00:00:05.824652][f=-000001] Loading tweakdefs10 modoption
+[t=00:00:05.824659][f=-000001] 
+[t=00:00:05.824664][f=-000001] Loading tweakdefs11 modoption
+[t=00:00:05.824667][f=-000001] 
+[t=00:00:05.824670][f=-000001] Loading tweakdefs12 modoption
+[t=00:00:05.824673][f=-000001] 
+[t=00:00:05.824676][f=-000001] Loading tweakdefs13 modoption
+[t=00:00:05.824679][f=-000001] 
+[t=00:00:05.824682][f=-000001] Loading tweakdefs14 modoption
+[t=00:00:05.824685][f=-000001] 
+[t=00:00:05.824688][f=-000001] Loading tweakdefs15 modoption
+[t=00:00:05.824691][f=-000001] 
+[t=00:00:05.824694][f=-000001] Loading tweakdefs16 modoption
+[t=00:00:05.824697][f=-000001] 
+[t=00:00:05.824701][f=-000001] Loading tweakdefs17 modoption
+[t=00:00:05.824703][f=-000001] 
+[t=00:00:05.824707][f=-000001] Loading tweakdefs18 modoption
+[t=00:00:05.824709][f=-000001] 
+[t=00:00:05.824712][f=-000001] Loading tweakdefs19 modoption
+[t=00:00:05.824715][f=-000001] 
+[t=00:00:05.824718][f=-000001] Loading tweakdefs20 modoption
+[t=00:00:05.824722][f=-000001] 
+[t=00:00:05.824733][f=-000001] Loading tweakdefs21 modoption
+[t=00:00:05.824737][f=-000001] 
+[t=00:00:05.824741][f=-000001] Loading tweakdefs22 modoption
+[t=00:00:05.824744][f=-000001] 
+[t=00:00:05.824748][f=-000001] Loading tweakdefs23 modoption
+[t=00:00:05.824751][f=-000001] 
+[t=00:00:05.824754][f=-000001] Loading tweakdefs24 modoption
+[t=00:00:05.824757][f=-000001] 
+[t=00:00:05.824761][f=-000001] Loading tweakdefs25 modoption
+[t=00:00:05.824763][f=-000001] 
+[t=00:00:05.824767][f=-000001] Loading tweakdefs26 modoption
+[t=00:00:05.824770][f=-000001] 
+[t=00:00:05.824773][f=-000001] Loading tweakdefs27 modoption
+[t=00:00:05.824776][f=-000001] 
+[t=00:00:05.824779][f=-000001] Loading tweakdefs28 modoption
+[t=00:00:05.824782][f=-000001] 
+[t=00:00:05.824786][f=-000001] Loading tweakdefs29 modoption
+[t=00:00:05.824789][f=-000001] 
+[39m
+[16:24:08.925] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:05.888977][f=-000001] WeaponVolumes, BeamLaser, 5500, 2.5, Experimental g2g Eradicator Heat Ray, 72.4157715, 72.4157715, 39.6637535
+[39m
+[16:24:08.926] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:05.889465][f=-000001] [weapondefs.lua] Error: removed ceg_test_projectile_unit_ceg_test_projectile weaponDef, missing model
+[39m
+[16:24:08.927] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:05.890884][f=-000001] [~ScopedOnceTimer][Loading all definitions: ] 167ms
+[39m
+[16:24:08.945] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:05.908666][f=-000001] [~ScopedOnceTimer][Game::LoadDefs (GameData)] 205ms
+[39m
+[16:24:08.945] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:05.908752][f=-000001] [LoadScreen::SetLoadMessage] text="Loading Radar Icons"
+[39m
+[16:24:09.339] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:06.303208][f=-000001] Warning: [CIconHandler::UpdateAtlasData] Failed to load icon=default, bitmap=
+[t=00:00:06.303253][f=-000001] Warning: [CIconHandler::UpdateAtlasData] Failed to load icon=default_scav, bitmap=
+[39m
+[16:24:09.530] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:06.494187][f=-000001] CTextureRenderAtlas::CalculateAtlas() atlas=IconsAtlas_0 atlasFinalized=1
+[39m
+[16:24:09.531] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:06.494370][f=-000001] CTextureRenderAtlas::CreateAtlasTexture()[0] atlas=IconsAtlas_0 FBO::ready=1
+[39m
+[16:24:09.539] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:06.502724][f=-000001] CTextureRenderAtlas::CreateAtlasTexture()[1] atlas=IconsAtlas_0 atlasRendered=1
+[39m
+[16:24:09.539] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:06.503131][f=-000001] [LoadScreen::SetLoadMessage] text="Loading Sound Definitions"
+[39m
+[16:24:09.640] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:06.603550][f=-000001] [~ScopedOnceTimer][Game::LoadDefs (Sound)] 100ms
+[t=00:00:06.603575][f=-000001] [Game::Load][2] globalQuit=0 forcedQuit=0
+[39m
+[16:24:09.640] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:06.603643][f=-000001] [LoadScreen::SetLoadMessage] text="Creating Smooth Height Mesh"
+[39m
+[16:24:09.780] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:06.743644][f=-000001] [~ScopedOnceTimer][SmoothHeightMesh::MakeSmoothMesh] 3ms
+[39m
+[16:24:09.780] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:06.743746][f=-000001] [LoadScreen::SetLoadMessage] text="Creating QuadField & CEGs"
+[39m
+[16:24:09.791] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:06.754406][f=-000001] [Init] number of ArmorDefs: 15
+[39m
+[16:24:09.881] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:06.844596][f=-000001] [RegisterModelFormats] supported (Assimp) model formats: *.3ds;*.blend;*.dae;*.lwo;*.obj;
+[39m
+[16:24:09.883] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:06.847200][f=-000001] [LoadScreen::SetLoadMessage] text="Creating Unit Textures"
+[39m
+[16:24:09.885] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:06.849205][f=-000001] [LoadScreen::SetLoadMessage] text="Creating Sky"
+[39m
+[16:24:10.204] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:07.167587][f=-000001] [Game::Load][3] globalQuit=0 forcedQuit=0
+[39m
+[16:24:10.204] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:07.167668][f=-000001] [LoadScreen::SetLoadMessage] text="Loading Weapon Definitions"
+[39m
+[16:24:10.209] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:07.172978][f=-000001] Warning: WeaponDefs: Unknown tag "shield.energyupkeep" in "armcomcon_repulsor1"
+[39m
+[16:24:10.214] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:07.178274][f=-000001] Warning: WeaponDefs: Unknown tag "shield.energyupkeep" in "armfgate_sea_repulsor"
+[39m
+[16:24:10.215] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:07.178643][f=-000001] Warning: WeaponDefs: Unknown tag "shield.energyupkeep" in "armgate_repulsor"
+[39m
+[16:24:10.220] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:07.183634][f=-000001] Warning: WeaponDefs: Unknown tag "shield.energyupkeep" in "corcomcon_repulsor1"
+[39m
+[16:24:10.224] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:07.188299][f=-000001] Warning: WeaponDefs: Unknown tag "shield.energyupkeep" in "corfgate_sea_repulsor"
+[39m
+[16:24:10.225] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:07.188648][f=-000001] Warning: WeaponDefs: Unknown tag "shield.energyupkeep" in "corgate_repulsor"
+[39m
+[16:24:10.225] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:07.189186][f=-000001] Warning: WeaponDefs: Unknown tag "comment" in "corjuno_juno_pulse_ghost"
+[39m
+[16:24:10.235] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:07.198974][f=-000001] [~ScopedOnceTimer][Game::PostLoadSim (WeaponDefs)] 31ms
+[39m
+[16:24:10.235] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:07.199046][f=-000001] [LoadScreen::SetLoadMessage] text="Loading Unit Definitions"
+[39m
+[16:24:10.237] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:07.201134][f=-000001] Warning: [CreateYardMap] armanavaldefturret: given yardmap requires 13 extra char(s)!
+[39m
+[16:24:10.241] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:07.204965][f=-000001] Warning: [CreateYardMap] armhaap: given yardmap requires 81 extra char(s)!
+[39m
+[16:24:10.246] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:07.210245][f=-000001] Warning: [CreateYardMap] coranavaldefturret: given yardmap requires 13 extra char(s)!
+[39m
+[16:24:10.250] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:07.214140][f=-000001] Warning: [CreateYardMap] corhasy: given yardmap requires 48 extra char(s)!
+[39m
+[16:24:10.255] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:07.218956][f=-000001] Warning: [CreateYardMap] leghaap: given yardmap requires 36 extra char(s)!
+[39m
+[16:24:10.257] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:07.221043][f=-000001] [~ScopedOnceTimer][Game::PostLoadSim (UnitDefs)] 22ms
+[39m
+[16:24:10.257] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:07.221108][f=-000001] [LoadScreen::SetLoadMessage] text="Loading Feature Definitions"
+[39m
+[16:24:10.268] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:07.231723][f=-000001] [~ScopedOnceTimer][Game::PostLoadSim (FeatureDefs)] 10ms
+[39m
+[16:24:10.270] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:07.233327][f=-000001] InitStatic: NUM_SPEEDMOD_BINS=10, MIN_SPEEDMOD_VALUE=0.000000, MAX_SPEEDMOD_VALUE=2.000000
+[39m
+[16:24:10.270] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:07.233407][f=-000001] InitStatic: MAP_MAX_NODES_SEARCHED=0, MAP_RELATIVE_MAX_NODES_SEARCHED=0.000000
+[t=00:00:07.233416][f=-000001] InitStatic: MAP_MAX_NODES_SEARCHED=0, MAP_RELATIVE_MAX_NODES_SEARCHED=0.000000
+[t=00:00:07.233419][f=-000001] InitStatic: MAP_MAX_NODES_SEARCHED=0, MAP_RELATIVE_MAX_NODES_SEARCHED=0.000000
+[t=00:00:07.233442][f=-000001] [IPathManager::GetInstance] using QTPFS
+[39m
+[16:24:10.270] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:07.233491][f=-000001] [LoadScreen::SetLoadMessage] text="Initializing Map Features"
+[39m
+[16:24:10.271] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:07.234425][f=-000001] [LoadScreen::SetLoadMessage] text="Loading Models"
+[39m
+[16:24:10.279] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:07.242961][f=-000001] [LoadScreen::SetLoadMessage] text="Creating ShadowHandler"
+[39m
+[16:24:10.288] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:07.251370][f=-000001] [LoadScreen::SetLoadMessage] text="Creating InfoTextureHandler"
+[39m
+[16:24:10.300] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:07.263380][f=-000001] InfoTexture: shaders
+[39m
+[16:24:10.300] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:07.263437][f=-000001] [LoadScreen::SetLoadMessage] text="Creating GroundDrawer"
+[39m
+[16:24:10.306] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:07.269612][f=-000001] [LoadScreen::SetLoadMessage] text="Loading Map Tiles"
+[39m
+[16:24:11.081] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:08.045147][f=-000001] [LoadScreen::SetLoadMessage] text="Loading Square Textures"
+[39m
+[16:24:11.091] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:08.054336][f=-000001] Switching to ROAM Mesh Rendering
+[t=00:00:08.054362][f=-000001] [TriNodePool::Resize] to 2097152
+[39m
+[16:24:11.098] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:08.062166][f=-000001] [TriNodePool::InitPools] newPoolSize=2097152 PoolSize=2097152 (shadowPass=0)
+[t=00:00:08.062189][f=-000001] [TriNodePool::Resize] to 2097152
+[39m
+[16:24:11.109] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:08.073017][f=-000001] [TriNodePool::InitPools] newPoolSize=2097152 PoolSize=2097152 (shadowPass=1)
+[39m
+[16:24:11.133] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:08.097155][f=-000001] [LoadScreen::SetLoadMessage] text="Creating GrassDrawer"
+[39m
+[16:24:11.150] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:08.113659][f=-000001] Loaded DecalsDrawer: null
+[39m
+[16:24:11.150] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:08.113736][f=-000001] [LoadScreen::SetLoadMessage] text="Creating ProjectileDrawer & UnitDrawer"
+[39m
+[16:24:11.151] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:08.114810][f=-000001] [LoadScreen::SetLoadMessage] text="Creating Projectile Textures"
+[39m
+[16:24:12.176] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:09.139721][f=-000001] Warning: [CCEG::Load] genericshellexplosion-small-bomb: unknown class "groundflash_anim"
+[39m
+[16:24:12.242] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:09.206248][f=-000001] [LoadScreen::SetLoadMessage] text="Creating Water"
+[39m
+[16:24:12.335] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:09.298387][f=-000001] [LoadScreen::SetLoadMessage] text="Finalizing Models"
+[39m
+[16:24:12.390] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:09.353765][f=-000001] [Game::Load][4] globalQuit=0 forcedQuit=0
+[39m
+[16:24:12.400] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:09.363743][f=-000001] [~ScopedOnceTimer][Game::LoadInterface (Console)] 0ms
+[39m
+[16:24:12.402] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:09.365395][f=-000001] [RmlUi::Initialize] Beginning RmlUi Initialization
+[39m
+[16:24:12.416] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:09.379410][f=-000001] [RmlUi] Loaded font face 'FreeSans' [bold] from 'fonts/FreeSansBold.otf'.
+[t=00:00:09.379433][f=-000001] [RmlUi] SVG plugin initialised.
+[t=00:00:09.379439][f=-000001] [RmlUi] SVG plugin initialised.
+[t=00:00:09.379442][f=-000001] [Game::Load][5] globalQuit=0 forcedQuit=0
+[39m
+[16:24:12.416] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:09.379509][f=-000001] [LoadScreen::SetLoadMessage] text="[LoadFinalize] finalizing PFS"
+[39m
+[16:24:12.424] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:09.387866][f=-000001] InitRootSize: map root size is (1024, 768)
+[t=00:00:09.387893][f=-000001] InitRootSize: root node size is set to: 64
+[39m
+[16:24:12.424] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:09.387988][f=-000001] [CAS::GASCB] Archive file="seths_ravine_remake_1.3.1.sd7" cs="82667fbbd422ee2ef7d2cf078c4170184c43fc9239d0f6500b3a4b1dd7e8b9dac8c6db2463110322e3eb6dad274cf186cd3231af53f92eb78c37e9c7c3a71510"
+[t=00:00:09.388014][f=-000001] [CAS::GASCB] Archive file="maphelper.sdz" cs="6ecfd8e47b2c0bde27517e92bd171d1d036e0482cbfc929a1925b5239e4d5947ed335df18ba4775b16843a9affe42b5fcd2aad9957bacb63a48ae005c799524e"
+[t=00:00:09.388043][f=-000001] [CAS::GASCB] Archive file="5f5916abbedbb6a873e1d6ab4c78fe02.sdp" cs="99e9198c39b315433e73c7b0cefdaa33516e60c7df7876e0b07d24253c7eddab6d41d98120c991d6714b5c9aa31b6ea0137a689adeecca516eaf6e48ed13ec67"
+[t=00:00:09.388062][f=-000001] [CAS::GASCB] Archive file="springcontent.sdz" cs="de60527c7c860677f3e5f2221cccfa210f0521c6813279b03ee9521dd0ed84dc26b80907649662b806277ba5b638e01d8bf31339434bc8b8ef9d8beab9f72a34"
+[t=00:00:09.388095][f=-000001] [CAS::GASCB] Archive file="bitmaps.sdz" cs="13e1d0e6c3383afef7cda84eff1342271b1c82d13c66b376918ee61a25f77d5c662f6160ec74a121d59dbd8f29d9f10a00ab316cd1b3204a8be2c958c84a38eb"
+[39m
+[16:24:12.478] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:09.441696][f=-000001] [LoadScreen::SetLoadMessage] text="[PathManager::InitNodeLayersThreaded] using 10 threads for 43 node-layers"
+[39m
+[16:24:12.771] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:09.735176][f=-000001] [QTPFS] pfs-checksum: c01e7a00
+[t=00:00:09.735206][f=-000001] [QTPFS] mem-footprint: 259MB
+[39m
+[16:24:12.816] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:09.780013][f=-000001] [LoadScreen::SetLoadMessage] text="[PathManager::Load] Complete. Used 10 threads for 43 node-layers"
+[39m
+[16:24:12.817] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:09.781171][f=-000001] [LoadScreen::SetLoadMessage] text="[LoadFinalize] finalized PFS (393ms, checksum c01e7a00)"
+[39m
+[16:24:12.826] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:09.789713][f=-000001] [Game::Load][6] globalQuit=0 forcedQuit=0
+[t=00:00:09.789734][f=-000001] [Game::LoadLua] Lua developer mode disabled
+[39m
+[16:24:12.826] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:09.789763][f=-000001] [LoadScreen::SetLoadMessage] text="Loading LuaRules"
+[39m
+[16:24:12.838] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:09.801730][f=-000001] [CAS::GASCB] Archive file="seths_ravine_remake_1.3.1.sd7" cs="82667fbbd422ee2ef7d2cf078c4170184c43fc9239d0f6500b3a4b1dd7e8b9dac8c6db2463110322e3eb6dad274cf186cd3231af53f92eb78c37e9c7c3a71510"
+[39m
+[16:24:12.838] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:09.801772][f=-000001] [CAS::GASCB] Archive file="maphelper.sdz" cs="6ecfd8e47b2c0bde27517e92bd171d1d036e0482cbfc929a1925b5239e4d5947ed335df18ba4775b16843a9affe42b5fcd2aad9957bacb63a48ae005c799524e"
+[t=00:00:09.801805][f=-000001] [CAS::GASCB] Archive file="5f5916abbedbb6a873e1d6ab4c78fe02.sdp" cs="99e9198c39b315433e73c7b0cefdaa33516e60c7df7876e0b07d24253c7eddab6d41d98120c991d6714b5c9aa31b6ea0137a689adeecca516eaf6e48ed13ec67"
+[t=00:00:09.801821][f=-000001] [CAS::GASCB] Archive file="springcontent.sdz" cs="de60527c7c860677f3e5f2221cccfa210f0521c6813279b03ee9521dd0ed84dc26b80907649662b806277ba5b638e01d8bf31339434bc8b8ef9d8beab9f72a34"
+[t=00:00:09.801859][f=-000001] [CAS::GASCB] Archive file="bitmaps.sdz" cs="13e1d0e6c3383afef7cda84eff1342271b1c82d13c66b376918ee61a25f77d5c662f6160ec74a121d59dbd8f29d9f10a00ab316cd1b3204a8be2c958c84a38eb"
+[39m
+[16:24:12.853] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:09.817068][f=-000001] [~ScopedOnceTimer][creg::AutoRegisterCFunctions(LuaRules)] 15ms
+[39m
+[16:24:12.863] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:09.826800][f=-000001] Lava Mapname, Seths Ravine Remake 1.3.1
+[39m
+[16:24:12.871] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:09.834315][f=-000001] AllyTeamId: 0 startx: 0
+[t=00:00:09.834338][f=-000001] AllyTeamId: 1 startx: 0
+[t=00:00:09.834344][f=-000001] AllyTeamId: 2 startx: 0
+[39m
+[16:24:13.037] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.000983][f=-000001] AllyTeamId: 0 startx: 0
+[t=00:00:10.001007][f=-000001] AllyTeamId: 1 startx: 0
+[t=00:00:10.001012][f=-000001] AllyTeamId: 2 startx: 0
+[39m
+[16:24:13.224] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.187824][f=-000001] [ATMOSPHERIC] Current map: seths ravine remake 1.3.1
+[t=00:00:10.187862][f=-000001] [ATMOSPHERIC] Success! Map names match!: seths ravine
+[39m
+[16:24:13.232] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.195843][f=-000001] REMOVED PVE BOSS DRONES
+[39m
+[16:24:13.236] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.199356][f=-000001] AllyTeamId: 0 startx: 0
+[t=00:00:10.199378][f=-000001] AllyTeamId: 1 startx: 0
+[39m
+[16:24:13.236] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.199383][f=-000001] AllyTeamId: 2 startx: 0
+[39m
+[16:24:13.404] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.368083][f=-000001] Loaded synced gadget:  Benchmark           <dbg_benchmark.lua>
+[39m
+[16:24:13.405] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.368188][f=-000001] Loaded synced gadget:  Dev Helper Cmds     <cmd_dev_helpers.lua>
+[t=00:00:10.368276][f=-000001] Loaded synced gadget:  Particle Benchmark  <dbg_particle_bench.lua>
+[39m
+[16:24:13.405] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.368449][f=-000001] Loaded synced gadget:  Synctest            <dbg_synctest.lua>
+[39m
+[16:24:13.405] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.368568][f=-000001] Loaded synced gadget:  Dead Unit           <unit_dead.lua>
+[39m
+[16:24:13.405] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.368655][f=-000001] Loaded synced gadget:  Area Attack Limiter  <unit_areaattack_limiter.lua>
+[39m
+[16:24:13.405] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.368737][f=-000001] Loaded synced gadget:  CMD limiter         <cmd_limiter.lua>
+[t=00:00:10.368818][f=-000001] Loaded synced gadget:  Get Player Data     <cmd_get_player_data.lua>
+[39m
+[16:24:13.405] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.368898][f=-000001] Loaded synced gadget:  Stats               <api_damage_stats.lua>
+[39m
+[16:24:13.405] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.368984][f=-000001] Loaded synced gadget:  Permissions         <api_permissions.lua>
+[39m
+[16:24:13.405] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.369068][f=-000001] Loaded synced gadget:  No Share Load       <unit_prevent_share_load.lua>
+[39m
+[16:24:13.405] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.369190][f=-000001] Loaded synced gadget:  No Share Self-D     <unit_prevent_share_self_d.lua>
+[39m
+[16:24:13.406] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.369350][f=-000001] [Starburst cruise and verticalize] armemp_armemp_weapon drops on a turn wider than its cruise height so impacts on a curve.
+[39m
+[16:24:13.406] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.369404][f=-000001] [Starburst cruise and verticalize] armmh_armmh_weapon drops on a turn wider than its cruise height so impacts on a curve.
+[t=00:00:10.369430][f=-000001] [Starburst cruise and verticalize] armseadragon_sdmssl drops on a turn wider than its cruise height so impacts on a curve.
+[39m
+[16:24:13.406] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.369444][f=-000001] [Starburst cruise and verticalize] armsilo_nuclear_missile drops on a turn wider than its cruise height so impacts on a curve.
+[39m
+[16:24:13.406] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.369560][f=-000001] [Starburst cruise and verticalize] cordesolator_crblmssl drops on a turn wider than its cruise height so impacts on a curve.
+[t=00:00:10.369592][f=-000001] [Starburst cruise and verticalize] corhrk_corhrk_rocket drops on a turn wider than its cruise height so impacts on a curve.
+[39m
+[16:24:13.406] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.369628][f=-000001] [Starburst cruise and verticalize] corkorg_corkorg_rocket drops on a turn wider than its cruise height so impacts on a curve.
+[t=00:00:10.369649][f=-000001] [Starburst cruise and verticalize] cormh_cormh_weapon drops on a turn wider than its cruise height so impacts on a curve.
+[39m
+[16:24:13.406] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.369690][f=-000001] [Starburst cruise and verticalize] corsilo_crblmssl drops on a turn wider than its cruise height so impacts on a curve.
+[39m
+[16:24:13.407] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.370476][f=-000001] Loaded synced gadget:  Starburst cruise and verticalize  <unit_custom_weapons_verticalize.lua>
+[39m
+[16:24:13.408] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.371697][f=-000001] Loaded synced gadget:  Startbox Config     <game_startbox_config.lua>
+[39m
+[16:24:13.408] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.371789][f=-000001] Loaded synced gadget:  Anti Stacking Hax   <unit_stack_hack_fix.lua>
+[39m
+[16:24:13.408] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.371868][f=-000001] Loaded synced gadget:  AutoColorPicker     <game_autocolors.lua>
+[39m
+[16:24:13.408] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.371949][f=-000001] Loaded synced gadget:  Explosion Deformation Fix  <map_explosion_deformation_fix.lua>
+[39m
+[16:24:13.408] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.372053][f=-000001] Loaded synced gadget:  Map Atmosphere CEGs  <map_atmosphere_cegs.lua>
+[39m
+[16:24:13.408] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.372135][f=-000001] Loaded synced gadget:  Map NightMode       <map_nightmode.lua>
+[39m
+[16:24:13.408] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.372224][f=-000001] Loaded synced gadget:  Reactive Armor      <unit_reactive_armor.lua>
+[39m
+[16:24:13.408] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.372271][f=-000001] [Gaia Critters] No critter config for map Seths Ravine Remake 1.3.1
+[39m
+[16:24:13.409] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.372330][f=-000001] Loaded synced gadget:  gaia critter units  <game_critters.lua>
+[39m
+[16:24:13.409] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.372413][f=-000001] Loaded synced gadget:  supply drops        <pve_supply_drops.lua>
+[39m
+[16:24:13.409] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.372493][f=-000001] Loaded synced gadget:  Feature Death Explosion  <feature_dead_explosion.lua>
+[39m
+[16:24:13.409] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.372572][f=-000001] Loaded synced gadget:  Projectile Dispatch  <gfx_projectile_dispatch.lua>
+[39m
+[16:24:13.409] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.372661][f=-000001] Loaded synced gadget:  Place Target On Ground  <cmd_place_target_on_ground.lua>
+[39m
+[16:24:13.409] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.372743][f=-000001] Loaded synced gadget:  IconGenerator       <unit_icongenerator.lua>
+[39m
+[16:24:13.453] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.416422][f=-000001] Loaded synced gadget:  Map Lua Metal Spot Placer  <map_metal_spot_placer.lua>
+[39m
+[16:24:13.453] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.416540][f=-000001] Loaded synced gadget:  Shield Behaviour    <unit_shield_behaviour.lua>
+[39m
+[16:24:13.460] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.424030][f=-000001] Loaded synced gadget:  API Resource Spot Finder (mex/geo)  <api_resource_spot_finder.lua>
+[39m
+[16:24:13.460] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.424125][f=-000001] Loaded synced gadget:  CameraBroadcast     <data_camera_broadcast.lua>
+[39m
+[16:24:13.460] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.424216][f=-000001] Loaded synced gadget:  Map Lava Gadget 2.5  <map_lava.lua>
+[39m
+[16:24:13.461] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.424303][f=-000001] Loaded synced gadget:  AA Targeting Priority  <unit_aa_targeting_priority.lua>
+[39m
+[16:24:13.461] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.424389][f=-000001] Loaded synced gadget:  Awards              <game_awards.lua>
+[39m
+[16:24:13.461] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.424481][f=-000001] Loaded synced gadget:  Collision Damage Behavior  <unit_collision_damage_behavior.lua>
+[39m
+[16:24:13.461] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.424565][f=-000001] Loaded synced gadget:  Dynamic Build Options API  <api_dynamic_build_options.lua>
+[t=00:00:10.424656][f=-000001] Loaded synced gadget:  Feature ETA Widget Forwarding  <feature_eta_widget_forwarding.lua>
+[39m
+[16:24:13.461] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.424754][f=-000001] Loaded synced gadget:  Geo fix             <map_geofix.lua>
+[39m
+[16:24:13.462] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.425954][f=-000001] Loaded synced gadget:  Healthbars Widget Forwarding  <unit_healthbars_widget_forwarding.lua>
+[39m
+[16:24:13.462] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.426045][f=-000001] Loaded synced gadget:  PBR enabler         <api_pbr_enabler.lua>
+[39m
+[16:24:13.463] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.426940][f=-000001] Loaded synced gadget:  Raptor Scum GL4     <gfx_raptor_scum_gl4.lua>
+[39m
+[16:24:13.463] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.427037][f=-000001] Loaded synced gadget:  Team Power Watcher  <game_team_power_watcher.lua>
+[39m
+[16:24:13.463] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.427123][f=-000001] Loaded synced gadget:  Unit Script Attributes  <unit_custom_script_attributes.lua>
+[39m
+[16:24:13.463] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.427205][f=-000001] Loaded synced gadget:  UnitCallinsGadget   <dbg_unit_callins.lua>
+[t=00:00:10.427288][f=-000001] Loaded synced gadget:  Activity Broadcast  <data_activity_broadcast.lua>
+[39m
+[16:24:13.464] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.427376][f=-000001] Loaded synced gadget:  Air AttackSafetyDistance  <unit_air_attacksafetydistance.lua>
+[t=00:00:10.427475][f=-000001] Loaded synced gadget:  AirPlantParents     <unit_air_plants.lua>
+[39m
+[16:24:13.464] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.427563][f=-000001] Loaded synced gadget:  Allow Builder Hold Fire  <unit_allow_builder_hold_fire.lua>
+[39m
+[16:24:13.464] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.427646][f=-000001] Loaded synced gadget:  Ally Selected Units  <data_selected_units.lua>
+[39m
+[16:24:13.464] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.427728][f=-000001] Loaded synced gadget:  AllyTeam ranking    <game_allyteam_ranking.lua>
+[39m
+[16:24:13.464] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.427981][f=-000001] Loaded synced gadget:  Area Mex            <cmd_area_mex.lua>
+[39m
+[16:24:13.466] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.429879][f=-000001] Loaded synced gadget:  Area Timed Damage Handler  <unit_area_timed_damage.lua>
+[39m
+[16:24:13.466] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.429982][f=-000001] Loaded synced gadget:  Bomber Move State   <unit_bomber_hide_move_state.lua>
+[t=00:00:10.430071][f=-000001] Loaded synced gadget:  Bomber No Air Target  <unit_bomber_no_air_target.lua>
+[39m
+[16:24:13.470] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.433581][f=-000001] Loaded synced gadget:  Build Blocking API  <api_build_blocking.lua>
+[39m
+[16:24:13.470] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.433685][f=-000001] Loaded synced gadget:  Build Icons Slowly (/luarules buildiconslow or buildiconanim or buildiconanimslow)  <dbg_buildicons_run.lua>
+[39m
+[16:24:13.470] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.433809][f=-000001] Loaded synced gadget:  Builder Priority    <unit_builder_priority.lua>
+[39m
+[16:24:13.470] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.433901][f=-000001] Loaded synced gadget:  Builder buggeroff   <cmd_build_bugger_off.lua>
+[39m
+[16:24:13.470] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.433987][f=-000001] Loaded synced gadget:  CEG Preview         <game_ceg_preview.lua>
+[39m
+[16:24:13.470] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.434072][f=-000001] Loaded synced gadget:  Cancel orders on share  <unit_cancel_orders_on_share.lua>
+[39m
+[16:24:13.470] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.434157][f=-000001] Loaded synced gadget:  Capture Only Enemy  <unit_capture_only_enemy.lua>
+[39m
+[16:24:13.470] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.434251][f=-000001] Loaded synced gadget:  Cloak               <unit_cloak.lua>
+[39m
+[16:24:13.471] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.434333][f=-000001] Loaded synced gadget:  Clone Tool          <cmd_clone_tool.lua>
+[39m
+[16:24:13.471] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.434417][f=-000001] Loaded synced gadget:  Cob Debug           <dbg_cob_debug.lua>
+[39m
+[16:24:13.471] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.434500][f=-000001] Loaded synced gadget:  Com Counter         <game_com_counter.lua>
+[39m
+[16:24:13.471] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.434585][f=-000001] Loaded synced gadget:  Commander Dance Command  <cmd_commander_dance.lua>
+[39m
+[16:24:13.471] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.434679][f=-000001] Loaded synced gadget:  Commando Watch      <unit_commando_watch.lua>
+[39m
+[16:24:13.471] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.434762][f=-000001] Loaded synced gadget:  Continuous Aim      <unit_continuous_aim.lua>
+[39m
+[16:24:13.471] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.434846][f=-000001] Loaded synced gadget:  Controls Unit's maxrange  <unit_custommaxranges.lua>
+[39m
+[16:24:13.471] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.434933][f=-000001] Loaded synced gadget:  Corpse link         <unit_corpse_link.lua>
+[39m
+[16:24:13.471] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.435018][f=-000001] Loaded synced gadget:  Cursor Broadcast    <cmd_mouse_pos_broadcast.lua>
+[39m
+[16:24:13.481] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.444942][f=-000001] Loaded synced gadget:  Cursors             <unit_cursors.lua>
+[39m
+[16:24:13.481] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.445051][f=-000001] Loaded synced gadget:  Custom Map Tidal    <game_custom_map_tidal.lua>
+[39m
+[16:24:13.482] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.445893][f=-000001] Loaded synced gadget:  Custom weapon behaviours  <unit_custom_weapons_behaviours.lua>
+[39m
+[16:24:13.482] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.446021][f=-000001] Loaded synced gadget:  D-Gun Behaviour     <unit_dgun_behaviour.lua>
+[39m
+[16:24:13.482] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.446117][f=-000001] Loaded synced gadget:  DGun CmdType Fix    <unit_dgun_cmdtype_fix.lua>
+[39m
+[16:24:13.482] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.446217][f=-000001] Loaded synced gadget:  Debris Explosions   <gfx_debrisexplosions.lua>
+[39m
+[16:24:13.482] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.446311][f=-000001] Loaded synced gadget:  Debris physics      <feature_debris_physics.lua>
+[39m
+[16:24:13.483] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.446400][f=-000001] Loaded synced gadget:  DirectControl       <unit_direct_control.lua>
+[39m
+[16:24:13.483] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.446488][f=-000001] Loaded synced gadget:  Display DPS         <gui_display_dps.lua>
+[39m
+[16:24:13.485] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.448789][f=-000001] Loaded synced gadget:  Don't target flyover nukes  <unit_interceptors.lua>
+[39m
+[16:24:13.485] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.448889][f=-000001] Loaded synced gadget:  Dragons Disguise    <unit_dragons_disguise.lua>
+[39m
+[16:24:13.485] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.449033][f=-000001] Loaded synced gadget:  Dynamic Maxunits    <game_dynamic_maxunits.lua>
+[39m
+[16:24:13.485] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.449163][f=-000001] Loaded synced gadget:  Dynamic collision volume & Hitsphere Scaledown  <unit_dynamic_collision_volume.lua>
+[39m
+[16:24:13.488] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.451886][f=-000001] Loaded synced gadget:  EMP Lightning       <gfx_emp_lightning.lua>
+[39m
+[16:24:13.488] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.452005][f=-000001] Loaded synced gadget:  Energy Conversion   <game_energy_conversion.lua>
+[39m
+[16:24:13.488] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.452097][f=-000001] Loaded synced gadget:  Energy Explosion Particles GL4  <gfx_energy_explosion_particles_gl4.lua>
+[39m
+[16:24:13.488] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.452184][f=-000001] Loaded synced gadget:  Environmental Lightning GL4  <gfx_environmental_lightning_gl4.lua>
+[t=00:00:10.452270][f=-000001] Loaded synced gadget:  Experimental Bots Steps Damages  <unit_stomp.lua>
+[39m
+[16:24:13.489] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.453068][f=-000001] Loaded synced gadget:  Explosion_lights    <gfx_explosion_lights.lua>
+[39m
+[16:24:13.489] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.453155][f=-000001] Loaded synced gadget:  FPS Broadcast       <game_fps_broadcast.lua>
+[39m
+[16:24:13.489] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.453252][f=-000001] Loaded synced gadget:  Factory Guard       <unit_factory_guard.lua>
+[39m
+[16:24:13.490] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.453341][f=-000001] Loaded synced gadget:  Factory Quotas      <unit_factory_quota.lua>
+[39m
+[16:24:13.490] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.453441][f=-000001] Loaded synced gadget:  Factory Stop Production  <cmd_factory_stop_production.lua>
+[39m
+[16:24:13.490] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.453530][f=-000001] Loaded synced gadget:  Factory Unblocking  <unit_factory_unblocking.lua>
+[39m
+[16:24:13.490] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.453636][f=-000001] Loaded synced gadget:  Feature Placer      <cmd_feature_placer.lua>
+[39m
+[16:24:13.490] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.453723][f=-000001] Loaded synced gadget:  Footprint clearance  <unit_footprint_clearance.lua>
+[39m
+[16:24:13.490] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.453810][f=-000001] Loaded synced gadget:  Frame Time Broadcast  <game_frametime_broadcast.lua>
+[39m
+[16:24:13.490] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.453897][f=-000001] Loaded synced gadget:  GPU mem Broadcast   <data_gpumem_broadcast.lua>
+[39m
+[16:24:13.490] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.453996][f=-000001] Loaded synced gadget:  Game End            <game_end.lua>
+[39m
+[16:24:13.490] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.454087][f=-000001] Loaded synced gadget:  Game Pause          <api_game_pause.lua>
+[39m
+[16:24:13.490] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.454172][f=-000001] Loaded synced gadget:  GameID GameRulesParam  <game_id.lua>
+[39m
+[16:24:13.490] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.454261][f=-000001] Loaded synced gadget:  Geo Upgrade Reclaimer  <unit_geo_upgrade_reclaimer.lua>
+[39m
+[16:24:13.491] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.454350][f=-000001] Loaded synced gadget:  Infestor Replication  <unit_infestor_spawn.lua>
+[39m
+[16:24:13.491] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.454445][f=-000001] Loaded synced gadget:  Inherit Creation Units XP  <unit_inherit_creation_xp.lua>
+[t=00:00:10.454558][f=-000001] Loaded synced gadget:  Initial Spawn       <game_initial_spawn.lua>
+[39m
+[16:24:13.491] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.454657][f=-000001] Loaded synced gadget:  Instant Self Destruct  <unit_instant_self_destruct.lua>
+[39m
+[16:24:13.491] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.454748][f=-000001] Loaded synced gadget:  Juno Damage         <unit_juno_damage.lua>
+[39m
+[16:24:13.491] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.454844][f=-000001] Loaded synced gadget:  Lightning Splash Damage  <unit_lightning_splash_dmg.lua>
+[39m
+[16:24:13.491] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.454930][f=-000001] Loaded synced gadget:  Load/unload         <unit_airtransport_load_unload.lua>
+[39m
+[16:24:13.491] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.455016][f=-000001] Loaded synced gadget:  Lua mem Broadcast   <data_luamem_broadcast.lua>
+[39m
+[16:24:13.500] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.464088][f=-000001] Loaded synced gadget:  Lua unit script framework  <unit_script.lua>
+[39m
+[16:24:13.500] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.464207][f=-000001] Loaded synced gadget:  LuaUI Reload        <cmd_luaui_reload.lua>
+[39m
+[16:24:13.500] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.464311][f=-000001] Loaded synced gadget:  Manual launch command  <cmd_manual_launch.lua>
+[39m
+[16:24:13.501] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.464401][f=-000001] Loaded synced gadget:  Map Project Unit Loadout  <cmd_map_project_units.lua>
+[t=00:00:10.464505][f=-000001] Loaded synced gadget:  Map VoidWater       <map_voidground.lua>
+[39m
+[16:24:13.501] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.464617][f=-000001] Loaded synced gadget:  Metal Brush         <cmd_metal_brush.lua>
+[39m
+[16:24:13.501] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.464725][f=-000001] Loaded synced gadget:  Mex Upgrade Reclaimer  <unit_mex_upgrade_reclaimer.lua>
+[t=00:00:10.464816][f=-000001] Loaded synced gadget:  Mines fire state    <cmd_mines_firestate.lua>
+[39m
+[16:24:13.501] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.464911][f=-000001] Loaded synced gadget:  Minesweeper Detection  <unit_minesweeper_detection.lua>
+[39m
+[16:24:13.501] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.464997][f=-000001] Loaded synced gadget:  Nano Particles GL4  <gfx_nano_particles_gl4.lua>
+[39m
+[16:24:13.501] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.465088][f=-000001] Loaded synced gadget:  Nano Radar Pos      <unit_nanoradarpos.lua>
+[39m
+[16:24:13.501] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.465188][f=-000001] Loaded synced gadget:  No Enemy Guard      <cmd_no_enemy_guard.lua>
+[39m
+[16:24:13.501] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.465279][f=-000001] Loaded synced gadget:  No Land Damage      <unit_no_land_damage.lua>
+[39m
+[16:24:13.502] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.465374][f=-000001] Loaded synced gadget:  Nonblocking mines   <unit_nonblocking_mines.lua>
+[39m
+[16:24:13.502] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.465482][f=-000001] Loaded synced gadget:  Objectify           <unit_objectify.lua>
+[39m
+[16:24:13.502] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.465586][f=-000001] Loaded synced gadget:  On/Off descriptions  <cmd_onoffdesc.lua>
+[39m
+[16:24:13.502] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.465682][f=-000001] Loaded synced gadget:  Only Target Emp-able units  <unit_onlytargetempable.lua>
+[39m
+[16:24:13.502] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.465776][f=-000001] Loaded synced gadget:  Only Target onlytargetcategory  <unit_onlytargetcategory.lua>
+[39m
+[16:24:13.502] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.465868][f=-000001] Loaded synced gadget:  Paralyze Damage Multiplier  <unit_paralyze_damage_multiplier.lua>
+[39m
+[16:24:13.503] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.466538][f=-000001] Loaded synced gadget:  Penetrator Weapons  <unit_custom_weapons_overpen.lua>
+[39m
+[16:24:13.503] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.466634][f=-000001] Loaded synced gadget:  Pre-aim             <unit_preaim.lua>
+[39m
+[16:24:13.503] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.466938][f=-000001] Loaded synced gadget:  Prevent Cloaked Unit Reclaim  <unit_prevent_cloaked_unit_reclaim.lua>
+[39m
+[16:24:13.503] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.467037][f=-000001] Loaded synced gadget:  Prevent Lab Hax2    <unit_prevent_lab_hax2.lua>
+[39m
+[16:24:13.503] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.467136][f=-000001] Loaded synced gadget:  Prevent Load Hax    <unit_prevent_load_hax.lua>
+[39m
+[16:24:13.503] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.467271][f=-000001] Loaded synced gadget:  Prevent Nanoframe Blocking Hax  <unit_prevent_nanoframe_blocking_hax.lua>
+[39m
+[16:24:13.504] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.467369][f=-000001] Loaded synced gadget:  Prevent Range Hax   <unit_prevent_range_hax.lua>
+[39m
+[16:24:13.504] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.467467][f=-000001] Loaded synced gadget:  Prevent Self Guard  <unit_prevent_self_guard.lua>
+[39m
+[16:24:13.504] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.467562][f=-000001] Loaded synced gadget:  Prevent Strange Orders  <unit_prevent_strange_orders.lua>
+[39m
+[16:24:13.504] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.467660][f=-000001] Loaded synced gadget:  Prevent Unload Hax  <unit_prevent_unload_hax.lua>
+[39m
+[16:24:13.504] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.467774][f=-000001] Loaded synced gadget:  Prevent outside-of-map hax  <unit_prevent_aircraft_hax.lua>
+[39m
+[16:24:13.504] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.468305][f=-000001] Loaded synced gadget:  Projectile Effects  <gfx_projectile_effects.lua>
+[39m
+[16:24:13.505] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.468410][f=-000001] Loaded synced gadget:  Raptor Queen Anti-Dgun behavior  <pve_boss_priority_targetting.lua>
+[39m
+[16:24:13.505] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.468509][f=-000001] Loaded synced gadget:  Reclaim Fix         <unit_reclaim_fix.lua>
+[39m
+[16:24:13.505] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.468612][f=-000001] Loaded synced gadget:  Reclaim effect      <gfx_reclaim_fx.lua>
+[39m
+[16:24:13.505] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.468714][f=-000001] Loaded synced gadget:  Refund on lab reclaimed  <unit_refund_on_lab_reclaimed.lua>
+[39m
+[16:24:13.505] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.468816][f=-000001] Loaded synced gadget:  Remove Stop         <cmd_remove_stop.lua>
+[39m
+[16:24:13.505] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.468919][f=-000001] Loaded synced gadget:  Remove Wait         <cmd_remove_wait.lua>
+[39m
+[16:24:13.505] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.469013][f=-000001] Loaded synced gadget:  Reset Palette On Load  <gfx_reset_palette_on_load.lua>
+[39m
+[16:24:13.505] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.469109][f=-000001] Loaded synced gadget:  Restart With State  <game_restart_with_state.lua>
+[39m
+[16:24:13.505] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.469201][f=-000001] Loaded synced gadget:  Scav Cloud Spawner  <scav_cloud_spawner.lua>
+[39m
+[16:24:13.505] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.469290][f=-000001] Loaded synced gadget:  Scav Spawn Effect   <scav_spawn_effect.lua>
+[39m
+[16:24:13.506] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.469401][f=-000001] Loaded synced gadget:  Snap Jam            <unit_jammed_fix.lua>
+[39m
+[16:24:13.506] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.469495][f=-000001] Loaded synced gadget:  Stealthy Passengers  <unit_stealthy_passengers.lua>
+[39m
+[16:24:13.506] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.469592][f=-000001] Loaded synced gadget:  Stockpile Script    <unit_stockpile_script.lua>
+[39m
+[16:24:13.506] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.469712][f=-000001] Loaded synced gadget:  Stockpile control   <unit_stockpile_limit.lua>
+[39m
+[16:24:13.506] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.469811][f=-000001] Loaded synced gadget:  Stun Control        <unit_stun_control.lua>
+[39m
+[16:24:13.506] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.469918][f=-000001] Loaded synced gadget:  Stun Script         <unit_stun_script.lua>
+[39m
+[16:24:13.506] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.470020][f=-000001] Loaded synced gadget:  Stun Storage        <unit_stun_storage.lua>
+[39m
+[16:24:13.507] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.470515][f=-000001] Loaded synced gadget:  Sunfacer            <unit_sunfacing.lua>
+[39m
+[16:24:13.507] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.470612][f=-000001] Loaded synced gadget:  System info         <data_system_info.lua>
+[39m
+[16:24:13.507] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.470734][f=-000001] Loaded synced gadget:  Target on the move  <unit_target_on_the_move.lua>
+[39m
+[16:24:13.507] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.470839][f=-000001] Loaded synced gadget:  Team stats          <api_teamstats.lua>
+[39m
+[16:24:13.507] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.470934][f=-000001] Loaded synced gadget:  Terraform Brush     <cmd_terraform_brush.lua>
+[39m
+[16:24:13.507] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.471034][f=-000001] Loaded synced gadget:  Tombstones          <unit_tombstones.lua>
+[39m
+[16:24:13.507] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.471134][f=-000001] Loaded synced gadget:  Transported building Ghost Remover  <unit_transported_building_ghost.lua>
+[39m
+[16:24:13.507] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.471263][f=-000001] Loaded synced gadget:  Tree feller         <gfx_tree_feller.lua>
+[39m
+[16:24:13.508] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.471386][f=-000001] Loaded synced gadget:  TurnRadius          <unit_airunitsturnradius.lua>
+[39m
+[16:24:13.508] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.471477][f=-000001] Loaded synced gadget:  Unally on demand    <cmd_alliance_break.lua>
+[39m
+[16:24:13.508] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.471571][f=-000001] Loaded synced gadget:  UnderwaterPickup    <unit_disallow_underwater_load.lua>
+[39m
+[16:24:13.508] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.471671][f=-000001] Loaded synced gadget:  Unit Capture Decay  <unit_capture_decay.lua>
+[39m
+[16:24:13.508] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.471772][f=-000001] Loaded synced gadget:  Unit Placer         <cmd_unit_placer.lua>
+[39m
+[16:24:13.508] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.471875][f=-000001] Loaded synced gadget:  Unit Range XP Update  <unit_xp_range_bonus.lua>
+[39m
+[16:24:13.508] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.471976][f=-000001] Loaded synced gadget:  Unit Script Decals  <gfx_unit_script_decals.lua>
+[39m
+[16:24:13.508] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.472075][f=-000001] Loaded synced gadget:  Unit Script Lights and Distortion  <gfx_unit_script_lights.lua>
+[39m
+[16:24:13.508] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.472194][f=-000001] Loaded synced gadget:  Unit transportable nanos  <unit_transportable_nanos.lua>
+[39m
+[16:24:13.508] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.472301][f=-000001] Loaded synced gadget:  Volcano Pyroclastic Eruptions  <game_volcano_pyroclastic.lua>
+[39m
+[16:24:13.509] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.472703][f=-000001] Loaded synced gadget:  Wade Effects        <gfx_wade_fx.lua>
+[39m
+[16:24:13.509] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.472815][f=-000001] Loaded synced gadget:  Water Crush and Collision Damage  <unit_water_depth_damage.lua>
+[39m
+[16:24:13.509] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.472926][f=-000001] Loaded synced gadget:  Water Type Overlay State  <gfx_water_type_overlay_state.lua>
+[39m
+[16:24:13.509] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.473287][f=-000001] Loaded synced gadget:  Watereffects        <gfx_watersplash.lua>
+[39m
+[16:24:13.510] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.473383][f=-000001] Loaded synced gadget:  Weather Brush CEG Spawner  <cmd_weather_brush.lua>
+[39m
+[16:24:13.510] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.473493][f=-000001] Loaded synced gadget:  Workertime Multiplier Boost  <unit_workertime_boost.lua>
+[39m
+[16:24:13.510] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.473587][f=-000001] Loaded synced gadget:  ai_ruins.lua        <ai_ruins.lua>
+[39m
+[16:24:13.510] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.473684][f=-000001] Loaded synced gadget:  api_widget_events.lua  <api_widget_events.lua>
+[39m
+[16:24:13.510] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.473779][f=-000001] Loaded synced gadget:  cmd_idle_players.lua  <cmd_idle_players.lua>
+[39m
+[16:24:13.510] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.473871][f=-000001] Loaded synced gadget:  cmd_paused_is_paused.lua  <cmd_paused_is_paused.lua>
+[39m
+[16:24:13.510] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.473963][f=-000001] Loaded synced gadget:  cmd_undo.lua        <cmd_undo.lua>
+[39m
+[16:24:13.510] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.474059][f=-000001] Loaded synced gadget:  dbg_gadget_auto_reloader.lua  <dbg_gadget_auto_reloader.lua>
+[39m
+[16:24:13.510] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.474150][f=-000001] Loaded synced gadget:  fog_layer           <fog_layer.lua>
+[39m
+[16:24:13.510] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.474282][f=-000001] Loaded synced gadget:  fx_reclaim_shards   <gfx_reclaim_shards.lua>
+[39m
+[16:24:13.511] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.474375][f=-000001] Loaded synced gadget:  game_assistdronespawn.lua  <game_assistdronespawn.lua>
+[39m
+[16:24:13.511] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.474467][f=-000001] Loaded synced gadget:  game_commander_builder.lua  <game_commander_builder.lua>
+[39m
+[16:24:13.511] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.474562][f=-000001] Loaded synced gadget:  game_draft_spawn_order.lua  <game_draft_spawn_order.lua>
+[39m
+[16:24:13.511] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.474667][f=-000001] Loaded synced gadget:  game_ffa_start_setup.lua  <game_ffa_start_setup.lua>
+[39m
+[16:24:13.511] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.474764][f=-000001] Loaded synced gadget:  game_logger.lua     <game_logger.lua>
+[39m
+[16:24:13.511] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.474864][f=-000001] Loaded synced gadget:  game_no_share_to_enemy  <game_no_share_to_enemy.lua>
+[39m
+[16:24:13.511] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.474961][f=-000001] Loaded synced gadget:  game_selfd_resign.lua  <game_selfd_resign.lua>
+[39m
+[16:24:13.511] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.475057][f=-000001] Loaded synced gadget:  gfx_beam_laser_gl4.lua  <gfx_beam_laser_gl4.lua>
+[39m
+[16:24:13.511] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.475156][f=-000001] Loaded synced gadget:  gfx_fire_gl4.lua    <gfx_fire_gl4.lua>
+[39m
+[16:24:13.511] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.475253][f=-000001] Loaded synced gadget:  gfx_fire_smoke_gl4.lua  <gfx_fire_smoke_gl4.lua>
+[39m
+[16:24:13.512] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.475349][f=-000001] Loaded synced gadget:  gfx_flamethrower_gl4.lua  <gfx_flamethrower_gl4.lua>
+[39m
+[16:24:13.512] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.475442][f=-000001] Loaded synced gadget:  gfx_lightning_cannon_gl4.lua  <gfx_lightning_cannon_gl4.lua>
+[39m
+[16:24:13.512] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.475539][f=-000001] Loaded synced gadget:  gfx_missile_thruster_gl4.lua  <gfx_missile_thruster_gl4.lua>
+[39m
+[16:24:13.512] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.475643][f=-000001] Loaded synced gadget:  gfx_plasma_cannon_gl4.lua  <gfx_plasma_cannon_gl4.lua>
+[39m
+[16:24:13.512] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.475752][f=-000001] Loaded synced gadget:  preventcombomb      <game_preventcombomb.lua>
+[39m
+[16:24:13.512] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.475845][f=-000001] Loaded synced gadget:  snd_soundeffects.lua  <snd_soundeffects.lua>
+[39m
+[16:24:13.512] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.475944][f=-000001] Loaded synced gadget:  transport_dies_load_dies  <unit_transport_dies_load_dies.lua>
+[39m
+[16:24:13.512] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.476041][f=-000001] Loaded synced gadget:  unit_combomb_full_damage  <unit_combomb_full_damage.lua>
+[39m
+[16:24:13.512] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.476135][f=-000001] Loaded synced gadget:  unit_defend_firestate.lua  <unit_defend_firestate.lua>
+[39m
+[16:24:13.512] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.476232][f=-000001] Loaded synced gadget:  unit_firestate_handler.lua  <unit_firestate_handler.lua>
+[39m
+[16:24:13.512] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.476326][f=-000001] Loaded synced gadget:  unit_juno_damage_mini.lua  <unit_juno_damage_mini.lua>
+[39m
+[16:24:13.513] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.476423][f=-000001] Loaded synced gadget:  unit_timeslow.lua   <unit_timeslow.lua>
+[39m
+[16:24:13.513] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.476517][f=-000001] Loaded synced gadget:  unit_xmas.lua       <unit_xmas.lua>
+[39m
+[16:24:13.513] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.476653][f=-000001] Loaded synced gadget:  Area Attack         <unit_areaattack.lua>
+[39m
+[16:24:13.513] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.476764][f=-000001] Loaded synced gadget:  Deny Invalid Mex Orders  <cmd_mex_denier.lua>
+[39m
+[16:24:13.513] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.476869][f=-000001] Loaded synced gadget:  Give Command        <cmd_give.lua>
+[39m
+[16:24:13.513] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.476970][f=-000001] Loaded synced gadget:  Message             <game_message.lua>
+[39m
+[16:24:13.513] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.477087][f=-000001] Loaded synced gadget:  Mission API triggers  <api_missions_triggers.lua>
+[39m
+[16:24:13.513] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.477189][f=-000001] Loaded synced gadget:  Music API for Gadgets  <api_music.lua>
+[39m
+[16:24:13.513] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.477303][f=-000001] Loaded synced gadget:  Projectile Over-Range and Leashing  <unit_projectile_overrange.lua>
+[39m
+[16:24:13.514] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.477408][f=-000001] Loaded synced gadget:  Send Command        <cmd_sendcommand.lua>
+[39m
+[16:24:13.514] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.477530][f=-000001] Loaded synced gadget:  Team Com Ends       <game_team_com_ends.lua>
+[39m
+[16:24:13.514] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.477644][f=-000001] Loaded synced gadget:  Team Death Effect   <game_team_death_effect.lua>
+[39m
+[16:24:13.514] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.477761][f=-000001] Loaded synced gadget:  Team Resourcing     <game_team_resources.lua>
+[39m
+[16:24:13.514] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.477882][f=-000001] Loaded synced gadget:  Unit Attributes API  <api_unit_attributes.lua>
+[39m
+[16:24:13.514] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.477981][f=-000001] Loaded synced gadget:  UnitDamagedReplay   <dbg_replay_data.lua>
+[39m
+[16:24:13.514] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.478104][f=-000001] Loaded synced gadget:  Weapon Smart Select  <unit_weapon_smart_select_helper.lua>
+[39m
+[16:24:13.514] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.478206][f=-000001] Loaded synced gadget:  Prevent Excessive Share  <game_prevent_excessive_share.lua>
+[39m
+[16:24:13.514] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.478304][f=-000001] Loaded synced gadget:  Garbage Collector   <api_garbage_collector.lua>
+[39m
+[16:24:13.515] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.478405][f=-000001] Loaded synced gadget:  Notifications       <snd_notifications.lua>
+[39m
+[16:24:13.515] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.478503][f=-000001] Loaded synced gadget:  Notifications Broadcaster  <snd_notifications_broadcaster.lua>
+[39m
+[16:24:13.515] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.478621][f=-000001] Loaded synced gadget:  Resurrection Behavior  <unit_resurrected.lua>
+[39m
+[16:24:13.515] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.478719][f=-000001] Loaded synced gadget:  Seismic Ping        <unit_seismic_ping.lua>
+[39m
+[16:24:13.515] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.478828][f=-000001] Loaded synced gadget:  Unit kill count     <unit_kill_count.lua>
+[39m
+[16:24:13.515] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.478936][f=-000001] Loaded synced gadget:  Cluster Munitions   <unit_custom_weapons_cluster.lua>
+[39m
+[16:24:13.516] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.479392][f=-000001] Loaded synced gadget:  Attached Construction Turret  <unit_attached_con_turret.lua>
+[39m
+[16:24:13.516] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.479494][f=-000001] Loaded synced gadget:  Paralyze On Off Behavior  <unit_paralyze_on_off.lua>
+[39m
+[16:24:13.516] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.479605][f=-000001] Loaded synced gadget:  Unit Respawning     <unit_respawning.lua>
+[39m
+[16:24:13.517] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.480355][f=-000001] Loaded synced gadget:  Unit Evolution      <unit_evolution.lua>
+[39m
+[16:24:13.517] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.480476][f=-000001] Loaded synced gadget:  Unit Explosion Spawner  <unit_explosion_spawner.lua>
+[39m
+[16:24:13.517] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.480614][f=-000001] Loaded synced gadget:  Unit Carrier Spawner  <unit_carrier_spawner.lua>
+[39m
+[16:24:13.517] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.480718][f=-000001] Loaded synced gadget:  Mobile Unit Paralyze Damage Handler  <unit_paralyze_damage_limit.lua>
+[39m
+[16:24:13.517] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.480819][f=-000001] Loaded synced gadget:  AI namer            <ai_namer.lua>
+[39m
+[16:24:13.517] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.480938][f=-000001] Loaded synced gadget:  Crashing Aircraft   <unit_crashing_aircraft.lua>
+[39m
+[16:24:13.517] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.481073][f=-000001] Loaded synced gadget:  Death Animations    <unit_death_animations.lua>
+[39m
+[16:24:13.518] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.481197][f=-000001] Loaded synced gadget:  Hats                <unit_hats.lua>
+[t=00:00:10.481296][f=-000001] Loaded synced gadget:  Sinking Ship        <unit_sinking_ship.lua>
+[t=00:00:10.481404][f=-000001] Loaded synced gadget:  Shield Effects      <gfx_unit_shield_effects.lua>
+[t=00:00:10.481503][f=-000001] Loaded synced gadget:  Synced Proxy        <dbg_synced_proxy.lua>
+[t=00:00:10.481604][f=-000001] Loaded synced gadget:  Test Environment Helper  <dbg_test_env_helper.lua>
+[39m
+[16:24:13.518] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.481718][f=-000001] Loaded synced gadget:  Map Waterlevel      <map_waterlevel.lua>
+[t=00:00:10.481824][f=-000001] Loaded synced gadget:  Scenario Loadout    <unit_scenario_loadout.lua>
+[39m
+[16:24:13.518] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.481924][f=-000001] Loaded synced gadget:  Scenario Script     <unit_scenario_script.lua>
+[39m
+[16:24:13.518] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.482035][f=-000001] Loaded synced gadget:  Gadget Profiler     <dbg_gadget_profiler.lua>
+[39m
+[16:24:13.518] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.482169][f=-000001] Loaded synced gadget:  APM Broadcast       <game_apm_broadcast.lua>
+[39m
+[16:24:13.521] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.485219][f=-000001] [CAS::GASCB] Archive file="seths_ravine_remake_1.3.1.sd7" cs="82667fbbd422ee2ef7d2cf078c4170184c43fc9239d0f6500b3a4b1dd7e8b9dac8c6db2463110322e3eb6dad274cf186cd3231af53f92eb78c37e9c7c3a71510"
+[39m
+[16:24:13.521] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.485253][f=-000001] [CAS::GASCB] Archive file="maphelper.sdz" cs="6ecfd8e47b2c0bde27517e92bd171d1d036e0482cbfc929a1925b5239e4d5947ed335df18ba4775b16843a9affe42b5fcd2aad9957bacb63a48ae005c799524e"
+[t=00:00:10.485283][f=-000001] [CAS::GASCB] Archive file="5f5916abbedbb6a873e1d6ab4c78fe02.sdp" cs="99e9198c39b315433e73c7b0cefdaa33516e60c7df7876e0b07d24253c7eddab6d41d98120c991d6714b5c9aa31b6ea0137a689adeecca516eaf6e48ed13ec67"
+[t=00:00:10.485300][f=-000001] [CAS::GASCB] Archive file="springcontent.sdz" cs="de60527c7c860677f3e5f2221cccfa210f0521c6813279b03ee9521dd0ed84dc26b80907649662b806277ba5b638e01d8bf31339434bc8b8ef9d8beab9f72a34"
+[39m
+[16:24:13.522] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.485322][f=-000001] [CAS::GASCB] Archive file="bitmaps.sdz" cs="13e1d0e6c3383afef7cda84eff1342271b1c82d13c66b376918ee61a25f77d5c662f6160ec74a121d59dbd8f29d9f10a00ab316cd1b3204a8be2c958c84a38eb"
+[39m
+[16:24:13.531] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.494581][f=-000001] Lava Mapname, Seths Ravine Remake 1.3.1
+[39m
+[16:24:13.534] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.497523][f=-000001] [BAR presentation] exact original LuaRules helper plus immutable presentation adapter
+[39m
+[16:24:13.535] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.498476][f=-000001] [BAR LuaRules NoGS helper] script=LuaRules cfg=1 inheritedGS=false resultGS=false specificAPI=false genericAPI=false
+[39m
+[16:24:13.541] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.504719][f=-000001] AllyTeamId: 0 startx: 0
+[t=00:00:10.504738][f=-000001] AllyTeamId: 1 startx: 0
+[t=00:00:10.504743][f=-000001] AllyTeamId: 2 startx: 0
+[39m
+[16:24:13.589] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.552530][f=-000001] <LockCamera>: Sorry for the camera switch spam, but this is the only reliable way to list camera states other than hardcoding them
+[t=00:00:10.552566][f=-000001] Switching to Overview style camera
+[t=00:00:10.552594][f=-000001] Switching to Spring style camera
+[39m
+[16:24:13.589] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.552644][f=-000001] Switching to Free style camera
+[t=00:00:10.552693][f=-000001] Switching to Dolly style camera
+[t=00:00:10.552727][f=-000001] Switching to Rotatable overhead camera
+[t=00:00:10.552745][f=-000001] Switching to Overhead (TA) style camera
+[t=00:00:10.552862][f=-000001] Switching to FPS style camera
+[t=00:00:10.552878][f=-000001] Switching to Overhead (TA) style camera
+[39m
+[16:24:13.609] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.572996][f=-000001] AllyTeamId: 0 startx: 0
+[t=00:00:10.573024][f=-000001] AllyTeamId: 1 startx: 0
+[t=00:00:10.573029][f=-000001] AllyTeamId: 2 startx: 0
+[39m
+[16:24:13.656] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.620207][f=-000001] [ATMOSPHERIC] Current map: seths ravine remake 1.3.1
+[t=00:00:10.620243][f=-000001] [ATMOSPHERIC] Success! Map names match!: seths ravine
+[39m
+[16:24:13.659] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.623218][f=-000001] REMOVED PVE BOSS DRONES
+[39m
+[16:24:13.724] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.687261][f=-000001] Loaded unsynced gadget:  Benchmark           <dbg_benchmark.lua>
+[39m
+[16:24:13.724] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.687408][f=-000001] Loaded unsynced gadget:  Dev Helper Cmds     <cmd_dev_helpers.lua>
+[t=00:00:10.687503][f=-000001] Loaded unsynced gadget:  Particle Benchmark  <dbg_particle_bench.lua>
+[39m
+[16:24:13.724] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.687585][f=-000001] Loaded unsynced gadget:  Synctest            <dbg_synctest.lua>
+[t=00:00:10.687661][f=-000001] Loaded unsynced gadget:  Dead Unit           <unit_dead.lua>
+[39m
+[16:24:13.724] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.687733][f=-000001] Loaded unsynced gadget:  Area Attack Limiter  <unit_areaattack_limiter.lua>
+[39m
+[16:24:13.724] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.687806][f=-000001] Loaded unsynced gadget:  CMD limiter         <cmd_limiter.lua>
+[t=00:00:10.687880][f=-000001] Loaded unsynced gadget:  GPU Profiler        <dbg_gpu_profiler.lua>
+[39m
+[16:24:13.725] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.689288][f=-000001] Loaded unsynced gadget:  Get Player Data     <cmd_get_player_data.lua>
+[39m
+[16:24:13.726] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.689383][f=-000001] Loaded unsynced gadget:  Stats               <api_damage_stats.lua>
+[39m
+[16:24:13.726] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.689460][f=-000001] Loaded unsynced gadget:  Permissions         <api_permissions.lua>
+[39m
+[16:24:13.726] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.689535][f=-000001] Loaded unsynced gadget:  No Share Load       <unit_prevent_share_load.lua>
+[t=00:00:10.689604][f=-000001] Loaded unsynced gadget:  No Share Self-D     <unit_prevent_share_self_d.lua>
+[39m
+[16:24:13.726] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.689686][f=-000001] Loaded unsynced gadget:  AutoColorPicker     <game_autocolors.lua>
+[39m
+[16:24:13.726] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.689764][f=-000001] Loaded unsynced gadget:  Explosion Deformation Fix  <map_explosion_deformation_fix.lua>
+[39m
+[16:24:13.726] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.689844][f=-000001] Loaded unsynced gadget:  Map Atmosphere CEGs  <map_atmosphere_cegs.lua>
+[39m
+[16:24:13.726] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.689958][f=-000001] Loaded unsynced gadget:  Map NightMode       <map_nightmode.lua>
+[39m
+[16:24:13.726] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.690031][f=-000001] Loaded unsynced gadget:  Feature Death Explosion  <feature_dead_explosion.lua>
+[39m
+[16:24:13.726] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.690108][f=-000001] Loaded unsynced gadget:  Projectile Dispatch  <gfx_projectile_dispatch.lua>
+[39m
+[16:24:13.727] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.690614][f=-000001] Loaded unsynced gadget:  IconGenerator       <unit_icongenerator.lua>
+[39m
+[16:24:13.727] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.690700][f=-000001] Loaded unsynced gadget:  API Resource Spot Finder (mex/geo)  <api_resource_spot_finder.lua>
+[39m
+[16:24:13.727] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.690784][f=-000001] Loaded unsynced gadget:  CameraBroadcast     <data_camera_broadcast.lua>
+[39m
+[16:24:13.727] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.690869][f=-000001] Loaded unsynced gadget:  Map Lava Gadget 2.5  <map_lava.lua>
+[39m
+[16:24:13.727] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.690945][f=-000001] Loaded unsynced gadget:  AA Targeting Priority  <unit_aa_targeting_priority.lua>
+[39m
+[16:24:13.727] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.691020][f=-000001] Loaded unsynced gadget:  Awards              <game_awards.lua>
+[39m
+[16:24:13.727] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.691093][f=-000001] Loaded unsynced gadget:  Collision Damage Behavior  <unit_collision_damage_behavior.lua>
+[39m
+[16:24:13.727] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.691167][f=-000001] Loaded unsynced gadget:  Dynamic Build Options API  <api_dynamic_build_options.lua>
+[39m
+[16:24:13.727] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.691243][f=-000001] Loaded unsynced gadget:  Feature ETA Widget Forwarding  <feature_eta_widget_forwarding.lua>
+[39m
+[16:24:13.727] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.691316][f=-000001] Loaded unsynced gadget:  Geo fix             <map_geofix.lua>
+[39m
+[16:24:13.728] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.691401][f=-000001] Loaded unsynced gadget:  Healthbars Widget Forwarding  <unit_healthbars_widget_forwarding.lua>
+[39m
+[16:24:13.737] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.700465][f=-000001] Loaded unsynced gadget:  PBR enabler         <api_pbr_enabler.lua>
+[39m
+[16:24:13.742] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.706174][f=-000001] LuaShader: [scumShader] shader warning(s):
+0:31045(19): warning: `fragColor' used uninitialized
+
+[39m
+[16:24:13.744] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.708038][f=-000001] Loaded unsynced gadget:  Raptor Scum GL4     <gfx_raptor_scum_gl4.lua>
+[39m
+[16:24:13.744] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.708095][f=-000001] Map Sun Handler: Clearing groundSpecularColor via SetSunLighting because map does not change it from default.
+[39m
+[16:24:13.744] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.708262][f=-000001] Loaded unsynced gadget:  Sun Handler         <map_sun_handler.lua>
+[39m
+[16:24:13.745] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.708339][f=-000001] Loaded unsynced gadget:  Team Power Watcher  <game_team_power_watcher.lua>
+[39m
+[16:24:13.745] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.708465][f=-000001] Loaded unsynced gadget:  UnitCallinsGadget   <dbg_unit_callins.lua>
+[t=00:00:10.708544][f=-000001] Loaded unsynced gadget:  Activity Broadcast  <data_activity_broadcast.lua>
+[39m
+[16:24:13.745] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.708618][f=-000001] Loaded unsynced gadget:  AirPlantParents     <unit_air_plants.lua>
+[t=00:00:10.708698][f=-000001] Loaded unsynced gadget:  Ally Selected Units  <data_selected_units.lua>
+[39m
+[16:24:13.745] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.708770][f=-000001] Loaded unsynced gadget:  AllyTeam ranking    <game_allyteam_ranking.lua>
+[39m
+[16:24:13.745] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.708852][f=-000001] Loaded unsynced gadget:  Area Mex            <cmd_area_mex.lua>
+[t=00:00:10.708925][f=-000001] Loaded unsynced gadget:  Area Timed Damage Handler  <unit_area_timed_damage.lua>
+[39m
+[16:24:13.751] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.715266][f=-000001] BeamLaserGL4,  recompiled in , 6, ms at, 0, success, true
+[39m
+[16:24:13.755] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.718808][f=-000001] BeamLaserFlareGL4,  recompiled in , 3, ms at, 0, success, true
+[39m
+[16:24:13.760] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.723510][f=-000001] BeamLaserGlowGL4,  recompiled in , 5, ms at, 0, success, true
+[39m
+[16:24:13.765] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.728617][f=-000001] BeamLaserPulseGL4,  recompiled in , 5, ms at, 0, success, true
+[39m
+[16:24:13.765] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.728792][f=-000001] Loaded unsynced gadget:  Beam Laser GL4      <gfx_beam_laser_gl4.lua>
+[t=00:00:10.728877][f=-000001] Loaded unsynced gadget:  Bomber Move State   <unit_bomber_hide_move_state.lua>
+[39m
+[16:24:13.765] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.728958][f=-000001] Loaded unsynced gadget:  Bomber No Air Target  <unit_bomber_no_air_target.lua>
+[t=00:00:10.729039][f=-000001] Loaded unsynced gadget:  Build Blocking API  <api_build_blocking.lua>
+[39m
+[16:24:13.765] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.729127][f=-000001] Loaded unsynced gadget:  Build Icons Slowly (/luarules buildiconslow or buildiconanim or buildiconanimslow)  <dbg_buildicons_run.lua>
+[39m
+[16:24:13.765] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.729201][f=-000001] Loaded unsynced gadget:  Builder Priority    <unit_builder_priority.lua>
+[t=00:00:10.729276][f=-000001] Loaded unsynced gadget:  Builder buggeroff   <cmd_build_bugger_off.lua>
+[39m
+[16:24:13.766] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.729352][f=-000001] Loaded unsynced gadget:  CEG Preview         <game_ceg_preview.lua>
+[t=00:00:10.729416][f=-000001] [CUS GL4] Initializing materials
+[39m
+[16:24:13.767] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.730732][f=-000001] [CUS GL4] Compiling Shaders
+[39m
+[16:24:13.771] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:10.735144][f=-000001] [BAR CUS palette] applied: 2048 entries; invalid raw index uses rendered team; reserved 255 excluded
+[39m
+[16:24:14.250] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.214170][f=-000001] [CUS GL4] Initializing bins
+[t=00:00:11.214193][f=-000001] [CUS GL4] Init Feature bins
+[39m
+[16:24:14.264] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.228209][f=-000001] [CUS GL4] Init Unit bins
+[39m
+[16:24:14.274] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.237627][f=-000001] [CUS GL4] Queued pregame warm-up for, 16, shaders,, 32, textures and, 8, draws
+[t=00:00:11.237653][f=-000001] [CUS GL4] Collecting units
+[39m
+[16:24:14.274] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.237673][f=-000001] [CUS GL4] Ready
+[t=00:00:11.237761][f=-000001] Loaded unsynced gadget:  CUS GL4             <cus_gl4.lua>
+[39m
+[16:24:14.274] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.237863][f=-000001] Loaded unsynced gadget:  Cancel orders on share  <unit_cancel_orders_on_share.lua>
+[39m
+[16:24:14.274] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.237937][f=-000001] Loaded unsynced gadget:  Capture Only Enemy  <unit_capture_only_enemy.lua>
+[t=00:00:11.238018][f=-000001] Loaded unsynced gadget:  Clone Tool          <cmd_clone_tool.lua>
+[39m
+[16:24:14.274] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.238090][f=-000001] Loaded unsynced gadget:  Cob Debug           <dbg_cob_debug.lua>
+[t=00:00:11.238166][f=-000001] Loaded unsynced gadget:  Commander Dance Command  <cmd_commander_dance.lua>
+[t=00:00:11.238237][f=-000001] Loaded unsynced gadget:  Continuous Aim      <unit_continuous_aim.lua>
+[39m
+[16:24:14.275] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.238330][f=-000001] Loaded unsynced gadget:  Cursor Broadcast    <cmd_mouse_pos_broadcast.lua>
+[39m
+[16:24:14.275] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.238404][f=-000001] Loaded unsynced gadget:  Cursors             <unit_cursors.lua>
+[39m
+[16:24:14.275] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.238489][f=-000001] Loaded unsynced gadget:  Custom weapon behaviours  <unit_custom_weapons_behaviours.lua>
+[39m
+[16:24:14.275] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.238567][f=-000001] Loaded unsynced gadget:  D-Gun Behaviour     <unit_dgun_behaviour.lua>
+[t=00:00:11.238639][f=-000001] Loaded unsynced gadget:  Debris Explosions   <gfx_debrisexplosions.lua>
+[39m
+[16:24:14.275] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.238730][f=-000001] Loaded unsynced gadget:  Display DPS         <gui_display_dps.lua>
+[39m
+[16:24:14.275] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.238805][f=-000001] Loaded unsynced gadget:  Dragons Disguise    <unit_dragons_disguise.lua>
+[t=00:00:11.238879][f=-000001] Loaded unsynced gadget:  Dynamic collision volume & Hitsphere Scaledown  <unit_dynamic_collision_volume.lua>
+[39m
+[16:24:14.289] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.253170][f=-000001] UnitEnergyExplosionParticlesGL4_NoGS,  recompiled in , 14, ms at, 0, success, true
+[39m
+[16:24:14.294] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.257819][f=-000001] Loaded unsynced gadget:  Energy Explosion Particles GL4  <gfx_energy_explosion_particles_gl4.lua>
+[39m
+[16:24:14.301] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.265193][f=-000001] EnvLightningBoltGL4,  recompiled in , 8, ms at, 0, success, true
+[39m
+[16:24:14.306] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.269794][f=-000001] EnvLightningGlowGL4,  recompiled in , 4, ms at, 0, success, true
+[39m
+[16:24:14.307] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.270489][f=-000001] Loaded unsynced gadget:  Environmental Lightning GL4  <gfx_environmental_lightning_gl4.lua>
+[39m
+[16:24:14.307] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.270587][f=-000001] Loaded unsynced gadget:  Experimental Bots Steps Damages  <unit_stomp.lua>
+[39m
+[16:24:14.307] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.270677][f=-000001] Loaded unsynced gadget:  Explosion_lights    <gfx_explosion_lights.lua>
+[39m
+[16:24:14.307] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.270760][f=-000001] Loaded unsynced gadget:  FPS Broadcast       <game_fps_broadcast.lua>
+[39m
+[16:24:14.307] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.270848][f=-000001] Loaded unsynced gadget:  Factory Stop Production  <cmd_factory_stop_production.lua>
+[t=00:00:11.270928][f=-000001] Loaded unsynced gadget:  Feature Placer      <cmd_feature_placer.lua>
+[39m
+[16:24:14.314] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.278162][f=-000001] FireSmokeGL4,  recompiled in , 7, ms at, 0, success, true
+[39m
+[16:24:14.331] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.295131][f=-000001] Loaded unsynced gadget:  Fire & Smoke GL4    <gfx_fire_smoke_gl4.lua>
+[39m
+[16:24:14.337] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.300994][f=-000001] FireGL4,  recompiled in , 5, ms at, 0, success, true
+[39m
+[16:24:14.341] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.305137][f=-000001] Loaded unsynced gadget:  Fire GL4            <gfx_fire_gl4.lua>
+[39m
+[16:24:14.347] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.311148][f=-000001] FlamethrowerGL4,  recompiled in , 6, ms at, 0, success, true
+[39m
+[16:24:14.352] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.316039][f=-000001] Loaded unsynced gadget:  Flamethrower GL4    <gfx_flamethrower_gl4.lua>
+[39m
+[16:24:14.352] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.316147][f=-000001] Loaded unsynced gadget:  Footprint clearance  <unit_footprint_clearance.lua>
+[39m
+[16:24:14.352] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.316228][f=-000001] Loaded unsynced gadget:  Frame Time Broadcast  <game_frametime_broadcast.lua>
+[39m
+[16:24:14.352] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.316312][f=-000001] Loaded unsynced gadget:  GPU mem Broadcast   <data_gpumem_broadcast.lua>
+[39m
+[16:24:14.353] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.316400][f=-000001] Loaded unsynced gadget:  GUI Sound Effects player  <snd_soundeffects.lua>
+[39m
+[16:24:14.353] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.316483][f=-000001] Loaded unsynced gadget:  Game End            <game_end.lua>
+[39m
+[16:24:14.353] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.316576][f=-000001] Loaded unsynced gadget:  Game Pause          <api_game_pause.lua>
+[39m
+[16:24:14.353] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.316653][f=-000001] Loaded unsynced gadget:  Geo Upgrade Reclaimer  <unit_geo_upgrade_reclaimer.lua>
+[39m
+[16:24:14.353] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.316735][f=-000001] Loaded unsynced gadget:  Initial Spawn       <game_initial_spawn.lua>
+[39m
+[16:24:14.353] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.316824][f=-000001] Loaded unsynced gadget:  Juno Damage         <unit_juno_damage.lua>
+[39m
+[16:24:14.360] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.324323][f=-000001] LightningCannonBoltGL4,  recompiled in , 8, ms at, 0, success, true
+[39m
+[16:24:14.365] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.329003][f=-000001] LightningCannonGlowGL4,  recompiled in , 4, ms at, 0, success, true
+[39m
+[16:24:14.369] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.332781][f=-000001] LightningCannonImpactGL4,  recompiled in , 4, ms at, 0, success, true
+[39m
+[16:24:14.369] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.333118][f=-000001] Loaded unsynced gadget:  Lightning Cannon GL4  <gfx_lightning_cannon_gl4.lua>
+[39m
+[16:24:14.369] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.333206][f=-000001] Loaded unsynced gadget:  Load/unload         <unit_airtransport_load_unload.lua>
+[39m
+[16:24:14.369] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.333290][f=-000001] Loaded unsynced gadget:  Lua mem Broadcast   <data_luamem_broadcast.lua>
+[39m
+[16:24:14.370] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.333378][f=-000001] Loaded unsynced gadget:  LuaUI Reload        <cmd_luaui_reload.lua>
+[39m
+[16:24:14.370] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.333455][f=-000001] Loaded unsynced gadget:  Manual launch command  <cmd_manual_launch.lua>
+[39m
+[16:24:14.370] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.333537][f=-000001] Loaded unsynced gadget:  Map Project Unit Loadout  <cmd_map_project_units.lua>
+[39m
+[16:24:14.370] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.333624][f=-000001] Loaded unsynced gadget:  Metal Brush         <cmd_metal_brush.lua>
+[39m
+[16:24:14.370] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.333702][f=-000001] Loaded unsynced gadget:  Mex Upgrade Reclaimer  <unit_mex_upgrade_reclaimer.lua>
+[39m
+[16:24:14.370] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.333781][f=-000001] Loaded unsynced gadget:  Mines fire state    <cmd_mines_firestate.lua>
+[39m
+[16:24:14.375] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.338626][f=-000001] MissileThrusterFlameGL4,  recompiled in , 5, ms at, 0, success, true
+[39m
+[16:24:14.379] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.342713][f=-000001] MissileThrusterCrossSectionGL4,  recompiled in , 4, ms at, 0, success, true
+[39m
+[16:24:14.383] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.346670][f=-000001] MissileThrusterGlowGL4,  recompiled in , 4, ms at, 0, success, true
+[39m
+[16:24:14.383] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.346939][f=-000001] Missile Thruster GL4: initialized with 103 weapon configs
+[39m
+[16:24:14.383] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.347032][f=-000001] Loaded unsynced gadget:  Missile Thruster GL4  <gfx_missile_thruster_gl4.lua>
+[39m
+[16:24:14.404] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.367879][f=-000001] NanoParticlesGL4_Shape_NoGS,  recompiled in , 20, ms at, 0, success, true
+[39m
+[16:24:14.409] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.372377][f=-000001] Loaded unsynced gadget:  Nano Particles GL4  <gfx_nano_particles_gl4.lua>
+[39m
+[16:24:14.409] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.372516][f=-000001] Loaded unsynced gadget:  Nano Radar Pos      <unit_nanoradarpos.lua>
+[39m
+[16:24:14.409] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.372605][f=-000001] Loaded unsynced gadget:  Objectify           <unit_objectify.lua>
+[39m
+[16:24:14.409] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.372685][f=-000001] Loaded unsynced gadget:  Only Target Emp-able units  <unit_onlytargetempable.lua>
+[39m
+[16:24:14.409] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.372768][f=-000001] Loaded unsynced gadget:  Only Target onlytargetcategory  <unit_onlytargetcategory.lua>
+[39m
+[16:24:14.422] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.386112][f=-000001] PlasmaCannonGL4,  recompiled in , 13, ms at, 0, success, true
+[39m
+[16:24:14.428] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.392096][f=-000001] PlasmaCannonCrossSectionGL4,  recompiled in , 5, ms at, 0, success, true
+[39m
+[16:24:14.432] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.396058][f=-000001] PlasmaCannonGlowGL4,  recompiled in , 4, ms at, 0, success, true
+[39m
+[16:24:14.432] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.396227][f=-000001] Plasma Cannon GL4: initialized with 335 cannon weapon configs
+[39m
+[16:24:14.432] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.396314][f=-000001] Loaded unsynced gadget:  Plasma Cannon GL4   <gfx_plasma_cannon_gl4.lua>
+[39m
+[16:24:14.433] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.396422][f=-000001] Loaded unsynced gadget:  Pre-aim             <unit_preaim.lua>
+[39m
+[16:24:14.433] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.396511][f=-000001] Loaded unsynced gadget:  Prevent Cloaked Unit Reclaim  <unit_prevent_cloaked_unit_reclaim.lua>
+[39m
+[16:24:14.433] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.396590][f=-000001] Loaded unsynced gadget:  Prevent Lab Hax2    <unit_prevent_lab_hax2.lua>
+[39m
+[16:24:14.433] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.396668][f=-000001] Loaded unsynced gadget:  Prevent Nanoframe Blocking Hax  <unit_prevent_nanoframe_blocking_hax.lua>
+[39m
+[16:24:14.433] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.396746][f=-000001] Loaded unsynced gadget:  Prevent Self Guard  <unit_prevent_self_guard.lua>
+[39m
+[16:24:14.433] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.396822][f=-000001] Loaded unsynced gadget:  Prevent Unload Hax  <unit_prevent_unload_hax.lua>
+[39m
+[16:24:14.433] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.396899][f=-000001] Loaded unsynced gadget:  PvE Builder Controller  <pve_builder_controller.lua>
+[39m
+[16:24:14.433] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.396976][f=-000001] Loaded unsynced gadget:  Raptor Area Healers  <pve_areahealers.lua>
+[39m
+[16:24:14.433] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.397053][f=-000001] Loaded unsynced gadget:  Raptor Defense Nuke Controller  <pve_nuke_controller.lua>
+[39m
+[16:24:14.433] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.397132][f=-000001] Loaded unsynced gadget:  Raptor Queen Anti-Dgun behavior  <pve_boss_priority_targetting.lua>
+[39m
+[16:24:14.433] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.397218][f=-000001] Loaded unsynced gadget:  Reclaim Fix         <unit_reclaim_fix.lua>
+[39m
+[16:24:14.433] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.397305][f=-000001] Loaded unsynced gadget:  Reclaim effect      <gfx_reclaim_fx.lua>
+[39m
+[16:24:14.434] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.397389][f=-000001] Loaded unsynced gadget:  Refund on lab reclaimed  <unit_refund_on_lab_reclaimed.lua>
+[39m
+[16:24:14.434] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.397503][f=-000001] Loaded unsynced gadget:  Reset Palette On Load  <gfx_reset_palette_on_load.lua>
+[39m
+[16:24:14.434] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.397590][f=-000001] Loaded unsynced gadget:  Restart With State  <game_restart_with_state.lua>
+[39m
+[16:24:14.434] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.397668][f=-000001] Loaded unsynced gadget:  Scav Cloud Spawner  <scav_cloud_spawner.lua>
+[39m
+[16:24:14.434] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.397746][f=-000001] Loaded unsynced gadget:  Scav Spawn Effect   <scav_spawn_effect.lua>
+[39m
+[16:24:14.434] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.397824][f=-000001] Loaded unsynced gadget:  Stockpile control   <unit_stockpile_limit.lua>
+[39m
+[16:24:14.434] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.398290][f=-000001] infologVersionTags:engine=2026.09.01-24-g01efdf4 master,game=Beyond All Reason test-31671-ad2e1b7,lobby=BYAR Chobby test-4660-15c02d2,map=Seths Ravine Remake 1.3.1
+[39m
+[16:24:14.439] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.403085][f=-000001] Loaded unsynced gadget:  System info         <data_system_info.lua>
+[39m
+[16:24:14.440] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.403679][f=-000001] Loaded unsynced gadget:  Target on the move  <unit_target_on_the_move.lua>
+[39m
+[16:24:14.440] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.403821][f=-000001] Loaded unsynced gadget:  Team stats          <api_teamstats.lua>
+[39m
+[16:24:14.440] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.403910][f=-000001] Loaded unsynced gadget:  Terraform Brush     <cmd_terraform_brush.lua>
+[39m
+[16:24:14.440] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.403989][f=-000001] Loaded unsynced gadget:  Tombstones          <unit_tombstones.lua>
+[39m
+[16:24:14.440] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.404068][f=-000001] Loaded unsynced gadget:  Transported building Ghost Remover  <unit_transported_building_ghost.lua>
+[39m
+[16:24:14.440] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.404147][f=-000001] Loaded unsynced gadget:  Tree feller         <gfx_tree_feller.lua>
+[39m
+[16:24:14.440] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.404226][f=-000001] Loaded unsynced gadget:  TurnRadius          <unit_airunitsturnradius.lua>
+[39m
+[16:24:14.440] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.404306][f=-000001] Loaded unsynced gadget:  Unally on demand    <cmd_alliance_break.lua>
+[39m
+[16:24:14.441] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.404385][f=-000001] Loaded unsynced gadget:  UnderwaterPickup    <unit_disallow_underwater_load.lua>
+[39m
+[16:24:14.441] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.404471][f=-000001] Loaded unsynced gadget:  Unit Capture Decay  <unit_capture_decay.lua>
+[39m
+[16:24:14.441] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.404557][f=-000001] Loaded unsynced gadget:  Unit Placer         <cmd_unit_placer.lua>
+[39m
+[16:24:14.441] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.404643][f=-000001] Loaded unsynced gadget:  Unit Script Decals  <gfx_unit_script_decals.lua>
+[39m
+[16:24:14.441] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.404731][f=-000001] Loaded unsynced gadget:  Unit Script Lights and Distortion  <gfx_unit_script_lights.lua>
+[39m
+[16:24:14.441] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.404813][f=-000001] Loaded unsynced gadget:  Volcano Pyroclastic Eruptions  <game_volcano_pyroclastic.lua>
+[39m
+[16:24:14.441] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.404892][f=-000001] Loaded unsynced gadget:  Water Crush and Collision Damage  <unit_water_depth_damage.lua>
+[39m
+[16:24:14.441] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.404971][f=-000001] Loaded unsynced gadget:  Water Type Overlay State  <gfx_water_type_overlay_state.lua>
+[39m
+[16:24:14.441] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.405050][f=-000001] Loaded unsynced gadget:  Weather Brush CEG Spawner  <cmd_weather_brush.lua>
+[39m
+[16:24:14.441] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.405139][f=-000001] Loaded unsynced gadget:  Widget Events       <api_widget_events.lua>
+[39m
+[16:24:14.441] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.405227][f=-000001] Loaded unsynced gadget:  ai_ruins.lua        <ai_ruins.lua>
+[39m
+[16:24:14.441] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.405306][f=-000001] Loaded unsynced gadget:  cmd_idle_players.lua  <cmd_idle_players.lua>
+[39m
+[16:24:14.442] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.405386][f=-000001] Loaded unsynced gadget:  cmd_onoffdesc.lua   <cmd_onoffdesc.lua>
+[39m
+[16:24:14.442] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.405465][f=-000001] Loaded unsynced gadget:  cmd_paused_is_paused.lua  <cmd_paused_is_paused.lua>
+[39m
+[16:24:14.442] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.405546][f=-000001] Loaded unsynced gadget:  cmd_remove_stop.lua  <cmd_remove_stop.lua>
+[39m
+[16:24:14.442] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.405625][f=-000001] Loaded unsynced gadget:  cmd_remove_wait.lua  <cmd_remove_wait.lua>
+[39m
+[16:24:14.442] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.405704][f=-000001] Loaded unsynced gadget:  cmd_undo.lua        <cmd_undo.lua>
+[39m
+[16:24:14.442] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.405783][f=-000001] Loaded unsynced gadget:  dbg_gadget_auto_reloader.lua  <dbg_gadget_auto_reloader.lua>
+[39m
+[16:24:14.442] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.405862][f=-000001] Loaded unsynced gadget:  feature_debris_physics.lua  <feature_debris_physics.lua>
+[39m
+[16:24:14.442] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.405944][f=-000001] Loaded unsynced gadget:  fog_layer           <fog_layer.lua>
+[39m
+[16:24:14.442] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.406029][f=-000001] Loaded unsynced gadget:  fx_reclaim_shards   <gfx_reclaim_shards.lua>
+[39m
+[16:24:14.442] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.406110][f=-000001] Loaded unsynced gadget:  game_assistdronespawn.lua  <game_assistdronespawn.lua>
+[39m
+[16:24:14.442] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.406190][f=-000001] Loaded unsynced gadget:  game_commander_builder.lua  <game_commander_builder.lua>
+[39m
+[16:24:14.442] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.406270][f=-000001] Loaded unsynced gadget:  game_draft_spawn_order.lua  <game_draft_spawn_order.lua>
+[39m
+[16:24:14.443] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.406350][f=-000001] Loaded unsynced gadget:  game_dynamic_maxunits.lua  <game_dynamic_maxunits.lua>
+[39m
+[16:24:14.443] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.406433][f=-000001] Loaded unsynced gadget:  game_ffa_start_setup.lua  <game_ffa_start_setup.lua>
+[39m
+[16:24:14.443] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.406513][f=-000001] Loaded unsynced gadget:  game_id.lua         <game_id.lua>
+[39m
+[16:24:14.443] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.406593][f=-000001] Loaded unsynced gadget:  game_logger.lua     <game_logger.lua>
+[39m
+[16:24:14.443] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.406674][f=-000001] Loaded unsynced gadget:  game_no_share_to_enemy  <game_no_share_to_enemy.lua>
+[39m
+[16:24:14.443] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.406755][f=-000001] Loaded unsynced gadget:  game_selfd_resign.lua  <game_selfd_resign.lua>
+[39m
+[16:24:14.443] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.406841][f=-000001] Loaded unsynced gadget:  gfx_wade_fx.lua     <gfx_wade_fx.lua>
+[39m
+[16:24:14.443] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.406922][f=-000001] Loaded unsynced gadget:  map_metal_spot_placer.lua  <map_metal_spot_placer.lua>
+[39m
+[16:24:14.443] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.407002][f=-000001] Loaded unsynced gadget:  map_voidground.lua  <map_voidground.lua>
+[39m
+[16:24:14.443] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.407083][f=-000001] Loaded unsynced gadget:  unit_allow_builder_hold_fire.lua  <unit_allow_builder_hold_fire.lua>
+[39m
+[16:24:14.443] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.407164][f=-000001] Loaded unsynced gadget:  unit_custommaxranges.lua  <unit_custommaxranges.lua>
+[39m
+[16:24:14.443] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.407245][f=-000001] Loaded unsynced gadget:  unit_defend_firestate.lua  <unit_defend_firestate.lua>
+[39m
+[16:24:14.443] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.407326][f=-000001] Loaded unsynced gadget:  unit_factory_guard.lua  <unit_factory_guard.lua>
+[39m
+[16:24:14.444] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.407407][f=-000001] Loaded unsynced gadget:  unit_factory_quota.lua  <unit_factory_quota.lua>
+[39m
+[16:24:14.444] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.407488][f=-000001] Loaded unsynced gadget:  unit_factory_unblocking.lua  <unit_factory_unblocking.lua>
+[39m
+[16:24:14.444] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.407574][f=-000001] Loaded unsynced gadget:  unit_firestate_handler.lua  <unit_firestate_handler.lua>
+[39m
+[16:24:14.444] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.407656][f=-000001] Loaded unsynced gadget:  unit_juno_damage_mini.lua  <unit_juno_damage_mini.lua>
+[39m
+[16:24:14.444] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.407738][f=-000001] Loaded unsynced gadget:  unit_timeslow.lua   <unit_timeslow.lua>
+[39m
+[16:24:14.444] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.407820][f=-000001] Loaded unsynced gadget:  unit_transport_dies_load_dies.lua  <unit_transport_dies_load_dies.lua>
+[39m
+[16:24:14.444] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.407902][f=-000001] Loaded unsynced gadget:  unit_xmas.lua       <unit_xmas.lua>
+[39m
+[16:24:14.444] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.407984][f=-000001] Loaded unsynced gadget:  Area Attack         <unit_areaattack.lua>
+[39m
+[16:24:14.444] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.408065][f=-000001] Loaded unsynced gadget:  Deny Invalid Mex Orders  <cmd_mex_denier.lua>
+[39m
+[16:24:14.444] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.408196][f=-000001] Loaded unsynced gadget:  Give Command        <cmd_give.lua>
+[39m
+[16:24:14.444] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.408286][f=-000001] Loaded unsynced gadget:  Message             <game_message.lua>
+[39m
+[16:24:14.445] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.408370][f=-000001] Loaded unsynced gadget:  Music API for Gadgets  <api_music.lua>
+[39m
+[16:24:14.445] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.408463][f=-000001] Loaded unsynced gadget:  Projectile Over-Range and Leashing  <unit_projectile_overrange.lua>
+[39m
+[16:24:14.445] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.408582][f=-000001] Loaded unsynced gadget:  Send Command        <cmd_sendcommand.lua>
+[39m
+[16:24:14.445] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.408665][f=-000001] Loaded unsynced gadget:  Team Com Ends       <game_team_com_ends.lua>
+[39m
+[16:24:14.445] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.408748][f=-000001] Loaded unsynced gadget:  Team Death Effect   <game_team_death_effect.lua>
+[39m
+[16:24:14.445] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.408831][f=-000001] Loaded unsynced gadget:  Unit Attributes API  <api_unit_attributes.lua>
+[39m
+[16:24:14.445] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.408921][f=-000001] Loaded unsynced gadget:  UnitDamagedReplay   <dbg_replay_data.lua>
+[39m
+[16:24:14.445] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.409004][f=-000001] Loaded unsynced gadget:  Weapon Smart Select  <unit_weapon_smart_select_helper.lua>
+[39m
+[16:24:14.445] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.409091][f=-000001] Loaded unsynced gadget:  Garbage Collector   <api_garbage_collector.lua>
+[39m
+[16:24:14.445] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.409177][f=-000001] Loaded unsynced gadget:  Atmosphere Sound Effects  <gfx_atmosphere.lua>
+[39m
+[16:24:14.445] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.409263][f=-000001] Loaded unsynced gadget:  Battle Volume Controller  <snd_battle_volume_controller.lua>
+[39m
+[16:24:14.446] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.409360][f=-000001] Loaded unsynced gadget:  Notifications       <snd_notifications.lua>
+[39m
+[16:24:14.446] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.409444][f=-000001] Loaded unsynced gadget:  Notifications Broadcaster  <snd_notifications_broadcaster.lua>
+[39m
+[16:24:14.446] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.409542][f=-000001] Loaded unsynced gadget:  Seismic Ping        <unit_seismic_ping.lua>
+[39m
+[16:24:14.446] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.409624][f=-000001] Loaded unsynced gadget:  Unit kill count     <unit_kill_count.lua>
+[39m
+[16:24:14.446] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.409965][f=-000001] Loaded unsynced gadget:  Unit Respawning     <unit_respawning.lua>
+[39m
+[16:24:14.447] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.410532][f=-000001] Loaded unsynced gadget:  Unit Evolution      <unit_evolution.lua>
+[39m
+[16:24:14.447] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.410624][f=-000001] Loaded unsynced gadget:  AI namer            <ai_namer.lua>
+[39m
+[16:24:14.447] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.410717][f=-000001] Loaded unsynced gadget:  Crashing Aircraft   <unit_crashing_aircraft.lua>
+[39m
+[16:24:14.447] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.410799][f=-000001] Loaded unsynced gadget:  Death Animations    <unit_death_animations.lua>
+[39m
+[16:24:14.447] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.410884][f=-000001] Loaded unsynced gadget:  Hats                <unit_hats.lua>
+[39m
+[16:24:14.447] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.411040][f=-000001] Loaded unsynced gadget:  Sinking Ship        <unit_sinking_ship.lua>
+[39m
+[16:24:14.479] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.442431][f=-000001] Loaded unsynced gadget:  Shield Effects      <gfx_unit_shield_effects.lua>
+[39m
+[16:24:14.479] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.442580][f=-000001] Loaded unsynced gadget:  Synced Proxy        <dbg_synced_proxy.lua>
+[39m
+[16:24:14.479] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.442666][f=-000001] Loaded unsynced gadget:  Test Environment Helper  <dbg_test_env_helper.lua>
+[39m
+[16:24:14.479] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.442763][f=-000001] Loaded unsynced gadget:  Map Waterlevel      <map_waterlevel.lua>
+[39m
+[16:24:14.479] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.442849][f=-000001] Loaded unsynced gadget:  Scenario Loadout    <unit_scenario_loadout.lua>
+[39m
+[16:24:14.479] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.442934][f=-000001] Loaded unsynced gadget:  Scenario Script     <unit_scenario_script.lua>
+[39m
+[16:24:14.479] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.443024][f=-000001] Loaded unsynced gadget:  Gadget Profiler     <dbg_gadget_profiler.lua>
+[39m
+[16:24:14.479] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.443118][f=-000001] Loaded unsynced gadget:  APM Broadcast       <game_apm_broadcast.lua>
+[39m
+[16:24:14.526] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.489385][f=-000001] [LoadScreen::SetLoadMessage] text="Loading LuaGaia"
+[39m
+[16:24:14.530] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.493363][f=-000001] [CAS::GASCB] Archive file="seths_ravine_remake_1.3.1.sd7" cs="82667fbbd422ee2ef7d2cf078c4170184c43fc9239d0f6500b3a4b1dd7e8b9dac8c6db2463110322e3eb6dad274cf186cd3231af53f92eb78c37e9c7c3a71510"
+[39m
+[16:24:14.530] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.493405][f=-000001] [CAS::GASCB] Archive file="maphelper.sdz" cs="6ecfd8e47b2c0bde27517e92bd171d1d036e0482cbfc929a1925b5239e4d5947ed335df18ba4775b16843a9affe42b5fcd2aad9957bacb63a48ae005c799524e"
+[t=00:00:11.493439][f=-000001] [CAS::GASCB] Archive file="5f5916abbedbb6a873e1d6ab4c78fe02.sdp" cs="99e9198c39b315433e73c7b0cefdaa33516e60c7df7876e0b07d24253c7eddab6d41d98120c991d6714b5c9aa31b6ea0137a689adeecca516eaf6e48ed13ec67"
+[t=00:00:11.493457][f=-000001] [CAS::GASCB] Archive file="springcontent.sdz" cs="de60527c7c860677f3e5f2221cccfa210f0521c6813279b03ee9521dd0ed84dc26b80907649662b806277ba5b638e01d8bf31339434bc8b8ef9d8beab9f72a34"
+[t=00:00:11.493498][f=-000001] [CAS::GASCB] Archive file="bitmaps.sdz" cs="13e1d0e6c3383afef7cda84eff1342271b1c82d13c66b376918ee61a25f77d5c662f6160ec74a121d59dbd8f29d9f10a00ab316cd1b3204a8be2c958c84a38eb"
+[39m
+[16:24:14.547] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.510353][f=-000001] [~ScopedOnceTimer][creg::AutoRegisterCFunctions(LuaGaia)] 16ms
+[39m
+[16:24:14.558] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.521625][f=-000001] [CAS::GASCB] Archive file="seths_ravine_remake_1.3.1.sd7" cs="82667fbbd422ee2ef7d2cf078c4170184c43fc9239d0f6500b3a4b1dd7e8b9dac8c6db2463110322e3eb6dad274cf186cd3231af53f92eb78c37e9c7c3a71510"
+[39m
+[16:24:14.558] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.521665][f=-000001] [CAS::GASCB] Archive file="maphelper.sdz" cs="6ecfd8e47b2c0bde27517e92bd171d1d036e0482cbfc929a1925b5239e4d5947ed335df18ba4775b16843a9affe42b5fcd2aad9957bacb63a48ae005c799524e"
+[t=00:00:11.521697][f=-000001] [CAS::GASCB] Archive file="5f5916abbedbb6a873e1d6ab4c78fe02.sdp" cs="99e9198c39b315433e73c7b0cefdaa33516e60c7df7876e0b07d24253c7eddab6d41d98120c991d6714b5c9aa31b6ea0137a689adeecca516eaf6e48ed13ec67"
+[t=00:00:11.521713][f=-000001] [CAS::GASCB] Archive file="springcontent.sdz" cs="de60527c7c860677f3e5f2221cccfa210f0521c6813279b03ee9521dd0ed84dc26b80907649662b806277ba5b638e01d8bf31339434bc8b8ef9d8beab9f72a34"
+[t=00:00:11.521739][f=-000001] [CAS::GASCB] Archive file="bitmaps.sdz" cs="13e1d0e6c3383afef7cda84eff1342271b1c82d13c66b376918ee61a25f77d5c662f6160ec74a121d59dbd8f29d9f10a00ab316cd1b3204a8be2c958c84a38eb"
+[39m
+[16:24:14.564] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.527960][f=-000001] [LoadScreen::SetLoadMessage] text="Loading LuaUI"
+[39m
+[16:24:14.566] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.529551][f=-000001] LuaUI Entry Point: "luaui.lua"
+[39m
+[16:24:14.566] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.529568][f=-000001] LuaSocket Support: enabled
+[39m
+[16:24:14.567] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.531103][f=-000001] [CAS::GASCB] Archive file="seths_ravine_remake_1.3.1.sd7" cs="82667fbbd422ee2ef7d2cf078c4170184c43fc9239d0f6500b3a4b1dd7e8b9dac8c6db2463110322e3eb6dad274cf186cd3231af53f92eb78c37e9c7c3a71510"
+[39m
+[16:24:14.567] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.531134][f=-000001] [CAS::GASCB] Archive file="maphelper.sdz" cs="6ecfd8e47b2c0bde27517e92bd171d1d036e0482cbfc929a1925b5239e4d5947ed335df18ba4775b16843a9affe42b5fcd2aad9957bacb63a48ae005c799524e"
+[t=00:00:11.531162][f=-000001] [CAS::GASCB] Archive file="5f5916abbedbb6a873e1d6ab4c78fe02.sdp" cs="99e9198c39b315433e73c7b0cefdaa33516e60c7df7876e0b07d24253c7eddab6d41d98120c991d6714b5c9aa31b6ea0137a689adeecca516eaf6e48ed13ec67"
+[t=00:00:11.531178][f=-000001] [CAS::GASCB] Archive file="springcontent.sdz" cs="de60527c7c860677f3e5f2221cccfa210f0521c6813279b03ee9521dd0ed84dc26b80907649662b806277ba5b638e01d8bf31339434bc8b8ef9d8beab9f72a34"
+[39m
+[16:24:14.567] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.531201][f=-000001] [CAS::GASCB] Archive file="bitmaps.sdz" cs="13e1d0e6c3383afef7cda84eff1342271b1c82d13c66b376918ee61a25f77d5c662f6160ec74a121d59dbd8f29d9f10a00ab316cd1b3204a8be2c958c84a38eb"
+[t=00:00:11.531244][f=-000001] [RmlGui::InitializeLua] Initializing RmlUi Lua Bindings
+[39m
+[16:24:14.573] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.537166][f=-000001] Using LUAUI_DIRNAME = LuaUI/
+[39m
+[16:24:14.574] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.537698][f=-000001] Reloading GUI config from file: LuaUI/ctrlpanel.txt
+[39m
+[16:24:14.620] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.583433][f=-000001] Lava Mapname, Seths Ravine Remake 1.3.1
+[39m
+[16:24:14.625] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.588416][f=-000001] [RmlUi] Loaded font face 'Poppins' [regular] from 'fonts/Poppins-Regular.otf'.
+[39m
+[16:24:14.625] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.588470][f=-000001] loading font, fonts/exo2/exo2-bold.ttf
+[39m
+[16:24:14.626] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.589728][f=-000001] [RmlUi] Loaded font face 'Exo 2' [bold] from 'fonts/exo2/exo2-bold.ttf'.
+[t=00:00:11.589746][f=-000001] loading font, fonts/exo2/exo2-bolditalic.ttf
+[39m
+[16:24:14.627] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.590997][f=-000001] [RmlUi] Loaded font face 'Exo 2' [italic, bold] from 'fonts/exo2/exo2-bolditalic.ttf'.
+[t=00:00:11.591012][f=-000001] loading font, fonts/exo2/exo2-italic.ttf
+[39m
+[16:24:14.628] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.592171][f=-000001] [RmlUi] Loaded font face 'Exo 2' [italic] from 'fonts/exo2/exo2-italic.ttf'.
+[t=00:00:11.592183][f=-000001] loading font, fonts/exo2/exo2-regular.ttf
+[39m
+[16:24:14.629] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.593245][f=-000001] [RmlUi] Loaded font face 'Exo 2' [regular] from 'fonts/exo2/exo2-regular.ttf'.
+[39m
+[16:24:14.636] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.599569][f=-000001] [i18n] "units.names.volcano_projectile_unit" is not translated in en
+[39m
+[16:24:14.636] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.599587][f=-000001] [i18n] No translation found for "units.names.volcano_projectile_unit"
+[t=00:00:11.599594][f=-000001] [i18n] "units.descriptions.volcano_projectile_unit" is not translated in en
+[t=00:00:11.599598][f=-000001] [i18n] No translation found for "units.descriptions.volcano_projectile_unit"
+[t=00:00:11.599626][f=-000001] [i18n] "units.names.cor_leftshoulder_nationwars_ger" is not translated in en
+[t=00:00:11.599631][f=-000001] [i18n] No translation found for "units.names.cor_leftshoulder_nationwars_ger"
+[t=00:00:11.599644][f=-000001] [i18n] "units.descriptions.cor_leftshoulder_nationwars_ger" is not translated in en
+[t=00:00:11.599649][f=-000001] [i18n] No translation found for "units.descriptions.cor_leftshoulder_nationwars_ger"
+[39m
+[16:24:14.636] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.599800][f=-000001] [i18n] "units.names.cor_hat_gnome" is not translated in en
+[t=00:00:11.599808][f=-000001] [i18n] No translation found for "units.names.cor_hat_gnome"
+[39m
+[16:24:14.636] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.599814][f=-000001] [i18n] "units.descriptions.cor_hat_gnome" is not translated in en
+[t=00:00:11.599817][f=-000001] [i18n] No translation found for "units.descriptions.cor_hat_gnome"
+[39m
+[16:24:14.636] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.599948][f=-000001] [i18n] "units.names.cor_hat_pirate" is not translated in en
+[t=00:00:11.599955][f=-000001] [i18n] No translation found for "units.names.cor_hat_pirate"
+[39m
+[16:24:14.636] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.599961][f=-000001] [i18n] "units.descriptions.cor_hat_pirate" is not translated in en
+[t=00:00:11.599964][f=-000001] [i18n] No translation found for "units.descriptions.cor_hat_pirate"
+[t=00:00:11.599992][f=-000001] [i18n] "units.names.armcomnew" is not translated in en
+[t=00:00:11.600002][f=-000001] [i18n] No translation found for "units.names.armcomnew"
+[t=00:00:11.600009][f=-000001] [i18n] "units.descriptions.armcomnew" is not translated in en
+[t=00:00:11.600012][f=-000001] [i18n] No translation found for "units.descriptions.armcomnew"
+[39m
+[16:24:14.637] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.600377][f=-000001] [i18n] "units.names.corvacct" is not translated in en
+[t=00:00:11.600384][f=-000001] [i18n] No translation found for "units.names.corvacct"
+[39m
+[16:24:14.637] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.600389][f=-000001] [i18n] "units.descriptions.corvacct" is not translated in en
+[t=00:00:11.600393][f=-000001] [i18n] No translation found for "units.descriptions.corvacct"
+[39m
+[16:24:14.637] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.600471][f=-000001] [i18n] "units.names.arm_leftshoulder_nationwars_us" is not translated in en
+[t=00:00:11.600477][f=-000001] [i18n] No translation found for "units.names.arm_leftshoulder_nationwars_us"
+[t=00:00:11.600482][f=-000001] [i18n] "units.descriptions.arm_leftshoulder_nationwars_us" is not translated in en
+[t=00:00:11.600485][f=-000001] [i18n] No translation found for "units.descriptions.arm_leftshoulder_nationwars_us"
+[39m
+[16:24:14.637] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.600760][f=-000001] [i18n] "units.names.arm_leftshoulder_nationwars_eec" is not translated in en
+[t=00:00:11.600768][f=-000001] [i18n] No translation found for "units.names.arm_leftshoulder_nationwars_eec"
+[39m
+[16:24:14.637] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.600774][f=-000001] [i18n] "units.descriptions.arm_leftshoulder_nationwars_eec" is not translated in en
+[t=00:00:11.600777][f=-000001] [i18n] No translation found for "units.descriptions.arm_leftshoulder_nationwars_eec"
+[39m
+[16:24:14.637] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.600828][f=-000001] [i18n] "units.names.ceg_test_projectile_unit" is not translated in en
+[t=00:00:11.600834][f=-000001] [i18n] No translation found for "units.names.ceg_test_projectile_unit"
+[t=00:00:11.600839][f=-000001] [i18n] "units.descriptions.ceg_test_projectile_unit" is not translated in en
+[t=00:00:11.600842][f=-000001] [i18n] No translation found for "units.descriptions.ceg_test_projectile_unit"
+[39m
+[16:24:14.638] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.601412][f=-000001] [i18n] "units.names.arm_leftshoulder_nationwars_ger" is not translated in en
+[t=00:00:11.601428][f=-000001] [i18n] No translation found for "units.names.arm_leftshoulder_nationwars_ger"
+[39m
+[16:24:14.638] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.601435][f=-000001] [i18n] "units.descriptions.arm_leftshoulder_nationwars_ger" is not translated in en
+[t=00:00:11.601439][f=-000001] [i18n] No translation found for "units.descriptions.arm_leftshoulder_nationwars_ger"
+[t=00:00:11.601461][f=-000001] [i18n] "units.names.cor_leftshoulder_nationwars_eec" is not translated in en
+[t=00:00:11.601466][f=-000001] [i18n] No translation found for "units.names.cor_leftshoulder_nationwars_eec"
+[t=00:00:11.601471][f=-000001] [i18n] "units.descriptions.cor_leftshoulder_nationwars_eec" is not translated in en
+[t=00:00:11.601474][f=-000001] [i18n] No translation found for "units.descriptions.cor_leftshoulder_nationwars_eec"
+[39m
+[16:24:14.638] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.601490][f=-000001] [i18n] "units.names.cor_leftshoulder_nationwars_us" is not translated in en
+[t=00:00:11.601494][f=-000001] [i18n] No translation found for "units.names.cor_leftshoulder_nationwars_us"
+[t=00:00:11.601508][f=-000001] [i18n] "units.descriptions.cor_leftshoulder_nationwars_us" is not translated in en
+[t=00:00:11.601513][f=-000001] [i18n] No translation found for "units.descriptions.cor_leftshoulder_nationwars_us"
+[39m
+[16:24:14.641] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.604471][f=-000001] [i18n] "features.names.bush_sm_5__bush_medit_b" is not translated in en
+[t=00:00:11.604483][f=-000001] [i18n] No translation found for "features.names.bush_sm_5__bush_medit_b"
+[39m
+[16:24:14.641] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.604497][f=-000001] [i18n] "features.names.armdecomlvl10_dead" is not translated in en
+[t=00:00:11.604501][f=-000001] [i18n] No translation found for "features.names.armdecomlvl10_dead"
+[t=00:00:11.604531][f=-000001] [i18n] "features.names.cordecomlvl3_dead" is not translated in en
+[t=00:00:11.604535][f=-000001] [i18n] No translation found for "features.names.cordecomlvl3_dead"
+[t=00:00:11.604542][f=-000001] [i18n] "features.names.bush_sm_1__bush_tempe_b" is not translated in en
+[t=00:00:11.604545][f=-000001] [i18n] No translation found for "features.names.bush_sm_1__bush_tempe_b"
+[39m
+[16:24:14.641] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.604558][f=-000001] [i18n] "features.names.bush_dese_a_1__bush_tempe_la_a" is not translated in en
+[t=00:00:11.604563][f=-000001] [i18n] No translation found for "features.names.bush_dese_a_1__bush_tempe_la_a"
+[t=00:00:11.604571][f=-000001] [i18n] "features.names.bush_me_4__bush_medit_a" is not translated in en
+[t=00:00:11.604575][f=-000001] [i18n] No translation found for "features.names.bush_me_4__bush_medit_a"
+[t=00:00:11.604581][f=-000001] [i18n] "features.names.bush_me_6__bush_tempe_c" is not translated in en
+[t=00:00:11.604584][f=-000001] [i18n] No translation found for "features.names.bush_me_6__bush_tempe_c"
+[t=00:00:11.604597][f=-000001] [i18n] "features.names.bush_la_4__bush_tempe_a" is not translated in en
+[t=00:00:11.604600][f=-000001] [i18n] No translation found for "features.names.bush_la_4__bush_tempe_a"
+[t=00:00:11.604607][f=-000001] [i18n] "features.names.cordecomlvl7_dead" is not translated in en
+[t=00:00:11.604610][f=-000001] [i18n] No translation found for "features.names.cordecomlvl7_dead"
+[39m
+[16:24:14.641] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.604621][f=-000001] [i18n] "features.names.armdecomlvl6_heap" is not translated in en
+[t=00:00:11.604625][f=-000001] [i18n] No translation found for "features.names.armdecomlvl6_heap"
+[t=00:00:11.604636][f=-000001] [i18n] "features.names.wrld_plant_bush_dry1__wrld_plant_bush_dry_a" is not translated in en
+[t=00:00:11.604640][f=-000001] [i18n] No translation found for "features.names.wrld_plant_bush_dry1__wrld_plant_bush_dry_a"
+[t=00:00:11.604652][f=-000001] [i18n] "features.names.temp_bush_04__temperate_bush_01" is not translated in en
+[t=00:00:11.604656][f=-000001] [i18n] No translation found for "features.names.temp_bush_04__temperate_bush_01"
+[t=00:00:11.604671][f=-000001] [i18n] "features.names.cordecomlvl7_heap" is not translated in en
+[t=00:00:11.604675][f=-000001] [i18n] No translation found for "features.names.cordecomlvl7_heap"
+[39m
+[16:24:14.641] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.604698][f=-000001] [i18n] "features.names.armdecomlvl6_dead" is not translated in en
+[t=00:00:11.604702][f=-000001] [i18n] No translation found for "features.names.armdecomlvl6_dead"
+[t=00:00:11.604719][f=-000001] [i18n] "features.names.bush_dese_a_1__bush_tempe_la_a2" is not translated in en
+[t=00:00:11.604724][f=-000001] [i18n] No translation found for "features.names.bush_dese_a_1__bush_tempe_la_a2"
+[39m
+[16:24:14.641] [33mWARN[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+Engine stdout lobby log allowance reached (bytes=262144, lines=1200). The other stream has an independent allowance. Engine-owned messages may also be in $WORKSPACE/artifacts/validation/v104-descriptor-performance-reverse-20261020/6-parent-metal4/sessions/lobby-no-native-hook-1792538609779/state/data/infolog.txt; driver stderr is not guaranteed there.[39m
+[16:24:14.641] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.604872][f=-000001] [i18n] No translation found for "features.names.bush_la_2__bush_medit_a"
+[t=00:00:11.604879][f=-000001] [i18n] "features.names.bush_sm_2__bush_medit_b" is not translated in en
+[39m
+[16:24:14.641] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.604931][f=-000001] [i18n] No translation found for "features.names.berry_bush_03__berry_bush_autumn_01"
+[t=00:00:11.604942][f=-000001] [i18n] "features.names.bush_me_4__bush_tempe_a" is not translated in en
+[39m
+[16:24:14.641] [32mINFO[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[t=00:00:11.605085][f=-000001] [i18n] No translation found for "features.names.bush_sm_4__bush_medit_a"
+[39m
+[16:25:15.512] [31mERROR[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[mvk-info] Native Metal 4 queue MoltenVKQueue-0-0-0.0 retired 17880 completed submissions.
+[39m
+[16:25:15.512] [31mERROR[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[mvk-info] Destroyed VkDevice on GPU Apple M4 Pro with 29 Vulkan extensions enabled.
+[39m
+[16:25:15.520] [31mERROR[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+[mvk-info] Destroyed VkPhysicalDevice for GPU Apple M4 Pro with 17 MB of GPU memory still allocated.
+[mvk-info] Destroying VkInstance for Vulkan version 1.4.365 with 9 Vulkan extensions enabled.
+[39m
+[16:25:15.546] [32mINFO[39m: [36mmain - 2026-10-20T23:23:54.489Z - main/game/game.ts - Game process requested to close[39m
+[16:25:15.546] [32mINFO[39m: [36mmain - 2026-10-20T23:23:54.496Z - main-window - Game closed - showing main window[39m
+[16:25:16.386] [32mINFO[39m: [36mmain - 2026-10-20T23:23:54.489Z - main/game/game.ts - Game process exited with code: 0[39m
+[16:25:16.386] [33mWARN[39m: [36mmain
+2026-10-20T23:23:54.489Z
+[RECOIL ENGINE]
+Suppressed 694 engine stdout chunks from the lobby log (1172 lines, 123578 bytes).[39m

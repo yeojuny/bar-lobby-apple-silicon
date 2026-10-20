@@ -1,0 +1,57 @@
+{
+  "schema": "bar-mvk-checkpoint-measurement-followup-v1",
+  "originalCheckpointCommit": "c99015f5f79b1bbb59a5bc0cc893446c0ff5005c",
+  "originalCheckpointTree": "57275742088a0ffd1a49e862c0d3b53256b7fb2c",
+  "appOrSourceChanges": false,
+  "sourceArtifactsReuploaded": false,
+  "successfulSamples": 8,
+  "sampleJoin": "original first2 plus continuation6, receipt paths and original hashes verified",
+  "failedStartup": {
+    "receipt": "artifacts/validation/v104-descriptor-performance-reverse-20261020/3-parent-metal3/sessions/lobby-no-native-hook-1792538186747/execution-receipt.json",
+    "originalOutcomePreserved": true,
+    "gameChildOrPerformanceSample": false,
+    "error": "Execution context was destroyed",
+    "continuation": "One continuation after read-only Lobby readiness stabilization; completed samples not remeasured or discarded"
+  },
+  "order": "candidate-parent-parent-candidate for each of Metal3 and Metal4",
+  "conditions": "AC + LowPower ON, thermal0, 1432x902, Ultra/AAOff/Spring, matched scene, requested1x,900frames",
+  "consoleLockStates": [
+    "True"
+  ],
+  "previousBatch": {
+    "metal3Percent": 7.585076226517806,
+    "metal4Percent": -9.79591077969818
+  },
+  "reverseBatch": {
+    "metal3": {
+      "parentMeanFPS": 49.376832962036005,
+      "candidateMeanFPS": 50.425552368164006,
+      "percent": 2.1239098241361942
+    },
+    "metal4": {
+      "parentMeanFPS": 39.543357849121,
+      "candidateMeanFPS": 43.896764755249,
+      "percent": 11.009198871624836
+    }
+  },
+  "interpretation": "Descriptive mixed between-batch evidence, not pooled and not stable causal improvement. Console lock policy differed, so cannot attribute differences solely to order. No promotion.",
+  "cleanup": {
+    "successfulRuns": {
+      "roots": 48,
+      "leaves": 2667,
+      "logicalBytes": 76973317
+    },
+    "failedStartup": {
+      "roots": 6,
+      "leaves": 22,
+      "logicalBytes": 1694335
+    },
+    "selectionAndCompletionRecordsIncluded": true,
+    "physicalReclaimClaimed": false,
+    "publisherCleanup": false
+  },
+  "sourceReportSHA256": "18e11dfbe29131f7a8739c379601ae01bbde939c9a54d6ac2907e310ca84948c",
+  "sourceSummarySHA256": "ca2953437c4a9ec1db10f0578f42de982dade48c0c20804c84f46add7f6ca8ba",
+  "normalization": "$WORKSPACE and $HOME replace local path prefixes in exported evidence; original/exported hashes retained. No ephemeral content/cache bytes included.",
+  "publisherExtraGamesBuildsAppCopies": false
+}

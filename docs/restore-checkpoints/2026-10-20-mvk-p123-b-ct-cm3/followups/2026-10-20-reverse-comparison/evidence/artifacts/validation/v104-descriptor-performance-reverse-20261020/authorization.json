@@ -1,0 +1,16 @@
+{
+  "user": "다시 해봐 순서 바꿔서. 기존 전원 연결·절전모드·동일 설정과 실험 캐시 정리 및 MVK GitHub 복원 보존 요청 유지.",
+  "parent": "$WORKSPACE/artifacts/runtime/v104-performance-ab-candidate-20261020/BAR.app",
+  "candidate": "$WORKSPACE/artifacts/runtime/v104-descriptor-candidate-20261020/BAR.app",
+  "maximumGameSessions": 8,
+  "retry": false,
+  "sourceChanges": false,
+  "settings": "AC Power/Low Power/Ultra/AA Off/Spring/VSync Off, same fixed scene and fresh private cache",
+  "benchmark": "Same successful batch7 controller/host logic; only provenance/app/path/schema adaptation",
+  "cleanup": "Remove regenerable private shader/browser cache after session; preserve logs/results/source/app/Markdown.",
+  "order": "candidate,parent,parent,candidate within Metal3 then Metal4",
+  "previousEvidence": "$WORKSPACE/artifacts/validation/v104-descriptor-performance-comparison-20261020",
+  "additionalHumanDirection": "그냥 해봐 화면 필요없잖아",
+  "consoleLockAllowed": true,
+  "unlockOrAuthenticationChanges": false
+}

@@ -1,0 +1,16 @@
+# Reverse-order comparison follow-up — 2026-10-20
+
+This appends evidence to the existing MVK restoration checkpoint. Original commit `c99015f5f79b1bbb59a5bc0cc893446c0ff5005c`, its source/app deltas and its earlier mixed result are retained unchanged. No app, source, stable release, Homebrew or restoration-script change is included. Both local experiments still have1.0.3 metadata, not a stable1.0.4 designation.
+
+| Batch | Metal3 parent → candidate mean FPS | Change | Metal4 parent → candidate mean FPS | Change |
+|---|---|---|---|---|
+| Earlier parent-candidate-candidate-parent |44.9535 →48.3632 |+7.5851% |38.6810 →34.8919 |−9.7959% |
+| Reverse candidate-parent-parent-candidate |49.3768 →50.4256 |+2.1239% |39.5434 →43.8968 |+11.0092% |
+
+Each batch has two samples per app/backend. These descriptive means are not pooled into a single improvement rate. The reverse batch permitted and observed a locked console at direct human request, whereas the previous batch required an unlocked console. Cache/global driver/OS scheduling and limited sampling remain confounders; this is not proof of order alone or stable source causality. No candidate is promoted by this evidence. C-T/C-M3 contributions and vertex-cache interactions remain unmeasured.
+
+The [full report](evidence/reports/v104-descriptor-performance-reverse-20261020.md) and [summary](evidence/artifacts/validation/v104-descriptor-performance-reverse-20261020/summary.json) retain sample FPS/p95/p99, scene/quality/runtime identity, power/thermal and limitations. The original `outcome.json` preserves a third-startup `Execution context was destroyed` failure before a graphics game child or performance sample existed. Its failed receipt/stdout/stderr/events are included. The read-only Lobby preparation check was stabilized once; `continuation-outcome.json` records the six remaining successes. The final eight are exactly the original first two plus the subsequent six; completed samples were not discarded or rerun. Original and exported hashes bind all eight receipts and raw benchmark/native records in `evidence-index.json`.
+
+Preparation/authorization/continuation scripts and locked-console observations are included. Successful eight-run cache cleanup records account for48 roots/2667 leaves/76,973,317 logical bytes; failed-startup cache cleanup records account for6 roots/22 leaves/1,694,335 logical bytes. These are not physical APFS reclaim claims. The publisher performed no deletion. Ephemeral shader/browser cache contents, content clones and the large redundant content-file inventory are excluded. Removed cache paths remain historical references, not available restoration inputs. Evidence path prefixes are normalized to `$WORKSPACE`/`$HOME`; original and exported hashes are distinguished.
+
+The owner verified complete1194-entry app inventories, source/launcher/user pins and process/screen/awake restoration. The publisher additionally checks declared source/build and selected app pins plus actual launcher HEAD/index/dirty status before and after publication. No new app/game run, rebuild, large source/app re-upload, installation, stableRelease/Homebrew or master/tag edit is performed. Existing [restoration instructions](../../README.md) and original source/app bytes remain applicable unchanged.

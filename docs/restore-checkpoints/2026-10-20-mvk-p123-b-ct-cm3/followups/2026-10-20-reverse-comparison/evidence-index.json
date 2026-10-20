@@ -1,0 +1,835 @@
+[
+  {
+    "path": "reports/v104-descriptor-performance-reverse-20261020.md",
+    "originalSHA256": "18e11dfbe29131f7a8739c379601ae01bbde939c9a54d6ac2907e310ca84948c",
+    "exportedSHA256": "cf16ca9986c488196f1532d833dbd11c88f164259584df9356f6718e1a319dc2",
+    "bytes": 6594,
+    "workspacePathsNormalized": true
+  },
+  {
+    "path": "artifacts/validation/v104-descriptor-performance-reverse-20261020/arm-1-cache-cleanup-completion.json",
+    "originalSHA256": "db83d93b21af1fae78e85376db20d461f8b881de630aaf4fcb8e7ee7fcae2ffc",
+    "exportedSHA256": "db83d93b21af1fae78e85376db20d461f8b881de630aaf4fcb8e7ee7fcae2ffc",
+    "bytes": 145,
+    "workspacePathsNormalized": false
+  },
+  {
+    "path": "artifacts/validation/v104-descriptor-performance-reverse-20261020/arm-1-cache-cleanup-selection.json",
+    "originalSHA256": "71b1789d8b55cbdf6099eabf07c93ee0cbac70a964a1677c69945f27c633d4d6",
+    "exportedSHA256": "c412df88de064e310ed9b7cfc99c9fdf46ca79e76459fff03904ed7d7a4359b8",
+    "bytes": 114733,
+    "workspacePathsNormalized": true
+  },
+  {
+    "path": "artifacts/validation/v104-descriptor-performance-reverse-20261020/arm-1-result.json",
+    "originalSHA256": "698b8e31a5524e0d6b64f8e1f7901122608f11a077a6539fc1339625ed6e140e",
+    "exportedSHA256": "f5a0109219f9d1c131b7fa70f9acea09c40b180759c3c9daa8932e2792740f34",
+    "bytes": 1390,
+    "workspacePathsNormalized": true
+  },
+  {
+    "path": "artifacts/validation/v104-descriptor-performance-reverse-20261020/arm-2-cache-cleanup-completion.json",
+    "originalSHA256": "0654c14e494d2f4d995c8dfa49148ec54a23c1c1ca35705d6e48eac8ee97c6d2",
+    "exportedSHA256": "0654c14e494d2f4d995c8dfa49148ec54a23c1c1ca35705d6e48eac8ee97c6d2",
+    "bytes": 145,
+    "workspacePathsNormalized": false
+  },
+  {
+    "path": "artifacts/validation/v104-descriptor-performance-reverse-20261020/arm-2-cache-cleanup-selection.json",
+    "originalSHA256": "da948848a2f6280433b92a1dc5c0bc9193c597f0d98e2cb08877d64f350c7789",
+    "exportedSHA256": "1c1e7e49e55d9ad24eb1b6c074df6f2398b727d19c9211750edfd150eaa43200",
+    "bytes": 113713,
+    "workspacePathsNormalized": true
+  },
+  {
+    "path": "artifacts/validation/v104-descriptor-performance-reverse-20261020/arm-2-result.json",
+    "originalSHA256": "da2fa8cc32a3ad60afd8d43a7cb97b0d47014476bfa57a6db3a6a69b90439f15",
+    "exportedSHA256": "9625ff2c313794e18f616b3f5d9c953b8ae318847fd184f7971175845ce18411",
+    "bytes": 1380,
+    "workspacePathsNormalized": true
+  },
+  {
+    "path": "artifacts/validation/v104-descriptor-performance-reverse-20261020/arm-3-result.json",
+    "originalSHA256": "f2c31449216e5cd8bf3ee48fb60ee123d8de84f5c5ca8aa126685464b5e8e9f0",
+    "exportedSHA256": "1e2a99b0e6c8edca11d808cef285d32f52e2583f907cb5d31ed2a228804c49a6",
+    "bytes": 820,
+    "workspacePathsNormalized": true
+  },
+  {
+    "path": "artifacts/validation/v104-descriptor-performance-reverse-20261020/authorization.json",
+    "originalSHA256": "94e5276c43c732ebe0a4cb451d2dfcdd12191565a1d6150be009af6b3a9f470a",
+    "exportedSHA256": "5651f28331484ba1720d6ffc5bf37b486fc99f88a8668617ebfa6aa16cc23fbc",
+    "bytes": 1077,
+    "workspacePathsNormalized": true
+  },
+  {
+    "path": "artifacts/validation/v104-descriptor-performance-reverse-20261020/benchmark-bootstrap.cjs",
+    "originalSHA256": "358a693988f9984e06572ee026a529fc62aeb07aa0015ded599635b1cdc953ba",
+    "exportedSHA256": "bb271fa9ef7ee2c40ea301974dba55aa0c291e209fd0e961b7330713d516aded",
+    "bytes": 11186,
+    "workspacePathsNormalized": true
+  },
+  {
+    "path": "artifacts/validation/v104-descriptor-performance-reverse-20261020/candidate-inventory.json",
+    "originalSHA256": "925ae6a4c2795ad6fc6a358d78721f2a3bf2b1f3dd17d88a81ec3086de9c14fa",
+    "exportedSHA256": "925ae6a4c2795ad6fc6a358d78721f2a3bf2b1f3dd17d88a81ec3086de9c14fa",
+    "bytes": 287331,
+    "workspacePathsNormalized": false
+  },
+  {
+    "path": "artifacts/validation/v104-descriptor-performance-reverse-20261020/completion.json",
+    "originalSHA256": "c826bfed3acdc24d43701b2a62eb6152c48fe02f9b449acfb15d25d46c977546",
+    "exportedSHA256": "220f4822ac278a9a7ce5b0a33b06f8071cdb59a3cd861db25f5d99e01b31b5f3",
+    "bytes": 521,
+    "workspacePathsNormalized": true
+  },
+  {
+    "path": "artifacts/validation/v104-descriptor-performance-reverse-20261020/content-receipt.json",
+    "originalSHA256": "bfb3bf3544a17c1e6a88b75df9d48b29a867a942df4156ee90a3a5fa6ae1b2d5",
+    "exportedSHA256": "bfb3bf3544a17c1e6a88b75df9d48b29a867a942df4156ee90a3a5fa6ae1b2d5",
+    "bytes": 615,
+    "workspacePathsNormalized": false
+  },
+  {
+    "path": "artifacts/validation/v104-descriptor-performance-reverse-20261020/continuation-arm-3-cache-cleanup-completion.json",
+    "originalSHA256": "f34aec83fc9c177eb68c0057fe29e82b205664876abd682865d651b59f7a3eec",
+    "exportedSHA256": "f34aec83fc9c177eb68c0057fe29e82b205664876abd682865d651b59f7a3eec",
+    "bytes": 145,
+    "workspacePathsNormalized": false
+  },
+  {
+    "path": "artifacts/validation/v104-descriptor-performance-reverse-20261020/continuation-arm-3-cache-cleanup-selection.json",
+    "originalSHA256": "80937337d977142c438202945cefc8d72eed8ad2f376e50a2dee90bc56750689",
+    "exportedSHA256": "1e1f94523ec4c18ef2105a7372c80985cedf71b7030b2d4b01de8b9b68b6b76d",
+    "bytes": 120490,
+    "workspacePathsNormalized": true
+  },
+  {
+    "path": "artifacts/validation/v104-descriptor-performance-reverse-20261020/continuation-arm-3-result.json",
+    "originalSHA256": "02c4a4aa48ff45888a79d90a30cc3e0436be7da9eb6e171e6ac77fb0c531bb73",
+    "exportedSHA256": "5faf90e92da41516def42d5e9d4b2c8f208e57a4f7ec497d5cbb27483c3d366f",
+    "bytes": 1420,
+    "workspacePathsNormalized": true
+  },
+  {
+    "path": "artifacts/validation/v104-descriptor-performance-reverse-20261020/continuation-arm-4-cache-cleanup-completion.json",
+    "originalSHA256": "db83d93b21af1fae78e85376db20d461f8b881de630aaf4fcb8e7ee7fcae2ffc",
+    "exportedSHA256": "db83d93b21af1fae78e85376db20d461f8b881de630aaf4fcb8e7ee7fcae2ffc",
+    "bytes": 145,
+    "workspacePathsNormalized": false
+  },
+  {
+    "path": "artifacts/validation/v104-descriptor-performance-reverse-20261020/continuation-arm-4-cache-cleanup-selection.json",
+    "originalSHA256": "9e6429d1f99472e778fe8e0f0e4abc1ba94c5cabd044db2829a221306dcdc80b",
+    "exportedSHA256": "75e72d6285d58757ae6d8d9bbc67c230323aee4748b3bbdb0137c7d3bc63fef1",
+    "bytes": 114733,
+    "workspacePathsNormalized": true
+  },
+  {
+    "path": "artifacts/validation/v104-descriptor-performance-reverse-20261020/continuation-arm-4-result.json",
+    "originalSHA256": "53c2c122b5b71c78fccacffdadd6e8a6a574a763602fad5147de7e7491b0bf69",
+    "exportedSHA256": "daaa47081a0633b88368deffc872407bf2152296cebbc53714fbf833e1ab183e",
+    "bytes": 1390,
+    "workspacePathsNormalized": true
+  },
+  {
+    "path": "artifacts/validation/v104-descriptor-performance-reverse-20261020/continuation-arm-5-cache-cleanup-completion.json",
+    "originalSHA256": "857d0d88d0c89205891d620aaa9e62d6544cb1dc891ddebf5f7d64708d861448",
+    "exportedSHA256": "857d0d88d0c89205891d620aaa9e62d6544cb1dc891ddebf5f7d64708d861448",
+    "bytes": 145,
+    "workspacePathsNormalized": false
+  },
+  {
+    "path": "artifacts/validation/v104-descriptor-performance-reverse-20261020/continuation-arm-5-cache-cleanup-selection.json",
+    "originalSHA256": "34890a11f1aacfc6c39a557636de7762010bf4c8d03bada3129c5e6a30136fb7",
+    "exportedSHA256": "d63221edcb2a0c416964766edfaeda3e9d1f9555f9c30832f3846545915874d3",
+    "bytes": 114388,
+    "workspacePathsNormalized": true
+  },
+  {
+    "path": "artifacts/validation/v104-descriptor-performance-reverse-20261020/continuation-arm-5-result.json",
+    "originalSHA256": "5ed984317ba6608b54f6cb507377b40fd1204aa3ffcf1c4d9ed9afd81dfe7970",
+    "exportedSHA256": "f40ec0f5e3fdcf22ba7977b76f3d1a8c96d343bf6351ee1ca20b3aa0b78d9758",
+    "bytes": 1394,
+    "workspacePathsNormalized": true
+  },
+  {
+    "path": "artifacts/validation/v104-descriptor-performance-reverse-20261020/continuation-arm-6-cache-cleanup-completion.json",
+    "originalSHA256": "27f3f2e7b6b4e49a3c904b9de264450b8144a6ac8d877dd7fcfff84daa332cfe",
+    "exportedSHA256": "27f3f2e7b6b4e49a3c904b9de264450b8144a6ac8d877dd7fcfff84daa332cfe",
+    "bytes": 145,
+    "workspacePathsNormalized": false
+  },
+  {
+    "path": "artifacts/validation/v104-descriptor-performance-reverse-20261020/continuation-arm-6-cache-cleanup-selection.json",
+    "originalSHA256": "26f2d785f29a89e59a7f5ea04481126cab49d0b1a6b5dca85c318c74344b36fd",
+    "exportedSHA256": "b019657f9d643cb511ca7b2578ba62de0a4e1e6234d31e92d4cbfa81427b8e5b",
+    "bytes": 113371,
+    "workspacePathsNormalized": true
+  },
+  {
+    "path": "artifacts/validation/v104-descriptor-performance-reverse-20261020/continuation-arm-6-result.json",
+    "originalSHA256": "1d389c36d28fc6e7914a29bff98d03e316a3cd13ea20b6ead37ead2e308048b6",
+    "exportedSHA256": "f267908f2a0b133a535b69cdcc0e55fd14bc587a8530cce3483e9d8155a4602c",
+    "bytes": 1385,
+    "workspacePathsNormalized": true
+  },
+  {
+    "path": "artifacts/validation/v104-descriptor-performance-reverse-20261020/continuation-arm-7-cache-cleanup-completion.json",
+    "originalSHA256": "66929f38fd7de0ec8f9df7b4b501b29cf3cf137ba72c88185e93ad837e6d3fd1",
+    "exportedSHA256": "66929f38fd7de0ec8f9df7b4b501b29cf3cf137ba72c88185e93ad837e6d3fd1",
+    "bytes": 145,
+    "workspacePathsNormalized": false
+  },
+  {
+    "path": "artifacts/validation/v104-descriptor-performance-reverse-20261020/continuation-arm-7-cache-cleanup-selection.json",
+    "originalSHA256": "98ec455a5c2504579ef1cb5dd02439d5ae4bbe43b0b3427411f218c4d6ee5930",
+    "exportedSHA256": "0c70419e7efb78e4f4b8ecdbf1faf798721fd1c0e07a2e66ad00f712e3feadc7",
+    "bytes": 113371,
+    "workspacePathsNormalized": true
+  },
+  {
+    "path": "artifacts/validation/v104-descriptor-performance-reverse-20261020/continuation-arm-7-result.json",
+    "originalSHA256": "509eb6350cc3220e36d6c6ffd13727664a836fed1017c544c590a35524e93b91",
+    "exportedSHA256": "172e1ed6f4239c7538fd9ebc227e477c95864f5f63c8078f0eaa0ea1acb2cbcd",
+    "bytes": 1384,
+    "workspacePathsNormalized": true
+  },
+  {
+    "path": "artifacts/validation/v104-descriptor-performance-reverse-20261020/continuation-arm-8-cache-cleanup-completion.json",
+    "originalSHA256": "857d0d88d0c89205891d620aaa9e62d6544cb1dc891ddebf5f7d64708d861448",
+    "exportedSHA256": "857d0d88d0c89205891d620aaa9e62d6544cb1dc891ddebf5f7d64708d861448",
+    "bytes": 145,
+    "workspacePathsNormalized": false
+  },
+  {
+    "path": "artifacts/validation/v104-descriptor-performance-reverse-20261020/continuation-arm-8-cache-cleanup-selection.json",
+    "originalSHA256": "9d2418557482b9a28163437bc847a4b1266f9e091d96ac534d259659e2703289",
+    "exportedSHA256": "652b285fc26f21a83736e93be4ddcf69aa0b389f100160c43cb384ef486d0b88",
+    "bytes": 114388,
+    "workspacePathsNormalized": true
+  },
+  {
+    "path": "artifacts/validation/v104-descriptor-performance-reverse-20261020/continuation-arm-8-result.json",
+    "originalSHA256": "97a81c6cdf4a3da37061573185bcc440d8a385b0cf9b50751097196b10f141e2",
+    "exportedSHA256": "20f7193f6a19560890b2caab329fc9429cb996c103d489886b53fc268efd2e95",
+    "bytes": 1394,
+    "workspacePathsNormalized": true
+  },
+  {
+    "path": "artifacts/validation/v104-descriptor-performance-reverse-20261020/continuation-authorization.json",
+    "originalSHA256": "6969b2d86b50cbcd47b963ac75f060b1f8b9104d989c9d95ead5b1a3f7c5d7c8",
+    "exportedSHA256": "78b86bb4628c6fde767c31b7138ccf1871581e27f8cc4a40690b08f576974209",
+    "bytes": 1324,
+    "workspacePathsNormalized": true
+  },
+  {
+    "path": "artifacts/validation/v104-descriptor-performance-reverse-20261020/continuation-outcome.json",
+    "originalSHA256": "73e94cdcba86468888feeaea47dece58196158a1df195e10f316041f785ffc74",
+    "exportedSHA256": "64660592d6ddcd8eb9eb83f48dfb3814e7e53a4b710db0c81cd9b28e24a341ae",
+    "bytes": 9835,
+    "workspacePathsNormalized": true
+  },
+  {
+    "path": "artifacts/validation/v104-descriptor-performance-reverse-20261020/continuation-owned-runner.json",
+    "originalSHA256": "f42c1961373e6af2d21aa1d55488584c59389b50ef27a65c3e4be10ab9feb14b",
+    "exportedSHA256": "f42c1961373e6af2d21aa1d55488584c59389b50ef27a65c3e4be10ab9feb14b",
+    "bytes": 52,
+    "workspacePathsNormalized": false
+  },
+  {
+    "path": "artifacts/validation/v104-descriptor-performance-reverse-20261020/continuation-preparation.json",
+    "originalSHA256": "898f18810e7f8991a564779ed2648eb6645aa5651606bd6a463a6a6740a95f5a",
+    "exportedSHA256": "6082833de2bef8ce33ee49133971b897f6a772545d05aa601c31b2ff19d8f185",
+    "bytes": 6020,
+    "workspacePathsNormalized": true
+  },
+  {
+    "path": "artifacts/validation/v104-descriptor-performance-reverse-20261020/continuation-screen-guard.json",
+    "originalSHA256": "a6b4a2040b6ad2d501958bf7c34ddedeb1a03687b24e67d0e3e8cd706324b2ac",
+    "exportedSHA256": "a6b4a2040b6ad2d501958bf7c34ddedeb1a03687b24e67d0e3e8cd706324b2ac",
+    "bytes": 733,
+    "workspacePathsNormalized": false
+  },
+  {
+    "path": "artifacts/validation/v104-descriptor-performance-reverse-20261020/continuation-screen-observations.jsonl",
+    "originalSHA256": "f52e4a099a408829972f1dcc5ed87659495c4b54c2e1b5020ed762b293639a01",
+    "exportedSHA256": "f52e4a099a408829972f1dcc5ed87659495c4b54c2e1b5020ed762b293639a01",
+    "bytes": 67267,
+    "workspacePathsNormalized": false
+  },
+  {
+    "path": "artifacts/validation/v104-descriptor-performance-reverse-20261020/controller.lua",
+    "originalSHA256": "75d2493179d20ec0a8d727e24b530e0627b8dd4a954f8489cd39f9267b607501",
+    "exportedSHA256": "75d2493179d20ec0a8d727e24b530e0627b8dd4a954f8489cd39f9267b607501",
+    "bytes": 23911,
+    "workspacePathsNormalized": false
+  },
+  {
+    "path": "artifacts/validation/v104-descriptor-performance-reverse-20261020/failed-startup-cache-cleanup-completion.json",
+    "originalSHA256": "1605a79ad5f080ae7459f8e5b0a1b71a173e70dd46d065a66fe95dacf99b0e1a",
+    "exportedSHA256": "1605a79ad5f080ae7459f8e5b0a1b71a173e70dd46d065a66fe95dacf99b0e1a",
+    "bytes": 144,
+    "workspacePathsNormalized": false
+  },
+  {
+    "path": "artifacts/validation/v104-descriptor-performance-reverse-20261020/failed-startup-cache-cleanup-selection.json",
+    "originalSHA256": "f4e013d27416b731033ebc088d7c9d5d93431e63e7563c485f1a9be28cfebf0a",
+    "exportedSHA256": "c2514fcdb2e05ba42963be4729a6f81c40ea3f5b91a2f7287b065a26d92f804a",
+    "bytes": 7143,
+    "workspacePathsNormalized": true
+  },
+  {
+    "path": "artifacts/validation/v104-descriptor-performance-reverse-20261020/launcher-main-sha256.json",
+    "originalSHA256": "22878eac6c023984737f6418f857b63d22a37463feac5b4d033d605922f6e576",
+    "exportedSHA256": "96e89ddafdc6d73eb3596cc1d11c4c1ae661a25544bd80d4e70dcb235c71a94b",
+    "bytes": 229,
+    "workspacePathsNormalized": true
+  },
+  {
+    "path": "artifacts/validation/v104-descriptor-performance-reverse-20261020/metal-bootstrap.cjs",
+    "originalSHA256": "67160162b7a41c834ac31ce4966c22a2f04f93ac18869d80a9aaedd96ffb3650",
+    "exportedSHA256": "67160162b7a41c834ac31ce4966c22a2f04f93ac18869d80a9aaedd96ffb3650",
+    "bytes": 4263,
+    "workspacePathsNormalized": false
+  },
+  {
+    "path": "artifacts/validation/v104-descriptor-performance-reverse-20261020/outcome.json",
+    "originalSHA256": "594ffbea5fd1dcfe4c043dde34737f578b8a08752791ca52537166635bc4fd60",
+    "exportedSHA256": "8a919e94f90cacca33c070d52abc4c72cd05f316d6e3ab6a0f2c902768e60566",
+    "bytes": 4359,
+    "workspacePathsNormalized": true
+  },
+  {
+    "path": "artifacts/validation/v104-descriptor-performance-reverse-20261020/owned-runner.json",
+    "originalSHA256": "8b5c4362a633f10dbc5a42fcdf390af1673cb077a3643623bf796e06365b2e85",
+    "exportedSHA256": "8b5c4362a633f10dbc5a42fcdf390af1673cb077a3643623bf796e06365b2e85",
+    "bytes": 52,
+    "workspacePathsNormalized": false
+  },
+  {
+    "path": "artifacts/validation/v104-descriptor-performance-reverse-20261020/parent-inventory.json",
+    "originalSHA256": "f5d119f2dd8fcb5397ccb4cf40bc7cd125054002b49f6409547db1e14842d7d2",
+    "exportedSHA256": "f5d119f2dd8fcb5397ccb4cf40bc7cd125054002b49f6409547db1e14842d7d2",
+    "bytes": 287331,
+    "workspacePathsNormalized": false
+  },
+  {
+    "path": "artifacts/validation/v104-descriptor-performance-reverse-20261020/preflight.json",
+    "originalSHA256": "6fa0bf617cb95733031afece2a14101aabf5208e856c27e02606b600e4db38ed",
+    "exportedSHA256": "6fa0bf617cb95733031afece2a14101aabf5208e856c27e02606b600e4db38ed",
+    "bytes": 398,
+    "workspacePathsNormalized": false
+  },
+  {
+    "path": "artifacts/validation/v104-descriptor-performance-reverse-20261020/preparation.json",
+    "originalSHA256": "0de9f00a31315c00ad50838b2672b16de0ae666bbf0939f4d25003b4aa1783bf",
+    "exportedSHA256": "605dacadc490ddc1f59c1087cdba06897fc981364eae9e76e92db4b7d93c58f2",
+    "bytes": 7266,
+    "workspacePathsNormalized": true
+  },
+  {
+    "path": "artifacts/validation/v104-descriptor-performance-reverse-20261020/prepare-continuation.py",
+    "originalSHA256": "cf914ee5c1c7bee9de0f2af897558e69f184d79ad1b45ec827dc86afc7980315",
+    "exportedSHA256": "cf914ee5c1c7bee9de0f2af897558e69f184d79ad1b45ec827dc86afc7980315",
+    "bytes": 4731,
+    "workspacePathsNormalized": false
+  },
+  {
+    "path": "artifacts/validation/v104-descriptor-performance-reverse-20261020/prepare.py",
+    "originalSHA256": "661a7f62dd31f7a873c808f2008471435d75527793083f854348c3b5e0ccdf95",
+    "exportedSHA256": "661a7f62dd31f7a873c808f2008471435d75527793083f854348c3b5e0ccdf95",
+    "bytes": 4208,
+    "workspacePathsNormalized": false
+  },
+  {
+    "path": "artifacts/validation/v104-descriptor-performance-reverse-20261020/protected-inputs.json",
+    "originalSHA256": "340f0d727ceed9c4505aee2ec2a0c4ba814c88bcdadc13acceafde25cc657304",
+    "exportedSHA256": "06c3426c1a7e8e9354bd186e4c9936118805fa9c1bfef2d10ef7983c86baca07",
+    "bytes": 998,
+    "workspacePathsNormalized": true
+  },
+  {
+    "path": "artifacts/validation/v104-descriptor-performance-reverse-20261020/run-comparison.py",
+    "originalSHA256": "a07fa1a55e3f3c45557a3d64ea0aaa110285bd22e62ef37078aa48d0cad18e7e",
+    "exportedSHA256": "77a35327923c890cc13e4a4d3ff9baba1f5059c8c2d3de0cb0575c53e459dd34",
+    "bytes": 6216,
+    "workspacePathsNormalized": true
+  },
+  {
+    "path": "artifacts/validation/v104-descriptor-performance-reverse-20261020/run-continuation.py",
+    "originalSHA256": "75292d5efaa374d0a3ebb4144b43b154eb429f85dfb986e543f84d129ce1101b",
+    "exportedSHA256": "c6be370d57be4395a88b415c10a30813c0cac7e12df67fd891784ef7065df0fb",
+    "bytes": 6325,
+    "workspacePathsNormalized": true
+  },
+  {
+    "path": "artifacts/validation/v104-descriptor-performance-reverse-20261020/scene.txt",
+    "originalSHA256": "9d1e59186d97953ea6ceae43d99d7e9e022efc6e02cddbc9c802b1560cf3e8ca",
+    "exportedSHA256": "9d1e59186d97953ea6ceae43d99d7e9e022efc6e02cddbc9c802b1560cf3e8ca",
+    "bytes": 641,
+    "workspacePathsNormalized": false
+  },
+  {
+    "path": "artifacts/validation/v104-descriptor-performance-reverse-20261020/screen-guard-locked-allowed.py",
+    "originalSHA256": "dde091d5a04f40d6e69be2df4740cd15bad2c7bea8d084f5be68dcf133a7a4cf",
+    "exportedSHA256": "dde091d5a04f40d6e69be2df4740cd15bad2c7bea8d084f5be68dcf133a7a4cf",
+    "bytes": 5021,
+    "workspacePathsNormalized": false
+  },
+  {
+    "path": "artifacts/validation/v104-descriptor-performance-reverse-20261020/screen-guard.json",
+    "originalSHA256": "6927184fc9efddc8d1593413b8828164e8d17433b23435d488cabec555da088d",
+    "exportedSHA256": "6927184fc9efddc8d1593413b8828164e8d17433b23435d488cabec555da088d",
+    "bytes": 733,
+    "workspacePathsNormalized": false
+  },
+  {
+    "path": "artifacts/validation/v104-descriptor-performance-reverse-20261020/screen-observations.jsonl",
+    "originalSHA256": "635283249acb3578496475b4c0576c0dc46d79f34222faaf6f751eec4c11014d",
+    "exportedSHA256": "635283249acb3578496475b4c0576c0dc46d79f34222faaf6f751eec4c11014d",
+    "bytes": 26350,
+    "workspacePathsNormalized": false
+  },
+  {
+    "path": "artifacts/validation/v104-descriptor-performance-reverse-20261020/sdl-hidden-preflight.json",
+    "originalSHA256": "429d9b0308d09349ce18fe5827868e00122d4a6412d99995b8cdd58d912fa708",
+    "exportedSHA256": "48fe983fd43de8867336e542e506929f28d4618192a676d603dffb36efb979a2",
+    "bytes": 1056,
+    "workspacePathsNormalized": true
+  },
+  {
+    "path": "artifacts/validation/v104-descriptor-performance-reverse-20261020/summarize.py",
+    "originalSHA256": "dd7301d9c95dbdfea3af3aec4bc6fd9c73d5f1b72b2d2b13ed5cfc2a7cdd8bd7",
+    "exportedSHA256": "dd7301d9c95dbdfea3af3aec4bc6fd9c73d5f1b72b2d2b13ed5cfc2a7cdd8bd7",
+    "bytes": 15752,
+    "workspacePathsNormalized": false
+  },
+  {
+    "path": "artifacts/validation/v104-descriptor-performance-reverse-20261020/summary.json",
+    "originalSHA256": "ca2953437c4a9ec1db10f0578f42de982dade48c0c20804c84f46add7f6ca8ba",
+    "exportedSHA256": "043821e1daa41599f8e13210537c2d6fb2f60e44808f250cf598aa2b72ddf169",
+    "bytes": 28449,
+    "workspacePathsNormalized": true
+  },
+  {
+    "path": "artifacts/validation/v104-descriptor-performance-reverse-20261020/1-candidate-metal3/sessions/lobby-no-native-hook-1792537950387/execution-receipt.json",
+    "originalSHA256": "9dab20b434c1ed4e49723bd785b2b54912a3bbd509357e272013cf1ac4be2a64",
+    "exportedSHA256": "95a3cd84bd68ddf6b1da04f94a055cca80ea70379c1fceea499714bec15e16c3",
+    "bytes": 117238,
+    "workspacePathsNormalized": true
+  },
+  {
+    "path": "artifacts/validation/v104-descriptor-performance-reverse-20261020/1-candidate-metal3/sessions/lobby-no-native-hook-1792537950387/state/data/LuaUI/Config/v104-performance-result.json",
+    "originalSHA256": "d50a7a971ba1613ff4d4fbdab55801c28ab95c0e4e62c78d87bcdc48fd08be99",
+    "exportedSHA256": "d50a7a971ba1613ff4d4fbdab55801c28ab95c0e4e62c78d87bcdc48fd08be99",
+    "bytes": 9666,
+    "workspacePathsNormalized": false
+  },
+  {
+    "path": "artifacts/validation/v104-descriptor-performance-reverse-20261020/1-candidate-metal3/sessions/lobby-no-native-hook-1792537950387/state/data/stack-game.stderr.log",
+    "originalSHA256": "9bf2d44f999227b7104d9ba58b57f98dce16eb1fc2ebca53dd1d7643a726fa7a",
+    "exportedSHA256": "9bf2d44f999227b7104d9ba58b57f98dce16eb1fc2ebca53dd1d7643a726fa7a",
+    "bytes": 7702,
+    "workspacePathsNormalized": false
+  },
+  {
+    "path": "artifacts/validation/v104-descriptor-performance-reverse-20261020/1-candidate-metal3/sessions/lobby-no-native-hook-1792537950387/state/data/infolog.txt",
+    "originalSHA256": "7c57a376275ed4d41ef213f679b164ca58e7bfcc113a95fb500eb9c4d34f4d36",
+    "exportedSHA256": "279dde4f91d212b870912a24e3c5c2f5f6fdc9b1d8a811529069a8cca562e7e5",
+    "bytes": 237643,
+    "workspacePathsNormalized": true
+  },
+  {
+    "path": "artifacts/validation/v104-descriptor-performance-reverse-20261020/1-candidate-metal3/sessions/lobby-no-native-hook-1792537950387/events.jsonl",
+    "originalSHA256": "284fca4ea133415b13876049582deadf11ab291248e6c35df66949699e401ec1",
+    "exportedSHA256": "9c6750cd84c474d596dab1bfc9e4806e6df2884416f60b7e68c07c3447d3ff28",
+    "bytes": 33368,
+    "workspacePathsNormalized": true
+  },
+  {
+    "path": "artifacts/validation/v104-descriptor-performance-reverse-20261020/1-candidate-metal3/sessions/lobby-no-native-hook-1792537950387/launcher.stderr.log",
+    "originalSHA256": "041b2cb1d7e0e3583595fda647cc326a3a2eaf07722c32203b6346640e5039d0",
+    "exportedSHA256": "041b2cb1d7e0e3583595fda647cc326a3a2eaf07722c32203b6346640e5039d0",
+    "bytes": 603,
+    "workspacePathsNormalized": false
+  },
+  {
+    "path": "artifacts/validation/v104-descriptor-performance-reverse-20261020/1-candidate-metal3/sessions/lobby-no-native-hook-1792537950387/launcher.stdout.log",
+    "originalSHA256": "5217a78ca09c3b472c1abf3deb28f27269eea10a54bd1412ffadd72f8c898bb7",
+    "exportedSHA256": "d47e5bfacae2103ff0a2fff7ac074a4b041bdfb4242522c24726de8fb40fe175",
+    "bytes": 194717,
+    "workspacePathsNormalized": true
+  },
+  {
+    "path": "artifacts/validation/v104-descriptor-performance-reverse-20261020/2-parent-metal3/sessions/lobby-no-native-hook-1792538070640/execution-receipt.json",
+    "originalSHA256": "f09ad72cc38a3cd3b2f7cf321491f567f84af46e979c9370e84a72fe891d04fa",
+    "exportedSHA256": "b29fb1ce5ddd7e2608e7c8520678eee121635b5f09128713b3a617f5da9d98d8",
+    "bytes": 115306,
+    "workspacePathsNormalized": true
+  },
+  {
+    "path": "artifacts/validation/v104-descriptor-performance-reverse-20261020/2-parent-metal3/sessions/lobby-no-native-hook-1792538070640/state/data/LuaUI/Config/v104-performance-result.json",
+    "originalSHA256": "16f6d84c17cbf16dcf66b3e7349434b591182ebc1bb8187587fafb2a3d9659d0",
+    "exportedSHA256": "16f6d84c17cbf16dcf66b3e7349434b591182ebc1bb8187587fafb2a3d9659d0",
+    "bytes": 9667,
+    "workspacePathsNormalized": false
+  },
+  {
+    "path": "artifacts/validation/v104-descriptor-performance-reverse-20261020/2-parent-metal3/sessions/lobby-no-native-hook-1792538070640/state/data/stack-game.stderr.log",
+    "originalSHA256": "f121a8ba7ba9e2012795ab25c0f8fafc7c8901a6489282589342e52cecb0a673",
+    "exportedSHA256": "f121a8ba7ba9e2012795ab25c0f8fafc7c8901a6489282589342e52cecb0a673",
+    "bytes": 7702,
+    "workspacePathsNormalized": false
+  },
+  {
+    "path": "artifacts/validation/v104-descriptor-performance-reverse-20261020/2-parent-metal3/sessions/lobby-no-native-hook-1792538070640/state/data/infolog.txt",
+    "originalSHA256": "9fd4ba16394238cdc158833c8646d35cb775d42701353fc6f0e1b0b6d2a09a92",
+    "exportedSHA256": "611a7b58335e21945990edb6e540c29016294db7fc7226b923289bba5bd64081",
+    "bytes": 237719,
+    "workspacePathsNormalized": true
+  },
+  {
+    "path": "artifacts/validation/v104-descriptor-performance-reverse-20261020/2-parent-metal3/sessions/lobby-no-native-hook-1792538070640/events.jsonl",
+    "originalSHA256": "5a981ff8f8832c41ab9ca4142e1680a2b5bb9d4df89a599cc7e40e47ea7122b7",
+    "exportedSHA256": "85810a87df0133a10b9b92bdb79f398ecb5d6163a099859955e7c2e66bcb1767",
+    "bytes": 31466,
+    "workspacePathsNormalized": true
+  },
+  {
+    "path": "artifacts/validation/v104-descriptor-performance-reverse-20261020/2-parent-metal3/sessions/lobby-no-native-hook-1792538070640/launcher.stderr.log",
+    "originalSHA256": "3e639c22cf79c43a22f1a5604c893eb952ba5588e41f59837ff878868de9c334",
+    "exportedSHA256": "3e639c22cf79c43a22f1a5604c893eb952ba5588e41f59837ff878868de9c334",
+    "bytes": 603,
+    "workspacePathsNormalized": false
+  },
+  {
+    "path": "artifacts/validation/v104-descriptor-performance-reverse-20261020/2-parent-metal3/sessions/lobby-no-native-hook-1792538070640/launcher.stdout.log",
+    "originalSHA256": "f00285b9c118d2ed02e3b25f60a17fb4ac454074e33d8600d9d1586bb0610dc4",
+    "exportedSHA256": "c20bc9f02a6a9a68ad6ac50c6f05eedd3e964fa4d93c5be0472aeed095cc1280",
+    "bytes": 193318,
+    "workspacePathsNormalized": true
+  },
+  {
+    "path": "artifacts/validation/v104-descriptor-performance-reverse-20261020/3-parent-metal3-startup-continuation/sessions/lobby-no-native-hook-1792538264347/execution-receipt.json",
+    "originalSHA256": "ce784710c13911280f9da868d1f9d80ce0b8cf6ee4f3cf3df3489104264b62da",
+    "exportedSHA256": "e389cce847da5009f51e63bb45d6d1028fa23c7ffba7af376b74d2fd996b267b",
+    "bytes": 115078,
+    "workspacePathsNormalized": true
+  },
+  {
+    "path": "artifacts/validation/v104-descriptor-performance-reverse-20261020/3-parent-metal3-startup-continuation/sessions/lobby-no-native-hook-1792538264347/state/data/LuaUI/Config/v104-performance-result.json",
+    "originalSHA256": "c306e521bcc0e7f8cc4a764b3ba703435a5fb62e414657acb884f0a4e0bd8f51",
+    "exportedSHA256": "c306e521bcc0e7f8cc4a764b3ba703435a5fb62e414657acb884f0a4e0bd8f51",
+    "bytes": 9666,
+    "workspacePathsNormalized": false
+  },
+  {
+    "path": "artifacts/validation/v104-descriptor-performance-reverse-20261020/3-parent-metal3-startup-continuation/sessions/lobby-no-native-hook-1792538264347/state/data/stack-game.stderr.log",
+    "originalSHA256": "7d9e387f4e712242c8f05feff8a412d3d2751346d3bfe45816db47304c215072",
+    "exportedSHA256": "7d9e387f4e712242c8f05feff8a412d3d2751346d3bfe45816db47304c215072",
+    "bytes": 7702,
+    "workspacePathsNormalized": false
+  },
+  {
+    "path": "artifacts/validation/v104-descriptor-performance-reverse-20261020/3-parent-metal3-startup-continuation/sessions/lobby-no-native-hook-1792538264347/state/data/infolog.txt",
+    "originalSHA256": "49a0f237f2119810cebc0e73cf12f85bfe7b2b2abe460e1aeba4fe7d0f466bdd",
+    "exportedSHA256": "0b53d5bc89fd465fb399599c0b5e7adb826cb9674cc392aca989b799d02cb913",
+    "bytes": 238110,
+    "workspacePathsNormalized": true
+  },
+  {
+    "path": "artifacts/validation/v104-descriptor-performance-reverse-20261020/3-parent-metal3-startup-continuation/sessions/lobby-no-native-hook-1792538264347/events.jsonl",
+    "originalSHA256": "8fc872cf6ebb871df637196b3dd114e6c88ebd2142562ebcd5e4bd64b65057cb",
+    "exportedSHA256": "d709ff7d0c64268371eb06ef9709f2da8fd40f411a4f7af07f62ff81000fe987",
+    "bytes": 31459,
+    "workspacePathsNormalized": true
+  },
+  {
+    "path": "artifacts/validation/v104-descriptor-performance-reverse-20261020/3-parent-metal3-startup-continuation/sessions/lobby-no-native-hook-1792538264347/launcher.stderr.log",
+    "originalSHA256": "dda63b8aa8d99391fd8d7c451dfecd93004042c93965989838866b3557ee494d",
+    "exportedSHA256": "dda63b8aa8d99391fd8d7c451dfecd93004042c93965989838866b3557ee494d",
+    "bytes": 603,
+    "workspacePathsNormalized": false
+  },
+  {
+    "path": "artifacts/validation/v104-descriptor-performance-reverse-20261020/3-parent-metal3-startup-continuation/sessions/lobby-no-native-hook-1792538264347/launcher.stdout.log",
+    "originalSHA256": "6cf6f1a32862ea0b66c7a7fb97587fcde898200fbb1de3a03048c753c92f9d7b",
+    "exportedSHA256": "70b9948eca4ce5d72654eecac1f2449bc02f0ed9b3e6bdd4bdb91d3079b783d6",
+    "bytes": 194591,
+    "workspacePathsNormalized": true
+  },
+  {
+    "path": "artifacts/validation/v104-descriptor-performance-reverse-20261020/4-candidate-metal3/sessions/lobby-no-native-hook-1792538378119/execution-receipt.json",
+    "originalSHA256": "978aba0e48813dd28dccfe325307febcfb7a446b641c524ab9ed89d2c5507755",
+    "exportedSHA256": "642e6566efc56caadbb151051d9245a199c22242aae4fe75f49706c1874a7e84",
+    "bytes": 115293,
+    "workspacePathsNormalized": true
+  },
+  {
+    "path": "artifacts/validation/v104-descriptor-performance-reverse-20261020/4-candidate-metal3/sessions/lobby-no-native-hook-1792538378119/state/data/LuaUI/Config/v104-performance-result.json",
+    "originalSHA256": "cab050edf6be11b6e64e717b56407ede06fdb4143bc4287f4cf823416a3f3a90",
+    "exportedSHA256": "cab050edf6be11b6e64e717b56407ede06fdb4143bc4287f4cf823416a3f3a90",
+    "bytes": 9666,
+    "workspacePathsNormalized": false
+  },
+  {
+    "path": "artifacts/validation/v104-descriptor-performance-reverse-20261020/4-candidate-metal3/sessions/lobby-no-native-hook-1792538378119/state/data/stack-game.stderr.log",
+    "originalSHA256": "c5cb0a23be6a000aa42030a3c1da41e92d590da2c8219f165261765072d6a734",
+    "exportedSHA256": "c5cb0a23be6a000aa42030a3c1da41e92d590da2c8219f165261765072d6a734",
+    "bytes": 7702,
+    "workspacePathsNormalized": false
+  },
+  {
+    "path": "artifacts/validation/v104-descriptor-performance-reverse-20261020/4-candidate-metal3/sessions/lobby-no-native-hook-1792538378119/state/data/infolog.txt",
+    "originalSHA256": "e27753d3d438ca96257046657c73ac115e54429414f6025d8bae9621f8311fd8",
+    "exportedSHA256": "145324bbfdf6c69a3e7637b2c8ac6447ad951646651ec314c8bfdc249a32c98a",
+    "bytes": 237666,
+    "workspacePathsNormalized": true
+  },
+  {
+    "path": "artifacts/validation/v104-descriptor-performance-reverse-20261020/4-candidate-metal3/sessions/lobby-no-native-hook-1792538378119/events.jsonl",
+    "originalSHA256": "956c8fc26788c6e0a1da476edac09b44bb3bfebda379192330a093ebe4b3163d",
+    "exportedSHA256": "c879628b069dda7b8053113b6a289666b129dc32c0d4ef98ac4d7e9bbab4ede6",
+    "bytes": 31468,
+    "workspacePathsNormalized": true
+  },
+  {
+    "path": "artifacts/validation/v104-descriptor-performance-reverse-20261020/4-candidate-metal3/sessions/lobby-no-native-hook-1792538378119/launcher.stderr.log",
+    "originalSHA256": "e9e79816c19a26c0cbdb6cbf6155e5ba587d374a75f6ee5b729a85701f35067d",
+    "exportedSHA256": "e9e79816c19a26c0cbdb6cbf6155e5ba587d374a75f6ee5b729a85701f35067d",
+    "bytes": 603,
+    "workspacePathsNormalized": false
+  },
+  {
+    "path": "artifacts/validation/v104-descriptor-performance-reverse-20261020/4-candidate-metal3/sessions/lobby-no-native-hook-1792538378119/launcher.stdout.log",
+    "originalSHA256": "0ec06a101c654a13cfeeaabef1e83c299a9d6f88947749a496722ba26cdedcc1",
+    "exportedSHA256": "1829ccbd30592814655cccfaab4713aac9cce04fed818c6a8bbde607fec52847",
+    "bytes": 195396,
+    "workspacePathsNormalized": true
+  },
+  {
+    "path": "artifacts/validation/v104-descriptor-performance-reverse-20261020/5-candidate-metal4/sessions/lobby-no-native-hook-1792538495110/execution-receipt.json",
+    "originalSHA256": "147c60915793d14e2445e2bfb61f02814697ef7874dae0fa88439cfd07ea7377",
+    "exportedSHA256": "046cdab5da89d0edfa863f871c9bfe0557351b51fac9546c872ddc83e17afedf",
+    "bytes": 114839,
+    "workspacePathsNormalized": true
+  },
+  {
+    "path": "artifacts/validation/v104-descriptor-performance-reverse-20261020/5-candidate-metal4/sessions/lobby-no-native-hook-1792538495110/state/data/LuaUI/Config/v104-performance-result.json",
+    "originalSHA256": "bd750cfffa75b948923bde5f7301c82f02f79ce15a91653d1c50d23d036bcc74",
+    "exportedSHA256": "bd750cfffa75b948923bde5f7301c82f02f79ce15a91653d1c50d23d036bcc74",
+    "bytes": 9664,
+    "workspacePathsNormalized": false
+  },
+  {
+    "path": "artifacts/validation/v104-descriptor-performance-reverse-20261020/5-candidate-metal4/sessions/lobby-no-native-hook-1792538495110/state/data/stack-game.stderr.log",
+    "originalSHA256": "9bad81480a5d76edde40ca2f39b316a3d13e236e4bb5cd92a93868361cb02f85",
+    "exportedSHA256": "9bad81480a5d76edde40ca2f39b316a3d13e236e4bb5cd92a93868361cb02f85",
+    "bytes": 7875,
+    "workspacePathsNormalized": false
+  },
+  {
+    "path": "artifacts/validation/v104-descriptor-performance-reverse-20261020/5-candidate-metal4/sessions/lobby-no-native-hook-1792538495110/state/data/infolog.txt",
+    "originalSHA256": "637911995ce2c005f1dda97a749dc0f3c4d4e4e2991c30dab81fd98f06e52a22",
+    "exportedSHA256": "12b084f871bf0eb5288c0ccbda9043397fd8e78b587955792acb63dfcc3c2fe8",
+    "bytes": 237688,
+    "workspacePathsNormalized": true
+  },
+  {
+    "path": "artifacts/validation/v104-descriptor-performance-reverse-20261020/5-candidate-metal4/sessions/lobby-no-native-hook-1792538495110/events.jsonl",
+    "originalSHA256": "8051e56e117e1f3215d8cbd99cd7c0a943daa9e921a2041382bb1003fb13e26f",
+    "exportedSHA256": "bcc08189f9c51b14edca3a2d012acf89dbb60e0de5af48cd75885c258bbf723c",
+    "bytes": 31230,
+    "workspacePathsNormalized": true
+  },
+  {
+    "path": "artifacts/validation/v104-descriptor-performance-reverse-20261020/5-candidate-metal4/sessions/lobby-no-native-hook-1792538495110/launcher.stderr.log",
+    "originalSHA256": "35ecee49fd8bed224e81a17d17a4b9dbef115fb05b594171cdbe80dbf7c9accd",
+    "exportedSHA256": "35ecee49fd8bed224e81a17d17a4b9dbef115fb05b594171cdbe80dbf7c9accd",
+    "bytes": 603,
+    "workspacePathsNormalized": false
+  },
+  {
+    "path": "artifacts/validation/v104-descriptor-performance-reverse-20261020/5-candidate-metal4/sessions/lobby-no-native-hook-1792538495110/launcher.stdout.log",
+    "originalSHA256": "4ef970c742c113d7b0bea104c667c36a82bf612e839550848c66167fbc7905b7",
+    "exportedSHA256": "397b49d8055e3e34ba5dccfd1d5830ba91edee3219844f92e9efc6093051f5b3",
+    "bytes": 194639,
+    "workspacePathsNormalized": true
+  },
+  {
+    "path": "artifacts/validation/v104-descriptor-performance-reverse-20261020/6-parent-metal4/sessions/lobby-no-native-hook-1792538609779/execution-receipt.json",
+    "originalSHA256": "0d2ae2971457e269d3419308a45321badc1b7726fdb576491043029d275cf712",
+    "exportedSHA256": "8c1c4ff4c6d1e40618ef5cbc73d6fe59ec8d5f9dcd72ba07f7b7a25d34b9b08d",
+    "bytes": 117465,
+    "workspacePathsNormalized": true
+  },
+  {
+    "path": "artifacts/validation/v104-descriptor-performance-reverse-20261020/6-parent-metal4/sessions/lobby-no-native-hook-1792538609779/state/data/LuaUI/Config/v104-performance-result.json",
+    "originalSHA256": "dbbe53ff9b9b13713bcad23fb9726f0fda98c2a11438dab51edf9aca1f4c77d1",
+    "exportedSHA256": "dbbe53ff9b9b13713bcad23fb9726f0fda98c2a11438dab51edf9aca1f4c77d1",
+    "bytes": 9664,
+    "workspacePathsNormalized": false
+  },
+  {
+    "path": "artifacts/validation/v104-descriptor-performance-reverse-20261020/6-parent-metal4/sessions/lobby-no-native-hook-1792538609779/state/data/stack-game.stderr.log",
+    "originalSHA256": "38188371fec483b38a0d3dd1ef080b49fbe9b130d36935f54f1da5583ea66170",
+    "exportedSHA256": "38188371fec483b38a0d3dd1ef080b49fbe9b130d36935f54f1da5583ea66170",
+    "bytes": 7875,
+    "workspacePathsNormalized": false
+  },
+  {
+    "path": "artifacts/validation/v104-descriptor-performance-reverse-20261020/6-parent-metal4/sessions/lobby-no-native-hook-1792538609779/state/data/infolog.txt",
+    "originalSHA256": "9e74ddb5f86fd9322cba6f954cc5a620c21952a636bc1f66f99672f4c16f98a7",
+    "exportedSHA256": "487b53d0147ab2558970186c340f8dab32cb4650b7bbb809d4445d8a87630c8d",
+    "bytes": 237663,
+    "workspacePathsNormalized": true
+  },
+  {
+    "path": "artifacts/validation/v104-descriptor-performance-reverse-20261020/6-parent-metal4/sessions/lobby-no-native-hook-1792538609779/events.jsonl",
+    "originalSHA256": "bc02a029ad14141d8e6d45bb47a866598a69e9b2ee2cb386d5a0016b20d65aa0",
+    "exportedSHA256": "d83cc53ec951b2bcb7860a975f5278378fc767097c88b350b6df3dc0630f8aac",
+    "bytes": 33829,
+    "workspacePathsNormalized": true
+  },
+  {
+    "path": "artifacts/validation/v104-descriptor-performance-reverse-20261020/6-parent-metal4/sessions/lobby-no-native-hook-1792538609779/launcher.stderr.log",
+    "originalSHA256": "6ed4aad6eb316a97bb1af8d03d30e7d9ecff518912e017b04d69546df9978dd9",
+    "exportedSHA256": "6ed4aad6eb316a97bb1af8d03d30e7d9ecff518912e017b04d69546df9978dd9",
+    "bytes": 603,
+    "workspacePathsNormalized": false
+  },
+  {
+    "path": "artifacts/validation/v104-descriptor-performance-reverse-20261020/6-parent-metal4/sessions/lobby-no-native-hook-1792538609779/launcher.stdout.log",
+    "originalSHA256": "a7a6a989b3d15d501f09db39f0c851c04ca694a73e8129ab84274c9afc7eeb21",
+    "exportedSHA256": "c8e70011b177ae90cec904e6c30efe851b234081e107553b9b34c04c11b2ef62",
+    "bytes": 194408,
+    "workspacePathsNormalized": true
+  },
+  {
+    "path": "artifacts/validation/v104-descriptor-performance-reverse-20261020/7-parent-metal4/sessions/lobby-no-native-hook-1792538727971/execution-receipt.json",
+    "originalSHA256": "293571082c6aa214626ebdc23772c48a6cc93a88078586183272091b32d182ad",
+    "exportedSHA256": "219e0e5ec7a3c28a771241cac4e6907f8063f8a34ad947a10b71f65584c17173",
+    "bytes": 115523,
+    "workspacePathsNormalized": true
+  },
+  {
+    "path": "artifacts/validation/v104-descriptor-performance-reverse-20261020/7-parent-metal4/sessions/lobby-no-native-hook-1792538727971/state/data/LuaUI/Config/v104-performance-result.json",
+    "originalSHA256": "90dbfa72f35afc9f5f06672a1734bedff63289b20fbe7caffa48ea0810d41521",
+    "exportedSHA256": "90dbfa72f35afc9f5f06672a1734bedff63289b20fbe7caffa48ea0810d41521",
+    "bytes": 9667,
+    "workspacePathsNormalized": false
+  },
+  {
+    "path": "artifacts/validation/v104-descriptor-performance-reverse-20261020/7-parent-metal4/sessions/lobby-no-native-hook-1792538727971/state/data/stack-game.stderr.log",
+    "originalSHA256": "5289eb9a2a70c89bde3450b00a3fe369d99870d6b7f01260408101727a116f1a",
+    "exportedSHA256": "5289eb9a2a70c89bde3450b00a3fe369d99870d6b7f01260408101727a116f1a",
+    "bytes": 7875,
+    "workspacePathsNormalized": false
+  },
+  {
+    "path": "artifacts/validation/v104-descriptor-performance-reverse-20261020/7-parent-metal4/sessions/lobby-no-native-hook-1792538727971/state/data/infolog.txt",
+    "originalSHA256": "e7451a34bda5c37be6c9b8c50d7a49cd1f84237a4a610c9e5337152104cadd82",
+    "exportedSHA256": "ba58d9a6e12e71b6dd0ae864ae54227cc7f61f6402b8165a5a184d139434fe56",
+    "bytes": 237669,
+    "workspacePathsNormalized": true
+  },
+  {
+    "path": "artifacts/validation/v104-descriptor-performance-reverse-20261020/7-parent-metal4/sessions/lobby-no-native-hook-1792538727971/events.jsonl",
+    "originalSHA256": "4d2b2928ca86362e79b7b6e76dcb0ef4465244a8521fe9281ba0e71b243c2490",
+    "exportedSHA256": "cfe70830c0b95c98af1b3191afcc08bc3cb962d02682517a466fb223a1da4d90",
+    "bytes": 31913,
+    "workspacePathsNormalized": true
+  },
+  {
+    "path": "artifacts/validation/v104-descriptor-performance-reverse-20261020/7-parent-metal4/sessions/lobby-no-native-hook-1792538727971/launcher.stderr.log",
+    "originalSHA256": "3153aa5826b425fe7b41da440905797d531d4718430eac4d86cc6ecded291f0a",
+    "exportedSHA256": "3153aa5826b425fe7b41da440905797d531d4718430eac4d86cc6ecded291f0a",
+    "bytes": 603,
+    "workspacePathsNormalized": false
+  },
+  {
+    "path": "artifacts/validation/v104-descriptor-performance-reverse-20261020/7-parent-metal4/sessions/lobby-no-native-hook-1792538727971/launcher.stdout.log",
+    "originalSHA256": "b23caedf350cca438fa8718bdddd4fdcfcc434ff15b5ec62886639ec3e4dbcbd",
+    "exportedSHA256": "afc48a70aeb0c30c1d267fc5beb016296450d4981e41614c3a4ba7d9d1343798",
+    "bytes": 192396,
+    "workspacePathsNormalized": true
+  },
+  {
+    "path": "artifacts/validation/v104-descriptor-performance-reverse-20261020/8-candidate-metal4/sessions/lobby-no-native-hook-1792538846409/execution-receipt.json",
+    "originalSHA256": "5820645bf519a028f232d3402f5c1c05905599d29caae60855ac4db8a8029901",
+    "exportedSHA256": "6ffe8bcfef942507f78217886f27d3b69e9ea3a3de1753b13f3ef340dffaa011",
+    "bytes": 114821,
+    "workspacePathsNormalized": true
+  },
+  {
+    "path": "artifacts/validation/v104-descriptor-performance-reverse-20261020/8-candidate-metal4/sessions/lobby-no-native-hook-1792538846409/state/data/LuaUI/Config/v104-performance-result.json",
+    "originalSHA256": "fe79aa0f1d38ea988a8254034b4b2d1ff74157f22178ae89aaa82de732500548",
+    "exportedSHA256": "fe79aa0f1d38ea988a8254034b4b2d1ff74157f22178ae89aaa82de732500548",
+    "bytes": 9666,
+    "workspacePathsNormalized": false
+  },
+  {
+    "path": "artifacts/validation/v104-descriptor-performance-reverse-20261020/8-candidate-metal4/sessions/lobby-no-native-hook-1792538846409/state/data/stack-game.stderr.log",
+    "originalSHA256": "d10e8b38ac998de16063e0fd72109ea121ba3eccbf7e90303f0fd3f6a9b1cd1c",
+    "exportedSHA256": "d10e8b38ac998de16063e0fd72109ea121ba3eccbf7e90303f0fd3f6a9b1cd1c",
+    "bytes": 7875,
+    "workspacePathsNormalized": false
+  },
+  {
+    "path": "artifacts/validation/v104-descriptor-performance-reverse-20261020/8-candidate-metal4/sessions/lobby-no-native-hook-1792538846409/state/data/infolog.txt",
+    "originalSHA256": "5b7e33ae5af20013179f474c6a9b3d39f1bfa8597f3107752dba0dc5f474e46f",
+    "exportedSHA256": "3fc443c55509335e14c040ddba5a6a46156166c306431b4fb796d8b73534e46d",
+    "bytes": 237768,
+    "workspacePathsNormalized": true
+  },
+  {
+    "path": "artifacts/validation/v104-descriptor-performance-reverse-20261020/8-candidate-metal4/sessions/lobby-no-native-hook-1792538846409/events.jsonl",
+    "originalSHA256": "271116410f38117fd5ef304a8bff7e59a5d2d28a094a762245c78739f9681610",
+    "exportedSHA256": "d81efa51c256c99ee85f19b25e7507215dc773e3baa48eb02f13e5325337c87c",
+    "bytes": 31229,
+    "workspacePathsNormalized": true
+  },
+  {
+    "path": "artifacts/validation/v104-descriptor-performance-reverse-20261020/8-candidate-metal4/sessions/lobby-no-native-hook-1792538846409/launcher.stderr.log",
+    "originalSHA256": "f3d4cad3fa63b568b94e7312c14233ad360c904fb187d1f2415f3375c69f83ea",
+    "exportedSHA256": "f3d4cad3fa63b568b94e7312c14233ad360c904fb187d1f2415f3375c69f83ea",
+    "bytes": 603,
+    "workspacePathsNormalized": false
+  },
+  {
+    "path": "artifacts/validation/v104-descriptor-performance-reverse-20261020/8-candidate-metal4/sessions/lobby-no-native-hook-1792538846409/launcher.stdout.log",
+    "originalSHA256": "cf116075479ab8b1de1f694ab03b3e340afc66e6f264c9d0cd3e6760c2815d2c",
+    "exportedSHA256": "6a95d5324e1630b3b61bbc652ba20d07c06965140ad58b91addc3aa145054bdd",
+    "bytes": 195668,
+    "workspacePathsNormalized": true
+  },
+  {
+    "path": "artifacts/validation/v104-descriptor-performance-reverse-20261020/3-parent-metal3/sessions/lobby-no-native-hook-1792538186747/execution-receipt.json",
+    "originalSHA256": "5b746f6dc37b1e52c046f209d0fe6a06c501faf78bbaa9f030b67665a4e36eed",
+    "exportedSHA256": "e7ef25db56fa5e3b7c97d1db43fcb925ba9353dc3b2af179310532d23e328242",
+    "bytes": 10940,
+    "workspacePathsNormalized": true
+  },
+  {
+    "path": "artifacts/validation/v104-descriptor-performance-reverse-20261020/3-parent-metal3/sessions/lobby-no-native-hook-1792538186747/events.jsonl",
+    "originalSHA256": "ee587205eb73c17d24314a67c68b9265274694c9fdb5b17c0809cb9586ba70eb",
+    "exportedSHA256": "3189e0c59e4788a93e010e9c1ef19aafda7872227a16f75543a429b25dc186da",
+    "bytes": 10598,
+    "workspacePathsNormalized": true
+  },
+  {
+    "path": "artifacts/validation/v104-descriptor-performance-reverse-20261020/3-parent-metal3/sessions/lobby-no-native-hook-1792538186747/launcher.stderr.log",
+    "originalSHA256": "e16cafd3f1c45599f8efd0acb4550c0b125ace848706a52fa023c70e2897c88b",
+    "exportedSHA256": "e16cafd3f1c45599f8efd0acb4550c0b125ace848706a52fa023c70e2897c88b",
+    "bytes": 603,
+    "workspacePathsNormalized": false
+  },
+  {
+    "path": "artifacts/validation/v104-descriptor-performance-reverse-20261020/3-parent-metal3/sessions/lobby-no-native-hook-1792538186747/launcher.stdout.log",
+    "originalSHA256": "d17a034bdf93421e6419a63575c655412878f9baf66a1f06f60638a7d3723dbf",
+    "exportedSHA256": "71058e0a45abe5988693b1b1bf1c675a9252fa38715202c6dc611be1bc0b87a8",
+    "bytes": 2880,
+    "workspacePathsNormalized": true
+  }
+]
