@@ -1,0 +1,30 @@
+{
+  "engineFiles": [
+    {
+      "repo": "beyond-all-reason/RecoilEngine",
+      "commit": "63a4a4bd2b209c1c63c9e4ca5fc99adf7c9adeb9",
+      "url": "https://raw.githubusercontent.com/beyond-all-reason/RecoilEngine/63a4a4bd2b209c1c63c9e4ca5fc99adf7c9adeb9/rts/Lua/LuaOpenGL.cpp",
+      "sha256": "1801f73b94d4f4681106d384b0c89a988e3c248fae9511248edad1a9d25000b1",
+      "PushPopMatrix": "int LuaOpenGL::PushPopMatrix(lua_State* L)\n{\n\tCheckDrawingEnabled(L, __func__);\n\tCondWarnDeprecatedGL(L, __func__);\n\n\tstd::vector<GLenum> matModes;\n\tint arg;\n\tfor (arg = 1; lua_isnumber(L, arg); arg++) {\n\t\tconst GLenum mode = (GLenum)lua_tonumber(L, arg);\n\t\tmatModes.push_back(mode);\n\t}\n\n\tif (!lua_isfunction(L, arg)) {\n\t\tluaL_error(L, \"Incorrect arguments to gl.PushPopMatrix()\");\n\t}\n\n\tif (arg == 1) {\n\t\tglPushMatrix();\n\t} else {\n\t\tfor (int i = 0; i < (int)matModes.size(); i++) {\n\t\t\tglMatrixMode(matModes[i]);\n\t\t\tglPushMatrix();\n\t\t}\n\t}\n\n\tconst int args = lua_gettop(L); // number of arguments\n\tconst int error = lua_pcall(L, (args - arg), 0, 0);\n\n\tif (arg == 1) {\n\t\tglPopMatrix();\n\t} else {\n\t\tfor (int i = 0; i < (int)matModes.size(); i++) {\n\t\t\tglMatrixMode(matModes[i]);\n\t\t\tglPopMatrix();\n\t\t}\n\t}\n\n\tif (error != 0) {\n\t\tLOG_L(L_ERROR, \"gl.PushPopMatrix: error(%i) = %s\",\n\t\t\t\terror, lua_tostring(L, -1));\n\t\tlua_error(L);\n\t}\n\n\treturn 0;\n}\n",
+      "explicitModeLocalVector": true
+    },
+    {
+      "repo": "benbreen/RecoilEngine-AppleSilicon",
+      "commit": "a49a8ecc5265c4dd3f8d0016d90b32e81e22c73b",
+      "url": "https://raw.githubusercontent.com/benbreen/RecoilEngine-AppleSilicon/a49a8ecc5265c4dd3f8d0016d90b32e81e22c73b/rts/Lua/LuaOpenGL.cpp",
+      "sha256": "e253728c6db1c698bbb9da040b7c133cca4592393d853fca7d706da8dbe37805",
+      "PushPopMatrix": "int LuaOpenGL::PushPopMatrix(lua_State* L)\n{\n\tCheckDrawingEnabled(L, __func__);\n\tCondWarnDeprecatedGL(L, __func__);\n\n\tstd::vector<GLenum> matModes;\n\tint arg;\n\tfor (arg = 1; lua_isnumber(L, arg); arg++) {\n\t\tconst GLenum mode = (GLenum)lua_tonumber(L, arg);\n\t\tmatModes.push_back(mode);\n\t}\n\n\tif (!lua_isfunction(L, arg)) {\n\t\tluaL_error(L, \"Incorrect arguments to gl.PushPopMatrix()\");\n\t}\n\n\tif (arg == 1) {\n\t\tglPushMatrix();\n\t} else {\n\t\tfor (int i = 0; i < (int)matModes.size(); i++) {\n\t\t\tglMatrixMode(matModes[i]);\n\t\t\tglPushMatrix();\n\t\t}\n\t}\n\n\tconst int args = lua_gettop(L); // number of arguments\n\tconst int error = lua_pcall(L, (args - arg), 0, 0);\n\n\tif (arg == 1) {\n\t\tglPopMatrix();\n\t} else {\n\t\tfor (int i = 0; i < (int)matModes.size(); i++) {\n\t\t\tglMatrixMode(matModes[i]);\n\t\t\tglPopMatrix();\n\t\t}\n\t}\n\n\tif (error != 0) {\n\t\tLOG_L(L_ERROR, \"gl.PushPopMatrix: error(%i) = %s\",\n\t\t\t\terror, lua_tostring(L, -1));\n\t\tlua_error(L);\n\t}\n\n\treturn 0;\n}\n",
+      "explicitModeLocalVector": true
+    },
+    {
+      "repo": "tomjn/RecoilEngine",
+      "commit": "4d76fd88bad3bce1cdba50cb6d340f25e2fc7df4",
+      "url": "https://raw.githubusercontent.com/tomjn/RecoilEngine/4d76fd88bad3bce1cdba50cb6d340f25e2fc7df4/rts/Lua/LuaOpenGL.cpp",
+      "sha256": "e76f759a41c30fd68bb35316ebdbab7d0aaab9afb75f16f391659a652a31ec0b",
+      "PushPopMatrix": "int LuaOpenGL::PushPopMatrix(lua_State* L)\n{\n\tCheckDrawingEnabled(L, __func__);\n\tCondWarnDeprecatedGL(L, __func__);\n\n\tstd::vector<GLenum> matModes;\n\tint arg;\n\tfor (arg = 1; lua_isnumber(L, arg); arg++) {\n\t\tconst GLenum mode = (GLenum)lua_tonumber(L, arg);\n\t\tmatModes.push_back(mode);\n\t}\n\n\tif (!lua_isfunction(L, arg)) {\n\t\tluaL_error(L, \"Incorrect arguments to gl.PushPopMatrix()\");\n\t}\n\n\tif (arg == 1) {\n\t\tglPushMatrix();\n\t} else {\n\t\tfor (int i = 0; i < (int)matModes.size(); i++) {\n\t\t\tglMatrixMode(matModes[i]);\n\t\t\tglPushMatrix();\n\t\t}\n\t}\n\n\tconst int args = lua_gettop(L); // number of arguments\n\tconst int error = lua_pcall(L, (args - arg), 0, 0);\n\n\tif (arg == 1) {\n\t\tglPopMatrix();\n\t} else {\n\t\tfor (int i = 0; i < (int)matModes.size(); i++) {\n\t\t\tglMatrixMode(matModes[i]);\n\t\t\tglPopMatrix();\n\t\t}\n\t}\n\n\tif (error != 0) {\n\t\tLOG_L(L_ERROR, \"gl.PushPopMatrix: error(%i) = %s\",\n\t\t\t\terror, lua_tostring(L, -1));\n\t\tlua_error(L);\n\t}\n\n\treturn 0;\n}\n",
+      "explicitModeLocalVector": true
+    }
+  ],
+  "MatrixReviewReused": "../v103-performance-p1-p3-20261020/external-source-review.json",
+  "WineReviewReused": "Same pinned Wine patch is Mesa/Zink/Venus/WSI only, not engine Matrix or PushPopMatrix; no external engine patch selected."
+}

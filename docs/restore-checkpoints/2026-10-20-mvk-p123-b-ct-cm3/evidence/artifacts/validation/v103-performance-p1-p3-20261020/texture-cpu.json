@@ -1,0 +1,19 @@
+{
+  "compile": [
+    "/usr/bin/clang++",
+    "-std=c++17",
+    "-O1",
+    "-g",
+    "-fsanitize=address,undefined",
+    "-fno-omit-frame-pointer",
+    "artifacts/validation/v103-performance-p1-p3-20261020/texture-differential.cpp",
+    "-o",
+    "artifacts/validation/v103-performance-p1-p3-20261020/texture-differential"
+  ],
+  "exit": 0,
+  "stdout": "NamedTextures old/new differential cases=80 passed (GL/load calls stubbed)\n",
+  "stderr": "",
+  "cases": 80,
+  "limits": "Extracted actual GetInfo bodies; GL/load boundaries stubbed, no GPU acceptance",
+  "sourceSha256": "dcc982728d8d5531c4a16978486e15fd798d7d3eeb812b8e03a5db22b7a8437a"
+}

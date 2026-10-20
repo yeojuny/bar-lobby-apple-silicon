@@ -1,0 +1,23 @@
+{
+  "arguments": [
+    "/usr/bin/xcrun",
+    "clang++",
+    "-std=c++17",
+    "-O1",
+    "-g",
+    "-fsanitize=address,undefined",
+    "-fno-omit-frame-pointer",
+    "-Ibuild/run66-vulkan-headers-src-20260903/include",
+    "-Ibuild/run66-moltenvk-src-20260903/Common",
+    "-Ibuild/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Utility",
+    "-Ibuild/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/API",
+    "artifacts/validation/v104-followup-ab-20261020/b-storage-check.cpp",
+    "-o",
+    "artifacts/validation/v104-followup-ab-20261020/b-storage-check"
+  ],
+  "buildExitCode": 1,
+  "earlierPreparationErrors": [
+    "Missing Common include path",
+    "Missing API include path"
+  ]
+}

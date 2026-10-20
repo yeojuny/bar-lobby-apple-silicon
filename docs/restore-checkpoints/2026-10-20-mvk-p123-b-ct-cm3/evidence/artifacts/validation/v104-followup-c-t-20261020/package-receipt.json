@@ -1,0 +1,44 @@
+{
+  "FPSBenefitUnmeasured": true,
+  "app": "$WORKSPACE/artifacts/runtime/v104-descriptor-candidate-20261020/BAR.app",
+  "changedFromAB": [
+    "Contents/MacOS/BAR",
+    "Contents/Resources/bundled-assets/runtime/moltenvk-pr2746/lib/libMoltenVK.1.4.3.dylib",
+    "Contents/_CodeSignature/CodeResources"
+  ],
+  "deepStrictSignatureVerified": true,
+  "dependencyClosureEdges": 211,
+  "enginesAndLauncherCodeUnchanged": true,
+  "entries": 1194,
+  "frozenV103AndPriorTwoCandidateInventoriesUnchanged": true,
+  "gameExecuted": false,
+  "included": "P1/P2/P3+B+C-T+C-M3; A excluded and vertex cache not reintroduced",
+  "independentReview": "Astra High complete, no actionable findings",
+  "installed": false,
+  "packagedLibrarySHA256": "7ac71989ca27a99a2f9adf219ac0dcb12f16804cd35733bf7fd2c078635c5c4a",
+  "parent": "$WORKSPACE/artifacts/runtime/v104-performance-ab-candidate-20261020/BAR.app",
+  "priorValidation": {
+    "commonBackendCases": [
+      "Metal3 6 cycles plus graphics",
+      "Metal4 6 cycles plus graphics"
+    ],
+    "cpuOff": 134,
+    "cpuOn": 629,
+    "nativeSuite": 6,
+    "productionSyntaxOnOff": 4
+  },
+  "protectedRecordedPinsExact": 57,
+  "published": false,
+  "rawLibrarySHA256": "443cae49eeca6814a7374cf510178416660e07238715e1ceb451f648e92eb60a",
+  "sourcePins": {
+    "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCmdPipeline.h": "91de07b4f0304ebaae3811b855c3c72cdc481fbedd6f126680977a541a7dcd53",
+    "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCmdPipeline.mm": "8e663764a00e70ae9b6ede6996da275a9c0aad8a4de632fab8e9ed20e80e1d33",
+    "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKDescriptorSet.h": "fb7583ab4debcf0e8f6afcaa1abc62b87d80e1b457280a77136d3cf5afaae1f5",
+    "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKDescriptorSet.mm": "b87caab357dd43ba2c2cd937dcd7cdd0836c6418f90ddc5d2b90e13022257dc4",
+    "tools/tests/metal4-descriptor-preparation-cpu.py": "ce4b77707d0bbbc627474280e39c5c5a916c3b2f2e9bc2139aebe4e93b17a3ef",
+    "tools/tests/metal4-prepared-recording-vulkan.mm": "c59916e913b2ad69927b7c7667570c016d3b67b350ae0db42d6dd5452155851d",
+    "tools/tests/metal4-vulkan-integration.mm": "b5f1efe0e19c0c0384b9edd8c5ba8a2af3b9353a64f66a674d606e6ed63a3e6a"
+  },
+  "status": "signed-local-cumulative-candidate",
+  "versionMetadata": "1.0.3 retained; local v1.0.4 candidate designation only"
+}

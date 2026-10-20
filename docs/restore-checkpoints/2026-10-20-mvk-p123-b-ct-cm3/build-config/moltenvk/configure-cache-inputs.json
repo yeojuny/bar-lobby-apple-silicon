@@ -1,0 +1,666 @@
+{
+  "APPKIT_LIBRARY": {
+    "type": "FILEPATH",
+    "value": "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/AppKit.framework"
+  },
+  "BUILD_TESTS": {
+    "type": "BOOL",
+    "value": "OFF"
+  },
+  "CCACHE_PROGRAM": {
+    "type": "FILEPATH",
+    "value": "/opt/homebrew/bin/ccache"
+  },
+  "CEREAL_INSTALL": {
+    "type": "BOOL",
+    "value": "OFF"
+  },
+  "CLANG_USE_LIBCPP": {
+    "type": "BOOL",
+    "value": "OFF"
+  },
+  "CMAKE_ADDR2LINE": {
+    "type": "FILEPATH",
+    "value": "CMAKE_ADDR2LINE-NOTFOUND"
+  },
+  "CMAKE_AR": {
+    "type": "FILEPATH",
+    "value": "/usr/bin/ar"
+  },
+  "CMAKE_BUILD_TYPE": {
+    "type": "STRING",
+    "value": "Release"
+  },
+  "CMAKE_CXX_COMPILER": {
+    "type": "STRING",
+    "value": "/usr/bin/c++"
+  },
+  "CMAKE_CXX_FLAGS": {
+    "type": "STRING",
+    "value": "-DMVK_ENABLE_CUSTOM_DIAGNOSTICS=0"
+  },
+  "CMAKE_CXX_FLAGS_DEBUG": {
+    "type": "STRING",
+    "value": "-g"
+  },
+  "CMAKE_CXX_FLAGS_MINSIZEREL": {
+    "type": "STRING",
+    "value": "-Os -DNDEBUG"
+  },
+  "CMAKE_CXX_FLAGS_RELEASE": {
+    "type": "STRING",
+    "value": "-O3 -DNDEBUG"
+  },
+  "CMAKE_CXX_FLAGS_RELWITHDEBINFO": {
+    "type": "STRING",
+    "value": "-O2 -g -DNDEBUG"
+  },
+  "CMAKE_C_COMPILER": {
+    "type": "STRING",
+    "value": "/usr/bin/cc"
+  },
+  "CMAKE_C_FLAGS": {
+    "type": "STRING",
+    "value": "-DMVK_ENABLE_CUSTOM_DIAGNOSTICS=0"
+  },
+  "CMAKE_C_FLAGS_DEBUG": {
+    "type": "STRING",
+    "value": "-g"
+  },
+  "CMAKE_C_FLAGS_MINSIZEREL": {
+    "type": "STRING",
+    "value": "-Os -DNDEBUG"
+  },
+  "CMAKE_C_FLAGS_RELEASE": {
+    "type": "STRING",
+    "value": "-O3 -DNDEBUG"
+  },
+  "CMAKE_C_FLAGS_RELWITHDEBINFO": {
+    "type": "STRING",
+    "value": "-O2 -g -DNDEBUG"
+  },
+  "CMAKE_DLLTOOL": {
+    "type": "FILEPATH",
+    "value": "CMAKE_DLLTOOL-NOTFOUND"
+  },
+  "CMAKE_EXE_LINKER_FLAGS": {
+    "type": "STRING",
+    "value": ""
+  },
+  "CMAKE_EXE_LINKER_FLAGS_DEBUG": {
+    "type": "STRING",
+    "value": ""
+  },
+  "CMAKE_EXE_LINKER_FLAGS_MINSIZEREL": {
+    "type": "STRING",
+    "value": ""
+  },
+  "CMAKE_EXE_LINKER_FLAGS_RELEASE": {
+    "type": "STRING",
+    "value": ""
+  },
+  "CMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO": {
+    "type": "STRING",
+    "value": ""
+  },
+  "CMAKE_EXPORT_BUILD_DATABASE": {
+    "type": "BOOL",
+    "value": ""
+  },
+  "CMAKE_EXPORT_COMPILE_COMMANDS": {
+    "type": "BOOL",
+    "value": ""
+  },
+  "CMAKE_INSTALL_BINDIR": {
+    "type": "PATH",
+    "value": "bin"
+  },
+  "CMAKE_INSTALL_DATADIR": {
+    "type": "PATH",
+    "value": ""
+  },
+  "CMAKE_INSTALL_DATAROOTDIR": {
+    "type": "PATH",
+    "value": "share"
+  },
+  "CMAKE_INSTALL_DOCDIR": {
+    "type": "PATH",
+    "value": ""
+  },
+  "CMAKE_INSTALL_INCLUDEDIR": {
+    "type": "PATH",
+    "value": "include"
+  },
+  "CMAKE_INSTALL_INFODIR": {
+    "type": "PATH",
+    "value": ""
+  },
+  "CMAKE_INSTALL_LIBDIR": {
+    "type": "PATH",
+    "value": "lib"
+  },
+  "CMAKE_INSTALL_LIBEXECDIR": {
+    "type": "PATH",
+    "value": "libexec"
+  },
+  "CMAKE_INSTALL_LOCALEDIR": {
+    "type": "PATH",
+    "value": ""
+  },
+  "CMAKE_INSTALL_LOCALSTATEDIR": {
+    "type": "PATH",
+    "value": "var"
+  },
+  "CMAKE_INSTALL_MANDIR": {
+    "type": "PATH",
+    "value": ""
+  },
+  "CMAKE_INSTALL_NAME_DIR": {
+    "type": "UNINITIALIZED",
+    "value": "@rpath"
+  },
+  "CMAKE_INSTALL_NAME_TOOL": {
+    "type": "FILEPATH",
+    "value": "/usr/bin/install_name_tool"
+  },
+  "CMAKE_INSTALL_OLDINCLUDEDIR": {
+    "type": "PATH",
+    "value": "/usr/include"
+  },
+  "CMAKE_INSTALL_PREFIX": {
+    "type": "PATH",
+    "value": "$WORKSPACE/artifacts/validation/metal4-direct-backend-implementation-20261002/runtime"
+  },
+  "CMAKE_INSTALL_RUNSTATEDIR": {
+    "type": "PATH",
+    "value": ""
+  },
+  "CMAKE_INSTALL_SBINDIR": {
+    "type": "PATH",
+    "value": "sbin"
+  },
+  "CMAKE_INSTALL_SHAREDSTATEDIR": {
+    "type": "PATH",
+    "value": "com"
+  },
+  "CMAKE_INSTALL_SYSCONFDIR": {
+    "type": "PATH",
+    "value": "etc"
+  },
+  "CMAKE_LINKER": {
+    "type": "FILEPATH",
+    "value": "/usr/bin/ld"
+  },
+  "CMAKE_MAKE_PROGRAM": {
+    "type": "FILEPATH",
+    "value": "/opt/homebrew/bin/ninja"
+  },
+  "CMAKE_MODULE_LINKER_FLAGS": {
+    "type": "STRING",
+    "value": ""
+  },
+  "CMAKE_MODULE_LINKER_FLAGS_DEBUG": {
+    "type": "STRING",
+    "value": ""
+  },
+  "CMAKE_MODULE_LINKER_FLAGS_MINSIZEREL": {
+    "type": "STRING",
+    "value": ""
+  },
+  "CMAKE_MODULE_LINKER_FLAGS_RELEASE": {
+    "type": "STRING",
+    "value": ""
+  },
+  "CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO": {
+    "type": "STRING",
+    "value": ""
+  },
+  "CMAKE_NM": {
+    "type": "FILEPATH",
+    "value": "/usr/bin/nm"
+  },
+  "CMAKE_OBJCOPY": {
+    "type": "FILEPATH",
+    "value": "CMAKE_OBJCOPY-NOTFOUND"
+  },
+  "CMAKE_OBJCXX_COMPILER": {
+    "type": "FILEPATH",
+    "value": "/usr/bin/c++"
+  },
+  "CMAKE_OBJCXX_FLAGS": {
+    "type": "STRING",
+    "value": "-DMVK_ENABLE_CUSTOM_DIAGNOSTICS=0"
+  },
+  "CMAKE_OBJCXX_FLAGS_DEBUG": {
+    "type": "STRING",
+    "value": "-g"
+  },
+  "CMAKE_OBJCXX_FLAGS_MINSIZEREL": {
+    "type": "STRING",
+    "value": "-Os -DNDEBUG"
+  },
+  "CMAKE_OBJCXX_FLAGS_RELEASE": {
+    "type": "STRING",
+    "value": "-O3 -DNDEBUG"
+  },
+  "CMAKE_OBJCXX_FLAGS_RELWITHDEBINFO": {
+    "type": "STRING",
+    "value": "-O2 -g -DNDEBUG"
+  },
+  "CMAKE_OBJC_COMPILER": {
+    "type": "FILEPATH",
+    "value": "/usr/bin/cc"
+  },
+  "CMAKE_OBJC_FLAGS": {
+    "type": "STRING",
+    "value": "-DMVK_ENABLE_CUSTOM_DIAGNOSTICS=0"
+  },
+  "CMAKE_OBJC_FLAGS_DEBUG": {
+    "type": "STRING",
+    "value": "-g"
+  },
+  "CMAKE_OBJC_FLAGS_MINSIZEREL": {
+    "type": "STRING",
+    "value": "-Os -DNDEBUG"
+  },
+  "CMAKE_OBJC_FLAGS_RELEASE": {
+    "type": "STRING",
+    "value": "-O3 -DNDEBUG"
+  },
+  "CMAKE_OBJC_FLAGS_RELWITHDEBINFO": {
+    "type": "STRING",
+    "value": "-O2 -g -DNDEBUG"
+  },
+  "CMAKE_OBJDUMP": {
+    "type": "FILEPATH",
+    "value": "/usr/bin/objdump"
+  },
+  "CMAKE_OSX_ARCHITECTURES": {
+    "type": "STRING",
+    "value": "arm64"
+  },
+  "CMAKE_OSX_DEPLOYMENT_TARGET": {
+    "type": "UNINITIALIZED",
+    "value": "27.0"
+  },
+  "CMAKE_OSX_SYSROOT": {
+    "type": "STRING",
+    "value": ""
+  },
+  "CMAKE_RANLIB": {
+    "type": "FILEPATH",
+    "value": "/usr/bin/ranlib"
+  },
+  "CMAKE_READELF": {
+    "type": "FILEPATH",
+    "value": "CMAKE_READELF-NOTFOUND"
+  },
+  "CMAKE_SHARED_LINKER_FLAGS": {
+    "type": "STRING",
+    "value": ""
+  },
+  "CMAKE_SHARED_LINKER_FLAGS_DEBUG": {
+    "type": "STRING",
+    "value": ""
+  },
+  "CMAKE_SHARED_LINKER_FLAGS_MINSIZEREL": {
+    "type": "STRING",
+    "value": ""
+  },
+  "CMAKE_SHARED_LINKER_FLAGS_RELEASE": {
+    "type": "STRING",
+    "value": ""
+  },
+  "CMAKE_SHARED_LINKER_FLAGS_RELWITHDEBINFO": {
+    "type": "STRING",
+    "value": ""
+  },
+  "CMAKE_SKIP_INSTALL_RPATH": {
+    "type": "BOOL",
+    "value": "NO"
+  },
+  "CMAKE_SKIP_RPATH": {
+    "type": "BOOL",
+    "value": "NO"
+  },
+  "CMAKE_STATIC_LINKER_FLAGS": {
+    "type": "STRING",
+    "value": ""
+  },
+  "CMAKE_STATIC_LINKER_FLAGS_DEBUG": {
+    "type": "STRING",
+    "value": ""
+  },
+  "CMAKE_STATIC_LINKER_FLAGS_MINSIZEREL": {
+    "type": "STRING",
+    "value": ""
+  },
+  "CMAKE_STATIC_LINKER_FLAGS_RELEASE": {
+    "type": "STRING",
+    "value": ""
+  },
+  "CMAKE_STATIC_LINKER_FLAGS_RELWITHDEBINFO": {
+    "type": "STRING",
+    "value": ""
+  },
+  "CMAKE_STRIP": {
+    "type": "FILEPATH",
+    "value": "/usr/bin/strip"
+  },
+  "CMAKE_TAPI": {
+    "type": "FILEPATH",
+    "value": "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/tapi"
+  },
+  "CMAKE_VERBOSE_MAKEFILE": {
+    "type": "BOOL",
+    "value": "FALSE"
+  },
+  "CPM_DONT_CREATE_PACKAGE_LOCK": {
+    "type": "BOOL",
+    "value": "OFF"
+  },
+  "CPM_DONT_UPDATE_MODULE_PATH": {
+    "type": "BOOL",
+    "value": "OFF"
+  },
+  "CPM_DOWNLOAD_ALL": {
+    "type": "BOOL",
+    "value": "OFF"
+  },
+  "CPM_INCLUDE_ALL_IN_PACKAGE_LOCK": {
+    "type": "BOOL",
+    "value": "OFF"
+  },
+  "CPM_LOCAL_PACKAGES_ONLY": {
+    "type": "BOOL",
+    "value": "ON"
+  },
+  "CPM_SOURCE_CACHE": {
+    "type": "PATH",
+    "value": "$HOME/.cache/CPM"
+  },
+  "CPM_SPIRV-Cross_SOURCE": {
+    "type": "UNINITIALIZED",
+    "value": "$WORKSPACE/build/run66-moltenvk-src-20260903/External/SPIRV-Cross"
+  },
+  "CPM_SPIRV-Headers_SOURCE": {
+    "type": "UNINITIALIZED",
+    "value": "$WORKSPACE/build/run66-moltenvk-src-20260903/External/SPIRV-Headers"
+  },
+  "CPM_SPIRV-Tools_SOURCE": {
+    "type": "UNINITIALIZED",
+    "value": "$WORKSPACE/build/run66-moltenvk-src-20260903/External/SPIRV-Tools"
+  },
+  "CPM_USE_LOCAL_PACKAGES": {
+    "type": "BOOL",
+    "value": "OFF"
+  },
+  "CPM_Vulkan-Headers_SOURCE": {
+    "type": "UNINITIALIZED",
+    "value": "$WORKSPACE/build/run66-vulkan-headers-src-20260903"
+  },
+  "CPM_cereal_SOURCE": {
+    "type": "UNINITIALIZED",
+    "value": "$WORKSPACE/build/run66-moltenvk-src-20260903/External/cereal"
+  },
+  "ENABLE_EXCEPTIONS_ON_MSVC": {
+    "type": "BOOL",
+    "value": "ON"
+  },
+  "ENABLE_RTTI": {
+    "type": "BOOL",
+    "value": "OFF"
+  },
+  "FETCHCONTENT_BASE_DIR": {
+    "type": "PATH",
+    "value": "$WORKSPACE/build/metal4-mvk-20261002/_deps"
+  },
+  "FETCHCONTENT_FULLY_DISCONNECTED": {
+    "type": "BOOL",
+    "value": "OFF"
+  },
+  "FETCHCONTENT_QUIET": {
+    "type": "BOOL",
+    "value": "ON"
+  },
+  "FETCHCONTENT_SOURCE_DIR_CEREAL": {
+    "type": "PATH",
+    "value": ""
+  },
+  "FETCHCONTENT_SOURCE_DIR_SPIRV-CROSS": {
+    "type": "PATH",
+    "value": ""
+  },
+  "FETCHCONTENT_SOURCE_DIR_SPIRV-HEADERS": {
+    "type": "PATH",
+    "value": ""
+  },
+  "FETCHCONTENT_SOURCE_DIR_SPIRV-TOOLS": {
+    "type": "PATH",
+    "value": ""
+  },
+  "FETCHCONTENT_SOURCE_DIR_VULKAN-HEADERS": {
+    "type": "PATH",
+    "value": ""
+  },
+  "FETCHCONTENT_UPDATES_DISCONNECTED": {
+    "type": "BOOL",
+    "value": "OFF"
+  },
+  "FETCHCONTENT_UPDATES_DISCONNECTED_CEREAL": {
+    "type": "BOOL",
+    "value": "OFF"
+  },
+  "FETCHCONTENT_UPDATES_DISCONNECTED_SPIRV-CROSS": {
+    "type": "BOOL",
+    "value": "OFF"
+  },
+  "FETCHCONTENT_UPDATES_DISCONNECTED_SPIRV-HEADERS": {
+    "type": "BOOL",
+    "value": "OFF"
+  },
+  "FETCHCONTENT_UPDATES_DISCONNECTED_SPIRV-TOOLS": {
+    "type": "BOOL",
+    "value": "OFF"
+  },
+  "FETCHCONTENT_UPDATES_DISCONNECTED_VULKAN-HEADERS": {
+    "type": "BOOL",
+    "value": "OFF"
+  },
+  "FOUNDATION_LIBRARY": {
+    "type": "FILEPATH",
+    "value": "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/Foundation.framework"
+  },
+  "GIT_EXECUTABLE": {
+    "type": "FILEPATH",
+    "value": "/usr/bin/git"
+  },
+  "IOKIT_LIBRARY": {
+    "type": "FILEPATH",
+    "value": "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/IOKit.framework"
+  },
+  "IOSURFACE_LIBRARY": {
+    "type": "FILEPATH",
+    "value": "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/IOSurface.framework"
+  },
+  "JUST_INSTALL_CEREAL": {
+    "type": "BOOL",
+    "value": "OFF"
+  },
+  "METAL_LIBRARY": {
+    "type": "FILEPATH",
+    "value": "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/Metal.framework"
+  },
+  "MOLTEN_VK_WITH_CCACHE": {
+    "type": "BOOL",
+    "value": "ON"
+  },
+  "MVK_BUILD_METAL4_FOUNDATION": {
+    "type": "BOOL",
+    "value": "ON"
+  },
+  "MVK_BUILD_SHADER_CONVERTER_TOOL": {
+    "type": "BOOL",
+    "value": "OFF"
+  },
+  "MVK_CONFIG_LOG_LEVEL": {
+    "type": "STRING",
+    "value": "info"
+  },
+  "MVK_EXCLUDE_CEREAL": {
+    "type": "BOOL",
+    "value": "OFF"
+  },
+  "MVK_EXCLUDE_SPIRV_TOOLS": {
+    "type": "BOOL",
+    "value": "OFF"
+  },
+  "MVK_GIT_REV": {
+    "type": "UNINITIALIZED",
+    "value": "f52facf7"
+  },
+  "MVK_USE_METAL_PRIVATE_API": {
+    "type": "BOOL",
+    "value": "ON"
+  },
+  "QUARTZCORE_LIBRARY": {
+    "type": "FILEPATH",
+    "value": "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/QuartzCore.framework"
+  },
+  "SKIP_PORTABILITY_TEST": {
+    "type": "BOOL",
+    "value": "OFF"
+  },
+  "SKIP_SPIRV_TOOLS_INSTALL": {
+    "type": "BOOL",
+    "value": "OFF"
+  },
+  "SPIRV_ALLOW_TIMERS": {
+    "type": "BOOL",
+    "value": "ON"
+  },
+  "SPIRV_BUILD_COMPRESSION": {
+    "type": "BOOL",
+    "value": "OFF"
+  },
+  "SPIRV_BUILD_FUZZER": {
+    "type": "BOOL",
+    "value": "OFF"
+  },
+  "SPIRV_BUILD_LIBFUZZER_TARGETS": {
+    "type": "BOOL",
+    "value": "OFF"
+  },
+  "SPIRV_CHECK_CONTEXT": {
+    "type": "BOOL",
+    "value": "ON"
+  },
+  "SPIRV_COLOR_TERMINAL": {
+    "type": "BOOL",
+    "value": "ON"
+  },
+  "SPIRV_CROSS_EXCEPTIONS_TO_ASSERTIONS": {
+    "type": "BOOL",
+    "value": "OFF"
+  },
+  "SPIRV_CROSS_FORCE_PIC": {
+    "type": "BOOL",
+    "value": "OFF"
+  },
+  "SPIRV_CROSS_FORCE_STL_TYPES": {
+    "type": "BOOL",
+    "value": "OFF"
+  },
+  "SPIRV_CROSS_MISC_WARNINGS": {
+    "type": "BOOL",
+    "value": "OFF"
+  },
+  "SPIRV_CROSS_SANITIZE_ADDRESS": {
+    "type": "BOOL",
+    "value": "OFF"
+  },
+  "SPIRV_CROSS_SANITIZE_MEMORY": {
+    "type": "BOOL",
+    "value": "OFF"
+  },
+  "SPIRV_CROSS_SANITIZE_THREADS": {
+    "type": "BOOL",
+    "value": "OFF"
+  },
+  "SPIRV_CROSS_SANITIZE_UNDEFINED": {
+    "type": "BOOL",
+    "value": "OFF"
+  },
+  "SPIRV_CROSS_SHARED": {
+    "type": "BOOL",
+    "value": "OFF"
+  },
+  "SPIRV_CROSS_SPV_HEADER_NAMESPACE_OVERRIDE": {
+    "type": "BOOL",
+    "value": "OFF"
+  },
+  "SPIRV_CROSS_STATIC": {
+    "type": "BOOL",
+    "value": "ON"
+  },
+  "SPIRV_CROSS_WERROR": {
+    "type": "BOOL",
+    "value": "OFF"
+  },
+  "SPIRV_HEADERS_ENABLE_INSTALL": {
+    "type": "BOOL",
+    "value": "OFF"
+  },
+  "SPIRV_HEADERS_ENABLE_TESTS": {
+    "type": "BOOL",
+    "value": "OFF"
+  },
+  "SPIRV_LIB_FUZZING_ENGINE_LINK_OPTIONS": {
+    "type": "STRING",
+    "value": ""
+  },
+  "SPIRV_LOG_DEBUG": {
+    "type": "BOOL",
+    "value": "OFF"
+  },
+  "SPIRV_SKIP_EXECUTABLES": {
+    "type": "BOOL",
+    "value": "ON"
+  },
+  "SPIRV_SKIP_TESTS": {
+    "type": "UNINITIALIZED",
+    "value": "ON"
+  },
+  "SPIRV_TOOLS_INSTALL_EMACS_HELPERS": {
+    "type": "BOOL",
+    "value": "OFF"
+  },
+  "SPIRV_USE_SANITIZER": {
+    "type": "STRING",
+    "value": ""
+  },
+  "SPIRV_WARN_EVERYTHING": {
+    "type": "BOOL",
+    "value": "OFF"
+  },
+  "SPIRV_WERROR": {
+    "type": "BOOL",
+    "value": "ON"
+  },
+  "THREAD_SAFE": {
+    "type": "BOOL",
+    "value": "OFF"
+  },
+  "VULKAN_HEADERS_ENABLE_INSTALL": {
+    "type": "BOOL",
+    "value": "OFF"
+  },
+  "VULKAN_HEADERS_ENABLE_TESTS": {
+    "type": "BOOL",
+    "value": "OFF"
+  },
+  "WITH_WERROR": {
+    "type": "BOOL",
+    "value": "ON"
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "date": "2026-10-20",
+  "stage": "A complete; B applicability review; C design only",
+  "productEdits": false,
+  "builds": 0,
+  "gameRuns": 0,
+  "A": {
+    "decision": "exclude from current performance candidate",
+    "evidence": "actual-game-call-sites.json",
+    "reason": "Selected game and menu contain no executable MatrixDataFromProjectileIDs call; actual PushPopMatrix call has no numeric mode arguments and does not populate the local vector.",
+    "scope": "Fixed selected game/menu and inspected bundled presentation sources; not a proof about all future content or dynamically constructed calls."
+  },
+  "B": {
+    "owner": "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCmdDraw.mm",
+    "sha256": "6127af5074a1a81f4fe967d856237e217be74dd4ecc924919ed2618f4a173a49",
+    "candidate": "Per-call CPU scratch capacity reuse across successive restart batches within preconvertMetal4Draws.",
+    "status": "Not yet qualified for implementation: retained evidence demonstrates conversion work but does not establish multiple eligible restart batches in the same current prepass invocation.",
+    "limits": [
+      "No shared recording cache or GPU lifetime change",
+      "Keep immutable submission-owned uploads and output leases",
+      "Reset optional converted-output fields before reuse",
+      "Keep batching, fallback, ordering, bounds, and dependencies"
+    ],
+    "indirect": "Historical R30 observed zero indirect draws; no current applicability evidence for optimizing indirect conversion arrays.",
+    "historicalEvidence": [
+      "reports/metal4-r39-primitive-batch-host-20261003.md",
+      "reports/metal4-r30-remaining-performance-inventory-20261003.md",
+      "reports/metal4-r45-cus-invariance-20261004.md"
+    ],
+    "historicalCaveat": "R45 conversion share 2.0564% and 95.52% reduction are from its older instrumented workload, not current v1.0.4 measurements."
+  },
+  "C": {
+    "status": "design only",
+    "scope": "State invalidation, allocator/submission lifetime, MSAA resolve, barriers and waits"
+  },
+  "nextEvidenceNeeded": "Establish whether the current BAR workload executes multiple eligible restart batches per preconvertMetal4Draws call before changing local scratch capacity storage. Cross-call reuse would need a separate ownership/lifetime review.",
+  "supersededBy": "completion.json",
+  "historicalStageNote": "Earlier applicability review is retained. Subsequent B implementation uses per-batch inline storage and does not require multiple batches in the same prepass."
+}

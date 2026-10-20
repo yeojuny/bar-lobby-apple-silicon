@@ -1,0 +1,143 @@
+{
+  "BAR head": "26bf7c1862d83198cf5d63c7379099191fe5c503",
+  "luaui/Widgets/gui_healthbars_gl4.lua": {
+    "url": "https://raw.githubusercontent.com/beyond-all-reason/Beyond-All-Reason/26bf7c1862d83198cf5d63c7379099191fe5c503/luaui/Widgets/gui_healthbars_gl4.lua",
+    "sha256": "0468f11a6e8595fd40aab019ebcdf22b602d8cd52393a5c74629714e8a706016",
+    "calls": [
+      [
+        189,
+        "local healthbartexture = \"LuaUI/Images/healtbars_exo4.tga\""
+      ],
+      [
+        1427,
+        "\t\tgl.Texture(0, healthbartexture)"
+      ],
+      [
+        1476,
+        "\t\tgl.Texture(false)"
+      ]
+    ]
+  },
+  "luaui/Widgets/gui_pip.lua": {
+    "url": "https://raw.githubusercontent.com/beyond-all-reason/Beyond-All-Reason/26bf7c1862d83198cf5d63c7379099191fe5c503/luaui/Widgets/gui_pip.lua",
+    "sha256": "599ed4e6c449f3d4108b172f354354ab6c5a2083e9c3e7cea0252fcc0033cf91",
+    "calls": [
+      [
+        9309,
+        "\tpipR2T.losTex = gl.CreateTexture(losTexWidth, losTexHeight, {"
+      ],
+      [
+        9323,
+        "\tpipR2T.decalTex = gl.CreateTexture(decalTexWidth, decalTexHeight, {"
+      ],
+      [
+        18787,
+        "\t\tpipR2T.rulerTex = gl.CreateTexture(math.floor(pipWidth), math.floor(pipHeight), {"
+      ],
+      [
+        20385,
+        "\t\t\tpipR2T.frameBackgroundTex = gl.CreateTexture(bgTexWidth, bgTexHeight, {"
+      ],
+      [
+        20408,
+        "\t\t\tpipR2T.frameButtonsTex = gl.CreateTexture(math.floor(pipWidth), math.floor(pipHeight), {"
+      ],
+      [
+        20621,
+        "\t\tpipR2T.unitsTex = gl.CreateTexture(uW, uH, {"
+      ],
+      [
+        20930,
+        "\t\tpipR2T.featuresTex = gl.CreateTexture(uW, uH, {"
+      ],
+      [
+        21132,
+        "\t\tpipR2T.contentTex = gl.CreateTexture(cW, cH, {"
+      ]
+    ]
+  },
+  "modules/graphics/instancevbotable.lua": {
+    "url": "https://raw.githubusercontent.com/beyond-all-reason/Beyond-All-Reason/26bf7c1862d83198cf5d63c7379099191fe5c503/modules/graphics/instancevbotable.lua",
+    "sha256": "a295511e741d2965647697fce3ad3839835ad172e56909937f2ccf9dbbf80e47",
+    "calls": [
+      [
+        576,
+        "\t\t\tiT.instanceVBO:InstanceDataFromFeatureIDs(iT.indextoUnitID, iT.unitIDattribID)"
+      ],
+      [
+        578,
+        "\t\t\tiT.instanceVBO:InstanceDataFromUnitIDs(iT.indextoUnitID, iT.unitIDattribID)"
+      ],
+      [
+        609,
+        "\t-- unitID: if given, it will store then unitID corresponding to this instance, and will try to update the InstanceDataFromUnitIDs for this unit"
+      ],
+      [
+        674,
+        "\t\t\t\tiT.instanceVBO:InstanceDataFromFeatureIDs(unitID, iT.unitIDattribID, thisInstanceIndex - 1)"
+      ],
+      [
+        676,
+        "\t\t\t\tiT.instanceVBO:InstanceDataFromUnitIDs(unitID, iT.unitIDattribID, thisInstanceIndex - 1)"
+      ],
+      [
+        828,
+        "\t\t\t\t\t\tiT.instanceVBO:InstanceDataFromFeatureIDs(popunitID, iT.unitIDattribID, oldElementIndex - 1)"
+      ],
+      [
+        830,
+        "\t\t\t\t\t\tiT.instanceVBO:InstanceDataFromUnitIDs(popunitID, iT.unitIDattribID, oldElementIndex - 1)"
+      ],
+      [
+        894,
+        "\t\t\tiT.instanceVBO:InstanceDataFromFeatureIDs(iT.indextoUnitID, iT.unitIDattribID)"
+      ],
+      [
+        896,
+        "\t\t\tiT.instanceVBO:InstanceDataFromUnitIDs(iT.indextoUnitID, iT.unitIDattribID)"
+      ],
+      [
+        921,
+        "\t\t\tiT.instanceVBO:InstanceDataFromFeatureIDs(unitIDRange, iT.unitIDattribID, startElementIndex)"
+      ],
+      [
+        923,
+        "\t\t\tiT.instanceVBO:InstanceDataFromUnitIDs(unitIDRange, iT.unitIDattribID, startElementIndex)"
+      ]
+    ]
+  },
+  "tomjn PR3271 head": "7efc6d9b79ecb1932dd1bf63c9c529e5e6ce5b5a",
+  "PR3271 rts/Lua/LuaOpenGLUtils.cpp": {
+    "url": "https://raw.githubusercontent.com/tomjn/RecoilEngine/7efc6d9b79ecb1932dd1bf63c9c529e5e6ce5b5a/rts/Lua/LuaOpenGLUtils.cpp",
+    "sha256": "76c52cec1e51e62cd4c339dd67038e5aa53cf68490f7c2c79f133b84eb43b805",
+    "oldLookupPatterns": {
+      "textures.GetInfo(image)": 1,
+      "textures.GetIdx(image)": 1,
+      "CNamedTextures::GetInfoIndex(image)": 1,
+      "const BufferAttribDef& bad = bufferAttribDefs[attrID];": 0,
+      "const size_t texIdx = GetInfoIndex(texName);": 0
+    }
+  },
+  "PR3271 rts/Lua/LuaVBOImpl.cpp": {
+    "url": "https://raw.githubusercontent.com/tomjn/RecoilEngine/7efc6d9b79ecb1932dd1bf63c9c529e5e6ce5b5a/rts/Lua/LuaVBOImpl.cpp",
+    "sha256": "0e9be0f7ec4acc45061483eb63dff844738286b17bfc709dc56eebbc104b17a8",
+    "oldLookupPatterns": {
+      "textures.GetInfo(image)": 0,
+      "textures.GetIdx(image)": 0,
+      "CNamedTextures::GetInfoIndex(image)": 0,
+      "const BufferAttribDef& bad = bufferAttribDefs[attrID];": 1,
+      "const size_t texIdx = GetInfoIndex(texName);": 0
+    }
+  },
+  "PR3271 rts/Rendering/Textures/NamedTextures.cpp": {
+    "url": "https://raw.githubusercontent.com/tomjn/RecoilEngine/7efc6d9b79ecb1932dd1bf63c9c529e5e6ce5b5a/rts/Rendering/Textures/NamedTextures.cpp",
+    "sha256": "06bffe74e18e7726b654461be061b776bfb54e5cf079359cea1b0463dbb96635",
+    "oldLookupPatterns": {
+      "textures.GetInfo(image)": 0,
+      "textures.GetIdx(image)": 0,
+      "CNamedTextures::GetInfoIndex(image)": 0,
+      "const BufferAttribDef& bad = bufferAttribDefs[attrID];": 0,
+      "const size_t texIdx = GetInfoIndex(texName);": 1
+    }
+  }
+}

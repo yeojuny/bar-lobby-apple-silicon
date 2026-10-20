@@ -1,0 +1,242 @@
+--- before/build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKDescriptorSet.h
++++ after/build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKDescriptorSet.h
+@@ -732,6 +732,12 @@
+ 	/** Get the bind point of this template */
+ 	VkPipelineBindPoint getBindPoint() const { return _pipelineBindPoint; }
+ 
++#if MVK_BUILD_METAL4_FOUNDATION
++	bool hasSingletonUniformEntries() const { return _singletonUniformEntries; }
++	bool uniformCaptureRangeOverflows() const { return _uniformCaptureRangeOverflow; }
++	size_t getUniformCaptureReadEnd() const { return _uniformCaptureReadEnd; }
++#endif
++
+ 	/** Constructs an instance for the specified device. */
+ 	MVKDescriptorUpdateTemplate(MVKDevice* device, const VkDescriptorUpdateTemplateCreateInfo* pCreateInfo);
+ 
+@@ -745,6 +751,11 @@
+ 	size_t _size = 0;
+ 	VkPipelineBindPoint _pipelineBindPoint;
+ 	VkDescriptorUpdateTemplateType _type;
++#if MVK_BUILD_METAL4_FOUNDATION
++	size_t _uniformCaptureReadEnd = 0;
++	bool _singletonUniformEntries = true;
++	bool _uniformCaptureRangeOverflow = false;
++#endif
+ };
+ 
+ #pragma mark -
+--- before/build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKDescriptorSet.mm
++++ after/build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKDescriptorSet.mm
+@@ -26,6 +26,7 @@
+ #include "MVKImage.h"
+ #include "MVKOSExtensions.h"
+ #include <sstream>
++#include <limits>
+ 
+ static constexpr uint32_t alignDescriptorOffset(uint32_t offset, uint32_t align) {
+ 	return (offset + align - 1) & ~(align - 1);
+@@ -2308,6 +2309,16 @@
+ 		const auto& entry = pCreateInfo->pDescriptorUpdateEntries[i];
+ 		_entries.push_back(entry);
+ 
++#if MVK_BUILD_METAL4_FOUNDATION
++		if (entry.descriptorType != VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER || entry.descriptorCount != 1) {
++			_singletonUniformEntries = false;
++		} else if (entry.offset > std::numeric_limits<size_t>::max() - sizeof(VkDescriptorBufferInfo)) {
++			_uniformCaptureRangeOverflow = true;
++		} else {
++			_uniformCaptureReadEnd = std::max(_uniformCaptureReadEnd, entry.offset + sizeof(VkDescriptorBufferInfo));
++		}
++#endif
++
+ 		// Accumulate the size of the template. If we were given a stride, use that;
+ 		// otherwise, assume only one info struct of the appropriate type.
+ 		size_t entryEnd = entry.offset;
+--- before/build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCmdPipeline.mm
++++ after/build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCmdPipeline.mm
+@@ -557,7 +557,8 @@
+ 	if (!pData || !count ||
+ 		_descUpdateTemplate->getType() != VK_DESCRIPTOR_UPDATE_TEMPLATE_TYPE_PUSH_DESCRIPTORS_KHR ||
+ 		(bindPoint != VK_PIPELINE_BIND_POINT_GRAPHICS && bindPoint != VK_PIPELINE_BIND_POINT_COMPUTE) ||
+-		!_pipelineLayout->hasPushDescriptor() || _pipelineLayout->pushDescriptor() != _set) {
++		!_pipelineLayout->hasPushDescriptor() || _pipelineLayout->pushDescriptor() != _set ||
++		!_descUpdateTemplate->hasSingletonUniformEntries()) {
+ 		return VK_SUCCESS;
+ 	}
+ 	auto* layout = _pipelineLayout->getDescriptorSetLayout(_set);
+@@ -565,9 +566,6 @@
+ 	// templates (including fbfetch) and array/spill updates keep the old path.
+ 	for (uint32_t i = 0; i < count; ++i) {
+ 		const auto& entry = *_descUpdateTemplate->getEntry(i);
+-		if (entry.descriptorType != VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER || entry.descriptorCount != 1) {
+-			return VK_SUCCESS;
+-		}
+ 		const auto& binding = *layout->getBinding(entry.dstBinding);
+ 		if (binding.descriptorType != VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER ||
+ 			entry.dstArrayElement >= binding.descriptorCount) { return VK_SUCCESS; }
+@@ -579,12 +577,9 @@
+ 		return VK_ERROR_OUT_OF_HOST_MEMORY;
+ 	}
+ 	const auto source = reinterpret_cast<uintptr_t>(pData);
+-	for (uint32_t i = 0; i < count; ++i) {
+-		const auto offset = _descUpdateTemplate->getEntry(i)->offset;
+-		if (offset > std::numeric_limits<size_t>::max() - infoSize ||
+-			source > std::numeric_limits<uintptr_t>::max() - (offset + infoSize)) {
+-			return VK_ERROR_OUT_OF_HOST_MEMORY;
+-		}
++	if (_descUpdateTemplate->uniformCaptureRangeOverflows() ||
++		source > std::numeric_limits<uintptr_t>::max() - _descUpdateTemplate->getUniformCaptureReadEnd()) {
++		return VK_ERROR_OUT_OF_HOST_MEMORY;
+ 	}
+ 	const size_t bytes = size_t(count) * (infoSize + writeSize);
+ 	if (!_pData || bytes > _dataCapacity) {
+--- before/tools/tests/metal4-descriptor-preparation-cpu.py
++++ after/tools/tests/metal4-descriptor-preparation-cpu.py
+@@ -28,6 +28,13 @@
+ flags_end = header.index('\n};', flags_start) + len('\n};')
+ flags = header[flags_start:flags_end]
+ source = (BASE / FILES[1]).read_text()
++template_class_start = header.index('class MVKDescriptorUpdateTemplate :')
++template_class_end = header.index('\n};', template_class_start) + len('\n};')
++template_class = header[template_class_start:template_class_end].replace('MVKDescriptorUpdateTemplate', 'ProductionTemplate')
++template_methods_start = source.index('const VkDescriptorUpdateTemplateEntry* MVKDescriptorUpdateTemplate::getEntry(')
++template_ctor_start = source.index('MVKDescriptorUpdateTemplate::MVKDescriptorUpdateTemplate(', template_methods_start)
++template_methods_end = source.index('\n}\n', template_ctor_start) + len('\n}\n')
++template_methods = source[template_methods_start:template_methods_end].replace('MVKDescriptorUpdateTemplate', 'ProductionTemplate')
+ state = (BASE / FILES[3]).read_text()
+ # The central helpers serve ordinary writes/copies/template updates. Push
+ # descriptors bypass these but have a zero stamp and remain outside the cache.
+@@ -40,14 +47,24 @@
+ assert 'if (allBuffersLive && generation == liveResources.buffers.generation())' in state
+ assert '!counts.texture && !counts.sampler && !binding.hasImmutableSamplers()' in state
+ 
+-bounds_start = state.index('\t\t\tif (binding.cpuOffset > set->cpuBufferSize')
+-bounds_end = state.index('\n\t\t\tfor (uint32_t i = 0; i < count;', bounds_start)
++def block_end(text, start):
++    opening = text.index('{', start)
++    depth = 1
++    for pos in range(opening + 1, len(text)):
++        depth += (text[pos] == '{') - (text[pos] == '}')
++        if not depth:
++            return pos + 1
++    raise ValueError('Unclosed production block')
++
++bounds_start = state.index('if (binding.cpuOffset > set->cpuBufferSize')
++bounds_end = block_end(state, bounds_start)
+ bounds_branch = state[bounds_start:bounds_end]
+-live_start = state.index('auto live = liveResources.buffers.isLive(value);', bounds_end)
+-live_end = state.index('\n\t\t\t\t\t} else {', live_start)
++buffer_start = state.index('if (counts.buffer) {', bounds_end)
++live_start = state.index('auto live = liveResources.buffers.isLive(value);', buffer_start)
++live_end = block_end(state, buffer_start) - 1
+ live_branch = state[live_start:live_end]
+-admit_start = state.index('\t\t\tif (allBuffersLive && generation == liveResources.buffers.generation())')
+-admit_end = state.index('\n\t\t\t}', admit_start) + len('\n\t\t\t}')
++admit_start = state.index('if (allBuffersLive && generation == liveResources.buffers.generation())')
++admit_end = block_end(state, admit_start)
+ admit_branch = state[admit_start:admit_end]
+ branches = r'''
+ struct TestLiveBuffers {
+@@ -120,6 +137,7 @@
+ #include <cstdlib>
+ #include <limits>
+ #include <new>
++#include <memory>
+ #include <array>
+ #include <sys/mman.h>
+ #include <unistd.h>
+@@ -193,16 +211,41 @@
+         require(n == set, "retained compatible push set selected"); return &descriptors;
+     }
+ };
++struct MVKDevice {};
++class MVKVulkanAPIDeviceObject {
++public:
++    explicit MVKVulkanAPIDeviceObject(MVKDevice*) {}
++    virtual ~MVKVulkanAPIDeviceObject() = default;
++    virtual VkObjectType getVkObjectType() = 0;
++    virtual VkDebugReportObjectTypeEXT getVkDebugReportObjectType() = 0;
++protected:
++    virtual void propagateDebugName() {}
++};
++template<class T, size_t N> using MVKSmallVector = std::vector<T>;
++''' + template_class + '\n' + template_methods + r'''
+ struct MVKDescriptorUpdateTemplate {
+     std::vector<VkDescriptorUpdateTemplateEntry> entries;
+     VkPipelineBindPoint bindPoint = VK_PIPELINE_BIND_POINT_COMPUTE;
+     VkDescriptorUpdateTemplateType type = VK_DESCRIPTOR_UPDATE_TEMPLATE_TYPE_PUSH_DESCRIPTORS_KHR;
+     size_t legacySize = 0; // Declared stub extent, not a replacement sizing implementation.
+-    uint32_t getNumberOfEntries() const { return uint32_t(entries.size()); }
++    mutable std::unique_ptr<ProductionTemplate> prepared;
++    uint32_t getNumberOfEntries() const {
++        VkDescriptorUpdateTemplateCreateInfo info{};
++        info.templateType = type; info.pipelineBindPoint = bindPoint;
++        info.descriptorUpdateEntryCount = uint32_t(entries.size());
++        info.pDescriptorUpdateEntries = entries.data();
++        prepared.reset(new ProductionTemplate(nullptr, &info));
++        return prepared->getNumberOfEntries();
++    }
+     const VkDescriptorUpdateTemplateEntry* getEntry(uint32_t i) const { return &entries.at(i); }
+     VkPipelineBindPoint getBindPoint() const { return bindPoint; }
+     VkDescriptorUpdateTemplateType getType() const { return type; }
+     size_t getSize() const { return legacySize; }
++#if MVK_BUILD_METAL4_FOUNDATION
++    bool hasSingletonUniformEntries() const { return prepared->hasSingletonUniformEntries(); }
++    bool uniformCaptureRangeOverflows() const { return prepared->uniformCaptureRangeOverflows(); }
++    size_t getUniformCaptureReadEnd() const { return prepared->getUniformCaptureReadEnd(); }
++#endif
+ };
+ struct CaptureState {
+     std::vector<VkDescriptorBufferInfo> ordered;
+@@ -315,6 +358,34 @@
+                             reinterpret_cast<VkPipelineLayout>(&layout), 0, data);
+     };
+ #if MVK_BUILD_METAL4_FOUNDATION
++    {
++        MVKDescriptorUpdateTemplate t;
++        for (size_t stride : {size_t(0), size_t(8), size_t(4096)}) {
++            t.entries={captureEntry(0,0,509,stride),captureEntry(3,0,7,stride)};
++            require(t.getNumberOfEntries()==2 && t.hasSingletonUniformEntries() &&
++                    !t.uniformCaptureRangeOverflows() && t.getUniformCaptureReadEnd()==509+sizeof(VkDescriptorBufferInfo),
++                    "actual template constructor summarizes the maximum exact end independent of stride and entry order");
++        }
++        t.entries={captureEntry(0,0,std::numeric_limits<size_t>::max()-sizeof(VkDescriptorBufferInfo),0)};
++        t.getNumberOfEntries();
++        require(!t.uniformCaptureRangeOverflows() && t.getUniformCaptureReadEnd()==std::numeric_limits<size_t>::max(),
++                "largest representable exact end is distinguished from overflow");
++        ++t.entries[0].offset; t.getNumberOfEntries();
++        require(t.uniformCaptureRangeOverflows(), "actual template constructor records static offset overflow");
++        t.entries.push_back(captureEntry(3,0,0,0)); t.entries.back().descriptorType=VK_DESCRIPTOR_TYPE_STORAGE_BUFFER;
++        t.getNumberOfEntries();
++        require(!t.hasSingletonUniformEntries() && t.uniformCaptureRangeOverflows(),
++                "mixed shape and static overflow remain separate facts");
++        CaptureProbe c; t.legacySize=0;
++        require(record(c,t,reinterpret_cast<void*>(std::numeric_limits<uintptr_t>::max()-8))==VK_SUCCESS && !c.compact(),
++                "mixed shape fallback precedes static and current-source overflow errors");
++        t.entries={captureEntry(4,0,std::numeric_limits<size_t>::max()-7,0)};
++        require(record(c,t,&layout)==VK_SUCCESS && !c.compact(),
++                "incompatible current layout fallback precedes stored source overflow error");
++        t.entries.clear(); t.getNumberOfEntries();
++        require(t.hasSingletonUniformEntries() && !t.uniformCaptureRangeOverflows() && !t.getUniformCaptureReadEnd(),
++                "empty recreated template has no stale shape or span state");
++    }
+     for (auto point : {VK_PIPELINE_BIND_POINT_GRAPHICS, VK_PIPELINE_BIND_POINT_COMPUTE}) {
+         for (size_t stride : {size_t(0),size_t(8),sizeof(VkDescriptorBufferInfo),size_t(4096)}) {
+             CaptureProbe c; MVKDescriptorUpdateTemplate t;
+@@ -870,6 +941,7 @@
+            'gpuExecuted': False, 'gameExecuted': False,
+            'sourceWiringChecksPassed': True, 'exactLiveMembershipMethodsSHA256': sha(membership.encode()),
+            'exactCaptureClassSHA256': sha(capture_class.encode()), 'exactCaptureMethodsSHA256': sha(capture_methods.encode()),
++           'exactTemplateClassSHA256': sha(template_class.encode()), 'exactTemplateMethodsSHA256': sha(template_methods.encode()),
+            'exactCaptureAPIHelperSHA256': sha(capture_api_helper.encode()),
+            'exactCaptureAPIEntrypointsSHA256': sha('\n'.join(capture_api_entries).encode()),
+            'foundationDisabled': {'compileCommand': foundation_off_command, 'exitCode': foundation_off_result.returncode},
+@@ -877,7 +949,7 @@
+            'limits': ['Actual capture/eligibility/replay methods use bounded layout/state/allocator stubs; GPU conversion and native lifetimes require existing native validation.',
+                       'Actual Vulkan capture helper and both core entrypoints use bounded command-buffer/pool doubles; full production pool integration is separate from CPU lifecycle assertions.',
+                       'Command-local high-water storage persists until pool/object destruction. Growth temporarily overlaps old and new allocations; BAR frequency and retained-memory effect are unmeasured.',
+-                      'Legacy template size is a declared stub; rejected-path stride defect is not fixed or claimed covered.',
++                      'Actual template class/constructor/accessors compute immutable metadata. Vector/base ownership use doubles; legacy command capture size is a declared stub and rejected-path stride behavior is not fixed.',
+                       'Operation reduction is helper behavior, not measured BAR timing.']}
+ if result.returncode == 0: receipt['result'] = json.loads(result.stdout)
+ if foundation_off_result.returncode == 0: receipt['foundationDisabled']['result'] = json.loads(foundation_off_result.stdout)

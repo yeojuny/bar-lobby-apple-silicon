@@ -1,0 +1,17 @@
+{
+  "compile": [
+    "/usr/bin/clang++",
+    "-std=c++17",
+    "-O1",
+    "-g",
+    "-fsanitize=address,undefined",
+    "artifacts/validation/v103-performance-p1-p3-20261020/dynamic-texture.cpp",
+    "-o",
+    "artifacts/validation/v103-performance-p1-p3-20261020/dynamic-texture"
+  ],
+  "exit": 0,
+  "stdout": "Dynamic texture extracted branch cases=6 passed\n",
+  "stderr": "",
+  "cases": 6,
+  "limits": "Actual dynamic branch/GetIdx/GetInfo bodies; synthetic texture state, no GL calls"
+}

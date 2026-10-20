@@ -1,0 +1,107 @@
+{
+  "status": "review-complete-no-actionable-findings",
+  "requestedModel": "gpt-6-astra",
+  "requestedReasoning": "high",
+  "reviewedAtUTC": "2026-10-20T21:08:53.021262+00:00",
+  "scope": "Final C-T+C-M3 only: 4 product files and 3 existing fixtures",
+  "historicalReview": "independent-review.md is the C-T-only stage, not the final common patch",
+  "reviewerRelationship": "Separate from implementation; author of preceding C design",
+  "reviewPins": {
+    "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKDescriptorSet.h": "fb7583ab4debcf0e8f6afcaa1abc62b87d80e1b457280a77136d3cf5afaae1f5",
+    "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKDescriptorSet.mm": "b87caab357dd43ba2c2cd937dcd7cdd0836c6418f90ddc5d2b90e13022257dc4",
+    "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCmdPipeline.mm": "8e663764a00e70ae9b6ede6996da275a9c0aad8a4de632fab8e9ed20e80e1d33",
+    "tools/tests/metal4-descriptor-preparation-cpu.py": "ce4b77707d0bbbc627474280e39c5c5a916c3b2f2e9bc2139aebe4e93b17a3ef",
+    "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCmdPipeline.h": "91de07b4f0304ebaae3811b855c3c72cdc481fbedd6f126680977a541a7dcd53",
+    "tools/tests/metal4-vulkan-integration.mm": "b5f1efe0e19c0c0384b9edd8c5ba8a2af3b9353a64f66a674d606e6ed63a3e6a",
+    "tools/tests/metal4-prepared-recording-vulkan.mm": "c59916e913b2ad69927b7c7667570c016d3b67b350ae0db42d6dd5452155851d"
+  },
+  "beforePins": {
+    "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKDescriptorSet.h": "9f3b9d16ea1150886fbabd326ca4ad55648480d8661f392de6f7ff9312b6b9c1",
+    "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKDescriptorSet.mm": "9935732fedde6c7cffede91384230015c1b3547d6d3be0024ca6cacf08acff88",
+    "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCmdPipeline.mm": "8bfddd1ed044fba19c809263421beb52f3be30957b002c2afb024393aaa80af6",
+    "tools/tests/metal4-descriptor-preparation-cpu.py": "caf32a79931ffbb15d9698b8ca94edc6fe7bce20357de65a1f1fda68bbb3d158",
+    "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCmdPipeline.h": "8060474713de05106437664c86632942fb8382dadae99d54ed3458d43675b5c7",
+    "tools/tests/metal4-vulkan-integration.mm": "bdeaa20aebe7fcba2f067b9bb4905f29c0e0525026d9f24c0d1e116c3ea05906",
+    "tools/tests/metal4-prepared-recording-vulkan.mm": "f5333c08b08fb88bcac09ed04ba70d4f36e20b77ac046b58db489925db343ca2"
+  },
+  "patchExact": true,
+  "evidenceSHA256": {
+    "applied-common.patch": "4a26fa01142c906215cc013973ac80e66d9d254472e74a398d3e86ebe021ddeb",
+    "review-common-pins.json": "e5335d4ba6b6a1fa0ffb079a3a1f94d606d88a98b28b134424657542932efb4d",
+    "before.json": "3bcdb7654f7a1b2d4ab41532b0745a2fdfbfa6f2bb4bdfab22a55190cc372b70",
+    "descriptor-common-cpu/receipt.json": "d8b348be86396464c837fd04cc5a3f1e74e3f958366e897a86300910d5523afa",
+    "descriptor-common-cpu/exact-production-helpers.cpp": "6f9d023870513b25cd8f5ace31ec9d4a5a61330f59ad457ac910a141cf4e5a21",
+    "descriptor-common-cpu/execution.log": "ff8e7f92fac4b31dab98b90cbbfa91a7f66a6e491809cd533102d2556a996c31",
+    "descriptor-common-cpu/execution-foundation-off.log": "766f8ee3dbfd4fa8081a8fea2e9e83e9ded2271c3a4f8005d09c68b2e1137457",
+    "common-build.log": "f238765c17883eecd11682e634656535f50f454e4bda4227898d7b21ddebafe4",
+    "common-validation/native-receipt.json": "ab3be32db13c6f088b734e774413d66145c7d69ea845e47d42b225fed94531fc",
+    "common-validation/native-stdout.json": "edcb5f66a7d894774d0753a822e1c51c6980450d70b93c45b96b982478a2b52b",
+    "common-validation/template-m3-stdout.json": "cca52ebc45d37c3107260d132f40c00d90139f5e29d47ed530fedf14cd05d172",
+    "common-validation/template-m4-stdout.json": "215d817d0f69bba7d09eba8051e230fa9297aeb10048890d2cc297e5bc9542be",
+    "common-validation/native-stderr.log": "07e77b930de21558a2185dcf0ac4bf2a136f61cd4268e4013c92125ee83257a7",
+    "common-validation/template-m3-stderr.log": "c3078164bb9704d1fb0683d231ed12d51e6d2071d9f40f473040c28b98c4ef1b",
+    "common-validation/template-m4-stderr.log": "ae8c02fe2c3dd9208f91af3aabe66baee8f7640095c4ab424b0f7734cb4f600f",
+    "common-validation/syntax.json": "5e30bff11eb0e5ce6c2cb44811db358507089a65451c87181c40bd1f0cee68a9",
+    "common-validation/object-sizes.json": "eac2b3a680284cf7b26c67210a893c0735c571baa6f36828c1e33c2e755be3e3",
+    "zink-layout.json": "7b5fabe9ccba8d385ad8570b8d3bd108e20350811ea3a925c2e90f2b6c82d83f",
+    "zink-layout.m": "2fce5bfd5055a30457a20d0fbeee44145dce8a7c1c0f12300aa4d614413a5173",
+    "zink-layout.ll": "b4a796a70878e6eb252e9b742e8b444c78d0c06d2e8f48ae4be03e7b08d96a97"
+  },
+  "cpuInputPinsMatch": 10,
+  "actualTemplateExtractionBound": true,
+  "findings": [],
+  "observations": {
+    "templateObjectSizeBothFoundationModes": [
+      104,
+      120
+    ],
+    "foundationOffCommandCompactFieldsAdded": true,
+    "wholeCommandSizeMeasuredByReviewer": false,
+    "strictMetal3SmallerCaptureGate": true,
+    "metal4SelectionPreserved": true,
+    "existingCPUAssertionsOn": 629,
+    "existingCPUAssertionsOff": 134,
+    "existingNativeTestsPassed": 6,
+    "existingCommonBackendResults": [
+      {
+        "backend": "m3",
+        "exitCode": 0,
+        "result": {
+          "suite": "descriptor_template_common",
+          "passed": 1,
+          "cycles": 6,
+          "graphicsChecked": true,
+          "native_queue": false,
+          "gameExecuted": false
+        }
+      },
+      {
+        "backend": "m4",
+        "exitCode": 0,
+        "result": {
+          "suite": "descriptor_template_common",
+          "passed": 1,
+          "cycles": 6,
+          "graphicsChecked": true,
+          "native_queue": true,
+          "gameExecuted": false
+        }
+      }
+    ],
+    "currentRawLibrarySHA256": "443cae49eeca6814a7374cf510178416660e07238715e1ceb451f648e92eb60a",
+    "newTestsExecutedByReviewer": 0
+  },
+  "limitations": [
+    "No new app/game/FPS execution or whole-stack acceptance",
+    "CPU fixture ownership/layout/vector/state doubles and declared generic size remain",
+    "GPU evidence is foundation ON library with explicit legacy/native selection, argument-buffer environment 0",
+    "Added constructor/eligibility costs mean byte reduction is not proof of net FPS gain",
+    "Vertex binding cache is not implemented in this patch",
+    "No package or full-app inventory claim"
+  ],
+  "writes": [
+    "independent-review-common.md",
+    "independent-review-common.json"
+  ],
+  "reportSHA256": "a6bba7364dc369cd62f9ccf5f5305cde07fd7b39f0767c03e58575f3662e8e1e"
+}

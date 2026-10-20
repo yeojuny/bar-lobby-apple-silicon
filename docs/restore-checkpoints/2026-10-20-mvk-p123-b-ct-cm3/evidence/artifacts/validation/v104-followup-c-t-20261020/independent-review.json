@@ -1,0 +1,64 @@
+{
+  "status": "review-complete-no-actionable-findings",
+  "requestedModel": "gpt-6-astra",
+  "requestedReasoning": "high",
+  "reviewedAtUTC": "2026-10-20T21:04:00.774361+00:00",
+  "scope": "C-T only: 3 product files and 1 existing CPU fixture",
+  "reviewerRelationship": "Separate from implementation; author of preceding C design",
+  "reviewPins": {
+    "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKDescriptorSet.h": "dbc6cc68250ffeb47f56043b518b6652f08fcbd042d4e0ab5e13afed0904b53f",
+    "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKDescriptorSet.mm": "077a3e325981ed29571e9c117718915b4326831cd15336444e15fb3f54fab1e8",
+    "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCmdPipeline.mm": "7f09264957ecf32ef2046db3e5a6e0ef95a4c3779daa8868f92c81975acdbfdb",
+    "tools/tests/metal4-descriptor-preparation-cpu.py": "0234c4950d4f2b74cd3467c3becc89cd6ea7432d26edda6032dd17aa188df34d"
+  },
+  "beforePins": {
+    "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKDescriptorSet.h": "9f3b9d16ea1150886fbabd326ca4ad55648480d8661f392de6f7ff9312b6b9c1",
+    "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKDescriptorSet.mm": "9935732fedde6c7cffede91384230015c1b3547d6d3be0024ca6cacf08acff88",
+    "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCmdPipeline.mm": "8bfddd1ed044fba19c809263421beb52f3be30957b002c2afb024393aaa80af6",
+    "tools/tests/metal4-descriptor-preparation-cpu.py": "caf32a79931ffbb15d9698b8ca94edc6fe7bce20357de65a1f1fda68bbb3d158"
+  },
+  "patchExact": true,
+  "cpuInputPinsMatch": 10,
+  "evidenceSHA256": {
+    "applied.patch": "5c24d9835a08ed8163747cbef767cb571ee944c943301c43bbc186fb5ceca284",
+    "review-pins.json": "20e013401c5134a4835be392f06a8c8465df85a8284a3216e7fd2f00724d891f",
+    "before.json": "50607d231af516767d5eaa7c64ffedbed9415ecf3dcfe2585ff17f9ae7d4de20",
+    "descriptor-cpu/receipt.json": "c7a1f4420ce247e1674225421884db00575470ae5aef3c7a2188ce476f1f8d46",
+    "descriptor-cpu/exact-production-helpers.cpp": "fb6c4b86a950cd36a5e71feb53a8407346f2200d1af2c8a97c4c938102f0e0f6",
+    "descriptor-cpu/execution.log": "59e87c4dff591937969794b89ff9a0413ce06f4c4ca1b7c1a66230c327b5e636",
+    "descriptor-cpu/execution-foundation-off.log": "b6c7ba8c9f70f531dbc24a0daa19c7f3b4af222c625351ac48e4e58553d2787b",
+    "build.log": "3554cf75539a36ee890e0d68546286a295c022dfae79b7751f035e43860d20e9",
+    "syntax.json": "5e30bff11eb0e5ce6c2cb44811db358507089a65451c87181c40bd1f0cee68a9",
+    "layout.mm": "4343bd2bd7e03ab3e9190aa2c2e2f6047c3d7a9bd997bb57fddfa80636ef5a2a",
+    "header-before-vfs.json": "908c7771884d636455ea5354af83d3f7d5e50d83e1f34bba9d5f4d1c86fbda0e",
+    "layout-0-before.ll": "8c7035e8ace9cc914b34e8ef5a3b6aaacd95ada59e6260706ff10d00d9199abc",
+    "layout-0-after.ll": "8c7035e8ace9cc914b34e8ef5a3b6aaacd95ada59e6260706ff10d00d9199abc",
+    "layout-1-before.ll": "8c7035e8ace9cc914b34e8ef5a3b6aaacd95ada59e6260706ff10d00d9199abc",
+    "layout-1-after.ll": "c03b31b68fb0e4b993972f9d6e621c0aaf608ec0601ab924adad78813aa98c89"
+  },
+  "findings": [],
+  "observations": {
+    "foundationOnSizeBefore": 104,
+    "foundationOnSizeAfter": 120,
+    "foundationOffSizeBefore": 104,
+    "foundationOffSizeAfter": 104,
+    "metal3ConstructorMetadataCostAdded": true,
+    "metal3RecordCaptureUnchanged": true,
+    "existingCPUAssertionsOn": 607,
+    "existingCPUAssertionsOff": 115,
+    "existingSyntaxChecksPassed": 4,
+    "newTestsExecutedByReviewer": 0
+  },
+  "limitations": [
+    "No new native/GPU/game/FPS execution or runtime acceptance",
+    "Existing CPU fixture uses ownership/layout/vector/state doubles and declared generic size",
+    "Production constructor is exercised but fixture reconstructs it on count lookup; not a performance measurement",
+    "C-M3 and vertex cache not implemented and not reviewed as applied changes",
+    "No whole-workspace or app inventory claim"
+  ],
+  "writes": [
+    "independent-review.md",
+    "independent-review.json"
+  ],
+  "reportSHA256": "790c407661b6f53e813f5a70a3d8ef50ead31f34fe32df307503bbb2dc99033d"
+}

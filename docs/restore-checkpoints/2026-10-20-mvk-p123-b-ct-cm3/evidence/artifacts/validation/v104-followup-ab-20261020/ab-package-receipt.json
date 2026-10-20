@@ -1,0 +1,33 @@
+{
+  "CStartedHere": false,
+  "FPSBenefitUnmeasured": true,
+  "P1P2P3EnginesUnchanged": true,
+  "app": "$WORKSPACE/artifacts/runtime/v104-performance-ab-candidate-20261020/BAR.app",
+  "baseline": "$WORKSPACE/artifacts/runtime/healthbar-standalone-1.0.3-20261018/app-builder-output/mac-arm64/BAR.app",
+  "changedFromP1P2P3": [
+    "Contents/MacOS/BAR",
+    "Contents/Resources/bundled-assets/runtime/moltenvk-pr2746/lib/libMoltenVK.1.4.3.dylib",
+    "Contents/_CodeSignature/CodeResources"
+  ],
+  "deepStrictSignatureVerified": true,
+  "dependencyClosureEdges": 211,
+  "entries": 1194,
+  "gameExecuted": false,
+  "included": "Cumulative P1/P2/P3 engines plus B small CPU scratch arrays; A excluded for actual-use reasons",
+  "installed": false,
+  "launcherExecutableCodeUnchanged": true,
+  "packagedMVKSHA256": "99cf887139c8022dcb65e30e9331c8dc0b6ebd4cf6edf59c0d8a1cd942b59ac2",
+  "parent": "$WORKSPACE/artifacts/runtime/v104-performance-candidate-20261020/BAR.app",
+  "parentAndBaselineFullInventoriesUnchanged": true,
+  "priorValidation": {
+    "ASanUBSan": true,
+    "CPUStorageCases": 6,
+    "GPUPrepassPassed": 29
+  },
+  "protectedPinsExact": 56,
+  "published": false,
+  "rawAndPackagedExecutableCodeIdentical": true,
+  "rawMVKSHA256": "d92e82e1cf89c7cca2a6ae2417e429a18d191ed396fbe4dfbb5cd7775e5ad788",
+  "sourceSHA256": "2e2ffdb95b7ce8ccdd04ea8ceecd5756d10d0d7af04f9bb37fcddcb2952ad2a8",
+  "versionMetadata": "1.0.3 retained; local v1.0.4 cumulative candidate designation only"
+}

@@ -1,0 +1,596 @@
+ninja: Entering directory `$WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/build'
+[0/2] Re-checking globbed directories...
+[1/15] Building CXX object rts/builds/legacy/CMakeFiles/Game.dir/__/__/Game/LoadScreen.cpp.o
+In file included from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Rendering/GL/myGL.h:14,
+                 from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Game/LoadScreen.cpp:6:
+$WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/System/float3.h: In member function 'std::pair<float3, float> float3::GetNormalized() const':
+$WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/System/float3.h:629:57: note: parameter passing for argument of type 'std::pair<float3, float>' when C++17 is enabled changed to match C++14 in GCC 10.1
+  629 |         std::pair <float3, float> GetNormalized() const {
+      |                                                         ^
+In file included from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Rendering/GL/glDebugGroup.hpp:5,
+                 from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Rendering/GL/myGL.h:20:
+$WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/System/StringHash.h: At global scope:
+$WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/System/StringHash.h:20:44: warning: space between quotes and suffix is deprecated in C++23 [-Wdeprecated-literal-operator]
+   20 | [[nodiscard]] constexpr uint32_t operator"" _hs(const char* str, std::size_t) noexcept {
+      |                                            ^~
+      |                                            --
+$WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/System/StringHash.h:20:44: warning: space between quotes and suffix is deprecated in C++23 [-Wdeprecated-literal-operator]
+   20 | [[nodiscard]] constexpr uint32_t operator"" _hs(const char* str, std::size_t) noexcept {
+      |                                            ^~
+      |                                            --
+[2/15] Building CXX object rts/builds/legacy/CMakeFiles/engine-legacy.dir/__/__/Lua/LuaOpenGL.cpp.o
+In file included from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Rendering/GL/myGL.h:14,
+                 from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Lua/LuaOpenGL.cpp:11:
+$WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/System/float3.h: In member function 'std::pair<float3, float> float3::GetNormalized() const':
+$WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/System/float3.h:629:57: note: parameter passing for argument of type 'std::pair<float3, float>' when C++17 is enabled changed to match C++14 in GCC 10.1
+  629 |         std::pair <float3, float> GetNormalized() const {
+      |                                                         ^
+In file included from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Rendering/GL/glDebugGroup.hpp:5,
+                 from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Rendering/GL/myGL.h:20:
+$WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/System/StringHash.h: At global scope:
+$WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/System/StringHash.h:20:44: warning: space between quotes and suffix is deprecated in C++23 [-Wdeprecated-literal-operator]
+   20 | [[nodiscard]] constexpr uint32_t operator"" _hs(const char* str, std::size_t) noexcept {
+      |                                            ^~
+      |                                            --
+$WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/System/StringHash.h:20:44: warning: space between quotes and suffix is deprecated in C++23 [-Wdeprecated-literal-operator]
+   20 | [[nodiscard]] constexpr uint32_t operator"" _hs(const char* str, std::size_t) noexcept {
+      |                                            ^~
+      |                                            --
+In file included from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/lib/entt/src/entt/core/type_info.hpp:10,
+                 from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/lib/entt/src/entt/core/any.hpp:11,
+                 from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/lib/entt/src/entt/entt.hpp:7,
+                 from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/System/Ecs/EcsMain.h:14,
+                 from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Sim/Objects/SolidObject.h:14,
+                 from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Lua/LuaUtils.h:21,
+                 from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Lua/LuaOpenGL.cpp:35:
+$WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/lib/entt/src/entt/core/hashed_string.hpp:316:49: warning: space between quotes and suffix is deprecated in C++23 [-Wdeprecated-literal-operator]
+  316 | [[nodiscard]] constexpr hashed_string operator"" _hs(const char *str, std::size_t) ENTT_NOEXCEPT {
+      |                                                 ^~
+      |                                                 --
+$WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/lib/entt/src/entt/core/hashed_string.hpp:316:49: warning: space between quotes and suffix is deprecated in C++23 [-Wdeprecated-literal-operator]
+  316 | [[nodiscard]] constexpr hashed_string operator"" _hs(const char *str, std::size_t) ENTT_NOEXCEPT {
+      |                                                 ^~
+      |                                                 --
+$WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/lib/entt/src/entt/core/hashed_string.hpp:325:50: warning: space between quotes and suffix is deprecated in C++23 [-Wdeprecated-literal-operator]
+  325 | [[nodiscard]] constexpr hashed_wstring operator"" _hws(const wchar_t *str, std::size_t) ENTT_NOEXCEPT {
+      |                                                  ^~
+      |                                                  --
+$WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/lib/entt/src/entt/core/hashed_string.hpp:325:50: warning: space between quotes and suffix is deprecated in C++23 [-Wdeprecated-literal-operator]
+  325 | [[nodiscard]] constexpr hashed_wstring operator"" _hws(const wchar_t *str, std::size_t) ENTT_NOEXCEPT {
+      |                                                  ^~
+      |                                                  --
+[3/15] Building CXX object rts/builds/legacy/CMakeFiles/Game.dir/__/__/Game/Game.cpp.o
+In file included from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Rendering/GL/myGL.h:14,
+                 from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Game/Game.cpp:3:
+$WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/System/float3.h: In member function 'std::pair<float3, float> float3::GetNormalized() const':
+$WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/System/float3.h:629:57: note: parameter passing for argument of type 'std::pair<float3, float>' when C++17 is enabled changed to match C++14 in GCC 10.1
+  629 |         std::pair <float3, float> GetNormalized() const {
+      |                                                         ^
+In file included from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Rendering/GL/glDebugGroup.hpp:5,
+                 from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Rendering/GL/myGL.h:20:
+$WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/System/StringHash.h: At global scope:
+$WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/System/StringHash.h:20:44: warning: space between quotes and suffix is deprecated in C++23 [-Wdeprecated-literal-operator]
+   20 | [[nodiscard]] constexpr uint32_t operator"" _hs(const char* str, std::size_t) noexcept {
+      |                                            ^~
+      |                                            --
+$WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/System/StringHash.h:20:44: warning: space between quotes and suffix is deprecated in C++23 [-Wdeprecated-literal-operator]
+   20 | [[nodiscard]] constexpr uint32_t operator"" _hs(const char* str, std::size_t) noexcept {
+      |                                            ^~
+      |                                            --
+In file included from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/lib/entt/src/entt/core/type_info.hpp:10,
+                 from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/lib/entt/src/entt/core/any.hpp:11,
+                 from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/lib/entt/src/entt/entt.hpp:7,
+                 from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/System/Ecs/EcsMain.h:14,
+                 from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Sim/Objects/SolidObject.h:14,
+                 from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Sim/Units/Unit.h:8,
+                 from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/System/EventHandler.h:10,
+                 from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Rendering/Common/ModelDrawerData.h:12,
+                 from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Rendering/Common/ModelDrawer.h:9,
+                 from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Rendering/Units/UnitDrawer.h:7,
+                 from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Game/Game.cpp:50:
+$WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/lib/entt/src/entt/core/hashed_string.hpp:316:49: warning: space between quotes and suffix is deprecated in C++23 [-Wdeprecated-literal-operator]
+  316 | [[nodiscard]] constexpr hashed_string operator"" _hs(const char *str, std::size_t) ENTT_NOEXCEPT {
+      |                                                 ^~
+      |                                                 --
+$WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/lib/entt/src/entt/core/hashed_string.hpp:316:49: warning: space between quotes and suffix is deprecated in C++23 [-Wdeprecated-literal-operator]
+  316 | [[nodiscard]] constexpr hashed_string operator"" _hs(const char *str, std::size_t) ENTT_NOEXCEPT {
+      |                                                 ^~
+      |                                                 --
+$WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/lib/entt/src/entt/core/hashed_string.hpp:325:50: warning: space between quotes and suffix is deprecated in C++23 [-Wdeprecated-literal-operator]
+  325 | [[nodiscard]] constexpr hashed_wstring operator"" _hws(const wchar_t *str, std::size_t) ENTT_NOEXCEPT {
+      |                                                  ^~
+      |                                                  --
+$WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/lib/entt/src/entt/core/hashed_string.hpp:325:50: warning: space between quotes and suffix is deprecated in C++23 [-Wdeprecated-literal-operator]
+  325 | [[nodiscard]] constexpr hashed_wstring operator"" _hws(const wchar_t *str, std::size_t) ENTT_NOEXCEPT {
+      |                                                  ^~
+      |                                                  --
+[4/15] Building CXX object rts/builds/legacy/CMakeFiles/Game.dir/__/__/Game/UI/GuiHandler.cpp.o
+In file included from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/System/Matrix44f.h:10,
+                 from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Rendering/GlobalRendering.h:10,
+                 from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Game/UI/InputReceiver.h:9,
+                 from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Game/UI/GuiHandler.h:9,
+                 from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Game/UI/GuiHandler.cpp:3:
+$WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/System/float3.h: In member function 'std::pair<float3, float> float3::GetNormalized() const':
+$WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/System/float3.h:629:57: note: parameter passing for argument of type 'std::pair<float3, float>' when C++17 is enabled changed to match C++14 in GCC 10.1
+  629 |         std::pair <float3, float> GetNormalized() const {
+      |                                                         ^
+In file included from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Rendering/GL/glDebugGroup.hpp:5,
+                 from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Rendering/GL/myGL.h:20,
+                 from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Rendering/GL/VertexArrayTypes.h:9,
+                 from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Game/UI/MouseCursor.h:9,
+                 from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Game/UI/MouseHandler.h:13,
+                 from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Game/UI/GuiHandler.h:10:
+$WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/System/StringHash.h: At global scope:
+$WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/System/StringHash.h:20:44: warning: space between quotes and suffix is deprecated in C++23 [-Wdeprecated-literal-operator]
+   20 | [[nodiscard]] constexpr uint32_t operator"" _hs(const char* str, std::size_t) noexcept {
+      |                                            ^~
+      |                                            --
+$WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/System/StringHash.h:20:44: warning: space between quotes and suffix is deprecated in C++23 [-Wdeprecated-literal-operator]
+   20 | [[nodiscard]] constexpr uint32_t operator"" _hs(const char* str, std::size_t) noexcept {
+      |                                            ^~
+      |                                            --
+In file included from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/lib/entt/src/entt/core/type_info.hpp:10,
+                 from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/lib/entt/src/entt/core/any.hpp:11,
+                 from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/lib/entt/src/entt/entt.hpp:7,
+                 from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/System/Ecs/EcsMain.h:14,
+                 from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Sim/Objects/SolidObject.h:14,
+                 from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Sim/Units/Unit.h:8,
+                 from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/System/EventHandler.h:10,
+                 from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Rendering/Common/ModelDrawerData.h:12,
+                 from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Rendering/Common/ModelDrawer.h:9,
+                 from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Rendering/Units/UnitDrawer.h:7,
+                 from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Game/UI/GuiHandler.cpp:28:
+$WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/lib/entt/src/entt/core/hashed_string.hpp:316:49: warning: space between quotes and suffix is deprecated in C++23 [-Wdeprecated-literal-operator]
+  316 | [[nodiscard]] constexpr hashed_string operator"" _hs(const char *str, std::size_t) ENTT_NOEXCEPT {
+      |                                                 ^~
+      |                                                 --
+$WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/lib/entt/src/entt/core/hashed_string.hpp:316:49: warning: space between quotes and suffix is deprecated in C++23 [-Wdeprecated-literal-operator]
+  316 | [[nodiscard]] constexpr hashed_string operator"" _hs(const char *str, std::size_t) ENTT_NOEXCEPT {
+      |                                                 ^~
+      |                                                 --
+$WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/lib/entt/src/entt/core/hashed_string.hpp:325:50: warning: space between quotes and suffix is deprecated in C++23 [-Wdeprecated-literal-operator]
+  325 | [[nodiscard]] constexpr hashed_wstring operator"" _hws(const wchar_t *str, std::size_t) ENTT_NOEXCEPT {
+      |                                                  ^~
+      |                                                  --
+$WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/lib/entt/src/entt/core/hashed_string.hpp:325:50: warning: space between quotes and suffix is deprecated in C++23 [-Wdeprecated-literal-operator]
+  325 | [[nodiscard]] constexpr hashed_wstring operator"" _hws(const wchar_t *str, std::size_t) ENTT_NOEXCEPT {
+      |                                                  ^~
+      |                                                  --
+In file included from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/System/MemPoolTypes.h:23,
+                 from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Lua/LuaMemPool.h:9,
+                 from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Lua/LuaContextData.h:8,
+                 from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Lua/LuaHandle.h:9,
+                 from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Lua/LuaHandleSynced.h:8,
+                 from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Lua/LuaGaia.h:8,
+                 from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Game/UI/GuiHandler.cpp:19:
+$WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Game/UI/GuiHandler.cpp: In member function 'bool CGuiHandler::ProcessLocalActions(const Action&)':
+$WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Game/UI/GuiHandler.cpp:1757:29: warning: format '%llu' expects argument of type 'long long unsigned int', but argument 4 has type 'size_t' {aka 'long unsigned int'} [-Wformat=]
+ 1757 |                         LOG("  command: " _STPF_ ", id = %i, action = %s", i, commands[i].id, commands[i].action.c_str());
+      |                             ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  ~
+      |                                                                            |
+      |                                                                            size_t {aka long unsigned int}
+$WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/System/Log/ILog.h:185:95: note: in definition of macro '_LOG_RECORD'
+  185 | #define _LOG_RECORD(section, level, fmt, ...)   log_frontend_record(LOG_LEVE##level, section, fmt, ##__VA_ARGS__)
+      |                                                                                               ^~~
+$WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/System/Log/ILog.h:191:50: note: in expansion of macro '_LOG_FILTER'
+  191 | #define _LOG_SECTION(section, level, fmt, ...)   _LOG_FILTER(section, level, fmt, ##__VA_ARGS__)
+      |                                                  ^~~~~~~~~~~
+$WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/System/Log/ILog.h:194:49: note: in expansion of macro '_LOG_SECTION'
+  194 | #define _LOG_SECTION_DEFINED(level, fmt, ...)   _LOG_SECTION(LOG_SECTION_CURRENT, level, fmt, ##__VA_ARGS__)
+      |                                                 ^~~~~~~~~~~~
+$WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/System/Log/ILog.h:197:33: note: in expansion of macro '_LOG_SECTION_DEFINED'
+  197 | #define _LOG(level, fmt, ...)   _LOG_SECTION_DEFINED(level, fmt, ##__VA_ARGS__)
+      |                                 ^~~~~~~~~~~~~~~~~~~~
+$WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/System/Log/ILog.h:313:9: note: in expansion of macro '_LOG'
+  313 |         _LOG(DEFAULT_LOG_LEVEL_SHORT, fmt, ##__VA_ARGS__)
+      |         ^~~~
+$WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Game/UI/GuiHandler.cpp:1757:25: note: in expansion of macro 'LOG'
+ 1757 |                         LOG("  command: " _STPF_ ", id = %i, action = %s", i, commands[i].id, commands[i].action.c_str());
+      |                         ^~~
+In file included from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/System/FastMath.h:18,
+                 from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/System/float3.h:13:
+$WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/System/MainDefines.h:57:54: note: format string is defined here
+   57 |                 #define __SIZE_T_PRINTF_FORMAT__ "%llu"
+      |                                                   ~~~^
+      |                                                      |
+      |                                                      long long unsigned int
+      |                                                   %lu
+$WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Game/UI/GuiHandler.cpp:1768:21: warning: format '%llu' expects argument of type 'long long unsigned int', but argument 4 has type 'std::vector<SCommandDescription>::size_type' {aka 'long unsigned int'} [-Wformat=]
+ 1768 |                 LOG("commands.size() = " _STPF_, commands.size());
+      |                                                  ~~~~~~~~~~~~~~~
+      |                                                               |
+      |                                                               std::vector<SCommandDescription>::size_type {aka long unsigned int}
+$WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/System/Log/ILog.h:185:95: note: in definition of macro '_LOG_RECORD'
+  185 | #define _LOG_RECORD(section, level, fmt, ...)   log_frontend_record(LOG_LEVE##level, section, fmt, ##__VA_ARGS__)
+      |                                                                                               ^~~
+$WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/System/Log/ILog.h:191:50: note: in expansion of macro '_LOG_FILTER'
+  191 | #define _LOG_SECTION(section, level, fmt, ...)   _LOG_FILTER(section, level, fmt, ##__VA_ARGS__)
+      |                                                  ^~~~~~~~~~~
+$WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/System/Log/ILog.h:194:49: note: in expansion of macro '_LOG_SECTION'
+  194 | #define _LOG_SECTION_DEFINED(level, fmt, ...)   _LOG_SECTION(LOG_SECTION_CURRENT, level, fmt, ##__VA_ARGS__)
+      |                                                 ^~~~~~~~~~~~
+$WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/System/Log/ILog.h:197:33: note: in expansion of macro '_LOG_SECTION_DEFINED'
+  197 | #define _LOG(level, fmt, ...)   _LOG_SECTION_DEFINED(level, fmt, ##__VA_ARGS__)
+      |                                 ^~~~~~~~~~~~~~~~~~~~
+$WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/System/Log/ILog.h:313:9: note: in expansion of macro '_LOG'
+  313 |         _LOG(DEFAULT_LOG_LEVEL_SHORT, fmt, ##__VA_ARGS__)
+      |         ^~~~
+$WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Game/UI/GuiHandler.cpp:1768:17: note: in expansion of macro 'LOG'
+ 1768 |                 LOG("commands.size() = " _STPF_, commands.size());
+      |                 ^~~
+$WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/System/MainDefines.h:57:54: note: format string is defined here
+   57 |                 #define __SIZE_T_PRINTF_FORMAT__ "%llu"
+      |                                                   ~~~^
+      |                                                      |
+      |                                                      long long unsigned int
+      |                                                   %lu
+[5/15] Building CXX object rts/builds/legacy/CMakeFiles/Game.dir/__/__/Game/UnsyncedGameCommands.cpp.o
+In file included from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/System/GlobalRNG.h:9,
+                 from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Sim/Misc/GlobalSynced.h:7,
+                 from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Game/IActionExecutor.h:7,
+                 from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Game/UnsyncedActionExecutor.h:6,
+                 from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Game/IGameCommands.h:8,
+                 from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Game/UnsyncedGameCommands.h:6,
+                 from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Game/UnsyncedGameCommands.cpp:7:
+$WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/System/float3.h: In member function 'std::pair<float3, float> float3::GetNormalized() const':
+$WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/System/float3.h:629:57: note: parameter passing for argument of type 'std::pair<float3, float>' when C++17 is enabled changed to match C++14 in GCC 10.1
+  629 |         std::pair <float3, float> GetNormalized() const {
+      |                                                         ^
+In file included from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/System/TimeProfiler.h:15,
+                 from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/System/Threading/ThreadPool.h:106,
+                 from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Sim/Misc/GlobalSynced.h:8:
+$WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/System/StringHash.h: At global scope:
+$WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/System/StringHash.h:20:44: warning: space between quotes and suffix is deprecated in C++23 [-Wdeprecated-literal-operator]
+   20 | [[nodiscard]] constexpr uint32_t operator"" _hs(const char* str, std::size_t) noexcept {
+      |                                            ^~
+      |                                            --
+$WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/System/StringHash.h:20:44: warning: space between quotes and suffix is deprecated in C++23 [-Wdeprecated-literal-operator]
+   20 | [[nodiscard]] constexpr uint32_t operator"" _hs(const char* str, std::size_t) noexcept {
+      |                                            ^~
+      |                                            --
+In file included from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/lib/entt/src/entt/core/type_info.hpp:10,
+                 from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/lib/entt/src/entt/core/any.hpp:11,
+                 from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/lib/entt/src/entt/entt.hpp:7,
+                 from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/System/Ecs/EcsMain.h:14,
+                 from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Sim/Objects/SolidObject.h:14,
+                 from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Sim/Units/Unit.h:8,
+                 from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/System/EventHandler.h:10,
+                 from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Map/SMF/ROAM/RoamMeshDrawer.h:11,
+                 from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Game/UnsyncedGameCommands.cpp:61:
+$WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/lib/entt/src/entt/core/hashed_string.hpp:316:49: warning: space between quotes and suffix is deprecated in C++23 [-Wdeprecated-literal-operator]
+  316 | [[nodiscard]] constexpr hashed_string operator"" _hs(const char *str, std::size_t) ENTT_NOEXCEPT {
+      |                                                 ^~
+      |                                                 --
+$WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/lib/entt/src/entt/core/hashed_string.hpp:316:49: warning: space between quotes and suffix is deprecated in C++23 [-Wdeprecated-literal-operator]
+  316 | [[nodiscard]] constexpr hashed_string operator"" _hs(const char *str, std::size_t) ENTT_NOEXCEPT {
+      |                                                 ^~
+      |                                                 --
+$WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/lib/entt/src/entt/core/hashed_string.hpp:325:50: warning: space between quotes and suffix is deprecated in C++23 [-Wdeprecated-literal-operator]
+  325 | [[nodiscard]] constexpr hashed_wstring operator"" _hws(const wchar_t *str, std::size_t) ENTT_NOEXCEPT {
+      |                                                  ^~
+      |                                                  --
+$WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/lib/entt/src/entt/core/hashed_string.hpp:325:50: warning: space between quotes and suffix is deprecated in C++23 [-Wdeprecated-literal-operator]
+  325 | [[nodiscard]] constexpr hashed_wstring operator"" _hws(const wchar_t *str, std::size_t) ENTT_NOEXCEPT {
+      |                                                  ^~
+      |                                                  --
+[6/15] Linking CXX static library rts/builds/legacy/libGame.a
+[7/15] Building CXX object rts/builds/legacy/CMakeFiles/engine-legacy.dir/__/__/Lua/LuaOpenGLUtils.cpp.o
+In file included from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/System/EventClient.h:12,
+                 from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Lua/LuaHandle.h:7,
+                 from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Lua/LuaOpenGLUtils.cpp:7:
+$WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/System/float3.h: In member function 'std::pair<float3, float> float3::GetNormalized() const':
+$WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/System/float3.h:629:57: note: parameter passing for argument of type 'std::pair<float3, float>' when C++17 is enabled changed to match C++14 in GCC 10.1
+  629 |         std::pair <float3, float> GetNormalized() const {
+      |                                                         ^
+In file included from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Rendering/GL/glDebugGroup.hpp:5,
+                 from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Rendering/GL/myGL.h:20,
+                 from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Lua/LuaShaders.h:10,
+                 from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Lua/LuaContextData.h:10,
+                 from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Lua/LuaHandle.h:9:
+$WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/System/StringHash.h: At global scope:
+$WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/System/StringHash.h:20:44: warning: space between quotes and suffix is deprecated in C++23 [-Wdeprecated-literal-operator]
+   20 | [[nodiscard]] constexpr uint32_t operator"" _hs(const char* str, std::size_t) noexcept {
+      |                                            ^~
+      |                                            --
+$WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/System/StringHash.h:20:44: warning: space between quotes and suffix is deprecated in C++23 [-Wdeprecated-literal-operator]
+   20 | [[nodiscard]] constexpr uint32_t operator"" _hs(const char* str, std::size_t) noexcept {
+      |                                            ^~
+      |                                            --
+In file included from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/lib/entt/src/entt/core/type_info.hpp:10,
+                 from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/lib/entt/src/entt/core/any.hpp:11,
+                 from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/lib/entt/src/entt/entt.hpp:7,
+                 from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/System/Ecs/EcsMain.h:14,
+                 from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Sim/Objects/SolidObject.h:14,
+                 from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Sim/Units/Unit.h:8,
+                 from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/System/EventHandler.h:10,
+                 from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Rendering/Common/ModelDrawerData.h:12,
+                 from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Rendering/Common/ModelDrawer.h:9,
+                 from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Rendering/Units/UnitDrawer.h:7,
+                 from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Lua/LuaOpenGLUtils.cpp:18:
+$WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/lib/entt/src/entt/core/hashed_string.hpp:316:49: warning: space between quotes and suffix is deprecated in C++23 [-Wdeprecated-literal-operator]
+  316 | [[nodiscard]] constexpr hashed_string operator"" _hs(const char *str, std::size_t) ENTT_NOEXCEPT {
+      |                                                 ^~
+      |                                                 --
+$WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/lib/entt/src/entt/core/hashed_string.hpp:316:49: warning: space between quotes and suffix is deprecated in C++23 [-Wdeprecated-literal-operator]
+  316 | [[nodiscard]] constexpr hashed_string operator"" _hs(const char *str, std::size_t) ENTT_NOEXCEPT {
+      |                                                 ^~
+      |                                                 --
+$WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/lib/entt/src/entt/core/hashed_string.hpp:325:50: warning: space between quotes and suffix is deprecated in C++23 [-Wdeprecated-literal-operator]
+  325 | [[nodiscard]] constexpr hashed_wstring operator"" _hws(const wchar_t *str, std::size_t) ENTT_NOEXCEPT {
+      |                                                  ^~
+      |                                                  --
+$WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/lib/entt/src/entt/core/hashed_string.hpp:325:50: warning: space between quotes and suffix is deprecated in C++23 [-Wdeprecated-literal-operator]
+  325 | [[nodiscard]] constexpr hashed_wstring operator"" _hws(const wchar_t *str, std::size_t) ENTT_NOEXCEPT {
+      |                                                  ^~
+      |                                                  --
+[8/15] Building CXX object rts/builds/legacy/CMakeFiles/engine-legacy.dir/__/__/Lua/LuaVAOImpl.cpp.o
+In file included from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Rendering/GL/myGL.h:14,
+                 from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Lua/LuaVAOImpl.h:10,
+                 from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Lua/LuaVAOImpl.cpp:3:
+$WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/System/float3.h: In member function 'std::pair<float3, float> float3::GetNormalized() const':
+$WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/System/float3.h:629:57: note: parameter passing for argument of type 'std::pair<float3, float>' when C++17 is enabled changed to match C++14 in GCC 10.1
+  629 |         std::pair <float3, float> GetNormalized() const {
+      |                                                         ^
+In file included from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Rendering/GL/glDebugGroup.hpp:5,
+                 from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Rendering/GL/myGL.h:20:
+$WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/System/StringHash.h: At global scope:
+$WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/System/StringHash.h:20:44: warning: space between quotes and suffix is deprecated in C++23 [-Wdeprecated-literal-operator]
+   20 | [[nodiscard]] constexpr uint32_t operator"" _hs(const char* str, std::size_t) noexcept {
+      |                                            ^~
+      |                                            --
+$WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/System/StringHash.h:20:44: warning: space between quotes and suffix is deprecated in C++23 [-Wdeprecated-literal-operator]
+   20 | [[nodiscard]] constexpr uint32_t operator"" _hs(const char* str, std::size_t) noexcept {
+      |                                            ^~
+      |                                            --
+In file included from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/lib/entt/src/entt/core/type_info.hpp:10,
+                 from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/lib/entt/src/entt/core/any.hpp:11,
+                 from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/lib/entt/src/entt/entt.hpp:7,
+                 from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/System/Ecs/EcsMain.h:14,
+                 from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Sim/Objects/SolidObject.h:14,
+                 from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Lua/LuaUtils.h:21,
+                 from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Lua/LuaVAOImpl.cpp:19:
+$WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/lib/entt/src/entt/core/hashed_string.hpp:316:49: warning: space between quotes and suffix is deprecated in C++23 [-Wdeprecated-literal-operator]
+  316 | [[nodiscard]] constexpr hashed_string operator"" _hs(const char *str, std::size_t) ENTT_NOEXCEPT {
+      |                                                 ^~
+      |                                                 --
+$WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/lib/entt/src/entt/core/hashed_string.hpp:316:49: warning: space between quotes and suffix is deprecated in C++23 [-Wdeprecated-literal-operator]
+  316 | [[nodiscard]] constexpr hashed_string operator"" _hs(const char *str, std::size_t) ENTT_NOEXCEPT {
+      |                                                 ^~
+      |                                                 --
+$WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/lib/entt/src/entt/core/hashed_string.hpp:325:50: warning: space between quotes and suffix is deprecated in C++23 [-Wdeprecated-literal-operator]
+  325 | [[nodiscard]] constexpr hashed_wstring operator"" _hws(const wchar_t *str, std::size_t) ENTT_NOEXCEPT {
+      |                                                  ^~
+      |                                                  --
+$WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/lib/entt/src/entt/core/hashed_string.hpp:325:50: warning: space between quotes and suffix is deprecated in C++23 [-Wdeprecated-literal-operator]
+  325 | [[nodiscard]] constexpr hashed_wstring operator"" _hws(const wchar_t *str, std::size_t) ENTT_NOEXCEPT {
+      |                                                  ^~
+      |                                                  --
+[9/15] Building CXX object rts/builds/legacy/CMakeFiles/engine-legacy.dir/__/__/Lua/LuaUnsyncedCtrl.cpp.o
+In file included from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Game/Camera/CameraController.h:10,
+                 from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Game/Camera/DollyController.h:6,
+                 from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Lua/LuaUnsyncedCtrl.cpp:5:
+$WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/System/float3.h: In member function 'std::pair<float3, float> float3::GetNormalized() const':
+$WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/System/float3.h:629:57: note: parameter passing for argument of type 'std::pair<float3, float>' when C++17 is enabled changed to match C++14 in GCC 10.1
+  629 |         std::pair <float3, float> GetNormalized() const {
+      |                                                         ^
+In file included from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Rendering/GL/glDebugGroup.hpp:5,
+                 from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Rendering/GL/myGL.h:20,
+                 from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Rendering/GL/VertexArrayTypes.h:9,
+                 from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Game/UI/MouseCursor.h:9,
+                 from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Game/UI/MouseHandler.h:13,
+                 from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Game/Camera/DollyController.h:7:
+$WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/System/StringHash.h: At global scope:
+$WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/System/StringHash.h:20:44: warning: space between quotes and suffix is deprecated in C++23 [-Wdeprecated-literal-operator]
+   20 | [[nodiscard]] constexpr uint32_t operator"" _hs(const char* str, std::size_t) noexcept {
+      |                                            ^~
+      |                                            --
+$WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/System/StringHash.h:20:44: warning: space between quotes and suffix is deprecated in C++23 [-Wdeprecated-literal-operator]
+   20 | [[nodiscard]] constexpr uint32_t operator"" _hs(const char* str, std::size_t) noexcept {
+      |                                            ^~
+      |                                            --
+In file included from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/lib/entt/src/entt/core/type_info.hpp:10,
+                 from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/lib/entt/src/entt/core/any.hpp:11,
+                 from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/lib/entt/src/entt/entt.hpp:7,
+                 from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/System/Ecs/EcsMain.h:14,
+                 from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Sim/Objects/SolidObject.h:14,
+                 from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Lua/LuaUtils.h:21,
+                 from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Lua/LuaUnsyncedCtrl.cpp:14:
+$WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/lib/entt/src/entt/core/hashed_string.hpp:316:49: warning: space between quotes and suffix is deprecated in C++23 [-Wdeprecated-literal-operator]
+  316 | [[nodiscard]] constexpr hashed_string operator"" _hs(const char *str, std::size_t) ENTT_NOEXCEPT {
+      |                                                 ^~
+      |                                                 --
+$WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/lib/entt/src/entt/core/hashed_string.hpp:316:49: warning: space between quotes and suffix is deprecated in C++23 [-Wdeprecated-literal-operator]
+  316 | [[nodiscard]] constexpr hashed_string operator"" _hs(const char *str, std::size_t) ENTT_NOEXCEPT {
+      |                                                 ^~
+      |                                                 --
+$WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/lib/entt/src/entt/core/hashed_string.hpp:325:50: warning: space between quotes and suffix is deprecated in C++23 [-Wdeprecated-literal-operator]
+  325 | [[nodiscard]] constexpr hashed_wstring operator"" _hws(const wchar_t *str, std::size_t) ENTT_NOEXCEPT {
+      |                                                  ^~
+      |                                                  --
+$WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/lib/entt/src/entt/core/hashed_string.hpp:325:50: warning: space between quotes and suffix is deprecated in C++23 [-Wdeprecated-literal-operator]
+  325 | [[nodiscard]] constexpr hashed_wstring operator"" _hws(const wchar_t *str, std::size_t) ENTT_NOEXCEPT {
+      |                                                  ^~
+      |                                                  --
+[10/15] Building CXX object rts/builds/legacy/CMakeFiles/engine-legacy.dir/__/__/Rendering/Textures/NamedTextures.cpp.o
+In file included from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Rendering/GL/myGL.h:14,
+                 from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Rendering/Textures/NamedTextures.cpp:8:
+$WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/System/float3.h: In member function 'std::pair<float3, float> float3::GetNormalized() const':
+$WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/System/float3.h:629:57: note: parameter passing for argument of type 'std::pair<float3, float>' when C++17 is enabled changed to match C++14 in GCC 10.1
+  629 |         std::pair <float3, float> GetNormalized() const {
+      |                                                         ^
+In file included from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Rendering/GL/glDebugGroup.hpp:5,
+                 from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Rendering/GL/myGL.h:20:
+$WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/System/StringHash.h: At global scope:
+$WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/System/StringHash.h:20:44: warning: space between quotes and suffix is deprecated in C++23 [-Wdeprecated-literal-operator]
+   20 | [[nodiscard]] constexpr uint32_t operator"" _hs(const char* str, std::size_t) noexcept {
+      |                                            ^~
+      |                                            --
+$WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/System/StringHash.h:20:44: warning: space between quotes and suffix is deprecated in C++23 [-Wdeprecated-literal-operator]
+   20 | [[nodiscard]] constexpr uint32_t operator"" _hs(const char* str, std::size_t) noexcept {
+      |                                            ^~
+      |                                            --
+[11/15] Building CXX object rts/builds/legacy/CMakeFiles/engine-legacy.dir/__/__/Lua/LuaVBO.cpp.o
+In file included from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Rendering/GL/myGL.h:14,
+                 from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Lua/LuaVBO.cpp:8:
+$WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/System/float3.h: In member function 'std::pair<float3, float> float3::GetNormalized() const':
+$WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/System/float3.h:629:57: note: parameter passing for argument of type 'std::pair<float3, float>' when C++17 is enabled changed to match C++14 in GCC 10.1
+  629 |         std::pair <float3, float> GetNormalized() const {
+      |                                                         ^
+In file included from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Rendering/GL/glDebugGroup.hpp:5,
+                 from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Rendering/GL/myGL.h:20:
+$WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/System/StringHash.h: At global scope:
+$WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/System/StringHash.h:20:44: warning: space between quotes and suffix is deprecated in C++23 [-Wdeprecated-literal-operator]
+   20 | [[nodiscard]] constexpr uint32_t operator"" _hs(const char* str, std::size_t) noexcept {
+      |                                            ^~
+      |                                            --
+$WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/System/StringHash.h:20:44: warning: space between quotes and suffix is deprecated in C++23 [-Wdeprecated-literal-operator]
+   20 | [[nodiscard]] constexpr uint32_t operator"" _hs(const char* str, std::size_t) noexcept {
+      |                                            ^~
+      |                                            --
+In file included from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/lib/entt/src/entt/core/type_info.hpp:10,
+                 from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/lib/entt/src/entt/core/any.hpp:11,
+                 from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/lib/entt/src/entt/entt.hpp:7,
+                 from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/System/Ecs/EcsMain.h:14,
+                 from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Sim/Objects/SolidObject.h:14,
+                 from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Lua/LuaUtils.h:21,
+                 from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Lua/LuaVBO.cpp:11:
+$WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/lib/entt/src/entt/core/hashed_string.hpp:316:49: warning: space between quotes and suffix is deprecated in C++23 [-Wdeprecated-literal-operator]
+  316 | [[nodiscard]] constexpr hashed_string operator"" _hs(const char *str, std::size_t) ENTT_NOEXCEPT {
+      |                                                 ^~
+      |                                                 --
+$WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/lib/entt/src/entt/core/hashed_string.hpp:316:49: warning: space between quotes and suffix is deprecated in C++23 [-Wdeprecated-literal-operator]
+  316 | [[nodiscard]] constexpr hashed_string operator"" _hs(const char *str, std::size_t) ENTT_NOEXCEPT {
+      |                                                 ^~
+      |                                                 --
+$WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/lib/entt/src/entt/core/hashed_string.hpp:325:50: warning: space between quotes and suffix is deprecated in C++23 [-Wdeprecated-literal-operator]
+  325 | [[nodiscard]] constexpr hashed_wstring operator"" _hws(const wchar_t *str, std::size_t) ENTT_NOEXCEPT {
+      |                                                  ^~
+      |                                                  --
+$WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/lib/entt/src/entt/core/hashed_string.hpp:325:50: warning: space between quotes and suffix is deprecated in C++23 [-Wdeprecated-literal-operator]
+  325 | [[nodiscard]] constexpr hashed_wstring operator"" _hws(const wchar_t *str, std::size_t) ENTT_NOEXCEPT {
+      |                                                  ^~
+      |                                                  --
+[12/15] Building CXX object rts/builds/legacy/CMakeFiles/engine-legacy.dir/__/__/Lua/LuaVBOImpl.cpp.o
+In file included from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Rendering/GL/myGL.h:14,
+                 from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Lua/LuaVBOImpl.h:13,
+                 from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Lua/LuaVBOImpl.cpp:3:
+$WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/System/float3.h: In member function 'std::pair<float3, float> float3::GetNormalized() const':
+$WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/System/float3.h:629:57: note: parameter passing for argument of type 'std::pair<float3, float>' when C++17 is enabled changed to match C++14 in GCC 10.1
+  629 |         std::pair <float3, float> GetNormalized() const {
+      |                                                         ^
+In file included from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Rendering/GL/glDebugGroup.hpp:5,
+                 from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Rendering/GL/myGL.h:20:
+$WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/System/StringHash.h: At global scope:
+$WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/System/StringHash.h:20:44: warning: space between quotes and suffix is deprecated in C++23 [-Wdeprecated-literal-operator]
+   20 | [[nodiscard]] constexpr uint32_t operator"" _hs(const char* str, std::size_t) noexcept {
+      |                                            ^~
+      |                                            --
+$WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/System/StringHash.h:20:44: warning: space between quotes and suffix is deprecated in C++23 [-Wdeprecated-literal-operator]
+   20 | [[nodiscard]] constexpr uint32_t operator"" _hs(const char* str, std::size_t) noexcept {
+      |                                            ^~
+      |                                            --
+In file included from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/lib/entt/src/entt/core/type_info.hpp:10,
+                 from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/lib/entt/src/entt/core/any.hpp:11,
+                 from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/lib/entt/src/entt/entt.hpp:7,
+                 from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/System/Ecs/EcsMain.h:14,
+                 from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Sim/Objects/SolidObject.h:14,
+                 from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Sim/Features/Feature.h:8,
+                 from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Lua/LuaVBOImpl.cpp:24:
+$WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/lib/entt/src/entt/core/hashed_string.hpp:316:49: warning: space between quotes and suffix is deprecated in C++23 [-Wdeprecated-literal-operator]
+  316 | [[nodiscard]] constexpr hashed_string operator"" _hs(const char *str, std::size_t) ENTT_NOEXCEPT {
+      |                                                 ^~
+      |                                                 --
+$WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/lib/entt/src/entt/core/hashed_string.hpp:316:49: warning: space between quotes and suffix is deprecated in C++23 [-Wdeprecated-literal-operator]
+  316 | [[nodiscard]] constexpr hashed_string operator"" _hs(const char *str, std::size_t) ENTT_NOEXCEPT {
+      |                                                 ^~
+      |                                                 --
+$WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/lib/entt/src/entt/core/hashed_string.hpp:325:50: warning: space between quotes and suffix is deprecated in C++23 [-Wdeprecated-literal-operator]
+  325 | [[nodiscard]] constexpr hashed_wstring operator"" _hws(const wchar_t *str, std::size_t) ENTT_NOEXCEPT {
+      |                                                  ^~
+      |                                                  --
+$WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/lib/entt/src/entt/core/hashed_string.hpp:325:50: warning: space between quotes and suffix is deprecated in C++23 [-Wdeprecated-literal-operator]
+  325 | [[nodiscard]] constexpr hashed_wstring operator"" _hws(const wchar_t *str, std::size_t) ENTT_NOEXCEPT {
+      |                                                  ^~
+      |                                                  --
+[13/15] Building CXX object rts/builds/legacy/CMakeFiles/engine-legacy.dir/__/__/System/SpringApp.cpp.o
+In file included from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Rendering/GL/myGL.h:14,
+                 from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/System/SpringApp.cpp:26:
+$WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/System/float3.h: In member function 'std::pair<float3, float> float3::GetNormalized() const':
+$WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/System/float3.h:629:57: note: parameter passing for argument of type 'std::pair<float3, float>' when C++17 is enabled changed to match C++14 in GCC 10.1
+  629 |         std::pair <float3, float> GetNormalized() const {
+      |                                                         ^
+In file included from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Rendering/GL/glDebugGroup.hpp:5,
+                 from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Rendering/GL/myGL.h:20:
+$WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/System/StringHash.h: At global scope:
+$WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/System/StringHash.h:20:44: warning: space between quotes and suffix is deprecated in C++23 [-Wdeprecated-literal-operator]
+   20 | [[nodiscard]] constexpr uint32_t operator"" _hs(const char* str, std::size_t) noexcept {
+      |                                            ^~
+      |                                            --
+$WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/System/StringHash.h:20:44: warning: space between quotes and suffix is deprecated in C++23 [-Wdeprecated-literal-operator]
+   20 | [[nodiscard]] constexpr uint32_t operator"" _hs(const char* str, std::size_t) noexcept {
+      |                                            ^~
+      |                                            --
+In file included from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/lib/entt/src/entt/core/type_info.hpp:10,
+                 from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/lib/entt/src/entt/core/any.hpp:11,
+                 from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/lib/entt/src/entt/entt.hpp:7,
+                 from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/System/Ecs/EcsMain.h:14,
+                 from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Sim/Objects/SolidObject.h:14,
+                 from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Sim/Units/Unit.h:8,
+                 from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/System/EventHandler.h:10,
+                 from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/System/SpringApp.cpp:67:
+$WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/lib/entt/src/entt/core/hashed_string.hpp:316:49: warning: space between quotes and suffix is deprecated in C++23 [-Wdeprecated-literal-operator]
+  316 | [[nodiscard]] constexpr hashed_string operator"" _hs(const char *str, std::size_t) ENTT_NOEXCEPT {
+      |                                                 ^~
+      |                                                 --
+$WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/lib/entt/src/entt/core/hashed_string.hpp:316:49: warning: space between quotes and suffix is deprecated in C++23 [-Wdeprecated-literal-operator]
+  316 | [[nodiscard]] constexpr hashed_string operator"" _hs(const char *str, std::size_t) ENTT_NOEXCEPT {
+      |                                                 ^~
+      |                                                 --
+$WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/lib/entt/src/entt/core/hashed_string.hpp:325:50: warning: space between quotes and suffix is deprecated in C++23 [-Wdeprecated-literal-operator]
+  325 | [[nodiscard]] constexpr hashed_wstring operator"" _hws(const wchar_t *str, std::size_t) ENTT_NOEXCEPT {
+      |                                                  ^~
+      |                                                  --
+$WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/lib/entt/src/entt/core/hashed_string.hpp:325:50: warning: space between quotes and suffix is deprecated in C++23 [-Wdeprecated-literal-operator]
+  325 | [[nodiscard]] constexpr hashed_wstring operator"" _hws(const wchar_t *str, std::size_t) ENTT_NOEXCEPT {
+      |                                                  ^~
+      |                                                  --
+In file included from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/System/MemPoolTypes.h:23,
+                 from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Lua/LuaMemPool.h:9,
+                 from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Lua/LuaContextData.h:8,
+                 from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Lua/LuaHandle.h:9,
+                 from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Lua/LuaOpenGL.h:11,
+                 from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/System/SpringApp.cpp:45:
+$WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/System/SpringApp.cpp: In member function 'void SpringApp::Reload(std::string)':
+$WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/System/SpringApp.cpp:866:13: warning: format '%llu' expects argument of type 'long long unsigned int', but argument 5 has type 'std::__cxx11::basic_string<char>::size_type' {aka 'long unsigned int'} [-Wformat=]
+  866 |         LOG("[SpringApp::%s][12] #script=" _STPF_ "", __func__, script.size());
+      |             ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~            ~~~~~~~~~~~~~
+      |                                                                            |
+      |                                                                            std::__cxx11::basic_string<char>::size_type {aka long unsigned int}
+$WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/System/Log/ILog.h:185:95: note: in definition of macro '_LOG_RECORD'
+  185 | #define _LOG_RECORD(section, level, fmt, ...)   log_frontend_record(LOG_LEVE##level, section, fmt, ##__VA_ARGS__)
+      |                                                                                               ^~~
+$WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/System/Log/ILog.h:191:50: note: in expansion of macro '_LOG_FILTER'
+  191 | #define _LOG_SECTION(section, level, fmt, ...)   _LOG_FILTER(section, level, fmt, ##__VA_ARGS__)
+      |                                                  ^~~~~~~~~~~
+$WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/System/Log/ILog.h:194:49: note: in expansion of macro '_LOG_SECTION'
+  194 | #define _LOG_SECTION_DEFINED(level, fmt, ...)   _LOG_SECTION(LOG_SECTION_CURRENT, level, fmt, ##__VA_ARGS__)
+      |                                                 ^~~~~~~~~~~~
+$WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/System/Log/ILog.h:197:33: note: in expansion of macro '_LOG_SECTION_DEFINED'
+  197 | #define _LOG(level, fmt, ...)   _LOG_SECTION_DEFINED(level, fmt, ##__VA_ARGS__)
+      |                                 ^~~~~~~~~~~~~~~~~~~~
+$WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/System/Log/ILog.h:313:9: note: in expansion of macro '_LOG'
+  313 |         _LOG(DEFAULT_LOG_LEVEL_SHORT, fmt, ##__VA_ARGS__)
+      |         ^~~~
+$WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/System/SpringApp.cpp:866:9: note: in expansion of macro 'LOG'
+  866 |         LOG("[SpringApp::%s][12] #script=" _STPF_ "", __func__, script.size());
+      |         ^~~
+In file included from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/System/FastMath.h:18,
+                 from $WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/System/float3.h:13:
+$WORKSPACE/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/System/MainDefines.h:57:54: note: format string is defined here
+   57 |                 #define __SIZE_T_PRINTF_FORMAT__ "%llu"
+      |                                                   ~~~^
+      |                                                      |
+      |                                                      long long unsigned int
+      |                                                   %lu
+[14/15] Linking CXX executable spring
+ld: warning: ignoring duplicate libraries: 'librmlui.a', 'librmlui_debugger.a', 'rts/System/Sound/libsound.a', 'rts/lib/nowide/libnowide.a', 'rts/lib/simdjson/libsimdjson.a', 'rts/lib/streflop/libstreflop.a', 'rts/lib/tracy/libTracyClient.a', 'tools/pr-downloader/src/lib/7z/lib7zip.a', 'tools/pr-downloader/src/lib/base64/libpr-base64.a', 'tools/pr-downloader/src/lib/jsoncpp/libpr-jsoncpp.a'

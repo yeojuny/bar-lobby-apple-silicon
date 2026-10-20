@@ -1,0 +1,35 @@
+{
+  "request": "Reassess whether old vertex preparation memo could now combine beneficially with current changes.",
+  "decision": "Keep as a separately testable candidate; do not reapply in descriptor patch without matched runtime evidence.",
+  "historical": {
+    "report": "reports/r92-vertex-preparation-game-20261011.md",
+    "M4MeanBefore": 42.426132,
+    "M4MeanAfter": 41.07259,
+    "percent": -3.19,
+    "limit": "Two measurements per M4 variant; spread and source causality unresolved; no observed win, not proof of permanent uselessness.",
+    "memoPayloadBytes": 1488
+  },
+  "currentSourcePins": {
+    "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCommandEncoderState.mm": "e013fcc527b084129bca7ec25daf62b663d96a50f5f7f33821e276c0f7f3e80b",
+    "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKMetal4ArgumentTable.mm": "e0cace2976b83bf3a57ea5eb00b1d1eb786c3431a1069a8776b06a45b2c949db"
+  },
+  "confirmedUnchanged": [
+    "Old removed bind-vertex registration/setter statements remain in current source.",
+    "Current native setter already skips identical Metal writes.",
+    "C-T does not alter buffer identity, effective offset, stride, physical slot, table/slot revision, recording token or pass lifetime.",
+    "C-M3 affects legacy capture; the old vertex memo was a native Metal4 path.",
+    "B changes only primitive conversion CPU scratch allocation, preserving draw/bind order."
+  ],
+  "possibleInteraction": [
+    "Lower GPU cost with current AA Off compared with historical 4x MSAA can expose more CPU cost.",
+    "Other CPU reductions can change the fraction of frame time attributed to vertex binding; additive savings may matter even without a higher memo hit rate."
+  ],
+  "notEstablished": [
+    "Current repeated identical vertex bind hit count",
+    "Current avoidable CPU time per frame",
+    "That state tracking cost is lower than saved ownership/setter work",
+    "FPS improvement or a performance interaction"
+  ],
+  "nextEvidence": "A separate bounded matched comparison should distinguish descriptor-only, vertex-only, combined and unchanged states; compare interaction as combined minus individual savings. Use current AA Off/settings/runtime and retain all results. No new benchmark or cache implementation was executed here.",
+  "safetyBoundary": "Any leaner replacement using existing table cache must prove ownership in the current recording and invalidation at helper/pass/lease changes; matching native buffer pointers alone does not prove safe reuse."
+}

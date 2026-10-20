@@ -1,0 +1,116 @@
+In file included from $WORKSPACE/tools/tests/test-run95-luavbo-layout.cpp:19:
+$WORKSPACE/build/run91-recoil-src-694e9df7/rts/lib/sol2/sol.hpp:12806:20: warning: arithmetic between different Unicode character types 'char16_t' and 'char32_t' [-Wcharacter-conversion]
+ 12806 |                                 auto hi = lead - first_lead_surrogate;
+       |                                           ~~~~ ^ ~~~~~~~~~~~~~~~~~~~~
+$WORKSPACE/build/run91-recoil-src-694e9df7/rts/lib/sol2/sol.hpp:12807:21: warning: arithmetic between different Unicode character types 'char16_t' and 'char32_t' [-Wcharacter-conversion]
+ 12807 |                                 auto lo = trail - first_trail_surrogate;
+       |                                           ~~~~~ ^ ~~~~~~~~~~~~~~~~~~~~~
+In file included from $WORKSPACE/tools/tests/test-run95-luavbo-layout.cpp:138:
+artifacts/validation/v103-performance-p1-p3-20261020/cpu-lobby/methods.inc:157:20: warning: comparison of integers of different signs: 'int' and 'const uint32_t' (aka 'const unsigned int') [-Wsign-compare]
+  157 |         for (int e = 0; e < elemCount; ++e) {
+      |                         ~ ^ ~~~~~~~~~
+artifacts/validation/v103-performance-p1-p3-20261020/cpu-lobby/methods.inc:513:21: warning: comparison of integers of different signs: 'int' and 'size_type' (aka 'unsigned long') [-Wsign-compare]
+  513 |         for (auto k = 0; k < dataVec.size(); ++k) {
+      |                          ~ ^ ~~~~~~~~~~~~~~
+artifacts/validation/v103-performance-p1-p3-20261020/cpu-lobby/methods.inc:242:75: warning: lambda capture 'mappedBufferSizeInBytes' is not used [-Wunused-lambda-capture]
+  242 |         const auto uploadToGPU = [this, buffDataWithOffset, bufferOffsetInBytes, mappedBufferSizeInBytes](int bytesWritten) -> int {
+      |                                                                                  ^
+artifacts/validation/v103-performance-p1-p3-20261020/cpu-lobby/methods.inc:471:9: note: in instantiation of function template specialization 'LuaVBOImpl::UploadImpl<float, LuaNumberIterator, (lambda at artifacts/validation/v103-performance-p1-p3-20261020/cpu-lobby/methods.inc:474:15)>' requested here
+  471 |         return UploadImpl<lua_Number>(
+      |                ^
+artifacts/validation/v103-performance-p1-p3-20261020/cpu-lobby/methods.inc:538:75: warning: lambda capture 'mappedBufferSizeInBytes' is not used [-Wunused-lambda-capture]
+  538 |         const auto uploadToGPU = [this, buffDataWithOffset, bufferOffsetInBytes, mappedBufferSizeInBytes](int bytesWritten) -> int {
+      |                                                                                  ^
+$WORKSPACE/tools/tests/test-run95-luavbo-layout.cpp:115:16: note: in instantiation of function template specialization 'LuaVBOImpl::UploadImplBefore<float, (lambda at $WORKSPACE/tools/tests/test-run95-luavbo-layout.cpp:115:37)>' requested here
+  115 |         return UploadImplBefore(v,o,[id](int x){return id==-1 || id==x;});
+      |                ^
+artifacts/validation/v103-performance-p1-p3-20261020/cpu-lobby/methods.inc:517:9: note: in instantiation of function template specialization 'LuaVBOImpl::UploadImplBefore<float>' requested here
+  517 |         return UploadImplBefore<lua_Number>(dataVec, elemOffset, attribIdx);
+      |                ^
+artifacts/validation/v103-performance-p1-p3-20261020/cpu-lobby/methods.inc:242:75: warning: lambda capture 'mappedBufferSizeInBytes' is not used [-Wunused-lambda-capture]
+  242 |         const auto uploadToGPU = [this, buffDataWithOffset, bufferOffsetInBytes, mappedBufferSizeInBytes](int bytesWritten) -> int {
+      |                                                                                  ^
+artifacts/validation/v103-performance-p1-p3-20261020/cpu-lobby/methods.inc:857:9: note: in instantiation of function template specialization 'LuaVBOImpl::UploadImpl<float, float *, (lambda at artifacts/validation/v103-performance-p1-p3-20261020/cpu-lobby/methods.inc:857:72)>' requested here
+  857 |         return UploadImpl<float>(matData, matData + 16 * idsSize, elemOffset, [attrID, &attr0](int id) {
+      |                ^
+artifacts/validation/v103-performance-p1-p3-20261020/cpu-lobby/methods.inc:941:9: note: in instantiation of function template specialization 'LuaVBOImpl::MatrixDataFromProjectileIDsImpl<(lambda at artifacts/validation/v103-performance-p1-p3-20261020/cpu-lobby/methods.inc:941:44)>' requested here
+  941 |         return MatrixDataFromProjectileIDsImpl(1, [id](size_t) { return id; }, attrID, elemOffsetOpt, __func__);
+      |                ^
+artifacts/validation/v103-performance-p1-p3-20261020/cpu-lobby/methods.inc:242:75: warning: lambda capture 'mappedBufferSizeInBytes' is not used [-Wunused-lambda-capture]
+  242 |         const auto uploadToGPU = [this, buffDataWithOffset, bufferOffsetInBytes, mappedBufferSizeInBytes](int bytesWritten) -> int {
+      |                                                                                  ^
+$WORKSPACE/tools/tests/test-run95-luavbo-layout.cpp:96:16: note: in instantiation of function template specialization 'LuaVBOImpl::UploadImpl<float, std::__wrap_iter<const float *>, (lambda at $WORKSPACE/tools/tests/test-run95-luavbo-layout.cpp:105:31)>' requested here
+   96 |         return UploadImpl<TIn>(v.cbegin(),v.cend(),o,f);
+      |                ^
+$WORKSPACE/tools/tests/test-run95-luavbo-layout.cpp:105:16: note: in instantiation of function template specialization 'LuaVBOImpl::UploadImpl<float, (lambda at $WORKSPACE/tools/tests/test-run95-luavbo-layout.cpp:105:31)>' requested here
+  105 |         return UploadImpl(v,o,[&](int x){return std::find(ids.begin(),ids.end(),x)!=ids.end();});
+      |                ^
+artifacts/validation/v103-performance-p1-p3-20261020/cpu-lobby/methods.inc:933:10: note: in instantiation of function template specialization 'LuaVBOImpl::UploadImpl<float>' requested here
+  933 |                 return UploadImpl<float>(matDataVec, elemOffset, { attrID + 0, attrID + 1, attrID + 2, attrID + 3 });
+      |                        ^
+artifacts/validation/v103-performance-p1-p3-20261020/cpu-lobby/methods.inc:947:9: note: in instantiation of function template specialization 'LuaVBOImpl::MatrixDataFromProjectileIDsImplBefore<std::initializer_list<int>>' requested here
+  947 |         return MatrixDataFromProjectileIDsImplBefore(std::initializer_list<int>{id}, attrID, elemOffsetOpt, __func__);
+      |                ^
+artifacts/validation/v103-performance-p1-p3-20261020/cpu-lobby/methods.inc:242:75: warning: lambda capture 'mappedBufferSizeInBytes' is not used [-Wunused-lambda-capture]
+  242 |         const auto uploadToGPU = [this, buffDataWithOffset, bufferOffsetInBytes, mappedBufferSizeInBytes](int bytesWritten) -> int {
+      |                                                                                  ^
+$WORKSPACE/tools/tests/test-run95-luavbo-layout.cpp:96:16: note: in instantiation of function template specialization 'LuaVBOImpl::UploadImpl<float, std::__wrap_iter<const float *>, (lambda at $WORKSPACE/tools/tests/test-run95-luavbo-layout.cpp:102:31)>' requested here
+   96 |         return UploadImpl<TIn>(v.cbegin(),v.cend(),o,f);
+      |                ^
+$WORKSPACE/tools/tests/test-run95-luavbo-layout.cpp:102:16: note: in instantiation of function template specialization 'LuaVBOImpl::UploadImpl<float, (lambda at $WORKSPACE/tools/tests/test-run95-luavbo-layout.cpp:102:31)>' requested here
+  102 |         return UploadImpl(v,o,[id](int x){return id==-1 || id==x;});
+      |                ^
+artifacts/validation/v103-performance-p1-p3-20261020/cpu-lobby/methods.inc:935:10: note: in instantiation of function template specialization 'LuaVBOImpl::UploadImpl<float>' requested here
+  935 |                 return UploadImpl<float>(matDataVec, elemOffset, attrID);
+      |                        ^
+artifacts/validation/v103-performance-p1-p3-20261020/cpu-lobby/methods.inc:947:9: note: in instantiation of function template specialization 'LuaVBOImpl::MatrixDataFromProjectileIDsImplBefore<std::initializer_list<int>>' requested here
+  947 |         return MatrixDataFromProjectileIDsImplBefore(std::initializer_list<int>{id}, attrID, elemOffsetOpt, __func__);
+      |                ^
+artifacts/validation/v103-performance-p1-p3-20261020/cpu-lobby/methods.inc:242:75: warning: lambda capture 'mappedBufferSizeInBytes' is not used [-Wunused-lambda-capture]
+  242 |         const auto uploadToGPU = [this, buffDataWithOffset, bufferOffsetInBytes, mappedBufferSizeInBytes](int bytesWritten) -> int {
+      |                                                                                  ^
+artifacts/validation/v103-performance-p1-p3-20261020/cpu-lobby/methods.inc:857:9: note: in instantiation of function template specialization 'LuaVBOImpl::UploadImpl<float, float *, (lambda at artifacts/validation/v103-performance-p1-p3-20261020/cpu-lobby/methods.inc:857:72)>' requested here
+  857 |         return UploadImpl<float>(matData, matData + 16 * idsSize, elemOffset, [attrID, &attr0](int id) {
+      |                ^
+artifacts/validation/v103-performance-p1-p3-20261020/cpu-lobby/methods.inc:953:9: note: in instantiation of function template specialization 'LuaVBOImpl::MatrixDataFromProjectileIDsImpl<(lambda at artifacts/validation/v103-performance-p1-p3-20261020/cpu-lobby/methods.inc:953:53)>' requested here
+  953 |         return MatrixDataFromProjectileIDsImpl(ids.size(), [&ids](size_t i) {
+      |                ^
+artifacts/validation/v103-performance-p1-p3-20261020/cpu-lobby/methods.inc:242:75: warning: lambda capture 'mappedBufferSizeInBytes' is not used [-Wunused-lambda-capture]
+  242 |         const auto uploadToGPU = [this, buffDataWithOffset, bufferOffsetInBytes, mappedBufferSizeInBytes](int bytesWritten) -> int {
+      |                                                                                  ^
+$WORKSPACE/tools/tests/test-run95-luavbo-layout.cpp:96:16: note: in instantiation of function template specialization 'LuaVBOImpl::UploadImpl<double, std::__wrap_iter<const double *>, (lambda at $WORKSPACE/tools/tests/test-run95-luavbo-layout.cpp:102:31)>' requested here
+   96 |         return UploadImpl<TIn>(v.cbegin(),v.cend(),o,f);
+      |                ^
+$WORKSPACE/tools/tests/test-run95-luavbo-layout.cpp:102:16: note: in instantiation of function template specialization 'LuaVBOImpl::UploadImpl<double, (lambda at $WORKSPACE/tools/tests/test-run95-luavbo-layout.cpp:102:31)>' requested here
+  102 |         return UploadImpl(v,o,[id](int x){return id==-1 || id==x;});
+      |                ^
+$WORKSPACE/tools/tests/test-run95-luavbo-layout.cpp:439:19: note: in instantiation of function template specialization 'LuaVBOImpl::UploadImpl<double>' requested here
+  439 |         eq(f.impl.UploadImpl(std::vector<double>{17,34,51,255,68,85,102,128},1,15),size_t(160),"color partial upload span");
+      |                   ^
+In file included from $WORKSPACE/tools/tests/test-run95-luavbo-layout.cpp:138:
+artifacts/validation/v103-performance-p1-p3-20261020/cpu-lobby/methods.inc:242:75: warning: lambda capture 'mappedBufferSizeInBytes' is not used [-Wunused-lambda-capture]
+  242 |         const auto uploadToGPU = [this, buffDataWithOffset, bufferOffsetInBytes, mappedBufferSizeInBytes](int bytesWritten) -> int {
+      |                                                                                  ^
+$WORKSPACE/tools/tests/test-run95-luavbo-layout.cpp:96:16: note: in instantiation of function template specialization 'LuaVBOImpl::UploadImpl<unsigned int, std::__wrap_iter<const unsigned int *>, (lambda at $WORKSPACE/tools/tests/test-run95-luavbo-layout.cpp:102:31)>' requested here
+   96 |         return UploadImpl<TIn>(v.cbegin(),v.cend(),o,f);
+      |                ^
+$WORKSPACE/tools/tests/test-run95-luavbo-layout.cpp:102:16: note: in instantiation of function template specialization 'LuaVBOImpl::UploadImpl<unsigned int, (lambda at $WORKSPACE/tools/tests/test-run95-luavbo-layout.cpp:102:31)>' requested here
+  102 |         return UploadImpl(v,o,[id](int x){return id==-1 || id==x;});
+      |                ^
+$WORKSPACE/tools/tests/test-run95-luavbo-layout.cpp:521:16: note: in instantiation of function template specialization 'LuaVBOImpl::UploadImpl<unsigned int>' requested here
+  521 |         f.impl.UploadImpl(std::vector<uint32_t>{1,2,3,4,42,5,6,7,8,43},0,-1);
+      |                ^
+In file included from $WORKSPACE/tools/tests/test-run95-luavbo-layout.cpp:138:
+artifacts/validation/v103-performance-p1-p3-20261020/cpu-lobby/methods.inc:242:75: warning: lambda capture 'mappedBufferSizeInBytes' is not used [-Wunused-lambda-capture]
+  242 |         const auto uploadToGPU = [this, buffDataWithOffset, bufferOffsetInBytes, mappedBufferSizeInBytes](int bytesWritten) -> int {
+      |                                                                                  ^
+$WORKSPACE/tools/tests/test-run95-luavbo-layout.cpp:96:16: note: in instantiation of function template specialization 'LuaVBOImpl::UploadImpl<double, std::__wrap_iter<const double *>, (lambda at $WORKSPACE/tools/tests/test-run95-luavbo-layout.cpp:599:62)>' requested here
+   96 |         return UploadImpl<TIn>(v.cbegin(),v.cend(),o,f);
+      |                ^
+$WORKSPACE/tools/tests/test-run95-luavbo-layout.cpp:599:25: note: in instantiation of function template specialization 'LuaVBOImpl::UploadImpl<double, (lambda at $WORKSPACE/tools/tests/test-run95-luavbo-layout.cpp:599:62)>' requested here
+  599 |         size_t n=f.impl.UploadImpl(std::vector<double>{99},0,[](int){return false;});
+      |                         ^
+$WORKSPACE/tools/tests/test-run95-luavbo-layout.cpp:36:15: warning: unused variable 'L_ERROR' [-Wunused-const-variable]
+   36 | constexpr int L_ERROR=0;
+      |               ^~~~~~~
+14 warnings generated.

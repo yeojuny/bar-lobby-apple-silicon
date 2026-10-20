@@ -1,0 +1,78 @@
+{
+  "lobby": {
+    "unchangedEntryAndUploadBodies": {
+      "InstanceDataFromImpl0": true,
+      "InstanceDataFromImpl1": true,
+      "UploadInstanceData0": true,
+      "Upload0": true,
+      "Delete0": true,
+      "MatrixDataFromProjectileIDsImpl0": true,
+      "MatrixDataFromProjectileIDs0": true,
+      "MatrixDataFromProjectileIDs1": true
+    },
+    "sourceHashes": {
+      "build/run91-recoil-src-694e9df7/rts/Lua/LuaOpenGLUtils.cpp": {
+        "before": "76c52cec1e51e62cd4c339dd67038e5aa53cf68490f7c2c79f133b84eb43b805",
+        "after": "f52e8e7ecb468ed0441258692e1ceee083d2792952074e0160c5628bb34b6a6d"
+      },
+      "build/run91-recoil-src-694e9df7/rts/Lua/LuaVBOImpl.cpp": {
+        "before": "1467789d07ed46275200820167d6995cf8c9ecfe3cca675eb7e69b4ffc588c40",
+        "after": "61a8253a0f8ba3edcb687969e9fd07359ff5513145071ba4f4c3aefd0993e03c"
+      },
+      "build/run91-recoil-src-694e9df7/rts/Lua/LuaVBOImpl.h": {
+        "before": "6b02d63d8373cd8baea47583f49141fdc2eb6cef6c8213b975ff74c96984da01",
+        "after": "8ba2a63879f4104dadccd4eb8f2c3b131287f18885eb4af6f30d2e0298350a8a"
+      },
+      "build/run91-recoil-src-694e9df7/rts/Rendering/Textures/NamedTextures.cpp": {
+        "before": "06bffe74e18e7726b654461be061b776bfb54e5cf079359cea1b0463dbb96635",
+        "after": "dcc982728d8d5531c4a16978486e15fd798d7d3eeb812b8e03a5db22b7a8437a"
+      },
+      "build/run91-recoil-src-694e9df7/rts/Rendering/Textures/NamedTextures.h": {
+        "before": "012796c8e717ecfac604f4c6ca4d95e8320fff17263a31a2bd38d2d7a693a126",
+        "after": "05697e2fbf243dfcbfc0b3e71633ed9864ae63005a40e5d3cabdc84df2bfca2e"
+      }
+    },
+    "generatedVersion": "/* This file is part of the Spring engine (GPL v2 or later), see LICENSE.html */\n\n/*\n * Do NOT include this file directly, but include the wrapper instead.\n * This prevents wasteful recompiling.\n */\n\n#ifndef VERSION_GENERATED_H\n#define VERSION_GENERATED_H\n\n/// examples: \"83.0\" \"83.0.1-13-g1234567 develop\"\nstatic constexpr const char* SPRING_VERSION_ENGINE            = \"2026.09.01-24-g01efdf4 master\";\n\n/// examples: \"83\"\nstatic constexpr const char* SPRING_VERSION_ENGINE_MAJOR      = \"2026\";\n\n/// examples: \"83\"\nstatic constexpr const char* SPRING_VERSION_ENGINE_MINOR      = \"09\";\n\n/// examples: \"0\"\nstatic constexpr const char* SPRING_VERSION_ENGINE_PATCH_SET  = \"01\";\n\n/// examples: \"13\"\nstatic constexpr const char* SPRING_VERSION_ENGINE_COMMITS    = \"24\";\n\n/// examples: \"1234567\"\nstatic constexpr const char* SPRING_VERSION_ENGINE_HASH       = \"01efdf4\";\n\n/// examples: \"develop\"\nstatic constexpr const char* SPRING_VERSION_ENGINE_BRANCH     = \"master\";\n\n/// examples: \"what a splendid day, isn't it?\"\nstatic constexpr const char* SPRING_VERSION_ENGINE_ADDITIONAL = \"BAR-1.0.3\";\n\n/// examples: true, false\nstatic constexpr bool        SPRING_VERSION_ENGINE_RELEASE    = 0;\n\n#endif // VERSION_GENERATED_H\n\n \n \n \n"
+  },
+  "chobby": {
+    "unchangedEntryAndUploadBodies": {
+      "InstanceDataFromImpl0": true,
+      "InstanceDataFromImpl1": true,
+      "UploadInstanceData0": true,
+      "Upload0": true,
+      "Delete0": true,
+      "MatrixDataFromProjectileIDsImpl0": true,
+      "MatrixDataFromProjectileIDs0": true,
+      "MatrixDataFromProjectileIDs1": true
+    },
+    "sourceHashes": {
+      "artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Lua/LuaOpenGLUtils.cpp": {
+        "before": "76c52cec1e51e62cd4c339dd67038e5aa53cf68490f7c2c79f133b84eb43b805",
+        "after": "f52e8e7ecb468ed0441258692e1ceee083d2792952074e0160c5628bb34b6a6d"
+      },
+      "artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Lua/LuaVBOImpl.cpp": {
+        "before": "c6bca993b3a4d228ac3b9e2b47540b19de507db9f0197e5a640afc38d4d7cb8e",
+        "after": "c7831a0f51dce7f236485cddeeb00f0ac8313e4996d875f9d6bc22efb905d37d"
+      },
+      "artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Lua/LuaVBOImpl.h": {
+        "before": "6cfaef31b3f511adf8523033c8e4ab2c82253c309803a81a774c53f499e5e446",
+        "after": "f35ad8be64f56af5d60157f893e2feefc955742e4018c062010d05e89016b70a"
+      },
+      "artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Rendering/Textures/NamedTextures.cpp": {
+        "before": "06bffe74e18e7726b654461be061b776bfb54e5cf079359cea1b0463dbb96635",
+        "after": "dcc982728d8d5531c4a16978486e15fd798d7d3eeb812b8e03a5db22b7a8437a"
+      },
+      "artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Rendering/Textures/NamedTextures.h": {
+        "before": "012796c8e717ecfac604f4c6ca4d95e8320fff17263a31a2bd38d2d7a693a126",
+        "after": "05697e2fbf243dfcbfc0b3e71633ed9864ae63005a40e5d3cabdc84df2bfca2e"
+      }
+    },
+    "generatedVersion": "/* This file is part of the Spring engine (GPL v2 or later), see LICENSE.html */\n\n/*\n * Do NOT include this file directly, but include the wrapper instead.\n * This prevents wasteful recompiling.\n */\n\n#ifndef VERSION_GENERATED_H\n#define VERSION_GENERATED_H\n\n/// examples: \"83.0\" \"83.0.1-13-g1234567 develop\"\nstatic constexpr const char* SPRING_VERSION_ENGINE            = \"2026.07.04\";\n\n/// examples: \"83\"\nstatic constexpr const char* SPRING_VERSION_ENGINE_MAJOR      = \"2026\";\n\n/// examples: \"83\"\nstatic constexpr const char* SPRING_VERSION_ENGINE_MINOR      = \"07\";\n\n/// examples: \"0\"\nstatic constexpr const char* SPRING_VERSION_ENGINE_PATCH_SET  = \"04\";\n\n/// examples: \"13\"\nstatic constexpr const char* SPRING_VERSION_ENGINE_COMMITS    = \"\";\n\n/// examples: \"1234567\"\nstatic constexpr const char* SPRING_VERSION_ENGINE_HASH       = \"\";\n\n/// examples: \"develop\"\nstatic constexpr const char* SPRING_VERSION_ENGINE_BRANCH     = \"\";\n\n/// examples: \"what a splendid day, isn't it?\"\nstatic constexpr const char* SPRING_VERSION_ENGINE_ADDITIONAL = \"BAR-1.0.3\";\n\n/// examples: true, false\nstatic constexpr bool        SPRING_VERSION_ENGINE_RELEASE    = 1;\n\n#endif // VERSION_GENERATED_H\n\n \n \n \n"
+  },
+  "sharedTextureBytesIdentical": {
+    "rts/Lua/LuaOpenGLUtils.cpp": true,
+    "rts/Rendering/Textures/NamedTextures.cpp": true,
+    "rts/Rendering/Textures/NamedTextures.h": true
+  },
+  "namedLookupBodyRestoresExactly": true
+}

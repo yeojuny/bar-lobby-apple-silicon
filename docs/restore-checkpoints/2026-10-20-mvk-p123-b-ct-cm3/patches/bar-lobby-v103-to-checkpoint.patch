@@ -1,0 +1,140 @@
+--- a/rts/Lua/LuaOpenGLUtils.cpp
++++ b/rts/Lua/LuaOpenGLUtils.cpp
+@@ -386,13 +386,14 @@
+ 
+ 			// dynamic texture
+ 			const LuaTextures& textures = CLuaHandle::GetActiveTextures(L);
+-			const LuaTextures::Texture* texInfo = textures.GetInfo(image);
++			const size_t texIdx = textures.GetIdx(image);
++			const LuaTextures::Texture* texInfo = textures.GetInfo(texIdx);
+ 
+ 			if (texInfo == nullptr)
+ 				return false;
+ 
+ 			texUnit.type = LuaMatTexture::LUATEX_LUATEXTURE;
+-			texUnit.data = reinterpret_cast<const void*>(textures.GetIdx(image));
++			texUnit.data = reinterpret_cast<const void*>(texIdx);
+ 		} break;
+ 
+ 		case '%': {
+@@ -470,11 +471,12 @@
+ 
+ 		default: {
+ 			const CLuaHandle* luaHandle = CLuaHandle::GetHandle(L);
+-			const CNamedTextures::TexInfo* texInfo = CNamedTextures::GetInfo(image, true, luaHandle->PersistOnReload(), luaHandle->SecondaryGLContext());
++			size_t texIdx;
++			const CNamedTextures::TexInfo* texInfo = CNamedTextures::GetInfo(image, true, luaHandle->PersistOnReload(), luaHandle->SecondaryGLContext(), texIdx);
+ 
+ 			if (texInfo != nullptr) {
+ 				texUnit.type = LuaMatTexture::LUATEX_NAMED;
+-				texUnit.data = reinterpret_cast<const void*>(CNamedTextures::GetInfoIndex(image));
++				texUnit.data = reinterpret_cast<const void*>(texIdx);
+ 				texUnit.texType = texInfo->texType;
+ 			} else {
+ 				LOG_L(L_WARNING, "Lua: Couldn't load texture named \"%s\"!", image.c_str());
+--- a/rts/Lua/LuaVBOImpl.cpp
++++ b/rts/Lua/LuaVBOImpl.cpp
+@@ -85,7 +85,7 @@
+ 	}
+ }
+ 
+-inline void LuaVBOImpl::InstanceBufferCheck(int attrID, const char* func)
++inline const LuaVBOImpl::BufferAttribDef& LuaVBOImpl::InstanceBufferCheck(int attrID, const char* func)
+ {
+ 	VBOExistenceCheck(vbo, func);
+ 	/*
+@@ -93,16 +93,16 @@
+ 		LuaUtils::SolLuaError("[LuaVBOImpl::%s] Invalid instance VBO. Target type (%u) is not GL_ARRAY_BUFFER(%u)", func, defTarget, GL_ARRAY_BUFFER);
+ 	}
+ 	*/
+-	if (bufferAttribDefs.find(attrID) == bufferAttribDefs.cend()) {
++	const auto it = bufferAttribDefs.find(attrID);
++	if (it == bufferAttribDefs.cend()) {
+ 		LuaUtils::SolLuaError("[LuaVBOImpl::%s] No instance attribute definition %d found", func, attrID);
+ 	}
++	return it->second;
+ }
+ 
+ inline void LuaVBOImpl::InstanceBufferCheckAndFormatCheck(int attrID, const char* func)
+ {
+-	InstanceBufferCheck(attrID, func);
+-
+-	const BufferAttribDef& bad = bufferAttribDefs[attrID];
++	const BufferAttribDef& bad = InstanceBufferCheck(attrID, func);
+ 	if (bad.type != GL_UNSIGNED_INT) {
+ 		LuaUtils::SolLuaError("[LuaVBOImpl::%s] Instance VBO attribute %d must have a type of GL_UNSIGNED_INT", func, attrID);
+ 	}
+--- a/rts/Lua/LuaVBOImpl.h
++++ b/rts/Lua/LuaVBOImpl.h
+@@ -58,6 +58,8 @@
+ public:
+ 	static bool Supported(GLenum target);
+ private:
++	struct BufferAttribDef;
++
+ 	void AllocGLBuffer(size_t byteSize);
+ 	void CopyAttrMapToVec();
+ 
+@@ -76,7 +78,7 @@
+ 	void UpdateModelsVBOElementCount();
+ 	size_t ModelsVBOImpl();
+ 
+-	inline void InstanceBufferCheck(int attrID, const char* func);
++	inline const BufferAttribDef& InstanceBufferCheck(int attrID, const char* func);
+ 	inline void InstanceBufferCheckAndFormatCheck(int attrID, const char* func);
+ 
+ 	template<typename TObj>
+--- a/rts/Rendering/Textures/NamedTextures.cpp
++++ b/rts/Rendering/Textures/NamedTextures.cpp
+@@ -380,11 +380,18 @@
+ 	const TexInfo* GetInfo(size_t texIdx) { return &texInfoVec[texIdx]; }
+ 	const TexInfo* GetInfo(const std::string& texName, bool forceLoad, bool persist, bool secondaryGLContext)
+ 	{
+-	RECOIL_DETAILED_TRACY_ZONE;
++		size_t texIdx;
++		return GetInfo(texName, forceLoad, persist, secondaryGLContext, texIdx);
++	}
++
++	const TexInfo* GetInfo(const std::string& texName, bool forceLoad, bool persist, bool secondaryGLContext, size_t& texIdx)
++	{
++	RECOIL_DETAILED_TRACY_ZONE;
++		texIdx = size_t(-1);
+ 		if (texName.empty())
+ 			return nullptr;
+ 
+-		const size_t texIdx = GetInfoIndex(texName);
++		texIdx = GetInfoIndex(texName);
+ 
+ 		if (texIdx != size_t(-1)) {
+ 			texInfoVec[texIdx].persist |= persist;
+@@ -402,7 +409,8 @@
+ 				GenLoadTex(texName);
+ 			}
+ 
+-			return &texInfoVec[ texInfoMap[texName] ];
++			texIdx = texInfoMap[texName];
++			return &texInfoVec[texIdx];
+ 		}
+ 
+ 		return nullptr;
+--- a/rts/Rendering/Textures/NamedTextures.h
++++ b/rts/Rendering/Textures/NamedTextures.h
+@@ -1,7 +1,6 @@
+ /* This file is part of the Spring engine (GPL v2 or later), see LICENSE.html */
+ 
+-#ifndef NAMED_TEXTURES_H
+-#define NAMED_TEXTURES_H
++#pragma once
+ 
+ #include <string>
+ 
+@@ -37,7 +36,8 @@
+ 	size_t GetInfoIndex(const std::string& texName);
+ 
+ 	const TexInfo* GetInfo(const std::string& texName, bool forceLoad = false, bool persist = false, bool secondaryGLContext = false);
++	// Preserve GetInfo's loading/persistence behavior and also return its index.
++	const TexInfo* GetInfo(const std::string& texName, bool forceLoad, bool persist, bool secondaryGLContext, size_t& texIdx);
+ 	const TexInfo* GetInfo(size_t texIdx);
+ }
+ 
+-#endif /* NAMED_TEXTURES_H */

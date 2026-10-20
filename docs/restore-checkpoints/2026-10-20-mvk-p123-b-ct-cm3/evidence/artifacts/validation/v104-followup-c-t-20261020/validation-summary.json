@@ -1,0 +1,57 @@
+{
+  "status": "complete; exact implementation built, independently reviewed, component validated and packaged; FPS unmeasured",
+  "sourcePins": {
+    "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKDescriptorSet.h": "fb7583ab4debcf0e8f6afcaa1abc62b87d80e1b457280a77136d3cf5afaae1f5",
+    "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKDescriptorSet.mm": "b87caab357dd43ba2c2cd937dcd7cdd0836c6418f90ddc5d2b90e13022257dc4",
+    "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCmdPipeline.mm": "8e663764a00e70ae9b6ede6996da275a9c0aad8a4de632fab8e9ed20e80e1d33",
+    "tools/tests/metal4-descriptor-preparation-cpu.py": "ce4b77707d0bbbc627474280e39c5c5a916c3b2f2e9bc2139aebe4e93b17a3ef",
+    "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCmdPipeline.h": "91de07b4f0304ebaae3811b855c3c72cdc481fbedd6f126680977a541a7dcd53",
+    "tools/tests/metal4-vulkan-integration.mm": "b5f1efe0e19c0c0384b9edd8c5ba8a2af3b9353a64f66a674d606e6ed63a3e6a",
+    "tools/tests/metal4-prepared-recording-vulkan.mm": "c59916e913b2ad69927b7c7667570c016d3b67b350ae0db42d6dd5452155851d"
+  },
+  "changedFiles": [
+    "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKDescriptorSet.h",
+    "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKDescriptorSet.mm",
+    "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCmdPipeline.mm",
+    "tools/tests/metal4-descriptor-preparation-cpu.py",
+    "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCmdPipeline.h",
+    "tools/tests/metal4-vulkan-integration.mm",
+    "tools/tests/metal4-prepared-recording-vulkan.mm"
+  ],
+  "rawLibrarySHA256": "443cae49eeca6814a7374cf510178416660e07238715e1ceb451f648e92eb60a",
+  "incrementalBuildExitCode": 0,
+  "cpuAssertionsOn": 629,
+  "cpuAssertionsOff": 134,
+  "asanUbsan": true,
+  "syntaxOnOffCases": 4,
+  "nativeOriginalPassed": 6,
+  "commonM3": {
+    "backend": "m3",
+    "exitCode": 0,
+    "result": {
+      "suite": "descriptor_template_common",
+      "passed": 1,
+      "cycles": 6,
+      "graphicsChecked": true,
+      "native_queue": false,
+      "gameExecuted": false
+    }
+  },
+  "commonM4": {
+    "backend": "m4",
+    "exitCode": 0,
+    "result": {
+      "suite": "descriptor_template_common",
+      "passed": 1,
+      "cycles": 6,
+      "graphicsChecked": true,
+      "native_queue": true,
+      "gameExecuted": false
+    }
+  },
+  "protectedRecordedPinsExact": 57,
+  "testFixturesChanged": 3,
+  "productFilesChanged": 4,
+  "vertexCacheAdded": false,
+  "benchmarkRuns": 0
+}

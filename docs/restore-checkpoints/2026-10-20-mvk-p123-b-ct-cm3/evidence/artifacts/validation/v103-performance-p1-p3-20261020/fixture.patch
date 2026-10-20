@@ -1,0 +1,11 @@
+--- tools/tests/test-run95-luavbo-layout.cpp.before
++++ tools/tests/test-run95-luavbo-layout.cpp
+@@ -116,7 +116,7 @@
+     }
+ #endif
+ #ifdef RUN75_INTERNAL_UPLOAD
+-    void InstanceBufferCheck(int,const char*);
++    const BufferAttribDef& InstanceBufferCheck(int,const char*);
+     void InstanceBufferCheckAndFormatCheck(int,const char*);
+     template<class T> static SInstanceData InstanceDataFromGetData(int id,int,uint16_t palette) {
+         if (id < 0 || id >= 8) throw std::runtime_error("invalid object ID");

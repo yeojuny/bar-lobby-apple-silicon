@@ -1,0 +1,179 @@
+--- a/MoltenVK/MoltenVK/Commands/MVKCmdDraw.mm
++++ b/MoltenVK/MoltenVK/Commands/MVKCmdDraw.mm
+@@ -297,8 +297,8 @@
+         return fail("Native restart batch shape is invalid.");
+     }
+     auto* batch = encoder->getMetal4Submission();
+-    std::vector<VkDrawIndexedIndirectCommand> arguments;
+-    std::vector<Metal4RestartBatchRecord> records(count);
++    MVKSmallVector<VkDrawIndexedIndirectCommand, 4> arguments;
++    MVKSmallVector<Metal4RestartBatchRecord, 4> records(count);
+     arguments.reserve(count); outputs.resize(count);
+     for (size_t i = 0; i < count; ++i) {
+         const auto& entry = entries[first + i];
+--- a/MoltenVK/MoltenVK/Commands/MVKCmdPipeline.h
++++ b/MoltenVK/MoltenVK/Commands/MVKCmdPipeline.h
+@@ -340,12 +340,10 @@
+ protected:
+ 	MVKCommandTypePool<MVKCommand>* getTypePool(MVKCommandPool* cmdPool) override;
+ 
+-#if MVK_BUILD_METAL4_FOUNDATION
+ 	// Capture only singleton UBOs; this does not admit early native recording.
+-	VkResult captureMetal4Uniforms(const void* pData);
++	VkResult captureUniforms(const void* pData, bool requireSmallerCapture);
+ 	uint32_t _compactUniformWriteCount = 0;
+ 	VkPipelineBindPoint _compactUniformBindPoint = VK_PIPELINE_BIND_POINT_GRAPHICS;
+-#endif
+ 
+ 	MVKDescriptorUpdateTemplate* _descUpdateTemplate = nullptr;
+ 	MVKPipelineLayout* _pipelineLayout = nullptr;
+--- a/MoltenVK/MoltenVK/Commands/MVKCmdPipeline.mm
++++ b/MoltenVK/MoltenVK/Commands/MVKCmdPipeline.mm
+@@ -550,14 +550,14 @@
+ #pragma mark -
+ #pragma mark MVKCmdPushDescriptorSetWithTemplate
+ 
+-#if MVK_BUILD_METAL4_FOUNDATION
+-VkResult MVKCmdPushDescriptorSetWithTemplate::captureMetal4Uniforms(const void* pData) {
++VkResult MVKCmdPushDescriptorSetWithTemplate::captureUniforms(const void* pData, bool requireSmallerCapture) {
+ 	const size_t count = _descUpdateTemplate->getNumberOfEntries();
+ 	const auto bindPoint = _descUpdateTemplate->getBindPoint();
+ 	if (!pData || !count ||
+ 		_descUpdateTemplate->getType() != VK_DESCRIPTOR_UPDATE_TEMPLATE_TYPE_PUSH_DESCRIPTORS_KHR ||
+ 		(bindPoint != VK_PIPELINE_BIND_POINT_GRAPHICS && bindPoint != VK_PIPELINE_BIND_POINT_COMPUTE) ||
+-		!_pipelineLayout->hasPushDescriptor() || _pipelineLayout->pushDescriptor() != _set) {
++		!_pipelineLayout->hasPushDescriptor() || _pipelineLayout->pushDescriptor() != _set ||
++		!_descUpdateTemplate->hasSingletonUniformEntries()) {
+ 		return VK_SUCCESS;
+ 	}
+ 	auto* layout = _pipelineLayout->getDescriptorSetLayout(_set);
+@@ -565,9 +565,6 @@
+ 	// templates (including fbfetch) and array/spill updates keep the old path.
+ 	for (uint32_t i = 0; i < count; ++i) {
+ 		const auto& entry = *_descUpdateTemplate->getEntry(i);
+-		if (entry.descriptorType != VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER || entry.descriptorCount != 1) {
+-			return VK_SUCCESS;
+-		}
+ 		const auto& binding = *layout->getBinding(entry.dstBinding);
+ 		if (binding.descriptorType != VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER ||
+ 			entry.dstArrayElement >= binding.descriptorCount) { return VK_SUCCESS; }
+@@ -576,17 +573,15 @@
+ 	constexpr size_t writeSize = sizeof(VkWriteDescriptorSet);
+ 	static_assert(infoSize % alignof(VkWriteDescriptorSet) == 0, "aligned compact write array");
+ 	if (count > std::numeric_limits<size_t>::max() / (infoSize + writeSize)) {
++		return requireSmallerCapture ? VK_SUCCESS : VK_ERROR_OUT_OF_HOST_MEMORY;
++	}
++	const size_t bytes = size_t(count) * (infoSize + writeSize);
++	if (requireSmallerCapture && bytes >= _descUpdateTemplate->getSize()) { return VK_SUCCESS; }
++	const auto source = reinterpret_cast<uintptr_t>(pData);
++	if (_descUpdateTemplate->uniformCaptureRangeOverflows() ||
++		source > std::numeric_limits<uintptr_t>::max() - _descUpdateTemplate->getUniformCaptureReadEnd()) {
+ 		return VK_ERROR_OUT_OF_HOST_MEMORY;
+ 	}
+-	const auto source = reinterpret_cast<uintptr_t>(pData);
+-	for (uint32_t i = 0; i < count; ++i) {
+-		const auto offset = _descUpdateTemplate->getEntry(i)->offset;
+-		if (offset > std::numeric_limits<size_t>::max() - infoSize ||
+-			source > std::numeric_limits<uintptr_t>::max() - (offset + infoSize)) {
+-			return VK_ERROR_OUT_OF_HOST_MEMORY;
+-		}
+-	}
+-	const size_t bytes = size_t(count) * (infoSize + writeSize);
+ 	if (!_pData || bytes > _dataCapacity) {
+ 		void* storage = malloc(bytes);
+ 		if (!storage) { return VK_ERROR_OUT_OF_HOST_MEMORY; }
+@@ -618,7 +613,6 @@
+ 	_descUpdateTemplate = nullptr;
+ 	return VK_SUCCESS;
+ }
+-#endif
+ 
+ VkResult MVKCmdPushDescriptorSetWithTemplate::setContent(MVKCommandBuffer* cmdBuff,
+ 														 VkDescriptorUpdateTemplate descUpdateTemplate,
+@@ -631,15 +625,15 @@
+ 	_set = set;
+ 	_descUpdateTemplate = (MVKDescriptorUpdateTemplate*)descUpdateTemplate;
+ 
+-#if MVK_BUILD_METAL4_FOUNDATION
+ 	_compactUniformWriteCount = 0;
+ 	_compactUniformBindPoint = VK_PIPELINE_BIND_POINT_GRAPHICS;
+-	if (mvkUseMetal4()) {
+-		VkResult result = captureMetal4Uniforms(pData);
+-		if (result != VK_SUCCESS) { return result; }
+-		if (_compactUniformWriteCount) { return VK_SUCCESS; }
+-	}
+-#endif
++	bool metal4 = false;
++#if MVK_BUILD_METAL4_FOUNDATION
++	metal4 = mvkUseMetal4();
++#endif
++	VkResult result = captureUniforms(pData, !metal4);
++	if (result != VK_SUCCESS) { return result; }
++	if (_compactUniformWriteCount) { return VK_SUCCESS; }
+ 
+ 	const size_t bytes = _descUpdateTemplate->getSize();
+ 	if (bytes > _dataCapacity) {
+@@ -658,7 +652,6 @@
+ }
+ 
+ void MVKCmdPushDescriptorSetWithTemplate::encode(MVKCommandEncoder* cmdEncoder) {
+-#if MVK_BUILD_METAL4_FOUNDATION
+ 	if (_compactUniformWriteCount) {
+ 		auto* infos = static_cast<VkDescriptorBufferInfo*>(_pData);
+ 		auto* writes = reinterpret_cast<VkWriteDescriptorSet*>(infos + _compactUniformWriteCount);
+@@ -666,7 +659,6 @@
+ 			_compactUniformWriteCount, writes);
+ 		return;
+ 	}
+-#endif
+ 	cmdEncoder->getState().pushDescriptorSet(_descUpdateTemplate, _pipelineLayout, _set, _pData);
+ }
+ 
+--- a/MoltenVK/MoltenVK/GPUObjects/MVKDescriptorSet.h
++++ b/MoltenVK/MoltenVK/GPUObjects/MVKDescriptorSet.h
+@@ -732,6 +732,10 @@
+ 	/** Get the bind point of this template */
+ 	VkPipelineBindPoint getBindPoint() const { return _pipelineBindPoint; }
+ 
++	bool hasSingletonUniformEntries() const { return _singletonUniformEntries; }
++	bool uniformCaptureRangeOverflows() const { return _uniformCaptureRangeOverflow; }
++	size_t getUniformCaptureReadEnd() const { return _uniformCaptureReadEnd; }
++
+ 	/** Constructs an instance for the specified device. */
+ 	MVKDescriptorUpdateTemplate(MVKDevice* device, const VkDescriptorUpdateTemplateCreateInfo* pCreateInfo);
+ 
+@@ -745,6 +749,9 @@
+ 	size_t _size = 0;
+ 	VkPipelineBindPoint _pipelineBindPoint;
+ 	VkDescriptorUpdateTemplateType _type;
++	size_t _uniformCaptureReadEnd = 0;
++	bool _singletonUniformEntries = true;
++	bool _uniformCaptureRangeOverflow = false;
+ };
+ 
+ #pragma mark -
+--- a/MoltenVK/MoltenVK/GPUObjects/MVKDescriptorSet.mm
++++ b/MoltenVK/MoltenVK/GPUObjects/MVKDescriptorSet.mm
+@@ -26,6 +26,7 @@
+ #include "MVKImage.h"
+ #include "MVKOSExtensions.h"
+ #include <sstream>
++#include <limits>
+ 
+ static constexpr uint32_t alignDescriptorOffset(uint32_t offset, uint32_t align) {
+ 	return (offset + align - 1) & ~(align - 1);
+@@ -2308,6 +2309,14 @@
+ 		const auto& entry = pCreateInfo->pDescriptorUpdateEntries[i];
+ 		_entries.push_back(entry);
+ 
++		if (entry.descriptorType != VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER || entry.descriptorCount != 1) {
++			_singletonUniformEntries = false;
++		} else if (entry.offset > std::numeric_limits<size_t>::max() - sizeof(VkDescriptorBufferInfo)) {
++			_uniformCaptureRangeOverflow = true;
++		} else {
++			_uniformCaptureReadEnd = std::max(_uniformCaptureReadEnd, entry.offset + sizeof(VkDescriptorBufferInfo));
++		}
++
+ 		// Accumulate the size of the template. If we were given a stride, use that;
+ 		// otherwise, assume only one info struct of the appropriate type.
+ 		size_t entryEnd = entry.offset;

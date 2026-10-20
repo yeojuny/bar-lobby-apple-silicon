@@ -1,0 +1,76 @@
+{
+  "game": {
+    "version": "Beyond All Reason test-31671-ad2e1b7",
+    "luaFilesScanned": 2428,
+    "hits": [
+      {
+        "name": "luarules/gadgets/include/genbrdflut.lua",
+        "poolPath": "$HOME/Library/Application Support/BAR/assets/pool/0c/d76048859df5d5e2972b0691b9f27e.gz",
+        "md5": "0cd76048859df5d5e2972b0691b9f27e",
+        "matches": [
+          {
+            "line": 202,
+            "text": "\t\t\t\tgl.DepthTest(false)\n\t\t\t\tgl.Blending(false)\n\t\t\t\tgl.PushPopMatrix(function()\n\t\t\t\t\tgl.MatrixMode(GL.PROJECTION)\n\t\t\t\t\tgl.LoadIdentity()\n\t\t\t\t\tgl.MatrixMode(GL.MODELVIEW)"
+          }
+        ]
+      },
+      {
+        "name": "recoil-lua-library/library/generated/luaopengl.lua",
+        "poolPath": "$HOME/Library/Application Support/BAR/assets/pool/7b/8c4fa038ada20217296dd8d9d44a80.gz",
+        "md5": "7b8c4fa038ada20217296dd8d9d44a80",
+        "matches": [
+          {
+            "line": 1349,
+            "text": "---@param func fun()\n---@param ... any Arguments to the function.\nfunction gl.PushPopMatrix(matMode1, func, ...) end\n\n---[<a href=\"https://github.com/beyond-all-reason/spring/blob/6e89a1b7714b077e5383a107f22d6313bd7d5a45/rts/Lua/LuaOpenGL.cpp#L5582-L5586\" target=\"_blank\">source</a>]\n---"
+          },
+          {
+            "line": 1355,
+            "text": "---@param func fun()\n---@param ... any Arguments to the function.\nfunction gl.PushPopMatrix(func, ...) end\n\n---Get value at index of matrix.\n---"
+          }
+        ]
+      },
+      {
+        "name": "recoil-lua-library/library/generated/luavboimpl.lua",
+        "poolPath": "$HOME/Library/Application Support/BAR/assets/pool/b7/e27e7c7b417e14b424e0356966215b.gz",
+        "md5": "b7e27e7c7b417e14b424e0356966215b",
+        "matches": [
+          {
+            "line": 252,
+            "text": "---@return integer elemOffset\n---@return integer|[integer,integer,integer,integer] attrID\nfunction VBO:MatrixDataFromProjectileIDs(projectileIDs, attrID, teamIdOpt, elementOffset) end\n\n---Bind a range within a buffer object to an indexed buffer target\n---"
+          }
+        ]
+      },
+      {
+        "name": "recoil-lua-library/library/generated/rts/lua/luaopengl.cpp.lua",
+        "poolPath": "$HOME/Library/Application Support/BAR/assets/pool/4a/71b4104a4a6fb585ce026946f55deb.gz",
+        "md5": "4a71b4104a4a6fb585ce026946f55deb",
+        "matches": [
+          {
+            "line": 1431,
+            "text": "---@param func fun()\n---@param ... any Arguments to the function.\nfunction gl.PushPopMatrix(matMode1, func, ...) end\n\n---[<a href=\"https://github.com/beyond-all-reason/RecoilEngine/blob/master/rts/Lua/LuaOpenGL.cpp#L5839-L5843\" target=\"_blank\">source</a>]\n---"
+          },
+          {
+            "line": 1437,
+            "text": "---@param func fun()\n---@param ... any Arguments to the function.\nfunction gl.PushPopMatrix(func, ...) end\n\n---Get value at index of matrix.\n---"
+          }
+        ]
+      },
+      {
+        "name": "recoil-lua-library/library/generated/rts/lua/luavboimpl.cpp.lua",
+        "poolPath": "$HOME/Library/Application Support/BAR/assets/pool/71/6d490ca855f84dbe3eb6186ea993ca.gz",
+        "md5": "716d490ca855f84dbe3eb6186ea993ca",
+        "matches": [
+          {
+            "line": 253,
+            "text": "---@return integer elemOffset\n---@return integer|[integer, integer, integer, integer] attrID\nfunction VBO:MatrixDataFromProjectileIDs(projectileIDs, attrID, teamIdOpt, elementOffset) end\n\n---Bind a range within a buffer object to an indexed buffer target\n---"
+          }
+        ]
+      }
+    ]
+  },
+  "menu": {
+    "version": "BYAR Chobby test-4660-15c02d2",
+    "luaFilesScanned": 287,
+    "hits": []
+  }
+}

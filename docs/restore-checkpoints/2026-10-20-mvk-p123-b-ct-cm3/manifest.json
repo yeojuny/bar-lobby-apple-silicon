@@ -1,0 +1,224 @@
+{
+  "schema": "bar-mvk-experimental-restore-checkpoint-v1",
+  "basisCommit": "e213e890559210e135dccab5342de55b9e1a7c08",
+  "basisTree": "8b972194deb00a9cd8063a1558208cd8193d6573",
+  "basisTag": "v1.0.3",
+  "sourceCompanion": {
+    "url": "https://github.com/yeojuny/bar-lobby-apple-silicon/releases/download/v1.0.3/BAR-1.0.3-sources.tar.gz",
+    "sha256": "61ae84d7e6da5b4fe758f6d5cd97239902c1c88dd3c56914b313b2634bda4ac1",
+    "bytes": 380092403
+  },
+  "metadataVersion": "1.0.3",
+  "localDesignation": "v1.0.4 experimental candidate; not a stable release",
+  "included": [
+    "P1",
+    "P2",
+    "P3",
+    "B",
+    "C-T",
+    "C-M3"
+  ],
+  "excluded": [
+    "A: actual use unconfirmed",
+    "vertex binding cache: analysis only"
+  ],
+  "components": {
+    "bar-lobby": {
+      "archiveMember": "archives/recoil-lobby-01efdf4-1.0.3.tar.gz",
+      "archiveSHA256": "23d2f35d792d10535ee987e66ccc501ec730eedcaf46c2baa2339d489c1f4912",
+      "archiveRoot": "recoil-lobby-01efdf4-1.0.3",
+      "sourceRoot": "build/run91-recoil-src-694e9df7",
+      "buildRoot": "build/run91-recoil-engine-694e9df7-macos27",
+      "files": [
+        {
+          "path": "rts/Lua/LuaOpenGLUtils.cpp",
+          "workspacePath": "build/run91-recoil-src-694e9df7/rts/Lua/LuaOpenGLUtils.cpp",
+          "beforeSHA256": "76c52cec1e51e62cd4c339dd67038e5aa53cf68490f7c2c79f133b84eb43b805",
+          "afterSHA256": "f52e8e7ecb468ed0441258692e1ceee083d2792952074e0160c5628bb34b6a6d",
+          "mode": 420
+        },
+        {
+          "path": "rts/Lua/LuaVBOImpl.cpp",
+          "workspacePath": "build/run91-recoil-src-694e9df7/rts/Lua/LuaVBOImpl.cpp",
+          "beforeSHA256": "1467789d07ed46275200820167d6995cf8c9ecfe3cca675eb7e69b4ffc588c40",
+          "afterSHA256": "61a8253a0f8ba3edcb687969e9fd07359ff5513145071ba4f4c3aefd0993e03c",
+          "mode": 420
+        },
+        {
+          "path": "rts/Lua/LuaVBOImpl.h",
+          "workspacePath": "build/run91-recoil-src-694e9df7/rts/Lua/LuaVBOImpl.h",
+          "beforeSHA256": "6b02d63d8373cd8baea47583f49141fdc2eb6cef6c8213b975ff74c96984da01",
+          "afterSHA256": "8ba2a63879f4104dadccd4eb8f2c3b131287f18885eb4af6f30d2e0298350a8a",
+          "mode": 420
+        },
+        {
+          "path": "rts/Rendering/Textures/NamedTextures.cpp",
+          "workspacePath": "build/run91-recoil-src-694e9df7/rts/Rendering/Textures/NamedTextures.cpp",
+          "beforeSHA256": "06bffe74e18e7726b654461be061b776bfb54e5cf079359cea1b0463dbb96635",
+          "afterSHA256": "dcc982728d8d5531c4a16978486e15fd798d7d3eeb812b8e03a5db22b7a8437a",
+          "mode": 420
+        },
+        {
+          "path": "rts/Rendering/Textures/NamedTextures.h",
+          "workspacePath": "build/run91-recoil-src-694e9df7/rts/Rendering/Textures/NamedTextures.h",
+          "beforeSHA256": "012796c8e717ecfac604f4c6ca4d95e8320fff17263a31a2bd38d2d7a693a126",
+          "afterSHA256": "05697e2fbf243dfcbfc0b3e71633ed9864ae63005a40e5d3cabdc84df2bfca2e",
+          "mode": 420
+        }
+      ],
+      "licenses": [
+        "COPYING",
+        "LICENSE",
+        "LICENSE.html"
+      ],
+      "buildInputPins": {
+        "src-generated/engine/System/VersionGenerated.h": "eba76a9d0622d71932d04803db2a5e9203bf49741fbe790916b4083167a3f2f8",
+        "build.ninja": "edea2a20f17d2d64459524733fb1607040e0eaed53a97984eb3251f74ade25eb",
+        "CMakeCache.txt": "04ccdfec202854815f912c5ae6b626023fce38b5c02f9ecd583cd6ebc86b6787"
+      }
+    },
+    "bar-chobby": {
+      "archiveMember": "archives/recoil-chobby-2026.07.04-1.0.3.tar.gz",
+      "archiveSHA256": "e952c440667eef9ffc0f9082e18cbdd66166126ddd57d23b767b13518edcea08",
+      "archiveRoot": "recoil-chobby-2026.07.04-1.0.3",
+      "sourceRoot": "artifacts/runtime/run94-chobby-official-20260704-20260924/source",
+      "buildRoot": "artifacts/runtime/run94-chobby-official-20260704-20260924/build",
+      "files": [
+        {
+          "path": "rts/Lua/LuaOpenGLUtils.cpp",
+          "workspacePath": "artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Lua/LuaOpenGLUtils.cpp",
+          "beforeSHA256": "76c52cec1e51e62cd4c339dd67038e5aa53cf68490f7c2c79f133b84eb43b805",
+          "afterSHA256": "f52e8e7ecb468ed0441258692e1ceee083d2792952074e0160c5628bb34b6a6d",
+          "mode": 420
+        },
+        {
+          "path": "rts/Lua/LuaVBOImpl.cpp",
+          "workspacePath": "artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Lua/LuaVBOImpl.cpp",
+          "beforeSHA256": "c6bca993b3a4d228ac3b9e2b47540b19de507db9f0197e5a640afc38d4d7cb8e",
+          "afterSHA256": "c7831a0f51dce7f236485cddeeb00f0ac8313e4996d875f9d6bc22efb905d37d",
+          "mode": 420
+        },
+        {
+          "path": "rts/Lua/LuaVBOImpl.h",
+          "workspacePath": "artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Lua/LuaVBOImpl.h",
+          "beforeSHA256": "6cfaef31b3f511adf8523033c8e4ab2c82253c309803a81a774c53f499e5e446",
+          "afterSHA256": "f35ad8be64f56af5d60157f893e2feefc955742e4018c062010d05e89016b70a",
+          "mode": 420
+        },
+        {
+          "path": "rts/Rendering/Textures/NamedTextures.cpp",
+          "workspacePath": "artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Rendering/Textures/NamedTextures.cpp",
+          "beforeSHA256": "06bffe74e18e7726b654461be061b776bfb54e5cf079359cea1b0463dbb96635",
+          "afterSHA256": "dcc982728d8d5531c4a16978486e15fd798d7d3eeb812b8e03a5db22b7a8437a",
+          "mode": 420
+        },
+        {
+          "path": "rts/Rendering/Textures/NamedTextures.h",
+          "workspacePath": "artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Rendering/Textures/NamedTextures.h",
+          "beforeSHA256": "012796c8e717ecfac604f4c6ca4d95e8320fff17263a31a2bd38d2d7a693a126",
+          "afterSHA256": "05697e2fbf243dfcbfc0b3e71633ed9864ae63005a40e5d3cabdc84df2bfca2e",
+          "mode": 420
+        }
+      ],
+      "licenses": [
+        "COPYING",
+        "LICENSE",
+        "LICENSE.html"
+      ],
+      "buildInputPins": {
+        "src-generated/engine/System/VersionGenerated.h": "66c07100efa829bff676c0e50ddec1994cb1824753b65fe0ca5da6d72a29703b",
+        "build.ninja": "66fa8ed6db7d6859afc9c8c895768959d08328a9ea1e427dcd4253169018a838",
+        "CMakeCache.txt": "c05f5b9c248b79b8afbae623d9adb7ca6b0f906c58a09941dc45ebd08f4888db"
+      }
+    },
+    "moltenvk": {
+      "archiveMember": "archives/moltenvk-1.0.0.tar.gz",
+      "archiveSHA256": "ea49a92f82902ddefac20378c57c76d6aedc06b61ef3fba9645c5b36daeac096",
+      "archiveRoot": "moltenvk-1.0.0",
+      "sourceRoot": "build/run66-moltenvk-src-20260903",
+      "buildRoot": "build/metal4-mvk-20261002",
+      "files": [
+        {
+          "path": "MoltenVK/MoltenVK/Commands/MVKCmdDraw.mm",
+          "workspacePath": "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCmdDraw.mm",
+          "beforeSHA256": "6127af5074a1a81f4fe967d856237e217be74dd4ecc924919ed2618f4a173a49",
+          "afterSHA256": "2e2ffdb95b7ce8ccdd04ea8ceecd5756d10d0d7af04f9bb37fcddcb2952ad2a8",
+          "mode": 420
+        },
+        {
+          "path": "MoltenVK/MoltenVK/Commands/MVKCmdPipeline.h",
+          "workspacePath": "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCmdPipeline.h",
+          "beforeSHA256": "8060474713de05106437664c86632942fb8382dadae99d54ed3458d43675b5c7",
+          "afterSHA256": "91de07b4f0304ebaae3811b855c3c72cdc481fbedd6f126680977a541a7dcd53",
+          "mode": 420
+        },
+        {
+          "path": "MoltenVK/MoltenVK/Commands/MVKCmdPipeline.mm",
+          "workspacePath": "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCmdPipeline.mm",
+          "beforeSHA256": "8bfddd1ed044fba19c809263421beb52f3be30957b002c2afb024393aaa80af6",
+          "afterSHA256": "8e663764a00e70ae9b6ede6996da275a9c0aad8a4de632fab8e9ed20e80e1d33",
+          "mode": 420
+        },
+        {
+          "path": "MoltenVK/MoltenVK/GPUObjects/MVKDescriptorSet.h",
+          "workspacePath": "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKDescriptorSet.h",
+          "beforeSHA256": "9f3b9d16ea1150886fbabd326ca4ad55648480d8661f392de6f7ff9312b6b9c1",
+          "afterSHA256": "fb7583ab4debcf0e8f6afcaa1abc62b87d80e1b457280a77136d3cf5afaae1f5",
+          "mode": 420
+        },
+        {
+          "path": "MoltenVK/MoltenVK/GPUObjects/MVKDescriptorSet.mm",
+          "workspacePath": "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKDescriptorSet.mm",
+          "beforeSHA256": "9935732fedde6c7cffede91384230015c1b3547d6d3be0024ca6cacf08acff88",
+          "afterSHA256": "b87caab357dd43ba2c2cd937dcd7cdd0836c6418f90ddc5d2b90e13022257dc4",
+          "mode": 420
+        }
+      ],
+      "licenses": [
+        "LICENSE"
+      ],
+      "buildInputPins": {
+        "build.ninja": "7be7029b98d7c93054c1e85c11a3e580a17b397ef503a4e79805a20286d444a0",
+        "CMakeCache.txt": "0418fd1490c4c368e8d303c3588311dd7bff28bf0133d7148bcd6e18f17aaf9f"
+      }
+    }
+  },
+  "applyOrder": [
+    "v1.0.3 source companion",
+    "P1/P2/P3 to both engines",
+    "B to MoltenVK",
+    "C-T and C-M3 final common implementation to MoltenVK"
+  ],
+  "performance": {
+    "summary": "evidence/artifacts/validation/v104-descriptor-performance-comparison-20261020/summary.json",
+    "Metal3MeanFPS": [
+      44.953479766845504,
+      48.363235473633
+    ],
+    "Metal3Percent": 7.585076226517806,
+    "Metal4MeanFPS": [
+      38.6810359954835,
+      34.891876220703
+    ],
+    "Metal4Percent": -9.79591077969818,
+    "interpretation": "M3 positive descriptive mean with large new-run spread; M4 slower in both new runs and worse p95/p99, explicit concern. Small samples do not establish stable causal effects. Not promoted.",
+    "limits": [
+      "Two samples per app/backend",
+      "Requested 1x includes actual simulation-speed ramp",
+      "Global driver/filesystem caches not controlled",
+      "C-T/C-M3 individual contributions and vertex cache interactions not measured",
+      "Cleaned private content clones and caches are not restoration inputs"
+    ]
+  },
+  "rawPackagedBinding": {
+    "rawMVKSHA256": "443cae49eeca6814a7374cf510178416660e07238715e1ceb451f648e92eb60a",
+    "packagedMVKSHA256": "7ac71989ca27a99a2f9adf219ac0dcb12f16804cd35733bf7fd2c078635c5c4a",
+    "MVK_GIT_REV": "f52facf7",
+    "recipe": "evidence/artifacts/validation/v104-followup-c-t-20261020/package-descriptor.py"
+  },
+  "automation": "PAUSED",
+  "stableReleaseOrHomebrewUpdated": false,
+  "originalSourceBuildAppEdited": false,
+  "extraGameRuns": 0,
+  "appArtifact": "Exact signed parent-ab and descriptor apps are recoverable from existing public v1.0.3 ZIP plus app-deltas.json and 8 deduplicated byte-deltas; 1194 entries per state. No app launch or full duplicate app archive."
+}

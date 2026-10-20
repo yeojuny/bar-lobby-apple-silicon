@@ -1,0 +1,13 @@
+--- before/MVKCmdDraw.mm
++++ after/MVKCmdDraw.mm
+@@ -297,8 +297,8 @@
+         return fail("Native restart batch shape is invalid.");
+     }
+     auto* batch = encoder->getMetal4Submission();
+-    std::vector<VkDrawIndexedIndirectCommand> arguments;
+-    std::vector<Metal4RestartBatchRecord> records(count);
++    MVKSmallVector<VkDrawIndexedIndirectCommand, 4> arguments;
++    MVKSmallVector<Metal4RestartBatchRecord, 4> records(count);
+     arguments.reserve(count); outputs.resize(count);
+     for (size_t i = 0; i < count; ++i) {
+         const auto& entry = entries[first + i];

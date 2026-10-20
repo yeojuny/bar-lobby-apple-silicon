@@ -1,0 +1,882 @@
+{
+  "status": "complete",
+  "completedAtUTC": "2026-10-20T21:34:48.550607+00:00",
+  "parentApp": "$WORKSPACE/artifacts/runtime/v104-performance-ab-candidate-20261020/BAR.app",
+  "candidateApp": "$WORKSPACE/artifacts/runtime/v104-descriptor-candidate-20261020/BAR.app",
+  "comparison": "P1/P2/P3+B versus P1/P2/P3+B+C-T+C-M3; A and vertex cache absent",
+  "displayVersionBoth": "1.0.3; local v1.0.4 candidate labels only",
+  "conditions": {
+    "officialCommand": "luarules benchmark armbull armbull 80 8 1400",
+    "seed": 7654321,
+    "frameTarget": 900,
+    "workload": {
+      "placementSpan": 1400,
+      "populationThresholdIsNotHardCap": true,
+      "populationThresholdPerTeam": 80,
+      "rampIncluded": true,
+      "replenishBatchPerTeam": 8,
+      "replenishEverySimulationFrames": 3,
+      "requestedSimulationSpeed": 1,
+      "unitTypeOpponent": "armbull",
+      "unitTypeOwn": "armbull"
+    },
+    "fixture": {
+      "contract": "metal4-exact-frame240-v1",
+      "expectedFrame": 240,
+      "pauseAckFrame": 180,
+      "pauseRequestFrame": 180,
+      "readyFrame": 240,
+      "stepCount": 60
+    },
+    "map": "Seths Ravine Remake 1.3.1",
+    "gameVersion": "test-31671-ad2e1b7",
+    "resolution": {
+      "height": 902,
+      "width": 1432
+    },
+    "camera": {
+      "dist": 2254.7705078125,
+      "dx": 0,
+      "dy": -0.924302399158,
+      "dz": -0.381660997868,
+      "fov": 45,
+      "mode": 2,
+      "name": "spring",
+      "px": 4096,
+      "py": 254.770629882813,
+      "pz": 3072,
+      "rx": 2.75,
+      "ry": 0,
+      "rz": 0
+    },
+    "quality": {
+      "config": {
+        "MSAA": 0,
+        "MSAALevel": 0,
+        "MinSampleShadingRate": 0,
+        "VSync": 0,
+        "VSyncGame": 0
+      },
+      "glSamples": 0,
+      "glSamplesConfirmed4": false,
+      "glSamplesScope": "DrawScreen current framebuffer; resolved UI targets may report 0 or 1",
+      "mapEdge": {
+        "actual": 0.5,
+        "exceptionApplied": true,
+        "voidGround": false,
+        "voidWater": true,
+        "wanted": true,
+        "widgetActive": false
+      },
+      "optionValues": {
+        "advmapshading": true,
+        "attackrange_numrangesmult": 1,
+        "bloomdeferred": true,
+        "bloomdeferred_quality": 3,
+        "camera": 3,
+        "cusgl4": true,
+        "decals": true,
+        "decalsgl4": true,
+        "distortioneffects": true,
+        "fogdiaglines": 0,
+        "grass": true,
+        "lighteffects": true,
+        "lighteffects_nanoparticlelights": true,
+        "lighteffects_screenspaceshadows": 4,
+        "limitidlefps": false,
+        "limitoffscreenfps": false,
+        "losrange": true,
+        "mapedgeextension": 0.5,
+        "msaa": 1,
+        "particles": 40000,
+        "preset": 5,
+        "shadowslider": 6,
+        "snow": true,
+        "ssao": true,
+        "ssao_quality": 3,
+        "vsync": 1,
+        "water": 2
+      },
+      "optionsVerified": 20,
+      "ultraPreset": 5,
+      "ultraVerified": true
+    }
+  },
+  "groups": {
+    "metal3": {
+      "parent": {
+        "runFPS": [
+          44.098304748535,
+          45.808654785156
+        ],
+        "meanFPS": 44.953479766845504,
+        "runP95Ms": [
+          36.981998443604,
+          34.359001159668
+        ],
+        "meanP95Ms": 35.670499801636,
+        "runP99Ms": [
+          65.462997436523,
+          50.314998626709
+        ],
+        "meanP99Ms": 57.888998031616
+      },
+      "candidate": {
+        "runFPS": [
+          51.633270263672,
+          45.093200683594
+        ],
+        "meanFPS": 48.363235473633,
+        "runP95Ms": [
+          30.027000427246,
+          35.428001403809
+        ],
+        "meanP95Ms": 32.7275009155275,
+        "runP99Ms": [
+          45.292999267578,
+          48.752998352051
+        ],
+        "meanP99Ms": 47.022998809814496
+      },
+      "fpsChangePercent": 7.585076226517806
+    },
+    "metal4": {
+      "parent": {
+        "runFPS": [
+          39.154022216797,
+          38.20804977417
+        ],
+        "meanFPS": 38.6810359954835,
+        "runP95Ms": [
+          38.687000274658,
+          42.345001220703
+        ],
+        "meanP95Ms": 40.51600074768049,
+        "runP99Ms": [
+          52.375999450684,
+          57.13399887085
+        ],
+        "meanP99Ms": 54.754999160767
+      },
+      "candidate": {
+        "runFPS": [
+          37.347183227539,
+          32.436569213867
+        ],
+        "meanFPS": 34.891876220703,
+        "runP95Ms": [
+          49.380001068115,
+          59.326000213623
+        ],
+        "meanP95Ms": 54.353000640869,
+        "runP99Ms": [
+          70.315002441406,
+          93.561996459961
+        ],
+        "meanP99Ms": 81.9384994506835
+      },
+      "fpsChangePercent": -9.79591077969818
+    }
+  },
+  "samples": [
+    {
+      "ordinal": 1,
+      "role": "parent",
+      "backend": "metal3",
+      "exit": 0,
+      "status": "completed-not-promoted",
+      "error": null,
+      "cacheError": null,
+      "receipt": "$WORKSPACE/artifacts/validation/v104-descriptor-performance-comparison-20261020/1-parent-metal3/sessions/lobby-no-native-hook-1792531113891/execution-receipt.json",
+      "fps": 44.098304748535,
+      "p50Ms": 20.482000350952,
+      "p95Ms": 36.981998443604,
+      "p99Ms": 65.462997436523,
+      "remainingOwnedProcesses": [],
+      "protectedInputsUnchanged": true,
+      "resolution": {
+        "height": 902,
+        "width": 1432
+      },
+      "camera": {
+        "dist": 2254.7705078125,
+        "dx": 0,
+        "dy": -0.924302399158,
+        "dz": -0.381660997868,
+        "fov": 45,
+        "mode": 2,
+        "name": "spring",
+        "px": 4096,
+        "py": 254.770629882813,
+        "pz": 3072,
+        "rx": 2.75,
+        "ry": 0,
+        "rz": 0
+      },
+      "runtimeUUID": {
+        "prefix": "f52facf7",
+        "uuids": [
+          "f52facf7-1b02-0209-0000-000100000000"
+        ],
+        "driverLog": {
+          "path": "$WORKSPACE/artifacts/validation/v104-descriptor-performance-comparison-20261020/1-parent-metal3/sessions/lobby-no-native-hook-1792531113891/state/data/stack-game.stderr.log",
+          "sha256": "69aa7d927a69fa49d14fee3994357ae7a12e821eb113cd13a17b1df9ec578742"
+        }
+      },
+      "nativeMetal4": {
+        "requested": false,
+        "activeQueues": 0,
+        "proved": false,
+        "legacyParentIdentityVerified": true
+      },
+      "meanMs": 22.676607131958,
+      "sampleCount": 1356,
+      "over50Ms": 24,
+      "over100Ms": 11,
+      "wallSeconds": 30.764999389648,
+      "created": 400,
+      "destroyed": 232,
+      "officialStopFrame": 1140,
+      "officialWorkloadFrames": 900,
+      "thermalStates": [
+        0
+      ],
+      "gameSpeed": {
+        "atRequest": {
+          "actual": 0.819999992847,
+          "paused": true,
+          "requested": 1
+        },
+        "finish": {
+          "actual": 0.999994516373,
+          "paused": false,
+          "requested": 1
+        },
+        "requested": 1,
+        "start": {
+          "actual": 0.819999992847,
+          "paused": false,
+          "requested": 1
+        }
+      },
+      "receiptSHA256": "0503889cc94ab779244818c397f58165cb40ca21e0209a0eac6e0d21687ef700"
+    },
+    {
+      "ordinal": 2,
+      "role": "candidate",
+      "backend": "metal3",
+      "exit": 0,
+      "status": "completed-not-promoted",
+      "error": null,
+      "cacheError": null,
+      "receipt": "$WORKSPACE/artifacts/validation/v104-descriptor-performance-comparison-20261020/2-candidate-metal3/sessions/lobby-no-native-hook-1792531247221/execution-receipt.json",
+      "fps": 51.633270263672,
+      "p50Ms": 18.52499961853,
+      "p95Ms": 30.027000427246,
+      "p99Ms": 45.292999267578,
+      "remainingOwnedProcesses": [],
+      "protectedInputsUnchanged": true,
+      "resolution": {
+        "height": 902,
+        "width": 1432
+      },
+      "camera": {
+        "dist": 2254.7705078125,
+        "dx": 0,
+        "dy": -0.924302399158,
+        "dz": -0.381660997868,
+        "fov": 45,
+        "mode": 2,
+        "name": "spring",
+        "px": 4096,
+        "py": 254.770629882813,
+        "pz": 3072,
+        "rx": 2.75,
+        "ry": 0,
+        "rz": 0
+      },
+      "runtimeUUID": {
+        "prefix": "f52facf7",
+        "uuids": [
+          "f52facf7-1b02-0209-0000-000100000000"
+        ],
+        "driverLog": {
+          "path": "$WORKSPACE/artifacts/validation/v104-descriptor-performance-comparison-20261020/2-candidate-metal3/sessions/lobby-no-native-hook-1792531247221/state/data/stack-game.stderr.log",
+          "sha256": "156d1ba0798d7e3c9de3df2ac8e91cc246f024407acc7f7b36626a42de854f2f"
+        }
+      },
+      "nativeMetal4": {
+        "requested": false,
+        "activeQueues": 0,
+        "proved": false,
+        "legacyParentIdentityVerified": false
+      },
+      "meanMs": 19.367357254028,
+      "sampleCount": 1563,
+      "over50Ms": 11,
+      "over100Ms": 7,
+      "wallSeconds": 30.281000137329,
+      "created": 400,
+      "destroyed": 232,
+      "officialStopFrame": 1140,
+      "officialWorkloadFrames": 900,
+      "thermalStates": [
+        0
+      ],
+      "gameSpeed": {
+        "atRequest": {
+          "actual": 0.899999976158,
+          "paused": true,
+          "requested": 1
+        },
+        "finish": {
+          "actual": 0.999996960163,
+          "paused": false,
+          "requested": 1
+        },
+        "requested": 1,
+        "start": {
+          "actual": 0.899999976158,
+          "paused": false,
+          "requested": 1
+        }
+      },
+      "receiptSHA256": "a23ad7e14adc2e945993ae21bcb3b7607464cad214575dfd34d30ca8386d313f"
+    },
+    {
+      "ordinal": 3,
+      "role": "candidate",
+      "backend": "metal3",
+      "exit": 0,
+      "status": "completed-not-promoted",
+      "error": null,
+      "cacheError": null,
+      "receipt": "$WORKSPACE/artifacts/validation/v104-descriptor-performance-comparison-20261020/3-candidate-metal3/sessions/lobby-no-native-hook-1792531374898/execution-receipt.json",
+      "fps": 45.093200683594,
+      "p50Ms": 20.711999893188,
+      "p95Ms": 35.428001403809,
+      "p99Ms": 48.752998352051,
+      "remainingOwnedProcesses": [],
+      "protectedInputsUnchanged": true,
+      "resolution": {
+        "height": 902,
+        "width": 1432
+      },
+      "camera": {
+        "dist": 2254.7705078125,
+        "dx": 0,
+        "dy": -0.924302399158,
+        "dz": -0.381660997868,
+        "fov": 45,
+        "mode": 2,
+        "name": "spring",
+        "px": 4096,
+        "py": 254.770629882813,
+        "pz": 3072,
+        "rx": 2.75,
+        "ry": 0,
+        "rz": 0
+      },
+      "runtimeUUID": {
+        "prefix": "f52facf7",
+        "uuids": [
+          "f52facf7-1b02-0209-0000-000100000000"
+        ],
+        "driverLog": {
+          "path": "$WORKSPACE/artifacts/validation/v104-descriptor-performance-comparison-20261020/3-candidate-metal3/sessions/lobby-no-native-hook-1792531374898/state/data/stack-game.stderr.log",
+          "sha256": "bb2b28ba2e7466b70bf12df3ce59d2ae652d8f247a413e0a98980c64d1a521a3"
+        }
+      },
+      "nativeMetal4": {
+        "requested": false,
+        "activeQueues": 0,
+        "proved": false,
+        "legacyParentIdentityVerified": false
+      },
+      "meanMs": 22.176292419434,
+      "sampleCount": 1351,
+      "over50Ms": 12,
+      "over100Ms": 2,
+      "wallSeconds": 29.978000640869,
+      "created": 400,
+      "destroyed": 232,
+      "officialStopFrame": 1140,
+      "officialWorkloadFrames": 900,
+      "thermalStates": [
+        0
+      ],
+      "gameSpeed": {
+        "atRequest": {
+          "actual": 1,
+          "paused": true,
+          "requested": 1
+        },
+        "finish": {
+          "actual": 1,
+          "paused": false,
+          "requested": 1
+        },
+        "requested": 1,
+        "start": {
+          "actual": 1,
+          "paused": false,
+          "requested": 1
+        }
+      },
+      "receiptSHA256": "728d329e55e8a0d61e89726b75d2b20de23c3bc4a50e2a1c4858e1a9eef71bb2"
+    },
+    {
+      "ordinal": 4,
+      "role": "parent",
+      "backend": "metal3",
+      "exit": 0,
+      "status": "completed-not-promoted",
+      "error": null,
+      "cacheError": null,
+      "receipt": "$WORKSPACE/artifacts/validation/v104-descriptor-performance-comparison-20261020/4-parent-metal3/sessions/lobby-no-native-hook-1792531492893/execution-receipt.json",
+      "fps": 45.808654785156,
+      "p50Ms": 20.681999206543,
+      "p95Ms": 34.359001159668,
+      "p99Ms": 50.314998626709,
+      "remainingOwnedProcesses": [],
+      "protectedInputsUnchanged": true,
+      "resolution": {
+        "height": 902,
+        "width": 1432
+      },
+      "camera": {
+        "dist": 2254.7705078125,
+        "dx": 0,
+        "dy": -0.924302399158,
+        "dz": -0.381660997868,
+        "fov": 45,
+        "mode": 2,
+        "name": "spring",
+        "px": 4096,
+        "py": 254.770629882813,
+        "pz": 3072,
+        "rx": 2.75,
+        "ry": 0,
+        "rz": 0
+      },
+      "runtimeUUID": {
+        "prefix": "f52facf7",
+        "uuids": [
+          "f52facf7-1b02-0209-0000-000100000000"
+        ],
+        "driverLog": {
+          "path": "$WORKSPACE/artifacts/validation/v104-descriptor-performance-comparison-20261020/4-parent-metal3/sessions/lobby-no-native-hook-1792531492893/state/data/stack-game.stderr.log",
+          "sha256": "e47d87f792191d9ed003ffc40170a1ab9487da343aaad927066162fcd267ec4b"
+        }
+      },
+      "nativeMetal4": {
+        "requested": false,
+        "activeQueues": 0,
+        "proved": false,
+        "legacyParentIdentityVerified": true
+      },
+      "meanMs": 21.829935073853,
+      "sampleCount": 1373,
+      "over50Ms": 14,
+      "over100Ms": 2,
+      "wallSeconds": 29.986999511719,
+      "created": 400,
+      "destroyed": 232,
+      "officialStopFrame": 1140,
+      "officialWorkloadFrames": 900,
+      "thermalStates": [
+        0
+      ],
+      "gameSpeed": {
+        "atRequest": {
+          "actual": 1,
+          "paused": true,
+          "requested": 1
+        },
+        "finish": {
+          "actual": 1,
+          "paused": false,
+          "requested": 1
+        },
+        "requested": 1,
+        "start": {
+          "actual": 1,
+          "paused": false,
+          "requested": 1
+        }
+      },
+      "receiptSHA256": "50786ed8702ca5135deed7ad4006ce1f5615ac6c70e6220820d2872ea2bb8c81"
+    },
+    {
+      "ordinal": 5,
+      "role": "parent",
+      "backend": "metal4",
+      "exit": 0,
+      "status": "completed-not-promoted",
+      "error": null,
+      "cacheError": null,
+      "receipt": "$WORKSPACE/artifacts/validation/v104-descriptor-performance-comparison-20261020/5-parent-metal4/sessions/lobby-no-native-hook-1792531609823/execution-receipt.json",
+      "fps": 39.154022216797,
+      "p50Ms": 24.688999176025,
+      "p95Ms": 38.687000274658,
+      "p99Ms": 52.375999450684,
+      "remainingOwnedProcesses": [],
+      "protectedInputsUnchanged": true,
+      "resolution": {
+        "height": 902,
+        "width": 1432
+      },
+      "camera": {
+        "dist": 2254.7705078125,
+        "dx": 0,
+        "dy": -0.924302399158,
+        "dz": -0.381660997868,
+        "fov": 45,
+        "mode": 2,
+        "name": "spring",
+        "px": 4096,
+        "py": 254.770629882813,
+        "pz": 3072,
+        "rx": 2.75,
+        "ry": 0,
+        "rz": 0
+      },
+      "runtimeUUID": {
+        "prefix": "f52facf7",
+        "uuids": [
+          "f52facf7-1b02-0209-0000-000100000000"
+        ],
+        "driverLog": {
+          "path": "$WORKSPACE/artifacts/validation/v104-descriptor-performance-comparison-20261020/5-parent-metal4/sessions/lobby-no-native-hook-1792531609823/state/data/stack-game.stderr.log",
+          "sha256": "48dcd44d67037fe88e9ea0773102ec86d25795f957e7299ac91f357855da9137"
+        }
+      },
+      "nativeMetal4": {
+        "requested": true,
+        "activeQueues": 1,
+        "completedSubmissions": [
+          15708
+        ],
+        "proved": true
+      },
+      "meanMs": 25.540159225464,
+      "sampleCount": 1173,
+      "over50Ms": 15,
+      "over100Ms": 1,
+      "wallSeconds": 29.97200012207,
+      "created": 400,
+      "destroyed": 232,
+      "officialStopFrame": 1140,
+      "officialWorkloadFrames": 900,
+      "thermalStates": [
+        0
+      ],
+      "gameSpeed": {
+        "atRequest": {
+          "actual": 1,
+          "paused": true,
+          "requested": 1
+        },
+        "finish": {
+          "actual": 1,
+          "paused": false,
+          "requested": 1
+        },
+        "requested": 1,
+        "start": {
+          "actual": 1,
+          "paused": false,
+          "requested": 1
+        }
+      },
+      "receiptSHA256": "a10b17fb740f43f1c71c8c6ad7e2c94f173d757bb1a4b42c49638cef5bcb946a"
+    },
+    {
+      "ordinal": 6,
+      "role": "candidate",
+      "backend": "metal4",
+      "exit": 0,
+      "status": "completed-not-promoted",
+      "error": null,
+      "cacheError": null,
+      "receipt": "$WORKSPACE/artifacts/validation/v104-descriptor-performance-comparison-20261020/6-candidate-metal4/sessions/lobby-no-native-hook-1792531727044/execution-receipt.json",
+      "fps": 37.347183227539,
+      "p50Ms": 24.430999755859,
+      "p95Ms": 49.380001068115,
+      "p99Ms": 70.315002441406,
+      "remainingOwnedProcesses": [],
+      "protectedInputsUnchanged": true,
+      "resolution": {
+        "height": 902,
+        "width": 1432
+      },
+      "camera": {
+        "dist": 2254.7705078125,
+        "dx": 0,
+        "dy": -0.924302399158,
+        "dz": -0.381660997868,
+        "fov": 45,
+        "mode": 2,
+        "name": "spring",
+        "px": 4096,
+        "py": 254.770629882813,
+        "pz": 3072,
+        "rx": 2.75,
+        "ry": 0,
+        "rz": 0
+      },
+      "runtimeUUID": {
+        "prefix": "f52facf7",
+        "uuids": [
+          "f52facf7-1b02-0209-0000-000100000000"
+        ],
+        "driverLog": {
+          "path": "$WORKSPACE/artifacts/validation/v104-descriptor-performance-comparison-20261020/6-candidate-metal4/sessions/lobby-no-native-hook-1792531727044/state/data/stack-game.stderr.log",
+          "sha256": "f258888248f91de623e0b4ebc2eb3bb531a3903a2e6c7199e9cff31ae5a50011"
+        }
+      },
+      "nativeMetal4": {
+        "requested": true,
+        "activeQueues": 1,
+        "completedSubmissions": [
+          15439
+        ],
+        "proved": true
+      },
+      "meanMs": 26.775779724121,
+      "sampleCount": 1118,
+      "over50Ms": 50,
+      "over100Ms": 3,
+      "wallSeconds": 29.979999542236,
+      "created": 400,
+      "destroyed": 232,
+      "officialStopFrame": 1140,
+      "officialWorkloadFrames": 900,
+      "thermalStates": [
+        0
+      ],
+      "gameSpeed": {
+        "atRequest": {
+          "actual": 1,
+          "paused": true,
+          "requested": 1
+        },
+        "finish": {
+          "actual": 1,
+          "paused": false,
+          "requested": 1
+        },
+        "requested": 1,
+        "start": {
+          "actual": 1,
+          "paused": false,
+          "requested": 1
+        }
+      },
+      "receiptSHA256": "e3abed168be0733fb5c26a52a14d7d5d993eda43b70550951d1367931656f056"
+    },
+    {
+      "ordinal": 7,
+      "role": "candidate",
+      "backend": "metal4",
+      "exit": 0,
+      "status": "completed-not-promoted",
+      "error": null,
+      "cacheError": null,
+      "receipt": "$WORKSPACE/artifacts/validation/v104-descriptor-performance-comparison-20261020/7-candidate-metal4/sessions/lobby-no-native-hook-1792531844628/execution-receipt.json",
+      "fps": 32.436569213867,
+      "p50Ms": 27.489000320435,
+      "p95Ms": 59.326000213623,
+      "p99Ms": 93.561996459961,
+      "remainingOwnedProcesses": [],
+      "protectedInputsUnchanged": true,
+      "resolution": {
+        "height": 902,
+        "width": 1432
+      },
+      "camera": {
+        "dist": 2254.7705078125,
+        "dx": 0,
+        "dy": -0.924302399158,
+        "dz": -0.381660997868,
+        "fov": 45,
+        "mode": 2,
+        "name": "spring",
+        "px": 4096,
+        "py": 254.770629882813,
+        "pz": 3072,
+        "rx": 2.75,
+        "ry": 0,
+        "rz": 0
+      },
+      "runtimeUUID": {
+        "prefix": "f52facf7",
+        "uuids": [
+          "f52facf7-1b02-0209-0000-000100000000"
+        ],
+        "driverLog": {
+          "path": "$WORKSPACE/artifacts/validation/v104-descriptor-performance-comparison-20261020/7-candidate-metal4/sessions/lobby-no-native-hook-1792531844628/state/data/stack-game.stderr.log",
+          "sha256": "26cd68945c76498db3be560eb2f5373dffc4cf2dca19abd140755feabc5fd300"
+        }
+      },
+      "nativeMetal4": {
+        "requested": true,
+        "activeQueues": 1,
+        "completedSubmissions": [
+          14858
+        ],
+        "proved": true
+      },
+      "meanMs": 30.829401016235,
+      "sampleCount": 972,
+      "over50Ms": 69,
+      "over100Ms": 7,
+      "wallSeconds": 29.985000610352,
+      "created": 400,
+      "destroyed": 232,
+      "officialStopFrame": 1140,
+      "officialWorkloadFrames": 900,
+      "thermalStates": [
+        0
+      ],
+      "gameSpeed": {
+        "atRequest": {
+          "actual": 1,
+          "paused": true,
+          "requested": 1
+        },
+        "finish": {
+          "actual": 1,
+          "paused": false,
+          "requested": 1
+        },
+        "requested": 1,
+        "start": {
+          "actual": 1,
+          "paused": false,
+          "requested": 1
+        }
+      },
+      "receiptSHA256": "adb9259760642e17be107b5fb04e48b53ffbf8ba80f11adafea498550fbc9c82"
+    },
+    {
+      "ordinal": 8,
+      "role": "parent",
+      "backend": "metal4",
+      "exit": 0,
+      "status": "completed-not-promoted",
+      "error": null,
+      "cacheError": null,
+      "receipt": "$WORKSPACE/artifacts/validation/v104-descriptor-performance-comparison-20261020/8-parent-metal4/sessions/lobby-no-native-hook-1792531968350/execution-receipt.json",
+      "fps": 38.20804977417,
+      "p50Ms": 24.888000488281,
+      "p95Ms": 42.345001220703,
+      "p99Ms": 57.13399887085,
+      "remainingOwnedProcesses": [],
+      "protectedInputsUnchanged": true,
+      "resolution": {
+        "height": 902,
+        "width": 1432
+      },
+      "camera": {
+        "dist": 2254.7705078125,
+        "dx": 0,
+        "dy": -0.924302399158,
+        "dz": -0.381660997868,
+        "fov": 45,
+        "mode": 2,
+        "name": "spring",
+        "px": 4096,
+        "py": 254.770629882813,
+        "pz": 3072,
+        "rx": 2.75,
+        "ry": 0,
+        "rz": 0
+      },
+      "runtimeUUID": {
+        "prefix": "f52facf7",
+        "uuids": [
+          "f52facf7-1b02-0209-0000-000100000000"
+        ],
+        "driverLog": {
+          "path": "$WORKSPACE/artifacts/validation/v104-descriptor-performance-comparison-20261020/8-parent-metal4/sessions/lobby-no-native-hook-1792531968350/state/data/stack-game.stderr.log",
+          "sha256": "0fa664653b23cad0df326d55afbba606bb823f9323c0e6bda4b1fa2633434775"
+        }
+      },
+      "nativeMetal4": {
+        "requested": true,
+        "activeQueues": 1,
+        "completedSubmissions": [
+          16113
+        ],
+        "proved": true
+      },
+      "meanMs": 26.172494888306,
+      "sampleCount": 1145,
+      "over50Ms": 19,
+      "over100Ms": 0,
+      "wallSeconds": 29.985000610352,
+      "created": 400,
+      "destroyed": 232,
+      "officialStopFrame": 1140,
+      "officialWorkloadFrames": 900,
+      "thermalStates": [
+        0
+      ],
+      "gameSpeed": {
+        "atRequest": {
+          "actual": 1,
+          "paused": true,
+          "requested": 1
+        },
+        "finish": {
+          "actual": 1,
+          "paused": false,
+          "requested": 1
+        },
+        "requested": 1,
+        "start": {
+          "actual": 1,
+          "paused": false,
+          "requested": 1
+        }
+      },
+      "receiptSHA256": "50baf31d567556aeda74eac687f10dfe05944e79b1ec9b2bfe80f5e0178c1c3b"
+    }
+  ],
+  "samplesPerAppBackend": 2,
+  "average": "Arithmetic average of run FPS; p95/p99 values average per-run quantiles, not pooled percentiles.",
+  "widgetCount": 235,
+  "thermalStates": [
+    0
+  ],
+  "power": "AC Power + Low Power ON throughout",
+  "screenRestored": true,
+  "awakeReleased": true,
+  "appsSourcesLauncherAndUserPinsExact": true,
+  "cleanupBefore": {
+    "status": "complete",
+    "rootsRemoved": 108,
+    "leavesRemoved": 4689,
+    "logicalBytesRemoved": 141251537,
+    "freeBefore": 122328227840,
+    "freeAfter": 122497744896,
+    "protectedRecordFilesExact": 751,
+    "appsSourcesBuildsAndHighGainLinesNotSelected": true,
+    "MarkdownInSelection": 0,
+    "physicalReclaimIsNotIsolated": true
+  },
+  "cleanupDuring": {
+    "rootsRemoved": 48,
+    "leavesRemoved": 2660,
+    "logicalBytesRemoved": 76945145,
+    "logsResultsPreserved": true
+  },
+  "limitations": [
+    "Two runs per app/backend; descriptive differences, no statistical significance or equivalence established.",
+    "Hidden 1432x902, audio off, VSync off, cold private shader cache each time. Filesystem/global driver cache and background work are not fully controlled.",
+    "900 simulation frames measured at requested speed 1x. Official queued stop acknowledgments recorded separately; FPS uses sampler frame240..1140.",
+    "One map/workload/Lobby lane; no public multiplayer or other-Mac acceptance.",
+    "C-T/C-M3 cumulative effect only; no isolated contribution or vertex-cache interaction measured."
+  ]
+}

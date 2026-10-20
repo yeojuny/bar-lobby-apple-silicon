@@ -1,0 +1,127 @@
+ninja: Entering directory `$WORKSPACE/build/run91-recoil-engine-694e9df7-macos27'
+[0/2] Re-checking globbed directories...
+[1/15] Building CXX object rts/builds/legacy/CMakeFiles/Game.dir/__/__/Game/LoadScreen.cpp.o
+[2/15] Building CXX object rts/builds/legacy/CMakeFiles/Game.dir/__/__/Game/UI/GuiHandler.cpp.o
+In file included from $WORKSPACE/build/run91-recoil-src-694e9df7/rts/Game/UI/GuiHandler.cpp:5:
+In file included from $WORKSPACE/build/run91-recoil-src-694e9df7/rts/Rml/Backends/RmlUi_Backend.h:39:
+$WORKSPACE/build/run91-recoil-src-694e9df7/rts/lib/sol2/sol.hpp:12806:20: warning: arithmetic between different Unicode character types 'char16_t' and 'char32_t' [-Wcharacter-conversion]
+ 12806 |                                 auto hi = lead - first_lead_surrogate;
+       |                                           ~~~~ ^ ~~~~~~~~~~~~~~~~~~~~
+$WORKSPACE/build/run91-recoil-src-694e9df7/rts/lib/sol2/sol.hpp:12807:21: warning: arithmetic between different Unicode character types 'char16_t' and 'char32_t' [-Wcharacter-conversion]
+ 12807 |                                 auto lo = trail - first_trail_surrogate;
+       |                                           ~~~~~ ^ ~~~~~~~~~~~~~~~~~~~~~
+$WORKSPACE/build/run91-recoil-src-694e9df7/rts/Game/UI/GuiHandler.cpp:1757:55: warning: format specifies type 'unsigned long long' but the argument has type 'size_t' (aka 'unsigned long') [-Wformat]
+ 1757 |                         LOG("  command: " _STPF_ ", id = %i, action = %s", i, commands[i].id, commands[i].action.c_str());
+      |                                           ~~~~~~                           ^
+$WORKSPACE/build/run91-recoil-src-694e9df7/rts/System/Log/ILog.h:313:39: note: expanded from macro 'LOG'
+  313 |         _LOG(DEFAULT_LOG_LEVEL_SHORT, fmt, ##__VA_ARGS__)
+      |                                       ~~~    ^~~~~~~~~~~
+$WORKSPACE/build/run91-recoil-src-694e9df7/rts/System/Log/ILog.h:197:68: note: expanded from macro '_LOG'
+  197 | #define _LOG(level, fmt, ...)   _LOG_SECTION_DEFINED(level, fmt, ##__VA_ARGS__)
+      |                                                             ~~~    ^~~~~~~~~~~
+$WORKSPACE/build/run91-recoil-src-694e9df7/rts/System/Log/ILog.h:194:97: note: expanded from macro '_LOG_SECTION_DEFINED'
+  194 | #define _LOG_SECTION_DEFINED(level, fmt, ...)   _LOG_SECTION(LOG_SECTION_CURRENT, level, fmt, ##__VA_ARGS__)
+      |                                                                                          ~~~    ^~~~~~~~~~~
+$WORKSPACE/build/run91-recoil-src-694e9df7/rts/System/Log/ILog.h:191:85: note: expanded from macro '_LOG_SECTION'
+  191 | #define _LOG_SECTION(section, level, fmt, ...)   _LOG_FILTER(section, level, fmt, ##__VA_ARGS__)
+      |                                                                              ~~~    ^~~~~~~~~~~
+$WORKSPACE/build/run91-recoil-src-694e9df7/rts/System/Log/ILog.h:188:123: note: expanded from macro '_LOG_FILTER'
+  188 | #define _LOG_FILTER(section, level, fmt, ...) if (_LOG_IS_ENABLED_LEVEL_STATIC(level)) _LOG_RECORD(section, level, fmt, ##__VA_ARGS__)
+      |                                                                                                                    ~~~    ^~~~~~~~~~~
+$WORKSPACE/build/run91-recoil-src-694e9df7/rts/System/Log/ILog.h:185:102: note: expanded from macro '_LOG_RECORD'
+  185 | #define _LOG_RECORD(section, level, fmt, ...)   log_frontend_record(LOG_LEVE##level, section, fmt, ##__VA_ARGS__)
+      |                                                                                               ~~~    ^~~~~~~~~~~
+$WORKSPACE/build/run91-recoil-src-694e9df7/rts/Game/UI/GuiHandler.cpp:1768:36: warning: format specifies type 'unsigned long long' but the argument has type 'size_type' (aka 'unsigned long') [-Wformat]
+ 1768 |                 LOG("commands.size() = " _STPF_, commands.size());
+      |                                          ~~~~~~  ^~~~~~~~~~~~~~~
+$WORKSPACE/build/run91-recoil-src-694e9df7/rts/System/Log/ILog.h:313:39: note: expanded from macro 'LOG'
+  313 |         _LOG(DEFAULT_LOG_LEVEL_SHORT, fmt, ##__VA_ARGS__)
+      |                                       ~~~    ^~~~~~~~~~~
+$WORKSPACE/build/run91-recoil-src-694e9df7/rts/System/Log/ILog.h:197:68: note: expanded from macro '_LOG'
+  197 | #define _LOG(level, fmt, ...)   _LOG_SECTION_DEFINED(level, fmt, ##__VA_ARGS__)
+      |                                                             ~~~    ^~~~~~~~~~~
+$WORKSPACE/build/run91-recoil-src-694e9df7/rts/System/Log/ILog.h:194:97: note: expanded from macro '_LOG_SECTION_DEFINED'
+  194 | #define _LOG_SECTION_DEFINED(level, fmt, ...)   _LOG_SECTION(LOG_SECTION_CURRENT, level, fmt, ##__VA_ARGS__)
+      |                                                                                          ~~~    ^~~~~~~~~~~
+$WORKSPACE/build/run91-recoil-src-694e9df7/rts/System/Log/ILog.h:191:85: note: expanded from macro '_LOG_SECTION'
+  191 | #define _LOG_SECTION(section, level, fmt, ...)   _LOG_FILTER(section, level, fmt, ##__VA_ARGS__)
+      |                                                                              ~~~    ^~~~~~~~~~~
+$WORKSPACE/build/run91-recoil-src-694e9df7/rts/System/Log/ILog.h:188:123: note: expanded from macro '_LOG_FILTER'
+  188 | #define _LOG_FILTER(section, level, fmt, ...) if (_LOG_IS_ENABLED_LEVEL_STATIC(level)) _LOG_RECORD(section, level, fmt, ##__VA_ARGS__)
+      |                                                                                                                    ~~~    ^~~~~~~~~~~
+$WORKSPACE/build/run91-recoil-src-694e9df7/rts/System/Log/ILog.h:185:102: note: expanded from macro '_LOG_RECORD'
+  185 | #define _LOG_RECORD(section, level, fmt, ...)   log_frontend_record(LOG_LEVE##level, section, fmt, ##__VA_ARGS__)
+      |                                                                                               ~~~    ^~~~~~~~~~~
+4 warnings generated.
+[3/15] Building CXX object rts/builds/legacy/CMakeFiles/Game.dir/__/__/Game/Game.cpp.o
+In file included from $WORKSPACE/build/run91-recoil-src-694e9df7/rts/Game/Game.cpp:5:
+In file included from $WORKSPACE/build/run91-recoil-src-694e9df7/rts/Rml/Backends/RmlUi_Backend.h:39:
+$WORKSPACE/build/run91-recoil-src-694e9df7/rts/lib/sol2/sol.hpp:12806:20: warning: arithmetic between different Unicode character types 'char16_t' and 'char32_t' [-Wcharacter-conversion]
+ 12806 |                                 auto hi = lead - first_lead_surrogate;
+       |                                           ~~~~ ^ ~~~~~~~~~~~~~~~~~~~~
+$WORKSPACE/build/run91-recoil-src-694e9df7/rts/lib/sol2/sol.hpp:12807:21: warning: arithmetic between different Unicode character types 'char16_t' and 'char32_t' [-Wcharacter-conversion]
+ 12807 |                                 auto lo = trail - first_trail_surrogate;
+       |                                           ~~~~~ ^ ~~~~~~~~~~~~~~~~~~~~~
+2 warnings generated.
+[4/15] Building CXX object rts/builds/legacy/CMakeFiles/engine-legacy.dir/__/__/Lua/LuaOpenGL.cpp.o
+$WORKSPACE/build/run91-recoil-src-694e9df7/rts/Lua/LuaOpenGL.cpp:4486:115: warning: implicit conversion from 'type' (aka 'int') to 'lua_Number' (aka 'float') changes value from 2147483647 to 2147483648 [-Wimplicit-const-int-float-conversion]
+ 4486 |                 if (!std::isfinite(value) || value != std::trunc(value) || value < std::numeric_limits<GLint>::min() || value > std::numeric_limits<GLint>::max())
+      |                                                                                                                               ~ ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 warning generated.
+[5/15] Building CXX object rts/builds/legacy/CMakeFiles/Game.dir/__/__/Game/UnsyncedGameCommands.cpp.o
+[6/15] Linking CXX static library rts/builds/legacy/libGame.a
+[7/15] Building CXX object rts/builds/legacy/CMakeFiles/engine-legacy.dir/__/__/Lua/LuaOpenGLUtils.cpp.o
+[8/15] Building CXX object rts/builds/legacy/CMakeFiles/engine-legacy.dir/__/__/Lua/LuaUnsyncedCtrl.cpp.o
+[9/15] Building CXX object rts/builds/legacy/CMakeFiles/engine-legacy.dir/__/__/Lua/LuaVAOImpl.cpp.o
+In file included from $WORKSPACE/build/run91-recoil-src-694e9df7/rts/Lua/LuaVAOImpl.cpp:11:
+$WORKSPACE/build/run91-recoil-src-694e9df7/rts/lib/sol2/sol.hpp:12806:20: warning: arithmetic between different Unicode character types 'char16_t' and 'char32_t' [-Wcharacter-conversion]
+ 12806 |                                 auto hi = lead - first_lead_surrogate;
+       |                                           ~~~~ ^ ~~~~~~~~~~~~~~~~~~~~
+$WORKSPACE/build/run91-recoil-src-694e9df7/rts/lib/sol2/sol.hpp:12807:21: warning: arithmetic between different Unicode character types 'char16_t' and 'char32_t' [-Wcharacter-conversion]
+ 12807 |                                 auto lo = trail - first_trail_surrogate;
+       |                                           ~~~~~ ^ ~~~~~~~~~~~~~~~~~~~~~
+2 warnings generated.
+[10/15] Building CXX object rts/builds/legacy/CMakeFiles/engine-legacy.dir/__/__/Rendering/Textures/NamedTextures.cpp.o
+[11/15] Building CXX object rts/builds/legacy/CMakeFiles/engine-legacy.dir/__/__/Lua/LuaVBO.cpp.o
+In file included from $WORKSPACE/build/run91-recoil-src-694e9df7/rts/Lua/LuaVBO.cpp:6:
+$WORKSPACE/build/run91-recoil-src-694e9df7/rts/lib/sol2/sol.hpp:12806:20: warning: arithmetic between different Unicode character types 'char16_t' and 'char32_t' [-Wcharacter-conversion]
+ 12806 |                                 auto hi = lead - first_lead_surrogate;
+       |                                           ~~~~ ^ ~~~~~~~~~~~~~~~~~~~~
+$WORKSPACE/build/run91-recoil-src-694e9df7/rts/lib/sol2/sol.hpp:12807:21: warning: arithmetic between different Unicode character types 'char16_t' and 'char32_t' [-Wcharacter-conversion]
+ 12807 |                                 auto lo = trail - first_trail_surrogate;
+       |                                           ~~~~~ ^ ~~~~~~~~~~~~~~~~~~~~~
+2 warnings generated.
+[12/15] Building CXX object rts/builds/legacy/CMakeFiles/engine-legacy.dir/__/__/System/SpringApp.cpp.o
+$WORKSPACE/build/run91-recoil-src-694e9df7/rts/System/SpringApp.cpp:866:58: warning: format specifies type 'unsigned long long' but the argument has type 'size_type' (aka 'unsigned long') [-Wformat]
+  866 |         LOG("[SpringApp::%s][12] #script=" _STPF_ "", __func__, script.size());
+      |                                            ~~~~~~               ^~~~~~~~~~~~~
+$WORKSPACE/build/run91-recoil-src-694e9df7/rts/System/Log/ILog.h:313:39: note: expanded from macro 'LOG'
+  313 |         _LOG(DEFAULT_LOG_LEVEL_SHORT, fmt, ##__VA_ARGS__)
+      |                                       ~~~    ^~~~~~~~~~~
+$WORKSPACE/build/run91-recoil-src-694e9df7/rts/System/Log/ILog.h:197:68: note: expanded from macro '_LOG'
+  197 | #define _LOG(level, fmt, ...)   _LOG_SECTION_DEFINED(level, fmt, ##__VA_ARGS__)
+      |                                                             ~~~    ^~~~~~~~~~~
+$WORKSPACE/build/run91-recoil-src-694e9df7/rts/System/Log/ILog.h:194:97: note: expanded from macro '_LOG_SECTION_DEFINED'
+  194 | #define _LOG_SECTION_DEFINED(level, fmt, ...)   _LOG_SECTION(LOG_SECTION_CURRENT, level, fmt, ##__VA_ARGS__)
+      |                                                                                          ~~~    ^~~~~~~~~~~
+$WORKSPACE/build/run91-recoil-src-694e9df7/rts/System/Log/ILog.h:191:85: note: expanded from macro '_LOG_SECTION'
+  191 | #define _LOG_SECTION(section, level, fmt, ...)   _LOG_FILTER(section, level, fmt, ##__VA_ARGS__)
+      |                                                                              ~~~    ^~~~~~~~~~~
+$WORKSPACE/build/run91-recoil-src-694e9df7/rts/System/Log/ILog.h:188:123: note: expanded from macro '_LOG_FILTER'
+  188 | #define _LOG_FILTER(section, level, fmt, ...) if (_LOG_IS_ENABLED_LEVEL_STATIC(level)) _LOG_RECORD(section, level, fmt, ##__VA_ARGS__)
+      |                                                                                                                    ~~~    ^~~~~~~~~~~
+$WORKSPACE/build/run91-recoil-src-694e9df7/rts/System/Log/ILog.h:185:102: note: expanded from macro '_LOG_RECORD'
+  185 | #define _LOG_RECORD(section, level, fmt, ...)   log_frontend_record(LOG_LEVE##level, section, fmt, ##__VA_ARGS__)
+      |                                                                                               ~~~    ^~~~~~~~~~~
+1 warning generated.
+[13/15] Building CXX object rts/builds/legacy/CMakeFiles/engine-legacy.dir/__/__/Lua/LuaVBOImpl.cpp.o
+In file included from $WORKSPACE/build/run91-recoil-src-694e9df7/rts/Lua/LuaVBOImpl.cpp:10:
+$WORKSPACE/build/run91-recoil-src-694e9df7/rts/lib/sol2/sol.hpp:12806:20: warning: arithmetic between different Unicode character types 'char16_t' and 'char32_t' [-Wcharacter-conversion]
+ 12806 |                                 auto hi = lead - first_lead_surrogate;
+       |                                           ~~~~ ^ ~~~~~~~~~~~~~~~~~~~~
+$WORKSPACE/build/run91-recoil-src-694e9df7/rts/lib/sol2/sol.hpp:12807:21: warning: arithmetic between different Unicode character types 'char16_t' and 'char32_t' [-Wcharacter-conversion]
+ 12807 |                                 auto lo = trail - first_trail_surrogate;
+       |                                           ~~~~~ ^ ~~~~~~~~~~~~~~~~~~~~~
+2 warnings generated.
+[14/15] Linking CXX executable spring
+ld: warning: ignoring duplicate libraries: 'librmlui.a', 'librmlui_debugger.a', 'rts/Sim/libengineSim.a', 'rts/System/Sound/libsound.a', 'rts/lib/nowide/libnowide.a', 'rts/lib/simdjson/libsimdjson.a', 'rts/lib/streflop/libstreflop.a', 'rts/lib/tracy/libTracyClient.a', 'tools/pr-downloader/src/lib/7z/lib7zip.a', 'tools/pr-downloader/src/lib/base64/libpr-base64.a', 'tools/pr-downloader/src/lib/jsoncpp/libpr-jsoncpp.a'

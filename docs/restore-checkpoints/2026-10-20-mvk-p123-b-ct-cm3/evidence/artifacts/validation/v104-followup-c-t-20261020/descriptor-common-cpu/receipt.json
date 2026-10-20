@@ -1,0 +1,83 @@
+{
+  "schema": "metal4-r41-descriptor-preparation-cpu-v1",
+  "inputs": {
+    "GPUObjects/MVKDescriptorSet.h": "fb7583ab4debcf0e8f6afcaa1abc62b87d80e1b457280a77136d3cf5afaae1f5",
+    "GPUObjects/MVKDescriptorSet.mm": "b87caab357dd43ba2c2cd937dcd7cdd0836c6418f90ddc5d2b90e13022257dc4",
+    "Commands/MVKCommandEncoderState.h": "dac7a20c3963887d5f054322a2bf7884d347271768dd0a124649f7d25862dade",
+    "Commands/MVKCommandEncoderState.mm": "e013fcc527b084129bca7ec25daf62b663d96a50f5f7f33821e276c0f7f3e80b",
+    "GPUObjects/MVKDevice.h": "dfa43fcfd4c280b2d8ae0d32dfd78ac0b13d0cdb2c5baccb31d551516c812caa",
+    "GPUObjects/MVKDevice.mm": "0d0985dcecd5ec9e728425a1635ccfb9df9c5fb1f7e3f8d86b4c7fa6eb1545e1",
+    "Commands/MVKCmdPipeline.h": "91de07b4f0304ebaae3811b855c3c72cdc481fbedd6f126680977a541a7dcd53",
+    "Commands/MVKCmdPipeline.mm": "8e663764a00e70ae9b6ede6996da275a9c0aad8a4de632fab8e9ed20e80e1d33",
+    "GPUObjects/MVKMetal4PreparedResource.h": "d6222a17d4da569b0abd419f1c7e8b41c2f2101c7acf700e770aa02af7afa653",
+    "Vulkan/vulkan.mm": "059a163d5143b03ee275460065d32404e3573b776f07e8a80eb453af03a49dbc"
+  },
+  "exactProductionHelpersSHA256": "1366a3428af89603aaacbab1c644a8a96860f19dfc26a970f451b519c63ba003",
+  "flagsSHA256": "defe47396f2f6cd0c2b874d7d7a471a1b336d7d7882b2e1cb7d6c9098e15ce30",
+  "exactProductionBranchesSHA256": "df2bcb9ffcd0ed7be9c5848e51f2ce4b88e70defed5657164c81257180b62d66",
+  "compileCommand": [
+    "xcrun",
+    "clang++",
+    "-std=c++17",
+    "-O1",
+    "-g",
+    "-fsanitize=address,undefined",
+    "-fno-omit-frame-pointer",
+    "-DMVK_BUILD_METAL4_FOUNDATION=1",
+    "-I$WORKSPACE/build/run66-vulkan-headers-src-20260903/include",
+    "-I$WORKSPACE/build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects",
+    "$WORKSPACE/artifacts/validation/v104-followup-c-t-20261020/descriptor-common-cpu/exact-production-helpers.cpp",
+    "-o",
+    "$WORKSPACE/artifacts/validation/v104-followup-c-t-20261020/descriptor-common-cpu/descriptor-preparation-cpu"
+  ],
+  "exitCode": 0,
+  "inputsUnchanged": true,
+  "gpuExecuted": false,
+  "gameExecuted": false,
+  "sourceWiringChecksPassed": true,
+  "exactLiveMembershipMethodsSHA256": "8e9d56964ae40612196f78a28847adf8f82aa6553786a42a35b076f840db7203",
+  "exactCaptureClassSHA256": "086a1e43cd1c1bf0c9e5a3020d939dfdd7c716f72849e0b1721044816237bafe",
+  "exactCaptureMethodsSHA256": "505e422bec3b258f02266ae8e8142eaeaba367f58547cc896b919ddc8b6af043",
+  "exactTemplateClassSHA256": "7cc500bd8fc4cf98fa6ad6dc437eb545ce7f8877216bcdf4e607234ca586c124",
+  "exactTemplateMethodsSHA256": "d723e1920e9b49addb4d1580c02bc6aebbee14b84c03b03201356a2d2ebee001",
+  "exactCaptureAPIHelperSHA256": "fcfdaeb87482fae8bb6d91ecea1e6f21438209424afc11c0611197359b771de2",
+  "exactCaptureAPIEntrypointsSHA256": "db23ce4dce9e2ae77b733a241fe4f08ce0ef5c6fb4bbc0b80ca5a15c01d80c16",
+  "foundationDisabled": {
+    "compileCommand": [
+      "xcrun",
+      "clang++",
+      "-std=c++17",
+      "-O1",
+      "-g",
+      "-fsanitize=address,undefined",
+      "-fno-omit-frame-pointer",
+      "-DMVK_BUILD_METAL4_FOUNDATION=0",
+      "-I$WORKSPACE/build/run66-vulkan-headers-src-20260903/include",
+      "-I$WORKSPACE/build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects",
+      "$WORKSPACE/artifacts/validation/v104-followup-c-t-20261020/descriptor-common-cpu/exact-production-helpers.cpp",
+      "-o",
+      "$WORKSPACE/artifacts/validation/v104-followup-c-t-20261020/descriptor-common-cpu/descriptor-preparation-cpu-foundation-off"
+    ],
+    "exitCode": 0,
+    "result": {
+      "suite": "descriptor_preparation_cpu",
+      "passed": 134,
+      "gpuExecuted": false,
+      "gameExecuted": false
+    }
+  },
+  "compactUniformRecordPolicy": "Deferred unchanged; no override added",
+  "limits": [
+    "Actual capture/eligibility/replay methods use bounded layout/state/allocator stubs; GPU conversion and native lifetimes require existing native validation.",
+    "Actual Vulkan capture helper and both core entrypoints use bounded command-buffer/pool doubles; full production pool integration is separate from CPU lifecycle assertions.",
+    "Command-local high-water storage persists until pool/object destruction. Growth temporarily overlaps old and new allocations; BAR frequency and retained-memory effect are unmeasured.",
+    "Actual template class/constructor/accessors compute immutable metadata. Vector/base ownership use doubles; legacy command capture size is a declared stub and rejected-path stride behavior is not fixed.",
+    "Operation reduction is helper behavior, not measured BAR timing."
+  ],
+  "result": {
+    "suite": "descriptor_preparation_cpu",
+    "passed": 629,
+    "gpuExecuted": false,
+    "gameExecuted": false
+  }
+}

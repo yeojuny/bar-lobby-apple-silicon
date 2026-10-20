@@ -1,0 +1,71 @@
+{
+  "date": "2026-10-20",
+  "status": "A excluded on applicability; B bounded source change built and component-validated; C deferred",
+  "A": {
+    "productEdits": 0,
+    "reason": "No actual selected-content caller of the targeted allocating/duplicate-lookup paths",
+    "evidence": "actual-game-call-sites.json"
+  },
+  "B": {
+    "source": "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCmdDraw.mm",
+    "sourceSHA256": "2e2ffdb95b7ce8ccdd04ea8ceecd5756d10d0d7af04f9bb37fcddcb2952ad2a8",
+    "changedProductionFiles": 1,
+    "changedProductionLines": 2,
+    "change": "Use existing MVKSmallVector<T,4> for arguments and records local to convertMetal4RestartBatch; outputs vector unchanged.",
+    "effect": "For count 2..4, both scratch containers use inline storage instead of two heap allocations. For count >4 both reserve final capacity before filling. No upload copy removed.",
+    "containerBytes": 368,
+    "inlinePayloadBytes": 336,
+    "previousContainerBytes": 48,
+    "crossCallSharing": false,
+    "GPUUploadAndRetirementUnchanged": true,
+    "applicability": {
+      "historicalSource": "artifacts/validation/metal4-r45-seths-20261004/analysis.json",
+      "r45RestartBatches": 3960,
+      "r45RestartDraws": 17160,
+      "minimumBatchesOfSize2To4": 880,
+      "derivation": "Batches have at least 2 draws; if all large batches have at least 5, small batches >= ceil((5*3960-17160)/3).",
+      "limit": "Historical workload proves actual BAR applicability; current candidate frequency and FPS benefit unmeasured."
+    }
+  },
+  "validation": {
+    "incrementalBuildExitCode": 0,
+    "buildLog": "b-build.log",
+    "library": "build/metal4-mvk-20261002/MoltenVK/libMoltenVK.1.4.3.dylib",
+    "librarySHA256": "d92e82e1cf89c7cca2a6ae2417e429a18d191ed396fbe4dfbb5cd7775e5ad788",
+    "cpuStorageCases": 6,
+    "cpuCounts": [
+      2,
+      3,
+      4,
+      5,
+      8,
+      256
+    ],
+    "asanUbsan": true,
+    "cpuPreparationIncludeErrors": 3,
+    "cpuReceipt": "b-storage-receipt.json",
+    "GPUPrepassCasesPassed": 29,
+    "GPUPrepassCasesFailed": 0,
+    "metalApiValidation": true,
+    "gpuReceipt": "artifacts/validation/metal4-vulkan-integration-20261002/v104-b-small-arrays-20261020/receipt.json",
+    "gpuReceiptSHA256": "af300baf2f750ab50ef826a71cb7e895aa6936cc3c2ae74f73a42bb487411b8c",
+    "protectedPinsExact": 56,
+    "scope": "Targeted recorded pins, not a new whole-tree inventory"
+  },
+  "preserved": [
+    "Frozen 1.0.3 app selected pins",
+    "P1/P2/P3 comparison app selected pins",
+    "P1/P2/P3 source files",
+    "CMake cache and existing prepass fixture"
+  ],
+  "notExecuted": [
+    "App packaging",
+    "App/game benchmark",
+    "Local installation",
+    "Publication",
+    "C changes"
+  ],
+  "next": "B is available in the active local MoltenVK build; app integration and matched FPS measurement remain separate.",
+  "latestPackageReceipt": "ab-package-receipt.json",
+  "packageStageNote": "Initial completion preceded packaging; later user-directed cumulative app is now packaged. Initial notExecuted records its original stage."
+}

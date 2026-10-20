@@ -1,0 +1,11 @@
+{
+  "user": "이전 후보 vs C-T·C-M3 후보 성능 비교. 전원 연결·절전모드, 같은 조건 Metal3·4, 표로 보고. 실험 흔적은 정리하되 특이한 큰 성능상승 라인 제외. MVK GitHub 복원 checkpoint 보존 요청.",
+  "parent": "$WORKSPACE/artifacts/runtime/v104-performance-ab-candidate-20261020/BAR.app",
+  "candidate": "$WORKSPACE/artifacts/runtime/v104-descriptor-candidate-20261020/BAR.app",
+  "maximumGameSessions": 8,
+  "retry": false,
+  "sourceChanges": false,
+  "settings": "AC Power/Low Power/Ultra/AA Off/Spring/VSync Off, same fixed scene and fresh private cache",
+  "benchmark": "Same successful batch7 controller/host logic; only provenance/app/path/schema adaptation",
+  "cleanup": "Remove regenerable private shader/browser cache after session; preserve logs/results/source/app/Markdown."
+}
