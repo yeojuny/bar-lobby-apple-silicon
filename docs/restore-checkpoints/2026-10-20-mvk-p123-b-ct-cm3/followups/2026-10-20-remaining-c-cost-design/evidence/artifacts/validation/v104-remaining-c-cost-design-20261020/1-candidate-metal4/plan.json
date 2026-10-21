@@ -1,0 +1,204 @@
+{
+  "schema": "v104-c-cost-1-candidate-metal4-v1",
+  "status": "prepared-current-authorized-comparison",
+  "benchmarkRole": "r42",
+  "app": {
+    "app": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/runtime/v104-descriptor-candidate-20261020/BAR.app",
+    "inventorySha256": "56ad49fd2e9a4953f57f84536215f56314d09a0de16ba0b6b0a80a978615e66e"
+  },
+  "appAsar": {
+    "path": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/runtime/v104-descriptor-candidate-20261020/BAR.app/Contents/Resources/app.asar",
+    "sha256": "3e723fc2e06664b9caf8e357b25e77c574da4f026e653e002d31bece29174d29"
+  },
+  "protectedApps": [
+    {
+      "app": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/runtime/v104-performance-ab-candidate-20261020/BAR.app",
+      "inventorySha256": "17ccfa7b4ad5033ac7745bf9bfc04228a7cf8f6892369a041cc65a6e4431ad84"
+    },
+    {
+      "app": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/runtime/v104-descriptor-candidate-20261020/BAR.app",
+      "inventorySha256": "56ad49fd2e9a4953f57f84536215f56314d09a0de16ba0b6b0a80a978615e66e"
+    }
+  ],
+  "lanes": {
+    "lobby": {
+      "engine": {
+        "path": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/runtime/v104-descriptor-candidate-20261020/BAR.app/Contents/Resources/bundled-assets/engine/2026.09.01-24-g01efdf4 master/spring",
+        "sha256": "16cdd896273e09b89e385ec53c24d0216df9a17dd5d7b80c78dc5f8471f13424",
+        "bytes": 31275968,
+        "version": "2026.09.01-24-g01efdf4 master"
+      },
+      "guard": {
+        "path": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/run94-hidden-window-audit-20261001/libhidden-window-state.dylib",
+        "sha256": "5979c679d40149fd8d093ba8b9a3a73e4493a9c7dd6424f2378bc08a9418c94f"
+      }
+    }
+  },
+  "sharedRuntime": [
+    {
+      "path": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/runtime/v104-descriptor-candidate-20261020/BAR.app/Contents/Resources/bundled-assets/runtime/sdl3/lib/libSDL3.0.dylib",
+      "sha256": "6a76d38b6cfcd75122ea51215af9dd8be1972c984a431adb2cfa0c6731354820"
+    },
+    {
+      "path": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/runtime/v104-descriptor-candidate-20261020/BAR.app/Contents/Resources/bundled-assets/runtime/mesa-zink/lib/libEGL.1.dylib",
+      "sha256": "62adb20871cf6985bde4b20c78ffabd37a590fa9023cf362f87ce16739a3f533"
+    },
+    {
+      "path": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/runtime/v104-descriptor-candidate-20261020/BAR.app/Contents/Resources/bundled-assets/runtime/mesa-zink/lib/libgallium-26.3.0-devel.dylib",
+      "sha256": "ca4f3ddd7a0bf20c7f39636ea58d04ba42bc8b9170f871eac62a53c068ad9c30"
+    },
+    {
+      "path": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/runtime/v104-descriptor-candidate-20261020/BAR.app/Contents/Resources/bundled-assets/runtime/vulkan-loader/lib/libvulkan.1.4.365.dylib",
+      "sha256": "b2b4bb1c9db72ff8639958e3137b308c67c15fe35cb846ffd5b1f7703cc0f7cd"
+    },
+    {
+      "path": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/runtime/v104-descriptor-candidate-20261020/BAR.app/Contents/Resources/bundled-assets/runtime/moltenvk-pr2746/lib/libMoltenVK.1.4.3.dylib",
+      "sha256": "7ac71989ca27a99a2f9adf219ac0dcb12f16804cd35733bf7fd2c078635c5c4a"
+    },
+    {
+      "path": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/runtime/v104-descriptor-candidate-20261020/BAR.app/Contents/Resources/bundled-assets/runtime/moltenvk-pr2746/MoltenVK_icd.json",
+      "sha256": "c6956ddd9a7e46a66f1ed9b99f12e54098258d29f593a6b0fbafdf010f7fb86f"
+    }
+  ],
+  "controller": {
+    "path": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-remaining-c-cost-design-20261020/controller.lua",
+    "sha256": "75d2493179d20ec0a8d727e24b530e0627b8dd4a954f8489cd39f9267b607501"
+  },
+  "scene": {
+    "path": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-remaining-c-cost-design-20261020/scene.txt",
+    "sha256": "9d1e59186d97953ea6ceae43d99d7e9e022efc6e02cddbc9c802b1560cf3e8ca"
+  },
+  "game": "Beyond All Reason test-31671-ad2e1b7",
+  "map": "Seths Ravine Remake 1.3.1",
+  "contentFiles": {
+    "path": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-remaining-c-cost-design-20261020/content-files.json",
+    "sha256": "53e4708d14d024c98d09d0189a467ffaa8a4c6521e51af5b7792288e6cb1215a"
+  },
+  "inputPins": {
+    "state/config/settings.json": {
+      "path": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-remaining-c-cost-design-20261020/inputs/state/config/settings.json",
+      "sha256": "1a81d3bba445be4686fb966b58047c855486265d2f77e7e453cd9482c64a9b6a"
+    },
+    "state/data/springsettings.cfg": {
+      "path": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-remaining-c-cost-design-20261020/inputs/state/data/springsettings.cfg",
+      "sha256": "09863a1059832f81989e7f304a5a084ca5d9c5c9b86b76ec8feaac69dd124923"
+    },
+    "state/data/LuaUI/Config/BYAR.lua": {
+      "path": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-remaining-c-cost-design-20261020/inputs/state/data/LuaUI/Config/BYAR.lua",
+      "sha256": "30e309c65858bfa658f2d80f502e98dc03ebc10285e65cf787fb93f30e6b22e1"
+    }
+  },
+  "executionFiles": [
+    {
+      "path": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-remaining-c-cost-design-20261020/1-candidate-metal4/effective-host.mjs",
+      "sha256": "db9f9c62c9c136a915559d4111c505687c2a776cbf18f029710715a4f8879ff5"
+    },
+    {
+      "path": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-remaining-c-cost-design-20261020/benchmark-bootstrap.cjs",
+      "sha256": "358a693988f9984e06572ee026a529fc62aeb07aa0015ded599635b1cdc953ba"
+    },
+    {
+      "path": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-remaining-c-cost-design-20261020/metal-bootstrap.cjs",
+      "sha256": "67160162b7a41c834ac31ce4966c22a2f04f93ac18869d80a9aaedd96ffb3650"
+    },
+    {
+      "path": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/tools/lib/r92-measurement-ack-boundary.mjs",
+      "sha256": "71f4ac11082a72144fb96237efe370ade4c39e964e9ebd31d794636349bcfa5e"
+    },
+    {
+      "path": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/tools/lib/run94-current-content-gate.cjs",
+      "sha256": "1f5209c1e6300fae8035be0f186c74e73effc734ed9aeea9235f3b4bc228f58a"
+    },
+    {
+      "path": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/tools/lib/run94-chobby-content-gate.cjs",
+      "sha256": "e5f43c7f49c028077f2d95c566f5e9ac569b37eb1074f24808145a64f16d0723"
+    }
+  ],
+  "qualifiedAdapters": {
+    "lobby": {
+      "path": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-remaining-c-cost-design-20261020/benchmark-bootstrap.cjs",
+      "sha256": "358a693988f9984e06572ee026a529fc62aeb07aa0015ded599635b1cdc953ba"
+    }
+  },
+  "acceptanceBootstrap": {
+    "path": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-remaining-c-cost-design-20261020/metal-bootstrap.cjs",
+    "sha256": "67160162b7a41c834ac31ce4966c22a2f04f93ac18869d80a9aaedd96ffb3650"
+  },
+  "authorization": {
+    "path": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-remaining-c-cost-design-20261020/authorization.json",
+    "sha256": "ed5b595db6f971c9b720dc9aa373fcee918710466f42fae390df2d1afc0cfee4"
+  },
+  "sdlSha256": "6a76d38b6cfcd75122ea51215af9dd8be1972c984a431adb2cfa0c6731354820",
+  "hiddenQualification": {
+    "preflight": {
+      "path": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-remaining-c-cost-design-20261020/sdl-hidden-preflight.json",
+      "sha256": "429d9b0308d09349ce18fe5827868e00122d4a6412d99995b8cdd58d912fa708"
+    },
+    "guardSha256": "5979c679d40149fd8d093ba8b9a3a73e4493a9c7dd6424f2378bc08a9418c94f",
+    "sdlSha256": "6a76d38b6cfcd75122ea51215af9dd8be1972c984a431adb2cfa0c6731354820"
+  },
+  "buildDigest": "16cdd896273e09b89e385ec53c24d0216df9a17dd5d7b80c78dc5f8471f13424",
+  "mesaGitSha1": "9ba10f0aab543df342535ac4d7d3e559fe825793636f9175232ae23b700a6cb1",
+  "mvkGitRev": "f52facf7",
+  "presentationOverrides": [],
+  "privateFixtureFiles": [],
+  "sequence": [
+    "lobby:single"
+  ],
+  "executionGate": {
+    "authorized": true,
+    "strictHiddenOnly": true,
+    "visibleFallbackAllowed": false,
+    "maximumGameSessions": 1
+  },
+  "benchmark": {
+    "command": "luarules benchmark armbull armbull 80 8 1400",
+    "frames": 900,
+    "preset": "Ultra",
+    "MSAA": 0,
+    "MSAALevel": -1,
+    "VSync": 0,
+    "VSyncGame": 0
+  },
+  "limits": [
+    "P1/P2/P3+B versus cumulative descriptor candidate; current approved 8 arms",
+    "No retry; identical controller, settings, engine and scene; only MoltenVK differs",
+    "No source or actual user preference edits"
+  ],
+  "nativeMetal4": true,
+  "power": {
+    "source": "AC Power",
+    "lowPowerMode": true,
+    "settingsChanged": false
+  },
+  "testIdentity": "1-candidate-metal4",
+  "costDiagnostics": false,
+  "timelineDiagnostics": false,
+  "spirvCapture": false,
+  "renderpassDefaultEnabled": true,
+  "moltenvkNativePresentSemaphores": true,
+  "disableAsyncWait": true,
+  "shutdownBoundary": {
+    "activeLimitsUnchanged": true,
+    "evidence": {
+      "path": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/r92-post-measurement-exit-boundary-20261010/outcome.json",
+      "sha256": "26dd6288014759d46dbb6b42db65c146209b654d47f3a741c532bbe217fa0696"
+    },
+    "globalDeadlineMilliseconds": 400000,
+    "nativeExitDeadlineMilliseconds": 15000
+  },
+  "costProfile": false,
+  "comparisonVariant": "candidate",
+  "screenStopPath": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-remaining-c-cost-design-20261020/screen-stop.json",
+  "historicalLobbyFullscreen": false,
+  "allowOwnedLobbyForeground": false,
+  "expectedDrawable": {
+    "width": 1432,
+    "height": 902
+  },
+  "menu": "BYAR Chobby test-4660-15c02d2",
+  "sourceAudit": {
+    "path": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-remaining-c-cost-design-20261020/content-receipt.json",
+    "sha256": "bfb3bf3544a17c1e6a88b75df9d48b29a867a942df4156ee90a3a5fa6ae1b2d5"
+  }
+}

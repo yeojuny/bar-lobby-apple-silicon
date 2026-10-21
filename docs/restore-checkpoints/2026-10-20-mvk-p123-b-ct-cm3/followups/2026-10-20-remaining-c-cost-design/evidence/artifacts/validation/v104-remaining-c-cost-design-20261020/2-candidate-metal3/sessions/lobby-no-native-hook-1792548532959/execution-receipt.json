@@ -1,0 +1,2458 @@
+{
+  "role": "r42",
+  "benchmarkRole": "r42",
+  "app": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/runtime/v104-descriptor-candidate-20261020/BAR.app",
+  "run": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-remaining-c-cost-design-20261020/2-candidate-metal3/sessions/lobby-no-native-hook-1792548532959",
+  "mesaGitSha1": "9ba10f0aab543df342535ac4d7d3e559fe825793636f9175232ae23b700a6cb1",
+  "strictHiddenWindow": true,
+  "promotionAllowed": false,
+  "nativeMetal4Requested": false,
+  "powerContract": {
+    "source": "AC Power",
+    "lowPowerMode": true,
+    "thermalStateRecorded": true,
+    "periodicIntervalMs": 15000,
+    "settingsChanged": false
+  },
+  "powerObservations": [
+    {
+      "label": "preflight",
+      "atUTC": "2026-10-21T02:08:52.960Z",
+      "passed": true,
+      "battery": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=23134307)\t95%; AC attached; not charging present: true\n",
+      "isLowPowerModeEnabled": true,
+      "thermalState": 0,
+      "awakeAssertions": "2026-10-20 19:08:53 -0700 \nAssertion status system-wide:\n   BackgroundTask                 0\n   ApplePushServiceTask           0\n   UserIsActive                   1\n   PreventUserIdleDisplaySleep    1\n   SoftwareUpdateTask             0\n   PreventSystemSleep             0\n   PreventSystemSleepSecurityIndicator 0\n   ExternalMedia                  0\n   InternalPreventDisplaySleep    1\n   PreventUserIdleSystemSleep     1\n   NetworkClientActive            0\nListed by owning process:\n   pid 777(ChatGPT): [0x000000c2000184fe] 00:08:40 NoIdleSleepAssertion named: \"Electron\"  \n   pid 5134(caffeinate): [0x00000247000185f4] 00:02:12 PreventUserIdleSystemSleep named: \"caffeinate command-line tool\"  \n\tDetails: caffeinate asserting on behalf of Process ID 5116 for 3600 secs\n\tCreated for PID: 5116. \n\tLocalized=THE CAFFEINATE TOOL IS PREVENTING SLEEP.\n\tTimeout will fire in 3468 secs Action=TimeoutActionRelease\n   pid 5134(caffeinate): [0x00000247000585f5] 00:02:12 PreventUserIdleDisplaySleep named: \"caffeinate command-line tool\"  \n\tDetails: caffeinate asserting on behalf of Process ID 5116 for 3600 secs\n\tCreated for PID: 5116. \n\tLocalized=THE CAFFEINATE TOOL IS PREVENTING SLEEP.\n\tTimeout will fire in 3468 secs Action=TimeoutActionRelease\n   pid 5134(caffeinate): [0x00000247000985f6] 00:02:12 UserIsActive named: \"caffeinate command-line tool\"  \n\tDetails: caffeinate asserting on behalf of Process ID 5116 for 3600 secs\n\tCreated for PID: 5116. \n\tLocalized=THE CAFFEINATE TOOL IS PREVENTING SLEEP.\n\tTimeout will fire in 3468 secs Action=TimeoutActionRelease\n   pid 353(powerd): [0x0000001600018010] 00:11:32 PreventUserIdleSystemSleep named: \"Powerd - Prevent sleep while display is on\"  \n   pid 353(powerd): [0x000001900010829d] 00:00:11 InternalPreventDisplaySleep named: \"com.apple.powermanagement.delayDisplayOff\"  \n\tTimeout will fire in 288 secs Action=TimeoutActionTurnOff\n   pid 412(WindowServer): [0x0000001f00098085] 00:02:07 UserIsActive named: \"com.apple.iohideventsystem.queue.tickle serviceID:100000cdc service:AppleMultitouchDevice product:Apple Internal Keyboard / Trackpad eventType:11\"  \n\tTimeout will fire in 473 secs Action=TimeoutActionRelease\nKernel Assertions: 0x100=MAGICWAKE\n   id=556  level=255 0x100=MAGICWAKE creat=  mod= description=en0 owner=IOSkywalkNetworkBSDClient\n",
+      "displayAwakeProtectionPassed": true,
+      "finishedAtUTC": "2026-10-21T02:08:53.097Z"
+    },
+    {
+      "label": "before-launch",
+      "atUTC": "2026-10-21T02:09:17.202Z",
+      "passed": true,
+      "battery": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=23134307)\t95%; AC attached; not charging present: true\n",
+      "isLowPowerModeEnabled": true,
+      "thermalState": 0,
+      "awakeAssertions": "2026-10-20 19:09:17 -0700 \nAssertion status system-wide:\n   BackgroundTask                 0\n   ApplePushServiceTask           0\n   UserIsActive                   1\n   PreventUserIdleDisplaySleep    1\n   SoftwareUpdateTask             0\n   PreventSystemSleep             0\n   PreventSystemSleepSecurityIndicator 0\n   ExternalMedia                  0\n   InternalPreventDisplaySleep    1\n   PreventUserIdleSystemSleep     1\n   NetworkClientActive            0\nListed by owning process:\n   pid 777(ChatGPT): [0x000000c2000184fe] 00:09:04 NoIdleSleepAssertion named: \"Electron\"  \n   pid 5134(caffeinate): [0x00000247000185f4] 00:02:36 PreventUserIdleSystemSleep named: \"caffeinate command-line tool\"  \n\tDetails: caffeinate asserting on behalf of Process ID 5116 for 3600 secs\n\tCreated for PID: 5116. \n\tLocalized=THE CAFFEINATE TOOL IS PREVENTING SLEEP.\n\tTimeout will fire in 3443 secs Action=TimeoutActionRelease\n   pid 5134(caffeinate): [0x00000247000585f5] 00:02:36 PreventUserIdleDisplaySleep named: \"caffeinate command-line tool\"  \n\tDetails: caffeinate asserting on behalf of Process ID 5116 for 3600 secs\n\tCreated for PID: 5116. \n\tLocalized=THE CAFFEINATE TOOL IS PREVENTING SLEEP.\n\tTimeout will fire in 3443 secs Action=TimeoutActionRelease\n   pid 5134(caffeinate): [0x00000247000985f6] 00:02:36 UserIsActive named: \"caffeinate command-line tool\"  \n\tDetails: caffeinate asserting on behalf of Process ID 5116 for 3600 secs\n\tCreated for PID: 5116. \n\tLocalized=THE CAFFEINATE TOOL IS PREVENTING SLEEP.\n\tTimeout will fire in 3443 secs Action=TimeoutActionRelease\n   pid 353(powerd): [0x0000001600018010] 00:11:56 PreventUserIdleSystemSleep named: \"Powerd - Prevent sleep while display is on\"  \n   pid 353(powerd): [0x000001900010829d] 00:00:36 InternalPreventDisplaySleep named: \"com.apple.powermanagement.delayDisplayOff\"  \n\tTimeout will fire in 264 secs Action=TimeoutActionTurnOff\n   pid 412(WindowServer): [0x0000001f00098085] 00:02:31 UserIsActive named: \"com.apple.iohideventsystem.queue.tickle serviceID:100000cdc service:AppleMultitouchDevice product:Apple Internal Keyboard / Trackpad eventType:11\"  \n\tTimeout will fire in 449 secs Action=TimeoutActionRelease\n   pid 488(mds_stores): [0x000002d7000b862e] 00:00:12 BackgroundTask named: \"com.apple.metadata.mds_stores.power\"  \n   pid 367(mds): [0x000002d4000b862d] 00:00:15 BackgroundTask named: \"com.apple.metadata.mds.power\"  \nKernel Assertions: 0x100=MAGICWAKE\n   id=556  level=255 0x100=MAGICWAKE creat=  mod= description=en0 owner=IOSkywalkNetworkBSDClient\n",
+      "displayAwakeProtectionPassed": true,
+      "finishedAtUTC": "2026-10-21T02:09:17.325Z"
+    },
+    {
+      "label": "periodic",
+      "atUTC": "2026-10-21T02:09:32.661Z",
+      "passed": true,
+      "battery": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=23134307)\t95%; AC attached; not charging present: true\n",
+      "isLowPowerModeEnabled": true,
+      "thermalState": 0,
+      "awakeAssertions": "2026-10-20 19:09:32 -0700 \nAssertion status system-wide:\n   BackgroundTask                 0\n   ApplePushServiceTask           0\n   UserIsActive                   1\n   PreventUserIdleDisplaySleep    1\n   SoftwareUpdateTask             0\n   PreventSystemSleep             0\n   PreventSystemSleepSecurityIndicator 0\n   ExternalMedia                  0\n   InternalPreventDisplaySleep    1\n   PreventUserIdleSystemSleep     1\n   NetworkClientActive            0\nListed by owning process:\n   pid 777(ChatGPT): [0x000000c2000184fe] 00:09:20 NoIdleSleepAssertion named: \"Electron\"  \n   pid 5134(caffeinate): [0x00000247000185f4] 00:02:52 PreventUserIdleSystemSleep named: \"caffeinate command-line tool\"  \n\tDetails: caffeinate asserting on behalf of Process ID 5116 for 3600 secs\n\tCreated for PID: 5116. \n\tLocalized=THE CAFFEINATE TOOL IS PREVENTING SLEEP.\n\tTimeout will fire in 3428 secs Action=TimeoutActionRelease\n   pid 5134(caffeinate): [0x00000247000585f5] 00:02:52 PreventUserIdleDisplaySleep named: \"caffeinate command-line tool\"  \n\tDetails: caffeinate asserting on behalf of Process ID 5116 for 3600 secs\n\tCreated for PID: 5116. \n\tLocalized=THE CAFFEINATE TOOL IS PREVENTING SLEEP.\n\tTimeout will fire in 3428 secs Action=TimeoutActionRelease\n   pid 5134(caffeinate): [0x00000247000985f6] 00:02:52 UserIsActive named: \"caffeinate command-line tool\"  \n\tDetails: caffeinate asserting on behalf of Process ID 5116 for 3600 secs\n\tCreated for PID: 5116. \n\tLocalized=THE CAFFEINATE TOOL IS PREVENTING SLEEP.\n\tTimeout will fire in 3428 secs Action=TimeoutActionRelease\n   pid 353(powerd): [0x0000001600018010] 00:12:12 PreventUserIdleSystemSleep named: \"Powerd - Prevent sleep while display is on\"  \n   pid 353(powerd): [0x000001900010829d] 00:00:06 InternalPreventDisplaySleep named: \"com.apple.powermanagement.delayDisplayOff\"  \n\tTimeout will fire in 294 secs Action=TimeoutActionTurnOff\n   pid 6554(spring): [0x000002ed00058640] 00:00:05 PreventUserIdleDisplaySleep named: \"spring using SDL_DisableScreenSaver\"  \n   pid 412(WindowServer): [0x0000001f00098085] 00:02:46 UserIsActive named: \"com.apple.iohideventsystem.queue.tickle serviceID:100000cdc service:AppleMultitouchDevice product:Apple Internal Keyboard / Trackpad eventType:11\"  \n\tTimeout will fire in 433 secs Action=TimeoutActionRelease\n   pid 6472(BAR): [0x000002e80001863d] 00:00:10 NoIdleSleepAssertion named: \"Playing audio\"  \nKernel Assertions: 0x100=MAGICWAKE\n   id=556  level=255 0x100=MAGICWAKE creat=  mod= description=en0 owner=IOSkywalkNetworkBSDClient\n",
+      "displayAwakeProtectionPassed": true,
+      "finishedAtUTC": "2026-10-21T02:09:32.808Z"
+    },
+    {
+      "label": "periodic",
+      "atUTC": "2026-10-21T02:09:48.101Z",
+      "passed": true,
+      "battery": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=23134307)\t95%; AC attached; not charging present: true\n",
+      "isLowPowerModeEnabled": true,
+      "thermalState": 0,
+      "awakeAssertions": "2026-10-20 19:09:48 -0700 \nAssertion status system-wide:\n   BackgroundTask                 0\n   ApplePushServiceTask           0\n   UserIsActive                   1\n   PreventUserIdleDisplaySleep    1\n   SoftwareUpdateTask             0\n   PreventSystemSleep             0\n   PreventSystemSleepSecurityIndicator 0\n   ExternalMedia                  0\n   InternalPreventDisplaySleep    1\n   PreventUserIdleSystemSleep     1\n   NetworkClientActive            0\nListed by owning process:\n   pid 777(ChatGPT): [0x000000c2000184fe] 00:09:35 NoIdleSleepAssertion named: \"Electron\"  \n   pid 5134(caffeinate): [0x00000247000185f4] 00:03:07 PreventUserIdleSystemSleep named: \"caffeinate command-line tool\"  \n\tDetails: caffeinate asserting on behalf of Process ID 5116 for 3600 secs\n\tCreated for PID: 5116. \n\tLocalized=THE CAFFEINATE TOOL IS PREVENTING SLEEP.\n\tTimeout will fire in 3413 secs Action=TimeoutActionRelease\n   pid 5134(caffeinate): [0x00000247000585f5] 00:03:07 PreventUserIdleDisplaySleep named: \"caffeinate command-line tool\"  \n\tDetails: caffeinate asserting on behalf of Process ID 5116 for 3600 secs\n\tCreated for PID: 5116. \n\tLocalized=THE CAFFEINATE TOOL IS PREVENTING SLEEP.\n\tTimeout will fire in 3413 secs Action=TimeoutActionRelease\n   pid 5134(caffeinate): [0x00000247000985f6] 00:03:07 UserIsActive named: \"caffeinate command-line tool\"  \n\tDetails: caffeinate asserting on behalf of Process ID 5116 for 3600 secs\n\tCreated for PID: 5116. \n\tLocalized=THE CAFFEINATE TOOL IS PREVENTING SLEEP.\n\tTimeout will fire in 3413 secs Action=TimeoutActionRelease\n   pid 353(powerd): [0x0000001600018010] 00:12:27 PreventUserIdleSystemSleep named: \"Powerd - Prevent sleep while display is on\"  \n   pid 353(powerd): [0x000001900010829d] 00:00:21 InternalPreventDisplaySleep named: \"com.apple.powermanagement.delayDisplayOff\"  \n\tTimeout will fire in 278 secs Action=TimeoutActionTurnOff\n   pid 6554(spring): [0x000002ed00058640] 00:00:20 PreventUserIdleDisplaySleep named: \"spring using SDL_DisableScreenSaver\"  \n   pid 412(WindowServer): [0x0000001f00098085] 00:03:02 UserIsActive named: \"com.apple.iohideventsystem.queue.tickle serviceID:100000cdc service:AppleMultitouchDevice product:Apple Internal Keyboard / Trackpad eventType:11\"  \n\tTimeout will fire in 418 secs Action=TimeoutActionRelease\nKernel Assertions: 0x100=MAGICWAKE\n   id=556  level=255 0x100=MAGICWAKE creat=  mod= description=en0 owner=IOSkywalkNetworkBSDClient\n",
+      "displayAwakeProtectionPassed": true,
+      "finishedAtUTC": "2026-10-21T02:09:48.264Z"
+    },
+    {
+      "label": "before-benchmark",
+      "atUTC": "2026-10-21T02:10:02.904Z",
+      "passed": true,
+      "battery": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=23134307)\t95%; AC attached; not charging present: true\n",
+      "isLowPowerModeEnabled": true,
+      "thermalState": 0,
+      "awakeAssertions": "2026-10-20 19:10:03 -0700 \nAssertion status system-wide:\n   BackgroundTask                 0\n   ApplePushServiceTask           0\n   UserIsActive                   1\n   PreventUserIdleDisplaySleep    1\n   SoftwareUpdateTask             0\n   PreventSystemSleep             0\n   PreventSystemSleepSecurityIndicator 0\n   ExternalMedia                  0\n   InternalPreventDisplaySleep    1\n   PreventUserIdleSystemSleep     1\n   NetworkClientActive            0\nListed by owning process:\n   pid 777(ChatGPT): [0x000000c2000184fe] 00:09:50 NoIdleSleepAssertion named: \"Electron\"  \n   pid 5134(caffeinate): [0x00000247000185f4] 00:03:22 PreventUserIdleSystemSleep named: \"caffeinate command-line tool\"  \n\tDetails: caffeinate asserting on behalf of Process ID 5116 for 3600 secs\n\tCreated for PID: 5116. \n\tLocalized=THE CAFFEINATE TOOL IS PREVENTING SLEEP.\n\tTimeout will fire in 3398 secs Action=TimeoutActionRelease\n   pid 5134(caffeinate): [0x00000247000585f5] 00:03:22 PreventUserIdleDisplaySleep named: \"caffeinate command-line tool\"  \n\tDetails: caffeinate asserting on behalf of Process ID 5116 for 3600 secs\n\tCreated for PID: 5116. \n\tLocalized=THE CAFFEINATE TOOL IS PREVENTING SLEEP.\n\tTimeout will fire in 3398 secs Action=TimeoutActionRelease\n   pid 5134(caffeinate): [0x00000247000985f6] 00:03:22 UserIsActive named: \"caffeinate command-line tool\"  \n\tDetails: caffeinate asserting on behalf of Process ID 5116 for 3600 secs\n\tCreated for PID: 5116. \n\tLocalized=THE CAFFEINATE TOOL IS PREVENTING SLEEP.\n\tTimeout will fire in 3398 secs Action=TimeoutActionRelease\n   pid 353(powerd): [0x0000001600018010] 00:12:42 PreventUserIdleSystemSleep named: \"Powerd - Prevent sleep while display is on\"  \n   pid 353(powerd): [0x000001900010829d] 00:00:36 InternalPreventDisplaySleep named: \"com.apple.powermanagement.delayDisplayOff\"  \n\tTimeout will fire in 263 secs Action=TimeoutActionTurnOff\n   pid 6554(spring): [0x000002ed00058640] 00:00:35 PreventUserIdleDisplaySleep named: \"spring using SDL_DisableScreenSaver\"  \n   pid 412(WindowServer): [0x0000001f00098085] 00:03:16 UserIsActive named: \"com.apple.iohideventsystem.queue.tickle serviceID:100000cdc service:AppleMultitouchDevice product:Apple Internal Keyboard / Trackpad eventType:11\"  \n\tTimeout will fire in 403 secs Action=TimeoutActionRelease\nKernel Assertions: 0x100=MAGICWAKE\n   id=556  level=255 0x100=MAGICWAKE creat=  mod= description=en0 owner=IOSkywalkNetworkBSDClient\n",
+      "displayAwakeProtectionPassed": true,
+      "finishedAtUTC": "2026-10-21T02:10:03.047Z"
+    },
+    {
+      "label": "periodic",
+      "atUTC": "2026-10-21T02:10:18.842Z",
+      "passed": true,
+      "battery": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=23134307)\t95%; AC attached; not charging present: true\n",
+      "isLowPowerModeEnabled": true,
+      "thermalState": 0,
+      "awakeAssertions": "2026-10-20 19:10:18 -0700 \nAssertion status system-wide:\n   BackgroundTask                 0\n   ApplePushServiceTask           0\n   UserIsActive                   1\n   PreventUserIdleDisplaySleep    1\n   SoftwareUpdateTask             0\n   PreventSystemSleep             0\n   PreventSystemSleepSecurityIndicator 0\n   ExternalMedia                  0\n   InternalPreventDisplaySleep    1\n   PreventUserIdleSystemSleep     1\n   NetworkClientActive            0\nListed by owning process:\n   pid 777(ChatGPT): [0x000000c2000184fe] 00:10:06 NoIdleSleepAssertion named: \"Electron\"  \n   pid 5134(caffeinate): [0x00000247000185f4] 00:03:38 PreventUserIdleSystemSleep named: \"caffeinate command-line tool\"  \n\tDetails: caffeinate asserting on behalf of Process ID 5116 for 3600 secs\n\tCreated for PID: 5116. \n\tLocalized=THE CAFFEINATE TOOL IS PREVENTING SLEEP.\n\tTimeout will fire in 3382 secs Action=TimeoutActionRelease\n   pid 5134(caffeinate): [0x00000247000585f5] 00:03:38 PreventUserIdleDisplaySleep named: \"caffeinate command-line tool\"  \n\tDetails: caffeinate asserting on behalf of Process ID 5116 for 3600 secs\n\tCreated for PID: 5116. \n\tLocalized=THE CAFFEINATE TOOL IS PREVENTING SLEEP.\n\tTimeout will fire in 3382 secs Action=TimeoutActionRelease\n   pid 5134(caffeinate): [0x00000247000985f6] 00:03:38 UserIsActive named: \"caffeinate command-line tool\"  \n\tDetails: caffeinate asserting on behalf of Process ID 5116 for 3600 secs\n\tCreated for PID: 5116. \n\tLocalized=THE CAFFEINATE TOOL IS PREVENTING SLEEP.\n\tTimeout will fire in 3382 secs Action=TimeoutActionRelease\n   pid 353(powerd): [0x0000001600018010] 00:12:58 PreventUserIdleSystemSleep named: \"Powerd - Prevent sleep while display is on\"  \n   pid 353(powerd): [0x000001900010829d] 00:00:52 InternalPreventDisplaySleep named: \"com.apple.powermanagement.delayDisplayOff\"  \n\tTimeout will fire in 247 secs Action=TimeoutActionTurnOff\n   pid 6554(spring): [0x000002ed00058640] 00:00:51 PreventUserIdleDisplaySleep named: \"spring using SDL_DisableScreenSaver\"  \n   pid 412(WindowServer): [0x0000001f00098085] 00:03:32 UserIsActive named: \"com.apple.iohideventsystem.queue.tickle serviceID:100000cdc service:AppleMultitouchDevice product:Apple Internal Keyboard / Trackpad eventType:11\"  \n\tTimeout will fire in 387 secs Action=TimeoutActionRelease\nKernel Assertions: 0x100=MAGICWAKE\n   id=556  level=255 0x100=MAGICWAKE creat=  mod= description=en0 owner=IOSkywalkNetworkBSDClient\n",
+      "displayAwakeProtectionPassed": true,
+      "finishedAtUTC": "2026-10-21T02:10:18.988Z"
+    },
+    {
+      "label": "periodic",
+      "atUTC": "2026-10-21T02:10:34.452Z",
+      "passed": true,
+      "battery": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=23134307)\t95%; AC attached; not charging present: true\n",
+      "isLowPowerModeEnabled": true,
+      "thermalState": 0,
+      "awakeAssertions": "2026-10-20 19:10:34 -0700 \nAssertion status system-wide:\n   BackgroundTask                 0\n   ApplePushServiceTask           0\n   UserIsActive                   1\n   PreventUserIdleDisplaySleep    1\n   SoftwareUpdateTask             0\n   PreventSystemSleep             0\n   PreventSystemSleepSecurityIndicator 0\n   ExternalMedia                  0\n   InternalPreventDisplaySleep    1\n   PreventUserIdleSystemSleep     1\n   NetworkClientActive            0\nListed by owning process:\n   pid 777(ChatGPT): [0x000000c2000184fe] 00:10:22 NoIdleSleepAssertion named: \"Electron\"  \n   pid 5134(caffeinate): [0x00000247000185f4] 00:03:53 PreventUserIdleSystemSleep named: \"caffeinate command-line tool\"  \n\tDetails: caffeinate asserting on behalf of Process ID 5116 for 3600 secs\n\tCreated for PID: 5116. \n\tLocalized=THE CAFFEINATE TOOL IS PREVENTING SLEEP.\n\tTimeout will fire in 3366 secs Action=TimeoutActionRelease\n   pid 5134(caffeinate): [0x00000247000585f5] 00:03:53 PreventUserIdleDisplaySleep named: \"caffeinate command-line tool\"  \n\tDetails: caffeinate asserting on behalf of Process ID 5116 for 3600 secs\n\tCreated for PID: 5116. \n\tLocalized=THE CAFFEINATE TOOL IS PREVENTING SLEEP.\n\tTimeout will fire in 3366 secs Action=TimeoutActionRelease\n   pid 5134(caffeinate): [0x00000247000985f6] 00:03:53 UserIsActive named: \"caffeinate command-line tool\"  \n\tDetails: caffeinate asserting on behalf of Process ID 5116 for 3600 secs\n\tCreated for PID: 5116. \n\tLocalized=THE CAFFEINATE TOOL IS PREVENTING SLEEP.\n\tTimeout will fire in 3366 secs Action=TimeoutActionRelease\n   pid 405(bluetoothd): [0x0000032f0001865d] 00:00:01 PreventUserIdleSystemSleep named: \"com.apple.bluetooth.LeObserver.ScanningAssertion\"  \n   pid 353(powerd): [0x0000001600018010] 00:13:14 PreventUserIdleSystemSleep named: \"Powerd - Prevent sleep while display is on\"  \n   pid 353(powerd): [0x000001900010829d] 00:01:08 InternalPreventDisplaySleep named: \"com.apple.powermanagement.delayDisplayOff\"  \n\tTimeout will fire in 232 secs Action=TimeoutActionTurnOff\n   pid 6554(spring): [0x000002ed00058640] 00:01:07 PreventUserIdleDisplaySleep named: \"spring using SDL_DisableScreenSaver\"  \n   pid 412(WindowServer): [0x0000001f00098085] 00:03:48 UserIsActive named: \"com.apple.iohideventsystem.queue.tickle serviceID:100000cdc service:AppleMultitouchDevice product:Apple Internal Keyboard / Trackpad eventType:11\"  \n\tTimeout will fire in 371 secs Action=TimeoutActionRelease\nKernel Assertions: 0x100=MAGICWAKE\n   id=556  level=255 0x100=MAGICWAKE creat=  mod= description=en0 owner=IOSkywalkNetworkBSDClient\n",
+      "displayAwakeProtectionPassed": true,
+      "finishedAtUTC": "2026-10-21T02:10:34.653Z"
+    },
+    {
+      "label": "after-benchmark",
+      "atUTC": "2026-10-21T02:10:35.930Z",
+      "passed": true,
+      "battery": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=23134307)\t95%; AC attached; not charging present: true\n",
+      "isLowPowerModeEnabled": true,
+      "thermalState": 0,
+      "awakeAssertions": "2026-10-20 19:10:36 -0700 \nAssertion status system-wide:\n   BackgroundTask                 0\n   ApplePushServiceTask           0\n   UserIsActive                   1\n   PreventUserIdleDisplaySleep    1\n   SoftwareUpdateTask             0\n   PreventSystemSleep             0\n   PreventSystemSleepSecurityIndicator 0\n   ExternalMedia                  0\n   InternalPreventDisplaySleep    1\n   PreventUserIdleSystemSleep     1\n   NetworkClientActive            0\nListed by owning process:\n   pid 777(ChatGPT): [0x000000c2000184fe] 00:10:23 NoIdleSleepAssertion named: \"Electron\"  \n   pid 5134(caffeinate): [0x00000247000185f4] 00:03:55 PreventUserIdleSystemSleep named: \"caffeinate command-line tool\"  \n\tDetails: caffeinate asserting on behalf of Process ID 5116 for 3600 secs\n\tCreated for PID: 5116. \n\tLocalized=THE CAFFEINATE TOOL IS PREVENTING SLEEP.\n\tTimeout will fire in 3365 secs Action=TimeoutActionRelease\n   pid 5134(caffeinate): [0x00000247000585f5] 00:03:55 PreventUserIdleDisplaySleep named: \"caffeinate command-line tool\"  \n\tDetails: caffeinate asserting on behalf of Process ID 5116 for 3600 secs\n\tCreated for PID: 5116. \n\tLocalized=THE CAFFEINATE TOOL IS PREVENTING SLEEP.\n\tTimeout will fire in 3365 secs Action=TimeoutActionRelease\n   pid 5134(caffeinate): [0x00000247000985f6] 00:03:55 UserIsActive named: \"caffeinate command-line tool\"  \n\tDetails: caffeinate asserting on behalf of Process ID 5116 for 3600 secs\n\tCreated for PID: 5116. \n\tLocalized=THE CAFFEINATE TOOL IS PREVENTING SLEEP.\n\tTimeout will fire in 3365 secs Action=TimeoutActionRelease\n   pid 353(powerd): [0x0000001600018010] 00:13:15 PreventUserIdleSystemSleep named: \"Powerd - Prevent sleep while display is on\"  \n   pid 353(powerd): [0x000001900010829d] 00:01:09 InternalPreventDisplaySleep named: \"com.apple.powermanagement.delayDisplayOff\"  \n\tTimeout will fire in 230 secs Action=TimeoutActionTurnOff\n   pid 6554(spring): [0x000002ed00058640] 00:01:08 PreventUserIdleDisplaySleep named: \"spring using SDL_DisableScreenSaver\"  \n   pid 412(WindowServer): [0x0000001f00098085] 00:03:50 UserIsActive named: \"com.apple.iohideventsystem.queue.tickle serviceID:100000cdc service:AppleMultitouchDevice product:Apple Internal Keyboard / Trackpad eventType:11\"  \n\tTimeout will fire in 370 secs Action=TimeoutActionRelease\nKernel Assertions: 0x100=MAGICWAKE\n   id=556  level=255 0x100=MAGICWAKE creat=  mod= description=en0 owner=IOSkywalkNetworkBSDClient\n",
+      "displayAwakeProtectionPassed": true,
+      "finishedAtUTC": "2026-10-21T02:10:36.136Z"
+    },
+    {
+      "label": "post-exit",
+      "atUTC": "2026-10-21T02:10:45.467Z",
+      "passed": true,
+      "battery": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=23134307)\t95%; AC attached; not charging present: true\n",
+      "isLowPowerModeEnabled": true,
+      "thermalState": 0,
+      "awakeAssertions": "2026-10-20 19:10:45 -0700 \nAssertion status system-wide:\n   BackgroundTask                 0\n   ApplePushServiceTask           0\n   UserIsActive                   1\n   PreventUserIdleDisplaySleep    1\n   SoftwareUpdateTask             0\n   PreventSystemSleep             0\n   PreventSystemSleepSecurityIndicator 0\n   ExternalMedia                  0\n   InternalPreventDisplaySleep    1\n   PreventUserIdleSystemSleep     1\n   NetworkClientActive            0\nListed by owning process:\n   pid 777(ChatGPT): [0x000000c2000184fe] 00:10:33 NoIdleSleepAssertion named: \"Electron\"  \n   pid 5134(caffeinate): [0x00000247000185f4] 00:04:04 PreventUserIdleSystemSleep named: \"caffeinate command-line tool\"  \n\tDetails: caffeinate asserting on behalf of Process ID 5116 for 3600 secs\n\tCreated for PID: 5116. \n\tLocalized=THE CAFFEINATE TOOL IS PREVENTING SLEEP.\n\tTimeout will fire in 3355 secs Action=TimeoutActionRelease\n   pid 5134(caffeinate): [0x00000247000585f5] 00:04:04 PreventUserIdleDisplaySleep named: \"caffeinate command-line tool\"  \n\tDetails: caffeinate asserting on behalf of Process ID 5116 for 3600 secs\n\tCreated for PID: 5116. \n\tLocalized=THE CAFFEINATE TOOL IS PREVENTING SLEEP.\n\tTimeout will fire in 3355 secs Action=TimeoutActionRelease\n   pid 5134(caffeinate): [0x00000247000985f6] 00:04:04 UserIsActive named: \"caffeinate command-line tool\"  \n\tDetails: caffeinate asserting on behalf of Process ID 5116 for 3600 secs\n\tCreated for PID: 5116. \n\tLocalized=THE CAFFEINATE TOOL IS PREVENTING SLEEP.\n\tTimeout will fire in 3355 secs Action=TimeoutActionRelease\n   pid 353(powerd): [0x0000001600018010] 00:13:25 PreventUserIdleSystemSleep named: \"Powerd - Prevent sleep while display is on\"  \n   pid 353(powerd): [0x000001900010829d] 00:00:07 InternalPreventDisplaySleep named: \"com.apple.powermanagement.delayDisplayOff\"  \n\tTimeout will fire in 293 secs Action=TimeoutActionTurnOff\n   pid 412(WindowServer): [0x0000001f00098085] 00:03:59 UserIsActive named: \"com.apple.iohideventsystem.queue.tickle serviceID:100000cdc service:AppleMultitouchDevice product:Apple Internal Keyboard / Trackpad eventType:11\"  \n\tTimeout will fire in 360 secs Action=TimeoutActionRelease\nKernel Assertions: 0x100=MAGICWAKE\n   id=556  level=255 0x100=MAGICWAKE creat=  mod= description=en0 owner=IOSkywalkNetworkBSDClient\n",
+      "displayAwakeProtectionPassed": true,
+      "finishedAtUTC": "2026-10-21T02:10:45.614Z"
+    }
+  ],
+  "lane": "lobby",
+  "cacheMode": "single",
+  "maximumTotalAttempts": 1,
+  "sessionOrdinal": 1,
+  "planSha256": "0a33937c05d58b58ca7213e77f92a782f9ce609db0401c7bb09446876d581c6e",
+  "startedAt": "2026-10-21T02:08:52.960Z",
+  "privateLobbyWindowSettings": {
+    "fullscreenBefore": true,
+    "fullscreenAfter": false,
+    "appliedBeforeAppLaunch": true,
+    "foregroundAllowed": false
+  },
+  "cache": {
+    "directory": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-remaining-c-cost-design-20261020/2-candidate-metal3/sessions/lobby-no-native-hook-1792548532959/state/data/cache/metal3/mesa_shader_cache",
+    "mode": "cold",
+    "before": {
+      "entries": [],
+      "bytes": 0,
+      "digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "after": {
+      "entries": [
+        {
+          "relative": "00/1a6d5f4bc0ef51f060145404fceb156bf796d02be055d6225b7ac1ac74d9fd",
+          "bytes": 1333,
+          "sha256": "ce9aed7bb1ac5728f97f1f7d28dcff1f294bfd248b33d191e4a8a62220c577a4"
+        },
+        {
+          "relative": "00/94722dcb8eace655fada39ebb84c3a335f626003484ccd1f6287f7ad4aa041",
+          "bytes": 5774,
+          "sha256": "3a8929d5ec5d245e538cfabd29481e018f9a1e0488d206c8f42aa5bfcb622333"
+        },
+        {
+          "relative": "00/9c08aed0529696f75584f9a27e4401b1fe47ac51fbe635b952f0259b38d312",
+          "bytes": 1896,
+          "sha256": "2e752dd773ea8ac5cc464ffc2659f5f95764d64698c85bbbce73de197a07bcd7"
+        },
+        {
+          "relative": "03/32dcb0c1bed8a9958d2b148a4c020036e58ab1675c5c218ddc5e12c21ccbd1",
+          "bytes": 1456,
+          "sha256": "3649234ebd6ddf02ae3e47ca1481239fd81ce883b4ae2b00613edac0880788a6"
+        },
+        {
+          "relative": "04/ddcc0a981b167ab68569d42ae4de2b6507da11307170318fe61695b9fd7fd5",
+          "bytes": 1465,
+          "sha256": "3bd5e7d00a585957b7c8b24e818e1b369bf3a233b6869afadb746918a4ac7105"
+        },
+        {
+          "relative": "05/523df7c6df088e9277e32a271298e08e9b4adc5faebc46e836b65e437b7a97",
+          "bytes": 850,
+          "sha256": "c5d0234c427937e88ba8b2b37d9580da0d0bb092b05de86671b1dd446c66a641"
+        },
+        {
+          "relative": "05/dea6d88b22f0f899b3a27e9e1dbc2b8bbf30900f1fe5ee72b8abf9b48301bf",
+          "bytes": 1592,
+          "sha256": "397c7d0d13bd0f73e3ea8a037cfdb485a7670c3789c11231f48c9ca95372343a"
+        },
+        {
+          "relative": "06/58305a08fc85989ff92ba711f5b9b040ad4927b05581a7cdc886375b8cb769",
+          "bytes": 17326,
+          "sha256": "9e940ef45a7005c2f859b5b02130c67a178e673c6d737a1807c9d3614edb18ab"
+        },
+        {
+          "relative": "07/7d280ecb8738589116f4a99f107f0d627535a1ef3becbf6ae67e7a65b62555",
+          "bytes": 2653,
+          "sha256": "395091e20b1470e957b24fc020e80e6159bb29b5534d0dee11dc57a6c4caff0a"
+        },
+        {
+          "relative": "08/992e415d2b5552899f34a6252fa67f4a897e9efabdcab178227a8b536b2706",
+          "bytes": 1621,
+          "sha256": "0a34732240b392c1ae1ad619bde5c96468463626ee52c9755ba9013889722159"
+        },
+        {
+          "relative": "08/c3d30b59a45d5eac1eebeb4566b826ef2f24af17cc1784f45b876793dda330",
+          "bytes": 2867,
+          "sha256": "b531e574ca4ef793556b4c942779298ba78be8ffa318739b718f40982eb72b86"
+        },
+        {
+          "relative": "09/01fcf4fa9ef09f34a7eac96aa3dd828557ab760320d6faa612cd4edc348f79",
+          "bytes": 1992,
+          "sha256": "0e5713beff907689b29035f6d8c8c9004b68954a33fe3903f072c48481988162"
+        },
+        {
+          "relative": "09/580be5f6e418c25b3fb978dab1ff34497c53b3c2568b562961b20092ace66f",
+          "bytes": 2425,
+          "sha256": "fb6a82c67f77a3d76b3e22441bf090e7f004d7e3e2fa47de695ea6048e0500e3"
+        },
+        {
+          "relative": "09/dff921e3ed3135337a8ee3aea0240694f5bd414549dfb06fd5def027a6d85d",
+          "bytes": 2398,
+          "sha256": "b1a7e027f295f4d5930888ff984f54c0d0ffb2279f0c745277df4795328bf5c1"
+        },
+        {
+          "relative": "0a/afbdc1780d2510cf031327d4a0723617e92de1b3fd00b62ea0cbc87bba2023",
+          "bytes": 945,
+          "sha256": "715963437284bf51e88bc9132ff3b2a71c673574b7521f23f51bc4b3798ee87c"
+        },
+        {
+          "relative": "0c/907d5368d12603c3e7761500ddcc38d74038da17666a391ef97f9cf8b0ed0f",
+          "bytes": 23753,
+          "sha256": "d16875da58e4533c017905a84951dabe0f6a98d311e919308ccae54eefb51c1e"
+        },
+        {
+          "relative": "0e/92f435ce3a15527d9a9de74db3dab4616f24e5fd06ca8f0848985447698025",
+          "bytes": 2834,
+          "sha256": "3c18777eb852c1d6cb5d860c6a350f03729a79f4ab8f0d8c8ac5585497b7cc2e"
+        },
+        {
+          "relative": "0f/0288879d014dc6848152554714b57e80768d583ae51b48bc5ece02c5f5c4f9",
+          "bytes": 1504,
+          "sha256": "8dafba3241ccd27342f4cfa97f2054f40406db1f5f754aa9665205137dbf668c"
+        },
+        {
+          "relative": "0f/8d97b8aba3e3098be3eaac5ca256b4b78044877040cc9a1dd751584f96a8b9",
+          "bytes": 2388,
+          "sha256": "adf7fca0c53b302fd2075f9089544c42317e9c00b5bbc32ebd01326fe4b7d3a3"
+        },
+        {
+          "relative": "0f/8f3c7ab0a70dfe492f57d514b5e4f9ac7e25d98bbee2a6b7747a1684c4244e",
+          "bytes": 902,
+          "sha256": "93dd26742d82b18a920265e495a7b487aa445c678e8abd3f9e113efcdf4fc0b4"
+        },
+        {
+          "relative": "10/75f8a84d62955b77466701e40eedf2b54c8e165473c3d29021875b7e4ba4ce",
+          "bytes": 3923,
+          "sha256": "fa9f2556ef49abf574027cddfc3d6fa63de5cbe70703c0a1e7f78d83faa3fa26"
+        },
+        {
+          "relative": "10/81c3c75b8bba88a120356330e3f4f201efc6bb90339f4f80f966bfce363cc4",
+          "bytes": 4071,
+          "sha256": "02fad20f280ffb128e5ef766378f14338673e3a2b502fddb410ce565b52768fb"
+        },
+        {
+          "relative": "10/95abd2c61c4db9b190ee946dc09e83444d56e07f3bddf597379bc195fecbae",
+          "bytes": 10265,
+          "sha256": "1f32e6d8d8945afd075ec45e4d68d442f09f450949a4edc8c6f1c899407cf965"
+        },
+        {
+          "relative": "10/a4c2cb845fd1e71758eb8ebcdce422a2d022128be8fe67d43e05b280fba425",
+          "bytes": 852,
+          "sha256": "c257273d4c438a60c9595e69438d8289e828ab63e005acf77de1d3660c5b595c"
+        },
+        {
+          "relative": "10/bb90c1657dd99a9b34b57583bd9fef4a79c73674e5b27c76e4633d758466d7",
+          "bytes": 2359,
+          "sha256": "d7e1edeee84db160ed84edac5017018284388ad23576a3ecd6288a0eab6aeeaf"
+        },
+        {
+          "relative": "11/b6aeaa543d0c18d3d5e2f50d6e9575db58a76ca4c06d13a1f3899009af32c4",
+          "bytes": 8914,
+          "sha256": "59cd4044bedff9fc15667ac36072fe1ac10a546634f949e606f8d0a3952a3489"
+        },
+        {
+          "relative": "12/52df86236092db28a0e8629e5e017984986a2d5f5f6f19e0b7db1d051a46b8",
+          "bytes": 18051,
+          "sha256": "770ba110e6125cd4b87c7c5ce0abf218d65442cab2909f883efa38efda9bb092"
+        },
+        {
+          "relative": "12/828b567339d89ecede27853bea1f76e0f04c1e5f013a0fc62be4bfa518063b",
+          "bytes": 6940,
+          "sha256": "6728d2854475a40556751b1b4747b05db339793a0805dcfdcf66c9c8e0ce0a04"
+        },
+        {
+          "relative": "14/1251dfeec3b375ca439c7d6ce98b4bc443fee57429a23297b450256ff4317e",
+          "bytes": 4448,
+          "sha256": "5800438a99a0bda60011e069d0c49f4c8c86e8e28355c5948b6d3c41db4fcb10"
+        },
+        {
+          "relative": "19/ccb36e115758d90de76af413fdae1a8eedccbf51781c0886b15e3e6be919c1",
+          "bytes": 2315,
+          "sha256": "70f70a13abf0140fe8067f710e28eaec572e4ebad55995a4d359c928f370c453"
+        },
+        {
+          "relative": "1a/0ab9102276c370f21486836213890075521c6f16fd8032a494b0c0898a1213",
+          "bytes": 2154,
+          "sha256": "8a3fd5bd3d69b9b5017eaf5a2156f499e8313530ccd0c09f5114fb12157817dc"
+        },
+        {
+          "relative": "1a/74062b26d41d3bc8df4acb504c193d99116febb543d7b062f27b28f6948c58",
+          "bytes": 1380,
+          "sha256": "be81e664af8fac928b723f5481789ba39e96e2e27ec0ca2d564ed5702554114a"
+        },
+        {
+          "relative": "1a/9c84e42761e499b543b9c0251a6d83fa7ad39ab615f94de4f62be6c5879ae9",
+          "bytes": 2429,
+          "sha256": "516084fb964b5a07dd536aed10a9ce7fb308c6fcdaaba9831f16d3a5a7eed450"
+        },
+        {
+          "relative": "1a/af3965650234e76471d0fc08e8fa5fa38bbe208f347d1d32b30585f8ef686d",
+          "bytes": 23754,
+          "sha256": "c648b1d6511d268649b038d17a87becf9f9517632d7a693d6fc23825e8834df5"
+        },
+        {
+          "relative": "1a/e33bd8632cc4fcaef1ecf186baecd0bee39060dcbd59fb8a88dd096c56f430",
+          "bytes": 17439,
+          "sha256": "d0b68f7ccfffb4a524e6739d32b9292a7eb3cdb3ae79b589374e517fe0613cc2"
+        },
+        {
+          "relative": "1b/dd57fa17ac048aaf6618e80652d760dc7913b5fea4d435024568d993dbfe75",
+          "bytes": 1322,
+          "sha256": "81d974245a8a3d6e96736d1367fe17f56691a40d12ffbd2869e23ce100c7ea66"
+        },
+        {
+          "relative": "1d/b480878012dff7c3f8108749f617d1c9faeeb9e267b03b48fbae0a357a3a6b",
+          "bytes": 7534,
+          "sha256": "b9cbdddb16ffd7d9991ffddb8136cc64f7ab1decd37150de2764d5812814f52a"
+        },
+        {
+          "relative": "1f/4efe44a47e6b9d75c8370e435f4785f3ffae6f26a067c18167f76b7f60865a",
+          "bytes": 3252,
+          "sha256": "c4b8a6ec08dadcab40d1ff8f819d63354aa768d5b87636d61eff83f0c294b523"
+        },
+        {
+          "relative": "21/42547ccea26b85a5957506744fc3b8b87dd57e41e5fb57f75c2d1a9e65a3c0",
+          "bytes": 2063,
+          "sha256": "1f0711f2c488478c135d84198c205def25f5031b1759df5330da10ca11d4fc81"
+        },
+        {
+          "relative": "23/85325fb4c28b52c909f318bee86764f492fdf37fea44e0d42730b5c466bd2b",
+          "bytes": 11316,
+          "sha256": "ee1b1281072b30e5fda228c0148262a6a477323e35051f90a9305994797d6cf3"
+        },
+        {
+          "relative": "23/b9f6338a68a602459a9ec4edacdb08ecb75521ad20bd80c5055ea1e6220dd7",
+          "bytes": 4416,
+          "sha256": "e3e4837119f83ca1f008443d62648a82fa3055351aba572e7c66aa7e8054c7af"
+        },
+        {
+          "relative": "24/5ed4ac956485619558add3729d39ab08de7773fc91143ea3ffc9f74ac4c1e8",
+          "bytes": 3980,
+          "sha256": "1ee65c21ba607748a2883fbf9a8829935370be13ba1bcea2e3b75ba0a5e296c9"
+        },
+        {
+          "relative": "25/6a3d0dec4bffc163834e3b33faa332eaea7b386964560d65d744a1f34456b3",
+          "bytes": 5847,
+          "sha256": "cc525bf0ba8266c9bfdddb483cd4c39da351f05275fc84259a7f44aac155c4ba"
+        },
+        {
+          "relative": "25/8c2e9df8e48bda14a82367ec5c48e139d6d4435599645a7e8beec32639d6c7",
+          "bytes": 1872,
+          "sha256": "640c0979e75e0bb42af80615cfbae608bef8fd640dea0162de02f95c938c9c6b"
+        },
+        {
+          "relative": "25/b08359d62058fa2eb576f4abd2d173447324aa76cc44cbbf34c8fae0301bb1",
+          "bytes": 9753,
+          "sha256": "06d82aef2b03f612c5d7820d76be8454cd412ac8094399609e7adf9db52bbf57"
+        },
+        {
+          "relative": "27/1da90b9923f30181f93a4d4e3b3770532df3dcb8962df17ec34da6da1ebdac",
+          "bytes": 14472,
+          "sha256": "ef2abc01db55b4015b5bdaeb039df1f6cf66743bf34cb10c87213faef12cf46e"
+        },
+        {
+          "relative": "28/0c209d1967dea2b54e42a6b3d770b6353c45df76fe548a66555ff9058cce05",
+          "bytes": 16927,
+          "sha256": "ec029a268bc03b03af0188179758bbee982aed5f90685f9004b3d2c569f1a6ed"
+        },
+        {
+          "relative": "28/ab92ce4ae69a31fcc67f581313b775003f3d6273466750dd9f1d8bc7b9bf64",
+          "bytes": 8594,
+          "sha256": "219dd6b5d9e7414ef2d87ec3be407071bf103e28184156ac5c6bdd3f8ae75bc6"
+        },
+        {
+          "relative": "29/51e92fdcd48f4a1ea9464b185c2ce6e7b5f394b47c507723c543144b61475f",
+          "bytes": 1088,
+          "sha256": "e9ff896f6e4d6005bea0d3bdf428e585769424a225ce4431c9f8496d94ae1d5c"
+        },
+        {
+          "relative": "29/633227463504016e0f7238ae87686deb5349fc9c00bb24876a2971fd884d8d",
+          "bytes": 1408,
+          "sha256": "2dbc61e8678d6f60cc71740392c8a0c18e09b21ff48826477042ced3ceee5828"
+        },
+        {
+          "relative": "29/eed3f6eabb41ec66791b043b562e9e439e9827c48fd47bcd30542d3356179d",
+          "bytes": 6753,
+          "sha256": "0dd16300bc4752e74f09f7b67792b6e49e42ca665cfd254525e91743e3ba325e"
+        },
+        {
+          "relative": "2b/53517ba3597b54345224a5befb257137360e00b77c3438dbc02eae36e79ffb",
+          "bytes": 2279,
+          "sha256": "d93c413ff13d8fc20f050da1e2c2e215444518c4eac8e43a94c0c3ca80f359b3"
+        },
+        {
+          "relative": "2b/604ee70a06d4503bcd4afc540d7f7b7b8259186769498a843419539c8d2e16",
+          "bytes": 4580,
+          "sha256": "1587d4e0b1079c41c3e052acec3ac485fe52d7aa0d3d3c579c6f722583511788"
+        },
+        {
+          "relative": "2b/7d650b7473abcb996bf3af73bc981eff2cce74bc62d46425bc37aac02f4468",
+          "bytes": 1177,
+          "sha256": "78dba19ae953d4051fc99243c8a6fa7fd2eff6b99935fd0981c2422de9d85ffd"
+        },
+        {
+          "relative": "2c/8e73d202b644d5dd3dbcbb01bb18a9dd617a0dcda97f9f4247865e35ea7f92",
+          "bytes": 3607,
+          "sha256": "c08456211ac52c814e68a3d59a9e1c965005bfd360ecdb61dedaa54702ff8021"
+        },
+        {
+          "relative": "2d/4d1afe47b9db39b1b44bbf1b14d917049b66b88a3267160551f2cad12ce33e",
+          "bytes": 3540,
+          "sha256": "a5cca0934ff37c201fa95f559e0724358b067c14c40298f17f8ea75fa488bd35"
+        },
+        {
+          "relative": "2d/696a86bf51477bd4adf04f3eac140d44bcef56cce59ef6676d56d0da6ca4ae",
+          "bytes": 4078,
+          "sha256": "e045722354e1ac1d01444a7374017271967d0144fcbe06ad7023bc712270583c"
+        },
+        {
+          "relative": "2e/7d47815fa6af17add543939c0dcf59ae8d9f872585d1352bbb1299889b1b0b",
+          "bytes": 3718,
+          "sha256": "544eae94ddfc95d8b5aaa3cd3b16c6c4716096e29660b8d9e1a940ae969cacd6"
+        },
+        {
+          "relative": "2e/a7e8eb163e3eb1ef521b71ca06a628cda8f7d3e84cd5a327cc2e83de215ca6",
+          "bytes": 1557,
+          "sha256": "edde6c98e9d0ad81e9f53eb910580d7536cc257feb8ef6d48623c1aa3d73ae33"
+        },
+        {
+          "relative": "2f/2e8e0c1cce8ffed6420ec18fe634b6f72187ae358a1345c4afb5f08b4ec691",
+          "bytes": 764,
+          "sha256": "7085264ff7f60cde8ca3e0e8e04541104c58dd29afa57044ac9a9e4252dec78c"
+        },
+        {
+          "relative": "2f/5d99070b06b1cf1b66cda4d0a3cc2914d4e5f9e462f461c013264e0248f72e",
+          "bytes": 1910,
+          "sha256": "0e33f922e6b5f4310a80c7035f082f7d426df02f4b143a4ee68bf92eeecabb95"
+        },
+        {
+          "relative": "2f/70c8cfcaa4cce3cd33ba345d7d8eb9819a8a2c685afbd3888f7970d0ad9bb3",
+          "bytes": 1141,
+          "sha256": "6d5100b39952d3884bc4cf98e8285f598ad782345646a6aaf38f277661b28254"
+        },
+        {
+          "relative": "30/242b373b564fb2c9280ff97c98b287071932d376f4baaee562cf21e14243f4",
+          "bytes": 11216,
+          "sha256": "01180a972aac283a08c15f34d2596aa4385a668f99294dadb4389c960cd6a570"
+        },
+        {
+          "relative": "30/b3ee9b1cec9a8f9eec680deac425e675e6e526b6fa2c752cc7c3253e824aa9",
+          "bytes": 3395,
+          "sha256": "158a3e044605283334c1c725eb8486052827f2634eec830cb7ab6ecd9caca887"
+        },
+        {
+          "relative": "31/3d52afd67ec879ecf041e89911077541166808ef62cb5acbc37d98596cb168",
+          "bytes": 5084,
+          "sha256": "3eacc41c0bb5b095b62065916c61566dc8ffb3035ba2855f0ad835d9476ddd69"
+        },
+        {
+          "relative": "32/37eaad3dc962d53b242d1e863e1d00081efb83ff97771568964d1761b38782",
+          "bytes": 1094,
+          "sha256": "6534b5eb50fb51d272c3400245ae7c299c58aa2ae06eb44e8190c570db54870a"
+        },
+        {
+          "relative": "33/1022b3bb1f55cc57072514deee3f75bcc8588e990a0378d57191bfd288972d",
+          "bytes": 6454,
+          "sha256": "b25a4c1c8374dd78c52aec98c9af0807393a2abf24029d7d416fb2214e2b8625"
+        },
+        {
+          "relative": "33/f8cdf7d29ca51bdbda763d32fbe4349207fef1abb764a6058e89839a09a36c",
+          "bytes": 6071,
+          "sha256": "6dd175e31336c730509c39a57c4643142e56a0736fe038ad9746960d84dfe377"
+        },
+        {
+          "relative": "34/1b47c59429980ab85dab0faa207413342f23b60b3bbe21e7117ce45f4c2968",
+          "bytes": 1042,
+          "sha256": "25780bd1a0f36e4d85a935283ee497c9014d88dc02e38bab2b3643f21a926794"
+        },
+        {
+          "relative": "34/d6d845b2dca0ecbeeb48f0cfd94d00371d39fd9e574b9e579a75d937bc9de9",
+          "bytes": 1453,
+          "sha256": "a81bf2acca5c7c57f8b505f6b18beba91cb59da186fbfa3769b7542e33b9d5fc"
+        },
+        {
+          "relative": "35/f8658846666ed35854009060883fcbb19048a61b59950e0152a7323f8e3111",
+          "bytes": 3730,
+          "sha256": "1afa8c799578ad836fefd0b3f47f626c1293eeda84cdfe11a2dccd863dd66ea2"
+        },
+        {
+          "relative": "37/7b8a3cb6328b655d706bc1db3708661eb08da20d6d3260330c98d437179164",
+          "bytes": 1301,
+          "sha256": "e93449f2c22115288c7562128d9624c943e6bdeab24b765c3b57e362a978a811"
+        },
+        {
+          "relative": "38/435a5f272ac81687061867fc3271e97c16d0368b50e6d498351710cf654815",
+          "bytes": 2709,
+          "sha256": "820d71a62d3aa20b898cd24ea1bfe11322e4ca0acf322ba4a21da00c87292da5"
+        },
+        {
+          "relative": "38/5634ffed92ffd200cfadf957a0de9309e8916b11045dfd18d9964b3eb2d67d",
+          "bytes": 5235,
+          "sha256": "86d5cfcfa0b3a9a3d75b9272d960b833621e9286d5123606a21a3fd9c9c76158"
+        },
+        {
+          "relative": "39/5ec52c0a5cf1c5fa25e3c266afe757ec05115d2610c0cfdce2c3f4d591e0ae",
+          "bytes": 5280,
+          "sha256": "0dd921a16e447ed70f96ce79699b68c21d569f1d27793236810402c6fc5cfaac"
+        },
+        {
+          "relative": "3a/102c328effa96f8616cfcb0db27cd6931d2e55fe2b49ce1ae926ced556763c",
+          "bytes": 1454,
+          "sha256": "3146e773b35de2058c3aa34502a9a45799efbeb372aa20c5849e1ce2f69a88b0"
+        },
+        {
+          "relative": "3b/2ea687110aa5af6027fea12b7f61ec329fcc86df1e8b0b5a819093bd365b6b",
+          "bytes": 10787,
+          "sha256": "861ef65d8e399117f4be868896e779413c180582dfb492436657ea66b50f7d0e"
+        },
+        {
+          "relative": "3e/67f60f0d74db7f9fdd31aca2a67e51b51af25347535140916b219f575923b1",
+          "bytes": 2707,
+          "sha256": "7e2be22e91a48899019c4d886f20a4a5551ee566262f54746ebd78d454568c75"
+        },
+        {
+          "relative": "3e/805555913310408c4eb6d9dab2f013fa36ecbb14fa2c4938cbedd3d53593f0",
+          "bytes": 1567,
+          "sha256": "8f02a7b6a2c7a22bea529bce8b9705e1f913b3c7a8d8f70b6b2d17b114fdae96"
+        },
+        {
+          "relative": "3e/92ac577c6a18013049810b4659881c2ca0161357e6200321dce9030fdae742",
+          "bytes": 16836,
+          "sha256": "759f288810d1b2e42965eb51d436e23cb161796e0f6f2799ec9f68d2e415bd9b"
+        },
+        {
+          "relative": "3e/a79c59f8e4b3be96d6c0247662a3256cb6064a806bf0b884b94f16b5d0cd3b",
+          "bytes": 3745,
+          "sha256": "9b4f359b5bbe10a1fdf05115e920c711676efe496fbf226c9145ed13b9dabddc"
+        },
+        {
+          "relative": "3f/580cdc2fd302425e8087d19077137d9aba242747444f40d8d3096984b26134",
+          "bytes": 8026,
+          "sha256": "344edef190f4829b395528b4c23ed3e91125622905d1af735b480e0b091f888c"
+        },
+        {
+          "relative": "3f/f3104bede5eff3a840c5008eb4ef9d8be1f38b2fd38a7b94ec940f6c81101c",
+          "bytes": 942,
+          "sha256": "5de59e2758180bb7b953cb04c2cc2b75dcd44ce505cbd23882f53705496e890a"
+        },
+        {
+          "relative": "40/a665a616768f6e548e3e893951b51b97166b0295e0fa2428165a702726c711",
+          "bytes": 28551,
+          "sha256": "279a1725a03b784d1bdc1957f2b9570d3ddd9441fa901fcda006062f2af347df"
+        },
+        {
+          "relative": "43/9a69fcdbf06afd35c72ec60d396c3cf7ad8632b74c7241c045e268d9fb4309",
+          "bytes": 9467,
+          "sha256": "f131edfcb02ae02f0c1c3891b5dd559045449c56402aac31d6c82761eba295ca"
+        },
+        {
+          "relative": "44/245f74b5877cd7d2aa93d600998ee3deccf359133a7f6aea11d55b63d45bc7",
+          "bytes": 8484,
+          "sha256": "12bc0a5e14eeb1c686e838c3e81ed1fcfae8f9c71966f1b9df9bf6a197e39a4d"
+        },
+        {
+          "relative": "46/c02acabb15b35f32c661c7c4153cd8f95cb15c4b96f4db9a063eddd37e420c",
+          "bytes": 1381,
+          "sha256": "abbdc5f13614b7e726cc43c94b60d1f041615541f146443a494c90f7ac6e5a3a"
+        },
+        {
+          "relative": "47/63657a81b07c2c237815ab1d1601082bd7eb256f22fda958fac11f2b845ba7",
+          "bytes": 14480,
+          "sha256": "b6a039c32eb82981f3b01510a22233cdcb24e9800e7d82b32684e6ae0fb21764"
+        },
+        {
+          "relative": "47/ae60c0866754ef1e12545182127056a1ccd8adfe2ddddcaad96a4f671c5f79",
+          "bytes": 1809,
+          "sha256": "22e61ad0cd1efbcd010ca0218ee0224618f11e56cfc33f07bd8e3e8ee19fadef"
+        },
+        {
+          "relative": "48/afef6253cea439c9ea6d931cdbb45b58a73ffcb54c37a85ee9fc32ee2f7cf9",
+          "bytes": 7559,
+          "sha256": "3654bb8e7aa7c0c4c38c3be836a5b1be7603cce70e0be575bc18ab615ddd8067"
+        },
+        {
+          "relative": "49/0a5172a8b9dd55f79c2a2b68bf21a4fbe4fbd9c208878ace6c848363b2da04",
+          "bytes": 3438,
+          "sha256": "39ae2fd7952c405b443c79f1f5be4c60703b760d4f876acc7fb6320043c994ed"
+        },
+        {
+          "relative": "49/50d965c57837b48cb2a927f3be041876a547228c1768f797394aeb715e49fd",
+          "bytes": 1285,
+          "sha256": "8dbc614b547f093346c0aba2e4dacf66b64359caa68ab399b41ba4985b9ec351"
+        },
+        {
+          "relative": "4b/850b829352f0263eb3de194134ac8edd7926e50d3ac11f891c7918623ee69e",
+          "bytes": 2635,
+          "sha256": "999b2e6f0a83ba585d648b5f259f1f5560687c53f21a4231a91ef2b46d81d916"
+        },
+        {
+          "relative": "4b/9cf8aaf5155274c4c0c06b6da1590e7652d8e9311ba625c9a47b904033835f",
+          "bytes": 1553,
+          "sha256": "80d7bb26a881655e1b2c48264a7cdb2e05f68540ae6c09582f05e779d9992057"
+        },
+        {
+          "relative": "4c/9ebe435e7a269ee2e764a7c9d7665e3e57ec7003ffe65758a28a1885b86e1c",
+          "bytes": 1783,
+          "sha256": "855f2440d9a179451298b4ec4130e0a6c96252ffa00dcfba9e3e96ceb8abde81"
+        },
+        {
+          "relative": "4d/50656143701428d50f160b173d9e7fde4f32b22825a8bfaee31d1d50248d75",
+          "bytes": 1684,
+          "sha256": "24657e53201ce013cd68011410bdd6f420aa5b1c1af4576d4ba71c8a94ba3446"
+        },
+        {
+          "relative": "4e/b93768240608c597ef8d8e76a2575982f41efa0d9e7c3f25305976334cc24a",
+          "bytes": 10127,
+          "sha256": "5c3014d594758653552b09fa4224137a23f975f05189b1f3b859e1d5a4aef8f4"
+        },
+        {
+          "relative": "4f/a2657cbe1ac2a0a95501a0a99fb41f0064da043552b8e49a5b9221cc4b128e",
+          "bytes": 2829,
+          "sha256": "569656fd9ddff08948284eceec739e84ebf5c9b84ea581b987054e0cc598027a"
+        },
+        {
+          "relative": "50/70cf4447f586462a2bb3d2d9810bd178db55acb29837f7816173b0d21d6223",
+          "bytes": 1086,
+          "sha256": "3768df64627fc748d2a6b9a368f00125957fd35047c872edb6a0d1d4b7acad76"
+        },
+        {
+          "relative": "51/3fa435ebc314f448c1054abcce5952157904d919908a6ffec4d77653c1b601",
+          "bytes": 9564,
+          "sha256": "7a0f547550e6dd16cffc933a397872b86e16693497140eba10a8fb995a644902"
+        },
+        {
+          "relative": "51/dd984db8e38657795e12b6422602b59be8ffa29776498407589dc2ce027f3c",
+          "bytes": 1048,
+          "sha256": "6d2f3a4e08ccca5601283fb7fff76e01765e50e6f97adcd955c11899353d4804"
+        },
+        {
+          "relative": "55/3730dea4b74acc991a4882bb75e40491ce7456363c22b854b6230f3a5a6d54",
+          "bytes": 1858,
+          "sha256": "426675f8d648db029bf67841cc201f69bd93ad5e16aa09c4bb6a90de655ba9fa"
+        },
+        {
+          "relative": "56/5707feb0ee1af5c88fda80f7c9288ad2a337d4b61b7c28e1646f724ddfbf59",
+          "bytes": 4850,
+          "sha256": "c5b1555f78d7d5a29410210ba860f3a8d121b51f79898d33a076761b41aa4b9a"
+        },
+        {
+          "relative": "56/bb26b6691a7153e308dcc175f5c9fb382975f8c44d02380a97a2898d48098d",
+          "bytes": 2784,
+          "sha256": "faa82a9b81bef3bf7ffffcffa8ef129990b1a313ec0c549d5ef1dbafe9349f23"
+        },
+        {
+          "relative": "56/e7e42e699b74173cb0550b092d2a16ce6dfdaa7350f47f9624edaddbe67743",
+          "bytes": 2258,
+          "sha256": "2b71a8ad7e1598ec149353e733374acbf2449f8843e8f7319d9fb7543cbb0f04"
+        },
+        {
+          "relative": "57/077d0f14b718bf8f7723543ff5d2d4d070ba344a14044d546bbae9a6a0489f",
+          "bytes": 8981,
+          "sha256": "df6bacb5940324707f049e3ef5de636fa261c4a91e6358a838dcd52ea136b835"
+        },
+        {
+          "relative": "57/26b0a5385876e0b8f69bc21469baf6a64df19ccd85830863f57b07c2d0ccda",
+          "bytes": 927,
+          "sha256": "59c1a0990c0b452dc87ac899d1fc6831f930e9bc1a222e73e40fb71d79a68af3"
+        },
+        {
+          "relative": "57/985b017ed4021d83466240c5f4c6d3d010155c29c46bf70fa5f16172c6b743",
+          "bytes": 750,
+          "sha256": "e63e87a00f3b5c5ca7436aa0165ba64dae57a5a2761391b65d0ae5717cfa66f3"
+        },
+        {
+          "relative": "57/a4a0a43905b21fd8fdbd5b7bb79f5a7ed7059b5091bada7fbd29dc29c4ce16",
+          "bytes": 995,
+          "sha256": "08c7410611b28504052bc4b74685ca2d530bfeca1c696110477f99f40195d878"
+        },
+        {
+          "relative": "57/a95bdfb817b2462885c683fc48aae01cbe69eb6a4ecc10681bf518b6531c10",
+          "bytes": 1710,
+          "sha256": "1aeaca4f6cb9e6f562bb2a8af9e1a94827cec8fc2989839ae192602b5c4741b2"
+        },
+        {
+          "relative": "59/01000c333e45b8e1bbb10a96e4f36e9b0a0bce0278d8c8dedb0c9f3d306632",
+          "bytes": 1265,
+          "sha256": "de476718206a1e3aaf13962f4a26dfe2d4bd8ffb50093d84a580067281718a8c"
+        },
+        {
+          "relative": "59/237e621dc369f9b108eb2423690b41525c24d1bd3eda564300314d799cc386",
+          "bytes": 2773,
+          "sha256": "126643845deb0f8524d9af5a1c0421977caf342fd94f74f54e834b0a0eb5870c"
+        },
+        {
+          "relative": "59/5675765174f6528b437df64fc4a1dd7d3d878f86a4d764a58302a583ee2bc0",
+          "bytes": 2301,
+          "sha256": "151054c88168ef86092315f60233c71e8c2f0dd48c502c1a85a468825bbcf8aa"
+        },
+        {
+          "relative": "5a/eb0028008e47c452ac59d632e8ab2e93d2a13483f2122ab583bd7355758a9a",
+          "bytes": 20589,
+          "sha256": "922399fe3a73712efd500323a97dd42e4af3d9246a4665f90f65b185e6147a7a"
+        },
+        {
+          "relative": "5b/22cde9073f9bfedd48c8c4bca010351e8a407e3df8d785f18e53afb6f3f379",
+          "bytes": 2561,
+          "sha256": "9a5c68b3b23bce007ba9eb1cc7d0090f2cbd78ef19c4f9910fa50fcc6966e244"
+        },
+        {
+          "relative": "5b/68d302ddc3bbbd7adff0205cb051fbd8957e6f0c89ec4a34efe3c71fff9add",
+          "bytes": 9035,
+          "sha256": "4d16e6292c9517d36d5c3aa138be456c95cbfa3ccf267e23edbb364d54ded499"
+        },
+        {
+          "relative": "5b/a0e67f6932c8e286709fb83ac3a30110ee4bd031adbd440d666bd54f257405",
+          "bytes": 17105,
+          "sha256": "9819df5ec0031c092306c599afe8ad7a547af3a1006bc6e1b6d17f11114b8807"
+        },
+        {
+          "relative": "5c/15c077761ec93be979f7e3cbb1c385baa505c1ad5e9bac2f7ab3853c5bdb34",
+          "bytes": 3307,
+          "sha256": "d2a39a79cf36aa8c152bbf1f80631fd5af14f3eacc37ba187ea6e1bc9fd572d8"
+        },
+        {
+          "relative": "5c/4989284a6aa5a7e6fcc43058b7dad53646b8a7b93c7001b880c55d9ff63553",
+          "bytes": 8011,
+          "sha256": "ea63578d1dbb7fc8da79fa919a4738d11f9c6f90bf160433e93b67c70eb1a0f3"
+        },
+        {
+          "relative": "5d/b035a1e93743098bcab7b2a79de63f0fcca9efa70dfe03eb981b0aaa4c6410",
+          "bytes": 5897,
+          "sha256": "b7b71208dc2c071d94b5bae1b5cd913bf9550f546e8738780695ea1b1e5b24ed"
+        },
+        {
+          "relative": "5f/3b5fcecb699f98492b69349d41bd80910a988d953b840b5c17a9957e6bc66b",
+          "bytes": 8630,
+          "sha256": "2154fb549b0c95e32f19a47b62859ce3b6f12e1b1310075aae32a7ffc7c850c7"
+        },
+        {
+          "relative": "5f/f0fd69e3a0d6b4e59ca6d2603fd044330d2e67d94edb31482a12c90973a9dc",
+          "bytes": 1638,
+          "sha256": "8b040d73500724454ac9a45509cca795f09ee83f75671564f748f035816955ac"
+        },
+        {
+          "relative": "60/75ad406b6c6a0f1644549f99a29084f581d02c91ae0f44f3412a53c73e99bd",
+          "bytes": 1653,
+          "sha256": "a3ecaf4e0bc1cd5b5c558e00174f6da578e1a71081174d247f265b3111b4fc7f"
+        },
+        {
+          "relative": "60/e371f032d6f3595621d061e8a514f85286d0e46c777ce784f09e3532ee5f95",
+          "bytes": 1129,
+          "sha256": "f4919edd41da4f783a5af128aea8ecb0b8627be6f3ebb8668468891311e04bf5"
+        },
+        {
+          "relative": "61/699ba75ea73e59b8f4c3f7e2e04c6a3d1482594982b2c5c87d8dbf96975ff3",
+          "bytes": 2039,
+          "sha256": "c96786c3f9fbfab21878b0509d59e33a6bc78b22552aacf88d00226e01b1725b"
+        },
+        {
+          "relative": "62/aaa49d154cd17452baf1139dfae47dfafe00de99d3eaab293332f299e1605b",
+          "bytes": 9039,
+          "sha256": "113c74deb27a03d87f043f8f454b2d09710cfbda58cbfd4180f86f2897de62dc"
+        },
+        {
+          "relative": "64/1de9d91195b3a1907eb3cd3aa018d93eae9c478db69267ffca3bb36b5ccb46",
+          "bytes": 1565,
+          "sha256": "d571736b01a0a569e539af92392dbb4611fa8623e6c170240219d5f2ce2056c2"
+        },
+        {
+          "relative": "65/3e2cd6a88a0a323a2122d91680fee200b81acfd83ad674fbfbb1d4b8d53aff",
+          "bytes": 1606,
+          "sha256": "6c6846fb07a7dd24a8513a98d238e6ee9682222e2f28f05b6c61894fd370d0b1"
+        },
+        {
+          "relative": "66/a315efd14ac9f8fb4cb4d9ac42b8be71ef35d12f481e6ade9bd939b026350d",
+          "bytes": 6881,
+          "sha256": "faaafdd63a75f5b4b73c4ca94bcd7ca06b849fc2548b225f3699bccf1d7f2245"
+        },
+        {
+          "relative": "66/f86e239eac9f48df2b500356876fba1ca3f40fe9ed9354b325c72ac3386215",
+          "bytes": 1434,
+          "sha256": "3cda1941f8ddf2ea941671bc3beecf48760cd08a3b0844bc1e6a06d223653b5d"
+        },
+        {
+          "relative": "68/dcca15d818745f01a66a765a8396b074de67ebb6bf03aa3da04764153e0fd8",
+          "bytes": 14272,
+          "sha256": "fd8da3cf355792b918a95ed9ae56f716a3560d1929e8136b02b30dbdbfc05105"
+        },
+        {
+          "relative": "68/f79f688f1cb43e829cc78b0f00d9b08a02d59b2d1096d11396ce919155d3e9",
+          "bytes": 1599,
+          "sha256": "0cfdcddbf0ce3b57a64f2f149efbd266fd8728f14c5cc52cade13c9df7887acf"
+        },
+        {
+          "relative": "69/4675e98197127bc32fe7668041d3195a3715821ba533cd6a4ab38ca2414270",
+          "bytes": 10451,
+          "sha256": "c99c3df2817718eff397c6625a011dd0b6f77ead8785897d547c538fdbd97f13"
+        },
+        {
+          "relative": "6a/f4e86e82d8494b18f3e11ffd2aac89f38640097020fb30c187d2c96bd36890",
+          "bytes": 5789,
+          "sha256": "71675c1da47c68273b67c123c76e2d6b624565d2a3bcb90bc74cee7d67c57803"
+        },
+        {
+          "relative": "6b/26ec8928f1b9ebdd7fccf111557c8f7a2d892dca6ff3a8254d557ee501d1ae",
+          "bytes": 3457,
+          "sha256": "2c5fc44ccc8a81394d2ec273078aa3da47a1863602a8f8119b7c3b1fe3d816ce"
+        },
+        {
+          "relative": "6c/87769a72443fc7aa7c339bb51ca4379e72d0e1a6f6f62922da858c2fdc37f0",
+          "bytes": 1256,
+          "sha256": "ecadd764047e8e516525734afc60e767606c7b06beb35d7fb2356b52c28ca18b"
+        },
+        {
+          "relative": "6c/977d2d3cfa527422647d66cbf3ca86b8f4fb1858671cc75a8c52c0c724357b",
+          "bytes": 8737,
+          "sha256": "7eff64c60a1db714cd8b6381e5a30143847ab126b6d9e19ae56e6adc0358fc85"
+        },
+        {
+          "relative": "6d/2205832f47c65b9f1d1e855377b07429020c3223ca6b4bcc76e4134c4f3384",
+          "bytes": 876,
+          "sha256": "eebad8d2b5262cdda9a97732fd7038399a9be58b38ab1e05e94c22507e583f7a"
+        },
+        {
+          "relative": "6e/90cbfbe8d102ca799a59aaa56a0389ebd04d50e483f40e1269a9f7d27bc2dc",
+          "bytes": 4707,
+          "sha256": "60fcb8a38a2fba623f82d7c03a55aa2f59bcef3367314fc9ff19697c3811e6a4"
+        },
+        {
+          "relative": "6e/dda3c79d93e28d8db4f53cc225ca3df4fa0de31e9dcb8cce1ac17683d389b8",
+          "bytes": 1648,
+          "sha256": "7ec654ae4377099296cbae50643db4be289a481fdf5f321c99609dad26bf3391"
+        },
+        {
+          "relative": "6f/898e5af0b1e72bc73ee8afad44f8681433fafa8e163abb4711a56e319aa4e7",
+          "bytes": 1659,
+          "sha256": "a51a2c98cb6c9060a0bbede3b7f9f8d519cec5e39013ccd3540133c28669dd6a"
+        },
+        {
+          "relative": "70/c39b13d282ac93225ef7acc4efa4c25800f1b5997d4794afe1df823eff20f5",
+          "bytes": 23539,
+          "sha256": "db6445fdf785c3edd36168edd67eb9c6f0210c93137e704398cb6f8aef28c3ed"
+        },
+        {
+          "relative": "70/f20031310455adae7390c544738e1268dd73b8aa3656fcdf7cdce863904948",
+          "bytes": 2240,
+          "sha256": "97b8de8723321f23a80eb4496d0ac7a28853d5f009ee53c95eb0433db8dc0dbd"
+        },
+        {
+          "relative": "70/f948ee561f3ceadaf39e7b25a32a76da98f0e5117350b659a3922bc713d29b",
+          "bytes": 5377,
+          "sha256": "537421aae66c9b0a2f3ed5b8bcb564559c68f22a9617558b418b94de9359bd2a"
+        },
+        {
+          "relative": "71/1666f1bc6598f3b618cd32fd155f91ca17c231501e3da9fa1af799faeb9f3c",
+          "bytes": 943,
+          "sha256": "97e5aa2fbbc64aee7e4bfecac5be721e7d0e9c6d82fe070113069905af2a48e8"
+        },
+        {
+          "relative": "71/76e91ad2f5a466463374a04fddd868582c39ea94a968912a62768d1de93086",
+          "bytes": 4015,
+          "sha256": "b919c642bf619d5d4ab82c941498355296dd1f98340289f2582171c408bfc027"
+        },
+        {
+          "relative": "72/df7a9aa15517191b92f97d57603c89e6f92fba40a98d9c126b613c4c6280e0",
+          "bytes": 2775,
+          "sha256": "5fe8717462f32d19e98a2e9f64ff161b60fa63541458ebbb47af2b3daddabde9"
+        },
+        {
+          "relative": "73/2cb31dc572892aeb08117ae083e9d9043e8605b5c837862545230e7735058c",
+          "bytes": 1316,
+          "sha256": "b5bed8533b052537ad21eec4e8f373f65780637946ae2aa40009053babcd3755"
+        },
+        {
+          "relative": "73/84664c302aa95ae266b3e43924d6c66fcb95e939e5b87425899013fd0ae580",
+          "bytes": 4387,
+          "sha256": "28c00cad09de3349daf941e40e87c1ea119e4bbb805e9a40583901c348e8881e"
+        },
+        {
+          "relative": "73/ba9673a23222c84c7d47d41cdb23484763f9216c62e0c2db62a909762a6905",
+          "bytes": 5571,
+          "sha256": "841a65115df12746f217c11c77808e5162e49684cf1c5e97405dfabad254909e"
+        },
+        {
+          "relative": "73/c6c1f3402dd1c3fca9117d371f64664dccf8a7c39839fcd5ab850fde3e7d6a",
+          "bytes": 1170,
+          "sha256": "2764e7cbdf99e63883bb49f1da2a4617d88597ce4b31ba84420aa60175bdc58d"
+        },
+        {
+          "relative": "76/2018eada9fcbddd7253ed1e60b2a3596cd8ae0e221bd722c8726591a7a9535",
+          "bytes": 716,
+          "sha256": "33b87ab67d956a2a5e276db5fbc7490735179df9c60892a37eb39258074fefe6"
+        },
+        {
+          "relative": "76/785a5fe1b4bccadc70fadaa11f1840214c4242cdab03ecdf08bb7fae490ff9",
+          "bytes": 5646,
+          "sha256": "cb8cb6ae8554dd0370ab4598881ae4f3edcac11fb1e5163fb5605b392eee1acc"
+        },
+        {
+          "relative": "78/ed1c10734129d7d934ad7e57944e9e267abec7f598bd8d9c8bb3f095e060ca",
+          "bytes": 1858,
+          "sha256": "3bdb156c84d37e5cb1db7ab1ae3ebc9f91f4c6d333966d1b3a901319beeaeb4a"
+        },
+        {
+          "relative": "79/51e152fabdbfbd1d786137633a55605fc38f1d90ceaef82f2061f594015b36",
+          "bytes": 925,
+          "sha256": "9cbc6b84b96addb3b9a1ba83e7e5b3d86e5a4117b843cd6c32384fd6816b98f7"
+        },
+        {
+          "relative": "7a/1c9c1a1213cb285341a5f3befe41ab8f5fbddd7132f3e414ddbd5af0b74d21",
+          "bytes": 6259,
+          "sha256": "5e7d4c17ded2389e2e1c7b9a2986d0737e5253c615e6e84be61c5b8ac4ff494e"
+        },
+        {
+          "relative": "7a/657f077979387e25d80ff16552f99e592fd15b4e3b9aff4e5cd18cd8ba243d",
+          "bytes": 3405,
+          "sha256": "9e70e4646640eb5af7352809f200f52a893475ba4d6baade27be57ccd48de853"
+        },
+        {
+          "relative": "7a/77257aaa2d19069eb3eb1ad47fab2bfe23fbb2e221883e84bcfc2c40a25bcb",
+          "bytes": 2299,
+          "sha256": "c0de1ec1c9500328a6651834453f4de292abf56ac9c00c05d9c052b5f60ea9b4"
+        },
+        {
+          "relative": "7a/a6d72654b3e08531d4accf1db5a98ff9c4dd52e26453ab38bb61d8abbb0248",
+          "bytes": 7592,
+          "sha256": "fd2cf3d62513cbe680075b719a9f5df00b1bce699d2da6d03d66ef17dd6625fe"
+        },
+        {
+          "relative": "7b/071b935dc57f403bf3dc8b50db87ba05e770c8eb512ee77a46795a6de40fe6",
+          "bytes": 3624,
+          "sha256": "469e788f15814a6a70e9ee0831110282958e8b87edf4c7acd5e757ae27b3767e"
+        },
+        {
+          "relative": "7b/6bc3429cfb76fa2a07d8dd119e91b77ee049c98205f89f97df5d0907e5730f",
+          "bytes": 3155,
+          "sha256": "ec8efd500d0436f0ee45e19423a4efc6046593a42e03d779038484b37c7e8f02"
+        },
+        {
+          "relative": "7c/a08d14a6f11141e6885515a40ea51e4fc7da93778ce0b2db310d95d252e73f",
+          "bytes": 12839,
+          "sha256": "dc1947aec3a3ad06bfb0c48f9234c16395d3d3d64ca6c8774884ab2a82983451"
+        },
+        {
+          "relative": "7d/03cbc31b5738f6aff97f1f6da2f8cde5bdbedc3a477e0fe4ed0d1942d82a2c",
+          "bytes": 11333,
+          "sha256": "db49230b5a20dfa0cad52d59bd59ad414917e19ad1329b26d85144e4d6d52cbf"
+        },
+        {
+          "relative": "82/140f5520dbed1747160ce0ad5db090697f02afb898660e2843161173455205",
+          "bytes": 2816,
+          "sha256": "719f8ac125182e9c3dd4a5a8202f4b2f78a2ed5b493eec5e151c13396e80aebb"
+        },
+        {
+          "relative": "82/9af1eacbf1803597a7577ec2cab05a56a9c7926d81e4220ae708640f827a6f",
+          "bytes": 3724,
+          "sha256": "6ef66d0f4bdef367b5c41d0e607fd9f6d082550821c7253f5db83815a68325d5"
+        },
+        {
+          "relative": "83/708f2cd594fd66a73e2f19b6d413c6695c6a22a9a121d9273759c6ac2f34c8",
+          "bytes": 1362,
+          "sha256": "8a5042cf8f2591f7e6aeaa2c9d27789efbc1630696f2bae3be05e8c018898097"
+        },
+        {
+          "relative": "83/a99eee8cca13c6e4c4bdac93211a29a5208b9c627d294050449710a130df81",
+          "bytes": 766,
+          "sha256": "778538ab7a73bff93be88ae26f9adf90f8d9502f3cf738894731c5da016c90d9"
+        },
+        {
+          "relative": "85/a40cc2ea26c52e0152d68c5f6fc72f3e4bef7752fde3b7aadccb740e2c72c4",
+          "bytes": 3187,
+          "sha256": "2de55f3db0fdf91da408aa03652d00a2fee38a922d65565ef77722c14188c0b4"
+        },
+        {
+          "relative": "86/8656e9bbf524603038e14eb94eb7cfe7b16717287740209c6772aa571bc0a1",
+          "bytes": 7836,
+          "sha256": "18165faef3a475fb3ced903243c5413145c1a15458014f10cc55f9e61ce11f78"
+        },
+        {
+          "relative": "86/d77b7691d0f612e9fab13e8c92e04ca54ef27606ef712a4190b079f238d408",
+          "bytes": 1093,
+          "sha256": "45643440d32b0bafe2a33beaa780608c5a08f27cf84104edbed0128266caadcb"
+        },
+        {
+          "relative": "8a/52a5a1b651da3fdea1c653aaeeab4338e16e0eb769f01d4dd434664a378666",
+          "bytes": 6349,
+          "sha256": "9f5e97f59723ad40e4f07ee26600dcb2130ce0547551a2d5bcbb42fdb664520c"
+        },
+        {
+          "relative": "8a/67c5ffb62e36aeebb41985ba5ede6ab762411c5bfe9892967ab9944f504215",
+          "bytes": 4901,
+          "sha256": "f51fd306f9037d327f2f48c3f62348433b09457e1f28dedec2b01613b58e6045"
+        },
+        {
+          "relative": "8a/a5c8526a293bfc17bdcf1c489c9da6179149f0f3252d9dc2d9ae85f58db667",
+          "bytes": 1669,
+          "sha256": "a2161cab1f0826db956a3d0e97a0547cada8001b97378ac9f21199a895d27a70"
+        },
+        {
+          "relative": "8b/3d5c045bec59698cbecd886427f48ea3b60e913154a096b1096981980e1809",
+          "bytes": 2240,
+          "sha256": "97b8de8723321f23a80eb4496d0ac7a28853d5f009ee53c95eb0433db8dc0dbd"
+        },
+        {
+          "relative": "93/15ab3b7d7f0fbdb667f89f361ce2433579390013ed70fdd8bf96fa40bdceb3",
+          "bytes": 5128,
+          "sha256": "40ec3aeac7d9ddd7e81eb10961d726bef3e516529b84bd90b3410299b08903e4"
+        },
+        {
+          "relative": "93/ad3acc1501417edcaa0fd8b1c0fd79b637a34363f25b44fc33e3c6f76981d2",
+          "bytes": 1383,
+          "sha256": "6c970c71b5f34a838a7e5c9d8190ee9f5e2c1f5cf248cca82e0a29345bf6721b"
+        },
+        {
+          "relative": "95/833cc324047256a5e4eb976333a3495e945a7fb89256de44a835fdc7ff7b5c",
+          "bytes": 1206,
+          "sha256": "c7e1afa1188febb15e3042308559361a317ec2c2db03090a0ace00662965d072"
+        },
+        {
+          "relative": "95/a41c5a175a20742c975dfb6d65346ba2aed1c795922f0c9f47256a75d2f3d7",
+          "bytes": 1157,
+          "sha256": "da8104602b8953c58c0bfd24d672a6a1305639f393d61da1a4ece84f8c344929"
+        },
+        {
+          "relative": "96/810bf67c96fd5aad306fdee5314e1af356d35bbc817d3e485f5d9db4542719",
+          "bytes": 1219,
+          "sha256": "ece04c1147c60410d70fca18fb60f68f9a93d8402d87fabb05ab9b85b4ee23ff"
+        },
+        {
+          "relative": "97/b877ac0dc68613c4c0cbd8f59855fff8d3c6b9a874c5f25eb7f8b656540081",
+          "bytes": 5317,
+          "sha256": "b4f0e2d9b5e341b4745fd6422405f86c77cc0172596cacf3f6dd5aa071fbe59c"
+        },
+        {
+          "relative": "97/e21373de1b3401c138782b0ec7d0efecdfe681369d1477d6c791a27e7f778a",
+          "bytes": 3204,
+          "sha256": "45628363e813e47d1d60512eaff9af17377280190cc5cd98d9954e739d49778a"
+        },
+        {
+          "relative": "98/a27623af3db3d0e635b7a8d08788c0cb4c258818c7c048bb59070f03b15f7b",
+          "bytes": 1397,
+          "sha256": "24fd159814634214dc2739b6a26d91e6c0708f1ebdfa663f37d321360906b126"
+        },
+        {
+          "relative": "99/5e53587987136ff07d04d97229874066a4a865e3dd28ba1aa5ca1d720cc01f",
+          "bytes": 1841,
+          "sha256": "b11a7a530f680d0e18c2e16d5dfb437737fa66da6658eb495355aa2b7bdc7534"
+        },
+        {
+          "relative": "99/635f6dc13287f38ae7f61b824edd18252879af2e0e45bb525f13089d06ddac",
+          "bytes": 3998,
+          "sha256": "d9ff0e3a3258e5453bbda1b4e82a357da75cd03558251e00ab8a70850d72e68b"
+        },
+        {
+          "relative": "99/f731d8a642a92ddcbc037474580d11f55ffd6d0a5b7578318cdf349ca516a0",
+          "bytes": 18131,
+          "sha256": "959765027812c1124fed02e07e6addaf6ce583ee91101857a8281bfba7ce6d5a"
+        },
+        {
+          "relative": "9b/1f0802df8a5ad6a1231cdef5422814205ad1d736ac36a023fe4d1108dde1f3",
+          "bytes": 1352,
+          "sha256": "4a094eddfb3ca13842187c38bf71e7874bd9dc7678862bcf72ea8a02a5710a08"
+        },
+        {
+          "relative": "9b/66190205d4a0eea4fd6f572cb5e4087eca20724fb51da7188c01375f3df678",
+          "bytes": 1290,
+          "sha256": "db88e2c6cc60e52c8f147ae69a16a0b998ddacc61feea49b241b1adfa7f0893f"
+        },
+        {
+          "relative": "9b/f38b6d28e2c078058de285d750d981af4219c8d1cd9b60c92a987a209758ed",
+          "bytes": 5923,
+          "sha256": "1ca06258e601447e37a5e0e46ca14ca4f4d074d293e81642175082febae4721c"
+        },
+        {
+          "relative": "9d/70191a8d6d1f91e5f897efdc97c61f4c6f2f23bb458ba75c94bcd46916dfff",
+          "bytes": 28182,
+          "sha256": "33c2882e409f4943b5df4880a9e84d81558994954403cf07f05af50ca9b3efee"
+        },
+        {
+          "relative": "9d/ebc9af8ea615e52d40247f4a0bf13f268922268cc2ef53712f3d13136a233c",
+          "bytes": 2807,
+          "sha256": "b4e7171e10358bc978989423db9b202f4bf90aaeab6f90b816f8bf625fb89cbe"
+        },
+        {
+          "relative": "9d/f116908fc377ef418cd221c5222de5f3036507f73ec40dc572b37abf3ff1bf",
+          "bytes": 1241,
+          "sha256": "f07452e48505f0998e9871c08564f591431ec0aef09ef453ac165a01b9c66ce9"
+        },
+        {
+          "relative": "9f/d007963785836b7fb43d7c2c9cbeab5d83c93f89458ba862c4b17066d25b36",
+          "bytes": 3547,
+          "sha256": "fa4a73dbb5d1b2584ab0f986c91eb19ae2a2064fab68d2901509d693d6c51550"
+        },
+        {
+          "relative": "9f/d1bb86871863553d4291edfb402e21b8a2ac9fd4f8baee508994ad4834f5f2",
+          "bytes": 2516,
+          "sha256": "1f6e00efc666dee65b72e48215cd12fe65a6e28ca7a7797fae83666fbc3683cd"
+        },
+        {
+          "relative": "a0/009d74a482bf25b59092b6a2ad87540db20170d92bbcd3f72c2f7ca4b54388",
+          "bytes": 9476,
+          "sha256": "fb5cb523de9fdee0d985d7bc6a7ebc0d710325d193921b907e88bfc8aafe78d5"
+        },
+        {
+          "relative": "a1/4ddec41dc0640250178ec2ae1afe24de6920228f874c814f03acd553f0cffa",
+          "bytes": 17892,
+          "sha256": "20de92356371d8d28e2ef6271f5ded2b86b001613a9ed0b672449234f8bf52c0"
+        },
+        {
+          "relative": "a2/b8cd3cbad7edacdd9657c31b13216551255e078c7f6a8fcd94f480630f9f45",
+          "bytes": 2816,
+          "sha256": "5b73b88eceda64528961643fc30200a283fa5d80c957c7aa418da57d52e926fa"
+        },
+        {
+          "relative": "a3/986bd8ddfbc8253687c349b9ed4dd348fd9ca860f400466d2ecac88263ab8f",
+          "bytes": 6627,
+          "sha256": "2097105dc844e33a8ffd3ea82da9d94efa73ed718e30fb9e879c4b304e6ab8b1"
+        },
+        {
+          "relative": "a4/0b7ff61a62f876323f91e7a22a078fde3e60300fd0065ebee269aeb612bc64",
+          "bytes": 1341,
+          "sha256": "cb38383f179506cc480d9cc1dc5fea22d6834b1fb2072d70193e025b008cfd82"
+        },
+        {
+          "relative": "a4/7e3f4184c01c699ec4e0ce0dd69724f94bb6a32840c9a98d41dc9ddc8137ff",
+          "bytes": 3394,
+          "sha256": "257ae8be647f113df77f3e5f8fa313d5487daec3f68c57c1f8b1886efe2c2797"
+        },
+        {
+          "relative": "a4/f081bc3db290e6c2028edef4d777aa2b07e65290c20e86fb5c64b11c2eb511",
+          "bytes": 1051,
+          "sha256": "5008fd290bcdb0cdfa9b3fd7da15eb53aa8b5fb0e7ba198404e49895cfd4bb17"
+        },
+        {
+          "relative": "a6/b8183d17d480880d61d8aa47e4821afa6fa3536002e93ba2e45dfc838fab70",
+          "bytes": 3144,
+          "sha256": "10e739836a5765e7ad3eede3717e169d3a07126d04d22f46abce6fc143211982"
+        },
+        {
+          "relative": "a8/379da27c760c6593187b4db53c6237437aff409048d7869ee78612a8741aaf",
+          "bytes": 1367,
+          "sha256": "8972f72e1780f3f6701976cfcc4163efd720b326f3bb9defc891ab1a25ecf447"
+        },
+        {
+          "relative": "a9/3cbbd8081d63613f302f1a77a78fd07d6917257db8cf97fabef3137264a4bb",
+          "bytes": 3025,
+          "sha256": "98b6c1e19812fa74fa72f7f0b3d34eff32e8687e44be41d7d65d5c42cfd19ce7"
+        },
+        {
+          "relative": "aa/9a4b30b29b64a807a06e705ce573975bca37cad1801a2adabab66b7136a3fc",
+          "bytes": 2001,
+          "sha256": "2d2282c33dbec37d6c425b79dcafc8846cf8a48ae8e08c16ae4a438eb4734940"
+        },
+        {
+          "relative": "ab/990e3c34d549c50db213728527c025e4a636aa6bb2db763acd03dfecbbeaa6",
+          "bytes": 5966,
+          "sha256": "26fa89f9138195190037265f15cd828982649a3b0da225fd6a897c0247192a09"
+        },
+        {
+          "relative": "ab/d411618efdeab41436a5734cef368589e82c3ebdd92adac857196e19145e17",
+          "bytes": 4939,
+          "sha256": "643d3775c2177e7c193ee670de97ad6cb6324262bd31f27e4e3c1dbb838babf1"
+        },
+        {
+          "relative": "ab/f3aedcbd7666ae6a58084c76b4144ef0b21a8e5ec2828ccee3a660e5b52289",
+          "bytes": 28341,
+          "sha256": "8e330f2e535c419c75aa96274259c96ea3903eee7257984a1651ea0eef1f409a"
+        },
+        {
+          "relative": "ac/258668c21a713649259e9ee145d6a196a4741a22452fde7272600bc42cb56f",
+          "bytes": 3174,
+          "sha256": "2b85c7d792dc13f9a772c506118d02b515b5d0629c9c929f2bb6cb4fd56c1260"
+        },
+        {
+          "relative": "ac/66ee7db55e96f330cb21d52e44b50bc142c8c1ee600c1871b0ec158102dad8",
+          "bytes": 2697,
+          "sha256": "113834847f7379d00d7e9ed04deee65f768a56230817420c28b1b61b913c807c"
+        },
+        {
+          "relative": "ac/c759dab8b0f8b27cd3c071b952bcd2729f724f394fc88bad909c8b5836a458",
+          "bytes": 5418,
+          "sha256": "7a232fae96b4d2bdc38dd9d51d5702dd630e02ead5d661dbdf2b19cd1d76bc60"
+        },
+        {
+          "relative": "ad/13562e3afb49325e351a4e6c91015f79abe04dcbb1429f71d780186bc6e760",
+          "bytes": 1282,
+          "sha256": "e444b77ed6849e849ed22d5bceb0cb2a77fcdb2dc5e67bf80115c7346ec2228d"
+        },
+        {
+          "relative": "ad/ff01258583891be6f7c3ebe346ec8a47560385a84192ef84f8924120883cc8",
+          "bytes": 1201,
+          "sha256": "800048f0269d18a7abf1cd2177a6603f3400a267f754d04980dd9e2db1fb5173"
+        },
+        {
+          "relative": "ae/98cb58c1dc4d5c0534a39854f3ca6c474241d209851d63b09180d2389c8a9f",
+          "bytes": 7715,
+          "sha256": "3f29c416735028c1b2362e68307d1ac9981a57be9fcfebc271ae2881e7553628"
+        },
+        {
+          "relative": "ae/c3fcb18023553f2c54fd1255618cf28e2b4a3db31f918c90450d41834377da",
+          "bytes": 5033,
+          "sha256": "5b47374292fd3c55d1c503c6424e40de0dd98876632f13b4e5d2a051e77f3c0f"
+        },
+        {
+          "relative": "af/c4fd911b67749b87ee09710053370326b98eda36c67283d2ab57b528ef8cc8",
+          "bytes": 2816,
+          "sha256": "719f8ac125182e9c3dd4a5a8202f4b2f78a2ed5b493eec5e151c13396e80aebb"
+        },
+        {
+          "relative": "af/f25198d39b2db9aa263af2e6a70091d317da230f17f51c6facdd2714dcf416",
+          "bytes": 4954,
+          "sha256": "fe8ebe70d16c3dc2a49776767bd81787312977353a88d70bcdf32673c59d76ea"
+        },
+        {
+          "relative": "b0/0d32d688cd502de34f962dee5a26d97ced631c0f909df06b802825557da46c",
+          "bytes": 929,
+          "sha256": "ee77ae5ccf79ac456cd8fafe1128aad8bcfe1e8b5fcf835d9cdb83ba696f09b9"
+        },
+        {
+          "relative": "b5/7d41d21173631048684979315a19e58a1aa3205a08a25164f0cd48375698eb",
+          "bytes": 1492,
+          "sha256": "ac8eae40973d6b940aa947119308a76ece18a658e774f53b6dbe8ae9c91a35bc"
+        },
+        {
+          "relative": "b5/c744681e4355060874aef5f3f2f89df6e879e93ff8a5231c2a9f80f6edf23f",
+          "bytes": 7592,
+          "sha256": "fc17dd031874426849c33fa8e0b19d58945d713967bf6fb9451fcbff522ff619"
+        },
+        {
+          "relative": "b6/1aa1eea6772cd35e3dcc34284f7c67048595265de4f9cae3574ffa1eac65f4",
+          "bytes": 1158,
+          "sha256": "9881bd5a0338ecbc7daf8a7f56d75b4619d0e53fc165e52dbec198dfde2b913f"
+        },
+        {
+          "relative": "b6/813d56edfdb712fe6e4e18bd106ea11156eed4832b57dc0a2da5c6b6433c7f",
+          "bytes": 2041,
+          "sha256": "12269b327714965870fc1feb1e1c9daac9639bca3ed711ca9204a4a70b8f4f0b"
+        },
+        {
+          "relative": "b7/70c8e41e205e3e67c46a2f92130d1cb6f4d0e6f0a6762c3fc57c2dd3af4814",
+          "bytes": 1675,
+          "sha256": "31cb6eec0764ece57be791f5678344b0d7b237d88f56b1cce609230656022418"
+        },
+        {
+          "relative": "b7/ec1211a3c0885d4462b8dc09eb3e574a901186d813a417f622965c4efe07b5",
+          "bytes": 14904,
+          "sha256": "dd03f653cb7ba8ea1782dfa0d9cb3c8d4403f53cc9eb815975cc6685d96a451b"
+        },
+        {
+          "relative": "b8/3d5c7677b888c8bb9679d5234b9a67c657ec76b98bb18e81f2b0a83562c56d",
+          "bytes": 976,
+          "sha256": "33d509257218386fa2207da2ee7e809aea2bd486fff79d907ec6a8dc4198d73d"
+        },
+        {
+          "relative": "b8/75927555c3722aa02562740de64ac36ebfde9cd4381c4df37431af99244e2f",
+          "bytes": 1532,
+          "sha256": "f71f3b16d1d5463485df66ecab5e05c8e31acb15d17d6d427b85ff664f379337"
+        },
+        {
+          "relative": "b8/bfc2a82d610ff7fd7fc00bf0518f2685c88e599ed7cdd10cfff3c9453a5030",
+          "bytes": 6444,
+          "sha256": "8fc8f36d7c262668073ea3d1c110dc720e769b74c3aefd93a0fa66d00fdf446c"
+        },
+        {
+          "relative": "b9/2bddd7284f15a4d75954ea0610b7990f0f79f0591c95427bc8cecc6058c23d",
+          "bytes": 4520,
+          "sha256": "5fdca0f2f37b9b5faf9b9dbe73acf655fdad6eaa09d8e4993732013fe55d475b"
+        },
+        {
+          "relative": "b9/d60b5e2dfd1a9bafd7bfad26ec80b263b8c08648c3a2f81d65c9055381ae34",
+          "bytes": 1404,
+          "sha256": "a72f9db795b16bcf0407691e22ff8179ec8cfe61b9624b941f1af15eb1e11d31"
+        },
+        {
+          "relative": "bb/9a3bdc70016831455314c4f11813c5f8b5d8534154154e2561019772b7e957",
+          "bytes": 5293,
+          "sha256": "e7fdb2c8e10d3eb9369a7a676124b74fa81f56b01b744d4756d52fe687c1e4e8"
+        },
+        {
+          "relative": "bc/173d1a50c80eeebff7156ef815fe006c6f966212f9b0cc65b93d20ec52ab3c",
+          "bytes": 7867,
+          "sha256": "2c9c5f3a8e1559449d55285d054416ccd8096517479690245c95dfe72a3e4a8b"
+        },
+        {
+          "relative": "bd/523c95709cc3296f874ab191c3f4c10eff465e6068f1530cf6c7725bbe5c1d",
+          "bytes": 2071,
+          "sha256": "aa57dc3391f0e02695d866c65c328c280cd68ac9f8b606baaba90b76f0d2250f"
+        },
+        {
+          "relative": "c0/cdce36328d096b1a197874a209161d534624fb278e770d7e560c17d69aff08",
+          "bytes": 1300,
+          "sha256": "048b46c554d6a86a68f27957462f330317cc6be0369d1656fac40a26c0913bb2"
+        },
+        {
+          "relative": "c2/2449c0bdaf0fba44c68e806091a48549d56a9457071415ed339d85a1dee351",
+          "bytes": 2548,
+          "sha256": "95995659eeabd05140c2e491e3cb15eb5681d1044712037d1e4df2bfff6abf8f"
+        },
+        {
+          "relative": "c3/c9f634210a0f99ea46fef817091a8dd2fa5e1c8b2fb3a22d2305f8b8172ece",
+          "bytes": 1424,
+          "sha256": "87a3b26415fcae91fde93304c3aa40e978af9b779d95bf30ad779742f95be06a"
+        },
+        {
+          "relative": "c5/84e7561e9323ba190ea9679502e9733d6474d12bd0868474e67a06825562d0",
+          "bytes": 3539,
+          "sha256": "bf457657433084597343cb87121a82640e138c0b10b639fd83c5702f1cc9e27f"
+        },
+        {
+          "relative": "c5/9b2942201a7f2b7f64c79778167841e708736c5707fbce216f991b57c0d252",
+          "bytes": 14472,
+          "sha256": "ef2abc01db55b4015b5bdaeb039df1f6cf66743bf34cb10c87213faef12cf46e"
+        },
+        {
+          "relative": "c6/310280c5880e9a8d7890bd25b6bfd5fba6eccc5d49015e43196e56b0e2cc5e",
+          "bytes": 8471,
+          "sha256": "e14849d80db0daf12875dc2a9bc32861d8aa5f2c267091202b8398ddc1738054"
+        },
+        {
+          "relative": "c6/a58f447d75f436887d84f193f145de2a0bec9de8612bf03b52cb113f0b9ab9",
+          "bytes": 1235,
+          "sha256": "9b21a415f245ee998eddafe32d15ae3b92154231f85dbd560d422a44f2551753"
+        },
+        {
+          "relative": "c6/c887e33ec2cf70ec1d9935fbcfb861995511a4d3db0344041fff343c4bf64d",
+          "bytes": 8126,
+          "sha256": "3aa402659f701bd3851c684d82f6f6ada0e6d32e5c78ef25aa4c1f4bf0e971d4"
+        },
+        {
+          "relative": "c6/f81e1b0312e7723f56422688fa0960076e3f7cc77bd62c5e2682a895bc8aab",
+          "bytes": 1539,
+          "sha256": "c5c602ca159a228057987237c651ebed97ccf576903c2938c64f8a364ea0931f"
+        },
+        {
+          "relative": "c7/234d51101f55d2e27284fcd5d526f8530207ac539aa3a2dc6e9e9fc191b248",
+          "bytes": 28551,
+          "sha256": "90927edd1605840cff88fbd3591688126c53467f9ea6e8c21c9ea03f7df43442"
+        },
+        {
+          "relative": "c7/51748a7395e10ef90759c41cfdb49ff8b99e37655ad44447de1932d5b8c961",
+          "bytes": 6977,
+          "sha256": "fc0a5b95e2d73faa80ebe9bcb5867bd9e473df687f8441a6ca7968790717bae7"
+        },
+        {
+          "relative": "c9/25b9846d68c4800940d48df25ab089ff12f8409789af023bccd29e91e238ee",
+          "bytes": 1581,
+          "sha256": "38746787a5f7b6671aa6a7489a4a6481e86fd13a47f87167d93dfd4eef7dcfc6"
+        },
+        {
+          "relative": "c9/4a9df1aec4cd9e8d331ec3376bc0891a5edb047e468f4504586c17d2b39d83",
+          "bytes": 4791,
+          "sha256": "d2d63e76f084819f18c4b3ba3a9aca8ba9ed229cf48404a09b33f93f01ad61ef"
+        },
+        {
+          "relative": "c9/53495acc946e4915104bf4d30f73a8b98976f516544c652341280b934bdc47",
+          "bytes": 13432,
+          "sha256": "e0ae9b7f214ff9a72a4fe47a61b1ada999e22ac7e15c9a683cd09d877df4476a"
+        },
+        {
+          "relative": "c9/b5a9055c7c0837f327fdabdc62cfa65d886460aba731d4de873fcb47a96b0d",
+          "bytes": 13007,
+          "sha256": "9a07b43387c9a37682a95d8d1285c70500f07a9d7498df8cbf2a1c2ab147af19"
+        },
+        {
+          "relative": "cb/e6f56a20b835f193f832d5e2bbdae051e5d2fc703a1b8c2bfd0804bed47f72",
+          "bytes": 3756,
+          "sha256": "aba82dcc11b48f387e6c86baa233451e0e53ff17e16f7c81732c751c6ffcba44"
+        },
+        {
+          "relative": "cb/ef0ae9d3e644635e288f6257291d12618fd7de1c5a897c8f08c09eab7cae2a",
+          "bytes": 1563,
+          "sha256": "35e71fdbb7a7ac7d0a9e176bceb57e7525f06295b35e267943ad100fd4fa5e0f"
+        },
+        {
+          "relative": "cc/2d8f35cd1d5472fc6acb6e4667cb048c47898333f11bf528a4a41e05fa9502",
+          "bytes": 1408,
+          "sha256": "8a93fb6ce8334850418e82e7e371185c1924af2c22544b2154324f86ea299ca6"
+        },
+        {
+          "relative": "ce/2a53992c842aae66badd03f3a7699884492fdfdb81827ca51e639e8a494041",
+          "bytes": 3848,
+          "sha256": "a1803133643045411cfd17202ebebfa095e365b6048c33f206bfd205d8eadbff"
+        },
+        {
+          "relative": "ce/68152c7a8adbb5bd4966a890aa6d5c1c324211d169b421c8a2af02c4574401",
+          "bytes": 3955,
+          "sha256": "1587a4ab995988b438235335269937a28feff61482390bc971d64f5530510f89"
+        },
+        {
+          "relative": "cf/018cd525aaa91adf1294dc3cfe6e1869ca9ae87aa47fabdadb6d367fbdcfd5",
+          "bytes": 3657,
+          "sha256": "caf8954202cf9e309fe5ed4dd9bb8e85e33b744316bf113ea8c54906862b35e0"
+        },
+        {
+          "relative": "d0/5b6dc615c70eb9cf06a2dcdb6ce03efc1e801f60c404ef8afabf97690f5aa5",
+          "bytes": 1339,
+          "sha256": "7ccbeff7be24fcb9477d973f3b7e49a5370ecdf52d26c7333d97d914c251aeb1"
+        },
+        {
+          "relative": "d0/72f22919c7dad8aad73b92af0990399a7f7cb055cebeb55b1d50e3749d86aa",
+          "bytes": 8915,
+          "sha256": "ba05e9dc853859b3e2d70669ff8994368fec4543798c06bc8e0b4b96b26a23e5"
+        },
+        {
+          "relative": "d1/424bc55dfbfdc1bd352a690e4c81de29bfc68dfa999f996dd42de2362332a1",
+          "bytes": 3315,
+          "sha256": "39994065261b0ae5360b386f265bf120061389260d18fccb3f03f8edefcdd4a1"
+        },
+        {
+          "relative": "d1/a93115d52503fe7e4682a61a9d70f82e868d8dcb3e158336637df441b782cd",
+          "bytes": 1789,
+          "sha256": "e3c9acb8718cbc084d8c7f6fa2a6a23f4eebd7b5f571bcbcec0004c5b9d76f1b"
+        },
+        {
+          "relative": "d2/99c35c099c61bc2fb96fed38dea49ce1e46618d5596f2a88c627e211a21111",
+          "bytes": 5643,
+          "sha256": "6290dc8b48101bfec30118c0fabc92bb9ba798c540691e5f8e157265035776ae"
+        },
+        {
+          "relative": "d3/29a43ae316e8a6e7a9cf7b1a27018c87f65fd0ed53ca95428c51d78cc299be",
+          "bytes": 8369,
+          "sha256": "c6fa860a90cc4d18579c62b4bc93c491f59257765971c8a278dbbd318dbf1a71"
+        },
+        {
+          "relative": "d3/bd9c080355052da90ac8f55d95fad9d6a01b28fe6b660df8285583fabae906",
+          "bytes": 1736,
+          "sha256": "38136b8b7bd62f57a80dc3a76304287695ca61c2a589e5f316e61be3897530be"
+        },
+        {
+          "relative": "d4/27a6f0f5be08fcedd00934e450f7e9a2fdb0548233a8df5721e2e2a5c52e72",
+          "bytes": 3776,
+          "sha256": "c083f84af621fda28376feaa8529dbe391bd9b0fb9216a9bff6118bd7a992bf8"
+        },
+        {
+          "relative": "d4/2f4841544ebf5a52ee9d7ee49aa80c13d08e0579201763d1dc7290c38d630e",
+          "bytes": 5569,
+          "sha256": "91625a3cddfa19a0cd6e30757d9ee63e774546b9e67a9a95cc160f786db5aa12"
+        },
+        {
+          "relative": "d5/1d97f65279a29a681afd31ddb82581363bccb4742bafc81c6e85b36cc43b41",
+          "bytes": 7196,
+          "sha256": "ff9afc7d11f12665a9c51642e5764dada6855db389a2c3d9cedf7f3962a38c33"
+        },
+        {
+          "relative": "d7/5ee5caa655abc4c60db0e52dcc96d7f300c8ca34d2da32dd5f2a64863d8509",
+          "bytes": 17440,
+          "sha256": "7ded8dd933f4de808581c9d73b8f7cd6d86d0ca40f5ffc31698f89d19c7da78c"
+        },
+        {
+          "relative": "d7/63a3774551eaf72d6e88dddf636a0a9d57a186366898e3dd428593768be6fe",
+          "bytes": 2477,
+          "sha256": "cf8bfae73b82444e77091d32894d5a8fec18b52fb1f960ea33ebbe3281f81ad5"
+        },
+        {
+          "relative": "d8/fc8a89f50b2aada3826ea859ae20ae042dc8afb3f7d72dfa2c0c77e28cfeaa",
+          "bytes": 1650,
+          "sha256": "cfb558b840ec45bd8297b62d49561193b7866858844557cc214d13c5ba674c6d"
+        },
+        {
+          "relative": "d9/3a655214cfdb7f98a9aff9aafef71d82f16cda9d66464747e5c279222ab691",
+          "bytes": 7676,
+          "sha256": "5e21ea5a0fd0b2eea7d50823cc36c7052cbfcc3a14486f8425e640542e3ed0cb"
+        },
+        {
+          "relative": "d9/b41cbf33ccd4d45b4774e4e51fc44ea0cffed278aa44ba815124763ab0b403",
+          "bytes": 1522,
+          "sha256": "f438a7e86cb71fb517cd15767ebcebf30b424850af5d9698e6d040605d22ef2c"
+        },
+        {
+          "relative": "d9/bad0181461a01b366ff204a9fd248d7d541592700dbfb348d9896ab7b46866",
+          "bytes": 4653,
+          "sha256": "8c17096dcf2eb261f56f728400cb848bdafe07a71307b3795fba53f11688651e"
+        },
+        {
+          "relative": "db/17b5177ff4afadec64bef4aba3fbb5b46a4fd156c11a5194cf466c11007407",
+          "bytes": 5251,
+          "sha256": "54f5a3a4537886739060afafa1259eeb187541f48cbaa7128a33d62f05a53baa"
+        },
+        {
+          "relative": "db/a680f87368c6ed48e1fedafe6c1333e14b8e5f90805dc4324af6503669f2eb",
+          "bytes": 3449,
+          "sha256": "4affc65fad6d6b3e79f151a210ede5d465cea2c3f974b1200fc45ec58720e8c0"
+        },
+        {
+          "relative": "dc/2689458df0781f4c6a07150d351e5ae9d1edee1a3fe3e4cb9e955e3b184d52",
+          "bytes": 3619,
+          "sha256": "c7266ed9f7e743e58e8123f7d8ad68d2bc906e7bd9c229b66be7efa7e01c3150"
+        },
+        {
+          "relative": "dc/a78e4b9057ebfac26100cee551bb7108e8dee750f3e1c6f21ba237072c92eb",
+          "bytes": 1593,
+          "sha256": "c53e5b46e996f06585b3659abaea4d7b3ec01e74ba87855d87ffeb7ea7c7c80f"
+        },
+        {
+          "relative": "de/e8565e3572628a433ab4a01389ac4ad69c1810337526024619df05aca74080",
+          "bytes": 9121,
+          "sha256": "23d4217debd69976f6a50a191e99a0c695fe9fb3fb57b00bb130dc4563d0a4f7"
+        },
+        {
+          "relative": "df/bf721ea89e598ee089f18a159a5a53ff65836b139003d11d19b269253111dd",
+          "bytes": 16926,
+          "sha256": "98bd6ac732807a5ac716d905723057f8f58536e6fc4e73b20cff7095a8e11bf8"
+        },
+        {
+          "relative": "df/d0acb7d97f6987b13b8d6f694b8bf892a3a8ac878599e2c483fdb8594245a0",
+          "bytes": 1439,
+          "sha256": "79fb74240ea83d5c1c504828948aa49831bfa886612fffef567e855cf663f495"
+        },
+        {
+          "relative": "e0/c55b582d3387b418cdd9d4b5eb078cfe7b59866bc5e9c3f11a6d842a6dc410",
+          "bytes": 1486,
+          "sha256": "3d34c2545c48d0265df6794317d3e9e29eccc95b93124a986fbf58da77f1cab3"
+        },
+        {
+          "relative": "e1/7d6b32ff75f7479ee10f4d97f7111cccf6ba709651ae746f0a5a885dd6b351",
+          "bytes": 10021,
+          "sha256": "0be2d4942e7ca2c8f066583faa7f9fafcb813e848e20e56af249523f48a775d2"
+        },
+        {
+          "relative": "e2/7ddc04282966703288fb7b8ade4dab948e283b962c0445b2502d7269b1c6ed",
+          "bytes": 1080,
+          "sha256": "755d2c371b0d3f77fa3f5093c66c96e5f0e695db8001992e6ee0a9610c811caf"
+        },
+        {
+          "relative": "e4/1edeeac0145a25e0b342a19471ec936fdb61378ef7a684bfe6e3ed443be401",
+          "bytes": 1456,
+          "sha256": "e02546356ca3fd593048d2b901d32717848e02aa9fd40a05f626548eeecb1abe"
+        },
+        {
+          "relative": "e8/07e66de2f7f0231f1ab1e54e122a4351fd65d8126d02235a77a3a822f7bb99",
+          "bytes": 2710,
+          "sha256": "f0291a6a311fc5719f673987152585d989dee0ef370bdfd8b3b19ced13f3748b"
+        },
+        {
+          "relative": "e9/0e073dc0d671ee64ebd570cf77447edaca2435aa436f6931fa85b02197ec2d",
+          "bytes": 8013,
+          "sha256": "a8a289c626e23b4dd4d2573c974a40a8214c92b25f43bb1234e10b05c8228a76"
+        },
+        {
+          "relative": "ea/aa1b9a3a61965092df41a8474c62f9a02645a0a849b86972dcdec41266f95f",
+          "bytes": 16067,
+          "sha256": "815c795204419687cc702b36cdb149dc0917cec3b0932c113ec0768ad075df67"
+        },
+        {
+          "relative": "ea/dcdb762f1bf44ad45ee736b4a29f38f7df91ba0f405583f55526fed6126e77",
+          "bytes": 1843,
+          "sha256": "6d5f4a4467d56e460f1073e422744846061f7212584464336a5e073698770044"
+        },
+        {
+          "relative": "ed/13021af7fea5692b0e9bdc83b52ee18fea4f89e6480dd1ac9e0c019fe4b5e2",
+          "bytes": 9733,
+          "sha256": "daf5994f18d67c92b293e57d7a72ce43a22abebd368d574b462410afcf4c2420"
+        },
+        {
+          "relative": "ed/6b0368f28ecdd44cdba511150cd228c4c298682e09df205060f11ecdae35b2",
+          "bytes": 1457,
+          "sha256": "15c0cc19dd16d0cd6f6a7c82b3e4c1787c9bf4f880155dbcc1c309392d67907e"
+        },
+        {
+          "relative": "ed/73f46c4afa8c275b60a703ebd7024927ef6a432cbed70446712153627f37f9",
+          "bytes": 3884,
+          "sha256": "0dde13d60e48e6187999c3ead21e92d9477ac01b4ba631faeedda023c44fec55"
+        },
+        {
+          "relative": "ed/8a40d9eca2fd946417884b092d0cfc6b1d8ce098afd28b4578552822850147",
+          "bytes": 9469,
+          "sha256": "7c4a49a0035fe3370200249554b48653a8107dd9787716241acd7aeff6fd19ce"
+        },
+        {
+          "relative": "ee/4328aa32a0daf5b8632e35863e7a3aa912e994ab127416086e906d12225405",
+          "bytes": 5092,
+          "sha256": "401e07c6cc0f10e70b9bd4298accb2737c16853cc4d6a621d5cfeba6fd87179d"
+        },
+        {
+          "relative": "ee/d0c97ff06a38ebfc79318ed450476d454a295c83fe3271eee85b346b77af2b",
+          "bytes": 16082,
+          "sha256": "8a9d2316bc97fa522c5664271f40ba8213862ff82203247185956bcc5f621888"
+        },
+        {
+          "relative": "ef/82ec4207ed4a2bb3600a01bd4b9145027912fa2bd82e88095184fe20a3234f",
+          "bytes": 1393,
+          "sha256": "d581ceb3fd055416a997334eaacc4585037c73e36281a43d73580beb49a45d13"
+        },
+        {
+          "relative": "ef/9e9e2706dc183ad52cde171d7b773009735ceac8a453985752f1456c923c4d",
+          "bytes": 8170,
+          "sha256": "4563498c0b0f7e528a1499cf52f2daa3c44df66f80e7f54fa90a37602f062847"
+        },
+        {
+          "relative": "f0/707e6fb72b20c470af2dcb9936e9efe06628667820278984f69f5f05ddb02c",
+          "bytes": 1209,
+          "sha256": "eaf231f54513182efbbe25fc9ac1e84d03bfba387d8e189dd314fbe4b5e7241c"
+        },
+        {
+          "relative": "f0/bf98992d2d669e6dc183ce53feccdfe13d97b2b53a3c0b44f2e486ef025998",
+          "bytes": 3537,
+          "sha256": "9cf71ecaa236247bd165d069ce8c403092219a140f38cff4d3e6189975aa6c98"
+        },
+        {
+          "relative": "f0/e0651e3377af85c388fc1c1b9a9167d60cef3505b17f04fe96332d10cf35f0",
+          "bytes": 2328,
+          "sha256": "69f33f067d9345f2645ba459007c52c215636141423439380648de1f182b796b"
+        },
+        {
+          "relative": "f3/df71e252d46feaed046f4bf63f5efb4a2ce925a75dc25f890d37bcbbe0dafe",
+          "bytes": 7558,
+          "sha256": "4617b3f6005d478bdc5c30fa9f380b4331089ccbb120eede33fa33521801f014"
+        },
+        {
+          "relative": "f3/f579dfce4ef6dcffdc5adf4e623a5dda42905d6f05670d048a98edf4e2612e",
+          "bytes": 2816,
+          "sha256": "719f8ac125182e9c3dd4a5a8202f4b2f78a2ed5b493eec5e151c13396e80aebb"
+        },
+        {
+          "relative": "f4/09992cc50d9f960237d40496880668cd455f7ca4cbd231a823d7043aad83cd",
+          "bytes": 2173,
+          "sha256": "8f65c59640a1aa24fc970d26a71dd0feb1e93a568aa0015f1b44d8a12aa02033"
+        },
+        {
+          "relative": "f4/3ab7a3be0237583870f7047ecfe19ff3a8a2f8f41572bf659ff9a5c3736bb3",
+          "bytes": 7153,
+          "sha256": "1e7e7bc18ea080ba9c10c1ca28ef013a630a7d3411c15e37f8cc280d42f068ec"
+        },
+        {
+          "relative": "f4/54ae1f3c43748a595e19e7a588fb2e08651b4b778d06883a388db10c875525",
+          "bytes": 3450,
+          "sha256": "6a178ca9d72f0bdd81f74ef6b7bd3f40938cdc562f533ebc3522b0045185f703"
+        },
+        {
+          "relative": "f5/8f2e90d6a2d7efe3a902bbaeeaec49f397e9518966de4075a37f77360c3a72",
+          "bytes": 1996,
+          "sha256": "ebce8d839c4a109dfad93efc8e1e8168e883d1c15e3a2552e67176dbfaf3c542"
+        },
+        {
+          "relative": "f6/23044ab0d22cf71fb2b65f51b7fabdfebf161677505d89da7248a80e9bec27",
+          "bytes": 1432,
+          "sha256": "994d40c3ec952e39701644b719d08c8b3c3547532995228a7f8d244c4244aa7a"
+        },
+        {
+          "relative": "f8/3377aaa67bdbfb6b32094a1c479ce61b348f1ec39391f2f30c2d25b90ad008",
+          "bytes": 2334,
+          "sha256": "1e3bbb150d7f9f60362f3f7049b710a80c57db0329b45159407e46d00d3e7a2c"
+        },
+        {
+          "relative": "f9/8168266f83d7c64351b3083557d4969d78e9d2e0fc277027a989692a7acaca",
+          "bytes": 13531,
+          "sha256": "973084be65ce6cd8da6f29fc5c2d1e71604fda6a580d7927193fcb7f7ea3db68"
+        },
+        {
+          "relative": "fa/1fabdf43a821f75ef914777743bbbc9557c4d20c0c898e4577c290ff0a6b05",
+          "bytes": 8158,
+          "sha256": "b8482676bb6e56039a457cb362a84495e9fdf903a42077885b490f68cf773818"
+        },
+        {
+          "relative": "fb/6fd8bb801e5c862fde35d6cec12c4c700c6f11196dfa8194698df9d519f514",
+          "bytes": 969,
+          "sha256": "2a1f57264b14814072c34045928cfc58b42e37cb0987a5a50f1532f0351210ff"
+        },
+        {
+          "relative": "fb/efd7c52d6d49fac53db14e248895d39e86978775fe8aa5eaadf9c9a40eabc6",
+          "bytes": 1339,
+          "sha256": "4a48db5d248d9d58250ae8b4fcf87db4aaff163edb07320ddbe0052768390b8a"
+        },
+        {
+          "relative": "fc/28412af0c33ecfa991c6d5a08f679d4f9b3ff20eddff7c5d234ba91963e3da",
+          "bytes": 3065,
+          "sha256": "5a2dff91b6f5d891167a5270582f91e17f7202256ef60f1fc8511bb91fadf243"
+        },
+        {
+          "relative": "fc/50d45a06efabc1f261a18f7dc65e4d45f5c87a09918b1f77c2d365635a7e93",
+          "bytes": 17830,
+          "sha256": "d3e0dc8c62d609c2a542e27bfcc2b72e8ab822a7f1a775a89f76f2424ceb4b08"
+        },
+        {
+          "relative": "fe/36e1191e98b39ad0f1c0783c01d14960a0766e4aca0993e44b7ca2a62079e2",
+          "bytes": 1414,
+          "sha256": "bb0d7c03cf9b0ed13f507a819a6bf8cda5878732ca520f33cec49ba2fe8e9b82"
+        },
+        {
+          "relative": "index",
+          "bytes": 2097160,
+          "sha256": "4415eff7f7643de45461d3c438e142a2957f6283747dcce44e2f9fe600e92f8c"
+        },
+        {
+          "relative": "marker",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ],
+      "bytes": 3667514,
+      "digest": "9ae5f472d7454f2c2e4a857fbe38f4cc3d8dec510d830d1d126a1d216be42d12"
+    }
+  },
+  "preparationMs": 22332,
+  "timing": {
+    "preparationMs": 22332,
+    "launchToReadyMs": 45527,
+    "nativeSpawnToReadyMs": 36459,
+    "launchAt": 1792548557326,
+    "gameSpawnAt": 1792548566394,
+    "readyAt": 1792548602853,
+    "hostBenchmarkElapsedMs": 32007
+  },
+  "loadedRuntimeLibraries": {
+    "verified": true,
+    "libraries": [
+      {
+        "path": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/runtime/v104-descriptor-candidate-20261020/BAR.app/Contents/Resources/bundled-assets/runtime/sdl3/lib/libSDL3.0.dylib",
+        "sha256": "6a76d38b6cfcd75122ea51215af9dd8be1972c984a431adb2cfa0c6731354820"
+      },
+      {
+        "path": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/runtime/v104-descriptor-candidate-20261020/BAR.app/Contents/Resources/bundled-assets/runtime/mesa-zink/lib/libEGL.1.dylib",
+        "sha256": "62adb20871cf6985bde4b20c78ffabd37a590fa9023cf362f87ce16739a3f533"
+      },
+      {
+        "path": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/runtime/v104-descriptor-candidate-20261020/BAR.app/Contents/Resources/bundled-assets/runtime/mesa-zink/lib/libgallium-26.3.0-devel.dylib",
+        "sha256": "ca4f3ddd7a0bf20c7f39636ea58d04ba42bc8b9170f871eac62a53c068ad9c30"
+      },
+      {
+        "path": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/runtime/v104-descriptor-candidate-20261020/BAR.app/Contents/Resources/bundled-assets/runtime/vulkan-loader/lib/libvulkan.1.4.365.dylib",
+        "sha256": "b2b4bb1c9db72ff8639958e3137b308c67c15fe35cb846ffd5b1f7703cc0f7cd"
+      },
+      {
+        "path": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/runtime/v104-descriptor-candidate-20261020/BAR.app/Contents/Resources/bundled-assets/runtime/moltenvk-pr2746/lib/libMoltenVK.1.4.3.dylib",
+        "sha256": "7ac71989ca27a99a2f9adf219ac0dcb12f16804cd35733bf7fd2c078635c5c4a"
+      }
+    ]
+  },
+  "hiddenWindowEvents": [
+    {
+      "pid": 6554,
+      "event": "hidden-window-guard-loaded",
+      "flags": 0
+    },
+    {
+      "pid": 6554,
+      "event": "hidden-policy-switch-rejected",
+      "flags": 3
+    },
+    {
+      "pid": 6554,
+      "event": "hidden-policy-after-finish",
+      "flags": 3
+    },
+    {
+      "pid": 6554,
+      "event": "create-forced-hidden",
+      "flags": 2147491880
+    },
+    {
+      "pid": 6554,
+      "event": "created-hidden-verified",
+      "flags": 2147491882
+    },
+    {
+      "pid": 6554,
+      "event": "restore-blocked",
+      "flags": 0
+    },
+    {
+      "pid": 6554,
+      "event": "fullscreen-blocked",
+      "flags": 0
+    }
+  ],
+  "msaaConfigEvidence": "[MacSDL3EGL::TryChooseExactConfig] configured=0 requested=0 selected=0 sampleBuffers=0 depth=24 stencil=8",
+  "vsync": {
+    "requested": 0,
+    "engineLogLast": "[VSync::SetInterval] interval=0 (disabled)",
+    "sourceInference": "Mesa Kopper initializes swap interval 0, which selects Vulkan immediate present when supported; MoltenVK applies present mode to CAMetalLayer. Actual present mode remains unobserved."
+  },
+  "cpuSample": {
+    "tool": "/usr/bin/sample",
+    "targetPID": 6554,
+    "durationSeconds": 10,
+    "intervalMilliseconds": 1,
+    "startUnixMs": 1792548603250,
+    "startStatus": {
+      "unit": [],
+      "id": "12f25017-de41-43f9-b545-df4d1717442e",
+      "note": "benchmark-starting",
+      "frame": "240",
+      "draws": "1676",
+      "fps": "118.000000",
+      "width": "1432",
+      "height": "902",
+      "map": "Seths Ravine Remake 1.3.1",
+      "ultra": "verified",
+      "qualification": "complete",
+      "result": "pending",
+      "qualityError": "none",
+      "qualityPending": "none",
+      "fixture.contract": "metal4-exact-frame240-v1",
+      "fixture.expectedFrame": "240",
+      "fixture.pauseRequestFrame": "180",
+      "fixture.pauseAckFrame": "180",
+      "fixture.stepCount": "60",
+      "fixture.actualPaused": "true",
+      "fixture.readyFrame": "240",
+      "config.VSyncGame": "0",
+      "config.MSAA": "0",
+      "config.MinSampleShadingRate": "0",
+      "config.VSync": "0",
+      "config.MSAALevel": "0",
+      "glSamples": "0",
+      "glSamplesError": "none",
+      "mapEdge.wanted": "true",
+      "mapEdge.voidGround": "false",
+      "mapEdge.exceptionApplied": "true",
+      "mapEdge.voidWater": "true",
+      "mapEdge.widgetActive": "false",
+      "mapEdge.actual": "0.5",
+      "benchmarkStart": "240",
+      "benchmarkTarget": "1140"
+    },
+    "output": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-remaining-c-cost-design-20261020/2-candidate-metal3/sessions/lobby-no-native-hook-1792548532959/cpu-sample.txt",
+    "stderr": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-remaining-c-cost-design-20261020/2-candidate-metal3/sessions/lobby-no-native-hook-1792548532959/cpu-sample-stderr.txt",
+    "usedForFPSComparison": false,
+    "exitCode": 0,
+    "signal": null,
+    "endUnixMs": 1792548615297,
+    "endStatus": {
+      "unit": [],
+      "id": "12f25017-de41-43f9-b545-df4d1717442e",
+      "note": "benchmark-running",
+      "frame": "549",
+      "draws": "1845",
+      "fps": "15.000000",
+      "width": "1432",
+      "height": "902",
+      "map": "Seths Ravine Remake 1.3.1",
+      "ultra": "verified",
+      "qualification": "complete",
+      "result": "pending",
+      "qualityError": "none",
+      "qualityPending": "none",
+      "fixture.contract": "metal4-exact-frame240-v1",
+      "fixture.expectedFrame": "240",
+      "fixture.pauseRequestFrame": "180",
+      "fixture.pauseAckFrame": "180",
+      "fixture.stepCount": "60",
+      "fixture.actualPaused": "false",
+      "fixture.readyFrame": "240",
+      "config.VSyncGame": "0",
+      "config.MSAA": "0",
+      "config.MinSampleShadingRate": "0",
+      "config.VSync": "0",
+      "config.MSAALevel": "0",
+      "glSamples": "0",
+      "glSamplesError": "none",
+      "mapEdge.wanted": "true",
+      "mapEdge.voidGround": "false",
+      "mapEdge.exceptionApplied": "true",
+      "mapEdge.voidWater": "true",
+      "mapEdge.widgetActive": "false",
+      "mapEdge.actual": "0.5",
+      "benchmarkStart": "240",
+      "benchmarkTarget": "1140"
+    },
+    "sha256": "c284fb61f4b229f581044b61f2a0bd339fb46dfc2cd9947da5096b572914c43f"
+  },
+  "benchmark": {
+    "benchmark": {
+      "drawIntervals": {
+        "count": 1028,
+        "meanFPS": 34.313045501709,
+        "meanMs": 29.143432617188,
+        "over100Ms": 67,
+        "over33Ms": 89,
+        "over50Ms": 70,
+        "p50Ms": 21.275999069214,
+        "p95Ms": 124.46199798584,
+        "p99Ms": 171.949996948242
+      },
+      "endFrame": 1140,
+      "existingProfiler": {
+        "finish": {
+          "namesAvailable": 7,
+          "namesRead": 7,
+          "readCostMs": 0,
+          "scope": "existing inclusive engine special-timer wall time; nested entries overlap; GPU/fence waits may be included",
+          "totalMilliseconds": {
+            "Draw": 28004.70703125,
+            "Lua::Callins::Synced": 997.629089355469,
+            "Lua::Callins::Unsynced": 25334.970703125,
+            "Lua::CollectGarbage::Synced": 79.312408447266,
+            "Lua::CollectGarbage::Unsynced": 659.07763671875,
+            "Misc::Profiler::AddTime": 11.468401908875,
+            "Sim": 5397.3974609375
+          }
+        },
+        "start": {
+          "namesAvailable": 7,
+          "namesRead": 7,
+          "readCostMs": 0,
+          "scope": "existing inclusive engine special-timer wall time; nested entries overlap; GPU/fence waits may be included",
+          "totalMilliseconds": {
+            "Draw": 13907.0712890625,
+            "Lua::Callins::Synced": 30.029588699341,
+            "Lua::Callins::Unsynced": 13051.9208984375,
+            "Lua::CollectGarbage::Synced": 28.75350189209,
+            "Lua::CollectGarbage::Unsynced": 324.525848388672,
+            "Misc::Profiler::AddTime": 2.99271607399,
+            "Sim": 211.312789916992
+          }
+        }
+      },
+      "gameSpeed": {
+        "atRequest": {
+          "actual": 1,
+          "paused": true,
+          "requested": 1
+        },
+        "finish": {
+          "actual": 1,
+          "paused": false,
+          "requested": 1
+        },
+        "requested": 1,
+        "start": {
+          "actual": 1,
+          "paused": false,
+          "requested": 1
+        }
+      },
+      "nativeReport": "independent infolog benchmark output",
+      "simulationFrames": 900,
+      "startFrame": 240,
+      "unitCounts": [
+        {
+          "count": 2,
+          "frame": 240,
+          "gameSpeed": {
+            "actual": 1,
+            "paused": true,
+            "requested": 1
+          },
+          "second": 1
+        },
+        {
+          "count": 156,
+          "frame": 273,
+          "gameSpeed": {
+            "actual": 1,
+            "paused": false,
+            "requested": 1
+          },
+          "second": 2.104000091553
+        },
+        {
+          "count": 157,
+          "frame": 304,
+          "gameSpeed": {
+            "actual": 1,
+            "paused": false,
+            "requested": 1
+          },
+          "second": 3.12299990654
+        },
+        {
+          "count": 164,
+          "frame": 334,
+          "gameSpeed": {
+            "actual": 1,
+            "paused": false,
+            "requested": 1
+          },
+          "second": 4.137000083923
+        },
+        {
+          "count": 165,
+          "frame": 367,
+          "gameSpeed": {
+            "actual": 1,
+            "paused": false,
+            "requested": 1
+          },
+          "second": 5.235000133514
+        },
+        {
+          "count": 169,
+          "frame": 401,
+          "gameSpeed": {
+            "actual": 1,
+            "paused": false,
+            "requested": 1
+          },
+          "second": 6.366000175476
+        },
+        {
+          "count": 169,
+          "frame": 432,
+          "gameSpeed": {
+            "actual": 1,
+            "paused": false,
+            "requested": 1
+          },
+          "second": 7.408999919891
+        },
+        {
+          "count": 167,
+          "frame": 467,
+          "gameSpeed": {
+            "actual": 1,
+            "paused": false,
+            "requested": 1
+          },
+          "second": 8.569000244141
+        },
+        {
+          "count": 151,
+          "frame": 500,
+          "gameSpeed": {
+            "actual": 1,
+            "paused": false,
+            "requested": 1
+          },
+          "second": 9.656999588013
+        },
+        {
+          "count": 162,
+          "frame": 533,
+          "gameSpeed": {
+            "actual": 1,
+            "paused": false,
+            "requested": 1
+          },
+          "second": 10.77499961853
+        },
+        {
+          "count": 153,
+          "frame": 564,
+          "gameSpeed": {
+            "actual": 1,
+            "paused": false,
+            "requested": 1
+          },
+          "second": 11.781999588013
+        },
+        {
+          "count": 159,
+          "frame": 594,
+          "gameSpeed": {
+            "actual": 1,
+            "paused": false,
+            "requested": 1
+          },
+          "second": 12.781999588013
+        },
+        {
+          "count": 154,
+          "frame": 624,
+          "gameSpeed": {
+            "actual": 1,
+            "paused": false,
+            "requested": 1
+          },
+          "second": 13.784000396729
+        },
+        {
+          "count": 155,
+          "frame": 654,
+          "gameSpeed": {
+            "actual": 1,
+            "paused": false,
+            "requested": 1
+          },
+          "second": 14.788999557495
+        },
+        {
+          "count": 150,
+          "frame": 685,
+          "gameSpeed": {
+            "actual": 1,
+            "paused": false,
+            "requested": 1
+          },
+          "second": 15.807999610901
+        },
+        {
+          "count": 149,
+          "frame": 715,
+          "gameSpeed": {
+            "actual": 1,
+            "paused": false,
+            "requested": 1
+          },
+          "second": 16.809999465942
+        },
+        {
+          "count": 164,
+          "frame": 745,
+          "gameSpeed": {
+            "actual": 1,
+            "paused": false,
+            "requested": 1
+          },
+          "second": 17.823999404907
+        },
+        {
+          "count": 169,
+          "frame": 775,
+          "gameSpeed": {
+            "actual": 1,
+            "paused": false,
+            "requested": 1
+          },
+          "second": 18.83099937439
+        },
+        {
+          "count": 168,
+          "frame": 806,
+          "gameSpeed": {
+            "actual": 1,
+            "paused": false,
+            "requested": 1
+          },
+          "second": 19.857000350952
+        },
+        {
+          "count": 170,
+          "frame": 837,
+          "gameSpeed": {
+            "actual": 1,
+            "paused": false,
+            "requested": 1
+          },
+          "second": 20.875
+        },
+        {
+          "count": 165,
+          "frame": 867,
+          "gameSpeed": {
+            "actual": 1,
+            "paused": false,
+            "requested": 1
+          },
+          "second": 21.888999938965
+        },
+        {
+          "count": 162,
+          "frame": 897,
+          "gameSpeed": {
+            "actual": 1,
+            "paused": false,
+            "requested": 1
+          },
+          "second": 22.892000198364
+        },
+        {
+          "count": 168,
+          "frame": 927,
+          "gameSpeed": {
+            "actual": 1,
+            "paused": false,
+            "requested": 1
+          },
+          "second": 23.89999961853
+        },
+        {
+          "count": 172,
+          "frame": 958,
+          "gameSpeed": {
+            "actual": 1,
+            "paused": false,
+            "requested": 1
+          },
+          "second": 24.917999267578
+        },
+        {
+          "count": 164,
+          "frame": 988,
+          "gameSpeed": {
+            "actual": 1,
+            "paused": false,
+            "requested": 1
+          },
+          "second": 25.927000045776
+        },
+        {
+          "count": 161,
+          "frame": 1019,
+          "gameSpeed": {
+            "actual": 1,
+            "paused": false,
+            "requested": 1
+          },
+          "second": 26.947999954224
+        },
+        {
+          "count": 161,
+          "frame": 1049,
+          "gameSpeed": {
+            "actual": 1,
+            "paused": false,
+            "requested": 1
+          },
+          "second": 27.948999404907
+        },
+        {
+          "count": 158,
+          "frame": 1079,
+          "gameSpeed": {
+            "actual": 1,
+            "paused": false,
+            "requested": 1
+          },
+          "second": 28.948999404907
+        },
+        {
+          "count": 164,
+          "frame": 1109,
+          "gameSpeed": {
+            "actual": 1,
+            "paused": false,
+            "requested": 1
+          },
+          "second": 29.964000701904
+        }
+      ],
+      "wallSeconds": 29.969999313354
+    },
+    "camera": {
+      "dist": 2254.7705078125,
+      "dx": 0,
+      "dy": -0.924302399158,
+      "dz": -0.381660997868,
+      "fov": 45,
+      "mode": 2,
+      "name": "spring",
+      "px": 4096,
+      "py": 254.770629882813,
+      "pz": 3072,
+      "rx": 2.75,
+      "ry": 0,
+      "rz": 0
+    },
+    "engineVersion": "2026.09.01-24-g01efdf4 master (BAR-1.0.3 )",
+    "fixture": {
+      "contract": "metal4-exact-frame240-v1",
+      "expectedFrame": 240,
+      "pauseAckFrame": 180,
+      "pauseRequestFrame": 180,
+      "readyFrame": 240,
+      "stepCount": 60
+    },
+    "frameTarget": 900,
+    "game": "Beyond All Reason",
+    "gameVersion": "test-31671-ad2e1b7",
+    "map": "Seths Ravine Remake 1.3.1",
+    "officialCommand": "luarules benchmark armbull armbull 80 8 1400",
+    "officialSource": "https://github.com/beyond-all-reason/Beyond-All-Reason/blob/433a460ac108c510374abdc9af5b44e3b9fe406f/luarules/gadgets/dbg_benchmark.lua",
+    "qualification": {
+      "pass": true,
+      "stages": [
+        {
+          "draws": 334,
+          "fps": 111.333335876465,
+          "seconds": 3,
+          "stage": "off-before"
+        },
+        {
+          "draws": 346,
+          "fps": 114.950164794922,
+          "frameIntervals": {
+            "count": 345,
+            "meanFPS": 114.948394775391,
+            "meanMs": 8.699556350708,
+            "over100Ms": 0,
+            "over33Ms": 0,
+            "over50Ms": 0,
+            "p50Ms": 8.49199962616,
+            "p95Ms": 11.512000083923,
+            "p99Ms": 12.954999923706
+          },
+          "seconds": 3.009999990463,
+          "stage": "on"
+        },
+        {
+          "draws": 326,
+          "fps": 108.630462646484,
+          "seconds": 3.000999927521,
+          "stage": "off-after"
+        }
+      ]
+    },
+    "quality": {
+      "config": {
+        "MSAA": 0,
+        "MSAALevel": 0,
+        "MinSampleShadingRate": 0,
+        "VSync": 0,
+        "VSyncGame": 0
+      },
+      "glSamples": 0,
+      "glSamplesConfirmed4": false,
+      "glSamplesScope": "DrawScreen current framebuffer; resolved UI targets may report 0 or 1",
+      "mapEdge": {
+        "actual": 0.5,
+        "exceptionApplied": true,
+        "voidGround": false,
+        "voidWater": true,
+        "wanted": true,
+        "widgetActive": false
+      },
+      "optionValues": {
+        "advmapshading": true,
+        "attackrange_numrangesmult": 1,
+        "bloomdeferred": true,
+        "bloomdeferred_quality": 3,
+        "camera": 3,
+        "cusgl4": true,
+        "decals": true,
+        "decalsgl4": true,
+        "distortioneffects": true,
+        "fogdiaglines": 0,
+        "grass": true,
+        "lighteffects": true,
+        "lighteffects_nanoparticlelights": true,
+        "lighteffects_screenspaceshadows": 4,
+        "limitidlefps": false,
+        "limitoffscreenfps": false,
+        "losrange": true,
+        "mapedgeextension": 0.5,
+        "msaa": 1,
+        "particles": 40000,
+        "preset": 5,
+        "shadowslider": 6,
+        "snow": true,
+        "ssao": true,
+        "ssao_quality": 3,
+        "vsync": 1,
+        "water": 2
+      },
+      "optionsVerified": 20,
+      "ultraPreset": 5,
+      "ultraVerified": true
+    },
+    "requestId": "12f25017-de41-43f9-b545-df4d1717442e",
+    "resolution": {
+      "height": 902,
+      "width": 1432
+    },
+    "schema": 1,
+    "seed": 7654321,
+    "status": "complete",
+    "workload": {
+      "placementSpan": 1400,
+      "populationThresholdIsNotHardCap": true,
+      "populationThresholdPerTeam": 80,
+      "rampIncluded": true,
+      "replenishBatchPerTeam": 8,
+      "replenishEverySimulationFrames": 3,
+      "requestedSimulationSpeed": 1,
+      "unitTypeOpponent": "armbull",
+      "unitTypeOwn": "armbull"
+    }
+  },
+  "benchmarkEvidence": {
+    "path": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-remaining-c-cost-design-20261020/2-candidate-metal3/sessions/lobby-no-native-hook-1792548532959/state/data/LuaUI/Config/v104-performance-result.json",
+    "sha256": "7b8f5c6c099438f3fad751e066bb74e7f2dab70727bb06026cd52ba14c5c8548"
+  },
+  "postMeasurementFixtures": "excluded_from_cost_observation_scope",
+  "gracefulQuit": true,
+  "lobbyReturn": {
+    "ready": "complete",
+    "api": "function",
+    "url": "file:///Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/runtime/v104-descriptor-candidate-20261020/BAR.app/Contents/Resources/app.asar/.vite/renderer/main_window/index.html"
+  },
+  "status": "completed-not-promoted",
+  "remainingOwnedProcesses": [],
+  "runtimeUUID": {
+    "prefix": "f52facf7",
+    "uuids": [
+      "f52facf7-1b02-0209-0000-000100000000"
+    ],
+    "driverLog": {
+      "path": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-remaining-c-cost-design-20261020/2-candidate-metal3/sessions/lobby-no-native-hook-1792548532959/state/data/stack-game.stderr.log",
+      "sha256": "556dd7829582a04f8c8d7ac43cd3120925106048f07babebcae5f1a6593ff0e9"
+    }
+  },
+  "nativeMetal4": {
+    "requested": false,
+    "activeQueues": 0,
+    "proved": false,
+    "legacyParentIdentityVerified": false
+  },
+  "runtimeEnvironment": {
+    "at": 1792548563159,
+    "pid": 6472,
+    "event": "stack-private-cache-route",
+    "nativeMetal4": "0",
+    "helper": false,
+    "cache": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-remaining-c-cost-design-20261020/2-candidate-metal3/sessions/lobby-no-native-hook-1792548532959/state/data/cache/metal3",
+    "icd": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/runtime/v104-descriptor-candidate-20261020/BAR.app/Contents/Resources/bundled-assets/runtime/moltenvk-pr2746/MoltenVK_icd.json",
+    "mode": "single",
+    "diagnosticsOff": true,
+    "policy": {
+      "BAR_ZINK_MVK_DISABLE_ASYNC_WAIT": "1",
+      "MVK_CONFIG_USE_METAL4": "0",
+      "MVK_CONFIG_LOG_LEVEL": "3",
+      "MVK_CONFIG_METAL4_PREPASS": "1",
+      "MVK_CONFIG_PREFILL_METAL_COMMAND_BUFFERS": "0",
+      "MVK_CONFIG_METAL4_STATS": "0",
+      "MVK_CONFIG_METAL4_QUEUE_STATS": "0",
+      "MVK_CONFIG_BACKEND_COST_STATS": "0",
+      "MVK_CONFIG_METAL4_FUSED_RESTART": "0",
+      "MVK_CONFIG_TRACE_VULKAN_CALLS": "0",
+      "MVK_CONFIG_PERFORMANCE_TRACKING": "0"
+    },
+    "removedDiagnosticKeys": [],
+    "argumentBuffers": null,
+    "synchronousQueueSubmits": null
+  },
+  "officialNativeReport": {
+    "present": true,
+    "nativeLog": {
+      "path": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-remaining-c-cost-design-20261020/2-candidate-metal3/sessions/lobby-no-native-hook-1792548532959/state/data/infolog.txt",
+      "sha256": "923a9eaab738e3aef60f11036ce9842971f7eb3e0a345970ea98d6801e3b6523"
+    }
+  },
+  "mesaRuntimeBuildID": {
+    "expected": "9ba10f0aab543df342535ac4d7d3e559fe825793636f9175232ae23b700a6cb1",
+    "observed": [],
+    "nativeLog": {
+      "path": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-remaining-c-cost-design-20261020/2-candidate-metal3/sessions/lobby-no-native-hook-1792548532959/state/data/infolog.txt",
+      "sha256": "923a9eaab738e3aef60f11036ce9842971f7eb3e0a345970ea98d6801e3b6523"
+    }
+  },
+  "cleanup": {
+    "schemaVersion": 1,
+    "status": "private-clones-removed",
+    "run": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-remaining-c-cost-design-20261020/2-candidate-metal3/sessions/lobby-no-native-hook-1792548532959",
+    "targets": [
+      "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-remaining-c-cost-design-20261020/2-candidate-metal3/sessions/lobby-no-native-hook-1792548532959/assets/maps",
+      "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-remaining-c-cost-design-20261020/2-candidate-metal3/sessions/lobby-no-native-hook-1792548532959/assets/pool",
+      "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-remaining-c-cost-design-20261020/2-candidate-metal3/sessions/lobby-no-native-hook-1792548532959/assets/packages",
+      "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-remaining-c-cost-design-20261020/2-candidate-metal3/sessions/lobby-no-native-hook-1792548532959/assets/rapid"
+    ],
+    "files": 19978,
+    "symlinks": 0,
+    "directories": 263,
+    "logicalBytes": 2316290517,
+    "physicalBytesMeasured": false,
+    "sourceCacheTouched": false,
+    "trialStateAndLogsPreserved": true
+  },
+  "protectedInputsUnchanged": true,
+  "powerConditionsPassed": true,
+  "foregroundChecks": 70,
+  "finishedAt": "2026-10-21T02:10:45.615Z"
+}

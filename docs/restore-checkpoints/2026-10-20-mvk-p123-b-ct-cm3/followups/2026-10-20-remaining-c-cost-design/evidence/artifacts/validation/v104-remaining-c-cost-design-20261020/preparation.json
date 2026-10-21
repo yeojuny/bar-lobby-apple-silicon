@@ -1,0 +1,54 @@
+{
+  "plans": [
+    {
+      "ordinal": 1,
+      "role": "candidate",
+      "backend": "metal4",
+      "folder": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-remaining-c-cost-design-20261020/1-candidate-metal4",
+      "schema": "v104-c-cost-1-candidate-metal4-v1",
+      "plan": {
+        "path": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-remaining-c-cost-design-20261020/1-candidate-metal4/plan.json",
+        "sha256": "a327a30efbd3710862fcab4cb30064f50c2b417492e47b6ec20f67a0476eaa46"
+      },
+      "host": {
+        "path": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-remaining-c-cost-design-20261020/1-candidate-metal4/effective-host.mjs",
+        "sha256": "db9f9c62c9c136a915559d4111c505687c2a776cbf18f029710715a4f8879ff5"
+      }
+    },
+    {
+      "ordinal": 2,
+      "role": "candidate",
+      "backend": "metal3",
+      "folder": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-remaining-c-cost-design-20261020/2-candidate-metal3",
+      "schema": "v104-c-cost-2-candidate-metal3-v1",
+      "plan": {
+        "path": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-remaining-c-cost-design-20261020/2-candidate-metal3/plan.json",
+        "sha256": "0a33937c05d58b58ca7213e77f92a782f9ce609db0401c7bb09446876d581c6e"
+      },
+      "host": {
+        "path": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-remaining-c-cost-design-20261020/2-candidate-metal3/effective-host.mjs",
+        "sha256": "5deaa18b7f59bb34d849caba68989b39a96025ad44fc2da7c93a0c5dd12235f1"
+      }
+    }
+  ],
+  "parent": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/runtime/v104-performance-ab-candidate-20261020/BAR.app",
+  "candidate": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/runtime/v104-descriptor-candidate-20261020/BAR.app",
+  "controllerByteIdenticalToSuccessfulPreviousTest": true,
+  "hostChanges": "Paths/schema plus scoped OS sample observer only; same controller/scene/settings/runtime",
+  "parentMvk": {
+    "path": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/runtime/v104-performance-ab-candidate-20261020/BAR.app/Contents/Resources/bundled-assets/runtime/moltenvk-pr2746/lib/libMoltenVK.1.4.3.dylib",
+    "sha256": "99cf887139c8022dcb65e30e9331c8dc0b6ebd4cf6edf59c0d8a1cd942b59ac2"
+  },
+  "candidateMvk": {
+    "path": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/runtime/v104-descriptor-candidate-20261020/BAR.app/Contents/Resources/bundled-assets/runtime/moltenvk-pr2746/lib/libMoltenVK.1.4.3.dylib",
+    "sha256": "7ac71989ca27a99a2f9adf219ac0dcb12f16804cd35733bf7fd2c078635c5c4a"
+  },
+  "previousEvidence": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-descriptor-performance-reverse-20261020",
+  "order": "Current candidate Metal4 then Metal3; one OS CPU sample each",
+  "consoleLockAllowedByHuman": true,
+  "localGuard": {
+    "path": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-remaining-c-cost-design-20261020/screen-guard-locked-allowed.py",
+    "sha256": "dde091d5a04f40d6e69be2df4740cd15bad2c7bea8d084f5be68dcf133a7a4cf"
+  },
+  "startupReadinessFix": "Only repeat safe read-only document readiness checks; one launchScript call. No benchmark/controller/render changes."
+}
