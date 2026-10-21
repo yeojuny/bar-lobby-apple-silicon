@@ -1,0 +1,202 @@
+{
+  "schema": "bar-mvk-checkpoint-measurement-followup-v1",
+  "parentCheckpointCommit": "02f362888c330665ceb15c6cebfedf33c985679b",
+  "parentCheckpointTree": "e794eebf126ba79c941ac23af991c216df04ed76",
+  "originalRestorationCommit": "c99015f5f79b1bbb59a5bc0cc893446c0ff5005c",
+  "appOrSourceChanges": false,
+  "sourceArtifactsReuploaded": false,
+  "successfulSamples": 8,
+  "failedSamples": 0,
+  "retries": 0,
+  "sampleJoin": "All8 original outcome entries equal final summary receipt paths; original receipt hashes verified",
+  "order": "Metal4 first, then Metal3; parent,candidate,candidate,parent within each backend",
+  "conditions": "AC + LowPower ON, thermal0,1432x902,Ultra/AAOff/Spring,matched scene,requested1x,900frames",
+  "consoleLockStates": [
+    "True"
+  ],
+  "priorComparisons": [
+    {
+      "originalSummarySHA256": "a19afee9cc096725f3a06ad04205a4ffb0d0a6279ce90fc8df5ab95b1bef4ec9",
+      "groups": {
+        "metal3": {
+          "parent": {
+            "runFPS": [
+              44.098304748535,
+              45.808654785156
+            ],
+            "meanFPS": 44.953479766845504,
+            "runP95Ms": [
+              36.981998443604,
+              34.359001159668
+            ],
+            "meanP95Ms": 35.670499801636,
+            "runP99Ms": [
+              65.462997436523,
+              50.314998626709
+            ],
+            "meanP99Ms": 57.888998031616
+          },
+          "candidate": {
+            "runFPS": [
+              51.633270263672,
+              45.093200683594
+            ],
+            "meanFPS": 48.363235473633,
+            "runP95Ms": [
+              30.027000427246,
+              35.428001403809
+            ],
+            "meanP95Ms": 32.7275009155275,
+            "runP99Ms": [
+              45.292999267578,
+              48.752998352051
+            ],
+            "meanP99Ms": 47.022998809814496
+          },
+          "fpsChangePercent": 7.585076226517806
+        },
+        "metal4": {
+          "parent": {
+            "runFPS": [
+              39.154022216797,
+              38.20804977417
+            ],
+            "meanFPS": 38.6810359954835,
+            "runP95Ms": [
+              38.687000274658,
+              42.345001220703
+            ],
+            "meanP95Ms": 40.51600074768049,
+            "runP99Ms": [
+              52.375999450684,
+              57.13399887085
+            ],
+            "meanP99Ms": 54.754999160767
+          },
+          "candidate": {
+            "runFPS": [
+              37.347183227539,
+              32.436569213867
+            ],
+            "meanFPS": 34.891876220703,
+            "runP95Ms": [
+              49.380001068115,
+              59.326000213623
+            ],
+            "meanP95Ms": 54.353000640869,
+            "runP99Ms": [
+              70.315002441406,
+              93.561996459961
+            ],
+            "meanP99Ms": 81.9384994506835
+          },
+          "fpsChangePercent": -9.79591077969818
+        }
+      }
+    },
+    {
+      "originalSummarySHA256": "ca2953437c4a9ec1db10f0578f42de982dade48c0c20804c84f46add7f6ca8ba",
+      "groups": {
+        "metal3": {
+          "parent": {
+            "runFPS": [
+              48.723880767822,
+              50.02978515625
+            ],
+            "meanFPS": 49.376832962036005,
+            "runP95Ms": [
+              32.841999053955,
+              29.52799987793
+            ],
+            "meanP95Ms": 31.1849994659425,
+            "runP99Ms": [
+              53.948001861572,
+              41.310001373291
+            ],
+            "meanP99Ms": 47.6290016174315
+          },
+          "candidate": {
+            "runFPS": [
+              50.860622406006,
+              49.990482330322
+            ],
+            "meanFPS": 50.425552368164006,
+            "runP95Ms": [
+              29.590999603271,
+              31.402000427246
+            ],
+            "meanP95Ms": 30.4965000152585,
+            "runP99Ms": [
+              40.708000183105,
+              41.527000427246
+            ],
+            "meanP99Ms": 41.1175003051755
+          },
+          "fpsChangePercent": 2.1239098241361942
+        },
+        "metal4": {
+          "parent": {
+            "runFPS": [
+              43.329532623291,
+              35.757183074951
+            ],
+            "meanFPS": 39.543357849121,
+            "runP95Ms": [
+              32.984001159668,
+              42.95299911499
+            ],
+            "meanP95Ms": 37.968500137329,
+            "runP99Ms": [
+              46.148998260498,
+              61.034000396729
+            ],
+            "meanP99Ms": 53.591499328613494
+          },
+          "candidate": {
+            "runFPS": [
+              44.095848083496,
+              43.697681427002
+            ],
+            "meanFPS": 43.896764755249,
+            "runP95Ms": [
+              32.056999206543,
+              31.659000396729
+            ],
+            "meanP95Ms": 31.857999801635998,
+            "runP99Ms": [
+              45.082000732422,
+              47.199001312256
+            ],
+            "meanP99Ms": 46.140501022339
+          },
+          "fpsChangePercent": 11.009198871624836
+        }
+      }
+    }
+  ],
+  "thisBatch": {
+    "metal3": {
+      "parentMeanFPS": 48.988830566406506,
+      "candidateMeanFPS": 49.5745964050295,
+      "percent": 1.195713046934177
+    },
+    "metal4": {
+      "parentMeanFPS": 43.9154357910155,
+      "candidateMeanFPS": 42.319206237793,
+      "percent": -3.6347801734648133
+    }
+  },
+  "interpretation": "Three batches retained separately. Small samples and screen/cache/time/OS confounders prevent stable causal improvement/regression or order-only claims. No promotion.",
+  "cleanup": {
+    "roots": 48,
+    "leaves": 2666,
+    "logicalBytes": 76971000,
+    "selectionAndCompletionRecordsIncluded": true,
+    "physicalReclaimClaimed": false,
+    "publisherCleanup": false
+  },
+  "sourceReportSHA256": "624d712c39ba098b05e91d1df660a58daf6df4a46fa1df1ecf69b249278ea953",
+  "sourceSummarySHA256": "61d212c97583ddbc5227a611814af29d90f1ef8a75a7f3deea8e52ae24536d02",
+  "normalization": "$WORKSPACE/$HOME replace local path prefixes; original/exported hashes distinguished. No ephemeral content/cache bytes.",
+  "publisherExtraGamesBuildsAppCopies": false
+}

@@ -1,0 +1,21 @@
+{
+  "schema": "run95-stack-sdl-hidden-preflight-v1",
+  "status": "actual-sdl-dummy-hidden-contract-passed",
+  "sdlLibrarySha256": "6a76d38b6cfcd75122ea51215af9dd8be1972c984a431adb2cfa0c6731354820",
+  "guardSha256": "5979c679d40149fd8d093ba8b9a3a73e4493a9c7dd6424f2378bc08a9418c94f",
+  "probeSource": {
+    "path": "$WORKSPACE/tools/tests/run94-hidden-window-probe.c",
+    "sha256": "6c34f852ab128a1dbbfed6f654d7d7396b43869bcefc384e6adb3d03788e2b23"
+  },
+  "probeBinary": {
+    "path": "$WORKSPACE/artifacts/validation/v104-performance-comparison-20261020/sdl-hidden-dummy-probe",
+    "sha256": "1fb75dc52f72b1523823a4bf7ba8d9576c2631bb42451a23a481befe1acb381d"
+  },
+  "events": {
+    "path": "$WORKSPACE/artifacts/validation/v104-performance-comparison-20261020/sdl-hidden-events.jsonl",
+    "sha256": "a0c558ab8733a6b151ee191620c79f80042711961e677e733e22a35661a6d049"
+  },
+  "stdout": "PASS actual SDL dummy window remains hidden after create/show/raise/restore/fullscreen requests\n",
+  "gameOrGPUExecuted": false,
+  "cocoaGpuRenderingQualified": false
+}
