@@ -1,0 +1,892 @@
+{
+  "role": "r42",
+  "benchmarkRole": "r42",
+  "app": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/runtime/v104-drawable-size-candidate-20261020/BAR.app",
+  "run": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-drawable-size-observation-20261020/1-candidate-metal4/sessions/lobby-no-native-hook-1792556637590",
+  "mesaGitSha1": "9ba10f0aab543df342535ac4d7d3e559fe825793636f9175232ae23b700a6cb1",
+  "strictHiddenWindow": true,
+  "promotionAllowed": false,
+  "nativeMetal4Requested": true,
+  "powerContract": {
+    "source": "AC Power",
+    "lowPowerMode": true,
+    "thermalStateRecorded": true,
+    "periodicIntervalMs": 15000,
+    "settingsChanged": false
+  },
+  "powerObservations": [
+    {
+      "label": "preflight",
+      "atUTC": "2026-10-21T04:23:57.591Z",
+      "passed": true,
+      "battery": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=23134307)\t95%; AC attached; not charging present: true\n",
+      "isLowPowerModeEnabled": true,
+      "thermalState": 0,
+      "awakeAssertions": "2026-10-20 21:23:57 -0700 \nAssertion status system-wide:\n   BackgroundTask                 0\n   ApplePushServiceTask           0\n   UserIsActive                   1\n   PreventUserIdleDisplaySleep    1\n   SoftwareUpdateTask             0\n   PreventSystemSleep             0\n   PreventSystemSleepSecurityIndicator 0\n   ExternalMedia                  0\n   InternalPreventDisplaySleep    1\n   PreventUserIdleSystemSleep     1\n   NetworkClientActive            0\nListed by owning process:\n   pid 777(ChatGPT): [0x000000c2000184fe] 02:23:45 NoIdleSleepAssertion named: \"Electron\"  \n   pid 353(powerd): [0x00001de300018b02] 00:19:28 PreventUserIdleSystemSleep named: \"Powerd - Prevent sleep while display is on\"  \n   pid 353(powerd): [0x00001eab0010829d] 00:00:12 InternalPreventDisplaySleep named: \"com.apple.powermanagement.delayDisplayOff\"  \n\tTimeout will fire in 287 secs Action=TimeoutActionTurnOff\n   pid 412(WindowServer): [0x00001de300098b01] 00:00:00 UserIsActive named: \"com.apple.iohideventsystem.queue.tickle serviceID:100000cdc service:AppleMultitouchDevice product:Apple Internal Keyboard / Trackpad eventType:11\"  \n\tTimeout will fire in 600 secs Action=TimeoutActionRelease\n   pid 786(Google Chrome): [0x0000225b00018d18] 00:00:24 NoIdleSleepAssertion named: \"Playing audio\"  \n   pid 786(Google Chrome): [0x0000225b00058d16] 00:00:24 NoDisplaySleepAssertion named: \"Video Wake Lock\"  \n   pid 41172(caffeinate): [0x0000227300018d1f] 00:00:01 PreventUserIdleSystemSleep named: \"caffeinate command-line tool\"  \n\tDetails: caffeinate asserting on behalf of Process ID 41162 for 3600 secs\n\tCreated for PID: 41162. \n\tLocalized=THE CAFFEINATE TOOL IS PREVENTING SLEEP.\n\tTimeout will fire in 3599 secs Action=TimeoutActionRelease\n   pid 41172(caffeinate): [0x0000227300058d20] 00:00:01 PreventUserIdleDisplaySleep named: \"caffeinate command-line tool\"  \n\tDetails: caffeinate asserting on behalf of Process ID 41162 for 3600 secs\n\tCreated for PID: 41162. \n\tLocalized=THE CAFFEINATE TOOL IS PREVENTING SLEEP.\n\tTimeout will fire in 3599 secs Action=TimeoutActionRelease\n   pid 41172(caffeinate): [0x0000227300098d21] 00:00:01 UserIsActive named: \"caffeinate command-line tool\"  \n\tDetails: caffeinate asserting on behalf of Process ID 41162 for 3600 secs\n\tCreated for PID: 41162. \n\tLocalized=THE CAFFEINATE TOOL IS PREVENTING SLEEP.\n\tTimeout will fire in 3599 secs Action=TimeoutActionRelease\n   pid 544(coreaudiod): [0x0000225b00018b31] 00:00:24 PreventUserIdleSystemSleep named: \"com.apple.audio.80-AF-19-52-31-40:output.context.preventuseridlesleep\"  \n\tCreated for PID: 1103. \n\tResources: audio-out 80-AF-19-52-31-40:output \nKernel Assertions: 0x100=MAGICWAKE\n   id=556  level=255 0x100=MAGICWAKE creat=  mod= description=en0 owner=IOSkywalkNetworkBSDClient\n",
+      "displayAwakeProtectionPassed": true,
+      "finishedAtUTC": "2026-10-21T04:23:57.709Z"
+    },
+    {
+      "label": "before-launch",
+      "atUTC": "2026-10-21T04:24:22.711Z",
+      "passed": true,
+      "battery": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=23134307)\t95%; AC attached; not charging present: true\n",
+      "isLowPowerModeEnabled": true,
+      "thermalState": 0,
+      "awakeAssertions": "2026-10-20 21:24:22 -0700 \nAssertion status system-wide:\n   BackgroundTask                 0\n   ApplePushServiceTask           0\n   UserIsActive                   1\n   PreventUserIdleDisplaySleep    1\n   SoftwareUpdateTask             0\n   PreventSystemSleep             0\n   PreventSystemSleepSecurityIndicator 0\n   ExternalMedia                  0\n   InternalPreventDisplaySleep    1\n   PreventUserIdleSystemSleep     1\n   NetworkClientActive            0\nListed by owning process:\n   pid 412(WindowServer): [0x00001de300098b01] 00:00:00 UserIsActive named: \"com.apple.iohideventsystem.queue.tickle serviceID:100000cdc service:AppleMultitouchDevice product:Apple Internal Keyboard / Trackpad eventType:11\"  \n\tTimeout will fire in 600 secs Action=TimeoutActionRelease\n   pid 41172(caffeinate): [0x0000227300018d1f] 00:00:26 PreventUserIdleSystemSleep named: \"caffeinate command-line tool\"  \n\tDetails: caffeinate asserting on behalf of Process ID 41162 for 3600 secs\n\tCreated for PID: 41162. \n\tLocalized=THE CAFFEINATE TOOL IS PREVENTING SLEEP.\n\tTimeout will fire in 3574 secs Action=TimeoutActionRelease\n   pid 41172(caffeinate): [0x0000227300058d20] 00:00:26 PreventUserIdleDisplaySleep named: \"caffeinate command-line tool\"  \n\tDetails: caffeinate asserting on behalf of Process ID 41162 for 3600 secs\n\tCreated for PID: 41162. \n\tLocalized=THE CAFFEINATE TOOL IS PREVENTING SLEEP.\n\tTimeout will fire in 3574 secs Action=TimeoutActionRelease\n   pid 41172(caffeinate): [0x0000227300098d21] 00:00:26 UserIsActive named: \"caffeinate command-line tool\"  \n\tDetails: caffeinate asserting on behalf of Process ID 41162 for 3600 secs\n\tCreated for PID: 41162. \n\tLocalized=THE CAFFEINATE TOOL IS PREVENTING SLEEP.\n\tTimeout will fire in 3574 secs Action=TimeoutActionRelease\n   pid 777(ChatGPT): [0x000000c2000184fe] 02:24:10 NoIdleSleepAssertion named: \"Electron\"  \n   pid 786(Google Chrome): [0x0000228a00018d27] 00:00:02 NoIdleSleepAssertion named: \"Playing audio\"  \n   pid 786(Google Chrome): [0x0000225b00018d18] 00:00:49 NoIdleSleepAssertion named: \"Playing audio\"  \n   pid 786(Google Chrome): [0x0000228a00058d26] 00:00:02 NoDisplaySleepAssertion named: \"Video Wake Lock\"  \n   pid 353(powerd): [0x00001de300018b02] 00:19:53 PreventUserIdleSystemSleep named: \"Powerd - Prevent sleep while display is on\"  \n   pid 353(powerd): [0x00001eab0010829d] 00:00:03 InternalPreventDisplaySleep named: \"com.apple.powermanagement.delayDisplayOff\"  \n\tTimeout will fire in 297 secs Action=TimeoutActionTurnOff\n   pid 544(coreaudiod): [0x0000225b00018b31] 00:00:49 PreventUserIdleSystemSleep named: \"com.apple.audio.80-AF-19-52-31-40:output.context.preventuseridlesleep\"  \n\tCreated for PID: 1103. \n\tResources: audio-out 80-AF-19-52-31-40:output \n   pid 826(sharingd): [0x0000228900018d25] 00:00:03 PreventUserIdleSystemSleep named: \"Handoff\"  \n   pid 822(useractivityd): [0x0000228900018d24] 00:00:03 PreventUserIdleSystemSleep named: \"BTLEAdvertisement.BDA90481-1E51-4DB6-AD8C-EAD0AB7FFFA4\"  \n\tTimeout will fire in 57 secs Action=TimeoutActionTurnOff\n   pid 367(mds): [0x0000227c000b8d22] 00:00:16 BackgroundTask named: \"com.apple.metadata.mds.power\"  \nKernel Assertions: 0x100=MAGICWAKE\n   id=556  level=255 0x100=MAGICWAKE creat=  mod= description=en0 owner=IOSkywalkNetworkBSDClient\n",
+      "displayAwakeProtectionPassed": true,
+      "finishedAtUTC": "2026-10-21T04:24:22.857Z"
+    },
+    {
+      "label": "periodic",
+      "atUTC": "2026-10-21T04:24:38.188Z",
+      "passed": true,
+      "battery": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=23134307)\t95%; AC attached; not charging present: true\n",
+      "isLowPowerModeEnabled": true,
+      "thermalState": 0,
+      "awakeAssertions": "2026-10-20 21:24:38 -0700 \nAssertion status system-wide:\n   BackgroundTask                 0\n   ApplePushServiceTask           0\n   UserIsActive                   1\n   PreventUserIdleDisplaySleep    1\n   SoftwareUpdateTask             0\n   PreventSystemSleep             0\n   PreventSystemSleepSecurityIndicator 0\n   ExternalMedia                  0\n   InternalPreventDisplaySleep    1\n   PreventUserIdleSystemSleep     1\n   NetworkClientActive            0\nListed by owning process:\n   pid 412(WindowServer): [0x00001de300098b01] 00:00:06 UserIsActive named: \"com.apple.iohideventsystem.queue.tickle serviceID:100000cdc service:AppleMultitouchDevice product:Apple Internal Keyboard / Trackpad eventType:11\"  \n\tTimeout will fire in 594 secs Action=TimeoutActionRelease\n   pid 41605(spring): [0x0000229800058d49] 00:00:04 PreventUserIdleDisplaySleep named: \"spring using SDL_DisableScreenSaver\"  \n   pid 41172(caffeinate): [0x0000227300018d1f] 00:00:41 PreventUserIdleSystemSleep named: \"caffeinate command-line tool\"  \n\tDetails: caffeinate asserting on behalf of Process ID 41162 for 3600 secs\n\tCreated for PID: 41162. \n\tLocalized=THE CAFFEINATE TOOL IS PREVENTING SLEEP.\n\tTimeout will fire in 3558 secs Action=TimeoutActionRelease\n   pid 41172(caffeinate): [0x0000227300058d20] 00:00:41 PreventUserIdleDisplaySleep named: \"caffeinate command-line tool\"  \n\tDetails: caffeinate asserting on behalf of Process ID 41162 for 3600 secs\n\tCreated for PID: 41162. \n\tLocalized=THE CAFFEINATE TOOL IS PREVENTING SLEEP.\n\tTimeout will fire in 3558 secs Action=TimeoutActionRelease\n   pid 41172(caffeinate): [0x0000227300098d21] 00:00:41 UserIsActive named: \"caffeinate command-line tool\"  \n\tDetails: caffeinate asserting on behalf of Process ID 41162 for 3600 secs\n\tCreated for PID: 41162. \n\tLocalized=THE CAFFEINATE TOOL IS PREVENTING SLEEP.\n\tTimeout will fire in 3558 secs Action=TimeoutActionRelease\n   pid 41519(BAR): [0x0000229200018d3a] 00:00:10 NoIdleSleepAssertion named: \"Playing audio\"  \n   pid 786(Google Chrome): [0x0000228a00018d27] 00:00:17 NoIdleSleepAssertion named: \"Playing audio\"  \n   pid 786(Google Chrome): [0x0000225b00018d18] 00:01:04 NoIdleSleepAssertion named: \"Playing audio\"  \n   pid 786(Google Chrome): [0x0000228a00058d26] 00:00:17 NoDisplaySleepAssertion named: \"Video Wake Lock\"  \n   pid 353(powerd): [0x00001de300018b02] 00:20:09 PreventUserIdleSystemSleep named: \"Powerd - Prevent sleep while display is on\"  \n   pid 353(powerd): [0x00001eab0010829d] 00:00:05 InternalPreventDisplaySleep named: \"com.apple.powermanagement.delayDisplayOff\"  \n\tTimeout will fire in 294 secs Action=TimeoutActionTurnOff\n   pid 544(coreaudiod): [0x0000225b00018b31] 00:01:05 PreventUserIdleSystemSleep named: \"com.apple.audio.80-AF-19-52-31-40:output.context.preventuseridlesleep\"  \n\tCreated for PID: 1103. \n\tResources: audio-out 80-AF-19-52-31-40:output \n   pid 826(sharingd): [0x0000228900018d25] 00:00:18 PreventUserIdleSystemSleep named: \"Handoff\"  \n   pid 417(runningboardd): [0x0000229b00018d4a] 00:00:01 PreventUserIdleSystemSleep named: \"osservice<com.apple.akd(501)>417-931-7869:com.apple.CFNetwork.StorageDB\"  \n\tCreated for PID: 931. \n   pid 777(ChatGPT): [0x000000c2000184fe] 02:24:25 NoIdleSleepAssertion named: \"Electron\"  \n   pid 488(mds_stores): [0x00002293000b8d3b] 00:00:09 BackgroundTask named: \"com.apple.metadata.mds_stores.power\"  \nKernel Assertions: 0x100=MAGICWAKE\n   id=556  level=255 0x100=MAGICWAKE creat=  mod= description=en0 owner=IOSkywalkNetworkBSDClient\n",
+      "displayAwakeProtectionPassed": true,
+      "finishedAtUTC": "2026-10-21T04:24:38.310Z"
+    },
+    {
+      "label": "periodic",
+      "atUTC": "2026-10-21T04:24:53.466Z",
+      "passed": true,
+      "battery": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=23134307)\t95%; AC attached; not charging present: true\n",
+      "isLowPowerModeEnabled": true,
+      "thermalState": 0,
+      "awakeAssertions": "2026-10-20 21:24:53 -0700 \nAssertion status system-wide:\n   BackgroundTask                 0\n   ApplePushServiceTask           0\n   UserIsActive                   1\n   PreventUserIdleDisplaySleep    1\n   SoftwareUpdateTask             0\n   PreventSystemSleep             0\n   PreventSystemSleepSecurityIndicator 0\n   ExternalMedia                  0\n   InternalPreventDisplaySleep    1\n   PreventUserIdleSystemSleep     1\n   NetworkClientActive            0\nListed by owning process:\n   pid 412(WindowServer): [0x00001de300098b01] 00:00:00 UserIsActive named: \"com.apple.iohideventsystem.queue.tickle serviceID:100000cdc service:AppleMultitouchDevice product:Apple Internal Keyboard / Trackpad eventType:11\"  \n\tTimeout will fire in 600 secs Action=TimeoutActionRelease\n   pid 41605(spring): [0x0000229800058d49] 00:00:19 PreventUserIdleDisplaySleep named: \"spring using SDL_DisableScreenSaver\"  \n   pid 41172(caffeinate): [0x0000227300018d1f] 00:00:57 PreventUserIdleSystemSleep named: \"caffeinate command-line tool\"  \n\tDetails: caffeinate asserting on behalf of Process ID 41162 for 3600 secs\n\tCreated for PID: 41162. \n\tLocalized=THE CAFFEINATE TOOL IS PREVENTING SLEEP.\n\tTimeout will fire in 3543 secs Action=TimeoutActionRelease\n   pid 41172(caffeinate): [0x0000227300058d20] 00:00:57 PreventUserIdleDisplaySleep named: \"caffeinate command-line tool\"  \n\tDetails: caffeinate asserting on behalf of Process ID 41162 for 3600 secs\n\tCreated for PID: 41162. \n\tLocalized=THE CAFFEINATE TOOL IS PREVENTING SLEEP.\n\tTimeout will fire in 3543 secs Action=TimeoutActionRelease\n   pid 41172(caffeinate): [0x0000227300098d21] 00:00:57 UserIsActive named: \"caffeinate command-line tool\"  \n\tDetails: caffeinate asserting on behalf of Process ID 41162 for 3600 secs\n\tCreated for PID: 41162. \n\tLocalized=THE CAFFEINATE TOOL IS PREVENTING SLEEP.\n\tTimeout will fire in 3543 secs Action=TimeoutActionRelease\n   pid 777(ChatGPT): [0x000000c2000184fe] 02:24:41 NoIdleSleepAssertion named: \"Electron\"  \n   pid 786(Google Chrome): [0x0000225b00018d18] 00:01:20 NoIdleSleepAssertion named: \"Playing audio\"  \n   pid 786(Google Chrome): [0x000022aa00058d4e] 00:00:01 NoDisplaySleepAssertion named: \"Video Wake Lock\"  \n   pid 353(powerd): [0x00001de300018b02] 00:20:24 PreventUserIdleSystemSleep named: \"Powerd - Prevent sleep while display is on\"  \n   pid 353(powerd): [0x00001eab0010829d] 00:00:01 InternalPreventDisplaySleep named: \"com.apple.powermanagement.delayDisplayOff\"  \n\tTimeout will fire in 299 secs Action=TimeoutActionTurnOff\n   pid 544(coreaudiod): [0x0000225b00018b31] 00:01:20 PreventUserIdleSystemSleep named: \"com.apple.audio.80-AF-19-52-31-40:output.context.preventuseridlesleep\"  \n\tCreated for PID: 1103. \n\tResources: audio-out 80-AF-19-52-31-40:output \n   pid 826(sharingd): [0x0000228900018d25] 00:00:34 PreventUserIdleSystemSleep named: \"Handoff\"  \nKernel Assertions: 0x100=MAGICWAKE\n   id=556  level=255 0x100=MAGICWAKE creat=  mod= description=en0 owner=IOSkywalkNetworkBSDClient\n",
+      "displayAwakeProtectionPassed": true,
+      "finishedAtUTC": "2026-10-21T04:24:53.613Z"
+    },
+    {
+      "label": "periodic",
+      "atUTC": "2026-10-21T04:25:08.975Z",
+      "passed": true,
+      "battery": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=23134307)\t95%; AC attached; not charging present: true\n",
+      "isLowPowerModeEnabled": true,
+      "thermalState": 0,
+      "awakeAssertions": "2026-10-20 21:25:09 -0700 \nAssertion status system-wide:\n   BackgroundTask                 0\n   ApplePushServiceTask           0\n   UserIsActive                   1\n   PreventUserIdleDisplaySleep    1\n   SoftwareUpdateTask             0\n   PreventSystemSleep             0\n   PreventSystemSleepSecurityIndicator 0\n   ExternalMedia                  0\n   InternalPreventDisplaySleep    1\n   PreventUserIdleSystemSleep     1\n   NetworkClientActive            0\nListed by owning process:\n   pid 412(WindowServer): [0x00001de300098b01] 00:00:00 UserIsActive named: \"com.apple.iohideventsystem.queue.tickle serviceID:100000cb9 service:AppleHIDKeyboardEventDriverV2 product:Apple Internal Keyboard / Trackpad eventType:3\"  \n\tTimeout will fire in 600 secs Action=TimeoutActionRelease\n   pid 41605(spring): [0x0000229800058d49] 00:00:35 PreventUserIdleDisplaySleep named: \"spring using SDL_DisableScreenSaver\"  \n   pid 41172(caffeinate): [0x0000227300018d1f] 00:01:12 PreventUserIdleSystemSleep named: \"caffeinate command-line tool\"  \n\tDetails: caffeinate asserting on behalf of Process ID 41162 for 3600 secs\n\tCreated for PID: 41162. \n\tLocalized=THE CAFFEINATE TOOL IS PREVENTING SLEEP.\n\tTimeout will fire in 3527 secs Action=TimeoutActionRelease\n   pid 41172(caffeinate): [0x0000227300058d20] 00:01:12 PreventUserIdleDisplaySleep named: \"caffeinate command-line tool\"  \n\tDetails: caffeinate asserting on behalf of Process ID 41162 for 3600 secs\n\tCreated for PID: 41162. \n\tLocalized=THE CAFFEINATE TOOL IS PREVENTING SLEEP.\n\tTimeout will fire in 3527 secs Action=TimeoutActionRelease\n   pid 41172(caffeinate): [0x0000227300098d21] 00:01:12 UserIsActive named: \"caffeinate command-line tool\"  \n\tDetails: caffeinate asserting on behalf of Process ID 41162 for 3600 secs\n\tCreated for PID: 41162. \n\tLocalized=THE CAFFEINATE TOOL IS PREVENTING SLEEP.\n\tTimeout will fire in 3527 secs Action=TimeoutActionRelease\n   pid 777(ChatGPT): [0x000000c2000184fe] 02:24:56 NoIdleSleepAssertion named: \"Electron\"  \n   pid 786(Google Chrome): [0x0000225b00018d18] 00:01:35 NoIdleSleepAssertion named: \"Playing audio\"  \n   pid 786(Google Chrome): [0x000022aa00058d4e] 00:00:16 NoDisplaySleepAssertion named: \"Video Wake Lock\"  \n   pid 353(powerd): [0x00001de300018b02] 00:20:40 PreventUserIdleSystemSleep named: \"Powerd - Prevent sleep while display is on\"  \n   pid 353(powerd): [0x00001eab0010829d] 00:00:16 InternalPreventDisplaySleep named: \"com.apple.powermanagement.delayDisplayOff\"  \n\tTimeout will fire in 283 secs Action=TimeoutActionTurnOff\n   pid 544(coreaudiod): [0x0000225b00018b31] 00:01:36 PreventUserIdleSystemSleep named: \"com.apple.audio.80-AF-19-52-31-40:output.context.preventuseridlesleep\"  \n\tCreated for PID: 1103. \n\tResources: audio-out 80-AF-19-52-31-40:output \nKernel Assertions: 0x100=MAGICWAKE\n   id=556  level=255 0x100=MAGICWAKE creat=  mod= description=en0 owner=IOSkywalkNetworkBSDClient\n",
+      "displayAwakeProtectionPassed": true,
+      "finishedAtUTC": "2026-10-21T04:25:09.159Z"
+    },
+    {
+      "label": "before-benchmark",
+      "atUTC": "2026-10-21T04:25:10.578Z",
+      "passed": true,
+      "battery": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=23134307)\t95%; AC attached; not charging present: true\n",
+      "isLowPowerModeEnabled": true,
+      "thermalState": 0,
+      "awakeAssertions": "2026-10-20 21:25:10 -0700 \nAssertion status system-wide:\n   BackgroundTask                 0\n   ApplePushServiceTask           0\n   UserIsActive                   1\n   PreventUserIdleDisplaySleep    1\n   SoftwareUpdateTask             0\n   PreventSystemSleep             0\n   PreventSystemSleepSecurityIndicator 0\n   ExternalMedia                  0\n   InternalPreventDisplaySleep    1\n   PreventUserIdleSystemSleep     1\n   NetworkClientActive            0\nListed by owning process:\n   pid 412(WindowServer): [0x00001de300098b01] 00:00:00 UserIsActive named: \"com.apple.iohideventsystem.queue.tickle serviceID:100000cb9 service:AppleHIDKeyboardEventDriverV2 product:Apple Internal Keyboard / Trackpad eventType:3\"  \n\tTimeout will fire in 600 secs Action=TimeoutActionRelease\n   pid 41605(spring): [0x0000229800058d49] 00:00:36 PreventUserIdleDisplaySleep named: \"spring using SDL_DisableScreenSaver\"  \n   pid 41172(caffeinate): [0x0000227300018d1f] 00:01:14 PreventUserIdleSystemSleep named: \"caffeinate command-line tool\"  \n\tDetails: caffeinate asserting on behalf of Process ID 41162 for 3600 secs\n\tCreated for PID: 41162. \n\tLocalized=THE CAFFEINATE TOOL IS PREVENTING SLEEP.\n\tTimeout will fire in 3526 secs Action=TimeoutActionRelease\n   pid 41172(caffeinate): [0x0000227300058d20] 00:01:14 PreventUserIdleDisplaySleep named: \"caffeinate command-line tool\"  \n\tDetails: caffeinate asserting on behalf of Process ID 41162 for 3600 secs\n\tCreated for PID: 41162. \n\tLocalized=THE CAFFEINATE TOOL IS PREVENTING SLEEP.\n\tTimeout will fire in 3526 secs Action=TimeoutActionRelease\n   pid 41172(caffeinate): [0x0000227300098d21] 00:01:14 UserIsActive named: \"caffeinate command-line tool\"  \n\tDetails: caffeinate asserting on behalf of Process ID 41162 for 3600 secs\n\tCreated for PID: 41162. \n\tLocalized=THE CAFFEINATE TOOL IS PREVENTING SLEEP.\n\tTimeout will fire in 3526 secs Action=TimeoutActionRelease\n   pid 777(ChatGPT): [0x000000c2000184fe] 02:24:58 NoIdleSleepAssertion named: \"Electron\"  \n   pid 786(Google Chrome): [0x0000225b00018d18] 00:01:37 NoIdleSleepAssertion named: \"Playing audio\"  \n   pid 786(Google Chrome): [0x000022aa00058d4e] 00:00:18 NoDisplaySleepAssertion named: \"Video Wake Lock\"  \n   pid 353(powerd): [0x00001de300018b02] 00:20:41 PreventUserIdleSystemSleep named: \"Powerd - Prevent sleep while display is on\"  \n   pid 353(powerd): [0x00001eab0010829d] 00:00:18 InternalPreventDisplaySleep named: \"com.apple.powermanagement.delayDisplayOff\"  \n\tTimeout will fire in 282 secs Action=TimeoutActionTurnOff\n   pid 544(coreaudiod): [0x0000225b00018b31] 00:01:37 PreventUserIdleSystemSleep named: \"com.apple.audio.80-AF-19-52-31-40:output.context.preventuseridlesleep\"  \n\tCreated for PID: 1103. \n\tResources: audio-out 80-AF-19-52-31-40:output \nKernel Assertions: 0x100=MAGICWAKE\n   id=556  level=255 0x100=MAGICWAKE creat=  mod= description=en0 owner=IOSkywalkNetworkBSDClient\n",
+      "displayAwakeProtectionPassed": true,
+      "finishedAtUTC": "2026-10-21T04:25:10.725Z"
+    },
+    {
+      "label": "periodic",
+      "atUTC": "2026-10-21T04:25:26.459Z",
+      "passed": true,
+      "battery": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=23134307)\t95%; AC attached; not charging present: true\n",
+      "isLowPowerModeEnabled": true,
+      "thermalState": 0,
+      "awakeAssertions": "2026-10-20 21:25:26 -0700 \nAssertion status system-wide:\n   BackgroundTask                 0\n   ApplePushServiceTask           0\n   UserIsActive                   1\n   PreventUserIdleDisplaySleep    1\n   SoftwareUpdateTask             0\n   PreventSystemSleep             0\n   PreventSystemSleepSecurityIndicator 0\n   ExternalMedia                  0\n   InternalPreventDisplaySleep    1\n   PreventUserIdleSystemSleep     1\n   NetworkClientActive            0\nListed by owning process:\n   pid 412(WindowServer): [0x00001de300098b01] 00:00:00 UserIsActive named: \"com.apple.iohideventsystem.queue.tickle serviceID:100000cb9 service:AppleHIDKeyboardEventDriverV2 product:Apple Internal Keyboard / Trackpad eventType:3\"  \n\tTimeout will fire in 600 secs Action=TimeoutActionRelease\n   pid 41605(spring): [0x0000229800058d49] 00:00:52 PreventUserIdleDisplaySleep named: \"spring using SDL_DisableScreenSaver\"  \n   pid 41172(caffeinate): [0x0000227300018d1f] 00:01:30 PreventUserIdleSystemSleep named: \"caffeinate command-line tool\"  \n\tDetails: caffeinate asserting on behalf of Process ID 41162 for 3600 secs\n\tCreated for PID: 41162. \n\tLocalized=THE CAFFEINATE TOOL IS PREVENTING SLEEP.\n\tTimeout will fire in 3510 secs Action=TimeoutActionRelease\n   pid 41172(caffeinate): [0x0000227300058d20] 00:01:30 PreventUserIdleDisplaySleep named: \"caffeinate command-line tool\"  \n\tDetails: caffeinate asserting on behalf of Process ID 41162 for 3600 secs\n\tCreated for PID: 41162. \n\tLocalized=THE CAFFEINATE TOOL IS PREVENTING SLEEP.\n\tTimeout will fire in 3510 secs Action=TimeoutActionRelease\n   pid 41172(caffeinate): [0x0000227300098d21] 00:01:30 UserIsActive named: \"caffeinate command-line tool\"  \n\tDetails: caffeinate asserting on behalf of Process ID 41162 for 3600 secs\n\tCreated for PID: 41162. \n\tLocalized=THE CAFFEINATE TOOL IS PREVENTING SLEEP.\n\tTimeout will fire in 3510 secs Action=TimeoutActionRelease\n   pid 777(ChatGPT): [0x000000c2000184fe] 02:25:14 NoIdleSleepAssertion named: \"Electron\"  \n   pid 786(Google Chrome): [0x0000225b00018d18] 00:01:53 NoIdleSleepAssertion named: \"Playing audio\"  \n   pid 786(Google Chrome): [0x000022aa00058d4e] 00:00:34 NoDisplaySleepAssertion named: \"Video Wake Lock\"  \n   pid 353(powerd): [0x00001de300018b02] 00:20:57 PreventUserIdleSystemSleep named: \"Powerd - Prevent sleep while display is on\"  \n   pid 353(powerd): [0x00001eab0010829d] 00:00:34 InternalPreventDisplaySleep named: \"com.apple.powermanagement.delayDisplayOff\"  \n\tTimeout will fire in 266 secs Action=TimeoutActionTurnOff\n   pid 544(coreaudiod): [0x0000225b00018b31] 00:01:53 PreventUserIdleSystemSleep named: \"com.apple.audio.80-AF-19-52-31-40:output.context.preventuseridlesleep\"  \n\tCreated for PID: 1103. \n\tResources: audio-out 80-AF-19-52-31-40:output \n   pid 488(mds_stores): [0x000022c7000b8d7f] 00:00:05 BackgroundTask named: \"com.apple.metadata.mds_stores.power\"  \nKernel Assertions: 0x100=MAGICWAKE\n   id=556  level=255 0x100=MAGICWAKE creat=  mod= description=en0 owner=IOSkywalkNetworkBSDClient\n",
+      "displayAwakeProtectionPassed": true,
+      "finishedAtUTC": "2026-10-21T04:25:26.693Z"
+    },
+    {
+      "label": "periodic",
+      "atUTC": "2026-10-21T04:25:41.816Z",
+      "passed": true,
+      "battery": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=23134307)\t95%; AC attached; not charging present: true\n",
+      "isLowPowerModeEnabled": true,
+      "thermalState": 0,
+      "awakeAssertions": "2026-10-20 21:25:41 -0700 \nAssertion status system-wide:\n   BackgroundTask                 0\n   ApplePushServiceTask           0\n   UserIsActive                   1\n   PreventUserIdleDisplaySleep    1\n   SoftwareUpdateTask             0\n   PreventSystemSleep             0\n   PreventSystemSleepSecurityIndicator 0\n   ExternalMedia                  0\n   InternalPreventDisplaySleep    1\n   PreventUserIdleSystemSleep     1\n   NetworkClientActive            0\nListed by owning process:\n   pid 780(cloudd): [0x000022da000c8d95] 00:00:01 SystemIsActive named: \"NSURLSessionTask 611D95A3-B23A-4832-871D-829398594750\"  \n\tTimeout will fire in 10799 secs Action=TimeoutActionTurnOff\n   pid 780(cloudd): [0x000022db000c8d96] 00:00:01 SystemIsActive named: \"NSURLSessionTask 80545057-A2BE-4377-97BD-6B94523A0192\"  \n\tTimeout will fire in 10799 secs Action=TimeoutActionTurnOff\n   pid 412(WindowServer): [0x00001de300098b01] 00:00:00 UserIsActive named: \"com.apple.iohideventsystem.queue.tickle serviceID:100000cdc service:AppleMultitouchDevice product:Apple Internal Keyboard / Trackpad eventType:11\"  \n\tTimeout will fire in 600 secs Action=TimeoutActionRelease\n   pid 41605(spring): [0x0000229800058d49] 00:01:07 PreventUserIdleDisplaySleep named: \"spring using SDL_DisableScreenSaver\"  \n   pid 41172(caffeinate): [0x0000227300018d1f] 00:01:45 PreventUserIdleSystemSleep named: \"caffeinate command-line tool\"  \n\tDetails: caffeinate asserting on behalf of Process ID 41162 for 3600 secs\n\tCreated for PID: 41162. \n\tLocalized=THE CAFFEINATE TOOL IS PREVENTING SLEEP.\n\tTimeout will fire in 3495 secs Action=TimeoutActionRelease\n   pid 41172(caffeinate): [0x0000227300058d20] 00:01:45 PreventUserIdleDisplaySleep named: \"caffeinate command-line tool\"  \n\tDetails: caffeinate asserting on behalf of Process ID 41162 for 3600 secs\n\tCreated for PID: 41162. \n\tLocalized=THE CAFFEINATE TOOL IS PREVENTING SLEEP.\n\tTimeout will fire in 3495 secs Action=TimeoutActionRelease\n   pid 41172(caffeinate): [0x0000227300098d21] 00:01:45 UserIsActive named: \"caffeinate command-line tool\"  \n\tDetails: caffeinate asserting on behalf of Process ID 41162 for 3600 secs\n\tCreated for PID: 41162. \n\tLocalized=THE CAFFEINATE TOOL IS PREVENTING SLEEP.\n\tTimeout will fire in 3495 secs Action=TimeoutActionRelease\n   pid 777(ChatGPT): [0x000000c2000184fe] 02:25:29 NoIdleSleepAssertion named: \"Electron\"  \n   pid 786(Google Chrome): [0x000022da00018d94] 00:00:01 NoIdleSleepAssertion named: \"Playing audio\"  \n   pid 786(Google Chrome): [0x000022da00058d93] 00:00:01 NoDisplaySleepAssertion named: \"Video Wake Lock\"  \n   pid 353(powerd): [0x00001de300018b02] 00:21:13 PreventUserIdleSystemSleep named: \"Powerd - Prevent sleep while display is on\"  \n   pid 353(powerd): [0x00001eab0010829d] 00:00:13 InternalPreventDisplaySleep named: \"com.apple.powermanagement.delayDisplayOff\"  \n\tTimeout will fire in 286 secs Action=TimeoutActionTurnOff\n   pid 405(bluetoothd): [0x000022d800018d92] 00:00:03 PreventUserIdleSystemSleep named: \"com.apple.BTStack\"  \n   pid 826(sharingd): [0x000022d800018d91] 00:00:03 PreventUserIdleSystemSleep named: \"Handoff\"  \n   pid 544(coreaudiod): [0x000022da00018b31] 00:00:01 PreventUserIdleSystemSleep named: \"com.apple.audio.80-AF-19-52-31-40:output.context.preventuseridlesleep\"  \n\tCreated for PID: 1103. \n\tResources: audio-out 80-AF-19-52-31-40:output \n   pid 488(mds_stores): [0x000022c7000b8d7f] 00:00:20 BackgroundTask named: \"com.apple.metadata.mds_stores.power\"  \nKernel Assertions: 0x100=MAGICWAKE\n   id=556  level=255 0x100=MAGICWAKE creat=  mod= description=en0 owner=IOSkywalkNetworkBSDClient\n",
+      "displayAwakeProtectionPassed": true,
+      "finishedAtUTC": "2026-10-21T04:25:41.968Z"
+    },
+    {
+      "label": "after-benchmark",
+      "atUTC": "2026-10-21T04:25:43.348Z",
+      "passed": true,
+      "battery": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=23134307)\t95%; AC attached; not charging present: true\n",
+      "isLowPowerModeEnabled": true,
+      "thermalState": 0,
+      "awakeAssertions": "2026-10-20 21:25:43 -0700 \nAssertion status system-wide:\n   BackgroundTask                 0\n   ApplePushServiceTask           0\n   UserIsActive                   1\n   PreventUserIdleDisplaySleep    1\n   SoftwareUpdateTask             0\n   PreventSystemSleep             0\n   PreventSystemSleepSecurityIndicator 0\n   ExternalMedia                  0\n   InternalPreventDisplaySleep    1\n   PreventUserIdleSystemSleep     1\n   NetworkClientActive            0\nListed by owning process:\n   pid 780(cloudd): [0x000022da000c8d95] 00:00:02 SystemIsActive named: \"NSURLSessionTask 611D95A3-B23A-4832-871D-829398594750\"  \n\tTimeout will fire in 10797 secs Action=TimeoutActionTurnOff\n   pid 780(cloudd): [0x000022db000c8d96] 00:00:02 SystemIsActive named: \"NSURLSessionTask 80545057-A2BE-4377-97BD-6B94523A0192\"  \n\tTimeout will fire in 10797 secs Action=TimeoutActionTurnOff\n   pid 412(WindowServer): [0x00001de300098b01] 00:00:00 UserIsActive named: \"com.apple.iohideventsystem.queue.tickle serviceID:100000cdc service:AppleMultitouchDevice product:Apple Internal Keyboard / Trackpad eventType:11\"  \n\tTimeout will fire in 600 secs Action=TimeoutActionRelease\n   pid 41605(spring): [0x0000229800058d49] 00:01:09 PreventUserIdleDisplaySleep named: \"spring using SDL_DisableScreenSaver\"  \n   pid 41172(caffeinate): [0x0000227300018d1f] 00:01:46 PreventUserIdleSystemSleep named: \"caffeinate command-line tool\"  \n\tDetails: caffeinate asserting on behalf of Process ID 41162 for 3600 secs\n\tCreated for PID: 41162. \n\tLocalized=THE CAFFEINATE TOOL IS PREVENTING SLEEP.\n\tTimeout will fire in 3493 secs Action=TimeoutActionRelease\n   pid 41172(caffeinate): [0x0000227300058d20] 00:01:46 PreventUserIdleDisplaySleep named: \"caffeinate command-line tool\"  \n\tDetails: caffeinate asserting on behalf of Process ID 41162 for 3600 secs\n\tCreated for PID: 41162. \n\tLocalized=THE CAFFEINATE TOOL IS PREVENTING SLEEP.\n\tTimeout will fire in 3493 secs Action=TimeoutActionRelease\n   pid 41172(caffeinate): [0x0000227300098d21] 00:01:46 UserIsActive named: \"caffeinate command-line tool\"  \n\tDetails: caffeinate asserting on behalf of Process ID 41162 for 3600 secs\n\tCreated for PID: 41162. \n\tLocalized=THE CAFFEINATE TOOL IS PREVENTING SLEEP.\n\tTimeout will fire in 3493 secs Action=TimeoutActionRelease\n   pid 777(ChatGPT): [0x000000c2000184fe] 02:25:31 NoIdleSleepAssertion named: \"Electron\"  \n   pid 786(Google Chrome): [0x000022da00018d94] 00:00:03 NoIdleSleepAssertion named: \"Playing audio\"  \n   pid 786(Google Chrome): [0x000022da00058d93] 00:00:03 NoDisplaySleepAssertion named: \"Video Wake Lock\"  \n   pid 353(powerd): [0x00001de300018b02] 00:21:14 PreventUserIdleSystemSleep named: \"Powerd - Prevent sleep while display is on\"  \n   pid 353(powerd): [0x00001eab0010829d] 00:00:15 InternalPreventDisplaySleep named: \"com.apple.powermanagement.delayDisplayOff\"  \n\tTimeout will fire in 285 secs Action=TimeoutActionTurnOff\n   pid 544(coreaudiod): [0x000022da00018b31] 00:00:03 PreventUserIdleSystemSleep named: \"com.apple.audio.80-AF-19-52-31-40:output.context.preventuseridlesleep\"  \n\tCreated for PID: 1103. \n\tResources: audio-out 80-AF-19-52-31-40:output \n   pid 488(mds_stores): [0x000022c7000b8d7f] 00:00:22 BackgroundTask named: \"com.apple.metadata.mds_stores.power\"  \nKernel Assertions: 0x100=MAGICWAKE\n   id=556  level=255 0x100=MAGICWAKE creat=  mod= description=en0 owner=IOSkywalkNetworkBSDClient\n",
+      "displayAwakeProtectionPassed": true,
+      "finishedAtUTC": "2026-10-21T04:25:43.499Z"
+    },
+    {
+      "label": "periodic",
+      "atUTC": "2026-10-21T04:25:58.506Z",
+      "passed": true,
+      "battery": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=23134307)\t95%; AC attached; not charging present: true\n",
+      "isLowPowerModeEnabled": true,
+      "thermalState": 0,
+      "awakeAssertions": "2026-10-20 21:25:58 -0700 \nAssertion status system-wide:\n   BackgroundTask                 0\n   ApplePushServiceTask           0\n   UserIsActive                   1\n   PreventUserIdleDisplaySleep    1\n   SoftwareUpdateTask             0\n   PreventSystemSleep             0\n   PreventSystemSleepSecurityIndicator 0\n   ExternalMedia                  0\n   InternalPreventDisplaySleep    1\n   PreventUserIdleSystemSleep     1\n   NetworkClientActive            0\nListed by owning process:\n   pid 412(WindowServer): [0x00001de300098b01] 00:00:10 UserIsActive named: \"com.apple.iohideventsystem.queue.tickle serviceID:100000cdc service:AppleMultitouchDevice product:Apple Internal Keyboard / Trackpad eventType:11\"  \n\tTimeout will fire in 589 secs Action=TimeoutActionRelease\n   pid 41605(spring): [0x0000229800058d49] 00:01:24 PreventUserIdleDisplaySleep named: \"spring using SDL_DisableScreenSaver\"  \n   pid 41172(caffeinate): [0x0000227300018d1f] 00:02:02 PreventUserIdleSystemSleep named: \"caffeinate command-line tool\"  \n\tDetails: caffeinate asserting on behalf of Process ID 41162 for 3600 secs\n\tCreated for PID: 41162. \n\tLocalized=THE CAFFEINATE TOOL IS PREVENTING SLEEP.\n\tTimeout will fire in 3478 secs Action=TimeoutActionRelease\n   pid 41172(caffeinate): [0x0000227300058d20] 00:02:02 PreventUserIdleDisplaySleep named: \"caffeinate command-line tool\"  \n\tDetails: caffeinate asserting on behalf of Process ID 41162 for 3600 secs\n\tCreated for PID: 41162. \n\tLocalized=THE CAFFEINATE TOOL IS PREVENTING SLEEP.\n\tTimeout will fire in 3478 secs Action=TimeoutActionRelease\n   pid 41172(caffeinate): [0x0000227300098d21] 00:02:02 UserIsActive named: \"caffeinate command-line tool\"  \n\tDetails: caffeinate asserting on behalf of Process ID 41162 for 3600 secs\n\tCreated for PID: 41162. \n\tLocalized=THE CAFFEINATE TOOL IS PREVENTING SLEEP.\n\tTimeout will fire in 3478 secs Action=TimeoutActionRelease\n   pid 777(ChatGPT): [0x000000c2000184fe] 02:25:46 NoIdleSleepAssertion named: \"Electron\"  \n   pid 786(Google Chrome): [0x000022da00018d94] 00:00:18 NoIdleSleepAssertion named: \"Playing audio\"  \n   pid 786(Google Chrome): [0x000022da00058d93] 00:00:18 NoDisplaySleepAssertion named: \"Video Wake Lock\"  \n   pid 353(powerd): [0x00001de300018b02] 00:21:29 PreventUserIdleSystemSleep named: \"Powerd - Prevent sleep while display is on\"  \n   pid 353(powerd): [0x00001eab0010829d] 00:00:30 InternalPreventDisplaySleep named: \"com.apple.powermanagement.delayDisplayOff\"  \n\tTimeout will fire in 270 secs Action=TimeoutActionTurnOff\n   pid 544(coreaudiod): [0x000022da00018b31] 00:00:18 PreventUserIdleSystemSleep named: \"com.apple.audio.80-AF-19-52-31-40:output.context.preventuseridlesleep\"  \n\tCreated for PID: 1103. \n\tResources: audio-out 80-AF-19-52-31-40:output \nKernel Assertions: 0x100=MAGICWAKE\n   id=556  level=255 0x100=MAGICWAKE creat=  mod= description=en0 owner=IOSkywalkNetworkBSDClient\n",
+      "displayAwakeProtectionPassed": true,
+      "finishedAtUTC": "2026-10-21T04:25:58.651Z"
+    },
+    {
+      "label": "post-exit",
+      "atUTC": "2026-10-21T04:26:05.173Z",
+      "passed": true,
+      "battery": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=23134307)\t95%; AC attached; not charging present: true\n",
+      "isLowPowerModeEnabled": true,
+      "thermalState": 0,
+      "awakeAssertions": "2026-10-20 21:26:05 -0700 \nAssertion status system-wide:\n   BackgroundTask                 0\n   ApplePushServiceTask           0\n   UserIsActive                   1\n   PreventUserIdleDisplaySleep    1\n   SoftwareUpdateTask             0\n   PreventSystemSleep             0\n   PreventSystemSleepSecurityIndicator 0\n   ExternalMedia                  0\n   InternalPreventDisplaySleep    1\n   PreventUserIdleSystemSleep     1\n   NetworkClientActive            0\nListed by owning process:\n   pid 777(ChatGPT): [0x000000c2000184fe] 02:25:52 NoIdleSleepAssertion named: \"Electron\"  \n   pid 353(powerd): [0x00001de300018b02] 00:21:36 PreventUserIdleSystemSleep named: \"Powerd - Prevent sleep while display is on\"  \n   pid 353(powerd): [0x00001eab0010829d] 00:00:04 InternalPreventDisplaySleep named: \"com.apple.powermanagement.delayDisplayOff\"  \n\tTimeout will fire in 296 secs Action=TimeoutActionTurnOff\n   pid 412(WindowServer): [0x00001de300098b01] 00:00:17 UserIsActive named: \"com.apple.iohideventsystem.queue.tickle serviceID:100000cdc service:AppleMultitouchDevice product:Apple Internal Keyboard / Trackpad eventType:11\"  \n\tTimeout will fire in 583 secs Action=TimeoutActionRelease\n   pid 786(Google Chrome): [0x000022da00018d94] 00:00:24 NoIdleSleepAssertion named: \"Playing audio\"  \n   pid 786(Google Chrome): [0x000022da00058d93] 00:00:25 NoDisplaySleepAssertion named: \"Video Wake Lock\"  \n   pid 41172(caffeinate): [0x0000227300018d1f] 00:02:08 PreventUserIdleSystemSleep named: \"caffeinate command-line tool\"  \n\tDetails: caffeinate asserting on behalf of Process ID 41162 for 3600 secs\n\tCreated for PID: 41162. \n\tLocalized=THE CAFFEINATE TOOL IS PREVENTING SLEEP.\n\tTimeout will fire in 3471 secs Action=TimeoutActionRelease\n   pid 41172(caffeinate): [0x0000227300058d20] 00:02:08 PreventUserIdleDisplaySleep named: \"caffeinate command-line tool\"  \n\tDetails: caffeinate asserting on behalf of Process ID 41162 for 3600 secs\n\tCreated for PID: 41162. \n\tLocalized=THE CAFFEINATE TOOL IS PREVENTING SLEEP.\n\tTimeout will fire in 3471 secs Action=TimeoutActionRelease\n   pid 41172(caffeinate): [0x0000227300098d21] 00:02:08 UserIsActive named: \"caffeinate command-line tool\"  \n\tDetails: caffeinate asserting on behalf of Process ID 41162 for 3600 secs\n\tCreated for PID: 41162. \n\tLocalized=THE CAFFEINATE TOOL IS PREVENTING SLEEP.\n\tTimeout will fire in 3471 secs Action=TimeoutActionRelease\n   pid 544(coreaudiod): [0x000022da00018b31] 00:00:25 PreventUserIdleSystemSleep named: \"com.apple.audio.80-AF-19-52-31-40:output.context.preventuseridlesleep\"  \n\tCreated for PID: 1103. \n\tResources: audio-out 80-AF-19-52-31-40:output \nKernel Assertions: 0x100=MAGICWAKE\n   id=556  level=255 0x100=MAGICWAKE creat=  mod= description=en0 owner=IOSkywalkNetworkBSDClient\n",
+      "displayAwakeProtectionPassed": true,
+      "finishedAtUTC": "2026-10-21T04:26:05.306Z"
+    }
+  ],
+  "lane": "lobby",
+  "cacheMode": "single",
+  "maximumTotalAttempts": 1,
+  "sessionOrdinal": 1,
+  "planSha256": "36d7fb3e94e9a3953026ccf0be17c98d8991bd770a6304cc4fb0d73269e7e176",
+  "startedAt": "2026-10-21T04:23:57.591Z",
+  "privateLobbyWindowSettings": {
+    "fullscreenBefore": true,
+    "fullscreenAfter": false,
+    "appliedBeforeAppLaunch": true,
+    "foregroundAllowed": false
+  },
+  "cache": {
+    "directory": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-drawable-size-observation-20261020/1-candidate-metal4/sessions/lobby-no-native-hook-1792556637590/state/data/cache/metal4/mesa_shader_cache",
+    "mode": "cold",
+    "before": {
+      "entries": [],
+      "bytes": 0,
+      "digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    }
+  },
+  "preparationMs": 23229,
+  "timing": {
+    "preparationMs": 23229,
+    "launchToReadyMs": 47671,
+    "nativeSpawnToReadyMs": 37795,
+    "launchAt": 1792556662857,
+    "gameSpawnAt": 1792556672733,
+    "readyAt": 1792556710528,
+    "hostBenchmarkElapsedMs": 32220
+  },
+  "loadedRuntimeLibraries": {
+    "verified": true,
+    "libraries": [
+      {
+        "path": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/runtime/v104-drawable-size-candidate-20261020/BAR.app/Contents/Resources/bundled-assets/runtime/sdl3/lib/libSDL3.0.dylib",
+        "sha256": "6a76d38b6cfcd75122ea51215af9dd8be1972c984a431adb2cfa0c6731354820"
+      },
+      {
+        "path": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/runtime/v104-drawable-size-candidate-20261020/BAR.app/Contents/Resources/bundled-assets/runtime/mesa-zink/lib/libEGL.1.dylib",
+        "sha256": "62adb20871cf6985bde4b20c78ffabd37a590fa9023cf362f87ce16739a3f533"
+      },
+      {
+        "path": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/runtime/v104-drawable-size-candidate-20261020/BAR.app/Contents/Resources/bundled-assets/runtime/mesa-zink/lib/libgallium-26.3.0-devel.dylib",
+        "sha256": "ca4f3ddd7a0bf20c7f39636ea58d04ba42bc8b9170f871eac62a53c068ad9c30"
+      },
+      {
+        "path": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/runtime/v104-drawable-size-candidate-20261020/BAR.app/Contents/Resources/bundled-assets/runtime/vulkan-loader/lib/libvulkan.1.4.365.dylib",
+        "sha256": "b2b4bb1c9db72ff8639958e3137b308c67c15fe35cb846ffd5b1f7703cc0f7cd"
+      },
+      {
+        "path": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/runtime/v104-drawable-size-candidate-20261020/BAR.app/Contents/Resources/bundled-assets/runtime/moltenvk-pr2746/lib/libMoltenVK.1.4.3.dylib",
+        "sha256": "79dfe6e5fe91e35c14751316d0acc5f96837516619945388c5c073e94295ebdc"
+      }
+    ]
+  },
+  "hiddenWindowEvents": [
+    {
+      "pid": 41605,
+      "event": "hidden-window-guard-loaded",
+      "flags": 0
+    },
+    {
+      "pid": 41605,
+      "event": "hidden-policy-switch-rejected",
+      "flags": 3
+    },
+    {
+      "pid": 41605,
+      "event": "hidden-policy-after-finish",
+      "flags": 3
+    },
+    {
+      "pid": 41605,
+      "event": "create-forced-hidden",
+      "flags": 2147491896
+    },
+    {
+      "pid": 41605,
+      "event": "created-hidden-verified",
+      "flags": 2147491898
+    },
+    {
+      "pid": 41605,
+      "event": "restore-blocked",
+      "flags": 0
+    },
+    {
+      "pid": 41605,
+      "event": "fullscreen-enabled-hidden",
+      "flags": 2147491899
+    }
+  ],
+  "fullscreenMode": {
+    "gameFullscreen": true,
+    "SDLFullscreen": true,
+    "SDLHidden": true,
+    "window": {
+      "width": 1512,
+      "height": 982
+    },
+    "viewport": {
+      "width": 1512,
+      "height": 950
+    },
+    "nativePresentation": "SDL defers native display/Space transition while hidden",
+    "logEvidence": "macOS safe viewport] window=1512x982 view=<0,0 1512x950>"
+  },
+  "msaaConfigEvidence": "[MacSDL3EGL::TryChooseExactConfig] configured=0 requested=0 selected=0 sampleBuffers=0 depth=24 stencil=8",
+  "vsync": {
+    "requested": 0,
+    "engineLogLast": "[VSync::SetInterval] interval=0 (disabled)",
+    "sourceInference": "Mesa Kopper initializes swap interval 0, which selects Vulkan immediate present when supported; MoltenVK applies present mode to CAMetalLayer. Actual present mode remains unobserved."
+  },
+  "cpuSample": {
+    "tool": "/usr/bin/sample",
+    "targetPID": 41605,
+    "durationSeconds": 10,
+    "intervalMilliseconds": 1,
+    "startUnixMs": 1792556710927,
+    "startStatus": {
+      "unit": [],
+      "id": "87b2e2f2-ac1a-4032-a273-543f575a5a1d",
+      "note": "benchmark-starting",
+      "frame": "240",
+      "draws": "1776",
+      "fps": "107.000000",
+      "width": "1512",
+      "height": "950",
+      "map": "Seths Ravine Remake 1.3.1",
+      "ultra": "verified",
+      "qualification": "complete",
+      "result": "pending",
+      "qualityError": "none",
+      "qualityPending": "none",
+      "fixture.contract": "metal4-exact-frame240-v1",
+      "fixture.expectedFrame": "240",
+      "fixture.pauseRequestFrame": "180",
+      "fixture.pauseAckFrame": "180",
+      "fixture.stepCount": "60",
+      "fixture.actualPaused": "true",
+      "fixture.readyFrame": "240",
+      "config.VSyncGame": "0",
+      "config.MSAA": "0",
+      "config.MinSampleShadingRate": "0",
+      "config.VSync": "0",
+      "config.MSAALevel": "0",
+      "glSamples": "0",
+      "glSamplesError": "none",
+      "mapEdge.wanted": "true",
+      "mapEdge.voidGround": "false",
+      "mapEdge.exceptionApplied": "true",
+      "mapEdge.voidWater": "true",
+      "mapEdge.widgetActive": "false",
+      "mapEdge.actual": "0.5",
+      "benchmarkStart": "240",
+      "benchmarkTarget": "1140"
+    },
+    "output": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-drawable-size-observation-20261020/1-candidate-metal4/sessions/lobby-no-native-hook-1792556637590/cpu-sample.txt",
+    "stderr": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-drawable-size-observation-20261020/1-candidate-metal4/sessions/lobby-no-native-hook-1792556637590/cpu-sample-stderr.txt",
+    "usedForFPSComparison": false,
+    "exitCode": 0,
+    "signal": null,
+    "endUnixMs": 1792556737959,
+    "endStatus": {
+      "unit": [],
+      "id": "87b2e2f2-ac1a-4032-a273-543f575a5a1d",
+      "note": "benchmark-running",
+      "frame": "1006",
+      "draws": "2574",
+      "fps": "17.000000",
+      "width": "1512",
+      "height": "950",
+      "map": "Seths Ravine Remake 1.3.1",
+      "ultra": "verified",
+      "qualification": "complete",
+      "result": "pending",
+      "qualityError": "none",
+      "qualityPending": "none",
+      "fixture.contract": "metal4-exact-frame240-v1",
+      "fixture.expectedFrame": "240",
+      "fixture.pauseRequestFrame": "180",
+      "fixture.pauseAckFrame": "180",
+      "fixture.stepCount": "60",
+      "fixture.actualPaused": "false",
+      "fixture.readyFrame": "240",
+      "config.VSyncGame": "0",
+      "config.MSAA": "0",
+      "config.MinSampleShadingRate": "0",
+      "config.VSync": "0",
+      "config.MSAALevel": "0",
+      "glSamples": "0",
+      "glSamplesError": "none",
+      "mapEdge.wanted": "true",
+      "mapEdge.voidGround": "false",
+      "mapEdge.exceptionApplied": "true",
+      "mapEdge.voidWater": "true",
+      "mapEdge.widgetActive": "false",
+      "mapEdge.actual": "0.5",
+      "benchmarkStart": "240",
+      "benchmarkTarget": "1140"
+    },
+    "sha256": "9be86d7da1ff876f25419c6e0b5aab5f5c92f4cfcf93ec60f08a6ec43cc6f004"
+  },
+  "benchmark": {
+    "benchmark": {
+      "drawIntervals": {
+        "count": 854,
+        "meanFPS": 28.497079849243,
+        "meanMs": 35.091312408447,
+        "over100Ms": 30,
+        "over33Ms": 229,
+        "over50Ms": 150,
+        "p50Ms": 25.499000549316,
+        "p95Ms": 97.467002868652,
+        "p99Ms": 131.481002807617
+      },
+      "endFrame": 1140,
+      "existingProfiler": {
+        "finish": {
+          "namesAvailable": 7,
+          "namesRead": 7,
+          "readCostMs": 0,
+          "scope": "existing inclusive engine special-timer wall time; nested entries overlap; GPU/fence waits may be included",
+          "totalMilliseconds": {
+            "Draw": 13872.6787109375,
+            "Lua::Callins::Synced": 1292.861572265625,
+            "Lua::Callins::Unsynced": 14397.94921875,
+            "Lua::CollectGarbage::Synced": 40.950626373291,
+            "Lua::CollectGarbage::Unsynced": 652.674072265625,
+            "Misc::Profiler::AddTime": 8.154001235962,
+            "Sim": 8165.54345703125
+          }
+        },
+        "start": {
+          "namesAvailable": 7,
+          "namesRead": 7,
+          "readCostMs": 0,
+          "scope": "existing inclusive engine special-timer wall time; nested entries overlap; GPU/fence waits may be included",
+          "totalMilliseconds": {
+            "Draw": 6804.2607421875,
+            "Lua::Callins::Synced": 31.02890586853,
+            "Lua::Callins::Unsynced": 7559.67724609375,
+            "Lua::CollectGarbage::Synced": 25.435499191284,
+            "Lua::CollectGarbage::Unsynced": 303.142913818359,
+            "Misc::Profiler::AddTime": 2.894244909286,
+            "Sim": 209.497085571289
+          }
+        }
+      },
+      "gameSpeed": {
+        "atRequest": {
+          "actual": 1,
+          "paused": true,
+          "requested": 1
+        },
+        "finish": {
+          "actual": 1,
+          "paused": false,
+          "requested": 1
+        },
+        "requested": 1,
+        "start": {
+          "actual": 1,
+          "paused": false,
+          "requested": 1
+        }
+      },
+      "nativeReport": "independent infolog benchmark output",
+      "simulationFrames": 900,
+      "startFrame": 240,
+      "unitCounts": [
+        {
+          "count": 2,
+          "frame": 240,
+          "gameSpeed": {
+            "actual": 1,
+            "paused": true,
+            "requested": 1
+          },
+          "second": 1
+        },
+        {
+          "count": 156,
+          "frame": 271,
+          "gameSpeed": {
+            "actual": 1,
+            "paused": false,
+            "requested": 1
+          },
+          "second": 2.017999887466
+        },
+        {
+          "count": 157,
+          "frame": 301,
+          "gameSpeed": {
+            "actual": 1,
+            "paused": false,
+            "requested": 1
+          },
+          "second": 3.017999887466
+        },
+        {
+          "count": 164,
+          "frame": 331,
+          "gameSpeed": {
+            "actual": 1,
+            "paused": false,
+            "requested": 1
+          },
+          "second": 4.019000053406
+        },
+        {
+          "count": 165,
+          "frame": 361,
+          "gameSpeed": {
+            "actual": 1,
+            "paused": false,
+            "requested": 1
+          },
+          "second": 5.03200006485
+        },
+        {
+          "count": 172,
+          "frame": 391,
+          "gameSpeed": {
+            "actual": 1,
+            "paused": false,
+            "requested": 1
+          },
+          "second": 6.03200006485
+        },
+        {
+          "count": 163,
+          "frame": 421,
+          "gameSpeed": {
+            "actual": 1,
+            "paused": false,
+            "requested": 1
+          },
+          "second": 7.032999992371
+        },
+        {
+          "count": 168,
+          "frame": 452,
+          "gameSpeed": {
+            "actual": 1,
+            "paused": false,
+            "requested": 1
+          },
+          "second": 8.069999694824
+        },
+        {
+          "count": 151,
+          "frame": 479,
+          "gameSpeed": {
+            "actual": 1,
+            "paused": false,
+            "requested": 1
+          },
+          "second": 9.092000007629
+        },
+        {
+          "count": 148,
+          "frame": 513,
+          "gameSpeed": {
+            "actual": 1,
+            "paused": false,
+            "requested": 1
+          },
+          "second": 10.093999862671
+        },
+        {
+          "count": 156,
+          "frame": 546,
+          "gameSpeed": {
+            "actual": 1,
+            "paused": false,
+            "requested": 1
+          },
+          "second": 11.211999893188
+        },
+        {
+          "count": 148,
+          "frame": 577,
+          "gameSpeed": {
+            "actual": 1,
+            "paused": false,
+            "requested": 1
+          },
+          "second": 12.21399974823
+        },
+        {
+          "count": 157,
+          "frame": 607,
+          "gameSpeed": {
+            "actual": 1,
+            "paused": false,
+            "requested": 1
+          },
+          "second": 13.220000267029
+        },
+        {
+          "count": 151,
+          "frame": 637,
+          "gameSpeed": {
+            "actual": 1,
+            "paused": false,
+            "requested": 1
+          },
+          "second": 14.230999946594
+        },
+        {
+          "count": 150,
+          "frame": 668,
+          "gameSpeed": {
+            "actual": 1,
+            "paused": false,
+            "requested": 1
+          },
+          "second": 15.253999710083
+        },
+        {
+          "count": 155,
+          "frame": 698,
+          "gameSpeed": {
+            "actual": 1,
+            "paused": false,
+            "requested": 1
+          },
+          "second": 16.254999160767
+        },
+        {
+          "count": 174,
+          "frame": 729,
+          "gameSpeed": {
+            "actual": 1,
+            "paused": false,
+            "requested": 1
+          },
+          "second": 17.299999237061
+        },
+        {
+          "count": 170,
+          "frame": 761,
+          "gameSpeed": {
+            "actual": 1,
+            "paused": false,
+            "requested": 1
+          },
+          "second": 18.358999252319
+        },
+        {
+          "count": 165,
+          "frame": 793,
+          "gameSpeed": {
+            "actual": 1,
+            "paused": false,
+            "requested": 1
+          },
+          "second": 19.420000076294
+        },
+        {
+          "count": 173,
+          "frame": 824,
+          "gameSpeed": {
+            "actual": 1,
+            "paused": false,
+            "requested": 1
+          },
+          "second": 20.459999084473
+        },
+        {
+          "count": 171,
+          "frame": 854,
+          "gameSpeed": {
+            "actual": 1,
+            "paused": false,
+            "requested": 1
+          },
+          "second": 21.462999343872
+        },
+        {
+          "count": 165,
+          "frame": 884,
+          "gameSpeed": {
+            "actual": 1,
+            "paused": false,
+            "requested": 1
+          },
+          "second": 22.464000701904
+        },
+        {
+          "count": 173,
+          "frame": 917,
+          "gameSpeed": {
+            "actual": 1,
+            "paused": false,
+            "requested": 1
+          },
+          "second": 23.549999237061
+        },
+        {
+          "count": 171,
+          "frame": 947,
+          "gameSpeed": {
+            "actual": 1,
+            "paused": false,
+            "requested": 1
+          },
+          "second": 24.568000793457
+        },
+        {
+          "count": 165,
+          "frame": 977,
+          "gameSpeed": {
+            "actual": 1,
+            "paused": false,
+            "requested": 1
+          },
+          "second": 25.576000213623
+        },
+        {
+          "count": 165,
+          "frame": 1008,
+          "gameSpeed": {
+            "actual": 1,
+            "paused": false,
+            "requested": 1
+          },
+          "second": 26.596000671387
+        },
+        {
+          "count": 165,
+          "frame": 1039,
+          "gameSpeed": {
+            "actual": 1,
+            "paused": false,
+            "requested": 1
+          },
+          "second": 27.618999481201
+        },
+        {
+          "count": 154,
+          "frame": 1069,
+          "gameSpeed": {
+            "actual": 1,
+            "paused": false,
+            "requested": 1
+          },
+          "second": 28.632999420166
+        },
+        {
+          "count": 164,
+          "frame": 1100,
+          "gameSpeed": {
+            "actual": 1,
+            "paused": false,
+            "requested": 1
+          },
+          "second": 29.642999649048
+        },
+        {
+          "count": 156,
+          "frame": 1130,
+          "gameSpeed": {
+            "actual": 1,
+            "paused": false,
+            "requested": 1
+          },
+          "second": 30.645999908447
+        }
+      ],
+      "wallSeconds": 29.995000839233
+    },
+    "camera": {
+      "dist": 2254.7705078125,
+      "dx": 0,
+      "dy": -0.924302399158,
+      "dz": -0.381660997868,
+      "fov": 45,
+      "mode": 2,
+      "name": "spring",
+      "px": 4096,
+      "py": 254.770629882813,
+      "pz": 3072,
+      "rx": 2.75,
+      "ry": 0,
+      "rz": 0
+    },
+    "engineVersion": "2026.09.01-24-g01efdf4 master (BAR-1.0.3 )",
+    "fixture": {
+      "contract": "metal4-exact-frame240-v1",
+      "expectedFrame": 240,
+      "pauseAckFrame": 180,
+      "pauseRequestFrame": 180,
+      "readyFrame": 240,
+      "stepCount": 60
+    },
+    "frameTarget": 900,
+    "game": "Beyond All Reason",
+    "gameVersion": "test-31671-ad2e1b7",
+    "map": "Seths Ravine Remake 1.3.1",
+    "officialCommand": "luarules benchmark armbull armbull 80 8 1400",
+    "officialSource": "https://github.com/beyond-all-reason/Beyond-All-Reason/blob/433a460ac108c510374abdc9af5b44e3b9fe406f/luarules/gadgets/dbg_benchmark.lua",
+    "qualification": {
+      "pass": true,
+      "stages": [
+        {
+          "draws": 281,
+          "fps": 93.510810852051,
+          "seconds": 3.005000114441,
+          "stage": "off-before"
+        },
+        {
+          "draws": 308,
+          "fps": 102.427673339844,
+          "frameIntervals": {
+            "count": 307,
+            "meanFPS": 102.393432617188,
+            "meanMs": 9.766251564026,
+            "over100Ms": 0,
+            "over33Ms": 0,
+            "over50Ms": 0,
+            "p50Ms": 9.590000152588,
+            "p95Ms": 11.687999725342,
+            "p99Ms": 12.635999679565
+          },
+          "seconds": 3.006999969482,
+          "stage": "on"
+        },
+        {
+          "draws": 317,
+          "fps": 105.385643005371,
+          "seconds": 3.007999897003,
+          "stage": "off-after"
+        }
+      ]
+    },
+    "quality": {
+      "config": {
+        "MSAA": 0,
+        "MSAALevel": 0,
+        "MinSampleShadingRate": 0,
+        "VSync": 0,
+        "VSyncGame": 0
+      },
+      "glSamples": 0,
+      "glSamplesConfirmed4": false,
+      "glSamplesScope": "DrawScreen current framebuffer; resolved UI targets may report 0 or 1",
+      "mapEdge": {
+        "actual": 0.5,
+        "exceptionApplied": true,
+        "voidGround": false,
+        "voidWater": true,
+        "wanted": true,
+        "widgetActive": false
+      },
+      "optionValues": {
+        "advmapshading": true,
+        "attackrange_numrangesmult": 1,
+        "bloomdeferred": true,
+        "bloomdeferred_quality": 3,
+        "camera": 3,
+        "cusgl4": true,
+        "decals": true,
+        "decalsgl4": true,
+        "distortioneffects": true,
+        "fogdiaglines": 0,
+        "grass": true,
+        "lighteffects": true,
+        "lighteffects_nanoparticlelights": true,
+        "lighteffects_screenspaceshadows": 4,
+        "limitidlefps": false,
+        "limitoffscreenfps": false,
+        "losrange": true,
+        "mapedgeextension": 0.5,
+        "msaa": 1,
+        "particles": 40000,
+        "preset": 5,
+        "shadowslider": 6,
+        "snow": true,
+        "ssao": true,
+        "ssao_quality": 3,
+        "vsync": 1,
+        "water": 2
+      },
+      "optionsVerified": 20,
+      "ultraPreset": 5,
+      "ultraVerified": true
+    },
+    "requestId": "87b2e2f2-ac1a-4032-a273-543f575a5a1d",
+    "resolution": {
+      "height": 950,
+      "width": 1512
+    },
+    "schema": 1,
+    "seed": 7654321,
+    "status": "complete",
+    "workload": {
+      "placementSpan": 1400,
+      "populationThresholdIsNotHardCap": true,
+      "populationThresholdPerTeam": 80,
+      "rampIncluded": true,
+      "replenishBatchPerTeam": 8,
+      "replenishEverySimulationFrames": 3,
+      "requestedSimulationSpeed": 1,
+      "unitTypeOpponent": "armbull",
+      "unitTypeOwn": "armbull"
+    }
+  },
+  "benchmarkEvidence": {
+    "path": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-drawable-size-observation-20261020/1-candidate-metal4/sessions/lobby-no-native-hook-1792556637590/state/data/LuaUI/Config/v104-performance-result.json",
+    "sha256": "0fd44c1e3b289dc7a85a177bbe9c48f39d436f293b33138a0ab62e0c0c7dc25f"
+  },
+  "postMeasurementFixtures": "excluded_from_sampled_observation_scope",
+  "status": "failed",
+  "error": "Error: Timeout: native game exit callback and PID absence",
+  "remainingOwnedProcesses": [],
+  "runtimeUUID": {
+    "prefix": "f52facf7",
+    "uuids": [
+      "f52facf7-1b02-0209-0000-000100000000"
+    ],
+    "driverLog": {
+      "path": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-drawable-size-observation-20261020/1-candidate-metal4/sessions/lobby-no-native-hook-1792556637590/state/data/stack-game.stderr.log",
+      "sha256": "8883981255849de06a66e0ade973c65c7efa2c48e144a4aac543a256c381c09c"
+    }
+  },
+  "cacheError": "Error: Actual native Metal4 queue completion proof missing",
+  "cleanup": {
+    "schemaVersion": 1,
+    "status": "private-clones-removed",
+    "run": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-drawable-size-observation-20261020/1-candidate-metal4/sessions/lobby-no-native-hook-1792556637590",
+    "targets": [
+      "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-drawable-size-observation-20261020/1-candidate-metal4/sessions/lobby-no-native-hook-1792556637590/assets/maps",
+      "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-drawable-size-observation-20261020/1-candidate-metal4/sessions/lobby-no-native-hook-1792556637590/assets/pool",
+      "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-drawable-size-observation-20261020/1-candidate-metal4/sessions/lobby-no-native-hook-1792556637590/assets/packages",
+      "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-drawable-size-observation-20261020/1-candidate-metal4/sessions/lobby-no-native-hook-1792556637590/assets/rapid"
+    ],
+    "files": 19978,
+    "symlinks": 0,
+    "directories": 263,
+    "logicalBytes": 2316290517,
+    "physicalBytesMeasured": false,
+    "sourceCacheTouched": false,
+    "trialStateAndLogsPreserved": true
+  },
+  "protectedInputsUnchanged": true,
+  "powerConditionsPassed": true,
+  "foregroundChecks": 80,
+  "finishedAt": "2026-10-21T04:26:05.307Z"
+}

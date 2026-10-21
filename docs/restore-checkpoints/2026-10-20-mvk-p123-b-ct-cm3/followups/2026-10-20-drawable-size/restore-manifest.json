@@ -1,0 +1,266 @@
+{
+  "parent": "7a3a24591f75d53a9022487a3f2e25d3d5c05afa",
+  "sourceStatus": "implemented-reviewed-compared-observation-exit-unresolved",
+  "metadataVersion": "1.0.3; local cumulative v1.0.4 candidate only",
+  "included": "P1/P2/P3+B+C-T+C-M3+C-REG plus common live window/drawable size query in both engines",
+  "sourceTransitions": [
+    {
+      "lane": "bar-lobby",
+      "workspacePath": "build/run91-recoil-src-694e9df7/rts/System/Platform/Mac/MacSDL3EGLBridge.h",
+      "componentRelativePath": "rts/System/Platform/Mac/MacSDL3EGLBridge.h",
+      "beforeSHA256": "93e60ab76e3631066cba592bfe7770b6ef1681456086cd4729e7a18bdba12936",
+      "afterSHA256": "a7858558e572a9108f8ed0d7d0cae1b8f73f0c36145db5874716f7db3236c445",
+      "preimage": "evidence/artifacts/validation/v104-drawable-size-20261020/before/build/run91-recoil-src-694e9df7/rts/System/Platform/Mac/MacSDL3EGLBridge.h",
+      "postimage": "evidence/build/run91-recoil-src-694e9df7/rts/System/Platform/Mac/MacSDL3EGLBridge.h",
+      "mode": 420
+    },
+    {
+      "lane": "bar-lobby",
+      "workspacePath": "build/run91-recoil-src-694e9df7/rts/System/Platform/Mac/MacSDL3EGLBridge.mm",
+      "componentRelativePath": "rts/System/Platform/Mac/MacSDL3EGLBridge.mm",
+      "beforeSHA256": "d1f6d7c81acb020f9988dbfaf1998f74fe2296860722606416e079e3270a39d3",
+      "afterSHA256": "1f9fc4311ae1ca3707bbc2fad869e5b5960497e00e44ff4ece8fb91a9854695a",
+      "preimage": "evidence/artifacts/validation/v104-drawable-size-20261020/before/build/run91-recoil-src-694e9df7/rts/System/Platform/Mac/MacSDL3EGLBridge.mm",
+      "postimage": "evidence/build/run91-recoil-src-694e9df7/rts/System/Platform/Mac/MacSDL3EGLBridge.mm",
+      "mode": 420
+    },
+    {
+      "lane": "bar-lobby",
+      "workspacePath": "build/run91-recoil-src-694e9df7/rts/Rendering/GlobalRendering.cpp",
+      "componentRelativePath": "rts/Rendering/GlobalRendering.cpp",
+      "beforeSHA256": "7cae532165141d30916eea89e3a1bf272e1bff475f4c2ac0ed4ba2c11c9a5ffa",
+      "afterSHA256": "ea57a439ac1afa0f92dfa93968b5e8d971a1c4ca68ad16e83f38b34719d16c94",
+      "preimage": "evidence/artifacts/validation/v104-drawable-size-20261020/before/build/run91-recoil-src-694e9df7/rts/Rendering/GlobalRendering.cpp",
+      "postimage": "evidence/build/run91-recoil-src-694e9df7/rts/Rendering/GlobalRendering.cpp",
+      "mode": 420
+    },
+    {
+      "lane": "bar-chobby",
+      "workspacePath": "artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/System/Platform/Mac/MacSDL3EGLBridge.h",
+      "componentRelativePath": "rts/System/Platform/Mac/MacSDL3EGLBridge.h",
+      "beforeSHA256": "13756a7fa48aac944543681ebb38acd5314dae5ead602eb7aa3cc352b24d3a97",
+      "afterSHA256": "7a87e73d9fbadd9f4d2326010263a29598ebeb7648a4f21447c18aa449cab733",
+      "preimage": "evidence/artifacts/validation/v104-drawable-size-20261020/before/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/System/Platform/Mac/MacSDL3EGLBridge.h",
+      "postimage": "evidence/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/System/Platform/Mac/MacSDL3EGLBridge.h",
+      "mode": 420
+    },
+    {
+      "lane": "bar-chobby",
+      "workspacePath": "artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/System/Platform/Mac/MacSDL3EGLBridge.mm",
+      "componentRelativePath": "rts/System/Platform/Mac/MacSDL3EGLBridge.mm",
+      "beforeSHA256": "d5bab6c780c14f235a7d6d6331d9a17a5f2884047b290551ce5333b46d126994",
+      "afterSHA256": "e65cc88decc124356196b727b6220db68236c89e19164b90a5587ace409d4258",
+      "preimage": "evidence/artifacts/validation/v104-drawable-size-20261020/before/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/System/Platform/Mac/MacSDL3EGLBridge.mm",
+      "postimage": "evidence/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/System/Platform/Mac/MacSDL3EGLBridge.mm",
+      "mode": 420
+    },
+    {
+      "lane": "bar-chobby",
+      "workspacePath": "artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Rendering/GlobalRendering.cpp",
+      "componentRelativePath": "rts/Rendering/GlobalRendering.cpp",
+      "beforeSHA256": "3ec51cb94b889eb2718ab6566d0a322094fa879229e37615d3fd0a88a92c5d59",
+      "afterSHA256": "1d7cd698a097171fa1c3ca226aa88506a32c0f7246f0d42f6e0ae5a3b686162d",
+      "preimage": "evidence/artifacts/validation/v104-drawable-size-20261020/before/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Rendering/GlobalRendering.cpp",
+      "postimage": "evidence/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Rendering/GlobalRendering.cpp",
+      "mode": 420
+    }
+  ],
+  "nativeRawBuildAndSignedPackageAssociation": [
+    {
+      "lane": "bar-lobby",
+      "relativePath": "Contents/Resources/bundled-assets/engine/2026.09.01-24-g01efdf4 master/spring",
+      "rawSHA256": "560083e2c66c736e342ca7e60626b0404950686e04c15a4f8c7a41b3359c2c7b",
+      "packagedSHA256": "d715965659b977e05b8ccafe76fae0936cade1a7481871acff7eec876366f1aa",
+      "textSHA256": "224f7ba8cbe781338e25917b9af397f0622dce81f6a0c7f37ba43d8ff3eacd47",
+      "priorPackagedSHA256": "16cdd896273e09b89e385ec53c24d0216df9a17dd5d7b80c78dc5f8471f13424",
+      "loads": [
+        "/System/Library/Frameworks/Cocoa.framework/Versions/A/Cocoa",
+        "/System/Library/Frameworks/Foundation.framework/Versions/C/Foundation",
+        "/System/Library/Frameworks/QuartzCore.framework/Versions/A/QuartzCore",
+        "/System/Library/Frameworks/Metal.framework/Versions/A/Metal",
+        "@rpath/libEGL.1.dylib",
+        "@rpath/libfontconfig.1.dylib",
+        "/usr/lib/libexpat.1.dylib",
+        "@rpath/libfreetype.6.dylib",
+        "@rpath/libIL.dylib",
+        "@rpath/libminizip.1.dylib",
+        "/usr/lib/libz.1.dylib",
+        "/usr/lib/system/libunwind.dylib",
+        "/usr/lib/liblzma.5.dylib",
+        "/usr/lib/libSystem.B.dylib",
+        "/usr/lib/libcurl.4.dylib",
+        "@rpath/libSDL3.0.dylib",
+        "@rpath/libvorbisfile.3.dylib",
+        "@rpath/libvorbis.0.dylib",
+        "@rpath/libogg.0.dylib",
+        "@rpath/libopenal.1.dylib",
+        "/usr/lib/libc++.1.dylib",
+        "/System/Library/Frameworks/AppKit.framework/Versions/C/AppKit",
+        "/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation",
+        "/System/Library/Frameworks/CoreGraphics.framework/Versions/A/CoreGraphics",
+        "/usr/lib/libobjc.A.dylib"
+      ],
+      "rpaths": [
+        "@loader_path",
+        "@loader_path/lib",
+        "@loader_path/../../runtime/sdl3/lib",
+        "@loader_path/../../runtime/mesa-zink/lib",
+        "@loader_path/../../runtime/vulkan-loader/lib",
+        "@loader_path/../../runtime/moltenvk-pr2746/lib",
+        "@loader_path/../../runtime/deps/lib",
+        "@loader_path/../../runtime/audio/lib"
+      ]
+    },
+    {
+      "lane": "bar-chobby",
+      "relativePath": "Contents/Resources/bundled-assets/engine/2026.07.04/spring",
+      "rawSHA256": "3b9f7f3a89be9ca31cdfed3e3f544bbe34e8f7099f07a59b160157212124af92",
+      "packagedSHA256": "f9653c8b199fad38836715d916a24ead8365f12ea4de38450f5ed33480d24014",
+      "textSHA256": "1c46fbde0b774c3f478398110fa83aec3ef03e142248386bd2572ad7cdfa542f",
+      "priorPackagedSHA256": "da087778db8ce1d6ba345828420389e29772df165bbb1a7f02179d861ea95d53",
+      "loads": [
+        "@rpath/libEGL.1.dylib",
+        "@rpath/libfontconfig.1.dylib",
+        "/usr/lib/libexpat.1.dylib",
+        "@rpath/libfreetype.6.dylib",
+        "@rpath/libIL.dylib",
+        "@rpath/libminizip.1.dylib",
+        "/usr/lib/libz.1.dylib",
+        "/usr/lib/libSystem.B.dylib",
+        "@rpath/liblzma.5.dylib",
+        "@rpath/libatomic.1.dylib",
+        "/usr/lib/libcurl.4.dylib",
+        "@rpath/libSDL3.0.dylib",
+        "@rpath/libvorbisfile.3.dylib",
+        "@rpath/libvorbis.0.dylib",
+        "@rpath/libogg.0.dylib",
+        "@rpath/libopenal.1.dylib",
+        "/usr/lib/libc++.1.dylib",
+        "@rpath/libstdc++.6.dylib",
+        "/System/Library/Frameworks/Cocoa.framework/Versions/A/Cocoa",
+        "/System/Library/Frameworks/Foundation.framework/Versions/C/Foundation",
+        "/System/Library/Frameworks/QuartzCore.framework/Versions/A/QuartzCore",
+        "/System/Library/Frameworks/Metal.framework/Versions/A/Metal",
+        "/System/Library/Frameworks/AppKit.framework/Versions/C/AppKit",
+        "/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation",
+        "/System/Library/Frameworks/CoreGraphics.framework/Versions/A/CoreGraphics",
+        "/usr/lib/libobjc.A.dylib"
+      ],
+      "rpaths": [
+        "@loader_path/lib",
+        "@loader_path/../../runtime/sdl3/lib",
+        "@loader_path/../../runtime/mesa-zink/lib",
+        "@loader_path/../../runtime/vulkan-loader/lib",
+        "@loader_path/../../runtime/moltenvk-pr2746/lib",
+        "@loader_path/../../runtime/audio/lib",
+        "@loader_path/../../runtime/deps/lib"
+      ]
+    }
+  ],
+  "rawEngineCopiesIncluded": false,
+  "exactSignedAppChangedFiles": [
+    "Contents/MacOS/BAR",
+    "Contents/Resources/bundled-assets/engine/2026.07.04/spring",
+    "Contents/Resources/bundled-assets/engine/2026.09.01-24-g01efdf4 master/spring",
+    "Contents/_CodeSignature/CodeResources"
+  ],
+  "appEntries": 1194,
+  "validation": {
+    "CPUChecksPerLane": 102,
+    "CPUASanUBSan": true,
+    "nativeBuilds": 2,
+    "independentReview": "PASS;0 actionable findings",
+    "dependencyClosureEdges": 211,
+    "deepStrictSignature": true,
+    "successfulReferenceGameRuns": 8,
+    "separateObservationExitAccepted": false
+  },
+  "referenceComparison": {
+    "file": "evidence/artifacts/validation/v104-drawable-size-performance-20261020/comparison-summary.json",
+    "groups": {
+      "metal3": {
+        "parent": {
+          "ordinals": [
+            6,
+            7
+          ],
+          "fps": [
+            44.249805450439,
+            42.41423034668
+          ],
+          "meanFPS": 43.3320178985595,
+          "meanRunP95Ms": 44.1184997558595,
+          "meanRunP99Ms": 81.930999755859
+        },
+        "candidate": {
+          "ordinals": [
+            5,
+            8
+          ],
+          "fps": [
+            48.416568756104,
+            52.132389068604
+          ],
+          "meanFPS": 50.274478912354,
+          "meanRunP95Ms": 36.431499481201,
+          "meanRunP99Ms": 60.724500656128
+        },
+        "deltaFPSPercent": 16.021550231163562,
+        "deltaP95Percent": -17.423530530721564
+      },
+      "metal4": {
+        "parent": {
+          "ordinals": [
+            1,
+            4
+          ],
+          "fps": [
+            30.87636756897,
+            35.350528717041
+          ],
+          "meanFPS": 33.1134481430055,
+          "meanRunP95Ms": 62.846998214721495,
+          "meanRunP99Ms": 103.859001159668
+        },
+        "candidate": {
+          "ordinals": [
+            2,
+            3
+          ],
+          "fps": [
+            27.885301589966,
+            37.31014251709
+          ],
+          "meanFPS": 32.597722053528,
+          "meanRunP95Ms": 63.9169998168945,
+          "meanRunP99Ms": 123.7785034179685
+        },
+        "deltaFPSPercent": -1.5574520878956943,
+        "deltaP95Percent": 1.7025500542082739
+      }
+    },
+    "nPerAppBackend": 2,
+    "concurrentUserWorkload": true,
+    "codeNetEffectEstablished": false
+  },
+  "separateObservation": {
+    "sourceStatus": "separate-observation-exit-boundary-unresolved",
+    "collectionAndBenchmarkCompleted": true,
+    "samplerExitedBeforeQuit": true,
+    "exitDeadlineMs": 15000,
+    "exitCallbackAndPIDAbsenceTimedOut": true,
+    "cause": "Unresolved: no attribution to product diff, sampler or simultaneous user work",
+    "runtimeAcceptance": false,
+    "includeInFPSComparison": false,
+    "failurePrivateProfileAndCachesPreservedLocally": true
+  },
+  "displayQualification": "Hidden gameFullscreen=1/SDL intent+flags with1512x950 safe viewport; native Space presentation deferred, no physical Retina/display move validation",
+  "ownerCleanup": {
+    "roots": 48,
+    "leaves": 2662,
+    "logicalBytes": 76955677,
+    "failedObservationCachesPreserved": true,
+    "physicalReclaimNotMeasured": true
+  },
+  "publisherAdditionalBuildTestGameInstallCleanup": false
+}

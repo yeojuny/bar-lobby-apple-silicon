@@ -1,0 +1,54 @@
+ninja: Entering directory `/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/runtime/run94-chobby-official-20260704-20260924/build'
+[0/2] Re-checking globbed directories...
+[1/4] Building OBJCXX object rts/builds/legacy/CMakeFiles/engine-legacy.dir/__/__/System/Platform/Mac/MacSDL3EGLBridge.mm.o
+/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/System/Platform/Mac/MacSDL3EGLBridge.mm:165:2: warning: add explicit braces to avoid dangling else [-Wdangling-else]
+  165 |         else
+      |         ^
+1 warning generated.
+[2/4] Building CXX object rts/builds/legacy/CMakeFiles/engine-legacy.dir/__/__/Rendering/GlobalRendering.cpp.o
+In file included from /Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/System/Matrix44f.h:10,
+                 from /Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Rendering/GlobalRendering.h:10,
+                 from /Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Rendering/GlobalRendering.cpp:12:
+/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/System/float3.h: In member function 'std::pair<float3, float> float3::GetNormalized() const':
+/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/System/float3.h:629:57: note: parameter passing for argument of type 'std::pair<float3, float>' when C++17 is enabled changed to match C++14 in GCC 10.1
+  629 |         std::pair <float3, float> GetNormalized() const {
+      |                                                         ^
+In file included from /Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Rendering/GL/glDebugGroup.hpp:5,
+                 from /Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Rendering/GL/myGL.h:20,
+                 from /Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Rendering/GL/StreamBuffer.h:5,
+                 from /Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Rendering/GlobalRendering.cpp:15:
+/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/System/StringHash.h: At global scope:
+/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/System/StringHash.h:20:44: warning: space between quotes and suffix is deprecated in C++23 [-Wdeprecated-literal-operator]
+   20 | [[nodiscard]] constexpr uint32_t operator"" _hs(const char* str, std::size_t) noexcept {
+      |                                            ^~
+      |                                            --
+/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/System/StringHash.h:20:44: warning: space between quotes and suffix is deprecated in C++23 [-Wdeprecated-literal-operator]
+   20 | [[nodiscard]] constexpr uint32_t operator"" _hs(const char* str, std::size_t) noexcept {
+      |                                            ^~
+      |                                            --
+In file included from /Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/lib/entt/src/entt/core/type_info.hpp:10,
+                 from /Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/lib/entt/src/entt/core/any.hpp:11,
+                 from /Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/lib/entt/src/entt/entt.hpp:7,
+                 from /Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/System/Ecs/EcsMain.h:14,
+                 from /Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Sim/Objects/SolidObject.h:14,
+                 from /Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Sim/Units/Unit.h:8,
+                 from /Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/System/EventHandler.h:10,
+                 from /Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Rendering/GlobalRendering.cpp:24:
+/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/lib/entt/src/entt/core/hashed_string.hpp:316:49: warning: space between quotes and suffix is deprecated in C++23 [-Wdeprecated-literal-operator]
+  316 | [[nodiscard]] constexpr hashed_string operator"" _hs(const char *str, std::size_t) ENTT_NOEXCEPT {
+      |                                                 ^~
+      |                                                 --
+/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/lib/entt/src/entt/core/hashed_string.hpp:316:49: warning: space between quotes and suffix is deprecated in C++23 [-Wdeprecated-literal-operator]
+  316 | [[nodiscard]] constexpr hashed_string operator"" _hs(const char *str, std::size_t) ENTT_NOEXCEPT {
+      |                                                 ^~
+      |                                                 --
+/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/lib/entt/src/entt/core/hashed_string.hpp:325:50: warning: space between quotes and suffix is deprecated in C++23 [-Wdeprecated-literal-operator]
+  325 | [[nodiscard]] constexpr hashed_wstring operator"" _hws(const wchar_t *str, std::size_t) ENTT_NOEXCEPT {
+      |                                                  ^~
+      |                                                  --
+/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/lib/entt/src/entt/core/hashed_string.hpp:325:50: warning: space between quotes and suffix is deprecated in C++23 [-Wdeprecated-literal-operator]
+  325 | [[nodiscard]] constexpr hashed_wstring operator"" _hws(const wchar_t *str, std::size_t) ENTT_NOEXCEPT {
+      |                                                  ^~
+      |                                                  --
+[3/4] Linking CXX executable spring
+ld: warning: ignoring duplicate libraries: 'librmlui.a', 'librmlui_debugger.a', 'rts/System/Sound/libsound.a', 'rts/lib/nowide/libnowide.a', 'rts/lib/simdjson/libsimdjson.a', 'rts/lib/streflop/libstreflop.a', 'rts/lib/tracy/libTracyClient.a', 'tools/pr-downloader/src/lib/7z/lib7zip.a', 'tools/pr-downloader/src/lib/base64/libpr-base64.a', 'tools/pr-downloader/src/lib/jsoncpp/libpr-jsoncpp.a'

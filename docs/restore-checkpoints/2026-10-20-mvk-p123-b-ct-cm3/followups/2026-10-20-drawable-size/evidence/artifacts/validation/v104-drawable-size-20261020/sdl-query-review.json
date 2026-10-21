@@ -1,0 +1,15 @@
+{
+  "scope": "Read-only supplemental getter side-effect review; no test/build/source change.",
+  "sourcePins": {
+    "build/run66-sdl-src-20260903/src/video/SDL_video.c": "94dcf5ee29072f7edd32931de36b68c2f38545c67021513d71a9e963beaa2494",
+    "build/run66-sdl-src-20260903/src/video/cocoa/SDL_cocoawindow.m": "3c740444067b33f711bcaf4ffa697263dff76774f3455aa2ec938a48366b119a",
+    "build/run91-recoil-src-694e9df7/rts/System/SDLCompat/SDLRecoilCompat.h": "23ee40d3a07873801b1ca631b64e2deeae739260355088521f72da7d73ac25b3"
+  },
+  "SDLSourceProvenance": "Existing editable exported source has no .git metadata; inspected file digests recorded, no new source-to-packaged-binary claim.",
+  "observations": [
+    "SDL_GetWindowSize returns cached window->w/h. SDL_GetWindowDisplayScale returns cached window->display_scale.",
+    "Cocoa_GetWindowSizeInPixels reads cached viewport size without updating layer/window geometry; its output was unconditionally overwritten in the old full query.",
+    "SDL_GetDisplayForWindow updates an SDL2-compat preferred-fullscreen-display property. This engine uses SDL3 directly through SDLCompat_SetWindowFullscreen(bool), rather than an SDL2-compat fullscreen consumer. Full geometry/placement queries remain unchanged.",
+    "No dependency on the removed calls to refresh CAMetalLayer.drawableSize was found in these inspected functions. Actual display/Space transitions remain outside hidden validation."
+  ]
+}

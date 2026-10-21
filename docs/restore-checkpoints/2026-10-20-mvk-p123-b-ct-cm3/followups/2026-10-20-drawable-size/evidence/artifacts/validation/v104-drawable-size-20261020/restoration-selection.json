@@ -1,0 +1,1146 @@
+{
+  "status": "frozen-exact-selection",
+  "scope": "Narrow live window/drawable size query implementation in both native engines, CPU/build/package/independent review, one separate OS observation and8 concurrent-user-workload reference comparisons; exact signed app4-file delta; no actual user profile contents or game archives.",
+  "baseRestoreCommit": "7a3a24591f75d53a9022487a3f2e25d3d5c05afa",
+  "baseApp": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/runtime/v104-c-reg-candidate-20261020/BAR.app",
+  "candidateApp": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/runtime/v104-drawable-size-candidate-20261020/BAR.app",
+  "candidateInventory": "artifacts/validation/v104-drawable-size-20261020/candidate-inventory.json",
+  "appDelta": [
+    "Contents/MacOS/BAR",
+    "Contents/Resources/bundled-assets/engine/2026.07.04/spring",
+    "Contents/Resources/bundled-assets/engine/2026.09.01-24-g01efdf4 master/spring",
+    "Contents/_CodeSignature/CodeResources"
+  ],
+  "files": [
+    {
+      "path": "artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Rendering/GlobalRendering.cpp",
+      "sha256": "1d7cd698a097171fa1c3ca226aa88506a32c0f7246f0d42f6e0ae5a3b686162d",
+      "bytes": 86580,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/System/Platform/Mac/MacSDL3EGLBridge.h",
+      "sha256": "7a87e73d9fbadd9f4d2326010263a29598ebeb7648a4f21447c18aa449cab733",
+      "bytes": 1963,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/System/Platform/Mac/MacSDL3EGLBridge.mm",
+      "sha256": "e65cc88decc124356196b727b6220db68236c89e19164b90a5587ace409d4258",
+      "bytes": 26611,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/runtime/v104-drawable-size-candidate-20261020/BAR.app/Contents/MacOS/BAR",
+      "sha256": "b51aed93b19f89e0ca2cacaf54470a7a3c7a23569a7a50099bba3d9b7c66722a",
+      "bytes": 33920,
+      "mode": 493
+    },
+    {
+      "path": "artifacts/runtime/v104-drawable-size-candidate-20261020/BAR.app/Contents/Resources/bundled-assets/engine/2026.07.04/spring",
+      "sha256": "f9653c8b199fad38836715d916a24ead8365f12ea4de38450f5ed33480d24014",
+      "bytes": 34960000,
+      "mode": 493
+    },
+    {
+      "path": "artifacts/runtime/v104-drawable-size-candidate-20261020/BAR.app/Contents/Resources/bundled-assets/engine/2026.09.01-24-g01efdf4 master/spring",
+      "sha256": "d715965659b977e05b8ccafe76fae0936cade1a7481871acff7eec876366f1aa",
+      "bytes": 31276160,
+      "mode": 493
+    },
+    {
+      "path": "artifacts/runtime/v104-drawable-size-candidate-20261020/BAR.app/Contents/_CodeSignature/CodeResources",
+      "sha256": "afdfe611cb26425432e6df224402bf1e3e43c57a8991ae025f0bb972d8133804",
+      "bytes": 328766,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-20261020/applied-source.patch",
+      "sha256": "fdd7559df3b154470ebbf1bd34a5027219009bf44b882b5fa69976f25743f75f",
+      "bytes": 9134,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-20261020/apply-source.py",
+      "sha256": "ca17fd722ac46e6304827188deb10e1f0d8c8a243bce6b98dc41cc5886c79cfa",
+      "bytes": 3717,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-20261020/bar-chobby-before-dry-run.log",
+      "sha256": "158e25738397ed6290b467dd3d28a27aa654e8d9bff2726b7168f5dd829131dd",
+      "bytes": 202,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-20261020/bar-chobby-build-input-pins.json",
+      "sha256": "612adc8045858115b48c8a398bb666e59ca61173489a631082e33dd133cdb6c9",
+      "bytes": 222836,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-20261020/bar-chobby-incremental-build.log",
+      "sha256": "46170136e3096c0a62dc31f0ea36d0b7621f743ba1686e1310e0fbb06368a85f",
+      "bytes": 7167,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-20261020/bar-lobby-before-dry-run.log",
+      "sha256": "dd30cad68603f597203f4914dc0c7ac9253ec3886a7a8cf3c63540acdea21260",
+      "bytes": 181,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-20261020/bar-lobby-build-input-pins.json",
+      "sha256": "a0a36d2a3f6d562ef1e3c485d466ea24d8b23b33756366cff054a04e52cd288f",
+      "bytes": 182045,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-20261020/bar-lobby-incremental-build.log",
+      "sha256": "a5a670ed1d97b2dd993425c56f0921a382febb762b7a33577f1853c34633ff33",
+      "bytes": 1099,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-20261020/before/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Rendering/GlobalRendering.cpp",
+      "sha256": "3ec51cb94b889eb2718ab6566d0a322094fa879229e37615d3fd0a88a92c5d59",
+      "bytes": 86622,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-20261020/before/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/System/Platform/Mac/MacSDL3EGLBridge.h",
+      "sha256": "13756a7fa48aac944543681ebb38acd5314dae5ead602eb7aa3cc352b24d3a97",
+      "bytes": 1609,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-20261020/before/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/System/Platform/Mac/MacSDL3EGLBridge.mm",
+      "sha256": "d5bab6c780c14f235a7d6d6331d9a17a5f2884047b290551ce5333b46d126994",
+      "bytes": 25660,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-20261020/before/build/run91-recoil-src-694e9df7/rts/Rendering/GlobalRendering.cpp",
+      "sha256": "7cae532165141d30916eea89e3a1bf272e1bff475f4c2ac0ed4ba2c11c9a5ffa",
+      "bytes": 86586,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-20261020/before/build/run91-recoil-src-694e9df7/rts/System/Platform/Mac/MacSDL3EGLBridge.h",
+      "sha256": "93e60ab76e3631066cba592bfe7770b6ef1681456086cd4729e7a18bdba12936",
+      "bytes": 1586,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-20261020/before/build/run91-recoil-src-694e9df7/rts/System/Platform/Mac/MacSDL3EGLBridge.mm",
+      "sha256": "d1f6d7c81acb020f9988dbfaf1998f74fe2296860722606416e079e3270a39d3",
+      "bytes": 25595,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-20261020/before.json",
+      "sha256": "44e57cc6bdc87e2c90c7edf0ac2461763d87ceabf01a13a11c5b699a878d2637",
+      "bytes": 39286,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-20261020/build-native.py",
+      "sha256": "2d2011c88e2ac59b2885bcab4fa5aa7b4c8f68140d76d3c91edb78f76b1a75b4",
+      "bytes": 2671,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-20261020/candidate-inventory.json",
+      "sha256": "a973a102d84574ba4d960bee5af6da47b536f623855d3f5c294ebc99f8f9ef92",
+      "bytes": 287331,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-20261020/check-display.py",
+      "sha256": "98cf8a7305c382da3624aec9c650a140a839909b812c239d04bf7e239bba8ffe",
+      "bytes": 10004,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-20261020/completion.json",
+      "sha256": "46813c496e084cc8353eea9e9956f34271aa30eeaffb8aaba276485517d3d5bd",
+      "bytes": 13547,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-20261020/cpu-bar-chobby/checks.jsonl",
+      "sha256": "b0337cf8debae7ad01596b786bb0a4d30e26776740890342f6867a1c49f63e96",
+      "bytes": 7873,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-20261020/cpu-bar-chobby/compile.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-20261020/cpu-bar-chobby/receipt.json",
+      "sha256": "7a773e6ab64c878095ddcc0e6b8489753fb3cf500c7e6ab9648fa35c9aaa637d",
+      "bytes": 1722,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-20261020/cpu-bar-chobby/runtime.stderr",
+      "sha256": "649662fd144837c52d2fc9cbe940979106a6186ebfed7672d0dfb36b7f6a5d79",
+      "bytes": 77,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-20261020/cpu-bar-chobby/source-extracted-check.mm",
+      "sha256": "c1a60baf5cc14212fbbb77fb01861469c174b579998b17db01f38d0c33448fbe",
+      "bytes": 27290,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-20261020/cpu-bar-lobby/checks.jsonl",
+      "sha256": "b0337cf8debae7ad01596b786bb0a4d30e26776740890342f6867a1c49f63e96",
+      "bytes": 7873,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-20261020/cpu-bar-lobby/compile.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-20261020/cpu-bar-lobby/receipt.json",
+      "sha256": "1f1e560832f035ca84a8984b2523dab00bcd11b8f65fb12dd792904537cdde74",
+      "bytes": 1620,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-20261020/cpu-bar-lobby/runtime.stderr",
+      "sha256": "649662fd144837c52d2fc9cbe940979106a6186ebfed7672d0dfb36b7f6a5d79",
+      "bytes": 77,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-20261020/cpu-bar-lobby/source-extracted-check.mm",
+      "sha256": "f93909c370d1504242e2dc8e5abb1fcba15d9f87ebc821d2d964154428d81e90",
+      "bytes": 27250,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-20261020/cpu-summary.json",
+      "sha256": "c67774dd2cd2c4e0680ddf41ea87668dc0eaed6e7a5ffdb3a6a0c403217f8741",
+      "bytes": 3463,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-20261020/dependency-closure.json",
+      "sha256": "f10b0de4ecd5c9209b5e345ca6189c6f30c8bcb27e97c0bb074b93fddfcc9ffe",
+      "bytes": 58972,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-20261020/finalize.py",
+      "sha256": "b658102f025a87a21b3198758704d8131f7d99723337de96406a240d8339d131",
+      "bytes": 16645,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-20261020/independent-review.json",
+      "sha256": "cb319720a1d11531c109f775b74bb86e428b2fcb266cc836454f4102e8ee50b0",
+      "bytes": 462241,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-20261020/independent-review.md",
+      "sha256": "c33f3d45e7d225ccffa4fc5115e55acf116e17e59b782a33b08ea45ecc8dbd86",
+      "bytes": 9000,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-20261020/native-build.json",
+      "sha256": "240d5f825bfe9a053559b0d3dfdeb90db96add3d45648c88d8fa24b856c4ef0c",
+      "bytes": 1458,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-20261020/package-candidate.py",
+      "sha256": "96f1b0390bab0f8cdf08d3a7afb3427e43bb720909faa291a0f9a062867283f2",
+      "bytes": 4498,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-20261020/package-receipt.json",
+      "sha256": "6067dff09d9bfd48c162bac9fb6484f464768a8392f2ab1f1e9eef4794cd7d21",
+      "bytes": 6249,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-20261020/parent-inventory.json",
+      "sha256": "e7d4cf403e3181f25d7221be1f7c15c6d7033039beb4d7312ed0ea0d4cd628fa",
+      "bytes": 287331,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-20261020/prepare-comparison.py",
+      "sha256": "1cd843d2c8c9f2b8d6aae04a154764c1888c999adcb7fa2a411d6c6066de3564",
+      "bytes": 7157,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-20261020/prepare-observation.py",
+      "sha256": "d321b6e82e18a3b0f0a6d8278b0ce70551f6040e9c823147c9b68a1b1d4a67cb",
+      "bytes": 4958,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-20261020/prepare-restoration-handoff.py",
+      "sha256": "ca75ce25855cec92e24b8f5a332e72a40319c3998d98c2e125ef58ac73c02c8c",
+      "bytes": 4656,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-20261020/review-pins.json",
+      "sha256": "5caf54480e4cac92ac324483d44bbf95a512e794d68106ae4347b8d9380c0808",
+      "bytes": 974,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-20261020/sdl-query-review.json",
+      "sha256": "a62fd704f5f21787a9fb4f49cab4226949336a2e5e5d87f0574c57ac4eb6dca2",
+      "bytes": 1447,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-observation-20261020/1-candidate-metal4/effective-host.mjs",
+      "sha256": "0943fe150f5bc37afe97bd9edd94fadd481088ed183dac40cbc1d6693534dbd0",
+      "bytes": 41415,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-observation-20261020/1-candidate-metal4/plan.json",
+      "sha256": "36d7fb3e94e9a3953026ccf0be17c98d8991bd770a6304cc4fb0d73269e7e176",
+      "bytes": 10628,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-observation-20261020/1-candidate-metal4/sessions/lobby-no-native-hook-1792556637590/cpu-sample-stderr.txt",
+      "sha256": "375ea4cd3e1b9ed80c5a47657b10eced2eab68c254c0b1639908251e34fa5969",
+      "bytes": 358,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-observation-20261020/1-candidate-metal4/sessions/lobby-no-native-hook-1792556637590/cpu-sample.txt",
+      "sha256": "9be86d7da1ff876f25419c6e0b5aab5f5c92f4cfcf93ec60f08a6ec43cc6f004",
+      "bytes": 1552006,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-observation-20261020/1-candidate-metal4/sessions/lobby-no-native-hook-1792556637590/events.jsonl",
+      "sha256": "70e6c10ae77b8c4eaa5912cb64c4e4ddeaebf51f94d733aa5d7228a33480b05d",
+      "bytes": 47407,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-observation-20261020/1-candidate-metal4/sessions/lobby-no-native-hook-1792556637590/execution-receipt.json",
+      "sha256": "3719181fe530895613ba65bf05f58c8c8bbc87eede23f58132cb43f17d92e170",
+      "bytes": 62793,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-observation-20261020/1-candidate-metal4/sessions/lobby-no-native-hook-1792556637590/state/data/LuaUI/Config/v104-performance-request.txt",
+      "sha256": "8ba9a58d008515a520d0954bfac3c0ae857cf3d0ebef38a5d40fca22dc105f0c",
+      "bytes": 43,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-observation-20261020/1-candidate-metal4/sessions/lobby-no-native-hook-1792556637590/state/data/LuaUI/Config/v104-performance-result.json",
+      "sha256": "0fd44c1e3b289dc7a85a177bbe9c48f39d436f293b33138a0ab62e0c0c7dc25f",
+      "bytes": 9669,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-observation-20261020/1-candidate-metal4/sessions/lobby-no-native-hook-1792556637590/state/data/LuaUI/Config/v104-performance-status.txt",
+      "sha256": "3b94f008d405a31a22b0985a08c4844e0ea9233bfd4d7df54b9f430db835f01c",
+      "bytes": 747,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-observation-20261020/1-candidate-metal4/sessions/lobby-no-native-hook-1792556637590/state/data/hidden-window-events.jsonl",
+      "sha256": "3d5bd3d9046bc34ebf5ae3cf3946b4f3d079bdd7a9aba75203de13b142095dde",
+      "bytes": 436,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-observation-20261020/1-candidate-metal4/sessions/lobby-no-native-hook-1792556637590/state/data/infolog.txt",
+      "sha256": "627a0eae2f9a8a3a4746dc1bd22df3244a8e5e0f8a9711eb03e64deda15ffc97",
+      "bytes": 232392,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-observation-20261020/1-candidate-metal4/sessions/lobby-no-native-hook-1792556637590/state/data/stack-game.stderr.log",
+      "sha256": "8883981255849de06a66e0ade973c65c7efa2c48e144a4aac543a256c381c09c",
+      "bytes": 7504,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-observation-20261020/arm-1-result.json",
+      "sha256": "b156f23ee0bd182037e8065c9fae08a3afc55a09ad7bb29c275181553dd6538b",
+      "bytes": 1429,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-observation-20261020/authorization.json",
+      "sha256": "f94a9db5ec65fb70c4b3f7836570c15101700f354bf932db76c22cd05663b3ed",
+      "bytes": 522,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-observation-20261020/benchmark-bootstrap.cjs",
+      "sha256": "97ec5638f840c61f895a0293e6037f09165e9de8e759ae547df163baf9376ab2",
+      "bytes": 11243,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-observation-20261020/candidate-inventory.json",
+      "sha256": "a973a102d84574ba4d960bee5af6da47b536f623855d3f5c294ebc99f8f9ef92",
+      "bytes": 287331,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-observation-20261020/content-files.json",
+      "sha256": "53e4708d14d024c98d09d0189a467ffaa8a4c6521e51af5b7792288e6cb1215a",
+      "bytes": 5842703,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-observation-20261020/content-receipt.json",
+      "sha256": "bfb3bf3544a17c1e6a88b75df9d48b29a867a942df4156ee90a3a5fa6ae1b2d5",
+      "bytes": 615,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-observation-20261020/controller.lua",
+      "sha256": "75d2493179d20ec0a8d727e24b530e0627b8dd4a954f8489cd39f9267b607501",
+      "bytes": 23911,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-observation-20261020/exit-boundary-review.json",
+      "sha256": "d3ca7ee67aeb0505291cda09aa5596ec4a665b4d99e92c26245d9f25f110c4fd",
+      "bytes": 4017,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-observation-20261020/launcher-main-sha256.json",
+      "sha256": "22878eac6c023984737f6418f857b63d22a37463feac5b4d033d605922f6e576",
+      "bytes": 261,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-observation-20261020/libhidden-fullscreen.dylib",
+      "sha256": "904bc6cd64409e228f02080e02fd889b9f77179f46a8f76219a379bfe4369af4",
+      "bytes": 52368,
+      "mode": 493
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-observation-20261020/metal-bootstrap.cjs",
+      "sha256": "67160162b7a41c834ac31ce4966c22a2f04f93ac18869d80a9aaedd96ffb3650",
+      "bytes": 4263,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-observation-20261020/outcome.json",
+      "sha256": "ab8f0e8dbcbbad592aa13c0d1c2e37441f4ac931092a6c411c05f9ecc600ed7a",
+      "bytes": 1890,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-observation-20261020/owned-runner.json",
+      "sha256": "179c3d4572a485330190a25e3ee4418ebadceaef714929fd5f3b4c82a9e95c6a",
+      "bytes": 52,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-observation-20261020/parent-inventory.json",
+      "sha256": "e7d4cf403e3181f25d7221be1f7c15c6d7033039beb4d7312ed0ea0d4cd628fa",
+      "bytes": 287331,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-observation-20261020/preparation.json",
+      "sha256": "ba545b1569f8046e9ca0b634fd920d86edabba12e937ddfb662d1d3eb3a50ccb",
+      "bytes": 3307,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-observation-20261020/protected-inputs.json",
+      "sha256": "8e035de14931c2fa572f0497cd6da7d5bcafcafd3b6f6f3c34a70c0cf8a7a6d1",
+      "bytes": 1080,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-observation-20261020/run-observation.py",
+      "sha256": "1c24489adf8c79ad20625ee73e56954bbd826bca0ea4367d8fad3038703a6661",
+      "bytes": 6248,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-observation-20261020/sample-analysis.json",
+      "sha256": "01be25fc8c19dea66aafcb01f53b640252e923d7f60a6ff4e8f6bf4aa8cc6e61",
+      "bytes": 8920,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-observation-20261020/scene.txt",
+      "sha256": "9d1e59186d97953ea6ceae43d99d7e9e022efc6e02cddbc9c802b1560cf3e8ca",
+      "bytes": 641,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-observation-20261020/screen-guard-locked-allowed.py",
+      "sha256": "dde091d5a04f40d6e69be2df4740cd15bad2c7bea8d084f5be68dcf133a7a4cf",
+      "bytes": 5021,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-observation-20261020/screen-guard.json",
+      "sha256": "1a8987ebc3d1b842ae416e2689de8436da86aa2aac91b560238897c25eee8d35",
+      "bytes": 735,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-observation-20261020/screen-observations.jsonl",
+      "sha256": "165b68a82293a1aaae9ec1240bd3a4a1b751946871cea995ef09ba549ec4a101",
+      "bytes": 12477,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-observation-20261020/sdl-hidden-preflight.json",
+      "sha256": "6abd28792d62514a3ace200e9bd6461a4bc0c6f3f3b8e6438a6b9780c918b3d6",
+      "bytes": 3675,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-performance-20261020/1-parent-metal4/effective-host.mjs",
+      "sha256": "16e981b7586c7cc032e9b0f73b7525fed0824d9f313f6a8fe7a6f7f4a07a18c7",
+      "bytes": 40092,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-performance-20261020/1-parent-metal4/plan.json",
+      "sha256": "b0c076d9c0c7260a7371b49def305acd786e7f43b5d4bb91ed26ecfe21abc995",
+      "bytes": 10536,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-performance-20261020/1-parent-metal4/sessions/lobby-no-native-hook-1792555631261/execution-receipt.json",
+      "sha256": "d08a5f4edcfd45a17867fabcfd24695ad8f58f0e3fce6cc14609f5bee2c511b5",
+      "bytes": 122082,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-performance-20261020/1-parent-metal4/sessions/lobby-no-native-hook-1792555631261/state/data/LuaUI/Config/v104-performance-result.json",
+      "sha256": "16d481440d35f98abfc8c1e2c8440bd99866629cc9a6537531d98043cb9eeea9",
+      "bytes": 9672,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-performance-20261020/1-parent-metal4/sessions/lobby-no-native-hook-1792555631261/state/data/hidden-window-events.jsonl",
+      "sha256": "34ce5c2841c45558a1858ce875768c6fbb53650816f5bf18e84620b43f1a50b2",
+      "bytes": 436,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-performance-20261020/1-parent-metal4/sessions/lobby-no-native-hook-1792555631261/state/data/stack-game.stderr.log",
+      "sha256": "7ac0532e9d99ee726c10e0fbdb1dd591f184b63dc3ebc4350bdbee3452b5f0f2",
+      "bytes": 7875,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-performance-20261020/2-candidate-metal4/effective-host.mjs",
+      "sha256": "215fe219c0493b84d09439ef4b2a25296c9f13a97cd21e20331f9e229bbaf842",
+      "bytes": 40101,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-performance-20261020/2-candidate-metal4/plan.json",
+      "sha256": "e2b1839794ccc5b9d1506edb7da7ac70b370a466616130aca7cd62cd781724f4",
+      "bytes": 10617,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-performance-20261020/2-candidate-metal4/sessions/lobby-no-native-hook-1792555758221/execution-receipt.json",
+      "sha256": "3de689748d218ea65e01a85b7f2a3f1d1a37d81dbb749a2befe4ab274993a829",
+      "bytes": 124602,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-performance-20261020/2-candidate-metal4/sessions/lobby-no-native-hook-1792555758221/state/data/LuaUI/Config/v104-performance-result.json",
+      "sha256": "e500a72ae5ccfc23c73ba3b100f77525f196a4c835793ac62d292e5dd61f721b",
+      "bytes": 9671,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-performance-20261020/2-candidate-metal4/sessions/lobby-no-native-hook-1792555758221/state/data/hidden-window-events.jsonl",
+      "sha256": "d15f8be8c24757657bcd6fe37a787328383fac709c9200d7273197dd82330c3d",
+      "bytes": 436,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-performance-20261020/2-candidate-metal4/sessions/lobby-no-native-hook-1792555758221/state/data/stack-game.stderr.log",
+      "sha256": "2f766dd18f9e5951a8de9f37dd5f0ba23b1d9a3c7805e3b0ed70ab1c2503c41e",
+      "bytes": 7875,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-performance-20261020/3-candidate-metal4/effective-host.mjs",
+      "sha256": "17a7e7d8c777ad05f833d2ac30f76f6e8f1e56a9859fc3e65522f91545023109",
+      "bytes": 40101,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-performance-20261020/3-candidate-metal4/plan.json",
+      "sha256": "c93e8308218c9b1b2886a61d6fb0d15a368a90f28386269d18f8eb5f8ff6322b",
+      "bytes": 10617,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-performance-20261020/3-candidate-metal4/sessions/lobby-no-native-hook-1792555898331/execution-receipt.json",
+      "sha256": "32f8accd6524001b48d762106586705be5181b751843e1a01d2f45823b6163e1",
+      "bytes": 125863,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-performance-20261020/3-candidate-metal4/sessions/lobby-no-native-hook-1792555898331/state/data/LuaUI/Config/v104-performance-result.json",
+      "sha256": "eb5a15880e3529ae92e9e04dbc43d90820d887c3ac8e017e93148aba0ac90f13",
+      "bytes": 9666,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-performance-20261020/3-candidate-metal4/sessions/lobby-no-native-hook-1792555898331/state/data/hidden-window-events.jsonl",
+      "sha256": "a2259147e99ac1a5e328f53e65254c6f677cb4e252d1cdd53c0459c3547d8c8b",
+      "bytes": 436,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-performance-20261020/3-candidate-metal4/sessions/lobby-no-native-hook-1792555898331/state/data/stack-game.stderr.log",
+      "sha256": "564457c8e833801a7de9f7579a6e8940beff80dffb21e55be51bda966f9da3aa",
+      "bytes": 7875,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-performance-20261020/4-parent-metal4/effective-host.mjs",
+      "sha256": "c14c5e8d1fbfdef73dd2843378dbbb928c9c28bedbb690c71d8e2e07833e1185",
+      "bytes": 40092,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-performance-20261020/4-parent-metal4/plan.json",
+      "sha256": "1a29aebf1cd23e8ea7ce94f22083266351f73d308335024b38f0651b1498af4d",
+      "bytes": 10536,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-performance-20261020/4-parent-metal4/sessions/lobby-no-native-hook-1792556022666/execution-receipt.json",
+      "sha256": "e263d9476153fa26d28ad385d851e9bb95a2ad1acd8e816935ea26a39c6a2c37",
+      "bytes": 126732,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-performance-20261020/4-parent-metal4/sessions/lobby-no-native-hook-1792556022666/state/data/LuaUI/Config/v104-performance-result.json",
+      "sha256": "2d97a4b6802f92619f2219cc4d26f383110d18cdf3517c8b3eb5d9fd83e58e0e",
+      "bytes": 9666,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-performance-20261020/4-parent-metal4/sessions/lobby-no-native-hook-1792556022666/state/data/hidden-window-events.jsonl",
+      "sha256": "a3d31cb59291bbd7b9590014f51ff9b447276a2bf00076aeeef5a8f05c2bfcb6",
+      "bytes": 436,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-performance-20261020/4-parent-metal4/sessions/lobby-no-native-hook-1792556022666/state/data/stack-game.stderr.log",
+      "sha256": "7763f972d17d5a597d9184ea9571acbbad8f04df924a1832dbd87fed4a5067cc",
+      "bytes": 7875,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-performance-20261020/5-candidate-metal3/effective-host.mjs",
+      "sha256": "0980be4df3961f7e156c9c838c57fa9811b9a3cf7041d6caf1783ca1744f160f",
+      "bytes": 40101,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-performance-20261020/5-candidate-metal3/plan.json",
+      "sha256": "759842c0f8c583be198b09f115675e995cd85a712939d0b028d8a1ea3f4ecd03",
+      "bytes": 10618,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-performance-20261020/5-candidate-metal3/sessions/lobby-no-native-hook-1792556146601/execution-receipt.json",
+      "sha256": "5373d2c84e95dc73d36d4de3979d08b03a7b8c317c21ef969ff0c9803248ba43",
+      "bytes": 124137,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-performance-20261020/5-candidate-metal3/sessions/lobby-no-native-hook-1792556146601/state/data/LuaUI/Config/v104-performance-result.json",
+      "sha256": "14fb473fd9ab5bccc92374776d09b319b82a5890775913280a687503071833ac",
+      "bytes": 9666,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-performance-20261020/5-candidate-metal3/sessions/lobby-no-native-hook-1792556146601/state/data/hidden-window-events.jsonl",
+      "sha256": "e662875215c5f2c1c7c55d47faadd5003ee9d74860619bfe7ffd9b954b2d18cf",
+      "bytes": 436,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-performance-20261020/5-candidate-metal3/sessions/lobby-no-native-hook-1792556146601/state/data/stack-game.stderr.log",
+      "sha256": "a53a1e375466c4cd94b03644a05ee0ec38808a03c958cdb2b6fb2761f2365d3e",
+      "bytes": 7702,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-performance-20261020/6-parent-metal3/effective-host.mjs",
+      "sha256": "cacbb089cd70dc897c632f5885f8c5176749a1f89dd9e1fd316873de5552bf22",
+      "bytes": 40092,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-performance-20261020/6-parent-metal3/plan.json",
+      "sha256": "7590b548a71e661bc5291775367fffd87d914ca8f1f42c3eaccd45eebaaf9794",
+      "bytes": 10537,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-performance-20261020/6-parent-metal3/sessions/lobby-no-native-hook-1792556265511/execution-receipt.json",
+      "sha256": "d1605de2a2cb59d5fbf423721bd60fb2dd77b4acf51b392d6b4e39032874596a",
+      "bytes": 123018,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-performance-20261020/6-parent-metal3/sessions/lobby-no-native-hook-1792556265511/state/data/LuaUI/Config/v104-performance-result.json",
+      "sha256": "6fcdd317f1fac27e7a5c71fa952d187ba61e7b7a7f8fd8601b7a0fcf992f4df9",
+      "bytes": 9667,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-performance-20261020/6-parent-metal3/sessions/lobby-no-native-hook-1792556265511/state/data/hidden-window-events.jsonl",
+      "sha256": "4dd1b3960e9fcc4f5c617757d88e71015844cf4037796c946c22506b79341a06",
+      "bytes": 436,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-performance-20261020/6-parent-metal3/sessions/lobby-no-native-hook-1792556265511/state/data/stack-game.stderr.log",
+      "sha256": "c1dac3d60fef6d6c1200c68074175e0de9f5c6720d06e1cdf0e0af4c3dc9c53f",
+      "bytes": 7702,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-performance-20261020/7-parent-metal3/effective-host.mjs",
+      "sha256": "a996c458453b41bc49c08927f7e04024be67f31a80de61326bf09a8ef0ca64f8",
+      "bytes": 40092,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-performance-20261020/7-parent-metal3/plan.json",
+      "sha256": "9fcc324a8ba2f3e3f340c735db97f0f28fe5596fd2d7adae06be18721fe1a811",
+      "bytes": 10537,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-performance-20261020/7-parent-metal3/sessions/lobby-no-native-hook-1792556387499/execution-receipt.json",
+      "sha256": "2da64f39e72c71475b85e25ed2f959545680f0bc74c55e1a7458b3ed23389bc7",
+      "bytes": 124054,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-performance-20261020/7-parent-metal3/sessions/lobby-no-native-hook-1792556387499/state/data/LuaUI/Config/v104-performance-result.json",
+      "sha256": "921016c9b180a929fcec59665508005b17d533b974f589cec666be7e234cc904",
+      "bytes": 9668,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-performance-20261020/7-parent-metal3/sessions/lobby-no-native-hook-1792556387499/state/data/hidden-window-events.jsonl",
+      "sha256": "2b297e125a53240f35304a3a9c94cc1ff10b8a590f8ce9164f15e5b22fd8af6f",
+      "bytes": 436,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-performance-20261020/7-parent-metal3/sessions/lobby-no-native-hook-1792556387499/state/data/stack-game.stderr.log",
+      "sha256": "a0b0c217c0f8161ad1d3469a3a168d09bf76d88b5fc04f5ccd456eb06e36e7fd",
+      "bytes": 7702,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-performance-20261020/8-candidate-metal3/effective-host.mjs",
+      "sha256": "b09f7d0847edb976881aa4766628a66c9093050dd0387614e90a4dff22151d69",
+      "bytes": 40101,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-performance-20261020/8-candidate-metal3/plan.json",
+      "sha256": "7c363bb1babc28ad56193305f98798b4ec5e94559c3e32efb8ca3ba83ba502bc",
+      "bytes": 10618,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-performance-20261020/8-candidate-metal3/sessions/lobby-no-native-hook-1792556509321/execution-receipt.json",
+      "sha256": "015d38f6779208ae05ec0cac9c71940989d10b0086e0a237770325b9882e3fc7",
+      "bytes": 127638,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-performance-20261020/8-candidate-metal3/sessions/lobby-no-native-hook-1792556509321/state/data/LuaUI/Config/v104-performance-result.json",
+      "sha256": "9633369ee3bea3520940c4a7f48c3e5b7de207f4d9643212c90c3ce4e93e6555",
+      "bytes": 9667,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-performance-20261020/8-candidate-metal3/sessions/lobby-no-native-hook-1792556509321/state/data/hidden-window-events.jsonl",
+      "sha256": "7456692f7ecee39782b7f49bb520e15513f15c35af6a48c339bbeaa83e4e5c7c",
+      "bytes": 436,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-performance-20261020/8-candidate-metal3/sessions/lobby-no-native-hook-1792556509321/state/data/stack-game.stderr.log",
+      "sha256": "1c2bbb86336808a2a51f2fe25d2dc6da3127e618c40b4290c42ebe6e44e17c77",
+      "bytes": 7702,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-performance-20261020/arm-1-cache-cleanup-completion.json",
+      "sha256": "891590b76d2302f8e53c785b40ae8df42dc3c9bd5218d15445bc00b851b22e1e",
+      "bytes": 145,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-performance-20261020/arm-1-cache-cleanup-selection.json",
+      "sha256": "08d600682eef1e8f51463e3822949070ba1020e6a9d759097eae8c1521abfdb2",
+      "bytes": 122524,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-performance-20261020/arm-1-result.json",
+      "sha256": "db7ad68233dd7df62391145090dd6ba187d512d8e6955f577025e78cfba7c07f",
+      "bytes": 1439,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-performance-20261020/arm-2-cache-cleanup-completion.json",
+      "sha256": "2e2229544808929714781a1873bf28ba9c79c5dc60ec67ee8d04ae3a14ac97b5",
+      "bytes": 145,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-performance-20261020/arm-2-cache-cleanup-selection.json",
+      "sha256": "ccdf3507cb8360f069ff4a5269fb073d79b81d5c640a9bfb254be791b5bf95b3",
+      "bytes": 122053,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-performance-20261020/arm-2-result.json",
+      "sha256": "face459ea2ae6b016aafecdcf2bc2701dd3f81f1966b338544a87f98ec6866e0",
+      "bytes": 1449,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-performance-20261020/arm-3-cache-cleanup-completion.json",
+      "sha256": "62a82c3344b5f6a16ad8901e463466efbd63794cbd64a69d944b6caa92061686",
+      "bytes": 145,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-performance-20261020/arm-3-cache-cleanup-selection.json",
+      "sha256": "65ae93ab8d8b71ba4746e81fa283fa948c1ca8c9c2ffa97b57de2a72dcb8fd90",
+      "bytes": 123541,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-performance-20261020/arm-3-result.json",
+      "sha256": "5f1b22f2f315a4f53d57b916c8ef0a7717f59f9d75013496308c3cc5b0a39f5a",
+      "bytes": 1447,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-performance-20261020/arm-4-cache-cleanup-completion.json",
+      "sha256": "891590b76d2302f8e53c785b40ae8df42dc3c9bd5218d15445bc00b851b22e1e",
+      "bytes": 145,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-performance-20261020/arm-4-cache-cleanup-selection.json",
+      "sha256": "02a5e64cd1740ac2324fca530a6475a7d60fec5891d2acd8a2bbfc36960a8f9c",
+      "bytes": 122524,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-performance-20261020/arm-4-result.json",
+      "sha256": "1d3f587492824ac1415502eb0bd3b2abdb73557b0e50e1d470178d9200009320",
+      "bytes": 1439,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-performance-20261020/arm-5-cache-cleanup-completion.json",
+      "sha256": "e45f85d13b297a255dcfc2b89c2b9dae6d4029f28f3c6798526f8c074a0e0a67",
+      "bytes": 145,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-performance-20261020/arm-5-cache-cleanup-selection.json",
+      "sha256": "ea44535f6299773480746b3bbb3d7bf81b9a462430fc2d2efa71f839f41ce19f",
+      "bytes": 123541,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-performance-20261020/arm-5-result.json",
+      "sha256": "339da90b176360ce1ce1dcd69983dc546c8400ffc536ae5cb10fa809ee7b6575",
+      "bytes": 1444,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-performance-20261020/arm-6-cache-cleanup-completion.json",
+      "sha256": "1ff3e0ff344b302757e8e9aae45128c50839dd149aeff6a1638073430f27040e",
+      "bytes": 145,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-performance-20261020/arm-6-cache-cleanup-selection.json",
+      "sha256": "deba5809233f68ee21edd8df342cc5dd539ebe93dd03c08addcc55e075e3d23d",
+      "bytes": 122893,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-performance-20261020/arm-6-result.json",
+      "sha256": "d13ccedaa8668ea450ed05aee8c3a96a2e30626d91cf5a24416f32dbc19ea7d8",
+      "bytes": 1424,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-performance-20261020/arm-7-cache-cleanup-completion.json",
+      "sha256": "2501b36879a8721cc8f24c0b242ad4a52a018c068a49692755bb7fb44e3c972e",
+      "bytes": 145,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-performance-20261020/arm-7-cache-cleanup-selection.json",
+      "sha256": "a6c54bc47d41d673be64e0ac0c7fb64c48b4bc2f79f6ff2d167d966a9ae6ada6",
+      "bytes": 122524,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-performance-20261020/arm-7-result.json",
+      "sha256": "5088f1c8c5d5f4999af0503de429dd03c92df2bbdb930762cbe13683499ab0ba",
+      "bytes": 1433,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-performance-20261020/arm-8-cache-cleanup-completion.json",
+      "sha256": "91f2e79ce6f82b6379a01b7f26bbc79c5ad44138e4daa0ff9a072388e2748b0a",
+      "bytes": 145,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-performance-20261020/arm-8-cache-cleanup-selection.json",
+      "sha256": "a9061941c652d555ac92d7d1d4f783dac393603a0e6931fc17ce6981f5b6115a",
+      "bytes": 123913,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-performance-20261020/arm-8-result.json",
+      "sha256": "33f4bda9fa882936175f314e29fe4da28b7db50c222018f04546492007431f99",
+      "bytes": 1443,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-performance-20261020/authorization.json",
+      "sha256": "0e3f58578dadf25f70e832d56ecc71ead31eea051e92b9918f35ee31bc928ff5",
+      "bytes": 717,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-performance-20261020/benchmark-bootstrap.cjs",
+      "sha256": "97ec5638f840c61f895a0293e6037f09165e9de8e759ae547df163baf9376ab2",
+      "bytes": 11243,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-performance-20261020/candidate-inventory.json",
+      "sha256": "a973a102d84574ba4d960bee5af6da47b536f623855d3f5c294ebc99f8f9ef92",
+      "bytes": 287331,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-performance-20261020/comparison-summary.json",
+      "sha256": "350d1375e8ebb38a9aef8a7611418a98c107a026191dfc3d8fc9cf9c9a57afb7",
+      "bytes": 27150,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-performance-20261020/content-files.json",
+      "sha256": "53e4708d14d024c98d09d0189a467ffaa8a4c6521e51af5b7792288e6cb1215a",
+      "bytes": 5842703,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-performance-20261020/content-receipt.json",
+      "sha256": "bfb3bf3544a17c1e6a88b75df9d48b29a867a942df4156ee90a3a5fa6ae1b2d5",
+      "bytes": 615,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-performance-20261020/controller.lua",
+      "sha256": "75d2493179d20ec0a8d727e24b530e0627b8dd4a954f8489cd39f9267b607501",
+      "bytes": 23911,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-performance-20261020/display-geometry.json",
+      "sha256": "03c4fdb07ec9c52bcfa0fecf86a401bb525291287479e4c06d8f4ee3e9156e76",
+      "bytes": 806,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-performance-20261020/hidden-fullscreen.m",
+      "sha256": "ae55aaae87b402ea0f0e0fdf02c92928cc552270f712b0e0783f56ff39b63c1a",
+      "bytes": 5977,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-performance-20261020/inventory-digest.mjs",
+      "sha256": "9993520b17dfaeceedba44688a400daae111b5bbbd2cb1f12f9daddea88c9e02",
+      "bytes": 830,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-performance-20261020/launcher-main-sha256.json",
+      "sha256": "22878eac6c023984737f6418f857b63d22a37463feac5b4d033d605922f6e576",
+      "bytes": 261,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-performance-20261020/libhidden-fullscreen.dylib",
+      "sha256": "904bc6cd64409e228f02080e02fd889b9f77179f46a8f76219a379bfe4369af4",
+      "bytes": 52368,
+      "mode": 493
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-performance-20261020/metal-bootstrap.cjs",
+      "sha256": "67160162b7a41c834ac31ce4966c22a2f04f93ac18869d80a9aaedd96ffb3650",
+      "bytes": 4263,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-performance-20261020/outcome.json",
+      "sha256": "7f99b56472b973e59e723668fc3f5adc787ba8e463758abff7d2787ea889a5e7",
+      "bytes": 13398,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-performance-20261020/owned-runner.json",
+      "sha256": "d32c932d4c163328371553d2b72c04ce59178f95903d2fae87485f25058bddb2",
+      "bytes": 52,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-performance-20261020/parent-inventory.json",
+      "sha256": "e7d4cf403e3181f25d7221be1f7c15c6d7033039beb4d7312ed0ea0d4cd628fa",
+      "bytes": 287331,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-performance-20261020/preflight.json",
+      "sha256": "ad9116989717a8c261039a9af8ebeee252fdd8c0142f40e632cf71a80a0ec623",
+      "bytes": 343,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-performance-20261020/preparation.json",
+      "sha256": "14f5a371cdfb8d1da24ddf768e8e84b6772eac25115526b6602b3834229deda9",
+      "bytes": 8979,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-performance-20261020/protected-inputs.json",
+      "sha256": "8e035de14931c2fa572f0497cd6da7d5bcafcafd3b6f6f3c34a70c0cf8a7a6d1",
+      "bytes": 1080,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-performance-20261020/review-and-package-binding.json",
+      "sha256": "ea2458a5b63cb16956e3166a3950f8ad66e57782cc2ac65b771700b9e3dae893",
+      "bytes": 1835,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-performance-20261020/run-comparison.py",
+      "sha256": "a07fa1a55e3f3c45557a3d64ea0aaa110285bd22e62ef37078aa48d0cad18e7e",
+      "bytes": 6248,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-performance-20261020/scene.txt",
+      "sha256": "9d1e59186d97953ea6ceae43d99d7e9e022efc6e02cddbc9c802b1560cf3e8ca",
+      "bytes": 641,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-performance-20261020/screen-guard-locked-allowed.py",
+      "sha256": "dde091d5a04f40d6e69be2df4740cd15bad2c7bea8d084f5be68dcf133a7a4cf",
+      "bytes": 5021,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-performance-20261020/screen-guard.json",
+      "sha256": "a0b08f55e147c7d4d708a9545e7b08fa9e27a3269b6fefbbb386672c7b1fe7a4",
+      "bytes": 735,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-performance-20261020/screen-observations.jsonl",
+      "sha256": "8246b3267994140cc84c3f0cf4649fb96a1df62f0be49512a9ae6bc4daeea9c4",
+      "bytes": 93811,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-performance-20261020/sdl-hidden-preflight.json",
+      "sha256": "6abd28792d62514a3ace200e9bd6461a4bc0c6f3f3b8e6438a6b9780c918b3d6",
+      "bytes": 3675,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-drawable-size-performance-20261020/user-workload-note.json",
+      "sha256": "ccb2e10ab64c8dc153154c9484d40f2e52e31b38a890826e952db63e181a0289",
+      "bytes": 558,
+      "mode": 420
+    },
+    {
+      "path": "build/run91-recoil-src-694e9df7/rts/Rendering/GlobalRendering.cpp",
+      "sha256": "ea57a439ac1afa0f92dfa93968b5e8d971a1c4ca68ad16e83f38b34719d16c94",
+      "bytes": 86544,
+      "mode": 420
+    },
+    {
+      "path": "build/run91-recoil-src-694e9df7/rts/System/Platform/Mac/MacSDL3EGLBridge.h",
+      "sha256": "a7858558e572a9108f8ed0d7d0cae1b8f73f0c36145db5874716f7db3236c445",
+      "bytes": 1940,
+      "mode": 420
+    },
+    {
+      "path": "build/run91-recoil-src-694e9df7/rts/System/Platform/Mac/MacSDL3EGLBridge.mm",
+      "sha256": "1f9fc4311ae1ca3707bbc2fad869e5b5960497e00e44ff4ece8fb91a9854695a",
+      "bytes": 26546,
+      "mode": 420
+    },
+    {
+      "path": "reports/v104-drawable-size-20261020.md",
+      "sha256": "f5b6d2ed016786f1c344d373200bfe4b4c10587e9c6accf5b1f5559911ade052",
+      "bytes": 5921,
+      "mode": 420
+    }
+  ],
+  "fileCount": 188,
+  "totalBytes": 86534824
+}

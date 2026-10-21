@@ -1,0 +1,54 @@
+{
+  "plans": [
+    {
+      "ordinal": 1,
+      "role": "candidate",
+      "backend": "metal4",
+      "folder": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-drawable-size-observation-20261020/1-candidate-metal4",
+      "schema": "v104-drawable-size-observation-metal4-v1",
+      "plan": {
+        "path": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-drawable-size-observation-20261020/1-candidate-metal4/plan.json",
+        "sha256": "36d7fb3e94e9a3953026ccf0be17c98d8991bd770a6304cc4fb0d73269e7e176"
+      },
+      "host": {
+        "path": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-drawable-size-observation-20261020/1-candidate-metal4/effective-host.mjs",
+        "sha256": "0943fe150f5bc37afe97bd9edd94fadd481088ed183dac40cbc1d6693534dbd0"
+      }
+    }
+  ],
+  "parent": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/runtime/v104-c-reg-candidate-20261020/BAR.app",
+  "candidate": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/runtime/v104-drawable-size-candidate-20261020/BAR.app",
+  "controllerByteIdenticalToSuccessfulPreviousTest": true,
+  "hostChanges": "Existing macOS sampler lifecycle reused verbatim; frozen fullscreen benchmark host otherwise unchanged",
+  "parentMvk": {
+    "path": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/runtime/v104-c-reg-candidate-20261020/BAR.app/Contents/Resources/bundled-assets/runtime/moltenvk-pr2746/lib/libMoltenVK.1.4.3.dylib",
+    "sha256": "79dfe6e5fe91e35c14751316d0acc5f96837516619945388c5c073e94295ebdc"
+  },
+  "candidateMvk": {
+    "path": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/runtime/v104-drawable-size-candidate-20261020/BAR.app/Contents/Resources/bundled-assets/runtime/moltenvk-pr2746/lib/libMoltenVK.1.4.3.dylib",
+    "sha256": "79dfe6e5fe91e35c14751316d0acc5f96837516619945388c5c073e94295ebdc"
+  },
+  "previousEvidence": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-c-reg-fullscreen-reverse-20261020",
+  "order": "One current candidate Metal4 observation,excluded from all FPS comparisons",
+  "consoleLockAllowedByHuman": true,
+  "localGuard": {
+    "path": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-drawable-size-performance-20261020/screen-guard-locked-allowed.py",
+    "sha256": "dde091d5a04f40d6e69be2df4740cd15bad2c7bea8d084f5be68dcf133a7a4cf"
+  },
+  "startupReadinessFix": "Only repeat safe read-only document readiness checks; one launchScript call. No benchmark/controller/render changes.",
+  "sourceValidation": {
+    "path": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-drawable-size-20261020/cpu-summary.json",
+    "sha256": "c67774dd2cd2c4e0680ddf41ea87668dc0eaed6e7a5ffdb3a6a0c403217f8741"
+  },
+  "resolution": {
+    "width": 1512,
+    "height": 950
+  },
+  "resolutionPolicy": "Engine fullscreen and SDL fullscreen intent at current product default 1x; safe viewport 1512x950; SDL native presentation remains deferred while hidden",
+  "packageReceipt": {
+    "path": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-drawable-size-20261020/package-receipt.json",
+    "sha256": "6067dff09d9bfd48c162bac9fb6484f464768a8392f2ab1f1e9eef4794cd7d21"
+  },
+  "sampleUsedForFPSComparison": false,
+  "maximumGameSessions": 1
+}

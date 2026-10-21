@@ -1,0 +1,63 @@
+{
+  "schema": "c-reg-hidden-fullscreen-preflight-v1",
+  "status": "actual-sdl-dummy-hidden-fullscreen-contract-passed",
+  "sdlLibrarySha256": "6a76d38b6cfcd75122ea51215af9dd8be1972c984a431adb2cfa0c6731354820",
+  "guardSha256": "904bc6cd64409e228f02080e02fd889b9f77179f46a8f76219a379bfe4369af4",
+  "guardLibrary": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-c-reg-fullscreen-reverse-20261020/libhidden-fullscreen.dylib",
+  "originalGuardSource": {
+    "path": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/tools/lib/run94-hidden-window-state.m",
+    "sha256": "074f6361aaac8b1a11a24e51fb4c85af3f92dafac28a9d6a7e28f39723b46913"
+  },
+  "guardSource": {
+    "path": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-c-reg-fullscreen-reverse-20261020/hidden-fullscreen.m",
+    "sha256": "ae55aaae87b402ea0f0e0fdf02c92928cc552270f712b0e0783f56ff39b63c1a"
+  },
+  "probeSource": {
+    "path": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-c-reg-fullscreen-reverse-20261020/sdl-hidden-fullscreen-probe.c",
+    "sha256": "4a8dd70c8f959eb8e1ceae1ade133be807ac86c7e2eda825c4c60f1625e91bf3"
+  },
+  "probeBinary": {
+    "path": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-c-reg-fullscreen-reverse-20261020/sdl-hidden-fullscreen-probe",
+    "sha256": "adfbf5e080d114c876e1d735dc52d5d91f4334166dea4e554551e213870e187f"
+  },
+  "compileArguments": [
+    [
+      "/usr/bin/xcrun",
+      "clang",
+      "-dynamiclib",
+      "-fno-objc-arc",
+      "-std=gnu11",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-I/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/runtime/v104-c-reg-candidate-20261020/BAR.app/Contents/Resources/bundled-assets/runtime/sdl3/include",
+      "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-c-reg-fullscreen-reverse-20261020/hidden-fullscreen.m",
+      "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/runtime/v104-c-reg-candidate-20261020/BAR.app/Contents/Resources/bundled-assets/runtime/sdl3/lib/libSDL3.0.dylib",
+      "-framework",
+      "AppKit",
+      "-o",
+      "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-c-reg-fullscreen-reverse-20261020/libhidden-fullscreen.dylib"
+    ],
+    [
+      "/usr/bin/xcrun",
+      "clang",
+      "-std=c11",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-I/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/runtime/v104-c-reg-candidate-20261020/BAR.app/Contents/Resources/bundled-assets/runtime/sdl3/include",
+      "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-c-reg-fullscreen-reverse-20261020/sdl-hidden-fullscreen-probe.c",
+      "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/runtime/v104-c-reg-candidate-20261020/BAR.app/Contents/Resources/bundled-assets/runtime/sdl3/lib/libSDL3.0.dylib",
+      "-o",
+      "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-c-reg-fullscreen-reverse-20261020/sdl-hidden-fullscreen-probe"
+    ]
+  ],
+  "events": {
+    "path": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-c-reg-fullscreen-reverse-20261020/sdl-hidden-fullscreen-events.jsonl",
+    "sha256": "ac00d2e4e1f67f2789212f0e0471552d048c46968d833575e935a3c3dccc8a2a"
+  },
+  "stdout": "PASS actual SDL accepts fullscreen flag and request while remaining hidden; show/raise/restore blocked\n",
+  "gameOrGPUExecuted": false,
+  "cocoaGpuRenderingQualified": false,
+  "fullscreenSemantics": "Actual SDL retains fullscreen intent/flags on hidden windows; native display/Space switch is deferred by SDL until shown. Game Fullscreen=1 and safe viewport must be verified separately in real run."
+}

@@ -1,0 +1,40 @@
+[
+  {
+    "lane": "bar-lobby",
+    "arguments": [
+      "/opt/homebrew/bin/ninja",
+      "-C",
+      "/Users/yeojun/Desktop/BAR-AppleSilicon-App/build/run91-recoil-engine-694e9df7-macos27",
+      "-j",
+      "4",
+      "engine-legacy"
+    ],
+    "exitCode": 0,
+    "seconds": 6.309,
+    "sourceInputPins": 1271,
+    "rawPath": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/build/run91-recoil-engine-694e9df7-macos27/spring",
+    "rawSHA256": "560083e2c66c736e342ca7e60626b0404950686e04c15a4f8c7a41b3359c2c7b",
+    "priorRawBackup": "backups/engine/v104-drawable-size-20261020/bar-lobby/spring",
+    "version": "spring version 2026.09.01-24-g01efdf4 master (BAR-1.0.3 )",
+    "sync-version": "2026.09.01-24-g01efdf4 master"
+  },
+  {
+    "lane": "bar-chobby",
+    "arguments": [
+      "/opt/homebrew/bin/ninja",
+      "-C",
+      "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/runtime/run94-chobby-official-20260704-20260924/build",
+      "-j",
+      "4",
+      "engine-legacy"
+    ],
+    "exitCode": 0,
+    "seconds": 10.269,
+    "sourceInputPins": 1265,
+    "rawPath": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/runtime/run94-chobby-official-20260704-20260924/build/spring",
+    "rawSHA256": "3b9f7f3a89be9ca31cdfed3e3f544bbe34e8f7099f07a59b160157212124af92",
+    "priorRawBackup": "backups/engine/v104-drawable-size-20261020/bar-chobby/spring",
+    "version": "spring version 2026.07.04 (BAR-1.0.3 )",
+    "sync-version": "2026.07.04"
+  }
+]

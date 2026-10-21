@@ -1,0 +1,83 @@
+{
+  "status": "ready-for-authorized-existing-publisher",
+  "repository": "yeojuny/bar-lobby-apple-silicon",
+  "branch": "restore/mvk-20261020-p123-b-ct-cm3",
+  "knownParent": "7a3a24591f75d53a9022487a3f2e25d3d5c05afa",
+  "selectedManifest": {
+    "path": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-drawable-size-20261020/restoration-selection.json",
+    "sha256": "a22cf69215510f696f1b58278f5c8a06fb702df32dd49c9f68772d3ac936e630"
+  },
+  "sourceReview": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-drawable-size-20261020/independent-review.json",
+  "completion": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-drawable-size-20261020/completion.json",
+  "report": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/reports/v104-drawable-size-20261020.md",
+  "publishOnlyRestorationBranch": true,
+  "formalReleaseHomebrewRequested": false,
+  "rebuildOrGameExecutionRequested": false,
+  "sourceOrAppEditingRequested": false,
+  "snapshotBytesImmutable": true,
+  "conditions": "Game fullscreen hidden1512x950 safe viewport, AC+Low Power ON, Ultra/AA Off/Spring; native macOS Space presentation deferred while hidden.",
+  "qualification": "User confirmed concurrent other work;8FPS results are reference only,no isolated causal speedup claim. Separate sampled run collected data but failed15-second native exit check; cause unresolved,private failure profile/cache retained,no retry. Sampled FPS excluded.",
+  "latestResults": {
+    "metal3": {
+      "parent": {
+        "ordinals": [
+          6,
+          7
+        ],
+        "fps": [
+          44.249805450439,
+          42.41423034668
+        ],
+        "meanFPS": 43.3320178985595,
+        "meanRunP95Ms": 44.1184997558595,
+        "meanRunP99Ms": 81.930999755859
+      },
+      "candidate": {
+        "ordinals": [
+          5,
+          8
+        ],
+        "fps": [
+          48.416568756104,
+          52.132389068604
+        ],
+        "meanFPS": 50.274478912354,
+        "meanRunP95Ms": 36.431499481201,
+        "meanRunP99Ms": 60.724500656128
+      },
+      "deltaFPSPercent": 16.021550231163562,
+      "deltaP95Percent": -17.423530530721564
+    },
+    "metal4": {
+      "parent": {
+        "ordinals": [
+          1,
+          4
+        ],
+        "fps": [
+          30.87636756897,
+          35.350528717041
+        ],
+        "meanFPS": 33.1134481430055,
+        "meanRunP95Ms": 62.846998214721495,
+        "meanRunP99Ms": 103.859001159668
+      },
+      "candidate": {
+        "ordinals": [
+          2,
+          3
+        ],
+        "fps": [
+          27.885301589966,
+          37.31014251709
+        ],
+        "meanFPS": 32.597722053528,
+        "meanRunP95Ms": 63.9169998168945,
+        "meanRunP99Ms": 123.7785034179685
+      },
+      "deltaFPSPercent": -1.5574520878956943,
+      "deltaP95Percent": 1.7025500542082739
+    }
+  },
+  "rawEngineBinariesNotDuplicated": "Exact signed engines plus source preimages/after/patch, full inventory, raw build digests and preserved local raw backups suffice for this restoration delta."
+}

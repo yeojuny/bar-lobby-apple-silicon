@@ -1,0 +1,10 @@
+ninja: Entering directory `/Users/yeojun/Desktop/BAR-AppleSilicon-App/build/run91-recoil-engine-694e9df7-macos27'
+[0/2] Re-checking globbed directories...
+[1/4] Building CXX object rts/builds/legacy/CMakeFiles/engine-legacy.dir/__/__/System/Platform/Mac/MacSDL3EGLBridge.mm.o
+/Users/yeojun/Desktop/BAR-AppleSilicon-App/build/run91-recoil-src-694e9df7/rts/System/Platform/Mac/MacSDL3EGLBridge.mm:165:2: warning: add explicit braces to avoid dangling else [-Wdangling-else]
+  165 |         else
+      |         ^
+1 warning generated.
+[2/4] Building CXX object rts/builds/legacy/CMakeFiles/engine-legacy.dir/__/__/Rendering/GlobalRendering.cpp.o
+[3/4] Linking CXX executable spring
+ld: warning: ignoring duplicate libraries: 'librmlui.a', 'librmlui_debugger.a', 'rts/Sim/libengineSim.a', 'rts/System/Sound/libsound.a', 'rts/lib/nowide/libnowide.a', 'rts/lib/simdjson/libsimdjson.a', 'rts/lib/streflop/libstreflop.a', 'rts/lib/tracy/libTracyClient.a', 'tools/pr-downloader/src/lib/7z/lib7zip.a', 'tools/pr-downloader/src/lib/base64/libpr-base64.a', 'tools/pr-downloader/src/lib/jsoncpp/libpr-jsoncpp.a'

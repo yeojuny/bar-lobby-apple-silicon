@@ -1,0 +1,29 @@
+{
+  "lane": "bar-lobby",
+  "compileArguments": [
+    "/usr/bin/clang++",
+    "-std=c++23",
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-fsanitize=address,undefined",
+    "-fno-omit-frame-pointer",
+    "-framework",
+    "Foundation",
+    "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-drawable-size-20261020/cpu-bar-lobby/source-extracted-check.mm",
+    "-o",
+    "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-drawable-size-20261020/cpu-bar-lobby/display-cpu"
+  ],
+  "compileExitCode": 0,
+  "sourceSHA256": "f93909c370d1504242e2dc8e5abb1fcba15d9f87ebc821d2d964154428d81e90",
+  "helperSHA256": "e50dede568e52a763a7d4262c1f169077fafe9d8c9f264a41cc4f293ab7aadb0",
+  "sourcePins": {
+    "build/run91-recoil-src-694e9df7/rts/System/Platform/Mac/MacSDL3EGLBridge.h": "a7858558e572a9108f8ed0d7d0cae1b8f73f0c36145db5874716f7db3236c445",
+    "build/run91-recoil-src-694e9df7/rts/System/Platform/Mac/MacSDL3EGLBridge.mm": "1f9fc4311ae1ca3707bbc2fad869e5b5960497e00e44ff4ece8fb91a9854695a",
+    "build/run91-recoil-src-694e9df7/rts/Rendering/GlobalRendering.cpp": "ea57a439ac1afa0f92dfa93968b5e8d971a1c4ca68ad16e83f38b34719d16c94"
+  },
+  "basis": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/fullscreen-transition-fix-20261016/native-cpu/source-extracted-check.txt",
+  "scope": "Existing 53-case mocked display fixture rebound to current production source plus exact new helper and viewport/scissor methods. Screen/SDL/GL are doubles; single-screen UpdateViewPortGeometry prefix only, no native monitor/Space acceptance.",
+  "runExitCode": 0,
+  "checks": 102
+}

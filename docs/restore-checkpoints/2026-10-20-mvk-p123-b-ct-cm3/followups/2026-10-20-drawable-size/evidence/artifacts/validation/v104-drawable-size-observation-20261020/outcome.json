@@ -1,0 +1,57 @@
+{
+  "status": "stopped",
+  "error": "RuntimeError('First failed arm; stop remaining comparison, no automatic retry')",
+  "screenFailures": [],
+  "results": [
+    {
+      "ordinal": 1,
+      "role": "candidate",
+      "backend": "metal4",
+      "exit": 1,
+      "status": "failed",
+      "error": "Error: Timeout: native game exit callback and PID absence",
+      "cacheError": "Error: Actual native Metal4 queue completion proof missing",
+      "receipt": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-drawable-size-observation-20261020/1-candidate-metal4/sessions/lobby-no-native-hook-1792556637590/execution-receipt.json",
+      "fps": 28.497079849243,
+      "p50Ms": 25.499000549316,
+      "p95Ms": 97.467002868652,
+      "p99Ms": 131.481002807617,
+      "remainingOwnedProcesses": [],
+      "protectedInputsUnchanged": true,
+      "resolution": {
+        "height": 950,
+        "width": 1512
+      },
+      "camera": {
+        "dist": 2254.7705078125,
+        "dx": 0,
+        "dy": -0.924302399158,
+        "dz": -0.381660997868,
+        "fov": 45,
+        "mode": 2,
+        "name": "spring",
+        "px": 4096,
+        "py": 254.770629882813,
+        "pz": 3072,
+        "rx": 2.75,
+        "ry": 0,
+        "rz": 0
+      },
+      "runtimeUUID": {
+        "prefix": "f52facf7",
+        "uuids": [
+          "f52facf7-1b02-0209-0000-000100000000"
+        ],
+        "driverLog": {
+          "path": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-drawable-size-observation-20261020/1-candidate-metal4/sessions/lobby-no-native-hook-1792556637590/state/data/stack-game.stderr.log",
+          "sha256": "8883981255849de06a66e0ade973c65c7efa2c48e144a4aac543a256c381c09c"
+        }
+      },
+      "nativeMetal4": null
+    }
+  ],
+  "maximumGameSessions": 1,
+  "automaticRetry": false,
+  "appPromoted": false,
+  "powerSettingsModified": false
+}

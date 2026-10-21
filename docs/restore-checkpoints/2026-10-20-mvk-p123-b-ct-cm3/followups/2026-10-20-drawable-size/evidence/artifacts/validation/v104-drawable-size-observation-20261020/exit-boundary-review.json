@@ -1,0 +1,41 @@
+{
+  "status": "separate-observation-exit-boundary-unresolved",
+  "sampleCollectionCompleted": true,
+  "sampleSHA256": "9be86d7da1ff876f25419c6e0b5aab5f5c92f4cfcf93ec60f08a6ec43cc6f004",
+  "samplerExitCode": 0,
+  "samplerEndUnixMs": 1792556737959,
+  "quitRequestUnixMs": 1792556743501.207,
+  "samplerHadExitedBeforeQuit": true,
+  "benchmarkCompleted": "complete",
+  "exitDeadlineMilliseconds": 15000,
+  "error": "Error: Timeout: native game exit callback and PID absence",
+  "completionProofUnavailableAfterForcedOwnedCleanup": "Error: Actual native Metal4 queue completion proof missing",
+  "shutdownEnteredInEngineLog": true,
+  "lastShutdownLines": [
+    "[t=00:01:12.280475] [RenderBuffer::KillStatic] Type = VA_TYPE_T max size/init. capacity/curr. capacity: VBO = {0, 1048576, 1048576}, EBO = {0, 2097152, 2097152}",
+    "[t=00:01:12.280478] [RenderBuffer::KillStatic] Type = VA_TYPE_T4 max size/init. capacity/curr. capacity: VBO = {0, 65536, 65536}, EBO = {0, 262144, 262144}",
+    "[t=00:01:12.280481] [RenderBuffer::KillStatic] Type = VA_TYPE_TN max size/init. capacity/curr. capacity: VBO = {0, 65536, 65536}, EBO = {0, 131072, 131072}",
+    "[t=00:01:12.280484] [RenderBuffer::KillStatic] Type = VA_TYPE_TC max size/init. capacity/curr. capacity: VBO = {4, 1048576, 1048576}, EBO = {6, 2097152, 2097152}",
+    "[t=00:01:12.280525] [RenderBuffer::KillStatic] Type = VA_TYPE_TC3 max size/init. capacity/curr. capacity: VBO = {0, 1024, 1024}, EBO = {0, 2048, 2048}",
+    "[t=00:01:12.280529] [RenderBuffer::KillStatic] Type = VA_TYPE_PROJ max size/init. capacity/curr. capacity: VBO = {56580, 1048576, 1048576}, EBO = {84870, 2097152, 2097152}",
+    "[t=00:01:12.280531] [RenderBuffer::KillStatic] Type = VA_TYPE_TNT max size/init. capacity/curr. capacity: VBO = {0, 0, 0}, EBO = {0, 0, 0}",
+    "[t=00:01:12.280534] [RenderBuffer::KillStatic] Type = VA_TYPE_2D0 max size/init. capacity/curr. capacity: VBO = {8, 65536, 65536}, EBO = {12, 131072, 131072}",
+    "[t=00:01:12.280537] [RenderBuffer::KillStatic] Type = VA_TYPE_2DC max size/init. capacity/curr. capacity: VBO = {4, 65536, 65536}, EBO = {8, 131072, 131072}",
+    "[t=00:01:12.280540] [RenderBuffer::KillStatic] Type = VA_TYPE_2DT max size/init. capacity/curr. capacity: VBO = {10768, 1048576, 1048576}, EBO = "
+  ],
+  "remainingOwnedProcesses": [],
+  "protectedInputsUnchanged": true,
+  "cause": "Not established; no attribution to the product diff, sampler, or concurrent user workload.",
+  "successfulComparisonRuns": 8,
+  "sampledRunExcludedFromFPSComparison": true,
+  "automaticRetry": false,
+  "failurePrivateProfileAndCachesPreserved": true,
+  "evidence": {
+    "artifacts/validation/v104-drawable-size-observation-20261020/1-candidate-metal4/sessions/lobby-no-native-hook-1792556637590/execution-receipt.json": "3719181fe530895613ba65bf05f58c8c8bbc87eede23f58132cb43f17d92e170",
+    "artifacts/validation/v104-drawable-size-observation-20261020/1-candidate-metal4/sessions/lobby-no-native-hook-1792556637590/state/data/LuaUI/Config/v104-performance-request.txt": "8ba9a58d008515a520d0954bfac3c0ae857cf3d0ebef38a5d40fca22dc105f0c",
+    "artifacts/validation/v104-drawable-size-observation-20261020/1-candidate-metal4/sessions/lobby-no-native-hook-1792556637590/state/data/LuaUI/Config/v104-performance-status.txt": "3b94f008d405a31a22b0985a08c4844e0ea9233bfd4d7df54b9f430db835f01c",
+    "artifacts/validation/v104-drawable-size-observation-20261020/1-candidate-metal4/sessions/lobby-no-native-hook-1792556637590/state/data/infolog.txt": "627a0eae2f9a8a3a4746dc1bd22df3244a8e5e0f8a9711eb03e64deda15ffc97",
+    "artifacts/validation/v104-drawable-size-observation-20261020/1-candidate-metal4/sessions/lobby-no-native-hook-1792556637590/events.jsonl": "70e6c10ae77b8c4eaa5912cb64c4e4ddeaebf51f94d733aa5d7228a33480b05d",
+    "artifacts/validation/v104-drawable-size-observation-20261020/1-candidate-metal4/sessions/lobby-no-native-hook-1792556637590/cpu-sample-stderr.txt": "375ea4cd3e1b9ed80c5a47657b10eced2eab68c254c0b1639908251e34fa5969"
+  }
+}
