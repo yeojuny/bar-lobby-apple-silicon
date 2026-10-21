@@ -1,0 +1,22 @@
+[GAME]
+{
+mapname=Seths Ravine Remake 1.3.1;
+gametype=Beyond All Reason test-31671-ad2e1b7;
+FixedRNGSeed=31443;
+hostip=127.0.0.1;
+hostport=18452;
+ishost=1;
+myplayername=StackBenchmark;
+startpostype=0;
+numplayers=1;
+numusers=2;
+numteams=2;
+numallyteams=2;
+[PLAYER0]{name=StackBenchmark;team=0;spectator=0;}
+[TEAM0]{teamleader=0;allyteam=0;rgbcolor=0.15 0.4 1;side=Armada;}
+[TEAM1]{teamleader=0;allyteam=1;rgbcolor=1 0.2 0.2;side=Cortex;}
+[ALLYTEAM0]{numallies=0;}
+[ALLYTEAM1]{numallies=0;}
+[AI0]{name=BenchmarkIdle;shortname=NullAI;version=0.1;host=0;team=1;}
+[MODOPTIONS]{deathmode=neverend;startmetal=1000;startenergy=1000;maxunits=2000;}
+}

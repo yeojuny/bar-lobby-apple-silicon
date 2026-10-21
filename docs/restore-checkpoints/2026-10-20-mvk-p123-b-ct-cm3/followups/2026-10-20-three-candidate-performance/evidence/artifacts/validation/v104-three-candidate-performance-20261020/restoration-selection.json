@@ -1,0 +1,909 @@
+{
+  "status": "frozen-exact-performance-evidence-selection",
+  "baseRestoreCommit": "146bce2cbd060b15eb708c5bba68e27042471a8a",
+  "files": [
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/1-A-metal3/effective-host.mjs",
+      "sha256": "ba5f2d8446ed4a7083111ee203f310496eaf853ac660f2dccfeea409140db512",
+      "bytes": 40089,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/1-A-metal3/plan.json",
+      "sha256": "d665cdbfe7135014e76bb71cf8cf41c61ec58fadbb2230a5ad0fcc5a6442ca64",
+      "bytes": 10803,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/1-A-metal3/sessions/lobby-no-native-hook-1792560423797/execution-receipt.json",
+      "sha256": "1827a7a6fc45737c2099a0cb8a6a74e651e58b2b583b3c07b9315ceb9849b642",
+      "bytes": 121274,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/1-A-metal3/sessions/lobby-no-native-hook-1792560423797/state/data/LuaUI/Config/v104-performance-result.json",
+      "sha256": "4dabc44d036edc135940441205b2ac78f68acc4c158a4ee6cdabc17cb6838285",
+      "bytes": 9668,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/1-A-metal3/sessions/lobby-no-native-hook-1792560423797/state/data/hidden-window-events.jsonl",
+      "sha256": "3131d79fe69f548faa55a49a6a1217ef9dd816085479f5c69c110c2084d94720",
+      "bytes": 436,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/1-A-metal3/sessions/lobby-no-native-hook-1792560423797/state/data/infolog.txt",
+      "sha256": "bc252afc9e5da3121ea725651b310032da0e4aeb7022420e4836a2b9342df12b",
+      "bytes": 238558,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/1-A-metal3/sessions/lobby-no-native-hook-1792560423797/state/data/stack-game.stderr.log",
+      "sha256": "37567223b5fb5225a78caa901eb23ad7ea92790077a472d7efa9ee400d1a280f",
+      "bytes": 7702,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/10-A-metal4/effective-host.mjs",
+      "sha256": "b2839af3a3a1bca46b9e6dcef878134a01248611424014e8c850cf66c9678034",
+      "bytes": 40092,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/10-A-metal4/plan.json",
+      "sha256": "1fa6d76d44b634a36e522426fd7544a70efa85cba63379f5e8d5ba433371e5c4",
+      "bytes": 10805,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/10-A-metal4/sessions/lobby-no-native-hook-1792561503635/execution-receipt.json",
+      "sha256": "c7f110ec3d4df5ad3854b2a65e3d9d85bcb10640610922c54b5c05037d3f025b",
+      "bytes": 116873,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/10-A-metal4/sessions/lobby-no-native-hook-1792561503635/state/data/LuaUI/Config/v104-performance-result.json",
+      "sha256": "4740adb8b1cd4e3d013ab788dc54957aa38c3c0f127f4a212022be2e238e54b7",
+      "bytes": 9666,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/10-A-metal4/sessions/lobby-no-native-hook-1792561503635/state/data/hidden-window-events.jsonl",
+      "sha256": "fd9a5ee07be5a698bd318021c8b63ed3585fb1ca283afd768080983ab09c6b62",
+      "bytes": 436,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/10-A-metal4/sessions/lobby-no-native-hook-1792561503635/state/data/infolog.txt",
+      "sha256": "f1e61f30d277b620187ba0a98b91d4eb78e10a9c0292abbfe96f61b2efc4814c",
+      "bytes": 238534,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/10-A-metal4/sessions/lobby-no-native-hook-1792561503635/state/data/stack-game.stderr.log",
+      "sha256": "55e1bc3c8bd977a166bd0b14245ce2538e079cf6d52e3ac6d829e79c958c8d14",
+      "bytes": 7875,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/11-B-metal4/effective-host.mjs",
+      "sha256": "5b267eb801de480cb93274fd7e0556c50b1eca10e7ee829b07ff4e1e3c1741a1",
+      "bytes": 40092,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/11-B-metal4/plan.json",
+      "sha256": "5605ba8fc4b8c8b5e852eaddc49cc1e0b743058e25b2e70fbf1791f6e52d1ea6",
+      "bytes": 10874,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/11-B-metal4/sessions/lobby-no-native-hook-1792561623078/execution-receipt.json",
+      "sha256": "22170effd547d2073865a40a550ab8fcc3fe783605b22beccba2df8adbeeb1a4",
+      "bytes": 116728,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/11-B-metal4/sessions/lobby-no-native-hook-1792561623078/state/data/LuaUI/Config/v104-performance-result.json",
+      "sha256": "a0e68ce73641ff941495c9ff17ddeecffc34bfdf4229abeb056d17b515dc0e6d",
+      "bytes": 9665,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/11-B-metal4/sessions/lobby-no-native-hook-1792561623078/state/data/hidden-window-events.jsonl",
+      "sha256": "633b77cf73e816753472bf9ea0bb19f8fa641c0d76144367b1a75867c76f8c21",
+      "bytes": 436,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/11-B-metal4/sessions/lobby-no-native-hook-1792561623078/state/data/infolog.txt",
+      "sha256": "d9b642c3171322e7f0c213a39c1461a2bb8c366790fa35882a0dfcf6b2031f83",
+      "bytes": 238649,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/11-B-metal4/sessions/lobby-no-native-hook-1792561623078/state/data/stack-game.stderr.log",
+      "sha256": "754f51b741181d0c461959ff3001484e6fd4803da9bda61df60a69e074a097b5",
+      "bytes": 7875,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/12-C-metal4/effective-host.mjs",
+      "sha256": "d68a595ee92def434b93b16b6c93b873105358f810f985c4ab934735e1071c34",
+      "bytes": 40092,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/12-C-metal4/plan.json",
+      "sha256": "46a310fa8f66048625922818a0409b32924809da73102434c4f35f1ff41f0baa",
+      "bytes": 10937,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/12-C-metal4/sessions/lobby-no-native-hook-1792561742146/execution-receipt.json",
+      "sha256": "eb801e6c3895fe1339b3df7655163f6961b397e686b7f2541d2042f352b1cb7f",
+      "bytes": 116317,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/12-C-metal4/sessions/lobby-no-native-hook-1792561742146/state/data/LuaUI/Config/v104-performance-result.json",
+      "sha256": "1d5b5fd8ccaa1db1b09a6b39342a700825203b1563a7b766c8fcad614f0d5a94",
+      "bytes": 9662,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/12-C-metal4/sessions/lobby-no-native-hook-1792561742146/state/data/hidden-window-events.jsonl",
+      "sha256": "98606c3660fa00524f22b402004f6b2cf2ecc2a56cc8406059bf47bbdfb784dc",
+      "bytes": 436,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/12-C-metal4/sessions/lobby-no-native-hook-1792561742146/state/data/infolog.txt",
+      "sha256": "ed4915fc0ce9e11a7a53d668510035f51ee60760fcebb6d14981679f214a7a3c",
+      "bytes": 238750,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/12-C-metal4/sessions/lobby-no-native-hook-1792561742146/state/data/stack-game.stderr.log",
+      "sha256": "df20b7f1945efe84ffe956bfae1644d2dc119661ee1960cc74483cc36752f75c",
+      "bytes": 7875,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/2-B-metal3/effective-host.mjs",
+      "sha256": "b4056870fd013e702821b8b74da938000b134a6b457d1064056fff5179c762cb",
+      "bytes": 40089,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/2-B-metal3/plan.json",
+      "sha256": "8a685dab72dedf1732d766fb557ddddb1b91685973d52f1729b947fca806d4d8",
+      "bytes": 10872,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/2-B-metal3/sessions/lobby-no-native-hook-1792560545000/execution-receipt.json",
+      "sha256": "eaa220ce4f8d121b1a40b4fd0e036cd69621a532a037a7b61308820a8dad9bf6",
+      "bytes": 118585,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/2-B-metal3/sessions/lobby-no-native-hook-1792560545000/state/data/LuaUI/Config/v104-performance-result.json",
+      "sha256": "d2d6c0c82b17c67539c0aff0ee6b1f09875aac188e2f51137adff2da9f9a8724",
+      "bytes": 9663,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/2-B-metal3/sessions/lobby-no-native-hook-1792560545000/state/data/hidden-window-events.jsonl",
+      "sha256": "bf3e295e440d73cb6aa87a46204d0d4275da199a7e45d9e4b00d11abb629e7e6",
+      "bytes": 436,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/2-B-metal3/sessions/lobby-no-native-hook-1792560545000/state/data/infolog.txt",
+      "sha256": "70b83f440d8764933095daba591a29bb3fd86dc1712b40c09ec642fccb15edc9",
+      "bytes": 238722,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/2-B-metal3/sessions/lobby-no-native-hook-1792560545000/state/data/stack-game.stderr.log",
+      "sha256": "fac99cbf325b551b8c56c08615f2e0395c09f9222eae7dd2ac485c24fe251e9b",
+      "bytes": 7702,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/3-C-metal3/effective-host.mjs",
+      "sha256": "5f8bcba1c2563d83dc6ad77ffa75ac658a1b32865445abe7825fd8c281d846aa",
+      "bytes": 40089,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/3-C-metal3/plan.json",
+      "sha256": "0936894098f3a0dafdfbacb3687151e2df2d2cd7dbb0551ae606c4a10bc7ba68",
+      "bytes": 10935,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/3-C-metal3/sessions/lobby-no-native-hook-1792560663904/execution-receipt.json",
+      "sha256": "7471ddfbaa02ec2cef2634ca0a835aa6a81835c49ad07ec13ac878e73da99b71",
+      "bytes": 122086,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/3-C-metal3/sessions/lobby-no-native-hook-1792560663904/state/data/LuaUI/Config/v104-performance-result.json",
+      "sha256": "ee090d4e9b8d87f43ac909656e8f06526a51d3e030e5aff7175194b575578340",
+      "bytes": 9666,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/3-C-metal3/sessions/lobby-no-native-hook-1792560663904/state/data/hidden-window-events.jsonl",
+      "sha256": "943fe62405119f7249038ddc98508c1cb6dc20bbb311cde807d60768074339a7",
+      "bytes": 436,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/3-C-metal3/sessions/lobby-no-native-hook-1792560663904/state/data/infolog.txt",
+      "sha256": "c698d240e3861fdef154cbefbbb592f2e74c78af13ad8308ce39d7ff6cf55f36",
+      "bytes": 238807,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/3-C-metal3/sessions/lobby-no-native-hook-1792560663904/state/data/stack-game.stderr.log",
+      "sha256": "73b65dcb2a42831c7aba0d866de8e3916b5edfcfe0c60e68a583604cc8a0528a",
+      "bytes": 7702,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/4-C-metal3/effective-host.mjs",
+      "sha256": "2eb9541c18f8980765b806949583ca97f812eaa3c4f4d8aa6f18a91f1690a259",
+      "bytes": 40089,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/4-C-metal3/plan.json",
+      "sha256": "4afb4e74f8343e57c8daaff119f61af5ba1125f483e2abaac01c3a3da4d76f35",
+      "bytes": 10935,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/4-C-metal3/sessions/lobby-no-native-hook-1792560791920/execution-receipt.json",
+      "sha256": "107add78d8cfd86f8fa09c37be527ce7c4a00683b40641487426cc5ea6631819",
+      "bytes": 118511,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/4-C-metal3/sessions/lobby-no-native-hook-1792560791920/state/data/LuaUI/Config/v104-performance-result.json",
+      "sha256": "76a70214189474ab0064c8b75b2ebff1924197c1602d11b16e1226cbae5da6c2",
+      "bytes": 9663,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/4-C-metal3/sessions/lobby-no-native-hook-1792560791920/state/data/hidden-window-events.jsonl",
+      "sha256": "a6530ba86683d7cb518889dae3e9f09732364ddb9f7a970ee89044ba47abf964",
+      "bytes": 436,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/4-C-metal3/sessions/lobby-no-native-hook-1792560791920/state/data/infolog.txt",
+      "sha256": "3424d23eb25cca349b72e7c3ff2924cd8501c0783eb3100bff5762697f449802",
+      "bytes": 238817,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/4-C-metal3/sessions/lobby-no-native-hook-1792560791920/state/data/stack-game.stderr.log",
+      "sha256": "c518613039f01bc5cae5fe49be8cf58ec5787521c1311698afa46edbc225ff7c",
+      "bytes": 7702,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/5-B-metal3/effective-host.mjs",
+      "sha256": "048f655018e210bf094b4d138b5c341177912ff4996e3f0e77ae168e76bb3ece",
+      "bytes": 40089,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/5-B-metal3/plan.json",
+      "sha256": "68922eca5e8ef16fe94c564c000498a9135a621bed03f6b75375e4c62717af2b",
+      "bytes": 10872,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/5-B-metal3/sessions/lobby-no-native-hook-1792560910547/execution-receipt.json",
+      "sha256": "3e8c26010370204505072706cfae3ab32bad6be08ba139b617a8ef39f9c6f856",
+      "bytes": 118241,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/5-B-metal3/sessions/lobby-no-native-hook-1792560910547/state/data/LuaUI/Config/v104-performance-result.json",
+      "sha256": "46bbf2554c8f8c4e8bed0214164d1d873a53a46db9f7920713158059a1f08dee",
+      "bytes": 9663,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/5-B-metal3/sessions/lobby-no-native-hook-1792560910547/state/data/hidden-window-events.jsonl",
+      "sha256": "a031cc110f217477d4bdc6b8d710933bd3f38c93e8882bd0e1b1b141c4e5a466",
+      "bytes": 436,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/5-B-metal3/sessions/lobby-no-native-hook-1792560910547/state/data/infolog.txt",
+      "sha256": "bd308d296e34261975a4c5dd99ba62642e7e40ccb3491dc1217687ecd254f088",
+      "bytes": 238624,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/5-B-metal3/sessions/lobby-no-native-hook-1792560910547/state/data/stack-game.stderr.log",
+      "sha256": "0541c52bf6dca0a8d6918cf31d96d04fd1d5071090f2b52cabc05f4774850d97",
+      "bytes": 7702,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/6-A-metal3/effective-host.mjs",
+      "sha256": "54d82566720d86c56b207d23adfefb01149f19a14530edb41d606e66d553aa50",
+      "bytes": 40089,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/6-A-metal3/plan.json",
+      "sha256": "1db42ca104529a9fbe188e910949e5f517172d830f7c9b6c3fb9db7907f52816",
+      "bytes": 10803,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/6-A-metal3/sessions/lobby-no-native-hook-1792561029269/execution-receipt.json",
+      "sha256": "9bf3a4ab8b1dc30c5b4d145c5ae983138848e98e7b0611cc6728ab03584893af",
+      "bytes": 118614,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/6-A-metal3/sessions/lobby-no-native-hook-1792561029269/state/data/LuaUI/Config/v104-performance-result.json",
+      "sha256": "e98d2c092e58de8e6b2c3f2fda5874ba65da6f5854885939f48ba6cf2318bbfe",
+      "bytes": 9670,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/6-A-metal3/sessions/lobby-no-native-hook-1792561029269/state/data/hidden-window-events.jsonl",
+      "sha256": "847873df65a722f7e15e2bf755f65ead5c2e6220df0ab45e43ab9512187ddfce",
+      "bytes": 436,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/6-A-metal3/sessions/lobby-no-native-hook-1792561029269/state/data/infolog.txt",
+      "sha256": "ed367bdf4eb25423e46768b484268b69a30f2fe6eaf012853dbba056c5b88d96",
+      "bytes": 238527,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/6-A-metal3/sessions/lobby-no-native-hook-1792561029269/state/data/stack-game.stderr.log",
+      "sha256": "e0d8b6a2c3a9356a7905e71c70a4be75d640cc62ebc8d7f07151326379bf5c63",
+      "bytes": 7702,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/7-C-metal4/effective-host.mjs",
+      "sha256": "a1fef4e0136845df945768ffb9265bdae8e8127a9f36dba927ca1801b2929e59",
+      "bytes": 40089,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/7-C-metal4/plan.json",
+      "sha256": "fd7fa2b6280cc73dd9705b19707bc5bafb87a871c1554c41cb0d2c6b1ec80647",
+      "bytes": 10934,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/7-C-metal4/sessions/lobby-no-native-hook-1792561148015/execution-receipt.json",
+      "sha256": "e44456e68909b524744ce1d5a055ed6d9c7ab88e9f0205538bf4ee141e9a84c8",
+      "bytes": 118315,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/7-C-metal4/sessions/lobby-no-native-hook-1792561148015/state/data/LuaUI/Config/v104-performance-result.json",
+      "sha256": "3aec939a2b765ebe9f6000bce7ef1855e0bc91abfb2eb4e573d79c1d25f87981",
+      "bytes": 9665,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/7-C-metal4/sessions/lobby-no-native-hook-1792561148015/state/data/hidden-window-events.jsonl",
+      "sha256": "34be480c4262a288114f147b03f14a17a4036c853ed5097d34ce7ea377ef3e10",
+      "bytes": 436,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/7-C-metal4/sessions/lobby-no-native-hook-1792561148015/state/data/infolog.txt",
+      "sha256": "72e5727fa220d89767115623408a012d6c8fea3e7c23155a35a282e11de75e13",
+      "bytes": 238701,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/7-C-metal4/sessions/lobby-no-native-hook-1792561148015/state/data/stack-game.stderr.log",
+      "sha256": "ee59dac3920821d9c0cf6277d98a76211767df7e29c958321d5dec9c44c48aa4",
+      "bytes": 7875,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/8-B-metal4/effective-host.mjs",
+      "sha256": "3070f5b777b73203979d9840ed6c430b145f3b89703e1eaca37b1a5c4323c655",
+      "bytes": 40089,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/8-B-metal4/plan.json",
+      "sha256": "e5b7138ff2428bcecacd547d8b629d860a1b28232c4e80b5ca2393232e3fdf15",
+      "bytes": 10871,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/8-B-metal4/sessions/lobby-no-native-hook-1792561266507/execution-receipt.json",
+      "sha256": "b40542139191db78cb1055b4a8cb041573b6e5a07be52ec4ca490b9a17103274",
+      "bytes": 119093,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/8-B-metal4/sessions/lobby-no-native-hook-1792561266507/state/data/LuaUI/Config/v104-performance-result.json",
+      "sha256": "9f6ae842bdcc17b5cd27daddd5fcb8981316abd55ca066678bf87b3772de6c63",
+      "bytes": 9663,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/8-B-metal4/sessions/lobby-no-native-hook-1792561266507/state/data/hidden-window-events.jsonl",
+      "sha256": "fa28724e9f58cd34907c0513d2e612162120b44381fabbf2daaaae98a076c6e4",
+      "bytes": 436,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/8-B-metal4/sessions/lobby-no-native-hook-1792561266507/state/data/infolog.txt",
+      "sha256": "694875af99cf73d43d0e2527bea793febc576cb27bc7d795cb4c81d1c7d7b0e9",
+      "bytes": 238691,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/8-B-metal4/sessions/lobby-no-native-hook-1792561266507/state/data/stack-game.stderr.log",
+      "sha256": "1eb3de74f7ba22655d2e7f6e0fcc13e82487176dc143a467680bc99de7965b2a",
+      "bytes": 7875,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/9-A-metal4/effective-host.mjs",
+      "sha256": "cfb5927fdbab13e04a4a2c87b09d43a931b5af14e382c5d353e8730a5c65621c",
+      "bytes": 40089,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/9-A-metal4/plan.json",
+      "sha256": "93da2618dc29eb7c49d853584f22ba3d35711cf8505506b3478296cd936ebec6",
+      "bytes": 10802,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/9-A-metal4/sessions/lobby-no-native-hook-1792561385053/execution-receipt.json",
+      "sha256": "92a4f32fe5a94d49f64f33ae0d7cfdb3435b896082c04292eedb02f85be98772",
+      "bytes": 118438,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/9-A-metal4/sessions/lobby-no-native-hook-1792561385053/state/data/LuaUI/Config/v104-performance-result.json",
+      "sha256": "471947e18ef90ae0388921007d2dae5574052d72f33f34109fc88f2f3da2ec90",
+      "bytes": 9667,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/9-A-metal4/sessions/lobby-no-native-hook-1792561385053/state/data/hidden-window-events.jsonl",
+      "sha256": "8d2857c40e1c47312290e6c0024d0bf4149f01c7111eda1e8d6304faf982f752",
+      "bytes": 436,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/9-A-metal4/sessions/lobby-no-native-hook-1792561385053/state/data/infolog.txt",
+      "sha256": "2ac22357a71fce97d3d5d3686a8a428e9c4d48c675fc02e173bf3af5fe404882",
+      "bytes": 238561,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/9-A-metal4/sessions/lobby-no-native-hook-1792561385053/state/data/stack-game.stderr.log",
+      "sha256": "788f3a101e494f319ae988f352ab22735e31f4690bf4fd8c9344f4b93d3f9c0f",
+      "bytes": 7875,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/A-inventory.json",
+      "sha256": "fe7136d94fd62d10f48f1f6da9fb2412e25c6c1c2bac719a34072d59807db7f0",
+      "bytes": 287331,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/B-inventory.json",
+      "sha256": "f5273eb0741c1ee642f0df368860fb2d8c35890184f6a8acd21380bb95a49bb9",
+      "bytes": 287331,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/C-inventory.json",
+      "sha256": "9a399eee40e580f9102234e157aa3588fbb53bad73d3df718f9e0f7901450759",
+      "bytes": 287331,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/analyze.py",
+      "sha256": "b42ccc8442fcd6f753f5449feeaac31056c51fbfee7c7cf4f237cc3320181287",
+      "bytes": 9735,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/arm-1-cache-cleanup-completion.json",
+      "sha256": "b87e4cc18df4ae136f9427796d80f4ddd01773e338f3f247d24445f3a01e9311",
+      "bytes": 145,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/arm-1-cache-cleanup-selection.json",
+      "sha256": "58d6caab539755078617f8b2d1e75d0b68b21d52c7916d18e2e3f9829035f4aa",
+      "bytes": 121873,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/arm-1-result.json",
+      "sha256": "1c59f0b41fe81b920ce2d173951645c378b5c82335dafbe0b4e46154c0314759",
+      "bytes": 1423,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/arm-10-cache-cleanup-completion.json",
+      "sha256": "fdab547c5618a042ffd43d79ac084ab168ca6eb791c0a74c12c42dfeda94454d",
+      "bytes": 145,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/arm-10-cache-cleanup-selection.json",
+      "sha256": "99571b887fe95b5b094b291a8b1d3bb75389563dbc29580082c3a3a07e6aa01e",
+      "bytes": 121847,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/arm-10-result.json",
+      "sha256": "097b449ed20c544b0bf66faa22db3f12384744ded6e014c0ac88e2ca4e351f66",
+      "bytes": 1431,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/arm-11-cache-cleanup-completion.json",
+      "sha256": "136a0ac5f06ccff477d4f1715b4a8380e35986ed29abd2c82a2264c0aac82728",
+      "bytes": 145,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/arm-11-cache-cleanup-selection.json",
+      "sha256": "c7919a5f0a4920bb9204978467341551c2f1a6a8c498e0d964bc0edd048d036b",
+      "bytes": 121847,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/arm-11-result.json",
+      "sha256": "bd283c913d5e4f4ee394ba49f3b2be7e0138f871fa917b19adbd02140f006489",
+      "bytes": 1430,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/arm-12-cache-cleanup-completion.json",
+      "sha256": "a5e3d787cd12a6c009077019dc9b44fb4cfa2b2de1bd877c472494040e910b64",
+      "bytes": 145,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/arm-12-cache-cleanup-selection.json",
+      "sha256": "b84f029062a7d360357abc84c0bcb871531282bd2cc2a706d27ba46cb17a37fa",
+      "bytes": 121847,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/arm-12-result.json",
+      "sha256": "641ce09eea8daf35488f440d18f1af3998cc6f884825c349cd7e772d585cd306",
+      "bytes": 1430,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/arm-2-cache-cleanup-completion.json",
+      "sha256": "3fa15cb2987f8a963b5f53f779217ac43543673ae25383a46292d67905e4759b",
+      "bytes": 145,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/arm-2-cache-cleanup-selection.json",
+      "sha256": "d7a60b1c82077096d92622d49a82aca5155db135bdee46e334917ab22bc01ff8",
+      "bytes": 121507,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/arm-2-result.json",
+      "sha256": "30869abfe0559eed9da6f7106734819e1f1368b927c7b8955c2a185156b33d87",
+      "bytes": 1423,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/arm-3-cache-cleanup-completion.json",
+      "sha256": "f821b20208854a72d3f2c197822a5913a3ebae6535a70e540cd8a5c50fe9fbc1",
+      "bytes": 145,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/arm-3-cache-cleanup-selection.json",
+      "sha256": "1016f0e859b853d0fa88ba012b4a66c72e783f8c8bb71bec409b9bbc94a01e41",
+      "bytes": 120043,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/arm-3-result.json",
+      "sha256": "4ad897482bfd0c00ff7a347a20b32bf81aae091f1fd5e1df0232854ab474dfbb",
+      "bytes": 1424,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/arm-4-cache-cleanup-completion.json",
+      "sha256": "f85c3e90ea52dfe9607d1745a4f979aaa4019d747775acf35d688fe9ac766803",
+      "bytes": 145,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/arm-4-cache-cleanup-selection.json",
+      "sha256": "c722d170bc0e2c3193e28d1ff0cbdd166c9a9478d19d6698bf85beef2f4bb2d6",
+      "bytes": 121873,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/arm-4-result.json",
+      "sha256": "98bd98b1c6a8bf01ec88788d846767b69a32a15b6f6942bd31ce1f5a77eef334",
+      "bytes": 1423,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/arm-5-cache-cleanup-completion.json",
+      "sha256": "d3e6600bf90c41da3a36f2b28d96470c8064c970f0f3bf6280e51ebdd327ed22",
+      "bytes": 145,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/arm-5-cache-cleanup-selection.json",
+      "sha256": "b442ebc28594541984ff4582600d0d0e23d17e89ecfa606a578940344bfd030e",
+      "bytes": 121507,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/arm-5-result.json",
+      "sha256": "65f4e84f33cd8aca4a118267565b82c8b542f4beac61dca154f4d38a4c8040d2",
+      "bytes": 1424,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/arm-6-cache-cleanup-completion.json",
+      "sha256": "f76142ff87043ee89943f3b57899e7fd22184c1c92d3c7db54c66a16fa602e55",
+      "bytes": 145,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/arm-6-cache-cleanup-selection.json",
+      "sha256": "ed282e0a63a6c7cd90ae41aeb93fc1147cb665d94105420f16824a0bd35d9f83",
+      "bytes": 121873,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/arm-6-result.json",
+      "sha256": "fa7d9c1eaa7611cc5c6b9f18328d891cb702a705d1f77812eeb022401ed9dc61",
+      "bytes": 1423,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/arm-7-cache-cleanup-completion.json",
+      "sha256": "60d8ec8a9a5f1f27fd9fc4c1e36eb50767fc3adb6c8aea596055e973dfeac485",
+      "bytes": 145,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/arm-7-cache-cleanup-selection.json",
+      "sha256": "7e6fc056676ade93fe5e4844271463929adb8a824d571d28bbc53fd58ac884b0",
+      "bytes": 121507,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/arm-7-result.json",
+      "sha256": "994c96c5530a86f31d5e207c6f3c6fc437788d78b6246bc5ce5f9818dca5fdbd",
+      "bytes": 1428,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/arm-8-cache-cleanup-completion.json",
+      "sha256": "805dd73c1c140bf00958ed9f2ecab9a765fb51b0ffa06c27a2fbcf133c6429a9",
+      "bytes": 145,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/arm-8-cache-cleanup-selection.json",
+      "sha256": "d6d52aa78c127ae11158e86f20426bae2b880590e0b330ac6a38e19a13eaf7b1",
+      "bytes": 121873,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/arm-8-result.json",
+      "sha256": "874d4360afddf4e2451e9acd8e3eb2a48d912b43b445a309ca96c99462b3e768",
+      "bytes": 1428,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/arm-9-cache-cleanup-completion.json",
+      "sha256": "f0a325870cbf4def8d7fe41349f498dca721e66cfb927aa40d8e414a91fd82ae",
+      "bytes": 145,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/arm-9-cache-cleanup-selection.json",
+      "sha256": "0d5f2d43c35d609aae1a213a66d24cd35fdd04f120a0b1bc3fc2898e49698a92",
+      "bytes": 121507,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/arm-9-result.json",
+      "sha256": "48dfde0836f8b13efca87545f1397d5ef87b71f08ed49744d3af04f81c57d213",
+      "bytes": 1427,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/authorization.json",
+      "sha256": "a6683e4f257e7be7c9568970acdf96595aa3742e60f55d3e3a3ca2987e972cf2",
+      "bytes": 1039,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/benchmark-bootstrap.cjs",
+      "sha256": "97ec5638f840c61f895a0293e6037f09165e9de8e759ae547df163baf9376ab2",
+      "bytes": 11243,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/comparison-summary.json",
+      "sha256": "2dae08854ecd161578ecfa936d43a871dc9ba55a090c7281202bcdbc3c9101f9",
+      "bytes": 18739,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/completion.json",
+      "sha256": "2e102272838604ab507f6aaddb889ab19c62410fa16b4c18feac8e88a52977ed",
+      "bytes": 7254,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/content-files.json",
+      "sha256": "53e4708d14d024c98d09d0189a467ffaa8a4c6521e51af5b7792288e6cb1215a",
+      "bytes": 5842703,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/content-receipt.json",
+      "sha256": "bfb3bf3544a17c1e6a88b75df9d48b29a867a942df4156ee90a3a5fa6ae1b2d5",
+      "bytes": 615,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/controller.lua",
+      "sha256": "75d2493179d20ec0a8d727e24b530e0627b8dd4a954f8489cd39f9267b607501",
+      "bytes": 23911,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/inventory-digest.mjs",
+      "sha256": "9993520b17dfaeceedba44688a400daae111b5bbbd2cb1f12f9daddea88c9e02",
+      "bytes": 830,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/launcher-main-sha256.json",
+      "sha256": "22878eac6c023984737f6418f857b63d22a37463feac5b4d033d605922f6e576",
+      "bytes": 261,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/libhidden-fullscreen.dylib",
+      "sha256": "904bc6cd64409e228f02080e02fd889b9f77179f46a8f76219a379bfe4369af4",
+      "bytes": 52368,
+      "mode": 493
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/metal-bootstrap.cjs",
+      "sha256": "67160162b7a41c834ac31ce4966c22a2f04f93ac18869d80a9aaedd96ffb3650",
+      "bytes": 4263,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/outcome.json",
+      "sha256": "73a0c6e3e6434d48e4e1915c4b940420174427044830fea8f072aec9d50c3e17",
+      "bytes": 19835,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/owned-runner.json",
+      "sha256": "7544af9cca63f864a42e4d7f24c8b7289f7ba3a0d53e03912bb6ae15cd5da778",
+      "bytes": 53,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/preflight.json",
+      "sha256": "c18107997edf266d563925a4fd9ce4c6b09ed43a5e51cd566548d0c0d309455e",
+      "bytes": 334,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/preparation.json",
+      "sha256": "5d3dead4e49862f1365f21251d5c83a0e4794125240aab9a63a5105c42f87734",
+      "bytes": 11474,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/prepare-restoration.py",
+      "sha256": "c66a4e9a2a88df875a95ffd1f41900bfcc7849f63d3f2e04a6862052312d81b8",
+      "bytes": 2682,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/prepare.py",
+      "sha256": "54db48f9ac851fbecdb68c85d5829243fa065ea1242e572fa87f7194934e252a",
+      "bytes": 7961,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/protected-inputs.json",
+      "sha256": "afa95cd24035eb89ba546369f5d7f990a07cfa7c2646ccedeb6ea065e7be0cb5",
+      "bytes": 1269,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/protected-source-launcher.json",
+      "sha256": "8b369b9ea49a9ddf3e6cea6cb99a74fa43c2d8eae5909024c02d7feac1291a25",
+      "bytes": 24020,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/run-comparison.py",
+      "sha256": "2f08d1081e652ec581e8fea71d30bc3ca19b961338a902f1225d30f6b4beb6e9",
+      "bytes": 6252,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/scene.txt",
+      "sha256": "9d1e59186d97953ea6ceae43d99d7e9e022efc6e02cddbc9c802b1560cf3e8ca",
+      "bytes": 641,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/screen-guard-locked-allowed.py",
+      "sha256": "dde091d5a04f40d6e69be2df4740cd15bad2c7bea8d084f5be68dcf133a7a4cf",
+      "bytes": 5021,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/screen-guard.json",
+      "sha256": "fc88481821824bf14fe5234f91dc1715e27f76567ef224079a96cea22117e82b",
+      "bytes": 735,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/screen-observations.jsonl",
+      "sha256": "049f3a9bca8d46d2807d5bbd63db20d3e2ae88b975b999d5e963d7cba06da66c",
+      "bytes": 138788,
+      "mode": 420
+    },
+    {
+      "path": "artifacts/validation/v104-three-candidate-performance-20261020/sdl-hidden-preflight.json",
+      "sha256": "6abd28792d62514a3ace200e9bd6461a4bc0c6f3f3b8e6438a6b9780c918b3d6",
+      "bytes": 3675,
+      "mode": 420
+    },
+    {
+      "path": "reports/v104-three-candidate-performance-20261020.md",
+      "sha256": "79796743645935c001d000a6b016c046c0c840873107f003a9e324997a9fa5c6",
+      "bytes": 3946,
+      "mode": 420
+    }
+  ],
+  "fileCount": 150,
+  "totalBytes": 13652809,
+  "scope": "12 actual BAR comparison runs, execution order/settings/FPS/frame samples, source/app pins and cleanup proof; no app binary duplication or actual user profile bytes"
+}

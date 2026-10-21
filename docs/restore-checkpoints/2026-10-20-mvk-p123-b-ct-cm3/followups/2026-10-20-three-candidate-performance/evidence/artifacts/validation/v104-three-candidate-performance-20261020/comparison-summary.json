@@ -1,0 +1,424 @@
+{
+  "status": "completed-12-matched-hidden-fullscreen-sessions",
+  "apps": {
+    "A": {
+      "app": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/runtime/v104-c-reg-candidate-20261020/BAR.app",
+      "label": "P1/P2/P3+B+C-T+C-M3+C-REG",
+      "version": "1.0.3",
+      "inventoryDigest": "58a25d6b861b60f65ed5b8c50effcb236086ec073d8bc706ca74f83f895a8172",
+      "entries": 1194
+    },
+    "B": {
+      "app": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/runtime/v104-drawable-size-candidate-20261020/BAR.app",
+      "label": "A + live window/drawable size query",
+      "version": "1.0.3",
+      "inventoryDigest": "31c9a63693669e552d0fed13add313ac7559405483ba5b3ddaae2bb11582fc04",
+      "entries": 1194
+    },
+    "C": {
+      "app": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/runtime/v104-typed-buffer-callers-candidate-20261020/BAR.app",
+      "label": "B + typed Buffer registration callers",
+      "version": "1.0.3",
+      "inventoryDigest": "4b24ae823be42b8195b7cdc855a87f31a12b09efe42042f67d8013937132ee0e",
+      "entries": 1194
+    }
+  },
+  "groups": {
+    "metal3": {
+      "A": {
+        "app": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/runtime/v104-c-reg-candidate-20261020/BAR.app",
+        "version": "1.0.3",
+        "fps": [
+          46.738563537598,
+          45.432037353516
+        ],
+        "meanFPS": 46.085300445556996,
+        "meanP95Ms": 37.461500167846495,
+        "meanP99Ms": 57.812999725341996
+      },
+      "B": {
+        "app": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/runtime/v104-drawable-size-candidate-20261020/BAR.app",
+        "version": "1.0.3",
+        "fps": [
+          50.886840820313,
+          52.137153625488
+        ],
+        "meanFPS": 51.5119972229005,
+        "meanP95Ms": 28.0940008163455,
+        "meanP99Ms": 41.1650009155275,
+        "FPSChangeFromPreviousPercent": 11.775331233338381,
+        "p95ChangeFromPreviousPercent": -25.005670647277476
+      },
+      "C": {
+        "app": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/runtime/v104-typed-buffer-callers-candidate-20261020/BAR.app",
+        "version": "1.0.3",
+        "fps": [
+          50.252590179443,
+          52.852573394775
+        ],
+        "meanFPS": 51.552581787109,
+        "meanP95Ms": 27.6545000076295,
+        "meanP99Ms": 41.8055000305175,
+        "FPSChangeFromPreviousPercent": 0.07878662524554159,
+        "p95ChangeFromPreviousPercent": -1.5643938063114482,
+        "FPSChangeFromAPercent": 11.863395244674146
+      }
+    },
+    "metal4": {
+      "A": {
+        "app": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/runtime/v104-c-reg-candidate-20261020/BAR.app",
+        "version": "1.0.3",
+        "fps": [
+          40.07400894165,
+          38.909103393555
+        ],
+        "meanFPS": 39.491556167602496,
+        "meanP95Ms": 44.595001220703494,
+        "meanP99Ms": 64.67600059509249
+      },
+      "B": {
+        "app": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/runtime/v104-drawable-size-candidate-20261020/BAR.app",
+        "version": "1.0.3",
+        "fps": [
+          45.687381744385,
+          45.254684448242
+        ],
+        "meanFPS": 45.471033096313505,
+        "meanP95Ms": 30.229000091553,
+        "meanP99Ms": 45.2479991912845,
+        "FPSChangeFromPreviousPercent": 15.141152967824457,
+        "p95ChangeFromPreviousPercent": -32.21437545892698
+      },
+      "C": {
+        "app": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/runtime/v104-typed-buffer-callers-candidate-20261020/BAR.app",
+        "version": "1.0.3",
+        "fps": [
+          46.929958343506,
+          46.44637298584
+        ],
+        "meanFPS": 46.688165664673,
+        "meanP95Ms": 29.1370000839235,
+        "meanP99Ms": 42.116001129150504,
+        "FPSChangeFromPreviousPercent": 2.676720728516213,
+        "p95ChangeFromPreviousPercent": -3.612425168951061,
+        "FPSChangeFromAPercent": 18.223160076366796
+      }
+    }
+  },
+  "executionOrder": [
+    {
+      "ordinal": 1,
+      "role": "A",
+      "backend": "metal3",
+      "app": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/runtime/v104-c-reg-candidate-20261020/BAR.app",
+      "version": "1.0.3",
+      "fps": 46.738563537598,
+      "p95Ms": 37.636001586914,
+      "p99Ms": 56.523998260498,
+      "receipt": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-three-candidate-performance-20261020/1-A-metal3/sessions/lobby-no-native-hook-1792560423797/execution-receipt.json",
+      "receiptSHA256": "1827a7a6fc45737c2099a0cb8a6a74e651e58b2b583b3c07b9315ceb9849b642",
+      "drawIntervals": 1400,
+      "loadedMvk": {
+        "path": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/runtime/v104-c-reg-candidate-20261020/BAR.app/Contents/Resources/bundled-assets/runtime/moltenvk-pr2746/lib/libMoltenVK.1.4.3.dylib",
+        "sha256": "79dfe6e5fe91e35c14751316d0acc5f96837516619945388c5c073e94295ebdc"
+      }
+    },
+    {
+      "ordinal": 2,
+      "role": "B",
+      "backend": "metal3",
+      "app": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/runtime/v104-drawable-size-candidate-20261020/BAR.app",
+      "version": "1.0.3",
+      "fps": 50.886840820313,
+      "p95Ms": 28.408000946045,
+      "p99Ms": 43.34400177002,
+      "receipt": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-three-candidate-performance-20261020/2-B-metal3/sessions/lobby-no-native-hook-1792560545000/execution-receipt.json",
+      "receiptSHA256": "eaa220ce4f8d121b1a40b4fd0e036cd69621a532a037a7b61308820a8dad9bf6",
+      "drawIntervals": 1525,
+      "loadedMvk": {
+        "path": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/runtime/v104-drawable-size-candidate-20261020/BAR.app/Contents/Resources/bundled-assets/runtime/moltenvk-pr2746/lib/libMoltenVK.1.4.3.dylib",
+        "sha256": "79dfe6e5fe91e35c14751316d0acc5f96837516619945388c5c073e94295ebdc"
+      }
+    },
+    {
+      "ordinal": 3,
+      "role": "C",
+      "backend": "metal3",
+      "app": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/runtime/v104-typed-buffer-callers-candidate-20261020/BAR.app",
+      "version": "1.0.3",
+      "fps": 50.252590179443,
+      "p95Ms": 27.566999435425,
+      "p99Ms": 45.075000762939,
+      "receipt": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-three-candidate-performance-20261020/3-C-metal3/sessions/lobby-no-native-hook-1792560663904/execution-receipt.json",
+      "receiptSHA256": "7471ddfbaa02ec2cef2634ca0a835aa6a81835c49ad07ec13ac878e73da99b71",
+      "drawIntervals": 1515,
+      "loadedMvk": {
+        "path": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/runtime/v104-typed-buffer-callers-candidate-20261020/BAR.app/Contents/Resources/bundled-assets/runtime/moltenvk-pr2746/lib/libMoltenVK.1.4.3.dylib",
+        "sha256": "c5ea9b843ba2284c410a0b83b7e2412d4cbc0446f15232b5b317eca56b79f804"
+      }
+    },
+    {
+      "ordinal": 4,
+      "role": "C",
+      "backend": "metal3",
+      "app": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/runtime/v104-typed-buffer-callers-candidate-20261020/BAR.app",
+      "version": "1.0.3",
+      "fps": 52.852573394775,
+      "p95Ms": 27.742000579834,
+      "p99Ms": 38.535999298096,
+      "receipt": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-three-candidate-performance-20261020/4-C-metal3/sessions/lobby-no-native-hook-1792560791920/execution-receipt.json",
+      "receiptSHA256": "107add78d8cfd86f8fa09c37be527ce7c4a00683b40641487426cc5ea6631819",
+      "drawIntervals": 1584,
+      "loadedMvk": {
+        "path": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/runtime/v104-typed-buffer-callers-candidate-20261020/BAR.app/Contents/Resources/bundled-assets/runtime/moltenvk-pr2746/lib/libMoltenVK.1.4.3.dylib",
+        "sha256": "c5ea9b843ba2284c410a0b83b7e2412d4cbc0446f15232b5b317eca56b79f804"
+      }
+    },
+    {
+      "ordinal": 5,
+      "role": "B",
+      "backend": "metal3",
+      "app": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/runtime/v104-drawable-size-candidate-20261020/BAR.app",
+      "version": "1.0.3",
+      "fps": 52.137153625488,
+      "p95Ms": 27.780000686646,
+      "p99Ms": 38.986000061035,
+      "receipt": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-three-candidate-performance-20261020/5-B-metal3/sessions/lobby-no-native-hook-1792560910547/execution-receipt.json",
+      "receiptSHA256": "3e8c26010370204505072706cfae3ab32bad6be08ba139b617a8ef39f9c6f856",
+      "drawIntervals": 1562,
+      "loadedMvk": {
+        "path": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/runtime/v104-drawable-size-candidate-20261020/BAR.app/Contents/Resources/bundled-assets/runtime/moltenvk-pr2746/lib/libMoltenVK.1.4.3.dylib",
+        "sha256": "79dfe6e5fe91e35c14751316d0acc5f96837516619945388c5c073e94295ebdc"
+      }
+    },
+    {
+      "ordinal": 6,
+      "role": "A",
+      "backend": "metal3",
+      "app": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/runtime/v104-c-reg-candidate-20261020/BAR.app",
+      "version": "1.0.3",
+      "fps": 45.432037353516,
+      "p95Ms": 37.286998748779,
+      "p99Ms": 59.102001190186,
+      "receipt": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-three-candidate-performance-20261020/6-A-metal3/sessions/lobby-no-native-hook-1792561029269/execution-receipt.json",
+      "receiptSHA256": "9bf3a4ab8b1dc30c5b4d145c5ae983138848e98e7b0611cc6728ab03584893af",
+      "drawIntervals": 1361,
+      "loadedMvk": {
+        "path": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/runtime/v104-c-reg-candidate-20261020/BAR.app/Contents/Resources/bundled-assets/runtime/moltenvk-pr2746/lib/libMoltenVK.1.4.3.dylib",
+        "sha256": "79dfe6e5fe91e35c14751316d0acc5f96837516619945388c5c073e94295ebdc"
+      }
+    },
+    {
+      "ordinal": 7,
+      "role": "C",
+      "backend": "metal4",
+      "app": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/runtime/v104-typed-buffer-callers-candidate-20261020/BAR.app",
+      "version": "1.0.3",
+      "fps": 46.929958343506,
+      "p95Ms": 29.239999771118,
+      "p99Ms": 41.811000823975,
+      "receipt": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-three-candidate-performance-20261020/7-C-metal4/sessions/lobby-no-native-hook-1792561148015/execution-receipt.json",
+      "receiptSHA256": "e44456e68909b524744ce1d5a055ed6d9c7ab88e9f0205538bf4ee141e9a84c8",
+      "drawIntervals": 1406,
+      "loadedMvk": {
+        "path": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/runtime/v104-typed-buffer-callers-candidate-20261020/BAR.app/Contents/Resources/bundled-assets/runtime/moltenvk-pr2746/lib/libMoltenVK.1.4.3.dylib",
+        "sha256": "c5ea9b843ba2284c410a0b83b7e2412d4cbc0446f15232b5b317eca56b79f804"
+      }
+    },
+    {
+      "ordinal": 8,
+      "role": "B",
+      "backend": "metal4",
+      "app": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/runtime/v104-drawable-size-candidate-20261020/BAR.app",
+      "version": "1.0.3",
+      "fps": 45.687381744385,
+      "p95Ms": 30.621999740601,
+      "p99Ms": 44.266998291016,
+      "receipt": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-three-candidate-performance-20261020/8-B-metal4/sessions/lobby-no-native-hook-1792561266507/execution-receipt.json",
+      "receiptSHA256": "b40542139191db78cb1055b4a8cb041573b6e5a07be52ec4ca490b9a17103274",
+      "drawIntervals": 1369,
+      "loadedMvk": {
+        "path": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/runtime/v104-drawable-size-candidate-20261020/BAR.app/Contents/Resources/bundled-assets/runtime/moltenvk-pr2746/lib/libMoltenVK.1.4.3.dylib",
+        "sha256": "79dfe6e5fe91e35c14751316d0acc5f96837516619945388c5c073e94295ebdc"
+      }
+    },
+    {
+      "ordinal": 9,
+      "role": "A",
+      "backend": "metal4",
+      "app": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/runtime/v104-c-reg-candidate-20261020/BAR.app",
+      "version": "1.0.3",
+      "fps": 40.07400894165,
+      "p95Ms": 42.678001403809,
+      "p99Ms": 60.464000701904,
+      "receipt": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-three-candidate-performance-20261020/9-A-metal4/sessions/lobby-no-native-hook-1792561385053/execution-receipt.json",
+      "receiptSHA256": "92a4f32fe5a94d49f64f33ae0d7cfdb3435b896082c04292eedb02f85be98772",
+      "drawIntervals": 1201,
+      "loadedMvk": {
+        "path": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/runtime/v104-c-reg-candidate-20261020/BAR.app/Contents/Resources/bundled-assets/runtime/moltenvk-pr2746/lib/libMoltenVK.1.4.3.dylib",
+        "sha256": "79dfe6e5fe91e35c14751316d0acc5f96837516619945388c5c073e94295ebdc"
+      }
+    },
+    {
+      "ordinal": 10,
+      "role": "A",
+      "backend": "metal4",
+      "app": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/runtime/v104-c-reg-candidate-20261020/BAR.app",
+      "version": "1.0.3",
+      "fps": 38.909103393555,
+      "p95Ms": 46.512001037598,
+      "p99Ms": 68.888000488281,
+      "receipt": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-three-candidate-performance-20261020/10-A-metal4/sessions/lobby-no-native-hook-1792561503635/execution-receipt.json",
+      "receiptSHA256": "c7f110ec3d4df5ad3854b2a65e3d9d85bcb10640610922c54b5c05037d3f025b",
+      "drawIntervals": 1166,
+      "loadedMvk": {
+        "path": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/runtime/v104-c-reg-candidate-20261020/BAR.app/Contents/Resources/bundled-assets/runtime/moltenvk-pr2746/lib/libMoltenVK.1.4.3.dylib",
+        "sha256": "79dfe6e5fe91e35c14751316d0acc5f96837516619945388c5c073e94295ebdc"
+      }
+    },
+    {
+      "ordinal": 11,
+      "role": "B",
+      "backend": "metal4",
+      "app": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/runtime/v104-drawable-size-candidate-20261020/BAR.app",
+      "version": "1.0.3",
+      "fps": 45.254684448242,
+      "p95Ms": 29.836000442505,
+      "p99Ms": 46.229000091553,
+      "receipt": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-three-candidate-performance-20261020/11-B-metal4/sessions/lobby-no-native-hook-1792561623078/execution-receipt.json",
+      "receiptSHA256": "22170effd547d2073865a40a550ab8fcc3fe783605b22beccba2df8adbeeb1a4",
+      "drawIntervals": 1356,
+      "loadedMvk": {
+        "path": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/runtime/v104-drawable-size-candidate-20261020/BAR.app/Contents/Resources/bundled-assets/runtime/moltenvk-pr2746/lib/libMoltenVK.1.4.3.dylib",
+        "sha256": "79dfe6e5fe91e35c14751316d0acc5f96837516619945388c5c073e94295ebdc"
+      }
+    },
+    {
+      "ordinal": 12,
+      "role": "C",
+      "backend": "metal4",
+      "app": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/runtime/v104-typed-buffer-callers-candidate-20261020/BAR.app",
+      "version": "1.0.3",
+      "fps": 46.44637298584,
+      "p95Ms": 29.034000396729,
+      "p99Ms": 42.421001434326,
+      "receipt": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-three-candidate-performance-20261020/12-C-metal4/sessions/lobby-no-native-hook-1792561742146/execution-receipt.json",
+      "receiptSHA256": "eb801e6c3895fe1339b3df7655163f6961b397e686b7f2541d2042f352b1cb7f",
+      "drawIntervals": 1392,
+      "loadedMvk": {
+        "path": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/runtime/v104-typed-buffer-callers-candidate-20261020/BAR.app/Contents/Resources/bundled-assets/runtime/moltenvk-pr2746/lib/libMoltenVK.1.4.3.dylib",
+        "sha256": "c5ea9b843ba2284c410a0b83b7e2412d4cbc0446f15232b5b317eca56b79f804"
+      }
+    }
+  ],
+  "conditions": {
+    "quality": {
+      "config": {
+        "MSAA": 0,
+        "MSAALevel": 0,
+        "MinSampleShadingRate": 0,
+        "VSync": 0,
+        "VSyncGame": 0
+      },
+      "glSamples": 0,
+      "glSamplesConfirmed4": false,
+      "glSamplesScope": "DrawScreen current framebuffer; resolved UI targets may report 0 or 1",
+      "mapEdge": {
+        "actual": 0.5,
+        "exceptionApplied": true,
+        "voidGround": false,
+        "voidWater": true,
+        "wanted": true,
+        "widgetActive": false
+      },
+      "optionValues": {
+        "advmapshading": true,
+        "attackrange_numrangesmult": 1,
+        "bloomdeferred": true,
+        "bloomdeferred_quality": 3,
+        "camera": 3,
+        "cusgl4": true,
+        "decals": true,
+        "decalsgl4": true,
+        "distortioneffects": true,
+        "fogdiaglines": 0,
+        "grass": true,
+        "lighteffects": true,
+        "lighteffects_nanoparticlelights": true,
+        "lighteffects_screenspaceshadows": 4,
+        "limitidlefps": false,
+        "limitoffscreenfps": false,
+        "losrange": true,
+        "mapedgeextension": 0.5,
+        "msaa": 1,
+        "particles": 40000,
+        "preset": 5,
+        "shadowslider": 6,
+        "snow": true,
+        "ssao": true,
+        "ssao_quality": 3,
+        "vsync": 1,
+        "water": 2
+      },
+      "optionsVerified": 20,
+      "ultraPreset": 5,
+      "ultraVerified": true
+    },
+    "camera": {
+      "dist": 2254.7705078125,
+      "dx": 0,
+      "dy": -0.924302399158,
+      "dz": -0.381660997868,
+      "fov": 45,
+      "mode": 2,
+      "name": "spring",
+      "px": 4096,
+      "py": 254.770629882813,
+      "pz": 3072,
+      "rx": 2.75,
+      "ry": 0,
+      "rz": 0
+    },
+    "resolution": {
+      "height": 950,
+      "width": 1512
+    },
+    "seed": 7654321,
+    "workload": {
+      "placementSpan": 1400,
+      "populationThresholdIsNotHardCap": true,
+      "populationThresholdPerTeam": 80,
+      "rampIncluded": true,
+      "replenishBatchPerTeam": 8,
+      "replenishEverySimulationFrames": 3,
+      "requestedSimulationSpeed": 1,
+      "unitTypeOpponent": "armbull",
+      "unitTypeOwn": "armbull"
+    },
+    "officialCommand": "luarules benchmark armbull armbull 80 8 1400",
+    "game": "Beyond All Reason",
+    "map": "Seths Ravine Remake 1.3.1"
+  },
+  "powerObservations": 110,
+  "thermalStates": [
+    0
+  ],
+  "screenRestored": true,
+  "awakeReleased": true,
+  "protectedAppsSourcesLauncherAndUserProfilesExact": true,
+  "cleanup": {
+    "roots": 72,
+    "leaves": 3996,
+    "logicalBytes": 115443398,
+    "physicalBytesMeasured": false
+  },
+  "nPerAppBackend": 2,
+  "meanMethod": "Arithmetic mean of two per-run FPS/p95/p99 summaries; percentiles are not pooled.",
+  "limitations": [
+    "Small n=2, hidden presentation with SDL native display/Space transition deferred.",
+    "New games may complete normally without resolving the prior separate sampled-exit failure.",
+    "Earlier concurrent-work FPS and native fixture timestamp mismatch are not pooled or claimed fixed."
+  ],
+  "installed": false,
+  "appPromoted": false
+}

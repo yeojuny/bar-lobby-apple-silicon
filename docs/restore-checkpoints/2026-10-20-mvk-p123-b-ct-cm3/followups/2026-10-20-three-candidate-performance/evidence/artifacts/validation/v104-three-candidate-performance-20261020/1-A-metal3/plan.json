@@ -1,0 +1,214 @@
+{
+  "schema": "v104-three-candidate-1-A-metal3-v1",
+  "status": "prepared-current-authorized-comparison",
+  "benchmarkRole": "parent",
+  "app": {
+    "app": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/runtime/v104-c-reg-candidate-20261020/BAR.app",
+    "inventorySha256": "58a25d6b861b60f65ed5b8c50effcb236086ec073d8bc706ca74f83f895a8172"
+  },
+  "appAsar": {
+    "path": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/runtime/v104-c-reg-candidate-20261020/BAR.app/Contents/Resources/app.asar",
+    "sha256": "3e723fc2e06664b9caf8e357b25e77c574da4f026e653e002d31bece29174d29"
+  },
+  "protectedApps": [
+    {
+      "app": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/runtime/v104-c-reg-candidate-20261020/BAR.app",
+      "inventorySha256": "58a25d6b861b60f65ed5b8c50effcb236086ec073d8bc706ca74f83f895a8172"
+    },
+    {
+      "app": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/runtime/v104-drawable-size-candidate-20261020/BAR.app",
+      "inventorySha256": "31c9a63693669e552d0fed13add313ac7559405483ba5b3ddaae2bb11582fc04"
+    },
+    {
+      "app": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/runtime/v104-typed-buffer-callers-candidate-20261020/BAR.app",
+      "inventorySha256": "4b24ae823be42b8195b7cdc855a87f31a12b09efe42042f67d8013937132ee0e"
+    }
+  ],
+  "lanes": {
+    "lobby": {
+      "engine": {
+        "path": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/runtime/v104-c-reg-candidate-20261020/BAR.app/Contents/Resources/bundled-assets/engine/2026.09.01-24-g01efdf4 master/spring",
+        "sha256": "16cdd896273e09b89e385ec53c24d0216df9a17dd5d7b80c78dc5f8471f13424",
+        "bytes": 31275968,
+        "version": "2026.09.01-24-g01efdf4 master"
+      },
+      "guard": {
+        "path": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-three-candidate-performance-20261020/libhidden-fullscreen.dylib",
+        "sha256": "904bc6cd64409e228f02080e02fd889b9f77179f46a8f76219a379bfe4369af4"
+      }
+    }
+  },
+  "sharedRuntime": [
+    {
+      "path": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/runtime/v104-c-reg-candidate-20261020/BAR.app/Contents/Resources/bundled-assets/runtime/sdl3/lib/libSDL3.0.dylib",
+      "sha256": "6a76d38b6cfcd75122ea51215af9dd8be1972c984a431adb2cfa0c6731354820"
+    },
+    {
+      "path": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/runtime/v104-c-reg-candidate-20261020/BAR.app/Contents/Resources/bundled-assets/runtime/mesa-zink/lib/libEGL.1.dylib",
+      "sha256": "62adb20871cf6985bde4b20c78ffabd37a590fa9023cf362f87ce16739a3f533"
+    },
+    {
+      "path": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/runtime/v104-c-reg-candidate-20261020/BAR.app/Contents/Resources/bundled-assets/runtime/mesa-zink/lib/libgallium-26.3.0-devel.dylib",
+      "sha256": "ca4f3ddd7a0bf20c7f39636ea58d04ba42bc8b9170f871eac62a53c068ad9c30"
+    },
+    {
+      "path": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/runtime/v104-c-reg-candidate-20261020/BAR.app/Contents/Resources/bundled-assets/runtime/vulkan-loader/lib/libvulkan.1.4.365.dylib",
+      "sha256": "b2b4bb1c9db72ff8639958e3137b308c67c15fe35cb846ffd5b1f7703cc0f7cd"
+    },
+    {
+      "path": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/runtime/v104-c-reg-candidate-20261020/BAR.app/Contents/Resources/bundled-assets/runtime/moltenvk-pr2746/lib/libMoltenVK.1.4.3.dylib",
+      "sha256": "79dfe6e5fe91e35c14751316d0acc5f96837516619945388c5c073e94295ebdc"
+    },
+    {
+      "path": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/runtime/v104-c-reg-candidate-20261020/BAR.app/Contents/Resources/bundled-assets/runtime/moltenvk-pr2746/MoltenVK_icd.json",
+      "sha256": "c6956ddd9a7e46a66f1ed9b99f12e54098258d29f593a6b0fbafdf010f7fb86f"
+    }
+  ],
+  "controller": {
+    "path": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-three-candidate-performance-20261020/controller.lua",
+    "sha256": "75d2493179d20ec0a8d727e24b530e0627b8dd4a954f8489cd39f9267b607501"
+  },
+  "scene": {
+    "path": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-three-candidate-performance-20261020/scene.txt",
+    "sha256": "9d1e59186d97953ea6ceae43d99d7e9e022efc6e02cddbc9c802b1560cf3e8ca"
+  },
+  "game": "Beyond All Reason test-31671-ad2e1b7",
+  "map": "Seths Ravine Remake 1.3.1",
+  "contentFiles": {
+    "path": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-three-candidate-performance-20261020/content-files.json",
+    "sha256": "53e4708d14d024c98d09d0189a467ffaa8a4c6521e51af5b7792288e6cb1215a"
+  },
+  "inputPins": {
+    "state/config/settings.json": {
+      "path": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-three-candidate-performance-20261020/inputs/state/config/settings.json",
+      "sha256": "1a81d3bba445be4686fb966b58047c855486265d2f77e7e453cd9482c64a9b6a"
+    },
+    "state/data/springsettings.cfg": {
+      "path": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-three-candidate-performance-20261020/inputs/state/data/springsettings.cfg",
+      "sha256": "09863a1059832f81989e7f304a5a084ca5d9c5c9b86b76ec8feaac69dd124923"
+    },
+    "state/data/LuaUI/Config/BYAR.lua": {
+      "path": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-three-candidate-performance-20261020/inputs/state/data/LuaUI/Config/BYAR.lua",
+      "sha256": "30e309c65858bfa658f2d80f502e98dc03ebc10285e65cf787fb93f30e6b22e1"
+    }
+  },
+  "executionFiles": [
+    {
+      "path": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-three-candidate-performance-20261020/1-A-metal3/effective-host.mjs",
+      "sha256": "ba5f2d8446ed4a7083111ee203f310496eaf853ac660f2dccfeea409140db512"
+    },
+    {
+      "path": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-three-candidate-performance-20261020/benchmark-bootstrap.cjs",
+      "sha256": "97ec5638f840c61f895a0293e6037f09165e9de8e759ae547df163baf9376ab2"
+    },
+    {
+      "path": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-three-candidate-performance-20261020/metal-bootstrap.cjs",
+      "sha256": "67160162b7a41c834ac31ce4966c22a2f04f93ac18869d80a9aaedd96ffb3650"
+    },
+    {
+      "path": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/tools/lib/r92-measurement-ack-boundary.mjs",
+      "sha256": "71f4ac11082a72144fb96237efe370ade4c39e964e9ebd31d794636349bcfa5e"
+    },
+    {
+      "path": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/tools/lib/run94-current-content-gate.cjs",
+      "sha256": "1f5209c1e6300fae8035be0f186c74e73effc734ed9aeea9235f3b4bc228f58a"
+    },
+    {
+      "path": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/tools/lib/run94-chobby-content-gate.cjs",
+      "sha256": "e5f43c7f49c028077f2d95c566f5e9ac569b37eb1074f24808145a64f16d0723"
+    }
+  ],
+  "qualifiedAdapters": {
+    "lobby": {
+      "path": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-three-candidate-performance-20261020/benchmark-bootstrap.cjs",
+      "sha256": "97ec5638f840c61f895a0293e6037f09165e9de8e759ae547df163baf9376ab2"
+    }
+  },
+  "acceptanceBootstrap": {
+    "path": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-three-candidate-performance-20261020/metal-bootstrap.cjs",
+    "sha256": "67160162b7a41c834ac31ce4966c22a2f04f93ac18869d80a9aaedd96ffb3650"
+  },
+  "authorization": {
+    "path": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-three-candidate-performance-20261020/authorization.json",
+    "sha256": "a6683e4f257e7be7c9568970acdf96595aa3742e60f55d3e3a3ca2987e972cf2"
+  },
+  "sdlSha256": "6a76d38b6cfcd75122ea51215af9dd8be1972c984a431adb2cfa0c6731354820",
+  "hiddenQualification": {
+    "preflight": {
+      "path": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-three-candidate-performance-20261020/sdl-hidden-preflight.json",
+      "sha256": "6abd28792d62514a3ace200e9bd6461a4bc0c6f3f3b8e6438a6b9780c918b3d6"
+    },
+    "guardSha256": "904bc6cd64409e228f02080e02fd889b9f77179f46a8f76219a379bfe4369af4",
+    "sdlSha256": "6a76d38b6cfcd75122ea51215af9dd8be1972c984a431adb2cfa0c6731354820"
+  },
+  "buildDigest": "16cdd896273e09b89e385ec53c24d0216df9a17dd5d7b80c78dc5f8471f13424",
+  "mesaGitSha1": "9ba10f0aab543df342535ac4d7d3e559fe825793636f9175232ae23b700a6cb1",
+  "mvkGitRev": "f52facf7",
+  "presentationOverrides": [],
+  "privateFixtureFiles": [],
+  "sequence": [
+    "lobby:single"
+  ],
+  "executionGate": {
+    "authorized": true,
+    "strictHiddenOnly": true,
+    "visibleFallbackAllowed": false,
+    "maximumGameSessions": 1
+  },
+  "benchmark": {
+    "command": "luarules benchmark armbull armbull 80 8 1400",
+    "frames": 900,
+    "preset": "Ultra",
+    "MSAA": 0,
+    "MSAALevel": -1,
+    "VSync": 0,
+    "VSyncGame": 0
+  },
+  "limits": [
+    "Three cumulative frozen candidates; 12 sessions, reversed order, no retries",
+    "Identical controller/scene/seed/settings/cache policy/fullscreen guard; no sampler or diagnostics",
+    "A->B isolates drawable-size helper; B->C isolates typed Buffer callers; no app/source changes during measurement"
+  ],
+  "nativeMetal4": false,
+  "power": {
+    "source": "AC Power",
+    "lowPowerMode": true,
+    "settingsChanged": false
+  },
+  "testIdentity": "1-A-metal3",
+  "costDiagnostics": false,
+  "timelineDiagnostics": false,
+  "spirvCapture": false,
+  "renderpassDefaultEnabled": true,
+  "moltenvkNativePresentSemaphores": true,
+  "disableAsyncWait": true,
+  "shutdownBoundary": {
+    "activeLimitsUnchanged": true,
+    "evidence": {
+      "path": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/r92-post-measurement-exit-boundary-20261010/outcome.json",
+      "sha256": "26dd6288014759d46dbb6b42db65c146209b654d47f3a741c532bbe217fa0696"
+    },
+    "globalDeadlineMilliseconds": 400000,
+    "nativeExitDeadlineMilliseconds": 15000
+  },
+  "costProfile": false,
+  "comparisonVariant": "A",
+  "screenStopPath": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-three-candidate-performance-20261020/screen-stop.json",
+  "historicalLobbyFullscreen": false,
+  "allowOwnedLobbyForeground": false,
+  "expectedDrawable": {
+    "width": 1512,
+    "height": 950
+  },
+  "menu": "BYAR Chobby test-4660-15c02d2",
+  "sourceAudit": {
+    "path": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-three-candidate-performance-20261020/content-receipt.json",
+    "sha256": "bfb3bf3544a17c1e6a88b75df9d48b29a867a942df4156ee90a3a5fa6ae1b2d5"
+  },
+  "hiddenWindowGuard": {
+    "path": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-three-candidate-performance-20261020/libhidden-fullscreen.dylib",
+    "sha256": "904bc6cd64409e228f02080e02fd889b9f77179f46a8f76219a379bfe4369af4"
+  },
+  "gameFullscreen": true,
+  "nativePresentationDeferredWhileHidden": true
+}
