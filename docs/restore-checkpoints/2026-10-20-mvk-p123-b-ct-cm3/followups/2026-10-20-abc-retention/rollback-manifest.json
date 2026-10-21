@@ -1,0 +1,258 @@
+{
+  "schema": "bar-abc-from-retained-c-v1",
+  "parent": "87d12b908edfc2b27af7b47b0ae1cd81403d870c",
+  "basis": "C = typed Buffer caller candidate; exact1194-entry inventory required",
+  "versionMetadata": "1.0.3 for all; experimental local1.0.4 candidate labels only",
+  "baseInventory": "inventories/C.json",
+  "targets": {
+    "A": {
+      "inventory": "inventories/A.json",
+      "overlay": [
+        {
+          "path": "Contents/MacOS/BAR",
+          "payloadKey": "ec6a4b10ca934c47bcaeb56425758f64e7463a4a62cc4f2bfa9e60f406904059-493",
+          "before": {
+            "type": "file",
+            "sha256": "4f92a10fad7f1ba9c2ef1bba785e33439a84655c3299aecc9153f8ed79952ab1",
+            "bytes": 33920,
+            "mode": 493
+          },
+          "after": {
+            "type": "file",
+            "sha256": "ec6a4b10ca934c47bcaeb56425758f64e7463a4a62cc4f2bfa9e60f406904059",
+            "bytes": 33920,
+            "mode": 493
+          }
+        },
+        {
+          "path": "Contents/Resources/bundled-assets/engine/2026.07.04/spring",
+          "payloadKey": "da087778db8ce1d6ba345828420389e29772df165bbb1a7f02179d861ea95d53-493",
+          "before": {
+            "type": "file",
+            "sha256": "f9653c8b199fad38836715d916a24ead8365f12ea4de38450f5ed33480d24014",
+            "bytes": 34960000,
+            "mode": 493
+          },
+          "after": {
+            "type": "file",
+            "sha256": "da087778db8ce1d6ba345828420389e29772df165bbb1a7f02179d861ea95d53",
+            "bytes": 34959808,
+            "mode": 493
+          }
+        },
+        {
+          "path": "Contents/Resources/bundled-assets/engine/2026.09.01-24-g01efdf4 master/spring",
+          "payloadKey": "16cdd896273e09b89e385ec53c24d0216df9a17dd5d7b80c78dc5f8471f13424-493",
+          "before": {
+            "type": "file",
+            "sha256": "d715965659b977e05b8ccafe76fae0936cade1a7481871acff7eec876366f1aa",
+            "bytes": 31276160,
+            "mode": 493
+          },
+          "after": {
+            "type": "file",
+            "sha256": "16cdd896273e09b89e385ec53c24d0216df9a17dd5d7b80c78dc5f8471f13424",
+            "bytes": 31275968,
+            "mode": 493
+          }
+        },
+        {
+          "path": "Contents/Resources/bundled-assets/runtime/moltenvk-pr2746/lib/libMoltenVK.1.4.3.dylib",
+          "payloadKey": "79dfe6e5fe91e35c14751316d0acc5f96837516619945388c5c073e94295ebdc-493",
+          "before": {
+            "type": "file",
+            "sha256": "c5ea9b843ba2284c410a0b83b7e2412d4cbc0446f15232b5b317eca56b79f804",
+            "bytes": 6437920,
+            "mode": 493
+          },
+          "after": {
+            "type": "file",
+            "sha256": "79dfe6e5fe91e35c14751316d0acc5f96837516619945388c5c073e94295ebdc",
+            "bytes": 6437920,
+            "mode": 493
+          }
+        },
+        {
+          "path": "Contents/_CodeSignature/CodeResources",
+          "payloadKey": "99f158a3da570a8f0d98f2bffc2c772690b23c229c14a05b0ee020220de000e7-420",
+          "before": {
+            "type": "file",
+            "sha256": "1188a273a15b787a61256c6d2f2f5a88f36baded9a4f2efe3eb0b32a4305daab",
+            "bytes": 328766,
+            "mode": 420
+          },
+          "after": {
+            "type": "file",
+            "sha256": "99f158a3da570a8f0d98f2bffc2c772690b23c229c14a05b0ee020220de000e7",
+            "bytes": 328766,
+            "mode": 420
+          }
+        }
+      ]
+    },
+    "B": {
+      "inventory": "inventories/B.json",
+      "overlay": [
+        {
+          "path": "Contents/MacOS/BAR",
+          "payloadKey": "b51aed93b19f89e0ca2cacaf54470a7a3c7a23569a7a50099bba3d9b7c66722a-493",
+          "before": {
+            "type": "file",
+            "sha256": "4f92a10fad7f1ba9c2ef1bba785e33439a84655c3299aecc9153f8ed79952ab1",
+            "bytes": 33920,
+            "mode": 493
+          },
+          "after": {
+            "type": "file",
+            "sha256": "b51aed93b19f89e0ca2cacaf54470a7a3c7a23569a7a50099bba3d9b7c66722a",
+            "bytes": 33920,
+            "mode": 493
+          }
+        },
+        {
+          "path": "Contents/Resources/bundled-assets/runtime/moltenvk-pr2746/lib/libMoltenVK.1.4.3.dylib",
+          "payloadKey": "79dfe6e5fe91e35c14751316d0acc5f96837516619945388c5c073e94295ebdc-493",
+          "before": {
+            "type": "file",
+            "sha256": "c5ea9b843ba2284c410a0b83b7e2412d4cbc0446f15232b5b317eca56b79f804",
+            "bytes": 6437920,
+            "mode": 493
+          },
+          "after": {
+            "type": "file",
+            "sha256": "79dfe6e5fe91e35c14751316d0acc5f96837516619945388c5c073e94295ebdc",
+            "bytes": 6437920,
+            "mode": 493
+          }
+        },
+        {
+          "path": "Contents/_CodeSignature/CodeResources",
+          "payloadKey": "afdfe611cb26425432e6df224402bf1e3e43c57a8991ae025f0bb972d8133804-420",
+          "before": {
+            "type": "file",
+            "sha256": "1188a273a15b787a61256c6d2f2f5a88f36baded9a4f2efe3eb0b32a4305daab",
+            "bytes": 328766,
+            "mode": 420
+          },
+          "after": {
+            "type": "file",
+            "sha256": "afdfe611cb26425432e6df224402bf1e3e43c57a8991ae025f0bb972d8133804",
+            "bytes": 328766,
+            "mode": 420
+          }
+        }
+      ]
+    }
+  },
+  "payloads": {
+    "ec6a4b10ca934c47bcaeb56425758f64e7463a4a62cc4f2bfa9e60f406904059-493": {
+      "sha256": "ec6a4b10ca934c47bcaeb56425758f64e7463a4a62cc4f2bfa9e60f406904059",
+      "gitBlobSHA1": "3e96570b0cb45681784511433a1a74eadc56fc73",
+      "bytes": 33920,
+      "mode": 493,
+      "gitMode": "100755",
+      "storage": "existing-immutable-blob",
+      "commit": "87d12b908edfc2b27af7b47b0ae1cd81403d870c",
+      "repositoryPath": "docs/restore-checkpoints/2026-10-20-mvk-p123-b-ct-cm3/followups/2026-10-20-c-reg/evidence/artifacts/runtime/v104-c-reg-candidate-20261020/BAR.app/Contents/MacOS/BAR",
+      "url": "https://raw.githubusercontent.com/yeojuny/bar-lobby-apple-silicon/87d12b908edfc2b27af7b47b0ae1cd81403d870c/docs/restore-checkpoints/2026-10-20-mvk-p123-b-ct-cm3/followups/2026-10-20-c-reg/evidence/artifacts/runtime/v104-c-reg-candidate-20261020/BAR.app/Contents/MacOS/BAR"
+    },
+    "da087778db8ce1d6ba345828420389e29772df165bbb1a7f02179d861ea95d53-493": {
+      "sha256": "da087778db8ce1d6ba345828420389e29772df165bbb1a7f02179d861ea95d53",
+      "gitBlobSHA1": "3d81e777dd9484390200735fd362f85fe34f6128",
+      "bytes": 34959808,
+      "mode": 493,
+      "gitMode": "100755",
+      "storage": "this-checkpoint",
+      "localPath": "payloads/da087778db8ce1d6ba345828420389e29772df165bbb1a7f02179d861ea95d53-spring",
+      "repositoryPath": "docs/restore-checkpoints/2026-10-20-mvk-p123-b-ct-cm3/followups/2026-10-20-abc-retention/payloads/da087778db8ce1d6ba345828420389e29772df165bbb1a7f02179d861ea95d53-spring",
+      "sourceRelativePath": "artifacts/runtime/v104-c-reg-candidate-20261020/BAR.app/Contents/Resources/bundled-assets/engine/2026.07.04/spring"
+    },
+    "16cdd896273e09b89e385ec53c24d0216df9a17dd5d7b80c78dc5f8471f13424-493": {
+      "sha256": "16cdd896273e09b89e385ec53c24d0216df9a17dd5d7b80c78dc5f8471f13424",
+      "gitBlobSHA1": "da8f531589148482d4b3ab8ba3ea029e6ce57a17",
+      "bytes": 31275968,
+      "mode": 493,
+      "gitMode": "100755",
+      "storage": "this-checkpoint",
+      "localPath": "payloads/16cdd896273e09b89e385ec53c24d0216df9a17dd5d7b80c78dc5f8471f13424-spring",
+      "repositoryPath": "docs/restore-checkpoints/2026-10-20-mvk-p123-b-ct-cm3/followups/2026-10-20-abc-retention/payloads/16cdd896273e09b89e385ec53c24d0216df9a17dd5d7b80c78dc5f8471f13424-spring",
+      "sourceRelativePath": "artifacts/runtime/v104-c-reg-candidate-20261020/BAR.app/Contents/Resources/bundled-assets/engine/2026.09.01-24-g01efdf4 master/spring"
+    },
+    "79dfe6e5fe91e35c14751316d0acc5f96837516619945388c5c073e94295ebdc-493": {
+      "sha256": "79dfe6e5fe91e35c14751316d0acc5f96837516619945388c5c073e94295ebdc",
+      "gitBlobSHA1": "29b0c5df859ef87422a4fa2cf98fac597ab8527d",
+      "bytes": 6437920,
+      "mode": 493,
+      "gitMode": "100755",
+      "storage": "existing-immutable-blob",
+      "commit": "87d12b908edfc2b27af7b47b0ae1cd81403d870c",
+      "repositoryPath": "docs/restore-checkpoints/2026-10-20-mvk-p123-b-ct-cm3/followups/2026-10-20-c-reg/evidence/artifacts/runtime/v104-c-reg-candidate-20261020/BAR.app/Contents/Resources/bundled-assets/runtime/moltenvk-pr2746/lib/libMoltenVK.1.4.3.dylib",
+      "url": "https://raw.githubusercontent.com/yeojuny/bar-lobby-apple-silicon/87d12b908edfc2b27af7b47b0ae1cd81403d870c/docs/restore-checkpoints/2026-10-20-mvk-p123-b-ct-cm3/followups/2026-10-20-c-reg/evidence/artifacts/runtime/v104-c-reg-candidate-20261020/BAR.app/Contents/Resources/bundled-assets/runtime/moltenvk-pr2746/lib/libMoltenVK.1.4.3.dylib"
+    },
+    "99f158a3da570a8f0d98f2bffc2c772690b23c229c14a05b0ee020220de000e7-420": {
+      "sha256": "99f158a3da570a8f0d98f2bffc2c772690b23c229c14a05b0ee020220de000e7",
+      "gitBlobSHA1": "c6c32b1b58a5c38172c612f4e46c67662840f110",
+      "bytes": 328766,
+      "mode": 420,
+      "gitMode": "100644",
+      "storage": "existing-immutable-blob",
+      "commit": "87d12b908edfc2b27af7b47b0ae1cd81403d870c",
+      "repositoryPath": "docs/restore-checkpoints/2026-10-20-mvk-p123-b-ct-cm3/followups/2026-10-20-c-reg/evidence/artifacts/runtime/v104-c-reg-candidate-20261020/BAR.app/Contents/_CodeSignature/CodeResources",
+      "url": "https://raw.githubusercontent.com/yeojuny/bar-lobby-apple-silicon/87d12b908edfc2b27af7b47b0ae1cd81403d870c/docs/restore-checkpoints/2026-10-20-mvk-p123-b-ct-cm3/followups/2026-10-20-c-reg/evidence/artifacts/runtime/v104-c-reg-candidate-20261020/BAR.app/Contents/_CodeSignature/CodeResources"
+    },
+    "b51aed93b19f89e0ca2cacaf54470a7a3c7a23569a7a50099bba3d9b7c66722a-493": {
+      "sha256": "b51aed93b19f89e0ca2cacaf54470a7a3c7a23569a7a50099bba3d9b7c66722a",
+      "gitBlobSHA1": "4e1a1d91216e6d63002d0c10345201412ebd9030",
+      "bytes": 33920,
+      "mode": 493,
+      "gitMode": "100755",
+      "storage": "existing-immutable-blob",
+      "commit": "87d12b908edfc2b27af7b47b0ae1cd81403d870c",
+      "repositoryPath": "docs/restore-checkpoints/2026-10-20-mvk-p123-b-ct-cm3/followups/2026-10-20-drawable-size/evidence/artifacts/runtime/v104-drawable-size-candidate-20261020/BAR.app/Contents/MacOS/BAR",
+      "url": "https://raw.githubusercontent.com/yeojuny/bar-lobby-apple-silicon/87d12b908edfc2b27af7b47b0ae1cd81403d870c/docs/restore-checkpoints/2026-10-20-mvk-p123-b-ct-cm3/followups/2026-10-20-drawable-size/evidence/artifacts/runtime/v104-drawable-size-candidate-20261020/BAR.app/Contents/MacOS/BAR"
+    },
+    "afdfe611cb26425432e6df224402bf1e3e43c57a8991ae025f0bb972d8133804-420": {
+      "sha256": "afdfe611cb26425432e6df224402bf1e3e43c57a8991ae025f0bb972d8133804",
+      "gitBlobSHA1": "b0c22429f18d049726a2eac1e80be6669d9d0646",
+      "bytes": 328766,
+      "mode": 420,
+      "gitMode": "100644",
+      "storage": "existing-immutable-blob",
+      "commit": "87d12b908edfc2b27af7b47b0ae1cd81403d870c",
+      "repositoryPath": "docs/restore-checkpoints/2026-10-20-mvk-p123-b-ct-cm3/followups/2026-10-20-drawable-size/evidence/artifacts/runtime/v104-drawable-size-candidate-20261020/BAR.app/Contents/_CodeSignature/CodeResources",
+      "url": "https://raw.githubusercontent.com/yeojuny/bar-lobby-apple-silicon/87d12b908edfc2b27af7b47b0ae1cd81403d870c/docs/restore-checkpoints/2026-10-20-mvk-p123-b-ct-cm3/followups/2026-10-20-drawable-size/evidence/artifacts/runtime/v104-drawable-size-candidate-20261020/BAR.app/Contents/_CodeSignature/CodeResources"
+    }
+  },
+  "externalReleaseRequiredForCToAB": false,
+  "fullAppArchivesAdded": false,
+  "existingPayloadCommit": "87d12b908edfc2b27af7b47b0ae1cd81403d870c",
+  "sourceBeforeSHA256": "eac6200e9b94aa8e48c06545a8957701fb0e15c68ac06c2c57bd20c2df0c2a2a",
+  "originalInventorySHA256": {
+    "A": "e7d4cf403e3181f25d7221be1f7c15c6d7033039beb4d7312ed0ea0d4cd628fa",
+    "B": "a973a102d84574ba4d960bee5af6da47b536f623855d3f5c294ebc99f8f9ef92",
+    "C": "698673f9aadff567322131fabfdb534b2683b6b233203d0f4bd6f8364c08af3a"
+  },
+  "qualifications": [
+    "n2 per app/backend; descriptive small-sample comparisons",
+    "Hidden SDL native display/Space transition deferred; other OS load not completely controlled",
+    "Prior timestamp and sampled native-exit causes remain unresolved; no stable-release promotion"
+  ],
+  "virtualOverlay": {
+    "A": {
+      "entryCount": 1194,
+      "deltaFiles": 5,
+      "targetExactlyMatchesOriginal": true,
+      "allFileBytesHashesPosixModesAndSymlinkTargetsExact": true,
+      "originalStrictSignatureVerified": true,
+      "fullAppCopiedOrReconstructed": false
+    },
+    "B": {
+      "entryCount": 1194,
+      "deltaFiles": 3,
+      "targetExactlyMatchesOriginal": true,
+      "allFileBytesHashesPosixModesAndSymlinkTargetsExact": true,
+      "originalStrictSignatureVerified": true,
+      "fullAppCopiedOrReconstructed": false
+    }
+  }
+}

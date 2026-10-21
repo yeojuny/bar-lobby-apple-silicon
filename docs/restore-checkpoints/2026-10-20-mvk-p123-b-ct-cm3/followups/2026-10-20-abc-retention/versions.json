@@ -1,0 +1,22 @@
+{
+  "A": {
+    "label": "P1/P2/P3+B+C-T+C-M3+C-REG",
+    "keepLocalIntent": false,
+    "forwardCommit": "7a3a24591f75d53a9022487a3f2e25d3d5c05afa",
+    "rollbackFromC": "rollback-manifest.json targets.A"
+  },
+  "B": {
+    "label": "A + live window/drawable size query",
+    "keepLocalIntent": false,
+    "forwardCommit": "7ca6c11f457f59681c0dde6a927aabea24ac9c50",
+    "rollbackFromC": "rollback-manifest.json targets.B"
+  },
+  "C": {
+    "label": "B + typed Buffer callers",
+    "keepLocalIntent": true,
+    "forwardCommit": "146bce2cbd060b15eb708c5bba68e27042471a8a"
+  },
+  "comparisonCommit": "87d12b908edfc2b27af7b47b0ae1cd81403d870c",
+  "rootDeletionDeferredUntilCertification": true,
+  "publisherDeletion": false
+}
