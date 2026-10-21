@@ -1,0 +1,27 @@
+{
+  "status": "ready-for-authorized-existing-publisher",
+  "repository": "yeojuny/bar-lobby-apple-silicon",
+  "branch": "restore/mvk-20261020-p123-b-ct-cm3",
+  "knownParent": "45e1bc37ccb68b95b630666497813c9bd1b95603",
+  "selectedManifest": {
+    "path": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-c-reg-20261020/restoration-selection.json",
+    "sha256": "4a432ca5ba2d1e63cea4f3bef4a906ae4d3375a096285e9cda07ec56cd8b445f"
+  },
+  "sourceReview": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-c-reg-20261020/independent-review.json",
+  "completion": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-c-reg-20261020/completion.json",
+  "report": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/reports/v104-c-reg-20261020.md",
+  "publishOnlyRestorationBranch": true,
+  "formalReleaseHomebrewRequested": false,
+  "rebuildOrGameExecutionRequested": false,
+  "sourceOrAppEditingRequested": false,
+  "snapshotBytesImmutable": true,
+  "physicalRetinaModeRequested": false,
+  "fullscreenComparison": "game fullscreen ON, SDL fullscreen intent/flags, 1512x982 container, 1512x950 safe viewport, hidden native presentation deferred by SDL",
+  "benchmarks": "16 completed actual BAR sessions: initial windowed 1432x902, then user-requested fullscreen/reverse 1512x950, 8 each; no pooling between conditions",
+  "latestResults": {
+    "Metal4FPSChangePercent": 3.0514726313221274,
+    "Metal3FPSChangePercent": -0.8688600939355751,
+    "nPerAppBackend": 2
+  },
+  "noGuaranteedNetBenefitOrGeneralizedFPSClaim": true
+}

@@ -1,0 +1,774 @@
+{
+  "status": "completed",
+  "evidence": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-c-reg-performance-20261020",
+  "fullscreenGame": false,
+  "nativeDisplayPresentationDeferredWhileHidden": false,
+  "resolution": {
+    "height": 902,
+    "width": 1432
+  },
+  "order": "Metal4 parent,candidate,candidate,parent then Metal3 candidate,parent,parent,candidate",
+  "groups": {
+    "metal3": {
+      "parent": {
+        "ordinals": [
+          6,
+          7
+        ],
+        "fps": [
+          46.507347106934,
+          49.81481552124
+        ],
+        "meanFPS": 48.161081314087,
+        "meanRunP95Ms": 33.986999511719,
+        "meanRunP99Ms": 47.8145008087155,
+        "minFPS": 46.507347106934,
+        "maxFPS": 49.81481552124
+      },
+      "candidate": {
+        "ordinals": [
+          5,
+          8
+        ],
+        "fps": [
+          45.53987121582,
+          50.832027435303
+        ],
+        "meanFPS": 48.185949325561495,
+        "meanRunP95Ms": 32.987000465392995,
+        "meanRunP99Ms": 47.882999420166,
+        "minFPS": 45.53987121582,
+        "maxFPS": 50.832027435303
+      },
+      "deltaFPSPercent": 0.05163507711198889,
+      "deltaP95Percent": -2.9422987044831483
+    },
+    "metal4": {
+      "parent": {
+        "ordinals": [
+          1,
+          4
+        ],
+        "fps": [
+          36.956966400146,
+          41.345832824707
+        ],
+        "meanFPS": 39.1513996124265,
+        "meanRunP95Ms": 39.394500732422,
+        "meanRunP99Ms": 59.663499832153505,
+        "minFPS": 36.956966400146,
+        "maxFPS": 41.345832824707
+      },
+      "candidate": {
+        "ordinals": [
+          2,
+          3
+        ],
+        "fps": [
+          39.804271697998,
+          40.984306335449
+        ],
+        "meanFPS": 40.3942890167235,
+        "meanRunP95Ms": 37.138000488280994,
+        "meanRunP99Ms": 60.1164989471435,
+        "minFPS": 39.804271697998,
+        "maxFPS": 40.984306335449
+      },
+      "deltaFPSPercent": 3.1745720883564754,
+      "deltaP95Percent": -5.727957461544597
+    }
+  },
+  "records": [
+    {
+      "ordinal": 1,
+      "role": "parent",
+      "backend": "metal4",
+      "exit": 0,
+      "status": "completed-not-promoted",
+      "error": null,
+      "cacheError": null,
+      "receipt": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-c-reg-performance-20261020/1-parent-metal4/sessions/lobby-no-native-hook-1792550857477/execution-receipt.json",
+      "fps": 36.956966400146,
+      "p50Ms": 25.857999801636,
+      "p95Ms": 41.736000061035,
+      "p99Ms": 68.236999511719,
+      "remainingOwnedProcesses": [],
+      "protectedInputsUnchanged": true,
+      "resolution": {
+        "height": 902,
+        "width": 1432
+      },
+      "camera": {
+        "dist": 2254.7705078125,
+        "dx": 0,
+        "dy": -0.924302399158,
+        "dz": -0.381660997868,
+        "fov": 45,
+        "mode": 2,
+        "name": "spring",
+        "px": 4096,
+        "py": 254.770629882813,
+        "pz": 3072,
+        "rx": 2.75,
+        "ry": 0,
+        "rz": 0
+      },
+      "runtimeUUID": {
+        "prefix": "f52facf7",
+        "uuids": [
+          "f52facf7-1b02-0209-0000-000100000000"
+        ],
+        "driverLog": {
+          "path": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-c-reg-performance-20261020/1-parent-metal4/sessions/lobby-no-native-hook-1792550857477/state/data/stack-game.stderr.log",
+          "sha256": "6fdc87af10d9cc0e7f7ae9264fe7fb4cdae4a719f7428042549014139333cb15"
+        }
+      },
+      "nativeMetal4": {
+        "requested": true,
+        "activeQueues": 1,
+        "completedSubmissions": [
+          14947
+        ],
+        "proved": true
+      },
+      "receiptSHA256": "b4905f5917ba2c489314ceb87f8529350850dcf3006f9cbba97454ccaab7af8f",
+      "library": {
+        "path": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/runtime/v104-descriptor-candidate-20261020/BAR.app/Contents/Resources/bundled-assets/runtime/moltenvk-pr2746/lib/libMoltenVK.1.4.3.dylib",
+        "sha256": "7ac71989ca27a99a2f9adf219ac0dcb12f16804cd35733bf7fd2c078635c5c4a"
+      },
+      "frameCount": 900,
+      "drawIntervals": {
+        "count": 1107,
+        "meanFPS": 36.956966400146,
+        "meanMs": 27.058498382568,
+        "over100Ms": 2,
+        "over33Ms": 155,
+        "over50Ms": 30,
+        "p50Ms": 25.857999801636,
+        "p95Ms": 41.736000061035,
+        "p99Ms": 68.236999511719
+      },
+      "fullscreenMode": null,
+      "officialNativeReport": {
+        "present": true,
+        "nativeLog": {
+          "path": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-c-reg-performance-20261020/1-parent-metal4/sessions/lobby-no-native-hook-1792550857477/state/data/infolog.txt",
+          "sha256": "f6b8c210ad1655bf4d07780eb5ed8ff667e431cf6a23d1a9991aed086aa76d64"
+        }
+      }
+    },
+    {
+      "ordinal": 2,
+      "role": "candidate",
+      "backend": "metal4",
+      "exit": 0,
+      "status": "completed-not-promoted",
+      "error": null,
+      "cacheError": null,
+      "receipt": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-c-reg-performance-20261020/2-candidate-metal4/sessions/lobby-no-native-hook-1792550978515/execution-receipt.json",
+      "fps": 39.804271697998,
+      "p50Ms": 23.236999511719,
+      "p95Ms": 36.812000274658,
+      "p99Ms": 68.653999328613,
+      "remainingOwnedProcesses": [],
+      "protectedInputsUnchanged": true,
+      "resolution": {
+        "height": 902,
+        "width": 1432
+      },
+      "camera": {
+        "dist": 2254.7705078125,
+        "dx": 0,
+        "dy": -0.924302399158,
+        "dz": -0.381660997868,
+        "fov": 45,
+        "mode": 2,
+        "name": "spring",
+        "px": 4096,
+        "py": 254.770629882813,
+        "pz": 3072,
+        "rx": 2.75,
+        "ry": 0,
+        "rz": 0
+      },
+      "runtimeUUID": {
+        "prefix": "f52facf7",
+        "uuids": [
+          "f52facf7-1b02-0209-0000-000100000000"
+        ],
+        "driverLog": {
+          "path": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-c-reg-performance-20261020/2-candidate-metal4/sessions/lobby-no-native-hook-1792550978515/state/data/stack-game.stderr.log",
+          "sha256": "d5afc4ddd3ee3c10dcc2b3f6cbeab8b772b74fe642be35c396925fb82e2df427"
+        }
+      },
+      "nativeMetal4": {
+        "requested": true,
+        "activeQueues": 1,
+        "completedSubmissions": [
+          15414
+        ],
+        "proved": true
+      },
+      "receiptSHA256": "b68d043179f9d36bbc73fef1144f17fc301023368d40ff8f5dec5510e3b0a921",
+      "library": {
+        "path": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/runtime/v104-c-reg-candidate-20261020/BAR.app/Contents/Resources/bundled-assets/runtime/moltenvk-pr2746/lib/libMoltenVK.1.4.3.dylib",
+        "sha256": "79dfe6e5fe91e35c14751316d0acc5f96837516619945388c5c073e94295ebdc"
+      },
+      "frameCount": 900,
+      "drawIntervals": {
+        "count": 1202,
+        "meanFPS": 39.804271697998,
+        "meanMs": 25.122932434082,
+        "over100Ms": 9,
+        "over33Ms": 106,
+        "over50Ms": 24,
+        "p50Ms": 23.236999511719,
+        "p95Ms": 36.812000274658,
+        "p99Ms": 68.653999328613
+      },
+      "fullscreenMode": null,
+      "officialNativeReport": {
+        "present": true,
+        "nativeLog": {
+          "path": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-c-reg-performance-20261020/2-candidate-metal4/sessions/lobby-no-native-hook-1792550978515/state/data/infolog.txt",
+          "sha256": "814a76c69fb420910f49d0c9520dba45a9323f18bd897f3110fd86c854c72c63"
+        }
+      }
+    },
+    {
+      "ordinal": 3,
+      "role": "candidate",
+      "backend": "metal4",
+      "exit": 0,
+      "status": "completed-not-promoted",
+      "error": null,
+      "cacheError": null,
+      "receipt": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-c-reg-performance-20261020/3-candidate-metal4/sessions/lobby-no-native-hook-1792551109262/execution-receipt.json",
+      "fps": 40.984306335449,
+      "p50Ms": 23.194000244141,
+      "p95Ms": 37.464000701904,
+      "p99Ms": 51.578998565674,
+      "remainingOwnedProcesses": [],
+      "protectedInputsUnchanged": true,
+      "resolution": {
+        "height": 902,
+        "width": 1432
+      },
+      "camera": {
+        "dist": 2254.7705078125,
+        "dx": 0,
+        "dy": -0.924302399158,
+        "dz": -0.381660997868,
+        "fov": 45,
+        "mode": 2,
+        "name": "spring",
+        "px": 4096,
+        "py": 254.770629882813,
+        "pz": 3072,
+        "rx": 2.75,
+        "ry": 0,
+        "rz": 0
+      },
+      "runtimeUUID": {
+        "prefix": "f52facf7",
+        "uuids": [
+          "f52facf7-1b02-0209-0000-000100000000"
+        ],
+        "driverLog": {
+          "path": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-c-reg-performance-20261020/3-candidate-metal4/sessions/lobby-no-native-hook-1792551109262/state/data/stack-game.stderr.log",
+          "sha256": "4e40b2f9d6959798f76568d62d4103234d2770e3a95089b5b0b57fe778de571f"
+        }
+      },
+      "nativeMetal4": {
+        "requested": true,
+        "activeQueues": 1,
+        "completedSubmissions": [
+          16831
+        ],
+        "proved": true
+      },
+      "receiptSHA256": "cbbd26df9f7cbf99bab50b613dbb9f4b9291775b32156329e72d920214a4a5fd",
+      "library": {
+        "path": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/runtime/v104-c-reg-candidate-20261020/BAR.app/Contents/Resources/bundled-assets/runtime/moltenvk-pr2746/lib/libMoltenVK.1.4.3.dylib",
+        "sha256": "79dfe6e5fe91e35c14751316d0acc5f96837516619945388c5c073e94295ebdc"
+      },
+      "frameCount": 900,
+      "drawIntervals": {
+        "count": 1228,
+        "meanFPS": 40.984306335449,
+        "meanMs": 24.399583816528,
+        "over100Ms": 1,
+        "over33Ms": 114,
+        "over50Ms": 16,
+        "p50Ms": 23.194000244141,
+        "p95Ms": 37.464000701904,
+        "p99Ms": 51.578998565674
+      },
+      "fullscreenMode": null,
+      "officialNativeReport": {
+        "present": true,
+        "nativeLog": {
+          "path": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-c-reg-performance-20261020/3-candidate-metal4/sessions/lobby-no-native-hook-1792551109262/state/data/infolog.txt",
+          "sha256": "34987eaaaeaf1aff345ad7992aad8fb79905606c854fe53d5d572d8b509f4e45"
+        }
+      }
+    },
+    {
+      "ordinal": 4,
+      "role": "parent",
+      "backend": "metal4",
+      "exit": 0,
+      "status": "completed-not-promoted",
+      "error": null,
+      "cacheError": null,
+      "receipt": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-c-reg-performance-20261020/4-parent-metal4/sessions/lobby-no-native-hook-1792551226254/execution-receipt.json",
+      "fps": 41.345832824707,
+      "p50Ms": 23.354999542236,
+      "p95Ms": 37.053001403809,
+      "p99Ms": 51.090000152588,
+      "remainingOwnedProcesses": [],
+      "protectedInputsUnchanged": true,
+      "resolution": {
+        "height": 902,
+        "width": 1432
+      },
+      "camera": {
+        "dist": 2254.7705078125,
+        "dx": 0,
+        "dy": -0.924302399158,
+        "dz": -0.381660997868,
+        "fov": 45,
+        "mode": 2,
+        "name": "spring",
+        "px": 4096,
+        "py": 254.770629882813,
+        "pz": 3072,
+        "rx": 2.75,
+        "ry": 0,
+        "rz": 0
+      },
+      "runtimeUUID": {
+        "prefix": "f52facf7",
+        "uuids": [
+          "f52facf7-1b02-0209-0000-000100000000"
+        ],
+        "driverLog": {
+          "path": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-c-reg-performance-20261020/4-parent-metal4/sessions/lobby-no-native-hook-1792551226254/state/data/stack-game.stderr.log",
+          "sha256": "b0d4bd4bc724f6c33e179e967bcb8ab803a758c926f93ca353e33136f3126303"
+        }
+      },
+      "nativeMetal4": {
+        "requested": true,
+        "activeQueues": 1,
+        "completedSubmissions": [
+          16100
+        ],
+        "proved": true
+      },
+      "receiptSHA256": "c235e42e09b87e7c1b0f2d2ac0841a2d3f974abd5b1830c0819068c57e96e8a2",
+      "library": {
+        "path": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/runtime/v104-descriptor-candidate-20261020/BAR.app/Contents/Resources/bundled-assets/runtime/moltenvk-pr2746/lib/libMoltenVK.1.4.3.dylib",
+        "sha256": "7ac71989ca27a99a2f9adf219ac0dcb12f16804cd35733bf7fd2c078635c5c4a"
+      },
+      "frameCount": 900,
+      "drawIntervals": {
+        "count": 1239,
+        "meanFPS": 41.345832824707,
+        "meanMs": 24.186233520508,
+        "over100Ms": 1,
+        "over33Ms": 113,
+        "over50Ms": 15,
+        "p50Ms": 23.354999542236,
+        "p95Ms": 37.053001403809,
+        "p99Ms": 51.090000152588
+      },
+      "fullscreenMode": null,
+      "officialNativeReport": {
+        "present": true,
+        "nativeLog": {
+          "path": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-c-reg-performance-20261020/4-parent-metal4/sessions/lobby-no-native-hook-1792551226254/state/data/infolog.txt",
+          "sha256": "8c635d9ab7869edd81b2fc93ffb315f25486486f9c2ad76e1b2699c8e22550df"
+        }
+      }
+    },
+    {
+      "ordinal": 5,
+      "role": "candidate",
+      "backend": "metal3",
+      "exit": 0,
+      "status": "completed-not-promoted",
+      "error": null,
+      "cacheError": null,
+      "receipt": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-c-reg-performance-20261020/5-candidate-metal3/sessions/lobby-no-native-hook-1792551342276/execution-receipt.json",
+      "fps": 45.53987121582,
+      "p50Ms": 20.653999328613,
+      "p95Ms": 35.262001037598,
+      "p99Ms": 54.814998626709,
+      "remainingOwnedProcesses": [],
+      "protectedInputsUnchanged": true,
+      "resolution": {
+        "height": 902,
+        "width": 1432
+      },
+      "camera": {
+        "dist": 2254.7705078125,
+        "dx": 0,
+        "dy": -0.924302399158,
+        "dz": -0.381660997868,
+        "fov": 45,
+        "mode": 2,
+        "name": "spring",
+        "px": 4096,
+        "py": 254.770629882813,
+        "pz": 3072,
+        "rx": 2.75,
+        "ry": 0,
+        "rz": 0
+      },
+      "runtimeUUID": {
+        "prefix": "f52facf7",
+        "uuids": [
+          "f52facf7-1b02-0209-0000-000100000000"
+        ],
+        "driverLog": {
+          "path": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-c-reg-performance-20261020/5-candidate-metal3/sessions/lobby-no-native-hook-1792551342276/state/data/stack-game.stderr.log",
+          "sha256": "67028755a3ff2048486efd816046ea0c64d1a50f77386cf2f680b0b0961a3ed6"
+        }
+      },
+      "nativeMetal4": {
+        "requested": false,
+        "activeQueues": 0,
+        "proved": false,
+        "legacyParentIdentityVerified": false
+      },
+      "receiptSHA256": "854ed319f6732a3af93d7dfa8326866eae18e767e6a7695cebd35d6ca536a3ca",
+      "library": {
+        "path": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/runtime/v104-c-reg-candidate-20261020/BAR.app/Contents/Resources/bundled-assets/runtime/moltenvk-pr2746/lib/libMoltenVK.1.4.3.dylib",
+        "sha256": "79dfe6e5fe91e35c14751316d0acc5f96837516619945388c5c073e94295ebdc"
+      },
+      "frameCount": 900,
+      "drawIntervals": {
+        "count": 1364,
+        "meanFPS": 45.53987121582,
+        "meanMs": 21.958780288696,
+        "over100Ms": 2,
+        "over33Ms": 108,
+        "over50Ms": 19,
+        "p50Ms": 20.653999328613,
+        "p95Ms": 35.262001037598,
+        "p99Ms": 54.814998626709
+      },
+      "fullscreenMode": null,
+      "officialNativeReport": {
+        "present": true,
+        "nativeLog": {
+          "path": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-c-reg-performance-20261020/5-candidate-metal3/sessions/lobby-no-native-hook-1792551342276/state/data/infolog.txt",
+          "sha256": "5a0bfcdb5e7c967af6b4cc2964cff700913d884563b54c38cd35f6737d9cfd22"
+        }
+      }
+    },
+    {
+      "ordinal": 6,
+      "role": "parent",
+      "backend": "metal3",
+      "exit": 0,
+      "status": "completed-not-promoted",
+      "error": null,
+      "cacheError": null,
+      "receipt": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-c-reg-performance-20261020/6-parent-metal3/sessions/lobby-no-native-hook-1792551458773/execution-receipt.json",
+      "fps": 46.507347106934,
+      "p50Ms": 20.114999771118,
+      "p95Ms": 36.375999450684,
+      "p99Ms": 53.513000488281,
+      "remainingOwnedProcesses": [],
+      "protectedInputsUnchanged": true,
+      "resolution": {
+        "height": 902,
+        "width": 1432
+      },
+      "camera": {
+        "dist": 2254.7705078125,
+        "dx": 0,
+        "dy": -0.924302399158,
+        "dz": -0.381660997868,
+        "fov": 45,
+        "mode": 2,
+        "name": "spring",
+        "px": 4096,
+        "py": 254.770629882813,
+        "pz": 3072,
+        "rx": 2.75,
+        "ry": 0,
+        "rz": 0
+      },
+      "runtimeUUID": {
+        "prefix": "f52facf7",
+        "uuids": [
+          "f52facf7-1b02-0209-0000-000100000000"
+        ],
+        "driverLog": {
+          "path": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-c-reg-performance-20261020/6-parent-metal3/sessions/lobby-no-native-hook-1792551458773/state/data/stack-game.stderr.log",
+          "sha256": "3d5596f525d42fd4140efde2682019d600c8059adc7bf9df37a25404cff873e4"
+        }
+      },
+      "nativeMetal4": {
+        "requested": false,
+        "activeQueues": 0,
+        "proved": false,
+        "legacyParentIdentityVerified": true
+      },
+      "receiptSHA256": "fb6009fd76ee4ee427a26860e33bc31a042ce05cc57829c45bfe938ddd28ea91",
+      "library": {
+        "path": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/runtime/v104-descriptor-candidate-20261020/BAR.app/Contents/Resources/bundled-assets/runtime/moltenvk-pr2746/lib/libMoltenVK.1.4.3.dylib",
+        "sha256": "7ac71989ca27a99a2f9adf219ac0dcb12f16804cd35733bf7fd2c078635c5c4a"
+      },
+      "frameCount": 900,
+      "drawIntervals": {
+        "count": 1393,
+        "meanFPS": 46.507347106934,
+        "meanMs": 21.501977920532,
+        "over100Ms": 1,
+        "over33Ms": 100,
+        "over50Ms": 14,
+        "p50Ms": 20.114999771118,
+        "p95Ms": 36.375999450684,
+        "p99Ms": 53.513000488281
+      },
+      "fullscreenMode": null,
+      "officialNativeReport": {
+        "present": true,
+        "nativeLog": {
+          "path": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-c-reg-performance-20261020/6-parent-metal3/sessions/lobby-no-native-hook-1792551458773/state/data/infolog.txt",
+          "sha256": "7d91ed83c88a5e004ad44e188a9e8aff1c30d13c3158a7fe82ee79404654d7bf"
+        }
+      }
+    },
+    {
+      "ordinal": 7,
+      "role": "parent",
+      "backend": "metal3",
+      "exit": 0,
+      "status": "completed-not-promoted",
+      "error": null,
+      "cacheError": null,
+      "receipt": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-c-reg-performance-20261020/7-parent-metal3/sessions/lobby-no-native-hook-1792551574909/execution-receipt.json",
+      "fps": 49.81481552124,
+      "p50Ms": 19.445999145508,
+      "p95Ms": 31.597999572754,
+      "p99Ms": 42.11600112915,
+      "remainingOwnedProcesses": [],
+      "protectedInputsUnchanged": true,
+      "resolution": {
+        "height": 902,
+        "width": 1432
+      },
+      "camera": {
+        "dist": 2254.7705078125,
+        "dx": 0,
+        "dy": -0.924302399158,
+        "dz": -0.381660997868,
+        "fov": 45,
+        "mode": 2,
+        "name": "spring",
+        "px": 4096,
+        "py": 254.770629882813,
+        "pz": 3072,
+        "rx": 2.75,
+        "ry": 0,
+        "rz": 0
+      },
+      "runtimeUUID": {
+        "prefix": "f52facf7",
+        "uuids": [
+          "f52facf7-1b02-0209-0000-000100000000"
+        ],
+        "driverLog": {
+          "path": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-c-reg-performance-20261020/7-parent-metal3/sessions/lobby-no-native-hook-1792551574909/state/data/stack-game.stderr.log",
+          "sha256": "c57c6e23f74c4ffe0e006822d0fd5c9781bdc39fc8754f0fb3817c96aa605a66"
+        }
+      },
+      "nativeMetal4": {
+        "requested": false,
+        "activeQueues": 0,
+        "proved": false,
+        "legacyParentIdentityVerified": true
+      },
+      "receiptSHA256": "bb192dd7d9f3499171051001d37d75f34aa56d0ce4bc6add4c677929f211bd68",
+      "library": {
+        "path": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/runtime/v104-descriptor-candidate-20261020/BAR.app/Contents/Resources/bundled-assets/runtime/moltenvk-pr2746/lib/libMoltenVK.1.4.3.dylib",
+        "sha256": "7ac71989ca27a99a2f9adf219ac0dcb12f16804cd35733bf7fd2c078635c5c4a"
+      },
+      "frameCount": 900,
+      "drawIntervals": {
+        "count": 1493,
+        "meanFPS": 49.81481552124,
+        "meanMs": 20.074350357056,
+        "over100Ms": 1,
+        "over33Ms": 60,
+        "over50Ms": 9,
+        "p50Ms": 19.445999145508,
+        "p95Ms": 31.597999572754,
+        "p99Ms": 42.11600112915
+      },
+      "fullscreenMode": null,
+      "officialNativeReport": {
+        "present": true,
+        "nativeLog": {
+          "path": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-c-reg-performance-20261020/7-parent-metal3/sessions/lobby-no-native-hook-1792551574909/state/data/infolog.txt",
+          "sha256": "0ac38fa6870c27bfcc09b75693efd186c5713069dbbfd55738ad5376121e244f"
+        }
+      }
+    },
+    {
+      "ordinal": 8,
+      "role": "candidate",
+      "backend": "metal3",
+      "exit": 0,
+      "status": "completed-not-promoted",
+      "error": null,
+      "cacheError": null,
+      "receipt": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-c-reg-performance-20261020/8-candidate-metal3/sessions/lobby-no-native-hook-1792551693111/execution-receipt.json",
+      "fps": 50.832027435303,
+      "p50Ms": 19.135999679565,
+      "p95Ms": 30.711999893188,
+      "p99Ms": 40.951000213623,
+      "remainingOwnedProcesses": [],
+      "protectedInputsUnchanged": true,
+      "resolution": {
+        "height": 902,
+        "width": 1432
+      },
+      "camera": {
+        "dist": 2254.7705078125,
+        "dx": 0,
+        "dy": -0.924302399158,
+        "dz": -0.381660997868,
+        "fov": 45,
+        "mode": 2,
+        "name": "spring",
+        "px": 4096,
+        "py": 254.770629882813,
+        "pz": 3072,
+        "rx": 2.75,
+        "ry": 0,
+        "rz": 0
+      },
+      "runtimeUUID": {
+        "prefix": "f52facf7",
+        "uuids": [
+          "f52facf7-1b02-0209-0000-000100000000"
+        ],
+        "driverLog": {
+          "path": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-c-reg-performance-20261020/8-candidate-metal3/sessions/lobby-no-native-hook-1792551693111/state/data/stack-game.stderr.log",
+          "sha256": "82e5cd109c9c50ce7e42f48e85b2f62372f066a70e201b18d2b8353083c5ecc8"
+        }
+      },
+      "nativeMetal4": {
+        "requested": false,
+        "activeQueues": 0,
+        "proved": false,
+        "legacyParentIdentityVerified": false
+      },
+      "receiptSHA256": "4fde63f8e29aa0fa3979c940661ab38ade080f31b9c43d7d1cdffd767ea4dde4",
+      "library": {
+        "path": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/runtime/v104-c-reg-candidate-20261020/BAR.app/Contents/Resources/bundled-assets/runtime/moltenvk-pr2746/lib/libMoltenVK.1.4.3.dylib",
+        "sha256": "79dfe6e5fe91e35c14751316d0acc5f96837516619945388c5c073e94295ebdc"
+      },
+      "frameCount": 900,
+      "drawIntervals": {
+        "count": 1523,
+        "meanFPS": 50.832027435303,
+        "meanMs": 19.672636032104,
+        "over100Ms": 0,
+        "over33Ms": 54,
+        "over50Ms": 6,
+        "p50Ms": 19.135999679565,
+        "p95Ms": 30.711999893188,
+        "p99Ms": 40.951000213623
+      },
+      "fullscreenMode": null,
+      "officialNativeReport": {
+        "present": true,
+        "nativeLog": {
+          "path": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-c-reg-performance-20261020/8-candidate-metal3/sessions/lobby-no-native-hook-1792551693111/state/data/infolog.txt",
+          "sha256": "282e58c4500fe7e7a2dbf5c82238f6a4afdc243deb8dd38db7c9c2b90b29c088"
+        }
+      }
+    }
+  ],
+  "conditions": {
+    "camera": {
+      "dist": 2254.7705078125,
+      "dx": 0,
+      "dy": -0.924302399158,
+      "dz": -0.381660997868,
+      "fov": 45,
+      "mode": 2,
+      "name": "spring",
+      "px": 4096,
+      "py": 254.770629882813,
+      "pz": 3072,
+      "rx": 2.75,
+      "ry": 0,
+      "rz": 0
+    },
+    "resolution": {
+      "height": 902,
+      "width": 1432
+    },
+    "game": "Beyond All Reason",
+    "map": "Seths Ravine Remake 1.3.1",
+    "seed": 7654321,
+    "officialCommand": "luarules benchmark armbull armbull 80 8 1400",
+    "qualityConfig": {
+      "MSAA": 0,
+      "MSAALevel": 0,
+      "MinSampleShadingRate": 0,
+      "VSync": 0,
+      "VSyncGame": 0
+    },
+    "qualityOptions": {
+      "advmapshading": true,
+      "attackrange_numrangesmult": 1,
+      "bloomdeferred": true,
+      "bloomdeferred_quality": 3,
+      "camera": 3,
+      "cusgl4": true,
+      "decals": true,
+      "decalsgl4": true,
+      "distortioneffects": true,
+      "fogdiaglines": 0,
+      "grass": true,
+      "lighteffects": true,
+      "lighteffects_nanoparticlelights": true,
+      "lighteffects_screenspaceshadows": 4,
+      "limitidlefps": false,
+      "limitoffscreenfps": false,
+      "losrange": true,
+      "mapedgeextension": 0.5,
+      "msaa": 1,
+      "particles": 40000,
+      "preset": 5,
+      "shadowslider": 6,
+      "snow": true,
+      "ssao": true,
+      "ssao_quality": 3,
+      "vsync": 1,
+      "water": 2
+    }
+  },
+  "thermalStates": [
+    0
+  ],
+  "powerObservationCount": 74,
+  "allAppsAndInputsUnchangedPerRun": true,
+  "loadedLibraryIdentityVerifiedPerRun": true,
+  "screenGuardRestored": true,
+  "cacheCleanup": {
+    "roots": 48,
+    "leaves": 2663,
+    "logicalBytes": 76957573,
+    "physicalBytesNotMeasured": true
+  },
+  "summaryMethod": "Arithmetic mean of two run FPS; p95/p99 are means of per-run percentiles, not pooled percentiles. No statistical significance claimed."
+}

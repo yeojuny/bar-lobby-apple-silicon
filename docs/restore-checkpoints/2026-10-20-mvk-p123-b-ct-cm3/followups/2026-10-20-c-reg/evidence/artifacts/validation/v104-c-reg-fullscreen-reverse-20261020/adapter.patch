@@ -1,0 +1,23 @@
+--- /Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-c-reg-performance-20261020/benchmark-bootstrap.cjs
++++ /Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-c-reg-fullscreen-reverse-20261020/benchmark-bootstrap.cjs
+@@ -23,7 +23,7 @@
+   function privateWindowSettings() {
+     const filename = path.join(config.state,'data/springsettings.cfg');
+     if (fs.realpathSync(path.dirname(filename)) !== path.join(config.state,'data') || fs.lstatSync(filename).isSymbolicLink()) throw Error('Non-private settings refused');
+-    const wanted = {Fullscreen:0,WindowBorderless:0,XResolutionWindowed:1512,YResolutionWindowed:950,WindowPosX:80,WindowPosY:80,Sound:0,MSAA:0,MSAALevel:-1,VSync:0,VSyncGame:0};
++    const wanted = {Fullscreen:1,WindowBorderless:0,XResolution:1512,YResolution:950,XResolutionWindowed:1512,YResolutionWindowed:982,WindowPosX:0,WindowPosY:0,Sound:0,MSAA:0,MSAALevel:-1,VSync:0,VSyncGame:0};
+     const lines=fs.readFileSync(filename,'utf8').split(/\r?\n/).filter(line=>!Object.keys(wanted).some(key=>new RegExp('^\\s*'+key+'\\s*=').test(line)));
+     fs.writeFileSync(filename,lines.join('\n')+'\n'+Object.entries(wanted).map(([k,v])=>`${k} = ${v}`).join('\n')+'\n');
+   }
+@@ -81,9 +81,9 @@
+       const writeIndex=args.indexOf('--write-dir');
+       if (writeIndex<0 || args[writeIndex+1]!==path.join(config.state,'data')) throw Error('Non-private engine write path refused');
+       if (!path.resolve(options.cwd||'',command).startsWith(config.app+'/')) throw Error('Non-bundled engine refused');
+-      if (args.some(arg=>arg==='--fullscreen'||arg.startsWith('--fullscreen='))) throw Error('Fullscreen flag refused');
++      if (args.some(arg=>arg==='--window'||arg.startsWith('--window='))) throw Error('Windowed flag refused');
+       privateWindowSettings();
+-      args.unshift('--window');
++      args.unshift('--fullscreen');
+       if(strictHidden){
+         if(!config.guardLibrary || !config.guardSha256 || crypto.createHash('sha256').update(fs.readFileSync(config.guardLibrary)).digest('hex')!==config.guardSha256)
+           throw Error('Hidden-window guard identity mismatch');

@@ -1,0 +1,141 @@
+{
+  "compileArguments": [
+    "/usr/bin/xcrun",
+    "clang++",
+    "-std=c++17",
+    "-mmacosx-version-min=27.0",
+    "-DMVK_ENABLE_CUSTOM_DIAGNOSTICS=0",
+    "-I/Users/yeojun/Desktop/BAR-AppleSilicon-App/build/run66-moltenvk-src-20260903/MoltenVK/include",
+    "-I/Users/yeojun/Desktop/BAR-AppleSilicon-App/build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/API",
+    "-I/Users/yeojun/Desktop/BAR-AppleSilicon-App/build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands",
+    "-I/Users/yeojun/Desktop/BAR-AppleSilicon-App/build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects",
+    "-I/Users/yeojun/Desktop/BAR-AppleSilicon-App/build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Layers",
+    "-I/Users/yeojun/Desktop/BAR-AppleSilicon-App/build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/OS",
+    "-I/Users/yeojun/Desktop/BAR-AppleSilicon-App/build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Utility",
+    "-I/Users/yeojun/Desktop/BAR-AppleSilicon-App/build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Vulkan",
+    "-I/Users/yeojun/Desktop/BAR-AppleSilicon-App/build/metal4-mvk-20261002/MoltenVK",
+    "-I/Users/yeojun/Desktop/BAR-AppleSilicon-App/build/run66-moltenvk-src-20260903/MoltenVKShaderConverter/MoltenVKShaderConverter/..",
+    "-I/Users/yeojun/Desktop/BAR-AppleSilicon-App/build/run66-moltenvk-src-20260903/Common",
+    "-isystem",
+    "/Users/yeojun/Desktop/BAR-AppleSilicon-App/build/run66-moltenvk-src-20260903/External/SPIRV-Cross",
+    "-isystem",
+    "/Users/yeojun/Desktop/BAR-AppleSilicon-App/build/run66-moltenvk-src-20260903/External/SPIRV-Tools/include",
+    "-isystem",
+    "/Users/yeojun/Desktop/BAR-AppleSilicon-App/build/run66-moltenvk-src-20260903/External/cereal/include",
+    "-isystem",
+    "/Users/yeojun/Desktop/BAR-AppleSilicon-App/build/run66-vulkan-headers-src-20260903/include",
+    "-DMVK_BUILD_METAL4_FOUNDATION=1",
+    "-DMVK_CONFIG_LOG_LEVEL=3",
+    "-DMVK_FRAMEWORK_VERSION=1.4.3",
+    "-DMVK_USE_METAL_PRIVATE_API=1",
+    "-DMoltenVK_EXPORTS",
+    "-DSPIRV_CROSS_NAMESPACE_OVERRIDE=MVK_spirv_cross",
+    "-fno-objc-arc",
+    "-fblocks",
+    "-O2",
+    "-g",
+    "-Wno-deprecated-declarations",
+    "-I/Users/yeojun/Desktop/BAR-AppleSilicon-App/build/run66-moltenvk-src-20260903/External/SPIRV-Headers/include",
+    "-framework",
+    "Foundation",
+    "/Users/yeojun/Desktop/BAR-AppleSilicon-App/tools/tests/metal4-prepared-recording-vulkan.mm",
+    "/Users/yeojun/Desktop/BAR-AppleSilicon-App/build/metal4-mvk-20261002/MoltenVK/libMoltenVK.1.4.3.dylib",
+    "-Wl,-rpath,/Users/yeojun/Desktop/BAR-AppleSilicon-App/build/metal4-mvk-20261002/MoltenVK",
+    "-o",
+    "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-c-reg-20261020/common-validation/prepared-recording-vulkan"
+  ],
+  "compileExitCode": 0,
+  "librarySHA256": "e60a7d6694d2c4a7fd02239d981342e0b3f86cab1e6e1d94d897fe9ce4ba101c",
+  "fixtureSHA256": "c59916e913b2ad69927b7c7667570c016d3b67b350ae0db42d6dd5452155851d",
+  "backend": "original native suite plus explicitly selected common M3/M4 cases",
+  "windowCreated": false,
+  "gameExecuted": false,
+  "runExitCode": 0,
+  "environment": {
+    "MTL_DEBUG_LAYER": "1",
+    "MVK_CONFIG_USE_METAL4": "1",
+    "MVK_CONFIG_LOG_LEVEL": "2",
+    "MVK_CONFIG_SYNCHRONOUS_QUEUE_SUBMITS": "1",
+    "MVK_CONFIG_USE_METAL_ARGUMENT_BUFFERS": "0"
+  },
+  "result": {
+    "failed": 0,
+    "suite": "metal4_prepared_recording_vulkan",
+    "passed": 6,
+    "private_header_inspection": true,
+    "test_count": 6,
+    "tests": [
+      {
+        "completed_after": 1,
+        "passed": true,
+        "name": "ended_canceled_prefix_has_no_gpu_effect",
+        "native_queue": true,
+        "completed_before": 0
+      },
+      {
+        "completed_after": 1,
+        "passed": true,
+        "name": "reverse_recorded_three_pools_ordered_single_submit",
+        "native_queue": true,
+        "completed_before": 0
+      },
+      {
+        "completed_after": 8,
+        "passed": true,
+        "name": "mapped_latest_bytes_and_update_call_snapshot",
+        "native_queue": true,
+        "completed_before": 0
+      },
+      {
+        "completed_after": 3,
+        "passed": true,
+        "name": "compute_prefix_query_helper_suffix_preserves_state_once",
+        "native_queue": true,
+        "completed_before": 0
+      },
+      {
+        "completed_after": 1,
+        "passed": true,
+        "name": "destroyed_binding_layout_survives_actual_node_reuse",
+        "native_queue": true,
+        "completed_before": 0
+      },
+      {
+        "completed_after": 5,
+        "passed": true,
+        "name": "state_only_then_query_remains_whole_late_without_child",
+        "native_queue": true,
+        "completed_before": 0
+      }
+    ],
+    "game_executed": false,
+    "window_created": false,
+    "planned_test_count": 6
+  },
+  "commonBackends": [
+    {
+      "backend": "m3",
+      "exitCode": 0,
+      "result": {
+        "suite": "descriptor_template_common",
+        "passed": 1,
+        "cycles": 6,
+        "graphicsChecked": true,
+        "native_queue": false,
+        "gameExecuted": false
+      }
+    },
+    {
+      "backend": "m4",
+      "exitCode": 0,
+      "result": {
+        "suite": "descriptor_template_common",
+        "passed": 1,
+        "cycles": 6,
+        "graphicsChecked": true,
+        "native_queue": true,
+        "gameExecuted": false
+      }
+    }
+  ]
+}

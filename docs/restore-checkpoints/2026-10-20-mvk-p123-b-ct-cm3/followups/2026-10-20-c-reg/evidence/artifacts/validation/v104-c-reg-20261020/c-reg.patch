@@ -1,0 +1,398 @@
+--- a/build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKMetal4Submission.h
++++ b/build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKMetal4Submission.h
+@@ -21,6 +21,9 @@
+ class MVKMetal4ArgumentTables;
+ class MVKMetal4PreparedGroupCache;
+ 
++// A caller's static type avoids rediscovery; it conveys no ownership or residency.
++enum class MVKMetal4ResourceKind : uint8_t { Unknown, NonTexture, Texture };
++
+ // Allocation owners register once. GPU recordings take leases whose final
+ // release, rather than the Vulkan wrapper's destruction, removes residency.
+ // Unknown allocations stay on the existing per-submission residency path.
+@@ -35,6 +38,8 @@
+     id<MTLDevice> device() const;
+     id<MTLResidencySet> residencySet() const;
+ private:
++    friend struct MVKMetal4SubmissionState;
++    std::shared_ptr<void> leaseWithKind(id<MTLResource> resource, MVKMetal4ResourceKind kind) const;
+     struct Storage;
+     explicit MVKMetal4DeviceResidency(std::unique_ptr<Storage> storage);
+     std::unique_ptr<Storage> _storage;
+@@ -263,6 +268,10 @@
+     // Keeps the resource alive AND includes it in this batch's residency set.
+     // Indirectly referenced allocations must also be registered by the caller.
+     bool addResource(id<MTLResource> resource, NSError** error = nullptr);
++    // Internal typed callers must pass actual buffers/textures. All registration,
++    // device, drawable and lifetime checks remain shared with addResource.
++    bool addBufferResource(id<MTLBuffer> resource, NSError** error = nullptr);
++    bool addTextureResource(id<MTLTexture> resource, NSError** error = nullptr);
+     // Creation/acquisition metadata supplies an exact drawable incarnation.
+     // Zero identifies a proven non-drawable texture, whose recording retention
+     // needs no drawable invalidation. Unknown/external textures keep the global
+@@ -362,6 +371,7 @@
+     friend class MVKMetal4Queue;
+     friend class MVKMetal4RecordingPool;
+     explicit MVKMetal4Submission(std::shared_ptr<MVKMetal4SubmissionState> state);
++    bool addResourceWithKind(id<MTLResource> resource, MVKMetal4ResourceKind kind, NSError** error);
+     // Caller holds the recording mutex and has checked Phase::Recording.
+     MVKMetal4Upload uploadBytesRangeLocked(const void* bytes, NSUInteger length, NSError** error);
+     bool splitForCounterCompletionLocked(bool timestampEntry, NSError** error);
+--- a/build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKMetal4Submission.mm
++++ b/build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKMetal4Submission.mm
+@@ -465,6 +465,10 @@
+ }
+ 
+ std::shared_ptr<void> MVKMetal4DeviceResidency::lease(id<MTLResource> resource) const {
++    return leaseWithKind(resource, MVKMetal4ResourceKind::Unknown);
++}
++
++std::shared_ptr<void> MVKMetal4DeviceResidency::leaseWithKind(id<MTLResource> resource, MVKMetal4ResourceKind kind) const {
+     if (!resource || resource.device != device()) { return {}; }
+     auto find = [&](id<MTLAllocation> allocation) -> std::shared_ptr<void> {
+         if (!allocation) { return {}; }
+@@ -474,7 +478,8 @@
+     };
+     if (auto result = find(resource)) { return result; }
+     if (auto result = find(resource.heap)) { return result; }
+-    if ([resource conformsToProtocol:@protocol(MTLTexture)]) {
++    if (kind == MVKMetal4ResourceKind::Texture ||
++        (kind == MVKMetal4ResourceKind::Unknown && [resource conformsToProtocol:@protocol(MTLTexture)])) {
+         id<MTLTexture> texture = (id<MTLTexture>)resource;
+         for (unsigned depth = 0; depth < 64; ++depth) {
+             id<MTLTexture> parent = texture.parentTexture;
+@@ -1212,10 +1217,11 @@
+         if (result.second) { ++registrationStats.retainedObjects; }
+         return true;
+     }
+-    ObjectIdentity& addResident(id<MTLResource> resource, bool stableBufferCandidate = true) {
++    ObjectIdentity& addResident(id<MTLResource> resource, bool stableBufferCandidate = true,
++                                MVKMetal4ResourceKind kind = MVKMetal4ResourceKind::Unknown) {
+         auto& identity = retainUnique(resource);
+         if (!identity.resident) {
+-            auto lease = storage->deviceResidency ? storage->deviceResidency->lease(resource) : std::shared_ptr<void>{};
++            auto lease = storage->deviceResidency ? storage->deviceResidency->leaseWithKind(resource, kind) : std::shared_ptr<void>{};
+             if (lease) {
+                 deviceResidencyLeases.push_back(std::move(lease));
+                 ++registrationStats.deviceResidencyLeases;
+@@ -2160,6 +2166,18 @@
+ }
+ 
+ bool MVKMetal4Submission::addResource(id<MTLResource> resource, NSError** error) {
++    return addResourceWithKind(resource, MVKMetal4ResourceKind::Unknown, error);
++}
++
++bool MVKMetal4Submission::addBufferResource(id<MTLBuffer> resource, NSError** error) {
++    return addResourceWithKind(resource, MVKMetal4ResourceKind::NonTexture, error);
++}
++
++bool MVKMetal4Submission::addTextureResource(id<MTLTexture> resource, NSError** error) {
++    return addResourceWithKind(resource, MVKMetal4ResourceKind::Texture, error);
++}
++
++bool MVKMetal4Submission::addResourceWithKind(id<MTLResource> resource, MVKMetal4ResourceKind kind, NSError** error) {
+     if (error) { *error = nil; }
+     std::lock_guard<std::mutex> lock(_state->mutex);
+     if (_state->phase != Phase::Recording || !resource) {
+@@ -2179,8 +2197,10 @@
+         if (resource.device != _state->storage->device) {
+             return fail(error, 3, @"Resources must belong to the recording submission's device.");
+         }
+-        bool isTexture = [resource conformsToProtocol:@protocol(MTLTexture)];
+-        identity = &_state->addResident(resource, !isTexture);
++        bool isTexture = kind == MVKMetal4ResourceKind::Texture ||
++            (kind == MVKMetal4ResourceKind::Unknown && [resource conformsToProtocol:@protocol(MTLTexture)]);
++        identity = &_state->addResident(resource, !isTexture,
++            isTexture ? MVKMetal4ResourceKind::Texture : MVKMetal4ResourceKind::NonTexture);
+         identity->texture = isTexture;
+     }
+     if (identity->texture) {
+--- a/build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCommandEncoderState.mm
++++ b/build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCommandEncoderState.mm
+@@ -617,7 +617,7 @@
+ 	const void* identity = (const void*)buffer;
+ 	if (_metal4OwnedBuffers.count(identity)) { return true; }
+ 	NSError* error = nil;
+-	if (!encoder.getMetal4Submission()->addResource(buffer, &error)) {
++	if (!encoder.getMetal4Submission()->addBufferResource(buffer, &error)) {
+ 		return metal4Failure(encoder, error ? error.localizedDescription.UTF8String : "Native buffer registration failed.");
+ 	}
+ 	// The successful registration pins this exact buffer through retirement.
+@@ -635,7 +635,7 @@
+ 	uint64_t generation = MVKMetal4Submission::drawableRegistrationGeneration(texture);
+ 	if (_metal4OwnedTextures.matches(identity, generation)) { return true; }
+ 	NSError* error = nil;
+-	if (!encoder.getMetal4Submission()->addResource(texture, &error)) {
++	if (!encoder.getMetal4Submission()->addTextureResource(texture, &error)) {
+ 		return metal4Failure(encoder, error ? error.localizedDescription.UTF8String : "Native texture registration failed.");
+ 	}
+ 	if (!generation) { _metal4OwnedTextures.rememberOrdinary(identity); }
+--- a/build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCommandBuffer.mm
++++ b/build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCommandBuffer.mm
+@@ -1023,7 +1023,7 @@
+ 	}
+ 	auto keepAttachment = [&](MTLRenderPassAttachmentDescriptor* att) {
+ 		for (id<MTLTexture> texture : {att.texture, att.resolveTexture}) {
+-			if (texture && !_metal4Submission->addResource(texture)) {
++			if (texture && !_metal4Submission->addTextureResource(texture)) {
+ 				failMetal4Encoding("Could not make native render attachment resident");
+ 			}
+ 		}
+@@ -1031,7 +1031,7 @@
+ 	for (NSUInteger i = 0; i < 8; ++i) { keepAttachment(desc.colorAttachments[i]); }
+ 	keepAttachment(desc.depthAttachment);
+ 	keepAttachment(desc.stencilAttachment);
+-	if (desc.visibilityResultBuffer && !_metal4Submission->addResource(desc.visibilityResultBuffer)) {
++	if (desc.visibilityResultBuffer && !_metal4Submission->addBufferResource(desc.visibilityResultBuffer)) {
+ 		failMetal4Encoding("Could not retain native visibility buffer");
+ 	}
+ 	if (desc.rasterizationRateMap && !_metal4Submission->retainObject(desc.rasterizationRateMap)) {
+--- a/tools/tests/metal4-r49-lifetime-native.mm
++++ b/tools/tests/metal4-r49-lifetime-native.mm
+@@ -87,6 +87,8 @@
+     reject([&](NSError** e) { return batch->wait(0, e); }, "wait recording batch");
+     reject([&](NSError** e) { return queue->submit(batch, e); }, "submit recording batch");
+     reject([&](NSError** e) { return batch->addResource(nil, e); }, "nil resource");
++    reject([&](NSError** e) { return batch->addBufferResource(nil, e); }, "nil typed buffer");
++    reject([&](NSError** e) { return batch->addTextureResource(nil, e); }, "nil typed texture");
+     reject([&](NSError** e) { return batch->retainObject(nil, e); }, "nil retained object");
+     reject([&](NSError** e) { return batch->uploadBytes(nullptr, 4, e) != nil; }, "nil upload");
+     NSError* error = nil;
+@@ -1636,7 +1638,7 @@
+     require(future.get(), "actual signal, mandatory cleanup and callback wrapper destruction");
+ }
+ 
+-void deviceResidencyBlockedRetirement(id<MTLDevice> device) {
++void deviceResidencyBlockedRetirement(id<MTLDevice> device, bool typed = false) {
+     NSError* error = nil;
+     auto residency = MVKMetal4DeviceResidency::create(device, &error);
+     require(bool(residency), "device-owned residency created", error);
+@@ -1656,8 +1658,8 @@
+     std::weak_ptr<void> oldEntry = residency->lease(raw);
+     require(!oldEntry.expired() && residency->residencySet().allocationCount == 1, "multiple wrappers register one allocation");
+     auto batch = begin(*queue);
+-    CHECK_API(batch->addResource(raw, &error));
+-    CHECK_API(batch->addResource(output.get(), &error));
++    CHECK_API(typed ? batch->addBufferResource(raw, &error) : batch->addResource(raw, &error));
++    CHECK_API(typed ? batch->addBufferResource(output.get(), &error) : batch->addResource(output.get(), &error));
+     CHECK_API(batch->addWaitEvent(event.get(), 1, &error));
+     require(batch->resourceRegistrationStats().deviceResidencyLeases == 1, "owned resource uses queue set; unknown resource uses batch fallback");
+     require(!residency->lease(output.get()), "unknown allocation is not promoted to an owned one");
+@@ -1685,7 +1687,7 @@
+     require(std::memcmp(output.get().contents, expected.data(), size) == 0, "gated native copy survives caller and allocation-owner release");
+ }
+ 
+-void deviceResidencyHeapAndView(id<MTLDevice> device) {
++void deviceResidencyHeapAndView(id<MTLDevice> device, bool typed = false) {
+     NSError* error = nil;
+     auto residency = MVKMetal4DeviceResidency::create(device, &error);
+     require(bool(residency), "heap/view residency created", error);
+@@ -1711,9 +1713,9 @@
+     std::weak_ptr<void> textureEntry = residency->lease(view.get());
+     require(!heapEntry.expired() && !textureEntry.expired(), "resources acquire actual heap/base allocation leases");
+     auto batch = begin(*queue);
+-    CHECK_API(batch->addResource(buffer.get(), &error));
+-    CHECK_API(batch->addResource(view.get(), &error));
+-    CHECK_API(batch->addResource(output.get(), &error));
++    CHECK_API(typed ? batch->addBufferResource(buffer.get(), &error) : batch->addResource(buffer.get(), &error));
++    CHECK_API(typed ? batch->addTextureResource(view.get(), &error) : batch->addResource(view.get(), &error));
++    CHECK_API(typed ? batch->addBufferResource(output.get(), &error) : batch->addResource(output.get(), &error));
+     require(batch->resourceRegistrationStats().deviceResidencyLeases == 2, "heap and texture view use queue residency");
+     auto encoder = [batch->commandBuffer() computeCommandEncoder];
+     [encoder fillBuffer:buffer.get() range:NSMakeRange(0, 256) value:0x65];
+@@ -1797,7 +1799,8 @@
+     allocatorEpochEvidence = queue->resourcePoolStats(); allocatorEpochCompleted = iterations;
+ }
+ 
+-int main() {
++int main(int argc, const char* argv[]) {
++    if (argc > 2 || (argc == 2 && std::strcmp(argv[1], "--resource-registration") != 0)) { return 2; }
+     @autoreleasepool {
+         Owned<id<MTLDevice>> device(MTLCreateSystemDefaultDevice());
+         NSMutableArray* results = [NSMutableArray array];
+@@ -1816,6 +1819,20 @@
+                 }
+             }
+         };
++        if (argc == 2) {
++            test(@"state_rejections_and_empty_batch", [&] { stateAndEmptyBatch(device.get()); });
++            test(@"generic_device_residency_gpu_retirement", [&] { deviceResidencyBlockedRetirement(device.get()); });
++            test(@"typed_device_residency_gpu_retirement", [&] { deviceResidencyBlockedRetirement(device.get(), true); });
++            test(@"generic_device_residency_heap_and_texture_view", [&] { deviceResidencyHeapAndView(device.get()); });
++            test(@"typed_device_residency_heap_and_texture_view", [&] { deviceResidencyHeapAndView(device.get(), true); });
++            test(@"device_residency_independent_owner", [&] { deviceResidencyIndependentOwner(device.get()); });
++            NSDictionary* report = @{@"suite": @"metal4_resource_registration", @"native_command_backend": @YES,
++                @"device": device.get() ? device.get().name : @"unavailable", @"test_count": @(results.count),
++                @"passed": @(results.count - failed), @"failed": @(failed), @"tests": results};
++            NSData* json = [NSJSONSerialization dataWithJSONObject:report options:0 error:nil];
++            std::fwrite(json.bytes, 1, json.length, stdout); std::fputc('\n', stdout);
++            return failed ? 1 : 0;
++        }
+         test(@"resource_pack_creation_reuse_and_old_wrapper_detach", [&] { resourcePackReuse(device.get()); });
+         test(@"allocator_epochs_repeated_fill_signal_tail_and_guards", [&] { allocatorEpochGPUReplay(device.get()); });
+         test(@"resource_pack_timeout_cancel_and_idle_bounds", [&] { resourcePackBlockedAndCancel(device.get()); });
+--- a/tools/tests/metal4-r50-texture-registration-cpu.py
++++ b/tools/tests/metal4-r50-texture-registration-cpu.py
+@@ -36,6 +36,10 @@
+ 
+ fields_start = header.index("\tid<MTLRenderPipelineState> _metal4GraphicsPipeline")
+ fields = header[fields_start:header.index("\n#endif", fields_start)]
++# The unrelated stage-preparation cache is only reset by these methods. Keep an
++# opaque resettable slot in this registration shell, without emulating its binder.
++fields = fields.replace("MVKMetal4StagePreparation _metal4StagePreparation[kMVKShaderStageCount]",
++                        "std::array<unsigned, 1> _metal4StagePreparation")
+ helper_start = descriptor.index("struct MVKMetal4DescriptorPreparationStamp {")
+ helpers = descriptor[helper_start:descriptor.index("\n#endif", helper_start)]
+ flags = block(descriptor, "enum MVKDescriptorBindingFlagBits {") + ";"
+@@ -44,8 +48,8 @@
+                                     "registerMetal4Texture", "retainMetal4Object"))
+ sink = block(state, "struct Metal4BindingSink {") + ";"
+ failure = block(state, "static bool metal4Failure(")
+-before = (ROOT / "artifacts/validation/metal4-r50-binding-reuse-20261004/before/Commands/MVKCommandEncoderState.mm").read_text()
+-assert block(state, "static bool bindMetal4Resources(") == block(before, "static bool bindMetal4Resources(")
++# This fixture executes registration, not the indirect binder. The old R50
++# binder baseline predates the separately accepted R71/R4/R5 changes.
+ assert "if (!resource(value))" in sink and "registerMetal4Texture(encoder, value)" in sink
+ 
+ preamble = r'''
+@@ -55,10 +59,11 @@
+ #include "MVKMetal4TextureRegistrationCache.h"
+ #include "MVKMetal4PreparedResource.h"
+ #include <unordered_set>
+-#define main r50_preserved_r47_main
+-#include "metal4-r47-retirement-cpu.mm"
+-#undef main
+ '''
++# Reuse only the exact NSObject test doubles; that older fixture's unrelated
++# private-state retirement tests predate the current shared allocator storage.
++mock_source = (ROOT / "tools/tests/metal4-r47-retirement-cpu.mm").read_text()
++preamble += mock_source[:mock_source.index("\nnamespace {")]
+ shell = r'''
+ class MVKCommandEncoder;
+ class MVKCommandEncoderState {
+@@ -83,6 +88,18 @@
+         if (okay && afterRegistration) { auto hook = std::move(afterRegistration); hook(); }
+         return okay;
+     }
++    bool addBufferResource(id<MTLBuffer> object, NSError** error) {
++        ++calls;
++        bool okay = batch->addBufferResource(object, error);
++        if (okay && afterRegistration) { auto hook = std::move(afterRegistration); hook(); }
++        return okay;
++    }
++    bool addTextureResource(id<MTLTexture> object, NSError** error) {
++        ++calls;
++        bool okay = batch->addTextureResource(object, error);
++        if (okay && afterRegistration) { auto hook = std::move(afterRegistration); hook(); }
++        return okay;
++    }
+ };
+ class MVKCommandEncoder {
+ public:
+@@ -103,15 +120,30 @@
+ 
+ fixture = r'''
+ @interface R50Texture : R47Allocation {
+-@public R50Texture* parent; unsigned* deaths;
++@public R50Texture* parent; unsigned* deaths; unsigned* protocolChecks;
+ }
+ @end
+ @implementation R50Texture
+ - (BOOL)conformsToProtocol:(Protocol*)protocol {
+-    return protocol == @protocol(MTLTexture) || [super conformsToProtocol:protocol];
+-}
++    if (protocol == @protocol(MTLTexture) && protocolChecks) { ++*protocolChecks; }
++    return protocol == @protocol(MTLTexture) || protocol == @protocol(MTLResource) || [super conformsToProtocol:protocol];
++}
++- (id<MTLHeap>)heap { return nil; }
+ - (id<MTLTexture>)parentTexture { return (id<MTLTexture>)parent; }
+ - (void)dealloc { if (deaths) { ++*deaths; } [parent release]; [super dealloc]; }
++@end
++
++@interface R50Buffer : R47Allocation {
++@public unsigned* protocolChecks; unsigned* deaths;
++}
++@end
++@implementation R50Buffer
++- (BOOL)conformsToProtocol:(Protocol*)protocol {
++    if (protocol == @protocol(MTLTexture) && protocolChecks) { ++*protocolChecks; }
++    return protocol == @protocol(MTLBuffer) || protocol == @protocol(MTLResource) || [super conformsToProtocol:protocol];
++}
++- (id<MTLHeap>)heap { return nil; }
++- (void)dealloc { if (deaths) { ++*deaths; } [super dealloc]; }
+ @end
+ 
+ static R50Texture* texture(R47Device* device, R50Texture* parent = nil) {
+@@ -142,6 +174,54 @@
+     unsigned hits = 0;
+     for (uintptr_t i = 1; i <= 257; ++i) { hits += cache.matches(reinterpret_cast<void*>(i << 4), 3); }
+     require(hits <= 256 && hits > 0, "bounded collisions only cause misses");
++}
++static void typedRegistrationEquivalence() {
++    for (bool typed : {false, true}) {
++        auto* device = [R47Device new]; auto* foreign = [R47Device new]; NSError* error = nil;
++        auto residency = MVKMetal4DeviceResidency::create((id<MTLDevice>)device, &error);
++        auto pool = MVKMetal4RecordingPool::create((id<MTLDevice>)device, &error, residency);
++        require(bool(pool), "recording pool with actual residency implementation");
++        auto batch = pool->begin(&error);
++        unsigned bufferChecks = 0, textureChecks = 0, bufferDeaths = 0, textureDeaths = 0;
++        auto* buffer = [R50Buffer new]; buffer->device = (id<MTLDevice>)device;
++        buffer->protocolChecks = &bufferChecks; buffer->deaths = &bufferDeaths;
++        auto* value = texture(device); value->protocolChecks = &textureChecks; value->deaths = &textureDeaths;
++        auto addBuffer = [&](R50Buffer* b) { return typed ? batch->addBufferResource((id<MTLBuffer>)b, &error) : batch->addResource((id<MTLResource>)b, &error); };
++        auto addTexture = [&](R50Texture* t) { return typed ? batch->addTextureResource((id<MTLTexture>)t, &error) : batch->addResource((id<MTLResource>)t, &error); };
++        require(!addBuffer(nil) && error.code == 3 && !addTexture(nil) && error.code == 3, "nil rejects identically");
++        auto* wrongBuffer = [R50Buffer new]; wrongBuffer->device = (id<MTLDevice>)foreign;
++        auto* wrongTexture = texture(foreign);
++        require(!addBuffer(wrongBuffer) && error.code == 3 && !addTexture(wrongTexture) && error.code == 3, "foreign device rejects identically");
++        [wrongBuffer release]; [wrongTexture release];
++        require(batch->retainObject(buffer, &error) && batch->retainObject(value, &error), "retain before registering");
++        require(addBuffer(buffer) && !error && addTexture(value) && !error, "unregistered resources retain dynamic fallback");
++        require(bufferChecks == unsigned(!typed) && textureChecks == unsigned(!typed), "generic classifies once through residency fallback; typed classifies zero times");
++        require(addBuffer(buffer) && addTexture(value), "repeat registration succeeds");
++        auto stats = batch->resourceRegistrationStats();
++        require(stats.retainedObjects == 2 && stats.residentResources == 2 && stats.deviceResidencyLeases == 0, "types imply neither ownership nor residency");
++        require(bufferChecks == unsigned(!typed) && textureChecks == unsigned(!typed), "resident hit does not classify again");
++        auto second = pool->begin(&error);
++        require(second->addBufferResource((id<MTLBuffer>)buffer, &error) && second->addTextureResource((id<MTLTexture>)value, &error), "second recording independently registers");
++        require(second->resourceRegistrationStats().residentResources == 2, "recording resource ownership remains separate");
++        require(batch->end(&error), "end registration batch");
++        require(!addBuffer(buffer) && error.code == 3 && !addTexture(value) && error.code == 3, "ended recording rejects previously resident objects");
++        [buffer release]; [value release]; batch.reset();
++        require(bufferDeaths == 0 && textureDeaths == 0, "second recording retains after first cancellation");
++        second.reset();
++        require(bufferDeaths == 1 && textureDeaths == 1, "recording cancellation releases both resource kinds");
++        // Unknown views must still acquire the registered parent's lease.
++        auto* base = texture(device); auto* view = texture(device, base); unsigned viewChecks = 0; view->protocolChecks = &viewChecks;
++        require(residency->registerAllocation((id<MTLAllocation>)base, &error), "register parent allocation");
++        std::weak_ptr<void> lease = residency->lease((id<MTLResource>)view);
++        require(!lease.expired() && viewChecks == 1, "public generic lease retains texture ancestry discovery");
++        viewChecks = 0; batch = pool->begin(&error);
++        require(addTexture(view) && viewChecks == unsigned(!typed), "known type reaches parent lookup without second classification");
++        require(batch->resourceRegistrationStats().deviceResidencyLeases == 1, "view registration acquires parent lease");
++        residency->unregisterAllocation((id<MTLAllocation>)base); [view release]; [base release];
++        require(!lease.expired(), "parent lease survives allocation-owner release");
++        batch.reset(); require(lease.expired(), "parent lease retires at cancellation");
++        pool.reset(); residency.reset(); [foreign release]; [device release];
++    }
+ }
+ static void reuseAndRecording() {
+     auto* device = [R47Device new]; NSError* error = nil; auto queue = MVKMetal4Queue::create((id<MTLDevice>)device, &error);
+@@ -211,7 +291,7 @@
+ int main() {
+     @autoreleasepool {
+         try {
+-            cacheBounds(); reuseAndRecording(); drawableAndConcurrentMutation(); failuresAndSaturation();
++            cacheBounds(); typedRegistrationEquivalence(); reuseAndRecording(); drawableAndConcurrentMutation(); failuresAndSaturation();
+             require(drawableRegistry.empty(), "fixture leaves no registered drawables");
+             std::printf("{\"passed\":true,\"assertions\":%u,\"unchangedBindingUses\":32,\"actualRegistrationCalls\":1}\n", assertions);
+             return 0;
+@@ -242,7 +322,7 @@
+ receipt = dict(compileCommand=command, inputs=pins, compileExitCode=compiled.returncode, gpuExecuted=False,
+                gameExecuted=False, nativeDeviceCreated=False, sharedMoltenVKLinked=False,
+                exactMethodsSha256=hashlib.sha256(methods.encode()).hexdigest(),
+-               indirectLiveGuardAndProofWalkUnchanged=True, generatedFixtureSha256=sha(cpp))
++               indirectBinderExecuted=False, productionRegistrationMethodsExtracted=True, generatedFixtureSha256=sha(cpp))
+ code = compiled.returncode
+ if code == 0:
+     env = os.environ.copy()

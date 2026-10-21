@@ -1,0 +1,96 @@
+{
+  "schema": 1,
+  "status": "review-complete-no-actionable-findings",
+  "reviewDate": "2026-10-20",
+  "recordedAtUTC": "2026-10-21T02:47:00.271255+00:00",
+  "reviewer": "Audit - MK2",
+  "scope": "Frozen C-REG source diff and existing validation evidence only",
+  "verdict": "No blocking or actionable defect found in this bounded change; performance adoption and final app/package review are separate.",
+  "reviewedPins": {
+    "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKMetal4Submission.h": "b16b79f45cebe2ed69e8c0e8c5d8ba5ee4921a0156d7cbd70ca812da57bb18ce",
+    "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKMetal4Submission.mm": "5187e25c47ba6487599baf204b9461c539887597a3177bd163dd7da89dc47dcb",
+    "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCommandEncoderState.mm": "9b28b9a30f6e0d8a975b732dcaf8a49c8e14b32f9ba3157e4f9dce03b14276b9",
+    "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCommandBuffer.mm": "c66515484dfda8a7d5b05ed45622b03f64e9695eedcbb607d4e71387eb354c74",
+    "tools/tests/metal4-r49-lifetime-native.mm": "acc031a39d747c4156839d279f400335f8546811b486f192d6518307ab226376",
+    "tools/tests/metal4-r50-texture-registration-cpu.py": "b5fb5656bb0ff41492db4f18e5d1228c1305247dc354322b48ffc522727d4feb"
+  },
+  "patchSHA256": "8a63b9676e7bb5f60523ba65de636ab00b992dcd0d5475a90f87c478751ee42d",
+  "patchExactlyReconstructedFromBeforeAndCurrent": true,
+  "preimagePinsExact": 6,
+  "protectedRecordedPinsExact": 70,
+  "cpuReceiptInputsExact": 13,
+  "generatedCPUFixtureExact": true,
+  "preparedNativeFixtureExact": true,
+  "rawLibrarySHA256": "e60a7d6694d2c4a7fd02239d981342e0b3f86cab1e6e1d94d897fe9ce4ba101c",
+  "comparisonParentApp": "artifacts/runtime/v104-descriptor-candidate-20261020/BAR.app",
+  "parentRawLibrarySHA256": "443cae49eeca6814a7374cf510178416660e07238715e1ceb451f648e92eb60a",
+  "unchangedImmediateParentMethods": [
+    "bindMetal4Resources",
+    "replayMetal4Resource",
+    "prepareMetal4ResourceRegistration"
+  ],
+  "findings": [],
+  "blockingFindings": 0,
+  "recordedValidation": {
+    "cpuAssertions": 410,
+    "cpuSanitizers": [
+      "ASan",
+      "UBSan"
+    ],
+    "leakDetection": false,
+    "nativeRegistrationCasesPassed": 6,
+    "syntaxCasesPassed": 6,
+    "preparedNativeSuitePassed": 6,
+    "commonBackendCycles": {
+      "m3": 6,
+      "m4": 6
+    },
+    "commonGraphicsChecked": true,
+    "incrementalBuildExitCode": 0,
+    "customDiagnostics": false
+  },
+  "fixtureReview": {
+    "obsoleteR50BinderComparisonRemoval": "Justified: old baseline predates current cumulative changes; immediate-parent binder independently verified unchanged.",
+    "R47Reuse": "Only pre-namespace NSObject doubles, includes and helpers, not outdated private-state retirement tests.",
+    "stagePreparationShell": "Opaque one-element unsigned reset shell; real stage reset semantics are not validated by CPU 410 assertions.",
+    "priorCompileFailuresPreserved": [
+      "cpu-registration",
+      "cpu-registration-2"
+    ]
+  },
+  "limitations": [
+    "No reviewer test, build or game execution. Existing receipts were reviewed, not rerun.",
+    "CPU uses NSObject doubles; indirect binder and real stage-preparation reset are outside that fixture.",
+    "Native cases are bounded; no complete race-freedom, leak-freedom, BAR gameplay, multiplayer or other-Mac guarantee.",
+    "No C-REG comparative FPS or energy conclusion; AC/Low Power Metal3/Metal4 comparison is separate.",
+    "No final packaged candidate audit or publication approval.",
+    "Typed APIs rely on correct internal type provenance; no new opaque object casts were found in selected callers."
+  ],
+  "evidenceSHA256": {
+    "review-pins.json": "053b8560e736aa9d4f7359836cb46897cebe79c91eda56ba9b4dea9fc3b2bb7f",
+    "before.json": "9d7957617134aac296536711740a26eaf6b6a112f248e223ac401d313fe18c00",
+    "c-reg.patch": "8a63b9676e7bb5f60523ba65de636ab00b992dcd0d5475a90f87c478751ee42d",
+    "validation-summary.json": "8cd4266ff1988f6a966931c8b626219291fb642bec4a3d2d865a4f09bee87b53",
+    "cpu-registration-3/receipt.json": "1cbe03e443c86ad11886d40ff8f90a4df913237251f001b4a4215b70919906cd",
+    "cpu-registration-3/registration-exact.mm": "551e16c4a7b7a4106892d70d8a9ae9ab195d8da1507be3496d4d1fa349cb2dc1",
+    "cpu-registration-3/execution.log": "6633e08508574df167548c0b3f52b42574e11b305b6cdd1a4a44398b85f8f9b8",
+    "common-validation/syntax.json": "a6e4b7e0df5aa132194e2e127a5fa832aefdb7609f8260b9272e8d68b1b5fbd2",
+    "common-validation/registration-native/receipt.json": "dfa1af68360a6aa56bf61e9cd2d8c136df8d9783905e45e39b3269e988109394",
+    "common-validation/native-receipt.json": "afe9fb9b3e3451f4832a771b7a9548121635d416c5956b4b42dd60f61c416be2",
+    "common-validation/build.json": "256155ee0091dce9cb86366e62dbd1b6d0ecd5868ddca6f87e510c499b7b1dad",
+    "cpu-registration/compile.log": "2911f0f06f4ba56c3d046dc1958c2e7d41f8aa34cfc1dcd8ac3ed416ff176a36",
+    "cpu-registration-2/compile.log": "bb3a9f6828ae4f2412f31d014340142a9f017bb561be9f89af5b13a08b42beef"
+  },
+  "designSHA256": "875d09af8d87f62410a2501268ce637e2dec81f82dbe2f21951353dd89a134a8",
+  "reportSHA256": "df53f895539d42d418bbf24ec0dad0bc5233f8bc3c6d8d53839091606fbb04a7",
+  "writes": [
+    "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-c-reg-20261020/independent-review.json",
+    "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-c-reg-20261020/independent-review.md"
+  ],
+  "productChanges": false,
+  "sharedStateChanges": false,
+  "AGENTSChanges": false,
+  "newTestsBuildsGames": false,
+  "otherThreadMessages": false,
+  "foreignProjectAccess": false
+}

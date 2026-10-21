@@ -1,0 +1,41 @@
+--- /Users/yeojun/Desktop/BAR-AppleSilicon-App/tools/lib/run94-hidden-window-state.m
++++ /Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-c-reg-fullscreen-reverse-20261020/hidden-fullscreen.m
+@@ -64,12 +64,12 @@
+ }
+ static SDL_Window *hiddenCreate(const char *title,int width,int height,SDL_WindowFlags flags){
+  if(width<1||height<1)hiddenFailure("window-size");
+- SDL_WindowFlags safe=(flags&~SDL_WINDOW_FULLSCREEN)|SDL_WINDOW_HIDDEN|SDL_WINDOW_NOT_FOCUSABLE;
++ SDL_WindowFlags safe=flags|SDL_WINDOW_HIDDEN|SDL_WINDOW_NOT_FOCUSABLE;
+  windowAudit("create-forced-hidden",safe);
+  SDL_Window *window=SDL_CreateWindow(title,width,height,safe);
+  if(window){
+    SDL_WindowFlags actual=SDL_GetWindowFlags(window);
+-   if(!(actual&SDL_WINDOW_HIDDEN)||(actual&SDL_WINDOW_FULLSCREEN))hiddenFailure("created-window-flags");
++   if(!(actual&SDL_WINDOW_HIDDEN)||((actual&SDL_WINDOW_FULLSCREEN)!=(flags&SDL_WINDOW_FULLSCREEN)))hiddenFailure("created-window-flags");
+    windowAudit("created-hidden-verified",actual);
+  }
+  return window;
+@@ -77,8 +77,15 @@
+ static bool blockedShow(SDL_Window *window){(void)window;windowAudit("show-blocked",0);return true;}
+ static bool blockedRaise(SDL_Window *window){(void)window;windowAudit("raise-blocked",0);return true;}
+ static bool blockedRestore(SDL_Window *window){(void)window;windowAudit("restore-blocked",0);return true;}
+-static bool blockedFullscreen(SDL_Window *window,bool enabled){
+- (void)window;windowAudit("fullscreen-blocked",enabled);return !enabled;
++static bool hiddenFullscreen(SDL_Window *window,bool enabled){
++ if(!(SDL_GetWindowFlags(window)&SDL_WINDOW_HIDDEN))hiddenFailure("fullscreen-requires-hidden");
++ bool accepted=SDL_SetWindowFullscreen(window,enabled);
++ SDL_WindowFlags actual=SDL_GetWindowFlags(window);
++ if(!accepted||!(actual&SDL_WINDOW_HIDDEN)||!!(actual&SDL_WINDOW_FULLSCREEN)!=enabled)hiddenFailure("fullscreen-hidden-flags");
++ NSWindow *native=(NSWindow *)SDL_GetPointerProperty(SDL_GetWindowProperties(window),SDL_PROP_WINDOW_COCOA_WINDOW_POINTER,NULL);
++ if(native!=nil&&[native isVisible])hiddenFailure("fullscreen-native-window-visible");
++ windowAudit(enabled?"fullscreen-enabled-hidden":"fullscreen-disabled-hidden",actual);
++ return accepted;
+ }
+ #define INTERPOSE(replacement,original) \
+  __attribute__((used)) static struct {const void *replace;const void *original;} \
+@@ -87,4 +94,4 @@
+ INTERPOSE(blockedShow,SDL_ShowWindow);
+ INTERPOSE(blockedRaise,SDL_RaiseWindow);
+ INTERPOSE(blockedRestore,SDL_RestoreWindow);
+-INTERPOSE(blockedFullscreen,SDL_SetWindowFullscreen);
++INTERPOSE(hiddenFullscreen,SDL_SetWindowFullscreen);

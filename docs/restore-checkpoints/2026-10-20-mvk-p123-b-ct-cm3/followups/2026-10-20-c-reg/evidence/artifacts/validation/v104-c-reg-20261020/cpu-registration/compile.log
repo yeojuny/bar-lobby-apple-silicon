@@ -1,0 +1,84 @@
+In file included from /Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-c-reg-20261020/cpu-registration/registration-exact.mm:9:
+/Users/yeojun/Desktop/BAR-AppleSilicon-App/tools/tests/metal4-r47-retirement-cpu.mm:170:12: error: no member named 'primaryPool' in 'MVKMetal4QueueState'
+  170 |     queue->primaryPool.reserve(MVKMetal4ResourcePoolStats::maxIdlePacksPerKind);
+      |     ~~~~~~~^
+/Users/yeojun/Desktop/BAR-AppleSilicon-App/tools/tests/metal4-r47-retirement-cpu.mm:171:12: error: no member named 'tailPool' in 'MVKMetal4QueueState'
+  171 |     queue->tailPool.reserve(MVKMetal4ResourcePoolStats::maxIdlePacksPerKind);
+      |     ~~~~~~~^
+/Users/yeojun/Desktop/BAR-AppleSilicon-App/tools/tests/metal4-r47-retirement-cpu.mm:177:41: error: no matching function for call to 'acquirePack'
+  177 |     batch->owner = queue; batch->pack = acquirePack(queue, false, &error);
+      |                                         ^~~~~~~~~~~
+/Users/yeojun/Desktop/BAR-AppleSilicon-App/build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKMetal4Submission.mm:991:40: note: candidate function not viable: requires at least 4 arguments, but 3 were provided
+  991 | std::unique_ptr<MVKMetal4ResourcePack> acquirePack(const std::shared_ptr<MVKMetal4RecordingPoolState>& storage,
+      |                                        ^           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  992 |                                                 bool isTail, NSError** error,
+      |                                                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  993 |                                                 MVKMetal4AllocatorUse& allocatorUse,
+      |                                                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  994 |                                                 std::unique_ptr<MVKMetal4CompletionStorage>* completionStorage = nullptr) {
+      |                                                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from /Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-c-reg-20261020/cpu-registration/registration-exact.mm:9:
+/Users/yeojun/Desktop/BAR-AppleSilicon-App/tools/tests/metal4-r47-retirement-cpu.mm:178:37: error: no member named 'allocatorEpochRetirements' in 'MVKMetal4ResourcePack'
+  178 |     if (batch->pack) { batch->pack->allocatorEpochRetirements = MVKMetal4ResourcePoolStats::maxAllocatorEpochRetirements - 1; }
+      |                        ~~~~~~~~~~~~~^
+/Users/yeojun/Desktop/BAR-AppleSilicon-App/tools/tests/metal4-r47-retirement-cpu.mm:178:93: error: no member named 'maxAllocatorEpochRetirements' in 'MVKMetal4ResourcePoolStats'; did you mean 'maxAllocatorEpochRecordings'?
+  178 |     if (batch->pack) { batch->pack->allocatorEpochRetirements = MVKMetal4ResourcePoolStats::maxAllocatorEpochRetirements - 1; }
+      |                                                                                             ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      |                                                                                             maxAllocatorEpochRecordings
+/Users/yeojun/Desktop/BAR-AppleSilicon-App/build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKMetal4Submission.h:82:31: note: 'maxAllocatorEpochRecordings' declared here
+   82 |     static constexpr uint32_t maxAllocatorEpochRecordings = 32;
+      |                               ^
+In file included from /Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-c-reg-20261020/cpu-registration/registration-exact.mm:9:
+/Users/yeojun/Desktop/BAR-AppleSilicon-App/tools/tests/metal4-r47-retirement-cpu.mm:180:37: error: no member named 'allocator' in 'MVKMetal4ResourcePack'
+  180 |     batch->allocator = batch->pack->allocator; batch->buffer = batch->pack->buffer;
+      |                        ~~~~~~~~~~~~~^
+/Users/yeojun/Desktop/BAR-AppleSilicon-App/tools/tests/metal4-r47-retirement-cpu.mm:196:16: error: no member named 'tail' in 'MVKMetal4SubmissionState'
+  196 |         batch->tail = makeRetirementTail(queue, batch->allocator, &error);
+      |         ~~~~~~~^
+/Users/yeojun/Desktop/BAR-AppleSilicon-App/tools/tests/metal4-r47-retirement-cpu.mm:196:23: error: no matching function for call to 'makeRetirementTail'
+  196 |         batch->tail = makeRetirementTail(queue, batch->allocator, &error);
+      |                       ^~~~~~~~~~~~~~~~~~
+/Users/yeojun/Desktop/BAR-AppleSilicon-App/build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKMetal4Submission.mm:1743:24: note: candidate function not viable: requires 2 arguments, but 3 were provided
+ 1743 | MVKMetal4TailRecording makeRetirementTail(const std::shared_ptr<MVKMetal4QueueState>& queue,
+      |                        ^                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 1744 |                                          NSError** error) {
+      |                                          ~~~~~~~~~~~~~~~
+In file included from /Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-c-reg-20261020/cpu-registration/registration-exact.mm:9:
+/Users/yeojun/Desktop/BAR-AppleSilicon-App/tools/tests/metal4-r47-retirement-cpu.mm:197:29: error: no member named 'tail' in 'MVKMetal4SubmissionState'
+  197 |         require(bool(batch->tail) && error == nil, "tail encoded with ended primary allocator");
+      |                      ~~~~~~~^
+/Users/yeojun/Desktop/BAR-AppleSilicon-App/tools/tests/metal4-r47-retirement-cpu.mm:198:47: error: no member named 'tail' in 'MVKMetal4SubmissionState'
+  198 |         auto* tailBuffer = (R47Buffer*)batch->tail->buffer;
+      |                                        ~~~~~~~^
+/Users/yeojun/Desktop/BAR-AppleSilicon-App/tools/tests/metal4-r47-retirement-cpu.mm:199:50: error: no member named 'tail' in 'MVKMetal4SubmissionState'
+  199 |         auto* tailStable = (R47Residency*)batch->tail->stableResidency;
+      |                                           ~~~~~~~^
+/Users/yeojun/Desktop/BAR-AppleSilicon-App/tools/tests/metal4-r47-retirement-cpu.mm:200:24: error: no member named 'tail' in 'MVKMetal4SubmissionState'
+  200 |         require(batch->tail->allocator == nil && batch->tail->residency == nil &&
+      |                 ~~~~~~~^
+/Users/yeojun/Desktop/BAR-AppleSilicon-App/tools/tests/metal4-r47-retirement-cpu.mm:200:57: error: no member named 'tail' in 'MVKMetal4SubmissionState'
+  200 |         require(batch->tail->allocator == nil && batch->tail->residency == nil &&
+      |                                                  ~~~~~~~^
+/Users/yeojun/Desktop/BAR-AppleSilicon-App/tools/tests/metal4-r47-retirement-cpu.mm:210:28: error: no member named 'primaryPool' in 'MVKMetal4QueueState'
+  210 |                     queue->primaryPool.empty() && queue->tailPool.empty(),
+      |                     ~~~~~~~^
+/Users/yeojun/Desktop/BAR-AppleSilicon-App/tools/tests/metal4-r47-retirement-cpu.mm:210:58: error: no member named 'tailPool' in 'MVKMetal4QueueState'
+  210 |                     queue->primaryPool.empty() && queue->tailPool.empty(),
+      |                                                   ~~~~~~~^
+/Users/yeojun/Desktop/BAR-AppleSilicon-App/tools/tests/metal4-r47-retirement-cpu.mm:217:32: error: no member named 'workFeedbackDone' in 'MVKMetal4SubmissionState'
+  217 |                 case 0: batch->workFeedbackDone = true; break;
+      |                         ~~~~~~~^
+/Users/yeojun/Desktop/BAR-AppleSilicon-App/tools/tests/metal4-r47-retirement-cpu.mm:218:32: error: no member named 'tailFeedbackDone' in 'MVKMetal4SubmissionState'
+  218 |                 case 1: batch->tailFeedbackDone = true; break;
+      |                         ~~~~~~~^
+/Users/yeojun/Desktop/BAR-AppleSilicon-App/tools/tests/metal4-r47-retirement-cpu.mm:219:32: error: no member named 'submitFinished' in 'MVKMetal4SubmissionState'
+  219 |                 case 2: batch->submitFinished = true; break;
+      |                         ~~~~~~~^
+/Users/yeojun/Desktop/BAR-AppleSilicon-App/tools/tests/metal4-r47-retirement-cpu.mm:221:13: error: no matching function for call to 'retireIfReady'
+  221 |             retireIfReady(batch);
+      |             ^~~~~~~~~~~~~
+/Users/yeojun/Desktop/BAR-AppleSilicon-App/build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKMetal4Submission.mm:1475:6: note: candidate function not viable: no known conversion from 'shared_ptr<MVKMetal4SubmissionState>' to 'shared_ptr<MVKMetal4SubmissionGroup>' for 1st argument
+ 1475 | void retireIfReady(std::shared_ptr<MVKMetal4SubmissionGroup> group) {
+      |      ^             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+fatal error: too many errors emitted, stopping now [-ferror-limit=]
+20 errors generated.

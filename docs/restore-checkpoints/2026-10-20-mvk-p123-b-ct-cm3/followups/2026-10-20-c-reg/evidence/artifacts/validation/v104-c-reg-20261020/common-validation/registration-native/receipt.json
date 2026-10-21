@@ -1,0 +1,70 @@
+{
+  "arguments": [
+    "/usr/bin/xcrun",
+    "clang++",
+    "-std=c++17",
+    "-fno-objc-arc",
+    "-fblocks",
+    "-mmacosx-version-min=27.0",
+    "-DMVK_ENABLE_CUSTOM_DIAGNOSTICS=0",
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-g",
+    "-O1",
+    "-framework",
+    "Foundation",
+    "-framework",
+    "Metal",
+    "-I/Users/yeojun/Desktop/BAR-AppleSilicon-App/build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects",
+    "-I/Users/yeojun/Desktop/BAR-AppleSilicon-App/build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands",
+    "-fsanitize=address,undefined",
+    "-fno-omit-frame-pointer",
+    "/Users/yeojun/Desktop/BAR-AppleSilicon-App/tools/tests/metal4-r49-lifetime-native.mm",
+    "/Users/yeojun/Desktop/BAR-AppleSilicon-App/build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKMetal4Submission.mm",
+    "/Users/yeojun/Desktop/BAR-AppleSilicon-App/build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKMetal4ArgumentTable.mm",
+    "/Users/yeojun/Desktop/BAR-AppleSilicon-App/build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKBackendTimeline.cpp",
+    "-o",
+    "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-c-reg-20261020/common-validation/registration-native/native-check"
+  ],
+  "compileExitCode": 0,
+  "fixtureSHA256": "acc031a39d747c4156839d279f400335f8546811b486f192d6518307ab226376",
+  "ASanUBSan": true,
+  "MetalValidation": true,
+  "windowCreated": false,
+  "runExitCode": 0,
+  "result": {
+    "device": "Apple M4 Pro",
+    "suite": "metal4_resource_registration",
+    "native_command_backend": true,
+    "passed": 6,
+    "test_count": 6,
+    "failed": 0,
+    "tests": [
+      {
+        "name": "state_rejections_and_empty_batch",
+        "passed": true
+      },
+      {
+        "name": "generic_device_residency_gpu_retirement",
+        "passed": true
+      },
+      {
+        "name": "typed_device_residency_gpu_retirement",
+        "passed": true
+      },
+      {
+        "name": "generic_device_residency_heap_and_texture_view",
+        "passed": true
+      },
+      {
+        "name": "typed_device_residency_heap_and_texture_view",
+        "passed": true
+      },
+      {
+        "name": "device_residency_independent_owner",
+        "passed": true
+      }
+    ]
+  }
+}

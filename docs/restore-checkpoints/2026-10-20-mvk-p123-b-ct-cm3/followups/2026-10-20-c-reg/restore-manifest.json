@@ -1,0 +1,250 @@
+{
+  "schema": "bar-mvk-c-reg-restore-followup-v1",
+  "parent": "45e1bc37ccb68b95b630666497813c9bd1b95603",
+  "metadataVersion": "1.0.3; local experimental1.0.4 designation only",
+  "included": "P1/P2/P3+B+C-T+C-M3+C-REG",
+  "sourceTransitions": [
+    {
+      "workspacePath": "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKMetal4Submission.h",
+      "sourceRelativePath": "MoltenVK/MoltenVK/GPUObjects/MVKMetal4Submission.h",
+      "role": "product",
+      "beforeSHA256": "11e53acba90c8e40d7d299e9caa7b47716226d0216137902f4e5d76724fb3de6",
+      "afterSHA256": "b16b79f45cebe2ed69e8c0e8c5d8ba5ee4921a0156d7cbd70ca812da57bb18ce",
+      "preimage": "evidence/artifacts/validation/v104-c-reg-20261020/before/build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKMetal4Submission.h",
+      "postimage": "evidence/build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKMetal4Submission.h",
+      "mode": 420
+    },
+    {
+      "workspacePath": "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKMetal4Submission.mm",
+      "sourceRelativePath": "MoltenVK/MoltenVK/GPUObjects/MVKMetal4Submission.mm",
+      "role": "product",
+      "beforeSHA256": "76d9714721c2c124cb43bf531bf8a2d6de0c6dae93bb43e0eddef01c235b94ee",
+      "afterSHA256": "5187e25c47ba6487599baf204b9461c539887597a3177bd163dd7da89dc47dcb",
+      "preimage": "evidence/artifacts/validation/v104-c-reg-20261020/before/build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKMetal4Submission.mm",
+      "postimage": "evidence/build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKMetal4Submission.mm",
+      "mode": 420
+    },
+    {
+      "workspacePath": "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCommandEncoderState.mm",
+      "sourceRelativePath": "MoltenVK/MoltenVK/Commands/MVKCommandEncoderState.mm",
+      "role": "product",
+      "beforeSHA256": "e013fcc527b084129bca7ec25daf62b663d96a50f5f7f33821e276c0f7f3e80b",
+      "afterSHA256": "9b28b9a30f6e0d8a975b732dcaf8a49c8e14b32f9ba3157e4f9dce03b14276b9",
+      "preimage": "evidence/artifacts/validation/v104-c-reg-20261020/before/build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCommandEncoderState.mm",
+      "postimage": "evidence/build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCommandEncoderState.mm",
+      "mode": 420
+    },
+    {
+      "workspacePath": "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCommandBuffer.mm",
+      "sourceRelativePath": "MoltenVK/MoltenVK/Commands/MVKCommandBuffer.mm",
+      "role": "product",
+      "beforeSHA256": "101eb7b38d5bf33d3c87b9ae8a8b41cf15ea28454e8fde831cf4e0e8d7424047",
+      "afterSHA256": "c66515484dfda8a7d5b05ed45622b03f64e9695eedcbb607d4e71387eb354c74",
+      "preimage": "evidence/artifacts/validation/v104-c-reg-20261020/before/build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCommandBuffer.mm",
+      "postimage": "evidence/build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCommandBuffer.mm",
+      "mode": 420
+    },
+    {
+      "workspacePath": "tools/tests/metal4-r49-lifetime-native.mm",
+      "sourceRelativePath": null,
+      "role": "fixture",
+      "beforeSHA256": "6e4bb2e5fb0e1b175fc16257d85548a5d6759ba3975db87da36f7a8a7248d1fc",
+      "afterSHA256": "acc031a39d747c4156839d279f400335f8546811b486f192d6518307ab226376",
+      "preimage": "evidence/artifacts/validation/v104-c-reg-20261020/before/tools/tests/metal4-r49-lifetime-native.mm",
+      "postimage": "evidence/tools/tests/metal4-r49-lifetime-native.mm",
+      "mode": 420
+    },
+    {
+      "workspacePath": "tools/tests/metal4-r50-texture-registration-cpu.py",
+      "sourceRelativePath": null,
+      "role": "fixture",
+      "beforeSHA256": "19240d5a065e89de0df4901d83d61db8f03319db8ec674b008adf6a6c79fd636",
+      "afterSHA256": "b5fb5656bb0ff41492db4f18e5d1228c1305247dc354322b48ffc522727d4feb",
+      "preimage": "evidence/artifacts/validation/v104-c-reg-20261020/before/tools/tests/metal4-r50-texture-registration-cpu.py",
+      "postimage": "evidence/tools/tests/metal4-r50-texture-registration-cpu.py",
+      "mode": 420
+    }
+  ],
+  "rawLibrarySHA256": "e60a7d6694d2c4a7fd02239d981342e0b3f86cab1e6e1d94d897fe9ce4ba101c",
+  "packagedLibrarySHA256": "79dfe6e5fe91e35c14751316d0acc5f96837516619945388c5c073e94295ebdc",
+  "appEntries": 1194,
+  "changedAppFiles": [
+    "Contents/MacOS/BAR",
+    "Contents/Resources/bundled-assets/runtime/moltenvk-pr2746/lib/libMoltenVK.1.4.3.dylib",
+    "Contents/_CodeSignature/CodeResources"
+  ],
+  "sourceReview": {
+    "status": "review-complete-no-actionable-findings",
+    "sha256": "7a6c051669a1388650cf17c4c55bf3dd0a82b0732af79ebc5421453d55857aa8",
+    "scope": "Frozen C-REG source diff and existing validation evidence only"
+  },
+  "comparisons": [
+    {
+      "file": "evidence/artifacts/validation/v104-c-reg-performance-20261020/comparison-summary.json",
+      "sha256": "b7463fec7c323a1fa741a6e9015a2735a8b71b6a247c1514cf4692e61febdec7",
+      "fullscreenGame": false,
+      "resolution": {
+        "height": 902,
+        "width": 1432
+      },
+      "order": "Metal4 parent,candidate,candidate,parent then Metal3 candidate,parent,parent,candidate",
+      "records": 8,
+      "groups": {
+        "metal3": {
+          "parent": {
+            "ordinals": [
+              6,
+              7
+            ],
+            "fps": [
+              46.507347106934,
+              49.81481552124
+            ],
+            "meanFPS": 48.161081314087,
+            "meanRunP95Ms": 33.986999511719,
+            "meanRunP99Ms": 47.8145008087155,
+            "minFPS": 46.507347106934,
+            "maxFPS": 49.81481552124
+          },
+          "candidate": {
+            "ordinals": [
+              5,
+              8
+            ],
+            "fps": [
+              45.53987121582,
+              50.832027435303
+            ],
+            "meanFPS": 48.185949325561495,
+            "meanRunP95Ms": 32.987000465392995,
+            "meanRunP99Ms": 47.882999420166,
+            "minFPS": 45.53987121582,
+            "maxFPS": 50.832027435303
+          },
+          "deltaFPSPercent": 0.05163507711198889,
+          "deltaP95Percent": -2.9422987044831483
+        },
+        "metal4": {
+          "parent": {
+            "ordinals": [
+              1,
+              4
+            ],
+            "fps": [
+              36.956966400146,
+              41.345832824707
+            ],
+            "meanFPS": 39.1513996124265,
+            "meanRunP95Ms": 39.394500732422,
+            "meanRunP99Ms": 59.663499832153505,
+            "minFPS": 36.956966400146,
+            "maxFPS": 41.345832824707
+          },
+          "candidate": {
+            "ordinals": [
+              2,
+              3
+            ],
+            "fps": [
+              39.804271697998,
+              40.984306335449
+            ],
+            "meanFPS": 40.3942890167235,
+            "meanRunP95Ms": 37.138000488280994,
+            "meanRunP99Ms": 60.1164989471435,
+            "minFPS": 39.804271697998,
+            "maxFPS": 40.984306335449
+          },
+          "deltaFPSPercent": 3.1745720883564754,
+          "deltaP95Percent": -5.727957461544597
+        }
+      },
+      "nativeDisplayPresentationDeferredWhileHidden": false
+    },
+    {
+      "file": "evidence/artifacts/validation/v104-c-reg-fullscreen-reverse-20261020/comparison-summary.json",
+      "sha256": "7d8bd2c9c58a5cdd842dad6b668be4350e828ab2efce9eacc4e0494c3e947fef",
+      "fullscreenGame": true,
+      "resolution": {
+        "height": 950,
+        "width": 1512
+      },
+      "order": "Metal3 parent,candidate,candidate,parent then Metal4 candidate,parent,parent,candidate",
+      "records": 8,
+      "groups": {
+        "metal3": {
+          "parent": {
+            "ordinals": [
+              1,
+              4
+            ],
+            "fps": [
+              49.680084228516,
+              49.47762298584
+            ],
+            "meanFPS": 49.578853607178004,
+            "meanRunP95Ms": 32.5059995651245,
+            "meanRunP99Ms": 47.186500549315994,
+            "minFPS": 49.47762298584,
+            "maxFPS": 49.680084228516
+          },
+          "candidate": {
+            "ordinals": [
+              2,
+              3
+            ],
+            "fps": [
+              49.803047180176,
+              48.493118286133
+            ],
+            "meanFPS": 49.148082733154496,
+            "meanRunP95Ms": 31.467000961304,
+            "meanRunP99Ms": 47.001501083374,
+            "minFPS": 48.493118286133,
+            "maxFPS": 49.803047180176
+          },
+          "deltaFPSPercent": -0.8688600939355751,
+          "deltaP95Percent": -3.196328732297271
+        },
+        "metal4": {
+          "parent": {
+            "ordinals": [
+              6,
+              7
+            ],
+            "fps": [
+              44.48611831665,
+              43.653118133545
+            ],
+            "meanFPS": 44.0696182250975,
+            "meanRunP95Ms": 32.8415012359615,
+            "meanRunP99Ms": 47.815999984741495,
+            "minFPS": 43.653118133545,
+            "maxFPS": 44.48611831665
+          },
+          "candidate": {
+            "ordinals": [
+              5,
+              8
+            ],
+            "fps": [
+              45.172927856445,
+              45.655853271484
+            ],
+            "meanFPS": 45.4143905639645,
+            "meanRunP95Ms": 31.484000205994,
+            "meanRunP99Ms": 46.980001449585004,
+            "minFPS": 45.172927856445,
+            "maxFPS": 45.655853271484
+          },
+          "deltaFPSPercent": 3.0514726313221274,
+          "deltaP95Percent": -4.133492620249147
+        }
+      },
+      "nativeDisplayPresentationDeferredWhileHidden": true
+    }
+  ],
+  "qualification": "Owner source/build/native/CPU/package checks and16 games; publisher preserves existing results, runs no new tests/build/game. Per app/backend n2 per batch; windowed/fullscreen not pooled, no universal net benefit or significance claim.",
+  "fullscreenScope": "game fullscreen ON, SDL fullscreen intent/flags, 1512x982 container, 1512x950 safe viewport, hidden native presentation deferred by SDL",
+  "originalEarlyStageRecordsPreserved": "Pending or unmeasured fields in original package/validation receipts describe their creation stage; final completion/review/comparison summaries establish later completion."
+}
