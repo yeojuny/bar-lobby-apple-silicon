@@ -1,0 +1,69 @@
+{
+  "status": "implemented-reviewed-signed-frozen-awaiting-restoration-checkpoint",
+  "app": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/runtime/v104-typed-buffer-callers-candidate-20261020/BAR.app",
+  "sourcePins": {
+    "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCmdDraw.mm": "b0664412727e21c2b36300667e488919c8efa747113a8d66e23a4ef7ca4875f5",
+    "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCmdTransfer.mm": "1845cab26d229c9637216cfba710a3bfb7ef3140a8e040d6cdf81a7318740fc4",
+    "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKQueryPool.mm": "f90a7eda645fe9ef306337f5cd90f6684629f7c2f151209ecc1fd7ed5e73ec74"
+  },
+  "protectedInputsExact": 31,
+  "launcherHEADIndexStatusExact": true,
+  "parentAndCandidateInventoriesExact": 1194,
+  "independentReview": {
+    "thread": "01a14b66-bde6-70e3-a3ae-c3b6de9f0354",
+    "turn": "01a15ce1-6a8c-70f1-a6d8-b6347f387425",
+    "findingCount": 0,
+    "receiptSHA256": "80a14677cbd1706505161f5bedad4715bef543a73d3d842b41d7f4b5bb5c3a5a"
+  },
+  "packageReceiptSHA256": "b0df3e865f7d88e3440dc4a84bd11b09ced2fa911c2401177adfb25bd17c3774",
+  "reportSHA256": "a33804edc5b97b75b3cf249436c28452543e71749d52293877f501276658dee9",
+  "validationSummary": {
+    "status": "bounded-implementation-validated-with-known-baseline-failure",
+    "sourcePins": {
+      "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCmdDraw.mm": "b0664412727e21c2b36300667e488919c8efa747113a8d66e23a4ef7ca4875f5",
+      "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCmdTransfer.mm": "1845cab26d229c9637216cfba710a3bfb7ef3140a8e040d6cdf81a7318740fc4",
+      "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKQueryPool.mm": "f90a7eda645fe9ef306337f5cd90f6684629f7c2f151209ecc1fd7ed5e73ec74"
+    },
+    "protectedInputCount": 31,
+    "protectedMismatches": [],
+    "rawLibrarySHA256": "ed983a2648efe352336ca0896e4682d7d9a61e02b56347a5d2680b8f8795ac9f",
+    "productFilesChanged": 3,
+    "fixtureChangesRetained": 0,
+    "CPUAssertions": 410,
+    "syntaxCases": 6,
+    "Metal4Cases": {
+      "initialPassed": 7,
+      "followupPassed": 2,
+      "uniquePassed": 8,
+      "parallelByteCopyRepeated": true
+    },
+    "Metal3CommonCasesPassed": 7,
+    "Metal3Timestamp": {
+      "candidatePassed": false,
+      "exactBaselinePassed": false,
+      "sameError": "GPU/host timestamp result, availability, or padding mismatch at 64",
+      "validBaselineReceipt": "validation/baseline-m3-exact-receipt.json",
+      "invalidFirstLoadingAttemptPreserved": true,
+      "causeKnown": false,
+      "fixed": false
+    },
+    "newGameExecuted": false,
+    "FPSBenefitMeasured": false,
+    "allocatorChanged": false,
+    "previousSampledBARExitStillUnresolved": true
+  },
+  "derivedCleanup": {
+    "completedRoots": 4,
+    "removedFiles": 8,
+    "logicalBytes": 7534088,
+    "physicalReclaimClaimed": false,
+    "failedTimestampExecutableAndSymbolsPreserved": true,
+    "sourceLogsReceiptsPreserved": true
+  },
+  "allocatorChanged": false,
+  "newGameExecuted": false,
+  "FPSGainClaimed": false,
+  "installed": false,
+  "formalReleaseOrHomebrewChanged": false,
+  "githubRestoration": "Pending; completion will be linked separately without mutating these frozen records."
+}

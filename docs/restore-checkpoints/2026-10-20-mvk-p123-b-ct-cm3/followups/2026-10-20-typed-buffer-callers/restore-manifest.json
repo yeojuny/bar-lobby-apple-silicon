@@ -1,0 +1,96 @@
+{
+  "parent": "7ca6c11f457f59681c0dde6a927aabea24ac9c50",
+  "sourceCompletionStatus": "implemented-reviewed-signed-frozen-awaiting-restoration-checkpoint",
+  "metadataVersion": "1.0.3; local cumulative v1.0.4 candidate",
+  "sourceTransitions": [
+    {
+      "workspacePath": "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCmdDraw.mm",
+      "componentRelativePath": "MoltenVK/MoltenVK/Commands/MVKCmdDraw.mm",
+      "beforeSHA256": "2e2ffdb95b7ce8ccdd04ea8ceecd5756d10d0d7af04f9bb37fcddcb2952ad2a8",
+      "afterSHA256": "b0664412727e21c2b36300667e488919c8efa747113a8d66e23a4ef7ca4875f5",
+      "preimage": "evidence/artifacts/validation/v104-typed-buffer-callers-20261020/before/build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCmdDraw.mm",
+      "postimage": "evidence/build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCmdDraw.mm",
+      "mode": 420
+    },
+    {
+      "workspacePath": "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCmdTransfer.mm",
+      "componentRelativePath": "MoltenVK/MoltenVK/Commands/MVKCmdTransfer.mm",
+      "beforeSHA256": "a81742e2572273b997751fe486ab7097d76154bca0db7f900f6614fa8ad00e17",
+      "afterSHA256": "1845cab26d229c9637216cfba710a3bfb7ef3140a8e040d6cdf81a7318740fc4",
+      "preimage": "evidence/artifacts/validation/v104-typed-buffer-callers-20261020/before/build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCmdTransfer.mm",
+      "postimage": "evidence/build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCmdTransfer.mm",
+      "mode": 420
+    },
+    {
+      "workspacePath": "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKQueryPool.mm",
+      "componentRelativePath": "MoltenVK/MoltenVK/GPUObjects/MVKQueryPool.mm",
+      "beforeSHA256": "bac2f648ab452bd67ee0914fca0b7bdd0f3648e6050c5959f3564509338e9a86",
+      "afterSHA256": "f90a7eda645fe9ef306337f5cd90f6684629f7c2f151209ecc1fd7ed5e73ec74",
+      "preimage": "evidence/artifacts/validation/v104-typed-buffer-callers-20261020/before/build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKQueryPool.mm",
+      "postimage": "evidence/build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKQueryPool.mm",
+      "mode": 420
+    }
+  ],
+  "appEntries": 1194,
+  "signedAppDeltaPaths": [
+    "Contents/MacOS/BAR",
+    "Contents/Resources/bundled-assets/runtime/moltenvk-pr2746/lib/libMoltenVK.1.4.3.dylib",
+    "Contents/_CodeSignature/CodeResources"
+  ],
+  "rawLibraryCopied": false,
+  "compiledFixtureExecutablesCopied": false,
+  "validation": {
+    "status": "bounded-implementation-validated-with-known-baseline-failure",
+    "sourcePins": {
+      "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCmdDraw.mm": "b0664412727e21c2b36300667e488919c8efa747113a8d66e23a4ef7ca4875f5",
+      "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCmdTransfer.mm": "1845cab26d229c9637216cfba710a3bfb7ef3140a8e040d6cdf81a7318740fc4",
+      "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKQueryPool.mm": "f90a7eda645fe9ef306337f5cd90f6684629f7c2f151209ecc1fd7ed5e73ec74"
+    },
+    "protectedInputCount": 31,
+    "protectedMismatches": [],
+    "rawLibrarySHA256": "ed983a2648efe352336ca0896e4682d7d9a61e02b56347a5d2680b8f8795ac9f",
+    "productFilesChanged": 3,
+    "fixtureChangesRetained": 0,
+    "CPUAssertions": 410,
+    "syntaxCases": 6,
+    "Metal4Cases": {
+      "initialPassed": 7,
+      "followupPassed": 2,
+      "uniquePassed": 8,
+      "parallelByteCopyRepeated": true
+    },
+    "Metal3CommonCasesPassed": 7,
+    "Metal3Timestamp": {
+      "candidatePassed": false,
+      "exactBaselinePassed": false,
+      "sameError": "GPU/host timestamp result, availability, or padding mismatch at 64",
+      "validBaselineReceipt": "validation/baseline-m3-exact-receipt.json",
+      "invalidFirstLoadingAttemptPreserved": true,
+      "causeKnown": false,
+      "fixed": false
+    },
+    "newGameExecuted": false,
+    "FPSBenefitMeasured": false,
+    "allocatorChanged": false,
+    "previousSampledBARExitStillUnresolved": true
+  },
+  "knownUnresolved": [
+    "Metal3 timestamp host/GPU/availability/padding mismatch reproduced on exact prior raw library; invalid first override-loading attempt preserved",
+    "previous sampled BAR native-exit observation unresolved"
+  ],
+  "newGameOrFPS": false,
+  "independentReview": {
+    "verdict": "no-actionable-defect-in-bounded-three-file-change",
+    "sha256": "80a14677cbd1706505161f5bedad4715bef543a73d3d842b41d7f4b5bb5c3a5a",
+    "runtimeAcceptance": false
+  },
+  "derivedCleanup": {
+    "completedRoots": 4,
+    "removedFiles": 8,
+    "logicalBytes": 7534088,
+    "physicalReclaimClaimed": false,
+    "failedTimestampExecutableAndSymbolsPreserved": true,
+    "sourceLogsReceiptsPreserved": true
+  },
+  "publisherBuildTestGameInstallCleanup": false
+}

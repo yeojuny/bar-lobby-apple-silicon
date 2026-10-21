@@ -1,0 +1,35 @@
+{
+  "CPUAssertions": 410,
+  "FPSBenefitUnmeasured": true,
+  "Metal3Validation": "7 common case outputs passed; timestamp host/GPU mismatch reproduced on exact unchanged baseline",
+  "Metal4Validation": "7 initial cases + 2 followup cases passed; parallel byte-copy repeated once",
+  "app": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/runtime/v104-typed-buffer-callers-candidate-20261020/BAR.app",
+  "candidateDesignation": "local v1.0.4 candidate",
+  "changedFiles": [
+    "Contents/MacOS/BAR",
+    "Contents/Resources/bundled-assets/runtime/moltenvk-pr2746/lib/libMoltenVK.1.4.3.dylib",
+    "Contents/_CodeSignature/CodeResources"
+  ],
+  "deepStrictSignatureVerified": true,
+  "dependencyClosureEdges": 211,
+  "displayedVersion": "1.0.3",
+  "enginesAndLauncherCodeUnchanged": true,
+  "entries": 1194,
+  "formalReleasePublished": false,
+  "gameExecuted": false,
+  "included": "All previous cumulative changes including drawable-size helper + typed Buffer registration callsites",
+  "installed": false,
+  "knownUnresolved": [
+    "pre-existing Metal3 timestamp fixture mismatch",
+    "previous sampled BAR native-exit observation"
+  ],
+  "packagedLibrarySHA256": "c5ea9b843ba2284c410a0b83b7e2412d4cbc0446f15232b5b317eca56b79f804",
+  "parent": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/runtime/v104-drawable-size-candidate-20261020/BAR.app",
+  "rawLibrarySHA256": "ed983a2648efe352336ca0896e4682d7d9a61e02b56347a5d2680b8f8795ac9f",
+  "sourcePins": {
+    "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCmdDraw.mm": "b0664412727e21c2b36300667e488919c8efa747113a8d66e23a4ef7ca4875f5",
+    "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCmdTransfer.mm": "1845cab26d229c9637216cfba710a3bfb7ef3140a8e040d6cdf81a7318740fc4",
+    "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKQueryPool.mm": "f90a7eda645fe9ef306337f5cd90f6684629f7c2f151209ecc1fd7ed5e73ec74"
+  },
+  "status": "signed-local-candidate-review-pending"
+}

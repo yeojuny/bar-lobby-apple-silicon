@@ -1,0 +1,267 @@
+{
+  "schema": "bar-v104-binding-cost-design-v1",
+  "status": "design-complete-no-product-implementation",
+  "date": "2026-10-20",
+  "requestedAnalysisSetting": {
+    "model": "Astra",
+    "reasoning": "Max",
+    "runtimeModelIndependentlyVerified": false
+  },
+  "decision": {
+    "boundedImplementationReady": true,
+    "selected": "Existing typed Buffer registration API at residual indexed-draw, buffer-copy and query-copy callers; typed transfer-helper pair belongs to same optional bounded source unit.",
+    "newDescriptorCacheOrSharingImplementationReady": false,
+    "nextDescriptorStep": "Reuse existing optional encoding counters with at most 26 fixed path/outcome fields before choosing a descriptor preparation redesign.",
+    "allocatorPassSynchronizationImplementationReady": false,
+    "fpsGainProven": false
+  },
+  "baseline": {
+    "app": "artifacts/runtime/v104-drawable-size-candidate-20261020/BAR.app",
+    "displayedVersion": "1.0.3",
+    "candidate": "local v1.0.4 cumulative candidate",
+    "includes": "P1/P2/P3+B+C-T+C-M3+C-REG+live window/drawable size helper",
+    "sourceCheckpointFromInput": "7ca6c11f457f59681c0dde6a927aabea24ac9c50",
+    "remoteRechecked": false,
+    "customDiagnosticsCompiled": 0,
+    "binaryHashes": {
+      "build/metal4-mvk-20261002/MoltenVK/libMoltenVK.1.4.3.dylib": "e60a7d6694d2c4a7fd02239d981342e0b3f86cab1e6e1d94d897fe9ce4ba101c",
+      "artifacts/runtime/v104-drawable-size-candidate-20261020/BAR.app/Contents/Resources/bundled-assets/runtime/moltenvk-pr2746/lib/libMoltenVK.1.4.3.dylib": "79dfe6e5fe91e35c14751316d0acc5f96837516619945388c5c073e94295ebdc"
+    }
+  },
+  "inputHashes": {
+    "artifacts/validation/v104-binding-cost-analysis-20261020/handoff.json": "e926c8e68d03189c5d022317edab5efde1def4e63352e7e7fec7e51e08c4a036",
+    "artifacts/validation/v104-binding-cost-analysis-20261020/root-preservation-check.json": "3de0c48b1e3d9b3aaf9ecb77610b95e9a118b67086667c6cd18bc768830ce164",
+    "artifacts/validation/v104-binding-cost-analysis-20261020/existing-sample-analysis.json": "d413b5e5a098f285bafdc6514f950d454e06674d4058d40fba51e17c70454456",
+    "artifacts/validation/v104-binding-cost-analysis-20261020/source-pins.json": "4b06f99c5b1a063dfb4a545bb8724f025dd8614fccc578e15f089e237e5905e7",
+    "artifacts/validation/v104-binding-cost-analysis-20261020/conditions.json": "51b22770979b4d1eeb1e0b03dbfa456ecf09f761dbd8fd0f675a162ca150185a"
+  },
+  "sourcePins": {
+    "input": "artifacts/validation/v104-binding-cost-analysis-20261020/source-pins.json",
+    "count": 22,
+    "actual": {
+      "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCommandEncoderState.mm": "9b28b9a30f6e0d8a975b732dcaf8a49c8e14b32f9ba3157e4f9dce03b14276b9",
+      "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCommandEncoderState.h": "dac7a20c3963887d5f054322a2bf7884d347271768dd0a124649f7d25862dade",
+      "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCommandBuffer.mm": "c66515484dfda8a7d5b05ed45622b03f64e9695eedcbb607d4e71387eb354c74",
+      "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCommandBuffer.h": "ea6eb8b685fe9a180c2f53faa08b0ca19545a1b764f426c3aac5eadd7b35609a",
+      "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCmdPipeline.mm": "8e663764a00e70ae9b6ede6996da275a9c0aad8a4de632fab8e9ed20e80e1d33",
+      "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKMetal4PreparedResource.h": "d6222a17d4da569b0abd419f1c7e8b41c2f2101c7acf700e770aa02af7afa653",
+      "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKMetal4Submission.h": "b16b79f45cebe2ed69e8c0e8c5d8ba5ee4921a0156d7cbd70ca812da57bb18ce",
+      "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKMetal4Submission.mm": "5187e25c47ba6487599baf204b9461c539887597a3177bd163dd7da89dc47dcb",
+      "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKDevice.h": "dfa43fcfd4c280b2d8ae0d32dfd78ac0b13d0cdb2c5baccb31d551516c812caa",
+      "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKDevice.mm": "0d0985dcecd5ec9e728425a1635ccfb9df9c5fb1f7e3f8d86b4c7fa6eb1545e1",
+      "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKDescriptorSet.h": "fb7583ab4debcf0e8f6afcaa1abc62b87d80e1b457280a77136d3cf5afaae1f5",
+      "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKDescriptorSet.mm": "b87caab357dd43ba2c2cd937dcd7cdd0836c6418f90ddc5d2b90e13022257dc4",
+      "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKPipeline.h": "aad8ee804ef963d234f815841b400f6c826491aa9478428e687fc8e869bca140",
+      "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKPipeline.mm": "aaa8e9f7c9e8ddaab644d08bce02138b60254cb21aa4f2107541ebe3c0f440ba",
+      "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKMetal4ArgumentTable.h": "5c384246248d634381f2530a636f2c7c86d917ce62111564edaac9917ca8a6f2",
+      "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKMetal4ArgumentTable.mm": "e0cace2976b83bf3a57ea5eb00b1d1eb786c3431a1069a8776b06a45b2c949db",
+      "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKBackendTimeline.h": "e5f4307aea9684f9a9dacddd8f5dfb287fdf53a7dc78dab301062fd4f686ca6c",
+      "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKBackendTimeline.cpp": "07bce1a877f56230c4e57afdcbb7e594ae45b0255506e86b3638322c60c11b39",
+      "build/metal4-mvk-20261002/CMakeCache.txt": "0418fd1490c4c368e8d303c3588311dd7bff28bf0133d7148bcd6e18f17aaf9f",
+      "tools/tests/metal4-r50-texture-registration-cpu.py": "b5fb5656bb0ff41492db4f18e5d1228c1305247dc354322b48ffc522727d4feb",
+      "tools/tests/metal4-r49-lifetime-native.mm": "acc031a39d747c4156839d279f400335f8546811b486f192d6518307ab226376",
+      "tools/tests/metal4-prepared-recording-vulkan.mm": "c59916e913b2ad69927b7c7667570c016d3b67b350ae0db42d6dd5452155851d"
+    },
+    "mismatches": []
+  },
+  "additionalReadPins": {
+    "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCmdDraw.mm": "2e2ffdb95b7ce8ccdd04ea8ceecd5756d10d0d7af04f9bb37fcddcb2952ad2a8",
+    "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCmdTransfer.mm": "a81742e2572273b997751fe486ab7097d76154bca0db7f900f6614fa8ad00e17",
+    "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKQueryPool.mm": "bac2f648ab452bd67ee0914fca0b7bdd0f3648e6050c5959f3564509338e9a86",
+    "tools/tests/metal4-r44-backend-cost-cpu.mm": "81dfeadd9b4889875e9a44fa31f3745401d033f8310a14802e2d0a377b218473",
+    "tools/tests/metal4-descriptor-preparation-cpu.py": "ce4b77707d0bbbc627474280e39c5c5a916c3b2f2e9bc2139aebe4e93b17a3ef",
+    "tools/tests/metal4-prepared-texture-cpu.py": "a4e549e8e8d32993bce307d3e09375728b5e82375ca20a2e42a2d7ccd83c1c71",
+    "tools/tests/metal4-transfer-edge.mm": "05bde56ce482c987f837be121735ded6f5146d1f26d1f815bac3a7c34762f2a5",
+    "tools/tests/metal4-primitive-conversion.mm": "e4c95374ea76e44b41d8afc2a764857a15273223526c559667fe775732cbc2eb"
+  },
+  "existingSample": {
+    "path": "artifacts/validation/v104-drawable-size-observation-20261020/1-candidate-metal4/sessions/lobby-no-native-hook-1792556637590/cpu-sample.txt",
+    "sha256": "9be86d7da1ff876f25419c6e0b5aab5f5c92f4cfcf93ec60f08a6ec43cc6f004",
+    "matchesInput": true,
+    "use": "supplementary call-tree evidence only",
+    "runtimeAcceptance": false,
+    "fpsComparisonUse": false,
+    "workerDenominator": 1720,
+    "observations": {
+      "prepareMetal4Draw": 110,
+      "bindMetal4Resources": 75,
+      "resourceRegistration": 20,
+      "registrationProtocol": 7,
+      "registrationResidencyLease": 7,
+      "registrationMutexWait": 0,
+      "groupCache": 2,
+      "textureCache": 8,
+      "nativeRenderEncoderCreation": 45,
+      "allocatorLifecycle": 0,
+      "workerConditionWait": 1347
+    },
+    "countUnit": "inclusive call-tree observations, not calls, duration, CPU utilization or FPS attribution; categories overlap",
+    "protocolCallSites": [
+      {
+        "function": "MVKCmdDrawIndexed::encode",
+        "sampleLine": 4468,
+        "protocolObservations": 5,
+        "sourceLine": 1150
+      },
+      {
+        "function": "MVKCmdCopyBuffer<1ul>::encode",
+        "sampleLine": 4648,
+        "protocolObservations": 1,
+        "sourceLine": 1345
+      },
+      {
+        "function": "MVKQueryPool::encodeCopyResults",
+        "sampleLine": 4723,
+        "protocolObservations": 1,
+        "sourceLine": 231
+      }
+    ],
+    "frequencyLimit": "Already-resident same-buffer registration returns before protocol classification; benefit is confined mainly to first/nonresident registration, not every indexed draw."
+  },
+  "counterFindings": [
+    "indirectGroupPreparations is counted before later pipeline group-snapshot reuse; it is not a slow-payload count.",
+    "textureBindingVisits excludes bindings skipped by group hits.",
+    "textureProofReady/Rejected occur on the slow path; binding-snapshot hits return before these counters.",
+    "ProofReady does not guarantee bounded-cache insertion.",
+    "Encoding counters merge at encoding-end delivery host time; bins are not GPU execution or completion attribution."
+  ],
+  "selectedImplementation": {
+    "files": [
+      "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCmdDraw.mm",
+      "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCmdTransfer.mm",
+      "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKQueryPool.mm"
+    ],
+    "changes": [
+      "Indexed buffer registration uses existing addBufferResource.",
+      "Buffer-copy src/dst preserve known Buffer kind through the existing common transfer helper.",
+      "Query-result src/dst registration uses existing addBufferResource without query ordering changes.",
+      "Typed transfer compute-helper pair can join the same bounded unit; source proof only, per-site BAR cost not separately measured."
+    ],
+    "preserve": [
+      "same phase/device/nil/range/overflow and error order",
+      "same fresh-recording retain/residency and locks",
+      "same query completion/availability, copy/helper and primitive-conversion behavior",
+      "generic unknown/image callers",
+      "foundation OFF and runtime Metal3"
+    ],
+    "validationPlanOnly": [
+      "affected incremental build and foundation OFF",
+      "existing registration CPU cases",
+      "affected actual Vulkan indexed/copy/query outputs",
+      "Metal3-compatible output negative controls without applying M4-specific fixture expectations",
+      "diagnostics OFF performance comparisons only after runtime conditions are qualified"
+    ],
+    "stopIf": [
+      "ownership or synchronization redesign needed",
+      "new cache/lock required",
+      "runtime exit guard fails again",
+      "no measurable gain must not be reported as proven FPS benefit"
+    ]
+  },
+  "diagnosticsPlan": {
+    "conditional": true,
+    "prerequisiteForSelectedTypedCallsiteChange": false,
+    "purpose": "Choose a further descriptor preparation change; not extend ownership sharing speculatively.",
+    "existingEncodingCounters": 53,
+    "newFixedCountersMaximum": 26,
+    "groups": {
+      "binderEntryError": 2,
+      "rootVisitReuse": 2,
+      "recordingLookupOutcomes": 6,
+      "pipelineGroupSnapshotOutcomes": 5,
+      "bindingTerminalAndResidual": 6,
+      "directOpAndSinkAttempts": 2,
+      "implicitVisitReuse": 2,
+      "slowPayloadResourceSlots": 1
+    },
+    "storageLimitBytes": 262144,
+    "retainExisting300OneSecondBins": true,
+    "shippingNewFieldsCompiledOut": true,
+    "noNewHotPath": [
+      "logs",
+      "clocks",
+      "atomics",
+      "locks",
+      "resource maps",
+      "extra proof/generation/revision queries"
+    ],
+    "runtimeMode": "MVK_CONFIG_BACKEND_COST_STATS=1; per-batch stats, queue stats, timeline and capture OFF",
+    "attribution": "fully contained warmup-excluded host delivery bins; not exact simulation frames",
+    "overheadPlan": "release-OFF, diagnostic-runtime-OFF, diagnostic-runtime-ON, diagnostic-runtime-OFF, release-OFF; same short scenario, not executed or queued",
+    "restoration": "single active build lane; separate named diagnostic artifact; remove temporary patch and restore all four compiler flags through configure/build; compare source/config pins and record raw hash; preserved packaged baseline remains immutable",
+    "stopIf": [
+      "collector size ceiling would be raised",
+      "counter partitions do not close",
+      "new ownership/synchronization changes are needed",
+      "diagnostic overhead prevents time attribution",
+      "no justified candidate after bounded classification"
+    ]
+  },
+  "deferred": [
+    {
+      "area": "descriptor sharing beyond existing snapshots",
+      "status": "no implementation design admitted; frequency/cost evidence needed"
+    },
+    {
+      "area": "allocator policy expansion",
+      "status": "no new lifecycle-pressure evidence"
+    },
+    {
+      "area": "pass/resolve changes",
+      "status": "no demonstrated redundant boundary"
+    },
+    {
+      "area": "barrier/wait relaxation",
+      "status": "no new dependency or critical-path evidence"
+    },
+    {
+      "area": "native exit failure",
+      "status": "unresolved separate observation, no speculative repair"
+    }
+  ],
+  "limitations": [
+    "Concurrent user work contaminated earlier drawable-size FPS measurements.",
+    "Sampler collection and 900-frame benchmark finished but later 15-second native-exit check failed; cause unestablished.",
+    "Sample symbols and durations do not establish cache miss frequencies or a Metal4/Metal3 causal performance gap.",
+    "File hash checks certify listed inputs only, not a full workspace/app inventory."
+  ],
+  "nextSuggestedModels": {
+    "boundedImplementation": "SOL 6.1 + High",
+    "independentChangedScopeReview": "Astra + High",
+    "ownershipConcurrencyRedesignIfNeeded": "Astra + Max"
+  },
+  "actions": {
+    "productSourceChanged": false,
+    "fixtureChanged": false,
+    "buildSettingsChanged": false,
+    "buildExecuted": false,
+    "testExecuted": false,
+    "gameExecuted": false,
+    "appChanged": false,
+    "profileChanged": false,
+    "coordinatorOrAgentsChanged": false,
+    "uploadExecuted": false,
+    "cleanupExecuted": false,
+    "otherThreadMessageSent": false,
+    "outputs": [
+      "reports/v104-binding-cost-design-20261020.md",
+      "artifacts/validation/v104-binding-cost-analysis-20261020/design-receipt.json"
+    ]
+  },
+  "report": {
+    "path": "reports/v104-binding-cost-design-20261020.md",
+    "sha256": "bdfda3148dcba9ecd5a1778493d62f9d89d139aa43bd8fb807fffedeee898607"
+  },
+  "finalVerification": {
+    "sourceBuildTestInputPins": 22,
+    "additionalReadPins": 8,
+    "binaries": 2,
+    "inputFiles": 5,
+    "allListedHashesMatch": true,
+    "sampleHashMatches": true,
+    "reportLinksResolve": true,
+    "jsonReadable": true,
+    "productTestsRun": false,
+    "scope": "Listed file hashes and authored document consistency only; not full workspace or app inventory."
+  }
+}

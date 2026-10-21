@@ -1,0 +1,115 @@
+{
+  "date": "2026-10-20",
+  "reviewType": "independent read-only source and existing-evidence review",
+  "requestedReviewer": "Astra + High",
+  "verdict": "no-actionable-defect-in-bounded-three-file-change",
+  "findings": [],
+  "findingCount": 0,
+  "fullRuntimeAcceptance": false,
+  "releaseApproval": false,
+  "sourcePins": {
+    "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCmdDraw.mm": "b0664412727e21c2b36300667e488919c8efa747113a8d66e23a4ef7ca4875f5",
+    "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCmdTransfer.mm": "1845cab26d229c9637216cfba710a3bfb7ef3140a8e040d6cdf81a7318740fc4",
+    "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKQueryPool.mm": "f90a7eda645fe9ef306337f5cd90f6684629f7c2f151209ecc1fd7ed5e73ec74"
+  },
+  "independentChecks": {
+    "currentSelectedSources": 3,
+    "frozenSelectedSources": 3,
+    "protectedUnchangedInputs": 31,
+    "patchExact": true,
+    "originalFixtureRestoredExact": true,
+    "launcherHEADIndexStatusExact": true,
+    "parentInventoryEntriesExact": 1194,
+    "candidateInventoryEntriesExact": 1194,
+    "inventoryIncludesFileHashesModesSizesAndSymlinks": true,
+    "candidateDeltas": [
+      "Contents/MacOS/BAR",
+      "Contents/Resources/bundled-assets/runtime/moltenvk-pr2746/lib/libMoltenVK.1.4.3.dylib",
+      "Contents/_CodeSignature/CodeResources"
+    ],
+    "rawCandidateHashExact": true,
+    "baselineRawHashExact": true,
+    "rawToPackagedMVKFileBackedMachOSectionsExact": 26,
+    "parentToCandidateLauncherFileBackedMachOSectionsExact": 4,
+    "CPUFixtureAndExecutableHashesExact": true,
+    "CPUInputHashesExact": 13,
+    "selectedFixtureBodiesExact": true,
+    "temporaryFixtureOnlyChange": "final native completion-count assertion guarded by nativeExpected"
+  },
+  "existingValidation": {
+    "CPUAssertions": 410,
+    "CPUSanitizers": [
+      "ASan",
+      "UBSan"
+    ],
+    "syntaxFoundationOffOn": 6,
+    "incrementalChangedObjects": 3,
+    "diagnosticsEnabled": false,
+    "metal4InitialPassed": 7,
+    "metal4FollowupPassed": 2,
+    "metal4UniquePassed": 8,
+    "metal3InitialPassed": 5,
+    "metal3InitialFailed": 1,
+    "metal3FollowupPassed": 2,
+    "metal3UniqueCommonPassed": 7,
+    "strictDeepSignature": "passed in existing package receipt; not rerun",
+    "closureEdges": 211
+  },
+  "unresolved": [
+    {
+      "issue": "Metal3 timestamp host/GPU comparison",
+      "error": "GPU/host timestamp result, availability, or padding mismatch at 64",
+      "candidatePassed": false,
+      "exactBaselinePassed": false,
+      "initialBaselineAttemptValid": false,
+      "correctedBaselineLoadedPathAndHashVerified": true,
+      "causeKnown": false,
+      "fixed": false,
+      "limit": "Matching observed error supports pre-existing failure; later timestamp checks are not reached on Metal3 and no universal equivalence is inferred."
+    },
+    {
+      "issue": "previous sampled BAR native-exit failure",
+      "fixed": false
+    }
+  ],
+  "performance": {
+    "FPSMeasured": false,
+    "scope": "first resource registration classification; already-resident early return unchanged"
+  },
+  "actions": {
+    "newTests": false,
+    "builds": false,
+    "signing": false,
+    "gameOrWindowLaunch": false,
+    "productOrFixtureEdits": false,
+    "cleanup": false,
+    "upload": false,
+    "sharedStateEdits": false,
+    "writes": [
+      "independent-review.md",
+      "independent-review.json"
+    ]
+  },
+  "evidenceSHA256": {
+    "before.json": "d1aa342b31d824477a97632d934f5e013148a03fa360d055da2ec52ea0081e7a",
+    "review-pins.json": "97132248ad98e03018bce88e6cc16166dd7573015bd6be142e8270d88f7eeedf",
+    "typed-buffer-callers.patch": "4f04bc6c36a58f9e71f70903052af6d2c2a119a451adcf85211f70a9e231d4fc",
+    "package-receipt.json": "b0df3e865f7d88e3440dc4a84bd11b09ced2fa911c2401177adfb25bd17c3774",
+    "candidate-inventory.json": "698673f9aadff567322131fabfdb534b2683b6b233203d0f4bd6f8364c08af3a",
+    "parent-inventory.json": "a973a102d84574ba4d960bee5af6da47b536f623855d3f5c294ebc99f8f9ef92",
+    "launcher-preservation.json": "ac3a2360324ed67126982fee3ee703f20796cbc18b643ae137c039787938a1d6",
+    "validation-summary.json": "44a26f8202d339ebe7e2a69b68354e2996ae58db6bef4d157b65abc459a26e57",
+    "dependency-closure.json": "3ecaa27cc9b680077e8f1fbcccff01606fd3502d5ac4ae8891e48940bb899296",
+    "cpu-registration/receipt.json": "86637b0ffa31821c458870f3b584284e8dedbc9e107ca31b49bf39396cd94e9d",
+    "validation/syntax.json": "19285f0948e0709e32faa9f6029c0ee62def85b25df21904283e68db2be636f5",
+    "validation/build.json": "9e046f4e7a8db8b0e31d68796c3f8522f62a9bdfb2a5728111c0fccf6eb86a21",
+    "validation/vulkan-receipt.json": "a3e9967b23f5c2328a8f7f8ab3f733f8a9f47ad18b5229216edbd8546dd83672",
+    "validation/followup-receipt.json": "541bab2632900f4d9f430dfac8631d17ce4d1710defda0f88b9fb28b1729bba6",
+    "validation/baseline-m3-receipt.json": "56b7e0f7030730fb63063d6a3456d7c7d05c80a9232a1d5ac35dc86faf9037b7",
+    "validation/baseline-m3-exact-receipt.json": "9199619667ab889a132a08596fc58300257b12c2cd36501bf4473c1fd5842c88",
+    "validation/fixture-adaptation.json": "9c29e74699a9172588c59d40e0ab4c91a654f0f55bed7861faafe67c01abc27c",
+    "validation/m3-stdout.json": "b49237331e0374db3168a45445484bf2217023d44bcc6107c8c35bb73f03d6d3",
+    "validation/baseline-m3-exact-stderr.log": "a7f059e6f5fb1b0632f41a385774610dffb79de1ed5d0c6bb6c14f80ed150a0a"
+  },
+  "markdownSHA256": "bdb78df9b790680daab3db02b5c56e1e35f2f37674c1c6b921eee66d2bad6f3c"
+}

@@ -1,0 +1,32 @@
+# Independent review — typed Buffer callers
+
+2026-10-20. Requested Astra + High independent review. **No actionable defect found in the three-file change.** The bounded caller change is consistent with the approved design and the frozen local candidate. This is a code/evidence review, not full runtime or release acceptance.
+
+The review applied `bar-macos-port`, repository instructions, and the latest task scope. Only this report and its JSON companion were written. No build, fixture execution, signing, game/window launch, cleanup, upload, or shared-state edit was performed.
+
+## Code and contract
+
+- `MVKCmdDraw.mm:1150`: the index binding is already a Metal buffer. Its nil/type, index range and overflow checks precede the same registration point. Only `addResource` becomes `addBufferResource`; failure handling and subsequent draw work retain their order.
+- `MVKCmdTransfer.mm:37–51,105,1353–1354`: copy source/destination come from `MVKBuffer::getMTLBuffer()`. The compute helper accepts `pair<id<MTLBuffer>, NSUInteger>`. The template defaults to Unknown, so image/view/resolve and mixed buffer–texture callers still use generic registration. The lambda definition has no registration side effect: `NSError*` initialization and `!resource || !registerResource()` preserve the nil short circuit and error body. Source registration still precedes destination, and registration failure still prevents the argument-table setter and its index increment. No blanket texture cast was introduced.
+- `MVKQueryPool.mm:231`: both `getResultBuffer()` and destination `getMTLBuffer()` return `id<MTLBuffer>`. Source/destination nil checks and left-to-right registration short circuits remain intact. Result preparation, packed/compute selection, availability locking, helper binding and query/transfer ordering are unchanged.
+- The unchanged `MVKMetal4Submission.mm:2168–2247` routes typed Buffer registration to the same `addResourceWithKind(...NonTexture...)`. Error reset, Recording phase, mutex, device validation, current-record ownership and residency remain. The already-resident early return precedes classification, so the benefit is principally first registration in a record. No allocator, cache-sharing, barrier, retirement or synchronization policy changed. All new code is inside foundation guards and Metal4 runtime branches; the Metal3 path retains its existing behavior.
+
+## Independent byte and package checks
+
+The three current source hashes match `review-pins.json`; their frozen copies match `before.json`. Independently regenerated unified diff equals `typed-buffer-callers.patch` exactly. All other 31 protected input hashes match. The original Vulkan fixture is restored byte-for-byte, and launcher HEAD, index SHA256 and porcelain status match the original record.
+
+Both current app trees match all 1,194 inventory entries, including file hashes, sizes, modes and symlink targets/modes. The only parent-to-candidate deltas are the MVK dylib, `Contents/MacOS/BAR` and root `CodeResources`. All 26 file-backed Mach-O sections match between raw and packaged MVK; all four launcher sections match between parent and candidate. Raw candidate and preserved baseline dylib hashes match their receipts. This establishes current package/content correspondence to the recorded build; it is not an independent rebuild.
+
+The existing package receipt reports strict deep signature success and 211 closure edges; the stored closure contains 211 edges. Signature/closure commands were not rerun. The app remains displayed version 1.0.3, designated a local cumulative v1.0.4 candidate.
+
+## Existing validation and its limits
+
+The registration CPU receipt/log records 410 assertions with ASan/UBSan. Its generated fixture, executable and 13 input hashes match; it includes the actual submission implementation and exercises generic/typed nil, foreign-device, repeat-resident, ended-record and ownership cases. It does not run the full binder or GPU. The six syntax receipts cover all three translation units with foundation OFF/ON; the incremental log contains three object compilations, dylib link and symlink creation, with diagnostics OFF.
+
+The selected GPU wrappers preserve the existing transfer fixture prefix and exact shared-storage function. Their hashes match the receipts. The native queue expectation is explicitly checked, and Metal4 completion is checked by the fixture. The recorded Metal4 runs pass seven initial cases plus two follow-ups: eight unique cases, with byte-copy repeated. They exercise indexed readback, aligned copy/guards, distinct and same-buffer regions, copy/compute/fill continuation, packed/narrow/strided timestamp query copies and reset/reuse, occlusion copies, and parallel byte-copy with pool reset. These are offscreen production-linked Vulkan outputs, not BAR gameplay acceptance.
+
+**Known failure remains:** candidate Metal3 passes five initial cases, then fails timestamp host/GPU comparison at byte 64; execution stops before the seventh initial case. Two subsequent Metal3 cases pass (occlusion copy and parallel byte-copy), yielding seven passing common cases without turning the timestamp suite into a pass. Its later timestamp assertions are not reached on Metal3. The temporary fixture changes only the final native-completion assertion to be conditional on `nativeExpected`; all value, availability and padding checks remain unchanged.
+
+The initial baseline attempt loaded the candidate because the backup lacked the install-name alias; `validBaselineComparison=false` correctly excludes it. The corrected receipt and raw dyld log identify the preserved baseline dylib, whose current hash equals the pre-change hash. That run reproduces the same byte-64 error. This supports that the observed failure is not newly introduced by these callers; it does not diagnose the underlying timestamp issue or prove universal baseline equivalence. The earlier sampled BAR native-exit failure also remains unresolved. No FPS improvement, complete Metal3 validation, gameplay/other-Mac acceptance or release approval follows from this review.
+
+Primary evidence: `before.json`, `review-pins.json`, `typed-buffer-callers.patch`, both app inventories, `cpu-registration/receipt.json`, `validation/{syntax,build,vulkan-receipt,followup-receipt,baseline-m3-exact-receipt,fixture-adaptation}.json`, raw output/log files, and `package-receipt.json` in this directory.

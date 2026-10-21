@@ -1,0 +1,25 @@
+{
+  "status": "ready-for-existing-authorized-publisher",
+  "repository": "yeojuny/bar-lobby-apple-silicon",
+  "branch": "restore/mvk-20261020-p123-b-ct-cm3",
+  "knownParent": "7ca6c11f457f59681c0dde6a927aabea24ac9c50",
+  "selectedManifest": {
+    "path": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-typed-buffer-callers-20261020/restoration-selection.json",
+    "sha256": "030d3b015f222b44d31a719777d071500100a69c08df8b09cee1451bcb838102"
+  },
+  "review": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-typed-buffer-callers-20261020/independent-review.json",
+  "completion": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-typed-buffer-callers-20261020/completion.json",
+  "report": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/reports/v104-typed-buffer-callers-20261020.md",
+  "publishOnlyRestorationBranch": true,
+  "formalReleaseHomebrewRequested": false,
+  "newBuildOrGameRequested": false,
+  "sourceOrAppEditingRequested": false,
+  "snapshotBytesImmutable": true,
+  "FPSBenefitMeasured": false,
+  "preserveQualifications": [
+    "Metal3 timestamp mismatch reproduced with exact prior library; not fixed",
+    "previous sampled BAR native-exit failure unresolved",
+    "no new BAR game or FPS measurement"
+  ],
+  "avoidDuplicateBinaries": "Only three signed app delta entries included; new raw library and compiled fixture executables are not needed for restoring the signed app and are not selected."
+}

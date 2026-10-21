@@ -1,0 +1,59 @@
+{
+  "exitCode": 1,
+  "validBaselineComparison": true,
+  "librarySHA256": "e60a7d6694d2c4a7fd02239d981342e0b3f86cab1e6e1d94d897fe9ce4ba101c",
+  "actualLoadedMoltenVKLines": [
+    "dyld[47754]: <81F606F0-18F2-3CDB-92EB-B4CFDF5A6795> /Users/yeojun/Desktop/BAR-AppleSilicon-App/backups/runtime/v104-typed-buffer-callers-20261020/libMoltenVK.1.4.3.dylib"
+  ],
+  "result": {
+    "passed": 5,
+    "suite": "selected_existing_typed_buffer_paths",
+    "failed": 1,
+    "native_expected": false,
+    "tests": [
+      {
+        "completed_after": 0,
+        "passed": true,
+        "name": "indexed_render_readback",
+        "native_queue": false,
+        "completed_before": 0
+      },
+      {
+        "completed_after": 0,
+        "passed": true,
+        "name": "fill_update_aligned_copy_guards",
+        "native_queue": false,
+        "completed_before": 0
+      },
+      {
+        "completed_after": 0,
+        "passed": true,
+        "name": "independent_copy_distinct_allocations",
+        "native_queue": false,
+        "completed_before": 0
+      },
+      {
+        "completed_after": 0,
+        "passed": true,
+        "name": "independent_copy_same_buffer",
+        "native_queue": false,
+        "completed_before": 0
+      },
+      {
+        "completed_after": 0,
+        "passed": true,
+        "name": "copy_compute_fill_compute_continuation",
+        "native_queue": false,
+        "completed_before": 0
+      },
+      {
+        "name": "timestamp_packed_narrow_strided_copy_reset_reuse",
+        "passed": false,
+        "error": "GPU/host timestamp result, availability, or padding mismatch at 64"
+      }
+    ],
+    "planned": 7,
+    "windowCreated": false,
+    "gameExecuted": false
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "status": "analysis-design-complete",
+  "designThread": "01a0ffb0-a72f-7ba2-84eb-1a22d9eecd33",
+  "designTurn": "01a15ccd-9b2a-7e61-917b-f60b5120809f",
+  "designCompleted": true,
+  "report": "/Users/yeojun/Desktop/BAR-AppleSilicon-App/reports/v104-binding-cost-design-20261020.md",
+  "reportSHA256": "bdfda3148dcba9ecd5a1778493d62f9d89d139aa43bd8fb807fffedeee898607",
+  "receiptSHA256": "ce46e34172adfa86df89258198fa2c45c9ee2656c1e84b04b01bd1d92b82d3ae",
+  "rootCheckedInputs": {
+    "source": 22,
+    "additional": 8,
+    "input": 5,
+    "binary": 2,
+    "sample": 1
+  },
+  "mismatches": [],
+  "launcherMatches": {
+    "HEAD": true,
+    "index": true,
+    "status": true
+  },
+  "decision": {
+    "boundedImplementationReady": true,
+    "selected": "Existing typed Buffer registration API at residual indexed-draw, buffer-copy and query-copy callers; typed transfer-helper pair belongs to same optional bounded source unit.",
+    "newDescriptorCacheOrSharingImplementationReady": false,
+    "nextDescriptorStep": "Reuse existing optional encoding counters with at most 26 fixed path/outcome fields before choosing a descriptor preparation redesign.",
+    "allocatorPassSynchronizationImplementationReady": false,
+    "fpsGainProven": false
+  },
+  "implemented": false,
+  "newBuildExecuted": false,
+  "newTestExecuted": false,
+  "newGameExecuted": false,
+  "runtimeExitObservationUnresolved": true,
+  "scopeNote": "Hash preservation applies to listed inputs, not a full workspace or app inventory."
+}

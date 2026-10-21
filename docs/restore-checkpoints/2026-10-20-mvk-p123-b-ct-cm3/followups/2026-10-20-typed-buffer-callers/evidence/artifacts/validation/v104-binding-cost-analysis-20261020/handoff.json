@@ -1,0 +1,19 @@
+{
+  "status": "ready-for-existing-design-thread",
+  "sourcePins": "artifacts/validation/v104-binding-cost-analysis-20261020/source-pins.json",
+  "existingSampleAnalysis": "artifacts/validation/v104-binding-cost-analysis-20261020/existing-sample-analysis.json",
+  "conditions": "artifacts/validation/v104-binding-cost-analysis-20261020/conditions.json",
+  "questions": [
+    "Which remaining duplicate work is actually supported after excluding completed group/texture/buffer/snapshot/recording caches and C-REG?",
+    "Which full/partial/group/snapshot/binding/direct/residual paths have separate measurable costs and unavailable miss reasons?",
+    "Can existing optional counters suffice; if not, what minimum bounded reason classification is needed?",
+    "Propose the smallest safe next implementation only if justified, otherwise a concrete diagnostic plan with stop conditions and no ownership/synchronization weakening."
+  ],
+  "expectedDesignFiles": [
+    "reports/v104-binding-cost-design-20261020.md",
+    "artifacts/validation/v104-binding-cost-analysis-20261020/design-receipt.json"
+  ],
+  "newGameExecuted": false,
+  "newBuildExecuted": false,
+  "productSourceChanged": false
+}

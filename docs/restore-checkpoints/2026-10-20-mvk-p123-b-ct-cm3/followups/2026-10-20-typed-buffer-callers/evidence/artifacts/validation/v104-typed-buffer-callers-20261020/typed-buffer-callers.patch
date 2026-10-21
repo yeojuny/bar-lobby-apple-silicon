@@ -1,0 +1,62 @@
+--- a/build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCmdDraw.mm
++++ b/build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCmdDraw.mm
+@@ -1147,7 +1147,7 @@
+ 			cmdEncoder->failMetal4Encoding("Native indexed draw exceeds its bound index range."); return;
+ 		}
+ 		NSError* error = nil;
+-		if (!cmdEncoder->getMetal4Submission()->addResource(binding.mtlBuffer, &error)) {
++		if (!cmdEncoder->getMetal4Submission()->addBufferResource(binding.mtlBuffer, &error)) {
+ 			cmdEncoder->failMetal4Encoding("Native index buffer retention failed."); return;
+ 		}
+ 		cmdEncoder->_isIndexedDraw = true;
+--- a/build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCmdTransfer.mm
++++ b/build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCmdTransfer.mm
+@@ -34,9 +34,17 @@
+ #include "MVKDeviceMemory.h"
+ #include <initializer_list>
+ 
++template<MVKMetal4ResourceKind Kind = MVKMetal4ResourceKind::Unknown>
+ static bool mvkMetal4TransferResource(MVKCommandEncoder* encoder, id<MTLResource> resource) {
+     NSError* error = nil;
+-    if (!resource || !encoder->getMetal4Submission()->addResource(resource, &error)) {
++    auto registerResource = [&] {
++        if constexpr (Kind == MVKMetal4ResourceKind::NonTexture) {
++            return encoder->getMetal4Submission()->addBufferResource((id<MTLBuffer>)resource, &error);
++        } else {
++            return encoder->getMetal4Submission()->addResource(resource, &error);
++        }
++    };
++    if (!resource || !registerResource()) {
+         encoder->failMetal4Encoding(error ? error.localizedDescription.UTF8String : "Missing Metal 4 transfer resource.");
+         return false;
+     }
+@@ -94,7 +102,7 @@
+     NSUInteger index = 0;
+     for (auto& binding : buffers) {
+         if (!valid) break;
+-        valid = submission->addResource(binding.first, &error) &&
++        valid = submission->addBufferResource(binding.first, &error) &&
+                 tables->setBuffer(MVKMetal4ArgumentTables::Stage::Compute, binding.first, binding.second, index++, &error);
+     }
+     valid = valid && submission->retainObject(pipeline, &error) &&
+@@ -1342,7 +1350,8 @@
+ 
+ #if MVK_BUILD_METAL4_FOUNDATION
+     if (cmdEncoder->isUsingMetal4()) {
+-        if (!mvkMetal4TransferResource(cmdEncoder, srcMTLBuff) || !mvkMetal4TransferResource(cmdEncoder, dstMTLBuff)) return;
++        if (!mvkMetal4TransferResource<MVKMetal4ResourceKind::NonTexture>(cmdEncoder, srcMTLBuff) ||
++            !mvkMetal4TransferResource<MVKMetal4ResourceKind::NonTexture>(cmdEncoder, dstMTLBuff)) return;
+         // A single Vulkan copy can contain independent regions. Prove actual
+         // allocation/range disjointness before sharing its entry dependency;
+         // imported/unknown aliases and large region sets keep the old barriers.
+--- a/build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKQueryPool.mm
++++ b/build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKQueryPool.mm
+@@ -228,7 +228,7 @@
+ 		id<MTLBuffer> source = getResultBuffer(cmdEncoder, firstQuery, queryCount, srcOffset);
+ 		id<MTLBuffer> destination = destBuffer->getMTLBuffer();
+ 		auto* batch = cmdEncoder->getMetal4Submission();
+-		if (!source || !destination || !batch->addResource(source) || !batch->addResource(destination)) {
++		if (!source || !destination || !batch->addBufferResource(source) || !batch->addBufferResource(destination)) {
+ 			cmdEncoder->failMetal4Encoding("Native query result resources unavailable"); return;
+ 		}
+ 		const VkDeviceSize packedStride = VkDeviceSize(_queryElementCount) * sizeof(uint64_t);
