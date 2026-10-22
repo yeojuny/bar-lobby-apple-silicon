@@ -1,0 +1,67 @@
+{
+  "status": "complete-exact-100-runtime-duplicates-retired",
+  "completedUTC": "2026-10-22T07:36:17.677052+00:00",
+  "removedFiles": 100,
+  "removedDirectories": 0,
+  "logicalBytesRemoved": 332308001,
+  "retainedCanonicalVariants": 30,
+  "categories": {
+    "early-vulkan-headers": {
+      "files": 46,
+      "groups": 17,
+      "logicalBytes": 125029305
+    },
+    "r92-build-objects": {
+      "files": 14,
+      "groups": 2,
+      "logicalBytes": 29725920
+    },
+    "release-launcher-assets": {
+      "files": 40,
+      "groups": 11,
+      "logicalBytes": 177552776
+    }
+  },
+  "remoteCommit": "61f3f876d22760464ac92a7c8bbe53dd1c8e94b4",
+  "remoteFilesVerified": 33,
+  "remotePayloadBytes": 96312578,
+  "volumeAvailableTaskStart": 123572678656,
+  "volumeAvailableBeforeDeletion": 123510009856,
+  "volumeAvailableImmediatelyAfter": 123842117632,
+  "volumeAvailableAfterVerification": 123834466304,
+  "observedDeletionWindowDeltaBytes": 324456448,
+  "observedWholeTaskDeltaBytes": 261787648,
+  "isolatedPhysicalReclaimNotMeasured": true,
+  "currentAndRetainedTreeMetadataExact": true,
+  "currentSourceTestCanonicalHashesExact": true,
+  "realLauncherHEADIndexStatusDiffExact": true,
+  "engineBackupsDeleted": false,
+  "appDeleted": false,
+  "sourceMapDeleted": false,
+  "testsOrFailuresDeleted": false,
+  "productBuildGameGPUExecuted": false,
+  "scope": "Exactly the disclosed 100 runtime-backup duplicates; all other cleanup selections excluded.",
+  "manifestCommit": "61f3f876d22760464ac92a7c8bbe53dd1c8e94b4",
+  "checkpointURL": "https://github.com/yeojuny/bar-lobby-apple-silicon/tree/61f3f876d22760464ac92a7c8bbe53dd1c8e94b4/docs/restore-checkpoints/2026-10-22-runtime-backup-dedup",
+  "independentReview": "Passed with zero blockers before publication/deletion; selected files and helpers bound by digest.",
+  "independentReviewSHA256": "ffec89ff5157426f518f5d3c2e6d0555f843b1795be53b09da212962070e3d2e",
+  "remoteVerification": "All 33 selected files anonymously read back; SHA256, Git blob and Git tree file modes exact.",
+  "restoreSample": {
+    "status": "passed",
+    "groups": [
+      "G000",
+      "G066",
+      "G079"
+    ],
+    "actualRestoredCopies": 17,
+    "bytesModesMtimesExact": true,
+    "refused": [
+      "existing-destination",
+      "corrupt-payload-before-writing"
+    ],
+    "existingBackupsModified": false,
+    "temporarySampleRemoved": true,
+    "claim": "Three representative byte groups; other payloads bound by exact hash, not all historic builds replayed."
+  },
+  "spaceInterpretation": "Observed available-space changes on the whole APFS volume, including unrelated system activity. Whole-task net also includes preparing local Git objects/records. Not isolated causal physical reclaim."
+}
