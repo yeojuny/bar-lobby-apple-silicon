@@ -1,0 +1,71 @@
+{
+  "candidatePromoted": false,
+  "completedAtUTC": "2026-10-21T09:11:47.358804+00:00",
+  "currentCandidate": "C",
+  "groups": {
+    "metal3": {
+      "C": {
+        "FPS": [
+          50.151435852051,
+          53.154857635498
+        ],
+        "meanFPS": 51.6531467437745,
+        "meanP95Ms": 29.079999923705998
+      },
+      "L": {
+        "FPS": [
+          53.429534912109,
+          52.834331512451
+        ],
+        "changeFromCPercent": 2.862916514730518,
+        "meanFPS": 53.13193321228,
+        "meanP95Ms": 27.0825004577635
+      },
+      "S": {
+        "FPS": [
+          52.359218597412,
+          52.466598510742
+        ],
+        "changeFromCPercent": 1.4708916265475658,
+        "meanFPS": 52.412908554077006,
+        "meanP95Ms": 27.158999443054
+      }
+    },
+    "metal4": {
+      "C": {
+        "FPS": [
+          44.420768737793,
+          46.548225402832
+        ],
+        "meanFPS": 45.4844970703125,
+        "meanP95Ms": 29.9934997558595
+      },
+      "L": {
+        "FPS": [
+          44.145626068115,
+          45.463203430176
+        ],
+        "changeFromCPercent": -1.4951958688598666,
+        "meanFPS": 44.8044147491455,
+        "meanP95Ms": 29.860499382019
+      },
+      "S": {
+        "FPS": [
+          43.627777099609,
+          44.965362548828
+        ],
+        "changeFromCPercent": -2.61171898692788,
+        "meanFPS": 44.296569824218494,
+        "meanP95Ms": 30.478500366211
+      }
+    }
+  },
+  "independentReview": {
+    "actionableFindings": 0,
+    "path": "${WORKSPACE}/artifacts/validation/v104-d-split-20261021/independent-review.json",
+    "sha256": "45165ba1b9a5ab52ed73171a9a87618ce9992c1a403705411d2e376e4b3afa71"
+  },
+  "report": "${WORKSPACE}/reports/v104-d-split-20261021.md",
+  "reportSHA256": "01eb81d5799a79ac2107da2e255d530163dc3d2fd3c87100ae5942dd02a3d977",
+  "status": "split-comparison-complete-E-work-separate"
+}

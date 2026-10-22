@@ -1,0 +1,434 @@
+{
+  "apps": {
+    "C": {
+      "app": "${WORKSPACE}/artifacts/runtime/v104-typed-buffer-callers-candidate-20261020/BAR.app",
+      "inventoryDigest": "4b24ae823be42b8195b7cdc855a87f31a12b09efe42042f67d8013937132ee0e",
+      "localCandidate": "v1.0.4",
+      "version": "1.0.3"
+    },
+    "E32": {
+      "app": "${WORKSPACE}/artifacts/runtime/v104-e-structure-allocator32-20261021/BAR.app",
+      "inventoryDigest": "972c67f19f6f1c71f6c7ca8d86893c8ddf08bbb4d2de2035b7bbfe100a747067",
+      "localCandidate": "v1.0.4",
+      "version": "1.0.3"
+    },
+    "E64": {
+      "app": "${WORKSPACE}/artifacts/runtime/v104-e-structure-candidate-20261021/BAR.app",
+      "inventoryDigest": "393a30b0ce24d815fbe9f7cb80929dc0d9255e2147b9b27ce5879f3664990c54",
+      "localCandidate": "v1.0.4",
+      "version": "1.0.3"
+    }
+  },
+  "appsCE32E64InventoriesExact": true,
+  "awakeReleased": true,
+  "cleanup": {
+    "leaves": 3999,
+    "logicalBytes": 115456473,
+    "physicalBytesMeasured": false,
+    "roots": 72
+  },
+  "conditions": {
+    "camera": {
+      "dist": 2254.7705078125,
+      "dx": 0,
+      "dy": -0.924302399158,
+      "dz": -0.381660997868,
+      "fov": 45,
+      "mode": 2,
+      "name": "spring",
+      "px": 4096,
+      "py": 254.770629882813,
+      "pz": 3072,
+      "rx": 2.75,
+      "ry": 0,
+      "rz": 0
+    },
+    "game": "Beyond All Reason",
+    "map": "Seths Ravine Remake 1.3.1",
+    "officialCommand": "luarules benchmark armbull armbull 80 8 1400",
+    "quality": {
+      "config": {
+        "MSAA": 0,
+        "MSAALevel": 0,
+        "MinSampleShadingRate": 0,
+        "VSync": 0,
+        "VSyncGame": 0
+      },
+      "glSamples": 0,
+      "glSamplesConfirmed4": false,
+      "glSamplesScope": "DrawScreen current framebuffer; resolved UI targets may report 0 or 1",
+      "mapEdge": {
+        "actual": 0.5,
+        "exceptionApplied": true,
+        "voidGround": false,
+        "voidWater": true,
+        "wanted": true,
+        "widgetActive": false
+      },
+      "optionValues": {
+        "advmapshading": true,
+        "attackrange_numrangesmult": 1,
+        "bloomdeferred": true,
+        "bloomdeferred_quality": 3,
+        "camera": 3,
+        "cusgl4": true,
+        "decals": true,
+        "decalsgl4": true,
+        "distortioneffects": true,
+        "fogdiaglines": 0,
+        "grass": true,
+        "lighteffects": true,
+        "lighteffects_nanoparticlelights": true,
+        "lighteffects_screenspaceshadows": 4,
+        "limitidlefps": false,
+        "limitoffscreenfps": false,
+        "losrange": true,
+        "mapedgeextension": 0.5,
+        "msaa": 1,
+        "particles": 40000,
+        "preset": 5,
+        "shadowslider": 6,
+        "snow": true,
+        "ssao": true,
+        "ssao_quality": 3,
+        "vsync": 1,
+        "water": 2
+      },
+      "optionsVerified": 20,
+      "ultraPreset": 5,
+      "ultraVerified": true
+    },
+    "resolution": {
+      "height": 950,
+      "width": 1512
+    },
+    "seed": 7654321,
+    "workload": {
+      "placementSpan": 1400,
+      "populationThresholdIsNotHardCap": true,
+      "populationThresholdPerTeam": 80,
+      "rampIncluded": true,
+      "replenishBatchPerTeam": 8,
+      "replenishEverySimulationFrames": 3,
+      "requestedSimulationSpeed": 1,
+      "unitTypeOpponent": "armbull",
+      "unitTypeOwn": "armbull"
+    }
+  },
+  "executionOrder": [
+    {
+      "FPS": 54.0947265625,
+      "app": "${WORKSPACE}/artifacts/runtime/v104-typed-buffer-callers-candidate-20261020/BAR.app",
+      "backend": "metal3",
+      "drawIntervals": 1621,
+      "ordinal": 1,
+      "p95Ms": 26.252000808716,
+      "p99Ms": 37.215000152588,
+      "receipt": "${WORKSPACE}/artifacts/validation/v104-e-performance-20261021/performance/1-C-metal3/sessions/lobby-no-native-hook-1792575185377/execution-receipt.json",
+      "receiptSHA256": "789d3a8ab28067c1ab650ae8108c60416868966e9adc9b6daf7201654db2a528",
+      "role": "C",
+      "simulationFrames": 900,
+      "version": "1.0.3"
+    },
+    {
+      "FPS": 51.817646026611,
+      "app": "${WORKSPACE}/artifacts/runtime/v104-e-structure-allocator32-20261021/BAR.app",
+      "backend": "metal3",
+      "drawIntervals": 1553,
+      "ordinal": 2,
+      "p95Ms": 27.576999664307,
+      "p99Ms": 41.569000244141,
+      "receipt": "${WORKSPACE}/artifacts/validation/v104-e-performance-20261021/performance/2-E32-metal3/sessions/lobby-no-native-hook-1792575307101/execution-receipt.json",
+      "receiptSHA256": "e2cb6fd7f708104958abbfc7261f79a9a0629e9e493410295491d09dc43010d9",
+      "role": "E32",
+      "simulationFrames": 900,
+      "version": "1.0.3"
+    },
+    {
+      "FPS": 51.040042877197,
+      "app": "${WORKSPACE}/artifacts/runtime/v104-e-structure-candidate-20261021/BAR.app",
+      "backend": "metal3",
+      "drawIntervals": 1529,
+      "ordinal": 3,
+      "p95Ms": 32.234001159668,
+      "p99Ms": 45.379001617432,
+      "receipt": "${WORKSPACE}/artifacts/validation/v104-e-performance-20261021/performance/3-E64-metal3/sessions/lobby-no-native-hook-1792575428035/execution-receipt.json",
+      "receiptSHA256": "a0856add46b459726fba6c9ef1a4d5ab6a87913abdca8b2c3a574ac06b76218b",
+      "role": "E64",
+      "simulationFrames": 900,
+      "version": "1.0.3"
+    },
+    {
+      "FPS": 53.363636016846,
+      "app": "${WORKSPACE}/artifacts/runtime/v104-e-structure-candidate-20261021/BAR.app",
+      "backend": "metal3",
+      "drawIntervals": 1599,
+      "ordinal": 4,
+      "p95Ms": 27.694999694824,
+      "p99Ms": 39.936000823975,
+      "receipt": "${WORKSPACE}/artifacts/validation/v104-e-performance-20261021/performance/4-E64-metal3/sessions/lobby-no-native-hook-1792575547883/execution-receipt.json",
+      "receiptSHA256": "cfff0a47ee291bdc31ab8c0dccdc1e2d207235821f27fe17c6d9840c7554be47",
+      "role": "E64",
+      "simulationFrames": 900,
+      "version": "1.0.3"
+    },
+    {
+      "FPS": 51.82349395752,
+      "app": "${WORKSPACE}/artifacts/runtime/v104-e-structure-allocator32-20261021/BAR.app",
+      "backend": "metal3",
+      "drawIntervals": 1553,
+      "ordinal": 5,
+      "p95Ms": 27.898000717163,
+      "p99Ms": 39.583999633789,
+      "receipt": "${WORKSPACE}/artifacts/validation/v104-e-performance-20261021/performance/5-E32-metal3/sessions/lobby-no-native-hook-1792575667349/execution-receipt.json",
+      "receiptSHA256": "d2c25073aeaede1dae3434a16b7d2dfe61326fb9e77f77274ebee750e8d2b6a6",
+      "role": "E32",
+      "simulationFrames": 900,
+      "version": "1.0.3"
+    },
+    {
+      "FPS": 53.09822845459,
+      "app": "${WORKSPACE}/artifacts/runtime/v104-typed-buffer-callers-candidate-20261020/BAR.app",
+      "backend": "metal3",
+      "drawIntervals": 1591,
+      "ordinal": 6,
+      "p95Ms": 27.113000869751,
+      "p99Ms": 39.875999450684,
+      "receipt": "${WORKSPACE}/artifacts/validation/v104-e-performance-20261021/performance/6-C-metal3/sessions/lobby-no-native-hook-1792575784750/execution-receipt.json",
+      "receiptSHA256": "afd661ac5e6ef74b5a3163b52b5ea3bf4330aad544005046606d12dc7f7e6f73",
+      "role": "C",
+      "simulationFrames": 900,
+      "version": "1.0.3"
+    },
+    {
+      "FPS": 46.490734100342,
+      "app": "${WORKSPACE}/artifacts/runtime/v104-e-structure-candidate-20261021/BAR.app",
+      "backend": "metal4",
+      "drawIntervals": 1393,
+      "ordinal": 7,
+      "p95Ms": 29.275999069214,
+      "p99Ms": 44.854999542236,
+      "receipt": "${WORKSPACE}/artifacts/validation/v104-e-performance-20261021/performance/7-E64-metal4/sessions/lobby-no-native-hook-1792575903331/execution-receipt.json",
+      "receiptSHA256": "99a8e5325f2f15176db08e28702a42c99183f9089412054badb0c918e7116535",
+      "role": "E64",
+      "simulationFrames": 900,
+      "version": "1.0.3"
+    },
+    {
+      "FPS": 48.405914306641,
+      "app": "${WORKSPACE}/artifacts/runtime/v104-e-structure-allocator32-20261021/BAR.app",
+      "backend": "metal4",
+      "drawIntervals": 1450,
+      "ordinal": 8,
+      "p95Ms": 28.958999633789,
+      "p99Ms": 42.542999267578,
+      "receipt": "${WORKSPACE}/artifacts/validation/v104-e-performance-20261021/performance/8-E32-metal4/sessions/lobby-no-native-hook-1792576020552/execution-receipt.json",
+      "receiptSHA256": "184c4d5e8db79a33c17f94f2deacf603d2820438d4908ac52ed3201510e4b5a7",
+      "role": "E32",
+      "simulationFrames": 900,
+      "version": "1.0.3"
+    },
+    {
+      "FPS": 47.222286224365,
+      "app": "${WORKSPACE}/artifacts/runtime/v104-typed-buffer-callers-candidate-20261020/BAR.app",
+      "backend": "metal4",
+      "drawIntervals": 1415,
+      "ordinal": 9,
+      "p95Ms": 28.652000427246,
+      "p99Ms": 41.331001281738,
+      "receipt": "${WORKSPACE}/artifacts/validation/v104-e-performance-20261021/performance/9-C-metal4/sessions/lobby-no-native-hook-1792576139724/execution-receipt.json",
+      "receiptSHA256": "11eda06edeeb3e1e677e830069cae06364e9dd60653895882f2d2643e282603e",
+      "role": "C",
+      "simulationFrames": 900,
+      "version": "1.0.3"
+    },
+    {
+      "FPS": 46.524593353271,
+      "app": "${WORKSPACE}/artifacts/runtime/v104-typed-buffer-callers-candidate-20261020/BAR.app",
+      "backend": "metal4",
+      "drawIntervals": 1394,
+      "ordinal": 10,
+      "p95Ms": 28.833000183105,
+      "p99Ms": 44.957000732422,
+      "receipt": "${WORKSPACE}/artifacts/validation/v104-e-performance-20261021/performance/10-C-metal4/sessions/lobby-no-native-hook-1792576259607/execution-receipt.json",
+      "receiptSHA256": "257fe338a34095945fa4e346f14794b523ec59fea969e4858707a91a316ca020",
+      "role": "C",
+      "simulationFrames": 900,
+      "version": "1.0.3"
+    },
+    {
+      "FPS": 45.885204315186,
+      "app": "${WORKSPACE}/artifacts/runtime/v104-e-structure-allocator32-20261021/BAR.app",
+      "backend": "metal4",
+      "drawIntervals": 1375,
+      "ordinal": 11,
+      "p95Ms": 32.979999542236,
+      "p99Ms": 48.851001739502,
+      "receipt": "${WORKSPACE}/artifacts/validation/v104-e-performance-20261021/performance/11-E32-metal4/sessions/lobby-no-native-hook-1792576377258/execution-receipt.json",
+      "receiptSHA256": "43382fb40637754d78b8435734fcd63eacb19cd53ca271334cf91696cc87eb26",
+      "role": "E32",
+      "simulationFrames": 900,
+      "version": "1.0.3"
+    },
+    {
+      "FPS": 46.862308502197,
+      "app": "${WORKSPACE}/artifacts/runtime/v104-e-structure-candidate-20261021/BAR.app",
+      "backend": "metal4",
+      "drawIntervals": 1404,
+      "ordinal": 12,
+      "p95Ms": 28.878000259399,
+      "p99Ms": 42.562000274658,
+      "receipt": "${WORKSPACE}/artifacts/validation/v104-e-performance-20261021/performance/12-E64-metal4/sessions/lobby-no-native-hook-1792576495088/execution-receipt.json",
+      "receiptSHA256": "9b2dc076c13238e04d1b20cc4eab690cf632d5b1ef27678996ffb84d8b7910a4",
+      "role": "E64",
+      "simulationFrames": 900,
+      "version": "1.0.3"
+    }
+  ],
+  "groups": {
+    "metal3": {
+      "C": {
+        "FPS": [
+          54.0947265625,
+          53.09822845459
+        ],
+        "meanFPS": 53.596477508545,
+        "meanP95Ms": 26.6825008392335
+      },
+      "E32": {
+        "FPS": [
+          51.817646026611,
+          51.82349395752
+        ],
+        "changeFromCPercent": -3.313478047501095,
+        "meanFPS": 51.8205699920655,
+        "meanP95Ms": 27.737500190735
+      },
+      "E64": {
+        "FPS": [
+          51.040042877197,
+          53.363636016846
+        ],
+        "changeFromCPercent": -2.602107687582922,
+        "changeFromE32Percent": 0.7357492497947815,
+        "meanFPS": 52.2018394470215,
+        "meanP95Ms": 29.964500427245998
+      }
+    },
+    "metal4": {
+      "C": {
+        "FPS": [
+          47.222286224365,
+          46.524593353271
+        ],
+        "meanFPS": 46.873439788818004,
+        "meanP95Ms": 28.7425003051755
+      },
+      "E32": {
+        "FPS": [
+          48.405914306641,
+          45.885204315186
+        ],
+        "changeFromCPercent": 0.5805409701560071,
+        "meanFPS": 47.1455593109135,
+        "meanP95Ms": 30.9694995880125
+      },
+      "E64": {
+        "FPS": [
+          46.490734100342,
+          46.862308502197
+        ],
+        "changeFromCPercent": -0.4201067564823302,
+        "changeFromE32Percent": -0.9948720865751159,
+        "meanFPS": 46.6765213012695,
+        "meanP95Ms": 29.0769996643065
+      }
+    }
+  },
+  "limitations": [
+    "Small n2 per app/backend, OS/user background load not fully controlled.",
+    "All diagnostics compiled OFF. E32/E64 extra allocator policy differs only in count limit32 to64; no memory benefit inferred from FPS.",
+    "Historical FPS not pooled; timestamp and sampled-exit unresolved cases not claimed repaired.",
+    "SDL native display/Space transition deferred while hidden; 1512x950 safe default1x drawable."
+  ],
+  "nPerAppBackend": 2,
+  "powerObservations": 111,
+  "screenRestored": true,
+  "sourceBindings": {
+    "CApp": "${WORKSPACE}/artifacts/runtime/v104-typed-buffer-callers-candidate-20261020/BAR.app",
+    "CMakeCacheSHA256": "0418fd1490c4c368e8d303c3588311dd7bff28bf0133d7148bcd6e18f17aaf9f",
+    "E32Package": "${WORKSPACE}/artifacts/validation/v104-e-structure-20261021/E32-package.json",
+    "E64Package": "${WORKSPACE}/artifacts/validation/v104-e-structure-20261021/E64-package.json",
+    "currentCandidate": {
+      "app": "${WORKSPACE}/artifacts/runtime/v104-typed-buffer-callers-candidate-20261020/BAR.app",
+      "currentCandidate": "C",
+      "designation": "local v1.0.4 cumulative candidate",
+      "displayedVersion": "1.0.3",
+      "githubABCManagement": "https://github.com/yeojuny/bar-lobby-apple-silicon/tree/90948f178d8194828d024b2278268633a11ef9b0/docs/restore-checkpoints/2026-10-20-mvk-p123-b-ct-cm3/followups/2026-10-20-abc-retention",
+      "githubCommit": "90948f178d8194828d024b2278268633a11ef9b0",
+      "inventoryEntries": 1194,
+      "localAExists": false,
+      "localBExists": false,
+      "nextInvestigation": {
+        "statusAtWrite": "running Astra + Max, read-only investigation/design; no implementation requested",
+        "threadTitle": "BAR Metal 4 전환 범위 조사",
+        "turnId": "${THREAD_ID}"
+      },
+      "preservedSourceBuildAndMarkdown": true,
+      "retentionCompletion": "artifacts/validation/v104-abc-local-retention-20261020/completion.json",
+      "status": "C-only-local-among-A-B-C"
+    },
+    "packageSHA256": {
+      "E32": "6a91d4b9a45aa95cbed8609d0c1ba231fe26dc5065e9e32038e776ad6d7b61aa",
+      "E64": "420552472d62f534e19ed9780ee5dba55f097bd90446a895bdce0d1252bdf035"
+    },
+    "rawSHA256": "4c6eabe4e916b5bd078f853a9470fa864f1799b3f453989c895e3cc240304ca1",
+    "sourcePins": {
+      "artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Rendering/GlobalRendering.cpp": "1d7cd698a097171fa1c3ca226aa88506a32c0f7246f0d42f6e0ae5a3b686162d",
+      "artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/System/Platform/Mac/MacSDL3EGLBridge.h": "7a87e73d9fbadd9f4d2326010263a29598ebeb7648a4f21447c18aa449cab733",
+      "artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/System/Platform/Mac/MacSDL3EGLBridge.mm": "e65cc88decc124356196b727b6220db68236c89e19164b90a5587ace409d4258",
+      "build/metal4-mvk-20261002/CMakeCache.txt": "0418fd1490c4c368e8d303c3588311dd7bff28bf0133d7148bcd6e18f17aaf9f",
+      "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCmdDraw.mm": "b0664412727e21c2b36300667e488919c8efa747113a8d66e23a4ef7ca4875f5",
+      "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCmdPipeline.mm": "8e663764a00e70ae9b6ede6996da275a9c0aad8a4de632fab8e9ed20e80e1d33",
+      "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCmdTransfer.mm": "1845cab26d229c9637216cfba710a3bfb7ef3140a8e040d6cdf81a7318740fc4",
+      "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCommandBuffer.h": "76ec3c345cccfae09d5e0391d2600ed7f2ff241dc796cc021a6521a84803e973",
+      "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCommandBuffer.mm": "d456cbd32406550ec782fd19e3125622aa30e8b87dba3bb447e4f2125cdaacda",
+      "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCommandEncoderState.h": "dac7a20c3963887d5f054322a2bf7884d347271768dd0a124649f7d25862dade",
+      "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCommandEncoderState.mm": "d229ff2287e51823ba1ae63fc52823b43e4bb68c16ee115107e71e10ac2916c9",
+      "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKMetal4ArgumentTable.h": "5c384246248d634381f2530a636f2c7c86d917ce62111564edaac9917ca8a6f2",
+      "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKMetal4ArgumentTable.mm": "e0cace2976b83bf3a57ea5eb00b1d1eb786c3431a1069a8776b06a45b2c949db",
+      "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKMetal4DependencyScopes.h": "be76d4a7fec94a609d687d7d1cd0a93e19b37e96e45e71726180e418048ff568",
+      "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKBackendTimeline.cpp": "07bce1a877f56230c4e57afdcbb7e594ae45b0255506e86b3638322c60c11b39",
+      "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKBackendTimeline.h": "e5f4307aea9684f9a9dacddd8f5dfb287fdf53a7dc78dab301062fd4f686ca6c",
+      "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKDescriptorSet.h": "fb7583ab4debcf0e8f6afcaa1abc62b87d80e1b457280a77136d3cf5afaae1f5",
+      "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKDescriptorSet.mm": "b87caab357dd43ba2c2cd937dcd7cdd0836c6418f90ddc5d2b90e13022257dc4",
+      "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKDevice.h": "dfa43fcfd4c280b2d8ae0d32dfd78ac0b13d0cdb2c5baccb31d551516c812caa",
+      "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKDevice.mm": "0d0985dcecd5ec9e728425a1635ccfb9df9c5fb1f7e3f8d86b4c7fa6eb1545e1",
+      "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKMetal4PreparedResource.h": "b8190444dc557782fda486a435c98a523a06ec64a8ec48d2919658b35323df96",
+      "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKMetal4Submission.h": "58b42ee3c431ccc8f00010149972f7d9dcc2635a96fa2a37ba57ef063da2b4d9",
+      "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKMetal4Submission.mm": "76f492804b8129908c305e16ca36fee79ff1890b5fa925c7539752e690817516",
+      "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKPipeline.h": "d8249943835749688ebebcadfa6eb1e43dc51e31a37557ec08b6996f271a57ed",
+      "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKPipeline.mm": "6a8c37b9964191a18479fc41f352e7d439f5b8aac87d0b01782409ca7c79f080",
+      "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKQueryPool.mm": "f90a7eda645fe9ef306337f5cd90f6684629f7c2f151209ecc1fd7ed5e73ec74",
+      "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKRenderPass.h": "b602f0bdbd5654c1a64a663ad9fa5e74a97f9878ca409deb3f36c88398ee5dc4",
+      "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKRenderPass.mm": "bd13d806ec4677d1188ab64b03eeb9ee1e2d503334d86e7f22b12ddb77c728a1",
+      "build/run91-recoil-src-694e9df7/rts/Rendering/GlobalRendering.cpp": "ea57a439ac1afa0f92dfa93968b5e8d971a1c4ca68ad16e83f38b34719d16c94",
+      "build/run91-recoil-src-694e9df7/rts/System/Platform/Mac/MacSDL3EGLBridge.h": "a7858558e572a9108f8ed0d7d0cae1b8f73f0c36145db5874716f7db3236c445",
+      "build/run91-recoil-src-694e9df7/rts/System/Platform/Mac/MacSDL3EGLBridge.mm": "1f9fc4311ae1ca3707bbc2fad869e5b5960497e00e44ff4ece8fb91a9854695a",
+      "tools/tests/metal4-allocation-lifetime-cpu.cpp": "a31558a5bca9f37bfb0ff590a644f5ee5bd2a4d6835f3937b9e6e4df96df170d",
+      "tools/tests/metal4-counter-completion-cpu.mm": "ee7536de2bdcb09e253b71cc7c49948987f7745d0fcc444b5eb7cc554d27fefe",
+      "tools/tests/metal4-prepared-recording-vulkan.mm": "c59916e913b2ad69927b7c7667570c016d3b67b350ae0db42d6dd5452155851d",
+      "tools/tests/metal4-r44-backend-cost-cpu.mm": "476b44ef7eacec6a4a826658117c0ef260c276fdc2d0a85ee99c7dd51053af0c",
+      "tools/tests/metal4-r49-lifetime-native.mm": "c175cf180a82ff345ef6b86697b73c18da10953597d1f2489e5a0924082c51ea",
+      "tools/tests/metal4-r50-texture-registration-cpu.py": "b5fb5656bb0ff41492db4f18e5d1228c1305247dc354322b48ffc522727d4feb",
+      "tools/tests/metal4-suspend-resolve-cpu.mm": "7b932cb172b287140e70698847e45b5a5642d0f1988181bcf4b1c780cf518a14",
+      "tools/tests/metal4-visibility-recycle-cpu.mm": "89186f6a7c0790dac30011824a89ac8badc6cdfbb0a976a5d2f9355f880f3948"
+    }
+  },
+  "sourceBuildE64Preserved": true,
+  "status": "completed-12-E-allocator-comparison-sessions",
+  "thermalStates": [
+    0
+  ],
+  "userProfilesAndLauncherExact": true
+}

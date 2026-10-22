@@ -1,0 +1,178 @@
+--- before/build/run91-recoil-src-694e9df7/rts/System/Platform/Mac/MacSDL3EGLBridge.h
++++ after/build/run91-recoil-src-694e9df7/rts/System/Platform/Mac/MacSDL3EGLBridge.h
+@@ -28,6 +28,17 @@
+ 
+ 	bool safeAreaInsetsAvailable = false;
+ };
++
++// Live window/layer sizes for default-framebuffer coordinate conversion.
++// Display placement and safe-area queries remain in QueryDisplayGeometry.
++struct WindowDrawableSize {
++	int logicalWindowWidth = 0;
++	int logicalWindowHeight = 0;
++	int drawableWidth = 0;
++	int drawableHeight = 0;
++};
++
++WindowDrawableSize QueryWindowDrawableSize(SDL_Window* window);
+ 
+ DisplayGeometry QueryDisplayGeometry(SDL_Window* window);
+ SDL_Rect GetSafeDisplayBounds(SDL_Window* window);
+--- before/build/run91-recoil-src-694e9df7/rts/System/Platform/Mac/MacSDL3EGLBridge.mm
++++ after/build/run91-recoil-src-694e9df7/rts/System/Platform/Mac/MacSDL3EGLBridge.mm
+@@ -409,6 +409,26 @@
+ 	bool initialized = false;
+ };
+ 
++WindowDrawableSize QueryWindowDrawableSize(SDL_Window* window)
++{
++	WindowDrawableSize size;
++	if (window == nullptr)
++		return size;
++
++	NSWindow* nsWindow = GetNSWindow(window);
++	SDL_GetWindowSize(window, &size.logicalWindowWidth, &size.logicalWindowHeight);
++	const CGSize layerDrawable = CurrentLayerDrawableSize(nsWindow);
++	if (layerDrawable.width > 0.0 && layerDrawable.height > 0.0) {
++		size.drawableWidth = static_cast<int>(std::max<double>(0.0, static_cast<double>(layerDrawable.width)));
++		size.drawableHeight = static_cast<int>(std::max<double>(0.0, static_cast<double>(layerDrawable.height)));
++	} else {
++		const CGFloat drawableScale = NativeCocoaDrawableScale(nsWindow);
++		size.drawableWidth = static_cast<int>(std::max<double>(0.0, static_cast<double>(size.logicalWindowWidth * drawableScale)));
++		size.drawableHeight = static_cast<int>(std::max<double>(0.0, static_cast<double>(size.logicalWindowHeight * drawableScale)));
++	}
++	return size;
++}
++
+ DisplayGeometry QueryDisplayGeometry(SDL_Window* window)
+ {
+ 	DisplayGeometry geometry;
+--- before/build/run91-recoil-src-694e9df7/rts/Rendering/GlobalRendering.cpp
++++ after/build/run91-recoil-src-694e9df7/rts/Rendering/GlobalRendering.cpp
+@@ -2320,13 +2320,13 @@
+ 			return;
+ 		}
+ 
+-		const MacSDL3EGL::DisplayGeometry displayGeometry = MacSDL3EGL::QueryDisplayGeometry(sdlWindow);
++		const MacSDL3EGL::WindowDrawableSize drawableSize = MacSDL3EGL::QueryWindowDrawableSize(sdlWindow);
+ 		const float scaleX =
+-			(displayGeometry.logicalWindowWidth > 0 && displayGeometry.drawableWidth > 0)?
+-				(static_cast<float>(displayGeometry.drawableWidth) / static_cast<float>(displayGeometry.logicalWindowWidth)): 1.0f;
++			(drawableSize.logicalWindowWidth > 0 && drawableSize.drawableWidth > 0)?
++				(static_cast<float>(drawableSize.drawableWidth) / static_cast<float>(drawableSize.logicalWindowWidth)): 1.0f;
+ 		const float scaleY =
+-			(displayGeometry.logicalWindowHeight > 0 && displayGeometry.drawableHeight > 0)?
+-				(static_cast<float>(displayGeometry.drawableHeight) / static_cast<float>(displayGeometry.logicalWindowHeight)): 1.0f;
++			(drawableSize.logicalWindowHeight > 0 && drawableSize.drawableHeight > 0)?
++				(static_cast<float>(drawableSize.drawableHeight) / static_cast<float>(drawableSize.logicalWindowHeight)): 1.0f;
+ 
+ 		glViewport(
+ 			ScaleDefaultFramebufferCoord(px, scaleX),
+@@ -2351,13 +2351,13 @@
+ 			return;
+ 		}
+ 
+-		const MacSDL3EGL::DisplayGeometry displayGeometry = MacSDL3EGL::QueryDisplayGeometry(sdlWindow);
++		const MacSDL3EGL::WindowDrawableSize drawableSize = MacSDL3EGL::QueryWindowDrawableSize(sdlWindow);
+ 		const float scaleX =
+-			(displayGeometry.logicalWindowWidth > 0 && displayGeometry.drawableWidth > 0)?
+-				(static_cast<float>(displayGeometry.drawableWidth) / static_cast<float>(displayGeometry.logicalWindowWidth)): 1.0f;
++			(drawableSize.logicalWindowWidth > 0 && drawableSize.drawableWidth > 0)?
++				(static_cast<float>(drawableSize.drawableWidth) / static_cast<float>(drawableSize.logicalWindowWidth)): 1.0f;
+ 		const float scaleY =
+-			(displayGeometry.logicalWindowHeight > 0 && displayGeometry.drawableHeight > 0)?
+-				(static_cast<float>(displayGeometry.drawableHeight) / static_cast<float>(displayGeometry.logicalWindowHeight)): 1.0f;
++			(drawableSize.logicalWindowHeight > 0 && drawableSize.drawableHeight > 0)?
++				(static_cast<float>(drawableSize.drawableHeight) / static_cast<float>(drawableSize.logicalWindowHeight)): 1.0f;
+ 
+ 		glScissor(
+ 			ScaleDefaultFramebufferCoord(px, scaleX),
+--- before/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/System/Platform/Mac/MacSDL3EGLBridge.h
++++ after/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/System/Platform/Mac/MacSDL3EGLBridge.h
+@@ -28,6 +28,17 @@
+ 
+ 	bool safeAreaInsetsAvailable = false;
+ };
++
++// Live window/layer sizes for default-framebuffer coordinate conversion.
++// Display placement and safe-area queries remain in QueryDisplayGeometry.
++struct WindowDrawableSize {
++	int logicalWindowWidth = 0;
++	int logicalWindowHeight = 0;
++	int drawableWidth = 0;
++	int drawableHeight = 0;
++};
++
++WindowDrawableSize QueryWindowDrawableSize(SDL_Window* window);
+ 
+ DisplayGeometry QueryDisplayGeometry(SDL_Window* window);
+ SDL_Rect GetSafeDisplayBounds(SDL_Window* window);
+--- before/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/System/Platform/Mac/MacSDL3EGLBridge.mm
++++ after/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/System/Platform/Mac/MacSDL3EGLBridge.mm
+@@ -408,6 +408,26 @@
+ 	bool initialized = false;
+ };
+ 
++WindowDrawableSize QueryWindowDrawableSize(SDL_Window* window)
++{
++	WindowDrawableSize size;
++	if (window == nullptr)
++		return size;
++
++	NSWindow* nsWindow = GetNSWindow(window);
++	SDL_GetWindowSize(window, &size.logicalWindowWidth, &size.logicalWindowHeight);
++	const CGSize layerDrawable = CurrentLayerDrawableSize(nsWindow);
++	if (layerDrawable.width > 0.0 && layerDrawable.height > 0.0) {
++		size.drawableWidth = static_cast<int>(std::max<double>(0.0, static_cast<double>(layerDrawable.width)));
++		size.drawableHeight = static_cast<int>(std::max<double>(0.0, static_cast<double>(layerDrawable.height)));
++	} else {
++		const CGFloat drawableScale = NativeCocoaDrawableScale(nsWindow);
++		size.drawableWidth = static_cast<int>(std::max<double>(0.0, static_cast<double>(size.logicalWindowWidth * drawableScale)));
++		size.drawableHeight = static_cast<int>(std::max<double>(0.0, static_cast<double>(size.logicalWindowHeight * drawableScale)));
++	}
++	return size;
++}
++
+ DisplayGeometry QueryDisplayGeometry(SDL_Window* window)
+ {
+ 	DisplayGeometry geometry;
+--- before/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Rendering/GlobalRendering.cpp
++++ after/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Rendering/GlobalRendering.cpp
+@@ -2320,13 +2320,13 @@
+ 			return;
+ 		}
+ 
+-		const MacSDL3EGL::DisplayGeometry displayGeometry = MacSDL3EGL::QueryDisplayGeometry(sdlWindow);
++		const MacSDL3EGL::WindowDrawableSize drawableSize = MacSDL3EGL::QueryWindowDrawableSize(sdlWindow);
+ 		const float scaleX =
+-			(displayGeometry.logicalWindowWidth > 0 && displayGeometry.drawableWidth > 0)?
+-				(static_cast<float>(displayGeometry.drawableWidth) / static_cast<float>(displayGeometry.logicalWindowWidth)): 1.0f;
++			(drawableSize.logicalWindowWidth > 0 && drawableSize.drawableWidth > 0)?
++				(static_cast<float>(drawableSize.drawableWidth) / static_cast<float>(drawableSize.logicalWindowWidth)): 1.0f;
+ 		const float scaleY =
+-			(displayGeometry.logicalWindowHeight > 0 && displayGeometry.drawableHeight > 0)?
+-				(static_cast<float>(displayGeometry.drawableHeight) / static_cast<float>(displayGeometry.logicalWindowHeight)): 1.0f;
++			(drawableSize.logicalWindowHeight > 0 && drawableSize.drawableHeight > 0)?
++				(static_cast<float>(drawableSize.drawableHeight) / static_cast<float>(drawableSize.logicalWindowHeight)): 1.0f;
+ 
+ 		glViewport(
+ 			ScaleDefaultFramebufferCoord(px, scaleX),
+@@ -2351,13 +2351,13 @@
+ 			return;
+ 		}
+ 
+-		const MacSDL3EGL::DisplayGeometry displayGeometry = MacSDL3EGL::QueryDisplayGeometry(sdlWindow);
++		const MacSDL3EGL::WindowDrawableSize drawableSize = MacSDL3EGL::QueryWindowDrawableSize(sdlWindow);
+ 		const float scaleX =
+-			(displayGeometry.logicalWindowWidth > 0 && displayGeometry.drawableWidth > 0)?
+-				(static_cast<float>(displayGeometry.drawableWidth) / static_cast<float>(displayGeometry.logicalWindowWidth)): 1.0f;
++			(drawableSize.logicalWindowWidth > 0 && drawableSize.drawableWidth > 0)?
++				(static_cast<float>(drawableSize.drawableWidth) / static_cast<float>(drawableSize.logicalWindowWidth)): 1.0f;
+ 		const float scaleY =
+-			(displayGeometry.logicalWindowHeight > 0 && displayGeometry.drawableHeight > 0)?
+-				(static_cast<float>(displayGeometry.drawableHeight) / static_cast<float>(displayGeometry.logicalWindowHeight)): 1.0f;
++			(drawableSize.logicalWindowHeight > 0 && drawableSize.drawableHeight > 0)?
++				(static_cast<float>(drawableSize.drawableHeight) / static_cast<float>(drawableSize.logicalWindowHeight)): 1.0f;
+ 
+ 		glScissor(
+ 			ScaleDefaultFramebufferCoord(px, scaleX),

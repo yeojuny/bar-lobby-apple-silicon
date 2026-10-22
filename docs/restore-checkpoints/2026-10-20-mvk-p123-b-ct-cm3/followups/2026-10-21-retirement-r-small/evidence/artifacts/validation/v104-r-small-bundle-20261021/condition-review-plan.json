@@ -1,0 +1,246 @@
+{
+  "blindSpotsAndLimits": [
+    "15s fresh process pcpu samples can miss bursts and are not instantaneous per-frame utilization. Top10 retains only >=2% named entries; low-CPU or non-top10 index tasks can be absent from named records. Aggregate does not provide full per-process history.",
+    "CPU gates precede host preparation, not the exact benchmark-start command. Background activity can resume while app/profile/assets/shaders initialize or after a gate passes.",
+    "No per-process GPU occupancy, GPU/CPU clock, power draw or governor state measurement. OS thermal states are coarse proxies and are recorded rather than a per-arm thermal0 gate.",
+    "Disk/network I/O, memory pressure/swap/cache effects, scheduling/QoS and short contention are not isolated. Spotlight can affect I/O even when its CPU entry is not large.",
+    "HID idle is an indirect sampled observation, not a raw global event trace. Endpoint/gap criteria are conservative; timing boundary uncertainty stops rather than certifying cleanliness.",
+    "Current console-lock/saver/awake observations do not establish actual native present mode, physical display refresh or identical device power states. Hidden window/engine fullscreen and safe drawable are verified separately.",
+    "No intervention in Spotlight, service state or other applications; observations cannot isolate a causal indexing effect. n2 per variant/backend/batch remains limited even with better condition evidence."
+  ],
+  "createdUTC": "2026-10-22T04:36:48.711599+00:00",
+  "executionCounts": {
+    "cleanupUploadPointerProfileChanges": 0,
+    "compilesTestsGPUAppGame": 0,
+    "largeInventories": 0,
+    "newOSSampling": 0,
+    "outputsOnly": [
+      "condition-review-plan.md",
+      "condition-review-plan.json"
+    ],
+    "productFixtureHelperBuildWrites": 0
+  },
+  "inputHash": "ddd8cf15a2e53ee1b9bdbe62caec31087391dbec7d4cfa5c92fc2fdfb648ff07",
+  "originalBatch": {
+    "backgroundOverlapNote": "performance/background-overlap-note.json",
+    "causeProven": false,
+    "noPoolingIntoNewAverages": true,
+    "originalResultsRetained": true,
+    "useForAdoption": false
+  },
+  "perRunLoadReviewPlan": {
+    "comparisonGrouping": "Report forward and reverse independently first; include all valid prespecified8 arms per batch. Original8 possible-overlap arms are excluded from adoption and from the new averages.",
+    "fieldsToReport": [
+      "ordinal/backend/app and FPS/p95/p99",
+      "before-arm HID/quiet gate receipt and waiting duration",
+      "measurement start/finish, fresh CPU sample count and CPU sample-age limits",
+      "fresh aggregate pcpu maximum/range, with game-inclusion caveat",
+      "index-named top entries: PID/name/sample timestamp/pcpu maximum and sampled occurrence",
+      "other major non-owned top processes, workload identity when known",
+      "AC/LowPower/thermal states before/during/after and observed awake protection",
+      "input coverage/gaps and clean/inside/ambiguous status",
+      "functional/ownership/cache/screen restoration outcome"
+    ],
+    "freshCPUSamples": "Deduplicate by CPUSampledAtUnix; repeated2s rows contain cached15s CPU data. Count fresh sample timestamps inside the measured interval separately from carry-in samples. Retain raw sample times and window overlap/coverage.",
+    "indexIdentification": "Identify indexing-related names actually recorded, e.g. mds/mds_stores/mdworker/mdworker_shared/corespotlightd, preserving exact name/PID and avoiding claims that a name alone proves a specific indexing job or that absence from top10 proves indexing absent.",
+    "interpretation": "Compare per-run load annotations alongside the two repeated values for each app/backend and across forward/reverse batches. A CPU spike coinciding with low FPS is possible interference, not causal proof. Do not choose/drop arms after seeing FPS, repair a failed batch by automatic replay, or manufacture an adjusted FPS.",
+    "joinKey": "Use each receipt benchmarkStartUnixMS/benchmarkFinishUnixMS and plan ordinal/backend/variant. Do not treat entire app lifetime or preceding quiet wait as measured-frame CPU load.",
+    "ownedVersusOther": "Where existing owned-child/native PID events identify the game/lobby/host, separate those PIDs from candidate background processes. allProcessCPU is not background-only; a higher game CPU can be a result of changed throughput. If full ownership history is unavailable, flag the attribution limit rather than subtract by name alone."
+  },
+  "phaseMap": [
+    {
+      "caution": "Sampled readiness at host launch; initialization/checkPins/app hashing/scene loading occur afterwards. This is not a second quiet-CPU gate immediately at measurement start.",
+      "evidence": "idle-load-observations.jsonl phase=before-arm, CPUSampledAtUnix, ordinal, ready, quietSince; screen-observations.jsonl and guard receipt",
+      "gate": "HID>=60s; no observed process>=25%; total observed pcpu<50; ready observations maintained30s. CPU cache refresh15s; waiter5s. Monitor failures/stop interrupt wait and are rechecked before arm.",
+      "observed": [
+        "HIDIdleSeconds via existing IOHIDSystem query",
+        "top10 process PID/name/pcpu>=2 plus sum of all parsed process pcpu except monitor",
+        "Current Low Power, saver-suppression state, console-lock observation"
+      ],
+      "phase": "Before arm / before host launch"
+    },
+    {
+      "caution": "Power pass checks AC/LowPower and awake assertion; thermal is recorded, not rejected at each sample based on thermal0. Actual present mode is explicitly unobserved; VSync0 is a logged request.",
+      "evidence": "plan.json, host events/host.log, native infolog, hidden-window events, execution-receipt powerObservations/loadedRuntimeLibraries/fullscreenMode",
+      "gate": "Scene/runtime/geometry/power failures stop arm. Actual loaded/runtime/backend completion is also verified at end.",
+      "observed": [
+        "App/input/shared-library pins and actual loaded dylib paths",
+        "Actual native hidden/fullscreen creation and safe viewport",
+        "Fixed scene frame240, Ultra/AAoff/VSync0, camera/map/game/workload identity",
+        "AC,LowPower,thermal and awake assertions at preflight/before-launch/before-benchmark"
+      ],
+      "phase": "Host preparation and immediate pre-benchmark"
+    },
+    {
+      "caution": "Short CPU bursts between15s fresh samples, GPU/I/O/memory contention, frequency and exact scheduling cannot be reconstructed.",
+      "evidence": "benchmarkStartUnixMS/benchmarkFinishUnixMS, idle-load-observations.jsonl, screen-observations.jsonl, receipt powerObservations/native metrics",
+      "gate": "No CPU threshold-based arm rejection during measurement. Existing runtime/power/liveness failures fail the arm; input-window decision occurs after arm, then stops remaining arms if failed/ambiguous. No automatic replay.",
+      "observed": [
+        "HID at nominal2s monitor cadence plus command/check latency",
+        "Fresh topCPU/aggregate at15s, cached between; allProcessCPU includes game/lobby/other processes",
+        "LowPower/console/saver observations at nominal2s",
+        "Host AC/LowPower/thermal/awake at15s periodic polling and after-benchmark",
+        "Actual draw progression and finite liveness failure bounds"
+      ],
+      "phase": "Measured interval"
+    },
+    {
+      "caution": "Post-end input may conservatively stop a clean measurement because it can mask the tail; label ambiguity rather than claiming definite in-window input.",
+      "evidence": "arm-N-input-window.json; execution-receipt.json; arm-N-result.json; outcome.json; cache selections/completions; final screen guard restored/awakeReleased",
+      "gate": "Every inferred last-input time must precede start-0.5s for clean window. Missing endpoint/gap, inside input or ambiguity stop with preserved evidence; no automatic repeat. Failed arm stops batch.",
+      "observed": [
+        "Before/first-after input-window endpoints, sorted observations and <=6s gaps",
+        "Definite measured input vs boundary/post-end ambiguity",
+        "Official900sim-frame result, actual backend and loaded-runtime route, diagnosticsOFF",
+        "Graceful native exit/remaining owned-process absence, protected input equality, post-exit power"
+      ],
+      "phase": "After measured window / after exit"
+    },
+    {
+      "caution": "Current analyzer does not automatically summarize which background/indexing tasks overlapped measurements. That attribution must use retained observations. No old FPS pooled.",
+      "evidence": "comparison-summary.json/performance-completion.json and later independent data review",
+      "gate": "Analyzer requires completed8/no failed protections. Independent review will recheck all raw receipts/order/means/conditions and add per-run load annotations before adoption interpretation.",
+      "observed": [
+        "All8 planned arms in original/reverse order; each app/backend n2",
+        "Window helper/runner SHA, per-arm plan/host SHA and re-evaluated window",
+        "Runtime/source/OS/profile/launcher/pointer/app preservation and screen restoration",
+        "Per-arm FPS/p95/p99 then within-batch means and change from R"
+      ],
+      "phase": "Batch analysis and independent review"
+    }
+  ],
+  "preparedPins": {
+    "performance-idle-forward": {
+      "helperSHA256": "9d54ec76cae44cc2b5f29851e53dcbc494ba9def38710abd4aca8786b8df0edb",
+      "matchesPreparedPins": true,
+      "plannedOrder": [
+        [
+          "metal4",
+          "R",
+          false
+        ],
+        [
+          "metal4",
+          "Small",
+          false
+        ],
+        [
+          "metal4",
+          "Small",
+          false
+        ],
+        [
+          "metal4",
+          "R",
+          false
+        ],
+        [
+          "metal3",
+          "Small",
+          false
+        ],
+        [
+          "metal3",
+          "R",
+          false
+        ],
+        [
+          "metal3",
+          "R",
+          false
+        ],
+        [
+          "metal3",
+          "Small",
+          false
+        ]
+      ],
+      "representativeHostSHA256": "5a3578ca8db3c3e08f39851ee171d7746553fde96828649f6270399c242fa54c",
+      "representativePlanSHA256": "28ac7c2d82f270cbb67bf0b076f02f1e8f441380499ba63fd503912e4f7945b3",
+      "runnerSHA256": "b35553e86542a302d476c0e3eebcd8242e46c89f6ac1867274fb8e754a1b5425"
+    },
+    "performance-idle-reverse": {
+      "helperSHA256": "9d54ec76cae44cc2b5f29851e53dcbc494ba9def38710abd4aca8786b8df0edb",
+      "matchesPreparedPins": true,
+      "plannedOrder": [
+        [
+          "metal3",
+          "Small",
+          false
+        ],
+        [
+          "metal3",
+          "R",
+          false
+        ],
+        [
+          "metal3",
+          "R",
+          false
+        ],
+        [
+          "metal3",
+          "Small",
+          false
+        ],
+        [
+          "metal4",
+          "R",
+          false
+        ],
+        [
+          "metal4",
+          "Small",
+          false
+        ],
+        [
+          "metal4",
+          "Small",
+          false
+        ],
+        [
+          "metal4",
+          "R",
+          false
+        ]
+      ],
+      "representativeHostSHA256": "5a10bc462562aa464e821d22bc90a2256325d77a60318cd167853511ee8bc896",
+      "representativePlanSHA256": "6849c8f16794e206e618ad701507b9e03ffa2be869983ce7269886e6d4a16de4",
+      "runnerSHA256": "b35553e86542a302d476c0e3eebcd8242e46c89f6ac1867274fb8e754a1b5425"
+    }
+  },
+  "readPins": {
+    "artifacts/validation/v104-r-small-bundle-20261021/analyze-idle-performance.py": "dbe4a8ab6fdec3c0b4314206e8e01f99c4a6342b906dc3650b23702dd1c5d385",
+    "artifacts/validation/v104-r-small-bundle-20261021/idle-input-guard.py": "9d54ec76cae44cc2b5f29851e53dcbc494ba9def38710abd4aca8786b8df0edb",
+    "artifacts/validation/v104-r-small-bundle-20261021/idle-repeat-guard-review.json": "d86b327695912836150cb89e961e62da707b637f9359e90b498ae5a5085b4094",
+    "artifacts/validation/v104-r-small-bundle-20261021/idle-repeat-guard-review.md": "9208f944375d81ef36ba350c2266b3bcb3a9aeb1756465b622b6e05a9e43faa6",
+    "artifacts/validation/v104-r-small-bundle-20261021/manual-resume-preflight-20261022T042950Z.json": "291f8fa09b044cb99ad0dcc87fc96b6e32a6b6b9fd7f528fd8430e81e1fea03f",
+    "artifacts/validation/v104-r-small-bundle-20261021/performance-idle-forward/1-R-metal4/effective-host.mjs": "5a3578ca8db3c3e08f39851ee171d7746553fde96828649f6270399c242fa54c",
+    "artifacts/validation/v104-r-small-bundle-20261021/performance-idle-forward/1-R-metal4/plan.json": "28ac7c2d82f270cbb67bf0b076f02f1e8f441380499ba63fd503912e4f7945b3",
+    "artifacts/validation/v104-r-small-bundle-20261021/performance-idle-forward/idle-input-guard.py": "9d54ec76cae44cc2b5f29851e53dcbc494ba9def38710abd4aca8786b8df0edb",
+    "artifacts/validation/v104-r-small-bundle-20261021/performance-idle-forward/preflight-attempt1/repair.json": "770c4a98c8a698148aef0c52ed0fd1f155698d4c7f728e7ebfcab68fbe7881db",
+    "artifacts/validation/v104-r-small-bundle-20261021/performance-idle-forward/preparation.json": "e582ca2e9cfc710e002e2568218efdf136be2bcdd1e719e2e5493825f28b4fd8",
+    "artifacts/validation/v104-r-small-bundle-20261021/performance-idle-forward/run-comparison.py": "b35553e86542a302d476c0e3eebcd8242e46c89f6ac1867274fb8e754a1b5425",
+    "artifacts/validation/v104-r-small-bundle-20261021/performance-idle-forward/screen-guard-locked-allowed.py": "0034aaf59e735d93159c047685a06f1fa72cce051cae797018a1c4170a6a86d9",
+    "artifacts/validation/v104-r-small-bundle-20261021/performance-idle-reverse/1-Small-metal3/effective-host.mjs": "5a10bc462562aa464e821d22bc90a2256325d77a60318cd167853511ee8bc896",
+    "artifacts/validation/v104-r-small-bundle-20261021/performance-idle-reverse/1-Small-metal3/plan.json": "6849c8f16794e206e618ad701507b9e03ffa2be869983ce7269886e6d4a16de4",
+    "artifacts/validation/v104-r-small-bundle-20261021/performance-idle-reverse/idle-input-guard.py": "9d54ec76cae44cc2b5f29851e53dcbc494ba9def38710abd4aca8786b8df0edb",
+    "artifacts/validation/v104-r-small-bundle-20261021/performance-idle-reverse/preparation.json": "2f69dbd5ee7c4bcd9654f802981b66cd073d852e700002029782b19ce6893b02",
+    "artifacts/validation/v104-r-small-bundle-20261021/performance-idle-reverse/run-comparison.py": "b35553e86542a302d476c0e3eebcd8242e46c89f6ac1867274fb8e754a1b5425",
+    "artifacts/validation/v104-r-small-bundle-20261021/performance-idle-reverse/screen-guard-locked-allowed.py": "0034aaf59e735d93159c047685a06f1fa72cce051cae797018a1c4170a6a86d9",
+    "artifacts/validation/v104-r-small-bundle-20261021/performance/background-overlap-note.json": "81e82563a200639cd1a5f2cb7eda5e4be51b567fca724abd5ee433382591e0ee",
+    "artifacts/validation/v104-r-small-bundle-20261021/prepare-idle-performance.py": "0394cba2281d198dc7681a905c22d16b6e9397b34aa585cefd06e49a619b8f55",
+    "artifacts/validation/v104-r-small-bundle-20261021/root-idle-repeat-authorization.json": "d7b55657b29a82f555edb97ea5d67393b0308fcdc2f46b9b5139437ab3b1fcbe"
+  },
+  "reportSHA256": "c447b000740b2ce10cbed571569e3e4868118002625b260f38e90dab431aedf0",
+  "reviewer": "Codex independent agent /root/independent_review",
+  "scope": "Light read-only mapping of existing prepared code/metadata. No full guard re-review, source/helper edits, builds/tests/GPU, new OS sampling or large inventory performed.",
+  "status": "condition-observation-map-ready-data-review-pending",
+  "twoOneLineRepairs": {
+    "actualRootAndBothPreparedHelpersMatch": true,
+    "ordering": "Window observations sorted by atUnix before endpoint/gap selection.",
+    "preflightGame0": "preflight-attempt1/repair.json records0 sessions; preserved failed evidence not a performance arm.",
+    "previousGuardReviewFilesUnchangedByThisTask": true,
+    "statusLog": "Duplicate ordinal removed from wait-status dictionary; row already contains ordinal."
+  }
+}

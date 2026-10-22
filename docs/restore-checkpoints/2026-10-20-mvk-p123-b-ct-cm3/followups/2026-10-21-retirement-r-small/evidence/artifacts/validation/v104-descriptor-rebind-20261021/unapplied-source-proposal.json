@@ -1,0 +1,42 @@
+{
+  "RSmallSharedAnchors": {
+    "static void bindDescriptorSets(MVKImplicitBufferData&": "3fdd58f98ecd7d9c7eb0346efdce97efe46ce9b3f76696741f49a591bee4df58",
+    "void MVKCommandEncoderState::bindDescriptorSets(": "9185d540fe494ef1c6b2c6177f5f878afa8015d76f78f8f5427728ba7cf27f70",
+    "void MVKCommandEncoderState::invalidateMetal4ImplicitBuffer(": "ecde7635971f12e5d0c3bbdfaa204e03e8d360c0ae18b0029608d5d2303b11f6",
+    "void MVKVulkanComputeCommandEncoderState::bindDescriptorSets(": "02adf84832190f3e18c7ca0f27190854114a11b4e18ed43a402ceb8df9df8374",
+    "void MVKVulkanGraphicsCommandEncoderState::bindDescriptorSets(": "6786d9466b062d063f34a800d4414d3f011188c9c43e3469787abcc5c041f0b7"
+  },
+  "RSourceSHA256": "9b28b9a30f6e0d8a975b732dcaf8a49c8e14b32f9ba3157e4f9dce03b14276b9",
+  "createdUTC": "2026-10-21T23:14:38.080576+00:00",
+  "currentSmallSourceSHA256": "b1013a4a907210de7f527f550758824d1dfcf5d79b05266a984aa2a1e97e62e3",
+  "designSHA256": "42e4bc18115102a1dea228450b5efe5f99b963f1ca654ba218cb5e04c15cad4f",
+  "emptyPatchIntentional": true,
+  "fixturesBuildTestsGPUInventoryCleanup": 0,
+  "futureImplementationGate": "Root must explicitly reopen and independently review a concrete nonempty proposal after performance freeze.",
+  "independentPreauditInputSHA256": "243df49cfa9763858c29e0dbee383c11f7f7de70b3bf74ee30a4f6f6ec3a672f",
+  "parentAppSelected": false,
+  "patchSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "performanceClaim": "None; static reach and priority judgment, not measured no benefit.",
+  "productApplied": false,
+  "recommendation": "Hold; do not implement pointer-only resource-use skipping or introduce new legacy implicit tracking state for the current limited target.",
+  "scope": "Third unit PR2837 read-only design during R/Small forward/reverse performance freeze",
+  "sourceEdits": [],
+  "sourcePins": {
+    "artifacts/validation/v104-frame-local-orphan-20261021/unapplied-source-proposal.json": "5c6d9108b3e7baa5339fdf7bf0c90840f4032875e5f585ad1b9a5a0f24cd99f3",
+    "artifacts/validation/v104-frame-local-orphan-20261021/unapplied.patch": "6708badf0af62cc4fb6b336cd7bccba81d5e3f93c229b8459bf4b10684d2f0d6",
+    "artifacts/validation/v104-r-small-bundle-20261021/independent-2837-preaudit.json": "243df49cfa9763858c29e0dbee383c11f7f7de70b3bf74ee30a4f6f6ec3a672f",
+    "artifacts/validation/v104-r-small-bundle-20261021/independent-2837-preaudit.md": "b86a61f4656e166e5a1a744e255dc4f41d1e07fe7c7c0c99a43ffd4dd0dc4541",
+    "build/run66-mesa-src-20260903/src/gallium/drivers/zink/zink_descriptors.c": "abefdc27ee61c527dc100fd11d989cf135d8f12d188bc0ca76b8a03ddf477233",
+    "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCommandEncoderState.h": "dac7a20c3963887d5f054322a2bf7884d347271768dd0a124649f7d25862dade",
+    "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCommandEncoderState.mm": "b1013a4a907210de7f527f550758824d1dfcf5d79b05266a984aa2a1e97e62e3",
+    "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKDescriptorSet.h": "fb7583ab4debcf0e8f6afcaa1abc62b87d80e1b457280a77136d3cf5afaae1f5",
+    "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKDescriptorSet.mm": "b87caab357dd43ba2c2cd937dcd7cdd0836c6418f90ddc5d2b90e13022257dc4",
+    "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKDevice.h": "dfa43fcfd4c280b2d8ae0d32dfd78ac0b13d0cdb2c5baccb31d551516c812caa",
+    "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKDevice.mm": "0d0985dcecd5ec9e728425a1635ccfb9df9c5fb1f7e3f8d86b4c7fa6eb1545e1",
+    "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKPipeline.mm": "aaa8e9f7c9e8ddaab644d08bce02138b60254cb21aa4f2107541ebe3c0f440ba",
+    "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Utility/MVKSmallVector.h": "09c7c849d59821b19b4e05929ef6ecfc2cad6605c5affc079147eccadf6cf7c3"
+  },
+  "status": "root-decision-pending-recommend-hold",
+  "unit1And11aUnchanged": true,
+  "validationPlanSHA256": "8f116281344425e3435d07c021cfa3aa1c8ebb88683950e7187cff410404273a"
+}

@@ -1,0 +1,167 @@
+{
+  "allocationExamples": [
+    {
+      "candidateAllocations": 6,
+      "candidateBytes": 2848,
+      "case": "success16",
+      "mode": 0,
+      "referenceAllocations": 14,
+      "referenceBytes": 5368
+    },
+    {
+      "candidateAllocations": 2,
+      "candidateBytes": 2688,
+      "candidateCapacity": 16,
+      "case": "late_failure",
+      "mode": 0,
+      "referenceAllocations": 2,
+      "referenceBytes": 168,
+      "referenceCapacity": 1,
+      "scenario": 4
+    },
+    {
+      "candidateAllocations": 2,
+      "candidateBytes": 2688,
+      "candidateCapacity": 16,
+      "case": "late_failure",
+      "mode": 0,
+      "referenceAllocations": 2,
+      "referenceBytes": 168,
+      "referenceCapacity": 1,
+      "scenario": 6
+    },
+    {
+      "candidateAllocations": 6,
+      "candidateBytes": 2840,
+      "case": "success16",
+      "mode": 1,
+      "referenceAllocations": 14,
+      "referenceBytes": 5360
+    },
+    {
+      "candidateAllocations": 4,
+      "candidateBytes": 2768,
+      "candidateCapacity": 16,
+      "case": "late_failure",
+      "mode": 1,
+      "referenceAllocations": 4,
+      "referenceBytes": 248,
+      "referenceCapacity": 1,
+      "scenario": 4
+    },
+    {
+      "candidateAllocations": 2,
+      "candidateBytes": 2688,
+      "candidateCapacity": 16,
+      "case": "late_failure",
+      "mode": 1,
+      "referenceAllocations": 2,
+      "referenceBytes": 168,
+      "referenceCapacity": 1,
+      "scenario": 6
+    },
+    {
+      "candidateAllocations": 6,
+      "candidateBytes": 2840,
+      "case": "success16",
+      "mode": 2,
+      "referenceAllocations": 14,
+      "referenceBytes": 5360
+    },
+    {
+      "candidateAllocations": 4,
+      "candidateBytes": 2768,
+      "candidateCapacity": 16,
+      "case": "late_failure",
+      "mode": 2,
+      "referenceAllocations": 4,
+      "referenceBytes": 248,
+      "referenceCapacity": 1,
+      "scenario": 4
+    },
+    {
+      "candidateAllocations": 2,
+      "candidateBytes": 2688,
+      "candidateCapacity": 16,
+      "case": "late_failure",
+      "mode": 2,
+      "referenceAllocations": 2,
+      "referenceBytes": 168,
+      "referenceCapacity": 1,
+      "scenario": 6
+    },
+    {
+      "candidateAllocations": 6,
+      "candidateBytes": 2840,
+      "case": "success16",
+      "mode": 3,
+      "referenceAllocations": 14,
+      "referenceBytes": 5360
+    },
+    {
+      "candidateAllocations": 4,
+      "candidateBytes": 2768,
+      "candidateCapacity": 16,
+      "case": "late_failure",
+      "mode": 3,
+      "referenceAllocations": 4,
+      "referenceBytes": 248,
+      "referenceCapacity": 1,
+      "scenario": 4
+    },
+    {
+      "candidateAllocations": 2,
+      "candidateBytes": 2688,
+      "candidateCapacity": 16,
+      "case": "late_failure",
+      "mode": 3,
+      "referenceAllocations": 2,
+      "referenceBytes": 168,
+      "referenceCapacity": 1,
+      "scenario": 6
+    }
+  ],
+  "compileCommand": [
+    "xcrun",
+    "clang++",
+    "-std=c++17",
+    "-O1",
+    "-g",
+    "-fsanitize=address,undefined",
+    "-fno-omit-frame-pointer",
+    "-pthread",
+    "-I${WORKSPACE}/build/run66-vulkan-headers-src-20260903/include",
+    "${WORKSPACE}/artifacts/validation/v104-r-small-bundle-20261021/capture-cpu-final/capture-reserve-exact.cpp",
+    "-o",
+    "${WORKSPACE}/artifacts/validation/v104-r-small-bundle-20261021/capture-cpu-final/capture-reserve-exact"
+  ],
+  "exactPayloadSHA256": {
+    "candidate": "23d229dcc658fbd35375bd58e42bd32940e967082f778bda64dd88112baa32b4",
+    "reference": "31671ab3c74dc0e08b24ca92a1167f42688201dab96a59a5b279ed521387422c"
+  },
+  "limits": [
+    "CPU fixture: native object types erased; layouts and retain sinks are bounded doubles.",
+    "Production payload/replay/metadata methods are extracted, with test-only private visibility and nonallocating post-insert observations.",
+    "Global new byte counts cover the whole invocation, including equal cache bookkeeping; not GPU memory or BAR timing.",
+    "Snapshot replay Hit is positive capture; texture-negative memo can still permit independently eligible snapshot capture."
+  ],
+  "referenceSourceSHA256": "9b28b9a30f6e0d8a975b732dcaf8a49c8e14b32f9ba3157e4f9dce03b14276b9",
+  "result": {
+    "assertions": 3851,
+    "cases": 220,
+    "gpuExecuted": false,
+    "passed": true,
+    "sizeofProof": 72,
+    "sizeofResource": 96
+  },
+  "sourceHashes": {
+    "Commands/MVKCommandEncoderState.h": "dac7a20c3963887d5f054322a2bf7884d347271768dd0a124649f7d25862dade",
+    "Commands/MVKCommandEncoderState.mm": "b1013a4a907210de7f527f550758824d1dfcf5d79b05266a984aa2a1e97e62e3",
+    "GPUObjects/MVKDevice.h": "dfa43fcfd4c280b2d8ae0d32dfd78ac0b13d0cdb2c5baccb31d551516c812caa",
+    "GPUObjects/MVKDevice.mm": "0d0985dcecd5ec9e728425a1635ccfb9df9c5fb1f7e3f8d86b4c7fa6eb1545e1",
+    "GPUObjects/MVKImage.h": "10061ddebb517af1879b229719438999fde7f5affdfd9afe7dfd42da9ed302da",
+    "GPUObjects/MVKImage.mm": "b0af01dbb52a90ed44bafc2f66f14e39c3b71f6ffa57510b75a90940d458fa94",
+    "GPUObjects/MVKMetal4PreparedResource.h": "d6222a17d4da569b0abd419f1c7e8b41c2f2101c7acf700e770aa02af7afa653"
+  },
+  "status": "passed"
+}

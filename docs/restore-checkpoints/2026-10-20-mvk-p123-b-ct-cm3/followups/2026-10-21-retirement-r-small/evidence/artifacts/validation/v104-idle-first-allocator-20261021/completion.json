@@ -1,0 +1,33 @@
+{
+  "candidatePromoted": true,
+  "completedAtUTC": "2026-10-21T17:51:16.826998+00:00",
+  "decisionBasis": "Human cumulative-work preference, functional checks passed, observed matched mean +0.845833%; n2 not causal proof",
+  "formalPublication": false,
+  "groups": {
+    "Q": {
+      "FPS": [
+        46.07670211792,
+        46.099296569824
+      ],
+      "meanFPS": 46.087999343872,
+      "meanP95Ms": 29.977499961853
+    },
+    "R": {
+      "FPS": [
+        46.895664215088,
+        46.059989929199
+      ],
+      "changeFromQPercent": 0.8458334790428124,
+      "meanFPS": 46.4778270721435,
+      "meanP95Ms": 29.9174995422365
+    }
+  },
+  "previousQPreserved": true,
+  "promotionScope": "local cumulative work only",
+  "recommendedNextWorkingBase": "R",
+  "report": "${WORKSPACE}/reports/v104-idle-first-allocator-20261021.md",
+  "reportSHA256": "f90b16540e9a557cdfa4d9842288d960ef76d918178f98099c4fc58cd17eecf8",
+  "selectedCandidateBeforeDecision": "Q",
+  "selectedWorkingCandidate": "R",
+  "status": "R-implemented-validated-independently-reviewed-and-compared"
+}

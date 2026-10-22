@@ -1,0 +1,69 @@
+{
+  "FPSGainClaimed": false,
+  "allocatorChanged": false,
+  "app": "${WORKSPACE}/artifacts/runtime/v104-typed-buffer-callers-candidate-20261020/BAR.app",
+  "derivedCleanup": {
+    "completedRoots": 4,
+    "failedTimestampExecutableAndSymbolsPreserved": true,
+    "logicalBytes": 7534088,
+    "physicalReclaimClaimed": false,
+    "removedFiles": 8,
+    "sourceLogsReceiptsPreserved": true
+  },
+  "formalReleaseOrHomebrewChanged": false,
+  "githubRestoration": "Pending; completion will be linked separately without mutating these frozen records.",
+  "independentReview": {
+    "findingCount": 0,
+    "receiptSHA256": "80a14677cbd1706505161f5bedad4715bef543a73d3d842b41d7f4b5bb5c3a5a",
+    "thread": "${THREAD_ID}",
+    "turn": "${THREAD_ID}"
+  },
+  "installed": false,
+  "launcherHEADIndexStatusExact": true,
+  "newGameExecuted": false,
+  "packageReceiptSHA256": "b0df3e865f7d88e3440dc4a84bd11b09ced2fa911c2401177adfb25bd17c3774",
+  "parentAndCandidateInventoriesExact": 1194,
+  "protectedInputsExact": 31,
+  "reportSHA256": "a33804edc5b97b75b3cf249436c28452543e71749d52293877f501276658dee9",
+  "sourcePins": {
+    "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCmdDraw.mm": "b0664412727e21c2b36300667e488919c8efa747113a8d66e23a4ef7ca4875f5",
+    "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCmdTransfer.mm": "1845cab26d229c9637216cfba710a3bfb7ef3140a8e040d6cdf81a7318740fc4",
+    "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKQueryPool.mm": "f90a7eda645fe9ef306337f5cd90f6684629f7c2f151209ecc1fd7ed5e73ec74"
+  },
+  "status": "implemented-reviewed-signed-frozen-awaiting-restoration-checkpoint",
+  "validationSummary": {
+    "CPUAssertions": 410,
+    "FPSBenefitMeasured": false,
+    "Metal3CommonCasesPassed": 7,
+    "Metal3Timestamp": {
+      "candidatePassed": false,
+      "causeKnown": false,
+      "exactBaselinePassed": false,
+      "fixed": false,
+      "invalidFirstLoadingAttemptPreserved": true,
+      "sameError": "GPU/host timestamp result, availability, or padding mismatch at 64",
+      "validBaselineReceipt": "validation/baseline-m3-exact-receipt.json"
+    },
+    "Metal4Cases": {
+      "followupPassed": 2,
+      "initialPassed": 7,
+      "parallelByteCopyRepeated": true,
+      "uniquePassed": 8
+    },
+    "allocatorChanged": false,
+    "fixtureChangesRetained": 0,
+    "newGameExecuted": false,
+    "previousSampledBARExitStillUnresolved": true,
+    "productFilesChanged": 3,
+    "protectedInputCount": 31,
+    "protectedMismatches": [],
+    "rawLibrarySHA256": "ed983a2648efe352336ca0896e4682d7d9a61e02b56347a5d2680b8f8795ac9f",
+    "sourcePins": {
+      "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCmdDraw.mm": "b0664412727e21c2b36300667e488919c8efa747113a8d66e23a4ef7ca4875f5",
+      "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCmdTransfer.mm": "1845cab26d229c9637216cfba710a3bfb7ef3140a8e040d6cdf81a7318740fc4",
+      "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKQueryPool.mm": "f90a7eda645fe9ef306337f5cd90f6684629f7c2f151209ecc1fd7ed5e73ec74"
+    },
+    "status": "bounded-implementation-validated-with-known-baseline-failure",
+    "syntaxCases": 6
+  }
+}

@@ -1,0 +1,103 @@
+{
+  "HomebrewChanged": false,
+  "activeSourceBuild": "D implementation, diagnostics OFF; current C app unchanged",
+  "automation": "PAUSED",
+  "baselineC": "${WORKSPACE}/artifacts/runtime/v104-typed-buffer-callers-candidate-20261020/BAR.app",
+  "candidateD": "${WORKSPACE}/artifacts/runtime/v104-lookup-descriptor-release-20261020/BAR.app",
+  "candidatePromoted": false,
+  "completedAtUTC": "2026-10-21T07:20:45.142815+00:00",
+  "currentAppCandidate": "C",
+  "derivedCleanup": {
+    "CAndDKept": true,
+    "allAbsent": true,
+    "diagnosticAppRetired": "${WORKSPACE}/artifacts/runtime/v104-lookup-descriptor-diagnostic-20261020/BAR.app",
+    "leavesRemoved": 1184,
+    "logicalBytesRemoved": 594538359,
+    "physicalBytesMeasured": false,
+    "preservedMarkdownCount": 34,
+    "rawDiagnosticLibraryRetained": "${WORKSPACE}/artifacts/validation/v104-lookup-descriptor-20261020/diagnostic-raw-MoltenVK.dylib",
+    "rootsRemoved": 13,
+    "sourceLogsResultsAndFailureEvidencePreserved": true
+  },
+  "diagnosticERetired": "${WORKSPACE}/artifacts/runtime/v104-lookup-descriptor-diagnostic-20261020/BAR.app",
+  "diagnosticSessions": 3,
+  "diagnosticsReleaseRestored": {
+    "flags": {
+      "C": "CMAKE_C_FLAGS:STRING=-DMVK_ENABLE_CUSTOM_DIAGNOSTICS=0",
+      "CXX": "CMAKE_CXX_FLAGS:STRING=-DMVK_ENABLE_CUSTOM_DIAGNOSTICS=0",
+      "OBJC": "CMAKE_OBJC_FLAGS:STRING=-DMVK_ENABLE_CUSTOM_DIAGNOSTICS=0",
+      "OBJCXX": "CMAKE_OBJCXX_FLAGS:STRING=-DMVK_ENABLE_CUSTOM_DIAGNOSTICS=0"
+    },
+    "rawByteExact": true,
+    "rawSHA256": "a79bf2bf5409e971d501907a34e4ac48221b92ba1ac1953e697bee3da9c457a4",
+    "savedReleaseSHA256": "a79bf2bf5409e971d501907a34e4ac48221b92ba1ac1953e697bee3da9c457a4",
+    "sourcePins": {
+      "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCommandEncoderState.mm": "01a168fe8574a584cf645c93442c0605eda6bf7fe98a10a2eebd8fd5b926871b",
+      "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKMetal4PreparedResource.h": "b8190444dc557782fda486a435c98a523a06ec64a8ec48d2919658b35323df96",
+      "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKMetal4Submission.h": "8a540f704da6785320b472cc260509e6b4891177a02c2997fd757058af97b947",
+      "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKMetal4Submission.mm": "76f492804b8129908c305e16ca36fee79ff1890b5fa925c7539752e690817516",
+      "tools/tests/metal4-allocation-lifetime-cpu.cpp": "a31558a5bca9f37bfb0ff590a644f5ee5bd2a4d6835f3937b9e6e4df96df170d",
+      "tools/tests/metal4-r44-backend-cost-cpu.mm": "476b44ef7eacec6a4a826658117c0ef260c276fdc2d0a85ee99c7dd51053af0c"
+    }
+  },
+  "finalPerformanceReview": {
+    "path": "${WORKSPACE}/artifacts/validation/v104-lookup-descriptor-20261020/final-performance-review.json",
+    "sha256": "070b013d0958dd29e2e2b41f025b22afd39046c8da554e6904eee0569cf6811c"
+  },
+  "formalReleaseChanged": false,
+  "groups": {
+    "metal3": {
+      "C": {
+        "FPS": [
+          54.601264953613,
+          56.11642074585
+        ],
+        "meanFPS": 55.3588428497315,
+        "meanP95Ms": 26.350999832153498
+      },
+      "D": {
+        "FPS": [
+          53.557228088379,
+          56.009357452393
+        ],
+        "meanFPS": 54.783292770386,
+        "meanP95Ms": 25.418499946594
+      },
+      "changePercent": -1.039671441304879
+    },
+    "metal4": {
+      "C": {
+        "FPS": [
+          50.168125152588,
+          49.104290008545
+        ],
+        "meanFPS": 49.6362075805665,
+        "meanP95Ms": 27.4955005645755
+      },
+      "D": {
+        "FPS": [
+          49.083648681641,
+          48.934341430664
+        ],
+        "meanFPS": 49.0089950561525,
+        "meanP95Ms": 27.443000793457003
+      },
+      "changePercent": -1.2636189487199356
+    }
+  },
+  "installed": false,
+  "nextCandidate": "Investigate bounded immutable layout metadata predecode on the observed slow descriptor path; benefit unproven.",
+  "performanceSessions": 8,
+  "report": "${WORKSPACE}/reports/v104-lookup-descriptor-20261020.md",
+  "reportSHA256": "5befa1b23589ed81f03c2a0cfa126efe1d181d86dcafd22c5dc6baae30fe8a96",
+  "reviewFindings": 0,
+  "sourcePins": {
+    "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCommandEncoderState.mm": "01a168fe8574a584cf645c93442c0605eda6bf7fe98a10a2eebd8fd5b926871b",
+    "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKMetal4PreparedResource.h": "b8190444dc557782fda486a435c98a523a06ec64a8ec48d2919658b35323df96",
+    "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKMetal4Submission.h": "8a540f704da6785320b472cc260509e6b4891177a02c2997fd757058af97b947",
+    "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKMetal4Submission.mm": "76f492804b8129908c305e16ca36fee79ff1890b5fa925c7539752e690817516",
+    "tools/tests/metal4-allocation-lifetime-cpu.cpp": "a31558a5bca9f37bfb0ff590a644f5ee5bd2a4d6835f3937b9e6e4df96df170d",
+    "tools/tests/metal4-r44-backend-cost-cpu.mm": "476b44ef7eacec6a4a826658117c0ef260c276fdc2d0a85ee99c7dd51053af0c"
+  },
+  "status": "implementation-independent-review-diagnostics-and-performance-complete"
+}

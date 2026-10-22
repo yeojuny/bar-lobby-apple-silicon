@@ -1,0 +1,26 @@
+--- a/GPUObjects/MVKMetal4Submission.mm
++++ b/GPUObjects/MVKMetal4Submission.mm
+@@ -831,8 +831,21 @@
+ // Caller holds poolMutex and has checked poison. Reserve recording service in
+ // the same critical section as the pack and empty completion capacity.
+ MVKMetal4AllocatorUse takeAllocatorLocked(const std::shared_ptr<MVKMetal4RecordingPoolState>& storage) {
+-    if (storage->availableEpochs.empty()) { return {}; }
+-    auto epoch = std::move(storage->availableEpochs.back()); storage->availableEpochs.pop_back();
++    auto& available = storage->availableEpochs;
++    if (available.empty()) { return {}; }
++    size_t selected = available.size() - 1;
++    // Prefer already-quiescent storage instead of extending another epoch's
++    // live command bytes. Keep the common idle-back path and all-busy fallback
++    // LIFO; the existing available limit bounds this metadata-only search.
++    if (available[selected]->liveUses) {
++        for (size_t i = selected; i > 0;) {
++            --i;
++            if (!available[i]->liveUses) { selected = i; break; }
++        }
++    }
++    auto epoch = std::move(available[selected]);
++    if (selected + 1 != available.size()) { available[selected] = std::move(available.back()); }
++    available.pop_back();
+     assert(!epoch->writer && epoch->state == MVKMetal4AllocatorState::Appendable);
+     storage->poolStats.idleBytes -= epoch->idleCharge;
+     epoch->idleCharge = 0; epoch->available = false;

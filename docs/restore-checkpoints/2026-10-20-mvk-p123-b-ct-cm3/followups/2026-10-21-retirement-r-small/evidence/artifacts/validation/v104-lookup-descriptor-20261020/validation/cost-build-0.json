@@ -1,0 +1,28 @@
+{
+  "arguments": [
+    "/usr/bin/xcrun",
+    "clang++",
+    "-std=c++17",
+    "-O1",
+    "-g",
+    "-fno-objc-arc",
+    "-fblocks",
+    "-mmacosx-version-min=27.0",
+    "-DMVK_ENABLE_CUSTOM_DIAGNOSTICS=0",
+    "-framework",
+    "Foundation",
+    "-framework",
+    "Metal",
+    "-I${WORKSPACE}/build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects",
+    "-I${WORKSPACE}/build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands",
+    "${WORKSPACE}/tools/tests/metal4-r44-backend-cost-cpu.mm",
+    "${WORKSPACE}/build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKMetal4Submission.mm",
+    "${WORKSPACE}/build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKMetal4ArgumentTable.mm",
+    "${WORKSPACE}/build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKBackendTimeline.cpp",
+    "-o",
+    "${WORKSPACE}/artifacts/validation/v104-lookup-descriptor-20261020/validation/cost-cpu-0"
+  ],
+  "exitCode": 0,
+  "seconds": 4.520666541000537,
+  "stdout": ""
+}

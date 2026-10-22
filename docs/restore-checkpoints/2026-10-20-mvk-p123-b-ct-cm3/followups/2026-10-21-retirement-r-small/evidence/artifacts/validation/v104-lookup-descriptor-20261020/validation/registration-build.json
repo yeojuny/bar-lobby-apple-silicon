@@ -1,0 +1,33 @@
+{
+  "arguments": [
+    "/usr/bin/xcrun",
+    "clang++",
+    "-std=c++17",
+    "-fno-objc-arc",
+    "-fblocks",
+    "-mmacosx-version-min=27.0",
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-O1",
+    "-g",
+    "-fsanitize=address,undefined",
+    "-fno-omit-frame-pointer",
+    "-framework",
+    "Foundation",
+    "-framework",
+    "Metal",
+    "-I${WORKSPACE}/tools/tests",
+    "-I${WORKSPACE}/build/run66-vulkan-headers-src-20260903/include",
+    "-I${WORKSPACE}/build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects",
+    "-I${WORKSPACE}/build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands",
+    "${WORKSPACE}/artifacts/validation/v104-lookup-descriptor-20261020/validation/registration-exact.mm",
+    "${WORKSPACE}/build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKMetal4ArgumentTable.mm",
+    "${WORKSPACE}/build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKBackendTimeline.cpp",
+    "-o",
+    "${WORKSPACE}/artifacts/validation/v104-lookup-descriptor-20261020/validation/registration-exact"
+  ],
+  "exitCode": 0,
+  "seconds": 8.50301458299873,
+  "stdout": ""
+}

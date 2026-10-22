@@ -1,0 +1,141 @@
+{
+  "CMakeCacheSHA256": "0418fd1490c4c368e8d303c3588311dd7bff28bf0133d7148bcd6e18f17aaf9f",
+  "E32Package": "${WORKSPACE}/artifacts/validation/v104-e-structure-20261021/E32-package.json",
+  "E64Package": "${WORKSPACE}/artifacts/validation/v104-e-structure-20261021/E64-package.json",
+  "FPSMeasured": false,
+  "allocatorChangedOnlyCount": true,
+  "allocatorDiagnosticsCreated": false,
+  "apps": {
+    "C": {
+      "app": "${WORKSPACE}/artifacts/runtime/v104-typed-buffer-callers-candidate-20261020/BAR.app",
+      "entries": 1194,
+      "exact": true,
+      "inventory": "${WORKSPACE}/artifacts/validation/v104-typed-buffer-callers-20261020/candidate-inventory.json",
+      "inventorySHA256": "698673f9aadff567322131fabfdb534b2683b6b233203d0f4bd6f8364c08af3a"
+    },
+    "D": {
+      "app": "${WORKSPACE}/artifacts/runtime/v104-lookup-descriptor-release-20261020/BAR.app",
+      "entries": 1194,
+      "exact": true,
+      "inventory": "${WORKSPACE}/artifacts/validation/v104-lookup-descriptor-20261020/release-inventory.json",
+      "inventorySHA256": "d9d5021c8f98ea4c213ba2ae94452f4eb7eb18ba7ddbd3ecbe28106ef04688b4"
+    },
+    "E32": {
+      "app": "${WORKSPACE}/artifacts/runtime/v104-e-structure-allocator32-20261021/BAR.app",
+      "entries": 1194,
+      "exact": true,
+      "inventory": "${WORKSPACE}/artifacts/validation/v104-e-structure-20261021/E32-inventory.json",
+      "inventorySHA256": "14d659ce0df80e607edb35486efc3bf5c370f2d42d862d9d15f39718761e5bda"
+    },
+    "E64": {
+      "app": "${WORKSPACE}/artifacts/runtime/v104-e-structure-candidate-20261021/BAR.app",
+      "entries": 1194,
+      "exact": true,
+      "inventory": "${WORKSPACE}/artifacts/validation/v104-e-structure-20261021/E64-inventory.json",
+      "inventorySHA256": "271c5ebed049c3a7130e7b73c682bd0e22fb5f8245d105933222af03e3890594"
+    },
+    "L": {
+      "app": "${WORKSPACE}/artifacts/runtime/v104-d-split-lookup-only-20261021/BAR.app",
+      "entries": 1194,
+      "exact": true,
+      "inventory": "${WORKSPACE}/artifacts/validation/v104-d-split-20261021/L-inventory.json",
+      "inventorySHA256": "541af5023b0984ea87a4409a8386eb474db175d5cc2554590f6a1dff10ca5684"
+    },
+    "S": {
+      "app": "${WORKSPACE}/artifacts/runtime/v104-d-split-stats-only-off-20261021/BAR.app",
+      "entries": 1194,
+      "exact": true,
+      "inventory": "${WORKSPACE}/artifacts/validation/v104-d-split-20261021/S-inventory.json",
+      "inventorySHA256": "ec9372323cb0bfe3b7c0db4849ab1b7f9f30a41a2f7579ff58641882dfa73f55"
+    }
+  },
+  "completedAtUTC": "2026-10-21T09:33:34.412457+00:00",
+  "diagnosticsCompile": 0,
+  "finalBindings": "${WORKSPACE}/artifacts/validation/v104-e-structure-20261021/final-bindings.json",
+  "finalBindingsSHA256": "da6f803591b955ed362624e0369ea1d17b21d8cce5992d5c3517c96a21094204",
+  "gameExecuted": false,
+  "gate": "${WORKSPACE}/artifacts/validation/v104-e-structure-20261021/root-source-build-grant.json",
+  "gateSHA256": "6dce1dc595879aa536113c323bccb3ffbed02e3f00da201fd7eedf86c5bdb3ce",
+  "independentReview": {
+    "provenance": "incoming root delegation after final package and allocator/visibility checks",
+    "status": "root-reported-final-review-blockers-zero"
+  },
+  "installed": false,
+  "limitations": [
+    "Plan 432 cases exercise exact plan metadata, not full binder calls; compatible layouts/revision/recording are checked through Vulkan.",
+    "20728 assertions cover real descriptor defaults and production subpass/software-resolve bodies, not all outer encoder state.",
+    "Visibility initialization, failure and lease reuse use separately extracted actual typed production method with CPU mocks.",
+    "Outer extent/layer/sample placement is preserved by extraction/source review; custom sample patterns not newly GPU-tested.",
+    "No claim of BAR FPS improvement or peak-memory benefit. Growth threshold is not a total allocator memory cap.",
+    "Historical M3 timestamp mismatch and sampled-exit failure were not rerun or closed."
+  ],
+  "preserved": {
+    "apps": [
+      "C",
+      "D",
+      "L",
+      "S",
+      "E32",
+      "E64"
+    ],
+    "engineMesaLuaUnchanged": true,
+    "launcherAndUserPins": "${WORKSPACE}/artifacts/validation/v104-e-structure-20261021/protected-state.json"
+  },
+  "published": false,
+  "rawSHA256": "4c6eabe4e916b5bd078f853a9470fa864f1799b3f453989c895e3cc240304ca1",
+  "remaining": [
+    "Root C/E32/E64 x Metal3/Metal4 x two performance comparisons"
+  ],
+  "report": "${WORKSPACE}/reports/v104-e-structure-20261021.md",
+  "reportSHA256": "398bd5868a6bf12dc6ef4f06bf49e471ff2f1b0141dcf465cb4798e6aedeea99",
+  "sourceBuildFinal": "E64",
+  "sourceBuildGrantFrozenByRoot": true,
+  "sourceBuildOwnerReleased": true,
+  "sourcePins": {
+    "Commands/MVKCommandBuffer.h": "76ec3c345cccfae09d5e0391d2600ed7f2ff241dc796cc021a6521a84803e973",
+    "Commands/MVKCommandBuffer.mm": "d456cbd32406550ec782fd19e3125622aa30e8b87dba3bb447e4f2125cdaacda",
+    "Commands/MVKCommandEncoderState.mm": "d229ff2287e51823ba1ae63fc52823b43e4bb68c16ee115107e71e10ac2916c9",
+    "Commands/MVKMetal4DependencyScopes.h": "be76d4a7fec94a609d687d7d1cd0a93e19b37e96e45e71726180e418048ff568",
+    "GPUObjects/MVKMetal4Submission.h": "58b42ee3c431ccc8f00010149972f7d9dcc2635a96fa2a37ba57ef063da2b4d9",
+    "GPUObjects/MVKPipeline.h": "d8249943835749688ebebcadfa6eb1e43dc51e31a37557ec08b6996f271a57ed",
+    "GPUObjects/MVKPipeline.mm": "6a8c37b9964191a18479fc41f352e7d439f5b8aac87d0b01782409ca7c79f080",
+    "GPUObjects/MVKRenderPass.h": "b602f0bdbd5654c1a64a663ad9fa5e74a97f9878ca409deb3f36c88398ee5dc4",
+    "GPUObjects/MVKRenderPass.mm": "bd13d806ec4677d1188ab64b03eeb9ee1e2d503334d86e7f22b12ddb77c728a1"
+  },
+  "status": "complete-source-build-frozen-root-performance-started",
+  "validation": {
+    "E32VulkanGPU": {
+      "Metal3": 15,
+      "Metal4": 15
+    },
+    "actualQueueEmissionAndComputeLocalBlockAssertions": 2097163,
+    "actualVisibilityBodies": {
+      "foundation0oldSDK": 196761,
+      "foundation0sdk26": 196842,
+      "foundation1sdk26": 196941
+    },
+    "allocatorCPU": {
+      "E32": 812,
+      "E64": 1580
+    },
+    "allocatorNative": {
+      "E32": {
+        "batches": 80,
+        "cases": 5,
+        "resets": 5
+      },
+      "E64": {
+        "batches": 160,
+        "cases": 5,
+        "resets": 5
+      }
+    },
+    "dependencyScopesAssertions": 524606,
+    "descriptorDefaultsSubpassAssertions": 20728,
+    "descriptorExistingCases": 629,
+    "planBytes": 32,
+    "planMetadataCases": 432,
+    "preparedDependencyAssertions": 4916882,
+    "resourceBindingBytes": 40
+  }
+}

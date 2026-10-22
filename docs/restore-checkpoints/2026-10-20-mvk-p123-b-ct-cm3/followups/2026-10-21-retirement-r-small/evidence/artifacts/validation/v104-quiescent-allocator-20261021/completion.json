@@ -1,0 +1,55 @@
+{
+  "activeSourceBuild": "Q-frozen",
+  "candidatePromoted": false,
+  "completedAtUTC": "2026-10-21T16:32:05.247773+00:00",
+  "currentCandidateUnchanged": true,
+  "decision": "Retain C as selected candidate; Q remains experimental, not promoted; n2 does not establish persistent benefit or regression",
+  "earlierPrimaryPreserved": "pre-metal3-rerun",
+  "groups": {
+    "metal3": {
+      "C": {
+        "FPS": [
+          53.355155944824,
+          51.953414916992
+        ],
+        "meanFPS": 52.654285430908004,
+        "meanP95Ms": 26.6224994659425
+      },
+      "Q": {
+        "FPS": [
+          52.539978027344,
+          52.653873443604
+        ],
+        "changeFromCPercent": -0.10893642362551637,
+        "meanFPS": 52.596925735474,
+        "meanP95Ms": 27.590000152588
+      }
+    },
+    "metal4": {
+      "C": {
+        "FPS": [
+          47.247936248779,
+          45.888317108154
+        ],
+        "meanFPS": 46.5681266784665,
+        "meanP95Ms": 29.0939998626705
+      },
+      "Q": {
+        "FPS": [
+          46.805953979492,
+          47.097057342529
+        ],
+        "changeFromCPercent": 0.8232647733310783,
+        "meanFPS": 46.9515056610105,
+        "meanP95Ms": 29.001000404358003
+      }
+    }
+  },
+  "primarySessions": 8,
+  "referenceSessions": 8,
+  "report": "${WORKSPACE}/reports/v104-quiescent-allocator-20261021.md",
+  "reportSHA256": "11e11538555ce4105303de579b6442527c0628757091a7cff3b536c6ac05fe85",
+  "selectedCandidate": "C",
+  "status": "Q-implementation-fresh-metal3-metal4-retest-complete",
+  "totalCompletedSessions": 16
+}

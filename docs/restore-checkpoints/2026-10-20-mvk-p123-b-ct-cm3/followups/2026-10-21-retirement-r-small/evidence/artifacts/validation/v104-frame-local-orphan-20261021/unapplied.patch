@@ -1,0 +1,144 @@
+--- a/build/run91-recoil-src-694e9df7/rts/Rendering/GL/RenderBuffers.h
++++ b/build/run91-recoil-src-694e9df7/rts/Rendering/GL/RenderBuffers.h
+@@ -408,10 +408,14 @@
+ 		if (readOnly)
+ 			return;
+ 
+-		if (vbo)
++		if (vbo) {
+ 			vbo->SwapBuffer();
+-		if (ebo)
++			vbo->Invalidate();
++		}
++		if (ebo) {
+ 			ebo->SwapBuffer();
++			ebo->Invalidate();
++		}
+ 
+ 		Clear();
+ 	}
+--- a/build/run91-recoil-src-694e9df7/rts/Rendering/GL/StreamBuffer.h
++++ b/build/run91-recoil-src-694e9df7/rts/Rendering/GL/StreamBuffer.h
+@@ -125,6 +125,8 @@
+ 
+ 	virtual void Unmap() = 0;
+ 	virtual void SwapBuffer() {};
++	// Only callers that discard and reupload all contents may invalidate.
++	virtual void Invalidate() {};
+ 
+ 	virtual bool HasClientPtr() const { return false; };
+ 	virtual uint32_t BufferElemOffset() const { return 0; };
+@@ -226,6 +228,7 @@
+ 	void Init() override {
+ 		this->byteSize = this->GetAlignedByteSize(this->numElements * sizeof(T));;
+ 		this->CreateBuffer(this->byteSize, this->optimizeForStreaming ? GL_STREAM_DRAW : GL_STATIC_DRAW);
++		uploaded = false;
+ 	}
+ 
+ 	void Kill(bool deleteBuffer) override {
+@@ -266,11 +269,33 @@
+ 		);
+ 
+ 		this->Unbind();
++		uploaded |= (this->mapElemCount > 0);
++	}
++
++	void Invalidate() override {
++		if (!uploaded)
++			return;
++
++		// Retire only frame-local contents; preserve every caller binding.
++#ifndef HEADLESS
++		const GLenum usage = this->optimizeForStreaming ? GL_STREAM_DRAW : GL_STATIC_DRAW;
++		if ((GLAD_GL_VERSION_4_5 || GLAD_GL_ARB_direct_state_access) && glNamedBufferData != nullptr) {
++			glNamedBufferData(this->id, this->byteSize, nullptr, usage);
++		} else if (GLAD_GL_VERSION_3_1 || GLAD_GL_ARB_copy_buffer) {
++			GLint previousBuffer = 0;
++			glGetIntegerv(GL_COPY_WRITE_BUFFER_BINDING, &previousBuffer);
++			glBindBuffer(GL_COPY_WRITE_BUFFER, this->id);
++			glBufferData(GL_COPY_WRITE_BUFFER, this->byteSize, nullptr, usage);
++			glBindBuffer(GL_COPY_WRITE_BUFFER, static_cast<GLuint>(previousBuffer));
++		}
++#endif
++		uploaded = false;
+ 	}
+ 
+ 	bool HasClientPtr() const override { return clientMem; };
+ private:
+ 	bool clientMem;
++	bool uploaded = false;
+ 	T* buffer;
+ };
+ 
+--- a/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Rendering/GL/RenderBuffers.h
++++ b/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Rendering/GL/RenderBuffers.h
+@@ -408,10 +408,14 @@
+ 		if (readOnly)
+ 			return;
+ 
+-		if (vbo)
++		if (vbo) {
+ 			vbo->SwapBuffer();
+-		if (ebo)
++			vbo->Invalidate();
++		}
++		if (ebo) {
+ 			ebo->SwapBuffer();
++			ebo->Invalidate();
++		}
+ 
+ 		Clear();
+ 	}
+--- a/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Rendering/GL/StreamBuffer.h
++++ b/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Rendering/GL/StreamBuffer.h
+@@ -125,6 +125,8 @@
+ 
+ 	virtual void Unmap() = 0;
+ 	virtual void SwapBuffer() {};
++	// Only callers that discard and reupload all contents may invalidate.
++	virtual void Invalidate() {};
+ 
+ 	virtual bool HasClientPtr() const { return false; };
+ 	virtual uint32_t BufferElemOffset() const { return 0; };
+@@ -226,6 +228,7 @@
+ 	void Init() override {
+ 		this->byteSize = this->GetAlignedByteSize(this->numElements * sizeof(T));;
+ 		this->CreateBuffer(this->byteSize, this->optimizeForStreaming ? GL_STREAM_DRAW : GL_STATIC_DRAW);
++		uploaded = false;
+ 	}
+ 
+ 	void Kill(bool deleteBuffer) override {
+@@ -266,11 +269,33 @@
+ 		);
+ 
+ 		this->Unbind();
++		uploaded |= (this->mapElemCount > 0);
++	}
++
++	void Invalidate() override {
++		if (!uploaded)
++			return;
++
++		// Retire only frame-local contents; preserve every caller binding.
++#ifndef HEADLESS
++		const GLenum usage = this->optimizeForStreaming ? GL_STREAM_DRAW : GL_STATIC_DRAW;
++		if ((GLAD_GL_VERSION_4_5 || GLAD_GL_ARB_direct_state_access) && glNamedBufferData != nullptr) {
++			glNamedBufferData(this->id, this->byteSize, nullptr, usage);
++		} else if (GLAD_GL_VERSION_3_1 || GLAD_GL_ARB_copy_buffer) {
++			GLint previousBuffer = 0;
++			glGetIntegerv(GL_COPY_WRITE_BUFFER_BINDING, &previousBuffer);
++			glBindBuffer(GL_COPY_WRITE_BUFFER, this->id);
++			glBufferData(GL_COPY_WRITE_BUFFER, this->byteSize, nullptr, usage);
++			glBindBuffer(GL_COPY_WRITE_BUFFER, static_cast<GLuint>(previousBuffer));
++		}
++#endif
++		uploaded = false;
+ 	}
+ 
+ 	bool HasClientPtr() const override { return clientMem; };
+ private:
+ 	bool clientMem;
++	bool uploaded = false;
+ 	T* buffer;
+ };
+ 

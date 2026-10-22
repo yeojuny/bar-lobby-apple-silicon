@@ -1,0 +1,694 @@
+{
+  "app": "${WORKSPACE}/artifacts/runtime/v104-c-reg-candidate-20261020/BAR.app",
+  "benchmark": {
+    "benchmark": {
+      "drawIntervals": {
+        "count": 1353,
+        "meanFPS": 45.172927856445,
+        "meanMs": 22.13715171814,
+        "over100Ms": 1,
+        "over33Ms": 56,
+        "over50Ms": 9,
+        "p50Ms": 21.20599937439,
+        "p95Ms": 32.061000823975,
+        "p99Ms": 47.601001739502
+      },
+      "endFrame": 1140,
+      "existingProfiler": {
+        "finish": {
+          "namesAvailable": 7,
+          "namesRead": 7,
+          "readCostMs": 0,
+          "scope": "existing inclusive engine special-timer wall time; nested entries overlap; GPU/fence waits may be included",
+          "totalMilliseconds": {
+            "Draw": 26460.73046875,
+            "Lua::Callins::Synced": 562.873657226563,
+            "Lua::Callins::Unsynced": 23576.955078125,
+            "Lua::CollectGarbage::Synced": 40.395923614502,
+            "Lua::CollectGarbage::Unsynced": 478.547332763672,
+            "Misc::Profiler::AddTime": 7.691758155823,
+            "Sim": 3398.497802734375
+          }
+        },
+        "start": {
+          "namesAvailable": 7,
+          "namesRead": 7,
+          "readCostMs": 0,
+          "scope": "existing inclusive engine special-timer wall time; nested entries overlap; GPU/fence waits may be included",
+          "totalMilliseconds": {
+            "Draw": 12947.806640625,
+            "Lua::Callins::Synced": 30.110555648804,
+            "Lua::Callins::Unsynced": 12367.2509765625,
+            "Lua::CollectGarbage::Synced": 24.842666625977,
+            "Lua::CollectGarbage::Unsynced": 307.671783447266,
+            "Misc::Profiler::AddTime": 2.486165046692,
+            "Sim": 220.05012512207
+          }
+        }
+      },
+      "gameSpeed": {
+        "atRequest": {
+          "actual": 1,
+          "paused": true,
+          "requested": 1
+        },
+        "finish": {
+          "actual": 1,
+          "paused": false,
+          "requested": 1
+        },
+        "requested": 1,
+        "start": {
+          "actual": 1,
+          "paused": false,
+          "requested": 1
+        }
+      },
+      "nativeReport": "independent infolog benchmark output",
+      "simulationFrames": 900,
+      "startFrame": 240,
+      "unitCounts": [
+        {
+          "count": 2,
+          "frame": 240,
+          "gameSpeed": {
+            "actual": 1,
+            "paused": true,
+            "requested": 1
+          },
+          "second": 1.008999943733
+        },
+        {
+          "count": 156,
+          "frame": 271,
+          "gameSpeed": {
+            "actual": 1,
+            "paused": false,
+            "requested": 1
+          },
+          "second": 2.036999940872
+        },
+        {
+          "count": 157,
+          "frame": 302,
+          "gameSpeed": {
+            "actual": 1,
+            "paused": false,
+            "requested": 1
+          },
+          "second": 3.049000024796
+        },
+        {
+          "count": 164,
+          "frame": 332,
+          "gameSpeed": {
+            "actual": 1,
+            "paused": false,
+            "requested": 1
+          },
+          "second": 4.067999839783
+        },
+        {
+          "count": 165,
+          "frame": 363,
+          "gameSpeed": {
+            "actual": 1,
+            "paused": false,
+            "requested": 1
+          },
+          "second": 5.099999904633
+        },
+        {
+          "count": 172,
+          "frame": 393,
+          "gameSpeed": {
+            "actual": 1,
+            "paused": false,
+            "requested": 1
+          },
+          "second": 6.100999832153
+        },
+        {
+          "count": 162,
+          "frame": 424,
+          "gameSpeed": {
+            "actual": 1,
+            "paused": false,
+            "requested": 1
+          },
+          "second": 7.118999958038
+        },
+        {
+          "count": 168,
+          "frame": 454,
+          "gameSpeed": {
+            "actual": 1,
+            "paused": false,
+            "requested": 1
+          },
+          "second": 8.133999824524
+        },
+        {
+          "count": 156,
+          "frame": 484,
+          "gameSpeed": {
+            "actual": 1,
+            "paused": false,
+            "requested": 1
+          },
+          "second": 9.140999794006
+        },
+        {
+          "count": 146,
+          "frame": 515,
+          "gameSpeed": {
+            "actual": 1,
+            "paused": false,
+            "requested": 1
+          },
+          "second": 10.154999732971
+        },
+        {
+          "count": 156,
+          "frame": 545,
+          "gameSpeed": {
+            "actual": 1,
+            "paused": false,
+            "requested": 1
+          },
+          "second": 11.166999816895
+        },
+        {
+          "count": 149,
+          "frame": 576,
+          "gameSpeed": {
+            "actual": 1,
+            "paused": false,
+            "requested": 1
+          },
+          "second": 12.190999984741
+        },
+        {
+          "count": 157,
+          "frame": 606,
+          "gameSpeed": {
+            "actual": 1,
+            "paused": false,
+            "requested": 1
+          },
+          "second": 13.204999923706
+        },
+        {
+          "count": 151,
+          "frame": 637,
+          "gameSpeed": {
+            "actual": 1,
+            "paused": false,
+            "requested": 1
+          },
+          "second": 14.227000236511
+        },
+        {
+          "count": 150,
+          "frame": 667,
+          "gameSpeed": {
+            "actual": 1,
+            "paused": false,
+            "requested": 1
+          },
+          "second": 15.237999916077
+        },
+        {
+          "count": 155,
+          "frame": 698,
+          "gameSpeed": {
+            "actual": 1,
+            "paused": false,
+            "requested": 1
+          },
+          "second": 16.250999450684
+        },
+        {
+          "count": 174,
+          "frame": 728,
+          "gameSpeed": {
+            "actual": 1,
+            "paused": false,
+            "requested": 1
+          },
+          "second": 17.264999389648
+        },
+        {
+          "count": 170,
+          "frame": 758,
+          "gameSpeed": {
+            "actual": 1,
+            "paused": false,
+            "requested": 1
+          },
+          "second": 18.274000167847
+        },
+        {
+          "count": 165,
+          "frame": 789,
+          "gameSpeed": {
+            "actual": 1,
+            "paused": false,
+            "requested": 1
+          },
+          "second": 19.295999526978
+        },
+        {
+          "count": 173,
+          "frame": 820,
+          "gameSpeed": {
+            "actual": 1,
+            "paused": false,
+            "requested": 1
+          },
+          "second": 20.319000244141
+        },
+        {
+          "count": 172,
+          "frame": 850,
+          "gameSpeed": {
+            "actual": 1,
+            "paused": false,
+            "requested": 1
+          },
+          "second": 21.332000732422
+        },
+        {
+          "count": 166,
+          "frame": 881,
+          "gameSpeed": {
+            "actual": 1,
+            "paused": false,
+            "requested": 1
+          },
+          "second": 22.349000930786
+        },
+        {
+          "count": 169,
+          "frame": 911,
+          "gameSpeed": {
+            "actual": 1,
+            "paused": false,
+            "requested": 1
+          },
+          "second": 23.361999511719
+        },
+        {
+          "count": 163,
+          "frame": 941,
+          "gameSpeed": {
+            "actual": 1,
+            "paused": false,
+            "requested": 1
+          },
+          "second": 24.367000579834
+        },
+        {
+          "count": 169,
+          "frame": 971,
+          "gameSpeed": {
+            "actual": 1,
+            "paused": false,
+            "requested": 1
+          },
+          "second": 25.371000289917
+        },
+        {
+          "count": 164,
+          "frame": 1002,
+          "gameSpeed": {
+            "actual": 1,
+            "paused": false,
+            "requested": 1
+          },
+          "second": 26.395000457764
+        },
+        {
+          "count": 161,
+          "frame": 1033,
+          "gameSpeed": {
+            "actual": 1,
+            "paused": false,
+            "requested": 1
+          },
+          "second": 27.416999816895
+        },
+        {
+          "count": 156,
+          "frame": 1063,
+          "gameSpeed": {
+            "actual": 1,
+            "paused": false,
+            "requested": 1
+          },
+          "second": 28.433000564575
+        },
+        {
+          "count": 164,
+          "frame": 1093,
+          "gameSpeed": {
+            "actual": 1,
+            "paused": false,
+            "requested": 1
+          },
+          "second": 29.441999435425
+        },
+        {
+          "count": 156,
+          "frame": 1124,
+          "gameSpeed": {
+            "actual": 1,
+            "paused": false,
+            "requested": 1
+          },
+          "second": 30.457000732422
+        }
+      ],
+      "wallSeconds": 29.968000411987
+    },
+    "camera": {
+      "dist": 2254.7705078125,
+      "dx": 0,
+      "dy": -0.924302399158,
+      "dz": -0.381660997868,
+      "fov": 45,
+      "mode": 2,
+      "name": "spring",
+      "px": 4096,
+      "py": 254.770629882813,
+      "pz": 3072,
+      "rx": 2.75,
+      "ry": 0,
+      "rz": 0
+    },
+    "engineVersion": "2026.09.01-24-g01efdf4 master (BAR-1.0.3 )",
+    "fixture": {
+      "contract": "metal4-exact-frame240-v1",
+      "expectedFrame": 240,
+      "pauseAckFrame": 180,
+      "pauseRequestFrame": 180,
+      "readyFrame": 240,
+      "stepCount": 60
+    },
+    "frameTarget": 900,
+    "game": "Beyond All Reason",
+    "gameVersion": "test-31671-ad2e1b7",
+    "map": "Seths Ravine Remake 1.3.1",
+    "officialCommand": "luarules benchmark armbull armbull 80 8 1400",
+    "officialSource": "https://github.com/beyond-all-reason/Beyond-All-Reason/blob/433a460ac108c510374abdc9af5b44e3b9fe406f/luarules/gadgets/dbg_benchmark.lua",
+    "qualification": {
+      "pass": true,
+      "stages": [
+        {
+          "draws": 297,
+          "fps": 98.802391052246,
+          "seconds": 3.006000041962,
+          "stage": "off-before"
+        },
+        {
+          "draws": 292,
+          "fps": 97.042205810547,
+          "frameIntervals": {
+            "count": 291,
+            "meanFPS": 97.02547454834,
+            "meanMs": 10.306571960449,
+            "over100Ms": 0,
+            "over33Ms": 0,
+            "over50Ms": 0,
+            "p50Ms": 10.11699962616,
+            "p95Ms": 13.138999938965,
+            "p99Ms": 16.149000167847
+          },
+          "seconds": 3.009000062943,
+          "stage": "on"
+        },
+        {
+          "draws": 294,
+          "fps": 97.902099609375,
+          "seconds": 3.003000020981,
+          "stage": "off-after"
+        }
+      ]
+    },
+    "quality": {
+      "config": {
+        "MSAA": 0,
+        "MSAALevel": 0,
+        "MinSampleShadingRate": 0,
+        "VSync": 0,
+        "VSyncGame": 0
+      },
+      "glSamples": 0,
+      "glSamplesConfirmed4": false,
+      "glSamplesScope": "DrawScreen current framebuffer; resolved UI targets may report 0 or 1",
+      "mapEdge": {
+        "actual": 0.5,
+        "exceptionApplied": true,
+        "voidGround": false,
+        "voidWater": true,
+        "wanted": true,
+        "widgetActive": false
+      },
+      "optionValues": {
+        "advmapshading": true,
+        "attackrange_numrangesmult": 1,
+        "bloomdeferred": true,
+        "bloomdeferred_quality": 3,
+        "camera": 3,
+        "cusgl4": true,
+        "decals": true,
+        "decalsgl4": true,
+        "distortioneffects": true,
+        "fogdiaglines": 0,
+        "grass": true,
+        "lighteffects": true,
+        "lighteffects_nanoparticlelights": true,
+        "lighteffects_screenspaceshadows": 4,
+        "limitidlefps": false,
+        "limitoffscreenfps": false,
+        "losrange": true,
+        "mapedgeextension": 0.5,
+        "msaa": 1,
+        "particles": 40000,
+        "preset": 5,
+        "shadowslider": 6,
+        "snow": true,
+        "ssao": true,
+        "ssao_quality": 3,
+        "vsync": 1,
+        "water": 2
+      },
+      "optionsVerified": 20,
+      "ultraPreset": 5,
+      "ultraVerified": true
+    },
+    "requestId": "72989da0-bad2-42d8-85cc-c2b82e1af565",
+    "resolution": {
+      "height": 950,
+      "width": 1512
+    },
+    "schema": 1,
+    "seed": 7654321,
+    "status": "complete",
+    "workload": {
+      "placementSpan": 1400,
+      "populationThresholdIsNotHardCap": true,
+      "populationThresholdPerTeam": 80,
+      "rampIncluded": true,
+      "replenishBatchPerTeam": 8,
+      "replenishEverySimulationFrames": 3,
+      "requestedSimulationSpeed": 1,
+      "unitTypeOpponent": "armbull",
+      "unitTypeOwn": "armbull"
+    }
+  },
+  "benchmarkEvidence": {
+    "path": "${WORKSPACE}/artifacts/validation/v104-c-reg-fullscreen-reverse-20261020/5-candidate-metal4/sessions/lobby-no-native-hook-1792552625292/state/data/LuaUI/Config/v104-performance-result.json",
+    "sha256": "7dd24e6428e10ee4ec41dc793ba0706671383c32819cba4a996f1ead718994f7"
+  },
+  "benchmarkRole": "r42",
+  "cacheMode": "single",
+  "finishedAt": "2026-10-21T03:18:55.098Z",
+  "fullscreenMode": {
+    "SDLFullscreen": true,
+    "SDLHidden": true,
+    "gameFullscreen": true,
+    "logEvidence": "macOS safe viewport] window=1512x982 view=<0,0 1512x950>",
+    "nativePresentation": "SDL defers native display/Space transition while hidden",
+    "viewport": {
+      "height": 950,
+      "width": 1512
+    },
+    "window": {
+      "height": 982,
+      "width": 1512
+    }
+  },
+  "gracefulQuit": true,
+  "lane": "lobby",
+  "loadedRuntimeLibraries": {
+    "libraries": [
+      {
+        "path": "${WORKSPACE}/artifacts/runtime/v104-c-reg-candidate-20261020/BAR.app/Contents/Resources/bundled-assets/runtime/sdl3/lib/libSDL3.0.dylib",
+        "sha256": "6a76d38b6cfcd75122ea51215af9dd8be1972c984a431adb2cfa0c6731354820"
+      },
+      {
+        "path": "${WORKSPACE}/artifacts/runtime/v104-c-reg-candidate-20261020/BAR.app/Contents/Resources/bundled-assets/runtime/mesa-zink/lib/libEGL.1.dylib",
+        "sha256": "62adb20871cf6985bde4b20c78ffabd37a590fa9023cf362f87ce16739a3f533"
+      },
+      {
+        "path": "${WORKSPACE}/artifacts/runtime/v104-c-reg-candidate-20261020/BAR.app/Contents/Resources/bundled-assets/runtime/mesa-zink/lib/libgallium-26.3.0-devel.dylib",
+        "sha256": "ca4f3ddd7a0bf20c7f39636ea58d04ba42bc8b9170f871eac62a53c068ad9c30"
+      },
+      {
+        "path": "${WORKSPACE}/artifacts/runtime/v104-c-reg-candidate-20261020/BAR.app/Contents/Resources/bundled-assets/runtime/vulkan-loader/lib/libvulkan.1.4.365.dylib",
+        "sha256": "b2b4bb1c9db72ff8639958e3137b308c67c15fe35cb846ffd5b1f7703cc0f7cd"
+      },
+      {
+        "path": "${WORKSPACE}/artifacts/runtime/v104-c-reg-candidate-20261020/BAR.app/Contents/Resources/bundled-assets/runtime/moltenvk-pr2746/lib/libMoltenVK.1.4.3.dylib",
+        "sha256": "79dfe6e5fe91e35c14751316d0acc5f96837516619945388c5c073e94295ebdc"
+      }
+    ],
+    "verified": true
+  },
+  "maximumTotalAttempts": 1,
+  "mesaGitSha1": "9ba10f0aab543df342535ac4d7d3e559fe825793636f9175232ae23b700a6cb1",
+  "msaaConfigEvidence": "[MacSDL3EGL::TryChooseExactConfig] configured=0 requested=0 selected=0 sampleBuffers=0 depth=24 stencil=8",
+  "nativeMetal4": {
+    "activeQueues": 1,
+    "completedSubmissions": [
+      17612
+    ],
+    "proved": true,
+    "requested": true
+  },
+  "nativeMetal4Requested": true,
+  "planSha256": "1314beebe0078d9496ed73b455e7675fd455f3941f5368ff1e5d254b78292e31",
+  "postMeasurementFixtures": "excluded_from_existing_performance_only_scope",
+  "powerContract": {
+    "lowPowerMode": true,
+    "periodicIntervalMs": 15000,
+    "settingsChanged": false,
+    "source": "AC Power",
+    "thermalStateRecorded": true
+  },
+  "powerObservations": [
+    {
+      "atUTC": "2026-10-21T03:17:05.293Z",
+      "battery": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=23134307)\t95%; AC attached; not charging present: true\n",
+      "displayAwakeProtectionPassed": true,
+      "finishedAtUTC": "2026-10-21T03:17:05.412Z",
+      "isLowPowerModeEnabled": true,
+      "label": "preflight",
+      "passed": true,
+      "thermalState": 0
+    },
+    {
+      "atUTC": "2026-10-21T03:17:29.464Z",
+      "battery": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=23134307)\t95%; AC attached; not charging present: true\n",
+      "displayAwakeProtectionPassed": true,
+      "finishedAtUTC": "2026-10-21T03:17:29.605Z",
+      "isLowPowerModeEnabled": true,
+      "label": "before-launch",
+      "passed": true,
+      "thermalState": 0
+    },
+    {
+      "atUTC": "2026-10-21T03:17:44.968Z",
+      "battery": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=23134307)\t95%; AC attached; not charging present: true\n",
+      "displayAwakeProtectionPassed": true,
+      "finishedAtUTC": "2026-10-21T03:17:45.102Z",
+      "isLowPowerModeEnabled": true,
+      "label": "periodic",
+      "passed": true,
+      "thermalState": 0
+    },
+    {
+      "atUTC": "2026-10-21T03:18:00.317Z",
+      "battery": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=23134307)\t95%; AC attached; not charging present: true\n",
+      "displayAwakeProtectionPassed": true,
+      "finishedAtUTC": "2026-10-21T03:18:00.465Z",
+      "isLowPowerModeEnabled": true,
+      "label": "periodic",
+      "passed": true,
+      "thermalState": 0
+    },
+    {
+      "atUTC": "2026-10-21T03:18:14.242Z",
+      "battery": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=23134307)\t95%; AC attached; not charging present: true\n",
+      "displayAwakeProtectionPassed": true,
+      "finishedAtUTC": "2026-10-21T03:18:14.397Z",
+      "isLowPowerModeEnabled": true,
+      "label": "before-benchmark",
+      "passed": true,
+      "thermalState": 0
+    },
+    {
+      "atUTC": "2026-10-21T03:18:30.004Z",
+      "battery": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=23134307)\t95%; AC attached; not charging present: true\n",
+      "displayAwakeProtectionPassed": true,
+      "finishedAtUTC": "2026-10-21T03:18:30.242Z",
+      "isLowPowerModeEnabled": true,
+      "label": "periodic",
+      "passed": true,
+      "thermalState": 0
+    },
+    {
+      "atUTC": "2026-10-21T03:18:46.470Z",
+      "battery": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=23134307)\t95%; AC attached; not charging present: true\n",
+      "displayAwakeProtectionPassed": true,
+      "finishedAtUTC": "2026-10-21T03:18:46.686Z",
+      "isLowPowerModeEnabled": true,
+      "label": "periodic",
+      "passed": true,
+      "thermalState": 0
+    },
+    {
+      "atUTC": "2026-10-21T03:18:46.687Z",
+      "battery": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=23134307)\t95%; AC attached; not charging present: true\n",
+      "displayAwakeProtectionPassed": true,
+      "finishedAtUTC": "2026-10-21T03:18:46.868Z",
+      "isLowPowerModeEnabled": true,
+      "label": "after-benchmark",
+      "passed": true,
+      "thermalState": 0
+    },
+    {
+      "atUTC": "2026-10-21T03:18:54.942Z",
+      "battery": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=23134307)\t95%; AC attached; not charging present: true\n",
+      "displayAwakeProtectionPassed": true,
+      "finishedAtUTC": "2026-10-21T03:18:55.098Z",
+      "isLowPowerModeEnabled": true,
+      "label": "post-exit",
+      "passed": true,
+      "thermalState": 0
+    }
+  ],
+  "preparationMs": 22279,
+  "promotionAllowed": false,
+  "role": "r42",
+  "run": "${WORKSPACE}/artifacts/validation/v104-c-reg-fullscreen-reverse-20261020/5-candidate-metal4/sessions/lobby-no-native-hook-1792552625292",
+  "sessionOrdinal": 1,
+  "startedAt": "2026-10-21T03:17:05.293Z",
+  "status": "completed-not-promoted",
+  "strictHiddenWindow": true,
+  "timing": {
+    "gameSpawnAt": 1792552658687,
+    "hostBenchmarkElapsedMs": 32085,
+    "launchAt": 1792552649605,
+    "launchToReadyMs": 44588,
+    "nativeSpawnToReadyMs": 35506,
+    "preparationMs": 22279,
+    "readyAt": 1792552694193
+  },
+  "vsync": {
+    "engineLogLast": "[VSync::SetInterval] interval=0 (disabled)",
+    "requested": 0,
+    "sourceInference": "Mesa Kopper initializes swap interval 0, which selects Vulkan immediate present when supported; MoltenVK applies present mode to CAMetalLayer. Actual present mode remains unobserved."
+  }
+}

@@ -1,0 +1,67 @@
+{
+  "allocatorPolicyUnchanged": "count32, growth2MiB, available8, idle64MiB",
+  "barFPSGameExecuted": false,
+  "buildRequalification": {
+    "correctiveReceipt": "header-mtime-rebuild.json",
+    "dependentObjectsRecompiled": 34,
+    "firstBuildQualified": false,
+    "firstBuildReceipt": "build.json",
+    "gpuUsedOnlyQualifiedRaw": true,
+    "headerContentUnchanged": true,
+    "oldRawRetainedAsUnqualified": "candidate-raw-MoltenVK.dylib",
+    "reason": "R header restore retained old mtime; initial incremental build could retain incompatible prior lookup objects."
+  },
+  "candidateApp": "${WORKSPACE}/artifacts/runtime/v104-r-small-bundle-candidate-20261021/BAR.app",
+  "candidateInventorySHA256": "f5b1b80a538d4030262c00bd548c96e1855386e930298d103be0ddbda3f1f80b",
+  "completedUTC": "2026-10-21T22:53:55.888349+00:00",
+  "engineAndLauncherCodeUnchanged": true,
+  "installPublishCleanup": false,
+  "launcherHEADIndexStatusPreserved": true,
+  "limits": [
+    "No BAR FPS or game correctness claim; coordinator owns comparison and adoption.",
+    "Multi-entry success CPU allocation examples14 to6; measured whole invocation, not solely vectors.",
+    "Late-failure capacity can grow1 to16, with up to2520 additional bytes in tested examples; allocation counts unchanged.",
+    "No new persistent scratch/arena/lock/collector. Existing cache storage moves and weak ownership preserved."
+  ],
+  "packageReceiptSHA256": "b01d3b573bebce3a247873e57c2068bf365f0074c2c12c8e55e519bd3302a7d0",
+  "packagedSHA256": "abf4fb1bad831b6295d90dd5a9ffa6af8b25308e99c8724153716e480a0275a2",
+  "preparationFailuresPreserved": [
+    {
+      "path": "capture-cpu/capture-compile.log",
+      "reason": "CPU recipe omitted Vulkan enum header; fixed recipe, product unchanged."
+    },
+    {
+      "path": "validation-preparation-attempt1.json",
+      "reason": "Diagnostics macro was in Ninja FLAGS, not DEFINES; fixed recipe assertion before compilation/GPU."
+    }
+  ],
+  "productSourceBuildGpuWorkStopped": true,
+  "protectedFourAppsExact": true,
+  "rawSHA256": "a10d962d14e0cffbc8c284eb6d1e9d9148e36cd1d71a21e648e0479f3b6c0a77",
+  "scope": "R plus unit1 first-valid bounded reserve only; unit2 held",
+  "sourcePatchSHA256": "d2cc1b83b29b8b83ed5ffd42eea85fd2f95e9bfb92881b20ea4b625fbb99641e",
+  "sourceReview": "independent-source-review.md: applied content confirmed, blocker0; no independent post-runtime review claimed",
+  "status": "complete-frozen-handoff-for-coordinator-performance",
+  "unit2": "deferred: first push-template makes later policy walk unreachable in observed source chain; not global BAR call0 proof",
+  "validation": {
+    "MetalDebugLayer": true,
+    "backends": [
+      "Metal4",
+      "Metal3"
+    ],
+    "barGameFPS": false,
+    "cpuASanUBSan": true,
+    "diagnosticsCompile": 0,
+    "diagnosticsRuntime": 0,
+    "exactCaptureAssertions": 3851,
+    "exactCaptureCases": 220,
+    "foundationOff": true,
+    "preparedTextureAssertions": 65,
+    "rawSHA256": "a10d962d14e0cffbc8c284eb6d1e9d9148e36cd1d71a21e648e0479f3b6c0a77",
+    "selectedFixtureSHA256": "ba395fba6161c07821ce06ba41deded21e7c5cd289e0e194985fd6d0ee8990e1",
+    "selectedVulkanCasesPerBackend": 3,
+    "sourceFixtureSHA256": "b5f1efe0e19c0c0384b9edd8c5ba8a2af3b9353a64f66a674d606e6ed63a3e6a",
+    "sourcePins": 39,
+    "status": "passed"
+  }
+}

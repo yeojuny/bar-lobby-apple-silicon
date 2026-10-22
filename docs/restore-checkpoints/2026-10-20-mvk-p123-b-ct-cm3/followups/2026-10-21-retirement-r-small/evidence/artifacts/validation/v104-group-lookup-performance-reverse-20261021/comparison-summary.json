@@ -1,0 +1,550 @@
+{
+  "allFourAppInventoriesExact": true,
+  "apps": {
+    "Combined": {
+      "app": "${WORKSPACE}/artifacts/runtime/v104-r-combined-candidate-20261021/BAR.app",
+      "inventoryDigest": "b5b17965a15fb78f4a88096a466a339352794353b1bcf7dbb7109cfaa275b0e3",
+      "localCandidate": "v1.0.4",
+      "version": "1.0.3"
+    },
+    "CombinedLookup": {
+      "app": "${WORKSPACE}/artifacts/runtime/v104-r-combined-group-locator-candidate-20261021/BAR.app",
+      "inventoryDigest": "5be7bdce351f56061c32b6ec52a0bc784d4d880451e8946eb28b705959ccc867",
+      "localCandidate": "v1.0.4",
+      "version": "1.0.3"
+    },
+    "R": {
+      "app": "${WORKSPACE}/artifacts/runtime/v104-idle-first-allocator-candidate-20261021/BAR.app",
+      "inventoryDigest": "8195553e6dfef011f6a60d6666aeebbbce05f4cf649dcea65e49b90deb39e920",
+      "localCandidate": "v1.0.4",
+      "version": "1.0.3"
+    },
+    "RLookup": {
+      "app": "${WORKSPACE}/artifacts/runtime/v104-r-group-locator-candidate-20261021/BAR.app",
+      "inventoryDigest": "3ff86448fa7271cfd15a50a13d6a5986821e271b3fea824a9ca18a51ff54245b",
+      "localCandidate": "v1.0.4",
+      "version": "1.0.3"
+    }
+  },
+  "awakeReleased": true,
+  "cleanup": {
+    "leaves": 5335,
+    "logicalBytes": 153950004,
+    "physicalBytesMeasured": false,
+    "roots": 96
+  },
+  "conditions": {
+    "camera": {
+      "dist": 2254.7705078125,
+      "dx": 0,
+      "dy": -0.924302399158,
+      "dz": -0.381660997868,
+      "fov": 45,
+      "mode": 2,
+      "name": "spring",
+      "px": 4096,
+      "py": 254.770629882813,
+      "pz": 3072,
+      "rx": 2.75,
+      "ry": 0,
+      "rz": 0
+    },
+    "game": "Beyond All Reason",
+    "map": "Seths Ravine Remake 1.3.1",
+    "officialCommand": "luarules benchmark armbull armbull 80 8 1400",
+    "quality": {
+      "config": {
+        "MSAA": 0,
+        "MSAALevel": 0,
+        "MinSampleShadingRate": 0,
+        "VSync": 0,
+        "VSyncGame": 0
+      },
+      "glSamples": 0,
+      "glSamplesConfirmed4": false,
+      "glSamplesScope": "DrawScreen current framebuffer; resolved UI targets may report 0 or 1",
+      "mapEdge": {
+        "actual": 0.5,
+        "exceptionApplied": true,
+        "voidGround": false,
+        "voidWater": true,
+        "wanted": true,
+        "widgetActive": false
+      },
+      "optionValues": {
+        "advmapshading": true,
+        "attackrange_numrangesmult": 1,
+        "bloomdeferred": true,
+        "bloomdeferred_quality": 3,
+        "camera": 3,
+        "cusgl4": true,
+        "decals": true,
+        "decalsgl4": true,
+        "distortioneffects": true,
+        "fogdiaglines": 0,
+        "grass": true,
+        "lighteffects": true,
+        "lighteffects_nanoparticlelights": true,
+        "lighteffects_screenspaceshadows": 4,
+        "limitidlefps": false,
+        "limitoffscreenfps": false,
+        "losrange": true,
+        "mapedgeextension": 0.5,
+        "msaa": 1,
+        "particles": 40000,
+        "preset": 5,
+        "shadowslider": 6,
+        "snow": true,
+        "ssao": true,
+        "ssao_quality": 3,
+        "vsync": 1,
+        "water": 2
+      },
+      "optionsVerified": 20,
+      "ultraPreset": 5,
+      "ultraVerified": true
+    },
+    "resolution": {
+      "height": 950,
+      "width": 1512
+    },
+    "seed": 7654321,
+    "workload": {
+      "placementSpan": 1400,
+      "populationThresholdIsNotHardCap": true,
+      "populationThresholdPerTeam": 80,
+      "rampIncluded": true,
+      "replenishBatchPerTeam": 8,
+      "replenishEverySimulationFrames": 3,
+      "requestedSimulationSpeed": 1,
+      "unitTypeOpponent": "armbull",
+      "unitTypeOwn": "armbull"
+    }
+  },
+  "executionOrder": [
+    {
+      "FPS": 43.341438293457,
+      "app": "${WORKSPACE}/artifacts/runtime/v104-idle-first-allocator-candidate-20261021/BAR.app",
+      "backend": "metal4",
+      "benchmarkStartUnixMS": 1792614692366,
+      "displayedVersion": "1.0.3",
+      "drawIntervals": 1299,
+      "label": "R",
+      "loadedMoltenVKSHA256": "8f8010bdcb59397564c21c80ad2eb87fb4690b45e6def36478db7e11fc781462",
+      "localCandidate": "v1.0.4",
+      "ordinal": 1,
+      "p95Ms": 38.306999206543,
+      "p99Ms": 60.166000366211,
+      "receipt": "${WORKSPACE}/artifacts/validation/v104-group-lookup-performance-reverse-20261021/performance/1-R-metal4/sessions/lobby-no-native-hook-1792614620207/execution-receipt.json",
+      "receiptSHA256": "33f7daaa067b2cb110dd094d3ab4bb26e92fb94c2fb9b84c096ce71880c98a4f",
+      "role": "R",
+      "simulationFrames": 900
+    },
+    {
+      "FPS": 43.716236114502,
+      "app": "${WORKSPACE}/artifacts/runtime/v104-r-group-locator-candidate-20261021/BAR.app",
+      "backend": "metal4",
+      "benchmarkStartUnixMS": 1792614811900,
+      "displayedVersion": "1.0.3",
+      "drawIntervals": 1310,
+      "label": "R+조회",
+      "loadedMoltenVKSHA256": "348663cdb393dbc0d2a94305ae00faeebd78b2aa8604b89f17adcdd55260751b",
+      "localCandidate": "v1.0.4",
+      "ordinal": 2,
+      "p95Ms": 37.208999633789,
+      "p99Ms": 49.363998413086,
+      "receipt": "${WORKSPACE}/artifacts/validation/v104-group-lookup-performance-reverse-20261021/performance/2-RLookup-metal4/sessions/lobby-no-native-hook-1792614741093/execution-receipt.json",
+      "receiptSHA256": "6d7bc51701c02470fe68e18d9b6faa17dd9ecfe90f47da1c9f1de0b0cd30c799",
+      "role": "RLookup",
+      "simulationFrames": 900
+    },
+    {
+      "FPS": 40.391448974609,
+      "app": "${WORKSPACE}/artifacts/runtime/v104-r-combined-candidate-20261021/BAR.app",
+      "backend": "metal4",
+      "benchmarkStartUnixMS": 1792614931875,
+      "displayedVersion": "1.0.3",
+      "drawIntervals": 1210,
+      "label": "R+전체",
+      "loadedMoltenVKSHA256": "129e85bb9a7d1cf53a991bbeb5afbbd578b563182de86a1b60ddf57f6b195077",
+      "localCandidate": "v1.0.4",
+      "ordinal": 3,
+      "p95Ms": 42.458999633789,
+      "p99Ms": 63.049999237061,
+      "receipt": "${WORKSPACE}/artifacts/validation/v104-group-lookup-performance-reverse-20261021/performance/3-Combined-metal4/sessions/lobby-no-native-hook-1792614860090/execution-receipt.json",
+      "receiptSHA256": "8743f9ccf1501e72e4f957bc6a9ed4bfb225684e0115f4f7b08e677629bbfc66",
+      "role": "Combined",
+      "simulationFrames": 900
+    },
+    {
+      "FPS": 41.651580810547,
+      "app": "${WORKSPACE}/artifacts/runtime/v104-r-combined-group-locator-candidate-20261021/BAR.app",
+      "backend": "metal4",
+      "benchmarkStartUnixMS": 1792615051553,
+      "displayedVersion": "1.0.3",
+      "drawIntervals": 1248,
+      "label": "R+전체+조회",
+      "loadedMoltenVKSHA256": "772042e655d17f2e957230c83b0a2ec186c2c34c0ed76838fd53c6e6ae5db490",
+      "localCandidate": "v1.0.4",
+      "ordinal": 4,
+      "p95Ms": 43.19100189209,
+      "p99Ms": 62.331001281738,
+      "receipt": "${WORKSPACE}/artifacts/validation/v104-group-lookup-performance-reverse-20261021/performance/4-CombinedLookup-metal4/sessions/lobby-no-native-hook-1792614980781/execution-receipt.json",
+      "receiptSHA256": "674952f70f7fb692a91a956c9d73ab05a4283e999a9a5d43c7309877c6e7daf5",
+      "role": "CombinedLookup",
+      "simulationFrames": 900
+    },
+    {
+      "FPS": 39.947746276855,
+      "app": "${WORKSPACE}/artifacts/runtime/v104-r-combined-group-locator-candidate-20261021/BAR.app",
+      "backend": "metal4",
+      "benchmarkStartUnixMS": 1792615170851,
+      "displayedVersion": "1.0.3",
+      "drawIntervals": 1197,
+      "label": "R+전체+조회",
+      "loadedMoltenVKSHA256": "772042e655d17f2e957230c83b0a2ec186c2c34c0ed76838fd53c6e6ae5db490",
+      "localCandidate": "v1.0.4",
+      "ordinal": 5,
+      "p95Ms": 44.997001647949,
+      "p99Ms": 76.27799987793,
+      "receipt": "${WORKSPACE}/artifacts/validation/v104-group-lookup-performance-reverse-20261021/performance/5-CombinedLookup-metal4/sessions/lobby-no-native-hook-1792615099464/execution-receipt.json",
+      "receiptSHA256": "dbe79f246d74a87e10eaa0ee1e2985cff5fcb326b160f39e248250cd04c2cdd5",
+      "role": "CombinedLookup",
+      "simulationFrames": 900
+    },
+    {
+      "FPS": 42.489994049072,
+      "app": "${WORKSPACE}/artifacts/runtime/v104-r-combined-candidate-20261021/BAR.app",
+      "backend": "metal4",
+      "benchmarkStartUnixMS": 1792615290999,
+      "displayedVersion": "1.0.3",
+      "drawIntervals": 1272,
+      "label": "R+전체",
+      "loadedMoltenVKSHA256": "129e85bb9a7d1cf53a991bbeb5afbbd578b563182de86a1b60ddf57f6b195077",
+      "localCandidate": "v1.0.4",
+      "ordinal": 6,
+      "p95Ms": 40.022998809814,
+      "p99Ms": 55.342998504639,
+      "receipt": "${WORKSPACE}/artifacts/validation/v104-group-lookup-performance-reverse-20261021/performance/6-Combined-metal4/sessions/lobby-no-native-hook-1792615219464/execution-receipt.json",
+      "receiptSHA256": "b2a26c40cf88949767ba9eb5555e7032f597c296733407190c15ad6fa508f860",
+      "role": "Combined",
+      "simulationFrames": 900
+    },
+    {
+      "FPS": 41.31286239624,
+      "app": "${WORKSPACE}/artifacts/runtime/v104-r-group-locator-candidate-20261021/BAR.app",
+      "backend": "metal4",
+      "benchmarkStartUnixMS": 1792615410556,
+      "displayedVersion": "1.0.3",
+      "drawIntervals": 1238,
+      "label": "R+조회",
+      "loadedMoltenVKSHA256": "348663cdb393dbc0d2a94305ae00faeebd78b2aa8604b89f17adcdd55260751b",
+      "localCandidate": "v1.0.4",
+      "ordinal": 7,
+      "p95Ms": 42.429000854492,
+      "p99Ms": 68.154998779297,
+      "receipt": "${WORKSPACE}/artifacts/validation/v104-group-lookup-performance-reverse-20261021/performance/7-RLookup-metal4/sessions/lobby-no-native-hook-1792615338895/execution-receipt.json",
+      "receiptSHA256": "5fc429c13b2eb2e2a94507e52b147dad0ec5b2c016414809a600c6effdd4e3ac",
+      "role": "RLookup",
+      "simulationFrames": 900
+    },
+    {
+      "FPS": 42.072288513184,
+      "app": "${WORKSPACE}/artifacts/runtime/v104-idle-first-allocator-candidate-20261021/BAR.app",
+      "backend": "metal4",
+      "benchmarkStartUnixMS": 1792615530833,
+      "displayedVersion": "1.0.3",
+      "drawIntervals": 1261,
+      "label": "R",
+      "loadedMoltenVKSHA256": "8f8010bdcb59397564c21c80ad2eb87fb4690b45e6def36478db7e11fc781462",
+      "localCandidate": "v1.0.4",
+      "ordinal": 8,
+      "p95Ms": 42.042999267578,
+      "p99Ms": 61.033000946045,
+      "receipt": "${WORKSPACE}/artifacts/validation/v104-group-lookup-performance-reverse-20261021/performance/8-R-metal4/sessions/lobby-no-native-hook-1792615458977/execution-receipt.json",
+      "receiptSHA256": "2e5962fcfd57c651c38893f76f6577be9deb4f80919da0324af425c4d2892ebc",
+      "role": "R",
+      "simulationFrames": 900
+    },
+    {
+      "FPS": 47.53307723999,
+      "app": "${WORKSPACE}/artifacts/runtime/v104-r-combined-group-locator-candidate-20261021/BAR.app",
+      "backend": "metal3",
+      "benchmarkStartUnixMS": 1792615652290,
+      "displayedVersion": "1.0.3",
+      "drawIntervals": 1424,
+      "label": "R+전체+조회",
+      "loadedMoltenVKSHA256": "772042e655d17f2e957230c83b0a2ec186c2c34c0ed76838fd53c6e6ae5db490",
+      "localCandidate": "v1.0.4",
+      "ordinal": 9,
+      "p95Ms": 37.624000549316,
+      "p99Ms": 55.396999359131,
+      "receipt": "${WORKSPACE}/artifacts/validation/v104-group-lookup-performance-reverse-20261021/performance/9-CombinedLookup-metal3/sessions/lobby-no-native-hook-1792615580652/execution-receipt.json",
+      "receiptSHA256": "15da7bcaf23142a2cb2950c2c32c3ef0bda6824d492a1b463fd974e37afed8c7",
+      "role": "CombinedLookup",
+      "simulationFrames": 900
+    },
+    {
+      "FPS": 47.086055755615,
+      "app": "${WORKSPACE}/artifacts/runtime/v104-r-combined-candidate-20261021/BAR.app",
+      "backend": "metal3",
+      "benchmarkStartUnixMS": 1792615772323,
+      "displayedVersion": "1.0.3",
+      "drawIntervals": 1411,
+      "label": "R+전체",
+      "loadedMoltenVKSHA256": "129e85bb9a7d1cf53a991bbeb5afbbd578b563182de86a1b60ddf57f6b195077",
+      "localCandidate": "v1.0.4",
+      "ordinal": 10,
+      "p95Ms": 37.69100189209,
+      "p99Ms": 56.692001342773,
+      "receipt": "${WORKSPACE}/artifacts/validation/v104-group-lookup-performance-reverse-20261021/performance/10-Combined-metal3/sessions/lobby-no-native-hook-1792615701468/execution-receipt.json",
+      "receiptSHA256": "ff5e3590d477fbe9031e399214d62b83a3b388ac4fb306f59a1800bd7c2097af",
+      "role": "Combined",
+      "simulationFrames": 900
+    },
+    {
+      "FPS": 47.072292327881,
+      "app": "${WORKSPACE}/artifacts/runtime/v104-r-group-locator-candidate-20261021/BAR.app",
+      "backend": "metal3",
+      "benchmarkStartUnixMS": 1792615893386,
+      "displayedVersion": "1.0.3",
+      "drawIntervals": 1411,
+      "label": "R+조회",
+      "loadedMoltenVKSHA256": "348663cdb393dbc0d2a94305ae00faeebd78b2aa8604b89f17adcdd55260751b",
+      "localCandidate": "v1.0.4",
+      "ordinal": 11,
+      "p95Ms": 38.984001159668,
+      "p99Ms": 51.016998291016,
+      "receipt": "${WORKSPACE}/artifacts/validation/v104-group-lookup-performance-reverse-20261021/performance/11-RLookup-metal3/sessions/lobby-no-native-hook-1792615821625/execution-receipt.json",
+      "receiptSHA256": "aa6459f3ee5b5b204d7f081f6647058cc8d9e2e66c732addb9cced504c58aa04",
+      "role": "RLookup",
+      "simulationFrames": 900
+    },
+    {
+      "FPS": 47.875965118408,
+      "app": "${WORKSPACE}/artifacts/runtime/v104-idle-first-allocator-candidate-20261021/BAR.app",
+      "backend": "metal3",
+      "benchmarkStartUnixMS": 1792616013798,
+      "displayedVersion": "1.0.3",
+      "drawIntervals": 1435,
+      "label": "R",
+      "loadedMoltenVKSHA256": "8f8010bdcb59397564c21c80ad2eb87fb4690b45e6def36478db7e11fc781462",
+      "localCandidate": "v1.0.4",
+      "ordinal": 12,
+      "p95Ms": 38.227001190186,
+      "p99Ms": 61.407001495361,
+      "receipt": "${WORKSPACE}/artifacts/validation/v104-group-lookup-performance-reverse-20261021/performance/12-R-metal3/sessions/lobby-no-native-hook-1792615942232/execution-receipt.json",
+      "receiptSHA256": "847a15a7f88f5f74190da104d899cb99e80a8fddd71b5e433d30af3ce55807c6",
+      "role": "R",
+      "simulationFrames": 900
+    },
+    {
+      "FPS": 48.18212890625,
+      "app": "${WORKSPACE}/artifacts/runtime/v104-idle-first-allocator-candidate-20261021/BAR.app",
+      "backend": "metal3",
+      "benchmarkStartUnixMS": 1792616133890,
+      "displayedVersion": "1.0.3",
+      "drawIntervals": 1444,
+      "label": "R",
+      "loadedMoltenVKSHA256": "8f8010bdcb59397564c21c80ad2eb87fb4690b45e6def36478db7e11fc781462",
+      "localCandidate": "v1.0.4",
+      "ordinal": 13,
+      "p95Ms": 36.286998748779,
+      "p99Ms": 54.814998626709,
+      "receipt": "${WORKSPACE}/artifacts/validation/v104-group-lookup-performance-reverse-20261021/performance/13-R-metal3/sessions/lobby-no-native-hook-1792616062565/execution-receipt.json",
+      "receiptSHA256": "218f9acc3fb99b5f2be398795ae9626d9b8bd1268b5e974bbb035b626741b1e1",
+      "role": "R",
+      "simulationFrames": 900
+    },
+    {
+      "FPS": 47.350688934326,
+      "app": "${WORKSPACE}/artifacts/runtime/v104-r-group-locator-candidate-20261021/BAR.app",
+      "backend": "metal3",
+      "benchmarkStartUnixMS": 1792616254204,
+      "displayedVersion": "1.0.3",
+      "drawIntervals": 1419,
+      "label": "R+조회",
+      "loadedMoltenVKSHA256": "348663cdb393dbc0d2a94305ae00faeebd78b2aa8604b89f17adcdd55260751b",
+      "localCandidate": "v1.0.4",
+      "ordinal": 14,
+      "p95Ms": 37.805999755859,
+      "p99Ms": 58.523998260498,
+      "receipt": "${WORKSPACE}/artifacts/validation/v104-group-lookup-performance-reverse-20261021/performance/14-RLookup-metal3/sessions/lobby-no-native-hook-1792616182173/execution-receipt.json",
+      "receiptSHA256": "d59425cbee516fba09d66069ea46650926226ba6ee07f2b938f1c37d4d0a1c33",
+      "role": "RLookup",
+      "simulationFrames": 900
+    },
+    {
+      "FPS": 47.291404724121,
+      "app": "${WORKSPACE}/artifacts/runtime/v104-r-combined-candidate-20261021/BAR.app",
+      "backend": "metal3",
+      "benchmarkStartUnixMS": 1792616374628,
+      "displayedVersion": "1.0.3",
+      "drawIntervals": 1417,
+      "label": "R+전체",
+      "loadedMoltenVKSHA256": "129e85bb9a7d1cf53a991bbeb5afbbd578b563182de86a1b60ddf57f6b195077",
+      "localCandidate": "v1.0.4",
+      "ordinal": 15,
+      "p95Ms": 37.960998535156,
+      "p99Ms": 54.812999725342,
+      "receipt": "${WORKSPACE}/artifacts/validation/v104-group-lookup-performance-reverse-20261021/performance/15-Combined-metal3/sessions/lobby-no-native-hook-1792616303014/execution-receipt.json",
+      "receiptSHA256": "723016ed6d40078e8e951eae508c1ca8b1ff0e06c3fb0a1843682944dff34f13",
+      "role": "Combined",
+      "simulationFrames": 900
+    },
+    {
+      "FPS": 46.756973266602,
+      "app": "${WORKSPACE}/artifacts/runtime/v104-r-combined-group-locator-candidate-20261021/BAR.app",
+      "backend": "metal3",
+      "benchmarkStartUnixMS": 1792616495993,
+      "displayedVersion": "1.0.3",
+      "drawIntervals": 1401,
+      "label": "R+전체+조회",
+      "loadedMoltenVKSHA256": "772042e655d17f2e957230c83b0a2ec186c2c34c0ed76838fd53c6e6ae5db490",
+      "localCandidate": "v1.0.4",
+      "ordinal": 16,
+      "p95Ms": 34.842998504639,
+      "p99Ms": 54.012001037598,
+      "receipt": "${WORKSPACE}/artifacts/validation/v104-group-lookup-performance-reverse-20261021/performance/16-CombinedLookup-metal3/sessions/lobby-no-native-hook-1792616423465/execution-receipt.json",
+      "receiptSHA256": "48e3b85a596071e5479043e356f9f4b4d4bc94b675a8a1241f115c6bda5c4e5c",
+      "role": "CombinedLookup",
+      "simulationFrames": 900
+    }
+  ],
+  "groups": {
+    "metal3": {
+      "Combined": {
+        "FPS": [
+          47.086055755615,
+          47.291404724121
+        ],
+        "changeFromRPercent": -1.7496011783146415,
+        "meanFPS": 47.188730239868,
+        "meanP95Ms": 37.826000213623004,
+        "ordinals": [
+          10,
+          15
+        ]
+      },
+      "CombinedLookup": {
+        "FPS": [
+          47.53307723999,
+          46.756973266602
+        ],
+        "changeFromRPercent": -1.8405981672009353,
+        "lookupChangeFromOwnParentPercent": -0.09261742443554821,
+        "meanFPS": 47.145025253296,
+        "meanP95Ms": 36.233499526977496,
+        "ordinals": [
+          9,
+          16
+        ],
+        "p95ChangeFromOwnParentPercent": -4.210068941077116
+      },
+      "R": {
+        "FPS": [
+          47.875965118408,
+          48.18212890625
+        ],
+        "changeFromRPercent": 0.0,
+        "meanFPS": 48.029047012329,
+        "meanP95Ms": 37.2569999694825,
+        "ordinals": [
+          12,
+          13
+        ]
+      },
+      "RLookup": {
+        "FPS": [
+          47.072292327881,
+          47.350688934326
+        ],
+        "changeFromRPercent": -1.7022123737238326,
+        "lookupChangeFromOwnParentPercent": -1.7022123737238326,
+        "meanFPS": 47.2114906311035,
+        "meanP95Ms": 38.3950004577635,
+        "ordinals": [
+          11,
+          14
+        ],
+        "p95ChangeFromOwnParentPercent": 3.054460877722698
+      }
+    },
+    "metal4": {
+      "Combined": {
+        "FPS": [
+          40.391448974609,
+          42.489994049072
+        ],
+        "changeFromRPercent": -2.9647269562333434,
+        "meanFPS": 41.4407215118405,
+        "meanP95Ms": 41.2409992218015,
+        "ordinals": [
+          3,
+          6
+        ]
+      },
+      "CombinedLookup": {
+        "FPS": [
+          41.651580810547,
+          39.947746276855
+        ],
+        "changeFromRPercent": -4.4657923987721615,
+        "lookupChangeFromOwnParentPercent": -1.546927622764327,
+        "meanFPS": 40.799663543701,
+        "meanP95Ms": 44.0940017700195,
+        "ordinals": [
+          4,
+          5
+        ],
+        "p95ChangeFromOwnParentPercent": 6.917879299854102
+      },
+      "R": {
+        "FPS": [
+          43.341438293457,
+          42.072288513184
+        ],
+        "changeFromRPercent": 0.0,
+        "meanFPS": 42.7068634033205,
+        "meanP95Ms": 40.1749992370605,
+        "ordinals": [
+          1,
+          8
+        ]
+      },
+      "RLookup": {
+        "FPS": [
+          43.716236114502,
+          41.31286239624
+        ],
+        "changeFromRPercent": -0.4503120403231087,
+        "lookupChangeFromOwnParentPercent": -0.4503120403231087,
+        "meanFPS": 42.514549255371,
+        "meanP95Ms": 39.8190002441405,
+        "ordinals": [
+          2,
+          7
+        ],
+        "p95ChangeFromOwnParentPercent": -0.8861207210468347
+      }
+    }
+  },
+  "limitations": [
+    "n2 per app/backend; background load/clocks not fully controlled.",
+    "Per-run FPS and p95 arithmetic means; no historical FPS pooled.",
+    "Lookup patch is tested on each own parent; interaction/causal FPS gain not established.",
+    "New locator uses96 extra CPU metadata bytes per recording; FPS does not establish peak memory benefit.",
+    "Existing sampled native-exit and timestamp fixture failures not claimed repaired."
+  ],
+  "nPerAppPerBackend": 2,
+  "osSwVers": "ProductName:\t\tmacOS\nProductVersion:\t\t27.2\nBuildVersion:\t\t26B118\n",
+  "powerObservations": 143,
+  "screenRestored": true,
+  "selectedCandidate": "R-unchanged",
+  "sourceBuildRLookupPreserved": true,
+  "status": "completed-four-frozen-app-Metal3-Metal4-comparison",
+  "thermalStates": [
+    0
+  ],
+  "userProfilesAndLauncherExact": true
+}

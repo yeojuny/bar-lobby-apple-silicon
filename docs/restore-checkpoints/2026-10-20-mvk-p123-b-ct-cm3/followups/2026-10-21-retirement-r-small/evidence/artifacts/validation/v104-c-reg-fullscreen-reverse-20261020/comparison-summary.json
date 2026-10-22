@@ -1,0 +1,798 @@
+{
+  "allAppsAndInputsUnchangedPerRun": true,
+  "cacheCleanup": {
+    "leaves": 2667,
+    "logicalBytes": 76973031,
+    "physicalBytesNotMeasured": true,
+    "roots": 48
+  },
+  "conditions": {
+    "camera": {
+      "dist": 2254.7705078125,
+      "dx": 0,
+      "dy": -0.924302399158,
+      "dz": -0.381660997868,
+      "fov": 45,
+      "mode": 2,
+      "name": "spring",
+      "px": 4096,
+      "py": 254.770629882813,
+      "pz": 3072,
+      "rx": 2.75,
+      "ry": 0,
+      "rz": 0
+    },
+    "game": "Beyond All Reason",
+    "map": "Seths Ravine Remake 1.3.1",
+    "officialCommand": "luarules benchmark armbull armbull 80 8 1400",
+    "qualityConfig": {
+      "MSAA": 0,
+      "MSAALevel": 0,
+      "MinSampleShadingRate": 0,
+      "VSync": 0,
+      "VSyncGame": 0
+    },
+    "qualityOptions": {
+      "advmapshading": true,
+      "attackrange_numrangesmult": 1,
+      "bloomdeferred": true,
+      "bloomdeferred_quality": 3,
+      "camera": 3,
+      "cusgl4": true,
+      "decals": true,
+      "decalsgl4": true,
+      "distortioneffects": true,
+      "fogdiaglines": 0,
+      "grass": true,
+      "lighteffects": true,
+      "lighteffects_nanoparticlelights": true,
+      "lighteffects_screenspaceshadows": 4,
+      "limitidlefps": false,
+      "limitoffscreenfps": false,
+      "losrange": true,
+      "mapedgeextension": 0.5,
+      "msaa": 1,
+      "particles": 40000,
+      "preset": 5,
+      "shadowslider": 6,
+      "snow": true,
+      "ssao": true,
+      "ssao_quality": 3,
+      "vsync": 1,
+      "water": 2
+    },
+    "resolution": {
+      "height": 950,
+      "width": 1512
+    },
+    "seed": 7654321
+  },
+  "evidence": "${WORKSPACE}/artifacts/validation/v104-c-reg-fullscreen-reverse-20261020",
+  "fullscreenGame": true,
+  "groups": {
+    "metal3": {
+      "candidate": {
+        "fps": [
+          49.803047180176,
+          48.493118286133
+        ],
+        "maxFPS": 49.803047180176,
+        "meanFPS": 49.148082733154496,
+        "meanRunP95Ms": 31.467000961304,
+        "meanRunP99Ms": 47.001501083374,
+        "minFPS": 48.493118286133,
+        "ordinals": [
+          2,
+          3
+        ]
+      },
+      "deltaFPSPercent": -0.8688600939355751,
+      "deltaP95Percent": -3.196328732297271,
+      "parent": {
+        "fps": [
+          49.680084228516,
+          49.47762298584
+        ],
+        "maxFPS": 49.680084228516,
+        "meanFPS": 49.578853607178004,
+        "meanRunP95Ms": 32.5059995651245,
+        "meanRunP99Ms": 47.186500549315994,
+        "minFPS": 49.47762298584,
+        "ordinals": [
+          1,
+          4
+        ]
+      }
+    },
+    "metal4": {
+      "candidate": {
+        "fps": [
+          45.172927856445,
+          45.655853271484
+        ],
+        "maxFPS": 45.655853271484,
+        "meanFPS": 45.4143905639645,
+        "meanRunP95Ms": 31.484000205994,
+        "meanRunP99Ms": 46.980001449585004,
+        "minFPS": 45.172927856445,
+        "ordinals": [
+          5,
+          8
+        ]
+      },
+      "deltaFPSPercent": 3.0514726313221274,
+      "deltaP95Percent": -4.133492620249147,
+      "parent": {
+        "fps": [
+          44.48611831665,
+          43.653118133545
+        ],
+        "maxFPS": 44.48611831665,
+        "meanFPS": 44.0696182250975,
+        "meanRunP95Ms": 32.8415012359615,
+        "meanRunP99Ms": 47.815999984741495,
+        "minFPS": 43.653118133545,
+        "ordinals": [
+          6,
+          7
+        ]
+      }
+    }
+  },
+  "loadedLibraryIdentityVerifiedPerRun": true,
+  "nativeDisplayPresentationDeferredWhileHidden": true,
+  "order": "Metal3 parent,candidate,candidate,parent then Metal4 candidate,parent,parent,candidate",
+  "powerObservationCount": 72,
+  "records": [
+    {
+      "backend": "metal3",
+      "cacheError": null,
+      "camera": {
+        "dist": 2254.7705078125,
+        "dx": 0,
+        "dy": -0.924302399158,
+        "dz": -0.381660997868,
+        "fov": 45,
+        "mode": 2,
+        "name": "spring",
+        "px": 4096,
+        "py": 254.770629882813,
+        "pz": 3072,
+        "rx": 2.75,
+        "ry": 0,
+        "rz": 0
+      },
+      "drawIntervals": {
+        "count": 1489,
+        "meanFPS": 49.680084228516,
+        "meanMs": 20.128789901733,
+        "over100Ms": 0,
+        "over33Ms": 65,
+        "over50Ms": 8,
+        "p50Ms": 19.291000366211,
+        "p95Ms": 31.89999961853,
+        "p99Ms": 46.798000335693
+      },
+      "error": null,
+      "exit": 0,
+      "fps": 49.680084228516,
+      "frameCount": 900,
+      "fullscreenMode": {
+        "SDLFullscreen": true,
+        "SDLHidden": true,
+        "gameFullscreen": true,
+        "logEvidence": "macOS safe viewport] window=1512x982 view=<0,0 1512x950>",
+        "nativePresentation": "SDL defers native display/Space transition while hidden",
+        "viewport": {
+          "height": 950,
+          "width": 1512
+        },
+        "window": {
+          "height": 982,
+          "width": 1512
+        }
+      },
+      "library": {
+        "path": "${WORKSPACE}/artifacts/runtime/v104-descriptor-candidate-20261020/BAR.app/Contents/Resources/bundled-assets/runtime/moltenvk-pr2746/lib/libMoltenVK.1.4.3.dylib",
+        "sha256": "7ac71989ca27a99a2f9adf219ac0dcb12f16804cd35733bf7fd2c078635c5c4a"
+      },
+      "nativeMetal4": {
+        "activeQueues": 0,
+        "legacyParentIdentityVerified": true,
+        "proved": false,
+        "requested": false
+      },
+      "officialNativeReport": {
+        "nativeLog": {
+          "path": "${WORKSPACE}/artifacts/validation/v104-c-reg-fullscreen-reverse-20261020/1-parent-metal3/sessions/lobby-no-native-hook-1792552156660/state/data/infolog.txt",
+          "sha256": "d19f0bc465b9f5f01b14cb9519b9080db1e51f686ce6da9f671d1caded56cdc7"
+        },
+        "present": true
+      },
+      "ordinal": 1,
+      "p50Ms": 19.291000366211,
+      "p95Ms": 31.89999961853,
+      "p99Ms": 46.798000335693,
+      "protectedInputsUnchanged": true,
+      "receipt": "${WORKSPACE}/artifacts/validation/v104-c-reg-fullscreen-reverse-20261020/1-parent-metal3/sessions/lobby-no-native-hook-1792552156660/execution-receipt.json",
+      "receiptSHA256": "b83832227fda1ef5deb9c1bad6d397f8773fd86bdb46d7523ff958652f5227f4",
+      "resolution": {
+        "height": 950,
+        "width": 1512
+      },
+      "role": "parent",
+      "status": "completed-not-promoted"
+    },
+    {
+      "backend": "metal3",
+      "cacheError": null,
+      "camera": {
+        "dist": 2254.7705078125,
+        "dx": 0,
+        "dy": -0.924302399158,
+        "dz": -0.381660997868,
+        "fov": 45,
+        "mode": 2,
+        "name": "spring",
+        "px": 4096,
+        "py": 254.770629882813,
+        "pz": 3072,
+        "rx": 2.75,
+        "ry": 0,
+        "rz": 0
+      },
+      "drawIntervals": {
+        "count": 1492,
+        "meanFPS": 49.803047180176,
+        "meanMs": 20.079092025757,
+        "over100Ms": 0,
+        "over33Ms": 45,
+        "over50Ms": 9,
+        "p50Ms": 19.304000854492,
+        "p95Ms": 30.159000396729,
+        "p99Ms": 43.985000610352
+      },
+      "error": null,
+      "exit": 0,
+      "fps": 49.803047180176,
+      "frameCount": 900,
+      "fullscreenMode": {
+        "SDLFullscreen": true,
+        "SDLHidden": true,
+        "gameFullscreen": true,
+        "logEvidence": "macOS safe viewport] window=1512x982 view=<0,0 1512x950>",
+        "nativePresentation": "SDL defers native display/Space transition while hidden",
+        "viewport": {
+          "height": 950,
+          "width": 1512
+        },
+        "window": {
+          "height": 982,
+          "width": 1512
+        }
+      },
+      "library": {
+        "path": "${WORKSPACE}/artifacts/runtime/v104-c-reg-candidate-20261020/BAR.app/Contents/Resources/bundled-assets/runtime/moltenvk-pr2746/lib/libMoltenVK.1.4.3.dylib",
+        "sha256": "79dfe6e5fe91e35c14751316d0acc5f96837516619945388c5c073e94295ebdc"
+      },
+      "nativeMetal4": {
+        "activeQueues": 0,
+        "legacyParentIdentityVerified": false,
+        "proved": false,
+        "requested": false
+      },
+      "officialNativeReport": {
+        "nativeLog": {
+          "path": "${WORKSPACE}/artifacts/validation/v104-c-reg-fullscreen-reverse-20261020/2-candidate-metal3/sessions/lobby-no-native-hook-1792552274445/state/data/infolog.txt",
+          "sha256": "c81ca9505aaedb40e23539912f5507ded0b20d09d90a565bcc73e6379eeac8d7"
+        },
+        "present": true
+      },
+      "ordinal": 2,
+      "p50Ms": 19.304000854492,
+      "p95Ms": 30.159000396729,
+      "p99Ms": 43.985000610352,
+      "protectedInputsUnchanged": true,
+      "receipt": "${WORKSPACE}/artifacts/validation/v104-c-reg-fullscreen-reverse-20261020/2-candidate-metal3/sessions/lobby-no-native-hook-1792552274445/execution-receipt.json",
+      "receiptSHA256": "6f14d1e0becd3597239a9d500a33b5cace97d02c9d925ad14b7821c57b85a196",
+      "resolution": {
+        "height": 950,
+        "width": 1512
+      },
+      "role": "candidate",
+      "status": "completed-not-promoted"
+    },
+    {
+      "backend": "metal3",
+      "cacheError": null,
+      "camera": {
+        "dist": 2254.7705078125,
+        "dx": 0,
+        "dy": -0.924302399158,
+        "dz": -0.381660997868,
+        "fov": 45,
+        "mode": 2,
+        "name": "spring",
+        "px": 4096,
+        "py": 254.770629882813,
+        "pz": 3072,
+        "rx": 2.75,
+        "ry": 0,
+        "rz": 0
+      },
+      "drawIntervals": {
+        "count": 1453,
+        "meanFPS": 48.493118286133,
+        "meanMs": 20.621482849121,
+        "over100Ms": 1,
+        "over33Ms": 70,
+        "over50Ms": 15,
+        "p50Ms": 19.607000350952,
+        "p95Ms": 32.775001525879,
+        "p99Ms": 50.018001556396
+      },
+      "error": null,
+      "exit": 0,
+      "fps": 48.493118286133,
+      "frameCount": 900,
+      "fullscreenMode": {
+        "SDLFullscreen": true,
+        "SDLHidden": true,
+        "gameFullscreen": true,
+        "logEvidence": "macOS safe viewport] window=1512x982 view=<0,0 1512x950>",
+        "nativePresentation": "SDL defers native display/Space transition while hidden",
+        "viewport": {
+          "height": 950,
+          "width": 1512
+        },
+        "window": {
+          "height": 982,
+          "width": 1512
+        }
+      },
+      "library": {
+        "path": "${WORKSPACE}/artifacts/runtime/v104-c-reg-candidate-20261020/BAR.app/Contents/Resources/bundled-assets/runtime/moltenvk-pr2746/lib/libMoltenVK.1.4.3.dylib",
+        "sha256": "79dfe6e5fe91e35c14751316d0acc5f96837516619945388c5c073e94295ebdc"
+      },
+      "nativeMetal4": {
+        "activeQueues": 0,
+        "legacyParentIdentityVerified": false,
+        "proved": false,
+        "requested": false
+      },
+      "officialNativeReport": {
+        "nativeLog": {
+          "path": "${WORKSPACE}/artifacts/validation/v104-c-reg-fullscreen-reverse-20261020/3-candidate-metal3/sessions/lobby-no-native-hook-1792552391179/state/data/infolog.txt",
+          "sha256": "4391fd01e6c173a4ee496a73757a1ded60aebc8b518dabcc1b925e5026526e80"
+        },
+        "present": true
+      },
+      "ordinal": 3,
+      "p50Ms": 19.607000350952,
+      "p95Ms": 32.775001525879,
+      "p99Ms": 50.018001556396,
+      "protectedInputsUnchanged": true,
+      "receipt": "${WORKSPACE}/artifacts/validation/v104-c-reg-fullscreen-reverse-20261020/3-candidate-metal3/sessions/lobby-no-native-hook-1792552391179/execution-receipt.json",
+      "receiptSHA256": "2b4ff4e63d3524c814ac43d52c261b1956f477aeb7c89c73a96a7701c1c3cea1",
+      "resolution": {
+        "height": 950,
+        "width": 1512
+      },
+      "role": "candidate",
+      "status": "completed-not-promoted"
+    },
+    {
+      "backend": "metal3",
+      "cacheError": null,
+      "camera": {
+        "dist": 2254.7705078125,
+        "dx": 0,
+        "dy": -0.924302399158,
+        "dz": -0.381660997868,
+        "fov": 45,
+        "mode": 2,
+        "name": "spring",
+        "px": 4096,
+        "py": 254.770629882813,
+        "pz": 3072,
+        "rx": 2.75,
+        "ry": 0,
+        "rz": 0
+      },
+      "drawIntervals": {
+        "count": 1482,
+        "meanFPS": 49.47762298584,
+        "meanMs": 20.211156845093,
+        "over100Ms": 0,
+        "over33Ms": 76,
+        "over50Ms": 7,
+        "p50Ms": 19.100999832153,
+        "p95Ms": 33.111999511719,
+        "p99Ms": 47.575000762939
+      },
+      "error": null,
+      "exit": 0,
+      "fps": 49.47762298584,
+      "frameCount": 900,
+      "fullscreenMode": {
+        "SDLFullscreen": true,
+        "SDLHidden": true,
+        "gameFullscreen": true,
+        "logEvidence": "macOS safe viewport] window=1512x982 view=<0,0 1512x950>",
+        "nativePresentation": "SDL defers native display/Space transition while hidden",
+        "viewport": {
+          "height": 950,
+          "width": 1512
+        },
+        "window": {
+          "height": 982,
+          "width": 1512
+        }
+      },
+      "library": {
+        "path": "${WORKSPACE}/artifacts/runtime/v104-descriptor-candidate-20261020/BAR.app/Contents/Resources/bundled-assets/runtime/moltenvk-pr2746/lib/libMoltenVK.1.4.3.dylib",
+        "sha256": "7ac71989ca27a99a2f9adf219ac0dcb12f16804cd35733bf7fd2c078635c5c4a"
+      },
+      "nativeMetal4": {
+        "activeQueues": 0,
+        "legacyParentIdentityVerified": true,
+        "proved": false,
+        "requested": false
+      },
+      "officialNativeReport": {
+        "nativeLog": {
+          "path": "${WORKSPACE}/artifacts/validation/v104-c-reg-fullscreen-reverse-20261020/4-parent-metal3/sessions/lobby-no-native-hook-1792552508977/state/data/infolog.txt",
+          "sha256": "1a6fd6dabdf23f694f7292018901b0aea5bc1ad6627e8944e506c1cc098bc7dc"
+        },
+        "present": true
+      },
+      "ordinal": 4,
+      "p50Ms": 19.100999832153,
+      "p95Ms": 33.111999511719,
+      "p99Ms": 47.575000762939,
+      "protectedInputsUnchanged": true,
+      "receipt": "${WORKSPACE}/artifacts/validation/v104-c-reg-fullscreen-reverse-20261020/4-parent-metal3/sessions/lobby-no-native-hook-1792552508977/execution-receipt.json",
+      "receiptSHA256": "54552760468b28ae939bb9ecc30864a82abb22dbab50e3294ca637f25b7f1257",
+      "resolution": {
+        "height": 950,
+        "width": 1512
+      },
+      "role": "parent",
+      "status": "completed-not-promoted"
+    },
+    {
+      "backend": "metal4",
+      "cacheError": null,
+      "camera": {
+        "dist": 2254.7705078125,
+        "dx": 0,
+        "dy": -0.924302399158,
+        "dz": -0.381660997868,
+        "fov": 45,
+        "mode": 2,
+        "name": "spring",
+        "px": 4096,
+        "py": 254.770629882813,
+        "pz": 3072,
+        "rx": 2.75,
+        "ry": 0,
+        "rz": 0
+      },
+      "drawIntervals": {
+        "count": 1353,
+        "meanFPS": 45.172927856445,
+        "meanMs": 22.13715171814,
+        "over100Ms": 1,
+        "over33Ms": 56,
+        "over50Ms": 9,
+        "p50Ms": 21.20599937439,
+        "p95Ms": 32.061000823975,
+        "p99Ms": 47.601001739502
+      },
+      "error": null,
+      "exit": 0,
+      "fps": 45.172927856445,
+      "frameCount": 900,
+      "fullscreenMode": {
+        "SDLFullscreen": true,
+        "SDLHidden": true,
+        "gameFullscreen": true,
+        "logEvidence": "macOS safe viewport] window=1512x982 view=<0,0 1512x950>",
+        "nativePresentation": "SDL defers native display/Space transition while hidden",
+        "viewport": {
+          "height": 950,
+          "width": 1512
+        },
+        "window": {
+          "height": 982,
+          "width": 1512
+        }
+      },
+      "library": {
+        "path": "${WORKSPACE}/artifacts/runtime/v104-c-reg-candidate-20261020/BAR.app/Contents/Resources/bundled-assets/runtime/moltenvk-pr2746/lib/libMoltenVK.1.4.3.dylib",
+        "sha256": "79dfe6e5fe91e35c14751316d0acc5f96837516619945388c5c073e94295ebdc"
+      },
+      "nativeMetal4": {
+        "activeQueues": 1,
+        "completedSubmissions": [
+          17612
+        ],
+        "proved": true,
+        "requested": true
+      },
+      "officialNativeReport": {
+        "nativeLog": {
+          "path": "${WORKSPACE}/artifacts/validation/v104-c-reg-fullscreen-reverse-20261020/5-candidate-metal4/sessions/lobby-no-native-hook-1792552625292/state/data/infolog.txt",
+          "sha256": "4ac1d2484bd17064989fb45d444cd58399dfed5808e19c3a35f34ee316af3dc4"
+        },
+        "present": true
+      },
+      "ordinal": 5,
+      "p50Ms": 21.20599937439,
+      "p95Ms": 32.061000823975,
+      "p99Ms": 47.601001739502,
+      "protectedInputsUnchanged": true,
+      "receipt": "${WORKSPACE}/artifacts/validation/v104-c-reg-fullscreen-reverse-20261020/5-candidate-metal4/sessions/lobby-no-native-hook-1792552625292/execution-receipt.json",
+      "receiptSHA256": "e0d7a52e7753a1a9fe6841f5b8e81eb752ae3a788d3623ac333412416249ab7f",
+      "resolution": {
+        "height": 950,
+        "width": 1512
+      },
+      "role": "candidate",
+      "status": "completed-not-promoted"
+    },
+    {
+      "backend": "metal4",
+      "cacheError": null,
+      "camera": {
+        "dist": 2254.7705078125,
+        "dx": 0,
+        "dy": -0.924302399158,
+        "dz": -0.381660997868,
+        "fov": 45,
+        "mode": 2,
+        "name": "spring",
+        "px": 4096,
+        "py": 254.770629882813,
+        "pz": 3072,
+        "rx": 2.75,
+        "ry": 0,
+        "rz": 0
+      },
+      "drawIntervals": {
+        "count": 1333,
+        "meanFPS": 44.48611831665,
+        "meanMs": 22.478921890259,
+        "over100Ms": 1,
+        "over33Ms": 60,
+        "over50Ms": 8,
+        "p50Ms": 22.16900062561,
+        "p95Ms": 32.358001708984,
+        "p99Ms": 47.164001464844
+      },
+      "error": null,
+      "exit": 0,
+      "fps": 44.48611831665,
+      "frameCount": 900,
+      "fullscreenMode": {
+        "SDLFullscreen": true,
+        "SDLHidden": true,
+        "gameFullscreen": true,
+        "logEvidence": "macOS safe viewport] window=1512x982 view=<0,0 1512x950>",
+        "nativePresentation": "SDL defers native display/Space transition while hidden",
+        "viewport": {
+          "height": 950,
+          "width": 1512
+        },
+        "window": {
+          "height": 982,
+          "width": 1512
+        }
+      },
+      "library": {
+        "path": "${WORKSPACE}/artifacts/runtime/v104-descriptor-candidate-20261020/BAR.app/Contents/Resources/bundled-assets/runtime/moltenvk-pr2746/lib/libMoltenVK.1.4.3.dylib",
+        "sha256": "7ac71989ca27a99a2f9adf219ac0dcb12f16804cd35733bf7fd2c078635c5c4a"
+      },
+      "nativeMetal4": {
+        "activeQueues": 1,
+        "completedSubmissions": [
+          16571
+        ],
+        "proved": true,
+        "requested": true
+      },
+      "officialNativeReport": {
+        "nativeLog": {
+          "path": "${WORKSPACE}/artifacts/validation/v104-c-reg-fullscreen-reverse-20261020/6-parent-metal4/sessions/lobby-no-native-hook-1792552740582/state/data/infolog.txt",
+          "sha256": "881790aea882dddbc2bef8d0c6a2aa2b31b7798f94ce948a6941aeed73ce2714"
+        },
+        "present": true
+      },
+      "ordinal": 6,
+      "p50Ms": 22.16900062561,
+      "p95Ms": 32.358001708984,
+      "p99Ms": 47.164001464844,
+      "protectedInputsUnchanged": true,
+      "receipt": "${WORKSPACE}/artifacts/validation/v104-c-reg-fullscreen-reverse-20261020/6-parent-metal4/sessions/lobby-no-native-hook-1792552740582/execution-receipt.json",
+      "receiptSHA256": "902bf8d21a33099fa6cba19d0e7ada23c7c77d7dd9e2cc0ce2af8ab71be86b71",
+      "resolution": {
+        "height": 950,
+        "width": 1512
+      },
+      "role": "parent",
+      "status": "completed-not-promoted"
+    },
+    {
+      "backend": "metal4",
+      "cacheError": null,
+      "camera": {
+        "dist": 2254.7705078125,
+        "dx": 0,
+        "dy": -0.924302399158,
+        "dz": -0.381660997868,
+        "fov": 45,
+        "mode": 2,
+        "name": "spring",
+        "px": 4096,
+        "py": 254.770629882813,
+        "pz": 3072,
+        "rx": 2.75,
+        "ry": 0,
+        "rz": 0
+      },
+      "drawIntervals": {
+        "count": 1308,
+        "meanFPS": 43.653118133545,
+        "meanMs": 22.907871246338,
+        "over100Ms": 3,
+        "over33Ms": 70,
+        "over50Ms": 11,
+        "p50Ms": 22.089000701904,
+        "p95Ms": 33.325000762939,
+        "p99Ms": 48.467998504639
+      },
+      "error": null,
+      "exit": 0,
+      "fps": 43.653118133545,
+      "frameCount": 900,
+      "fullscreenMode": {
+        "SDLFullscreen": true,
+        "SDLHidden": true,
+        "gameFullscreen": true,
+        "logEvidence": "macOS safe viewport] window=1512x982 view=<0,0 1512x950>",
+        "nativePresentation": "SDL defers native display/Space transition while hidden",
+        "viewport": {
+          "height": 950,
+          "width": 1512
+        },
+        "window": {
+          "height": 982,
+          "width": 1512
+        }
+      },
+      "library": {
+        "path": "${WORKSPACE}/artifacts/runtime/v104-descriptor-candidate-20261020/BAR.app/Contents/Resources/bundled-assets/runtime/moltenvk-pr2746/lib/libMoltenVK.1.4.3.dylib",
+        "sha256": "7ac71989ca27a99a2f9adf219ac0dcb12f16804cd35733bf7fd2c078635c5c4a"
+      },
+      "nativeMetal4": {
+        "activeQueues": 1,
+        "completedSubmissions": [
+          17857
+        ],
+        "proved": true,
+        "requested": true
+      },
+      "officialNativeReport": {
+        "nativeLog": {
+          "path": "${WORKSPACE}/artifacts/validation/v104-c-reg-fullscreen-reverse-20261020/7-parent-metal4/sessions/lobby-no-native-hook-1792552857491/state/data/infolog.txt",
+          "sha256": "ff0e6cff222835d5750df1776d0aa6b8fad69e7ef2d7136b35361ff3076ce863"
+        },
+        "present": true
+      },
+      "ordinal": 7,
+      "p50Ms": 22.089000701904,
+      "p95Ms": 33.325000762939,
+      "p99Ms": 48.467998504639,
+      "protectedInputsUnchanged": true,
+      "receipt": "${WORKSPACE}/artifacts/validation/v104-c-reg-fullscreen-reverse-20261020/7-parent-metal4/sessions/lobby-no-native-hook-1792552857491/execution-receipt.json",
+      "receiptSHA256": "fb4105848a711bb21895f05b75ee6af833637199be47694f2b7e5e3aa62b38a0",
+      "resolution": {
+        "height": 950,
+        "width": 1512
+      },
+      "role": "parent",
+      "status": "completed-not-promoted"
+    },
+    {
+      "backend": "metal4",
+      "cacheError": null,
+      "camera": {
+        "dist": 2254.7705078125,
+        "dx": 0,
+        "dy": -0.924302399158,
+        "dz": -0.381660997868,
+        "fov": 45,
+        "mode": 2,
+        "name": "spring",
+        "px": 4096,
+        "py": 254.770629882813,
+        "pz": 3072,
+        "rx": 2.75,
+        "ry": 0,
+        "rz": 0
+      },
+      "drawIntervals": {
+        "count": 1368,
+        "meanFPS": 45.655853271484,
+        "meanMs": 21.902996063232,
+        "over100Ms": 2,
+        "over33Ms": 48,
+        "over50Ms": 6,
+        "p50Ms": 20.920000076294,
+        "p95Ms": 30.906999588013,
+        "p99Ms": 46.359001159668
+      },
+      "error": null,
+      "exit": 0,
+      "fps": 45.655853271484,
+      "frameCount": 900,
+      "fullscreenMode": {
+        "SDLFullscreen": true,
+        "SDLHidden": true,
+        "gameFullscreen": true,
+        "logEvidence": "macOS safe viewport] window=1512x982 view=<0,0 1512x950>",
+        "nativePresentation": "SDL defers native display/Space transition while hidden",
+        "viewport": {
+          "height": 950,
+          "width": 1512
+        },
+        "window": {
+          "height": 982,
+          "width": 1512
+        }
+      },
+      "library": {
+        "path": "${WORKSPACE}/artifacts/runtime/v104-c-reg-candidate-20261020/BAR.app/Contents/Resources/bundled-assets/runtime/moltenvk-pr2746/lib/libMoltenVK.1.4.3.dylib",
+        "sha256": "79dfe6e5fe91e35c14751316d0acc5f96837516619945388c5c073e94295ebdc"
+      },
+      "nativeMetal4": {
+        "activeQueues": 1,
+        "completedSubmissions": [
+          17932
+        ],
+        "proved": true,
+        "requested": true
+      },
+      "officialNativeReport": {
+        "nativeLog": {
+          "path": "${WORKSPACE}/artifacts/validation/v104-c-reg-fullscreen-reverse-20261020/8-candidate-metal4/sessions/lobby-no-native-hook-1792552975393/state/data/infolog.txt",
+          "sha256": "0d8c92c1c470d5ecb3796303d9e1e846444dd7682b4549ac3ac2a966de7c104a"
+        },
+        "present": true
+      },
+      "ordinal": 8,
+      "p50Ms": 20.920000076294,
+      "p95Ms": 30.906999588013,
+      "p99Ms": 46.359001159668,
+      "protectedInputsUnchanged": true,
+      "receipt": "${WORKSPACE}/artifacts/validation/v104-c-reg-fullscreen-reverse-20261020/8-candidate-metal4/sessions/lobby-no-native-hook-1792552975393/execution-receipt.json",
+      "receiptSHA256": "f2f9426ba920369d6242cd7d50fca0725a0c23755745080cbd235af98ac50375",
+      "resolution": {
+        "height": 950,
+        "width": 1512
+      },
+      "role": "candidate",
+      "status": "completed-not-promoted"
+    }
+  ],
+  "resolution": {
+    "height": 950,
+    "width": 1512
+  },
+  "screenGuardRestored": true,
+  "status": "completed",
+  "summaryMethod": "Arithmetic mean of two run FPS; p95/p99 are means of per-run percentiles, not pooled percentiles. No statistical significance claimed.",
+  "thermalStates": [
+    0
+  ]
+}

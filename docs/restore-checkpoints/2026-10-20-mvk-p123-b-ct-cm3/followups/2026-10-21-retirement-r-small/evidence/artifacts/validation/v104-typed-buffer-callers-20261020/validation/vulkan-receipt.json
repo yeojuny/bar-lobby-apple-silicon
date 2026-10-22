@@ -1,0 +1,147 @@
+{
+  "arguments": [
+    "/usr/bin/xcrun",
+    "clang++",
+    "-std=c++17",
+    "-mmacosx-version-min=27.0",
+    "-DMVK_ENABLE_CUSTOM_DIAGNOSTICS=0",
+    "-I${WORKSPACE}/build/run66-moltenvk-src-20260903/MoltenVK/include",
+    "-I${WORKSPACE}/build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/API",
+    "-I${WORKSPACE}/build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands",
+    "-I${WORKSPACE}/build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects",
+    "-I${WORKSPACE}/build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Layers",
+    "-I${WORKSPACE}/build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/OS",
+    "-I${WORKSPACE}/build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Utility",
+    "-I${WORKSPACE}/build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Vulkan",
+    "-I${WORKSPACE}/build/metal4-mvk-20261002/MoltenVK",
+    "-I${WORKSPACE}/build/run66-moltenvk-src-20260903/MoltenVKShaderConverter/MoltenVKShaderConverter/..",
+    "-I${WORKSPACE}/build/run66-moltenvk-src-20260903/Common",
+    "-isystem",
+    "${WORKSPACE}/build/run66-moltenvk-src-20260903/External/SPIRV-Cross",
+    "-isystem",
+    "${WORKSPACE}/build/run66-moltenvk-src-20260903/External/SPIRV-Tools/include",
+    "-isystem",
+    "${WORKSPACE}/build/run66-moltenvk-src-20260903/External/cereal/include",
+    "-isystem",
+    "${WORKSPACE}/build/run66-vulkan-headers-src-20260903/include",
+    "-DMVK_BUILD_METAL4_FOUNDATION=1",
+    "-DMVK_CONFIG_LOG_LEVEL=3",
+    "-DMVK_FRAMEWORK_VERSION=1.4.3",
+    "-DMVK_USE_METAL_PRIVATE_API=1",
+    "-DMoltenVK_EXPORTS",
+    "-DSPIRV_CROSS_NAMESPACE_OVERRIDE=MVK_spirv_cross",
+    "-fno-objc-arc",
+    "-fblocks",
+    "-O2",
+    "-g",
+    "-Wno-deprecated-declarations",
+    "-I${WORKSPACE}/tools/tests",
+    "-I${WORKSPACE}/build/run66-moltenvk-src-20260903/External/SPIRV-Headers/include",
+    "-framework",
+    "Foundation",
+    "${WORKSPACE}/artifacts/validation/v104-typed-buffer-callers-20261020/validation/selected-existing-vulkan.mm",
+    "${WORKSPACE}/build/metal4-mvk-20261002/MoltenVK/libMoltenVK.1.4.3.dylib",
+    "-Wl,-rpath,${WORKSPACE}/build/metal4-mvk-20261002/MoltenVK",
+    "-o",
+    "${WORKSPACE}/artifacts/validation/v104-typed-buffer-callers-20261020/validation/selected-existing-vulkan"
+  ],
+  "backends": [
+    {
+      "arguments": [
+        "${WORKSPACE}/artifacts/validation/v104-typed-buffer-callers-20261020/validation/selected-existing-vulkan",
+        "m4"
+      ],
+      "backend": "m4",
+      "environment": {
+        "MTL_DEBUG_LAYER": "1",
+        "MVK_CONFIG_LOG_LEVEL": "2",
+        "MVK_CONFIG_SYNCHRONOUS_QUEUE_SUBMITS": "1",
+        "MVK_CONFIG_USE_METAL_ARGUMENT_BUFFERS": "0"
+      },
+      "exitCode": 0,
+      "result": {
+        "failed": 0,
+        "gameExecuted": false,
+        "native_expected": true,
+        "passed": 7,
+        "planned": 7,
+        "suite": "selected_existing_typed_buffer_paths",
+        "tests": [
+          {
+            "completed_after": 1,
+            "completed_before": 0,
+            "name": "indexed_render_readback",
+            "native_queue": true,
+            "passed": true
+          },
+          {
+            "completed_after": 1,
+            "completed_before": 0,
+            "name": "fill_update_aligned_copy_guards",
+            "native_queue": true,
+            "passed": true
+          },
+          {
+            "completed_after": 2,
+            "completed_before": 0,
+            "name": "independent_copy_distinct_allocations",
+            "native_queue": true,
+            "passed": true
+          },
+          {
+            "completed_after": 2,
+            "completed_before": 0,
+            "name": "independent_copy_same_buffer",
+            "native_queue": true,
+            "passed": true
+          },
+          {
+            "completed_after": 1,
+            "completed_before": 0,
+            "name": "copy_compute_fill_compute_continuation",
+            "native_queue": true,
+            "passed": true
+          },
+          {
+            "completed_after": 6,
+            "completed_before": 0,
+            "name": "timestamp_packed_narrow_strided_copy_reset_reuse",
+            "native_queue": true,
+            "passed": true
+          },
+          {
+            "completed_after": 2,
+            "completed_before": 0,
+            "name": "parallel_byte_copy_pool_reset",
+            "native_queue": true,
+            "passed": true
+          }
+        ],
+        "windowCreated": false
+      }
+    },
+    {
+      "arguments": [
+        "${WORKSPACE}/artifacts/validation/v104-typed-buffer-callers-20261020/validation/selected-existing-vulkan",
+        "m3"
+      ],
+      "backend": "m3",
+      "environment": {
+        "MTL_DEBUG_LAYER": "1",
+        "MVK_CONFIG_LOG_LEVEL": "2",
+        "MVK_CONFIG_SYNCHRONOUS_QUEUE_SUBMITS": "1",
+        "MVK_CONFIG_USE_METAL_ARGUMENT_BUFFERS": "0"
+      },
+      "exitCode": 1
+    }
+  ],
+  "compileExitCode": 0,
+  "fixturePins": {
+    "tools/tests/metal4-recording-host-state.mm": "e172c855e7819122ec395ec908d0f0d494ca474f35b2380cdca248d49e42ae6e",
+    "tools/tests/metal4-transfer-edge.mm": "05bde56ce482c987f837be121735ded6f5146d1f26d1f815bac3a7c34762f2a5",
+    "tools/tests/metal4-vulkan-integration.mm": "0d6fa57a0820f5c2e8e242fbf74129f5ecf808c2fda9dc6a9da2db1e50343ac0"
+  },
+  "rawLibrarySHA256": "ed983a2648efe352336ca0896e4682d7d9a61e02b56347a5d2680b8f8795ac9f",
+  "selectedBodies": "Existing transfer-edge prefix and exact sharedStorage from recording-host-state; timestamps retains native-only completion assertion under nativeExpected.",
+  "sourceSHA256": "4dd6cba03292ec98353099f0f487cc916a88c71fdfb698dc76b016aecded735c"
+}

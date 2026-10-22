@@ -1,0 +1,92 @@
+{
+  "OSBuild": "26B118",
+  "OSVersion": "27.2",
+  "actualRoleRuntimeAndNativeBackendVerified": true,
+  "allACLowPowerThermal0": true,
+  "allPreparedRunsIncluded": true,
+  "candidatePointerAtReview": "Q before decision",
+  "cleanup": {
+    "leaves": 1332,
+    "logicalBytes": 38483426,
+    "physicalBytesMeasured": false,
+    "roots": 24
+  },
+  "executedBuildTestGPUApp": false,
+  "findings": [],
+  "groupsIndependentlyRecomputed": {
+    "Q": {
+      "FPS": [
+        46.07670211792,
+        46.099296569824
+      ],
+      "meanFPS": 46.087999343872,
+      "meanP95Ms": 29.977499961853
+    },
+    "R": {
+      "FPS": [
+        46.895664215088,
+        46.059989929199
+      ],
+      "changeFromQPercent": 0.8458334790428124,
+      "meanFPS": 46.4778270721435,
+      "meanP95Ms": 29.9174995422365
+    }
+  },
+  "historicalMetal3IdentifiedRecordAndPairVerified": true,
+  "inputSHA256": {
+    "analyze.py": "b90f1221131e56d4cb8dde9eeef76c26ee0e43cb39f2c5f19a220bbda0ca5998",
+    "comparison-summary.json": "c73c16c617a711a42b68aca6943266bff67f097151d3ed0031484638b3bd1383",
+    "completion.json": "098c493c20ae65eb8413d421828390f0d756663afafff224e6d5b77a985577dd",
+    "metal3-history-answer.json": "df1dda93876e761efa185c6b8196f82e6e65a1489c33548793ad299e5b83f526",
+    "os-context.json": "e27d5411b0f30b735d32b910c19ee271415763b24733880d0ebfb94a7881837f",
+    "performance-before.json": "92305be45720f11518d9312f865ed7ea1e7c3096c652a1cbef1f0eaa65b4a2d7",
+    "performance/outcome.json": "d8cd6a9250a58d3be9c3aa0b12e5302713d37441abe04dde19ed920355e41cf9",
+    "performance/preparation.json": "43b236c6be30b4634d1e66d18f19adf7b17ec5164cb92aa08c4be35113bf97b5",
+    "performance/screen-guard.json": "b45aee87377adb23380f6ea3f6dcb6f81885a2d76db626904721ab6874d7e17c",
+    "test-executable-cleanup-completion.json": "68094c6381dd27601cf6dd9395cc483482d5543664ba6e4019dc0567b2f90434",
+    "test-executable-cleanup-selection.json": "88a424b33271ae074b62aa907e8d37c4ba0b4d3e2fa6d296530c84eec1333106"
+  },
+  "nextLocalBaselinePlan": "R after review via metadata only; retain Q/C.",
+  "order": [
+    "Q",
+    "R",
+    "R",
+    "Q"
+  ],
+  "planHostReceiptHashesVerified": true,
+  "powerObservations": 38,
+  "priorReadinessReused": true,
+  "productEdits": false,
+  "receiptHashes": [
+    {
+      "ordinal": 1,
+      "sha256": "25711f6c4817200a1636dece0bedd159b5f9dc75e96afac180e751b24dcb49fb"
+    },
+    {
+      "ordinal": 2,
+      "sha256": "a3e0a9866ce3157ed82e454eb0de183d6f780b761506d050f4272a3f0f8c35d9"
+    },
+    {
+      "ordinal": 3,
+      "sha256": "52552f6ae7244e4fbf896663fce7ee4fa9887e4da439e09afce29c46b2c84b55"
+    },
+    {
+      "ordinal": 4,
+      "sha256": "6452ac730b429ab85fb71907a057b317919d57866cde3b293dd0940db55e2acb"
+    }
+  ],
+  "recordedAtUTC": "2026-10-21T17:54:24.198654+00:00",
+  "reportSHA256": "f90b16540e9a557cdfa4d9842288d960ef76d918178f98099c4fc58cd17eecf8",
+  "reviewer": "independent_review sub-agent",
+  "sameConditions900FramesVerified": true,
+  "selectionScientificClaim": "Exploratory cumulative-work choice, not demonstrated statistical speed or memory improvement.",
+  "sessions": 4,
+  "status": "final-Q-R-Metal4-reviewed-no-actionable-findings",
+  "testExecutableCleanup": {
+    "files": 3,
+    "logicalBytes": 5226032,
+    "physicalBytesMeasured": false
+  },
+  "variationLimit": "R lower run46.059989929199 is below both Q runs; no repeatable causal gain established.",
+  "wholeAppHashRepeated": false
+}

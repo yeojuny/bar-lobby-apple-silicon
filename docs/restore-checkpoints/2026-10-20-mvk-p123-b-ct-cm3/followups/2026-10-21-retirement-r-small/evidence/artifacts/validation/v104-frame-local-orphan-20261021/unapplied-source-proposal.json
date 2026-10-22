@@ -1,0 +1,106 @@
+{
+  "buildTestGPUExecuted": false,
+  "cleanupExecuted": false,
+  "createdUTC": "2026-10-21T23:00:50.589842+00:00",
+  "designSHA256": "352485440e18da6dc7afc4719176c5ba1135b1a87d5f5f494195e31f575a512b",
+  "excluded": [
+    "MVK PR2837",
+    "MoltenVK source/build/app changes",
+    "general stream Swap semantics",
+    "ModelDataUploader logic",
+    "gameplay/sync/numeric policy/Lua/healthbar bytes"
+  ],
+  "fixtureChanged": false,
+  "parentAppSelected": false,
+  "patchSHA256": "6708badf0af62cc4fb6b336cd7bccba81d5e3f93c229b8459bf4b10684d2f0d6",
+  "productApplied": false,
+  "revisions": [
+    {
+      "atUTC": "2026-10-21T23:04:30.734527+00:00",
+      "previousPatchSHA256": "e6a49a2111455e1e06fedb735c26ccb94260338ea9d0fcf10607f2e6c51a100f",
+      "reason": "Independent proposal review: COPY_WRITE requires core3.1 or ARB_copy_buffer; otherwise skip optimization. HEADLESS performs only marker reset, with no new GL/DSA references."
+    }
+  ],
+  "scope": "11a: frame-local TypedRenderBuffer BufferSubData storage orphan in both native lanes",
+  "sourceEdits": [
+    {
+      "addedLines": 6,
+      "lane": "lobby",
+      "path": "build/run91-recoil-src-694e9df7/rts/Rendering/GL/RenderBuffers.h",
+      "preimageSHA256": "a58bcbf6105628b263bf4aef1f434ef8bdcda2cfa3efb91d57507df798fd2c05",
+      "proposedSHA256": "232f45c81ad6304b9163023c81cd5822604998d36e34381605c343f4d275116b",
+      "removedLines": 2
+    },
+    {
+      "addedLines": 25,
+      "lane": "lobby",
+      "path": "build/run91-recoil-src-694e9df7/rts/Rendering/GL/StreamBuffer.h",
+      "preimageSHA256": "0be518866c031f0c87e6827ddf3c39625b83fee181e2ded5abc3d66a72ea0640",
+      "proposedSHA256": "2ea17f26c9b6edd0d21d179dfb4d12be034aa0509c1b8ef1b5d56e8e23dde76f",
+      "removedLines": 0
+    },
+    {
+      "addedLines": 6,
+      "lane": "chobby",
+      "path": "artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Rendering/GL/RenderBuffers.h",
+      "preimageSHA256": "72a1572ad29bea76f498a5a9518c96727d891233015065a17291c6b571aa5c0d",
+      "proposedSHA256": "6ce94352fc10c6584bea499a903af5b9a11ead6582139cfc58277c4476175fc3",
+      "removedLines": 2
+    },
+    {
+      "addedLines": 25,
+      "lane": "chobby",
+      "path": "artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Rendering/GL/StreamBuffer.h",
+      "preimageSHA256": "0be518866c031f0c87e6827ddf3c39625b83fee181e2ded5abc3d66a72ea0640",
+      "proposedSHA256": "2ea17f26c9b6edd0d21d179dfb4d12be034aa0509c1b8ef1b5d56e8e23dde76f",
+      "removedLines": 0
+    }
+  ],
+  "sourcePins": {
+    "artifacts/runtime/run94-chobby-official-20260704-20260924/build/CMakeCache.txt": "c05f5b9c248b79b8afbae623d9adb7ca6b0f906c58a09941dc45ebd08f4888db",
+    "artifacts/runtime/run94-chobby-official-20260704-20260924/source/AGENTS.md": "2d419978483c4824da0e430e476bd2992596353b41ee9f237130a40e637350c3",
+    "artifacts/runtime/run94-chobby-official-20260704-20260924/source/AI_POLICY.md": "d7af0a02859a07292ba57db5ca59d6e31d5ec48a84d6295ea4555821935522d3",
+    "artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Lua/LuaBundledPresentation.h": "0437f31d5ae390c90fd2dffc89d9d447fcaa7881b1fda4f4bf0687cf34fc7c71",
+    "artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Lua/LuaBundledPresentationSources.h": "38191c58c6b10e1811ab54fe71ed80c30781c6564fd26ed11c25208347be34db",
+    "artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Lua/LuaVFS.cpp": "68e9cdb22ec5291188053af70f72eb04171da1f4c21ce5c0a8f526ce5b920189",
+    "artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Rendering/Fonts/glFontRenderer.cpp": "cd4fc7eeb29c63e38d9a0120449a1d6f6a6e3b2cd7b4a142dea83b3994cfcf9f",
+    "artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Rendering/GL/RenderBuffers.h": "72a1572ad29bea76f498a5a9518c96727d891233015065a17291c6b571aa5c0d",
+    "artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Rendering/GL/StreamBuffer.cpp": "295770af88f8acec1335dfc5517fc0a37350613c686fee13286b938605328c8d",
+    "artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Rendering/GL/StreamBuffer.h": "0be518866c031f0c87e6827ddf3c39625b83fee181e2ded5abc3d66a72ea0640",
+    "artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Rendering/GL/VAO.cpp": "534ae71a579530c3a200a720a4f3453129e2cc5b08c01660d33b6e553159ded3",
+    "artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Rendering/GL/VBO.cpp": "eff7d20270ebd58f98e2e518060a0c2186e5dbef6034cf4fb86bab910623f24e",
+    "artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Rendering/GL/myGL.h": "912081d8adf838259c1dc886a00656d5426d9784d42f151b832d9e507944711a",
+    "artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Rendering/GlobalRendering.cpp": "1d7cd698a097171fa1c3ca226aa88506a32c0f7246f0d42f6e0ae5a3b686162d",
+    "artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Rendering/ModelsDataUploader.cpp": "ed1cd502b6941bb4df7546f9af5c4d789a561608e576356cc18ab0d4a21adf24",
+    "artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/lib/glad/glad.c": "67c6b63375e9fc6baeaa38ca2a4484425607cf33958acce92ec7eb74f99d5d8b",
+    "artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/lib/glad/glad.h": "2728cefc7fcf6017279ce9edc4fe3ca1fb2a4ff04d9a73d5813eeec79895f59a",
+    "artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/lib/headlessStubs/gladstub.cpp": "bd04568d2deece2e583d3798230c18891e96b6d76cf4c5d297f3a4799375a307",
+    "artifacts/validation/r58-stream-lifetime-20261005/cpu-compile-command.json": "3829da3b9e730590078c38dc5ba3b4b9abb017634ad45d34163587b987f1c704",
+    "artifacts/validation/r58-stream-lifetime-20261005/stream-lifetime-checks.cpp": "487c3f6ddd7a9b2d822643c4019a547ce1a63c9b37e04d44c78a24a92582bb35",
+    "build/run91-recoil-engine-694e9df7-macos27/CMakeCache.txt": "04ccdfec202854815f912c5ae6b626023fce38b5c02f9ecd583cd6ebc86b6787",
+    "build/run91-recoil-src-694e9df7/AGENTS.md": "2d419978483c4824da0e430e476bd2992596353b41ee9f237130a40e637350c3",
+    "build/run91-recoil-src-694e9df7/AI_POLICY.md": "d7af0a02859a07292ba57db5ca59d6e31d5ec48a84d6295ea4555821935522d3",
+    "build/run91-recoil-src-694e9df7/rts/Lua/LuaBundledPresentation.h": "0437f31d5ae390c90fd2dffc89d9d447fcaa7881b1fda4f4bf0687cf34fc7c71",
+    "build/run91-recoil-src-694e9df7/rts/Lua/LuaBundledPresentationSources.h": "8dabc9211ba99c21f079db943a86594766e6eb7c5543f38e48346760ef968b67",
+    "build/run91-recoil-src-694e9df7/rts/Lua/LuaVFS.cpp": "c5766b70e74c608b84b3080e6b07c8028b9ca521963aca0c23473c2559f1c9cc",
+    "build/run91-recoil-src-694e9df7/rts/Rendering/Fonts/glFontRenderer.cpp": "cd4fc7eeb29c63e38d9a0120449a1d6f6a6e3b2cd7b4a142dea83b3994cfcf9f",
+    "build/run91-recoil-src-694e9df7/rts/Rendering/GL/RenderBuffers.h": "a58bcbf6105628b263bf4aef1f434ef8bdcda2cfa3efb91d57507df798fd2c05",
+    "build/run91-recoil-src-694e9df7/rts/Rendering/GL/StreamBuffer.cpp": "295770af88f8acec1335dfc5517fc0a37350613c686fee13286b938605328c8d",
+    "build/run91-recoil-src-694e9df7/rts/Rendering/GL/StreamBuffer.h": "0be518866c031f0c87e6827ddf3c39625b83fee181e2ded5abc3d66a72ea0640",
+    "build/run91-recoil-src-694e9df7/rts/Rendering/GL/VAO.cpp": "534ae71a579530c3a200a720a4f3453129e2cc5b08c01660d33b6e553159ded3",
+    "build/run91-recoil-src-694e9df7/rts/Rendering/GL/VBO.cpp": "eff7d20270ebd58f98e2e518060a0c2186e5dbef6034cf4fb86bab910623f24e",
+    "build/run91-recoil-src-694e9df7/rts/Rendering/GL/myGL.h": "912081d8adf838259c1dc886a00656d5426d9784d42f151b832d9e507944711a",
+    "build/run91-recoil-src-694e9df7/rts/Rendering/GlobalRendering.cpp": "ea57a439ac1afa0f92dfa93968b5e8d971a1c4ca68ad16e83f38b34719d16c94",
+    "build/run91-recoil-src-694e9df7/rts/Rendering/ModelsDataUploader.cpp": "ed1cd502b6941bb4df7546f9af5c4d789a561608e576356cc18ab0d4a21adf24",
+    "build/run91-recoil-src-694e9df7/rts/lib/glad/glad.c": "67c6b63375e9fc6baeaa38ca2a4484425607cf33958acce92ec7eb74f99d5d8b",
+    "build/run91-recoil-src-694e9df7/rts/lib/glad/glad.h": "2728cefc7fcf6017279ce9edc4fe3ca1fb2a4ff04d9a73d5813eeec79895f59a",
+    "build/run91-recoil-src-694e9df7/rts/lib/headlessStubs/gladstub.cpp": "f15b3f34484920f5f54660411c28197273f5beb8e67e25caba9518b148d7c247",
+    "tools/probe-run75-vbo-vao.py": "fa6a914b25bd936192454584931e15240dcf5bb12d4c64dc0967b5f1cd849178",
+    "tools/tests/test-step7-model-shared-upload.cpp": "17efaeeb2f2240fff58d171e607d0c3203b55484bf16497d84dcc0d147963b20",
+    "tools/tests/test-step7-model-shared-upload.py": "ac5c854e9332d5c3d1798928bd8c114b9aff7359c56fdd813914a210c1ea3435"
+  },
+  "sourcePreimagesUnchanged": true,
+  "sourceRestored": false,
+  "status": "ready-for-independent-proposal-review-unapplied",
+  "validationPlanSHA256": "49611fdb9bab1734c667e0a4fdf5b32fb2f1c0a43919bedf4bd64aef2e017685"
+}

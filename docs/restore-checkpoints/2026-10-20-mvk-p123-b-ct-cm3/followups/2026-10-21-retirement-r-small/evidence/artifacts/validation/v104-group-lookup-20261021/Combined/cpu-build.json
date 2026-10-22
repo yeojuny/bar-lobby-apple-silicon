@@ -1,0 +1,19 @@
+{
+  "arguments": [
+    "/usr/bin/xcrun",
+    "clang++",
+    "-std=c++17",
+    "-O1",
+    "-g",
+    "-fsanitize=address,undefined",
+    "-fno-omit-frame-pointer",
+    "-DMVK_GROUP_LOOKUP_HEADER=\"${WORKSPACE}/build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKMetal4PreparedResource.h\"",
+    "-DMVK_GROUP_REFERENCE_BODY=\"${WORKSPACE}/artifacts/validation/v104-group-lookup-20261021/reference-group-cache.inc\"",
+    "-DMVK_GROUP_COUNTED_BODIES=\"${WORKSPACE}/artifacts/validation/v104-group-lookup-20261021/counted-group-caches.inc\"",
+    "${WORKSPACE}/tools/tests/metal4-group-locator-cpu.cpp",
+    "-o",
+    "${WORKSPACE}/artifacts/validation/v104-group-lookup-20261021/Combined/group-locator-cpu"
+  ],
+  "exitCode": 0,
+  "seconds": 2.4594246249998832
+}

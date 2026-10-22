@@ -1,0 +1,7 @@
+{
+  "adaptation": "Only native completion-count assertion guarded for explicit M3 context; unchanged host/GPU timestamp comparisons.",
+  "additionalCases": "Existing occlusion render + exact sharedStorage, original production-linked fixture, M3/M4.",
+  "baselineM3Failure": "GPU/host timestamp result, availability, or padding mismatch at 64",
+  "originalFixtureRestored": true,
+  "temporarySource": "timestamp-fixture-temporary-m3-adaptation.mm"
+}

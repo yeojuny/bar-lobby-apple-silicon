@@ -1,0 +1,50 @@
+{
+  "executed": {
+    "app": false,
+    "build": false,
+    "game": false,
+    "tests": false
+  },
+  "findings": [],
+  "limits": [
+    "Root owns compiler/preprocessor/binary verification and test/runtime output evidence.",
+    "No proof of race freedom or FPS benefit.",
+    "Review applies only to pinned source and fixtures."
+  ],
+  "modified": [
+    "artifacts/validation/v104-lookup-descriptor-20261020/independent-review.md",
+    "artifacts/validation/v104-lookup-descriptor-20261020/independent-review.json"
+  ],
+  "patchSHA256": "fbabd4cdadc3254d0187195b9b428a0cb5027e00c17fd3dd7eef2fe4c38cca14",
+  "pinnedFiles": {
+    "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCommandEncoderState.mm": {
+      "actual": "01a168fe8574a584cf645c93442c0605eda6bf7fe98a10a2eebd8fd5b926871b",
+      "expected": "01a168fe8574a584cf645c93442c0605eda6bf7fe98a10a2eebd8fd5b926871b"
+    },
+    "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKMetal4PreparedResource.h": {
+      "actual": "b8190444dc557782fda486a435c98a523a06ec64a8ec48d2919658b35323df96",
+      "expected": "b8190444dc557782fda486a435c98a523a06ec64a8ec48d2919658b35323df96"
+    },
+    "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKMetal4Submission.h": {
+      "actual": "8a540f704da6785320b472cc260509e6b4891177a02c2997fd757058af97b947",
+      "expected": "8a540f704da6785320b472cc260509e6b4891177a02c2997fd757058af97b947"
+    },
+    "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKMetal4Submission.mm": {
+      "actual": "76f492804b8129908c305e16ca36fee79ff1890b5fa925c7539752e690817516",
+      "expected": "76f492804b8129908c305e16ca36fee79ff1890b5fa925c7539752e690817516"
+    },
+    "tools/tests/metal4-allocation-lifetime-cpu.cpp": {
+      "actual": "a31558a5bca9f37bfb0ff590a644f5ee5bd2a4d6835f3937b9e6e4df96df170d",
+      "expected": "a31558a5bca9f37bfb0ff590a644f5ee5bd2a4d6835f3937b9e6e4df96df170d"
+    },
+    "tools/tests/metal4-r44-backend-cost-cpu.mm": {
+      "actual": "476b44ef7eacec6a4a826658117c0ef260c276fdc2d0a85ee99c7dd51053af0c",
+      "expected": "476b44ef7eacec6a4a826658117c0ef260c276fdc2d0a85ee99c7dd51053af0c"
+    }
+  },
+  "recordedAtUTC": "2026-10-21T06:52:35.023970+00:00",
+  "reviewer": "independent_review sub-agent",
+  "role": "read-only independent source review",
+  "runtimeAndPerformanceAcceptance": false,
+  "status": "source-review-complete-no-actionable-findings"
+}

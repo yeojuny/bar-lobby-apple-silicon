@@ -1,0 +1,76 @@
+{
+  "actualPackagedHashesIndependentlyVerified": {
+    "E32": "3de11fa4ad010d70eb356bb6d3ed38af0e09802ec203aa93ea4a3db1cd5adbb9",
+    "E64": "f625ec487c96b2f049cf7d1245360b72e729d512d7613692ffa0012c9382b65b"
+  },
+  "allocatorCPUPassedChecks": {
+    "32": 812,
+    "64": 1580
+  },
+  "allocatorNativePassedCasesEach": 5,
+  "condition": "Implementation owner yields source/build/GPU lane before runtime performance.",
+  "diagnosticsFourLanguageFlags": 0,
+  "executedBuildTestGPUApp": false,
+  "findings": [],
+  "inputSHA256": {
+    "E32-build.json": "2b8b3c2ae20bcd201ee18fde742d50e3f3a39d6617ef1d0c1347ef625ab1d2bd",
+    "E32-inventory.json": "14d659ce0df80e607edb35486efc3bf5c370f2d42d862d9d15f39718761e5bda",
+    "E32-package.json": "6a91d4b9a45aa95cbed8609d0c1ba231fe26dc5065e9e32038e776ad6d7b61aa",
+    "E32-source-pins.json": "f484ffa3fbbd90c41cedb0b51e2d67e156f862c1214b03b3739eacae691e4113",
+    "E64-application.json": "8e5b0ca9a2940e37b6d38ff00c2b43da172d3d943882478c10add716ce37f78b",
+    "E64-inventory.json": "271c5ebed049c3a7130e7b73c682bd0e22fb5f8245d105933222af03e3890594",
+    "E64-package.json": "420552472d62f534e19ed9780ee5dba55f097bd90446a895bdce0d1252bdf035",
+    "E64-source-pins.json": "59239a5af11ae370b60e46a6408f7a416d2401dd0a3d9ca71c0ee1f1426f8876",
+    "allocator-32/completion.json": "31275478648223ea7b759bd36a5c323ba7afa1e508f4ee2dc2a7a691af52949f",
+    "allocator-32/cpu-run.json": "b8ccec9937f746cfbac1c6b1e90d3a5655345664b3f858abf85c88893047568b",
+    "allocator-32/native-run.json": "62fbcf698a627ff8cf070de052853de2133fb9a845fb9804587f87d133532773",
+    "allocator-64/completion.json": "8cfd53e28e867193d0a6388b5df3017a60aa92ec9e1c7cbf71f01584d1ef47f1",
+    "allocator-64/cpu-run.json": "b85af2297a2b309d5fb7246b1714b3b27ba4f4014f536c8f7d3d8c1e38cd1be3",
+    "allocator-64/native-run.json": "fceca876838a867f22dba04beca3d3b6137c1ea10568025b4183abf3d4540e10",
+    "gpu-complete.json": "0bea4f1c8600a1631546e587aec0f10beced5289b5af7e2eeaa7ae1753b6a044",
+    "visibility/completion.json": "1f3f0472bcf3303481789daf1cd5e2a171980f67e58e5d4abf2b0e015af12bb5"
+  },
+  "inventoryEntriesEach": 1194,
+  "productEdits": false,
+  "recordedAtUTC": "2026-10-21T09:32:59.095742+00:00",
+  "recordedClosureEdgesEach": 211,
+  "recordedStrictDeepSignatureEach": true,
+  "remainingLimits": [
+    "Custom sample positions/configured outer extent-layer are source reviewed, not parameterized in20728 attachment fixture.",
+    "E32 actual Vulkan15x2; E64 allocator-only delta validated by CPU/native allocator suites.",
+    "Owner final completion/report/build binding still to follow.",
+    "No FPS or universal correctness claim."
+  ],
+  "reviewer": "independent_review sub-agent",
+  "singleE32E64ProductDelta": "GPUObjects/MVKMetal4Submission.h maxAllocatorEpochRecordings32 to64 only",
+  "sourcePinsVerified": {
+    "E32": {
+      "Commands/MVKCommandBuffer.h": "76ec3c345cccfae09d5e0391d2600ed7f2ff241dc796cc021a6521a84803e973",
+      "Commands/MVKCommandBuffer.mm": "d456cbd32406550ec782fd19e3125622aa30e8b87dba3bb447e4f2125cdaacda",
+      "Commands/MVKCommandEncoderState.mm": "d229ff2287e51823ba1ae63fc52823b43e4bb68c16ee115107e71e10ac2916c9",
+      "Commands/MVKMetal4DependencyScopes.h": "be76d4a7fec94a609d687d7d1cd0a93e19b37e96e45e71726180e418048ff568",
+      "GPUObjects/MVKMetal4Submission.h": "8a540f704da6785320b472cc260509e6b4891177a02c2997fd757058af97b947",
+      "GPUObjects/MVKPipeline.h": "d8249943835749688ebebcadfa6eb1e43dc51e31a37557ec08b6996f271a57ed",
+      "GPUObjects/MVKPipeline.mm": "6a8c37b9964191a18479fc41f352e7d439f5b8aac87d0b01782409ca7c79f080",
+      "GPUObjects/MVKRenderPass.h": "b602f0bdbd5654c1a64a663ad9fa5e74a97f9878ca409deb3f36c88398ee5dc4",
+      "GPUObjects/MVKRenderPass.mm": "bd13d806ec4677d1188ab64b03eeb9ee1e2d503334d86e7f22b12ddb77c728a1"
+    },
+    "E64": {
+      "Commands/MVKCommandBuffer.h": "76ec3c345cccfae09d5e0391d2600ed7f2ff241dc796cc021a6521a84803e973",
+      "Commands/MVKCommandBuffer.mm": "d456cbd32406550ec782fd19e3125622aa30e8b87dba3bb447e4f2125cdaacda",
+      "Commands/MVKCommandEncoderState.mm": "d229ff2287e51823ba1ae63fc52823b43e4bb68c16ee115107e71e10ac2916c9",
+      "Commands/MVKMetal4DependencyScopes.h": "be76d4a7fec94a609d687d7d1cd0a93e19b37e96e45e71726180e418048ff568",
+      "GPUObjects/MVKMetal4Submission.h": "58b42ee3c431ccc8f00010149972f7d9dcc2635a96fa2a37ba57ef063da2b4d9",
+      "GPUObjects/MVKPipeline.h": "d8249943835749688ebebcadfa6eb1e43dc51e31a37557ec08b6996f271a57ed",
+      "GPUObjects/MVKPipeline.mm": "6a8c37b9964191a18479fc41f352e7d439f5b8aac87d0b01782409ca7c79f080",
+      "GPUObjects/MVKRenderPass.h": "b602f0bdbd5654c1a64a663ad9fa5e74a97f9878ca409deb3f36c88398ee5dc4",
+      "GPUObjects/MVKRenderPass.mm": "bd13d806ec4677d1188ab64b03eeb9ee1e2d503334d86e7f22b12ddb77c728a1"
+    }
+  },
+  "status": "ready-for-root-performance-no-actionable-blockers",
+  "visibilityPassedAssertions": [
+    196842,
+    196941,
+    196761
+  ]
+}

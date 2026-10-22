@@ -1,0 +1,507 @@
+{
+  "benchmark": {
+    "drawIntervals": {
+      "count": 1331.0,
+      "meanFPS": 44.145626068115,
+      "meanMs": 22.65230178833,
+      "over100Ms": 8.0,
+      "over33Ms": 39.0,
+      "over50Ms": 11.0,
+      "p50Ms": 21.732000350952,
+      "p95Ms": 29.931999206543,
+      "p99Ms": 49.331001281738
+    },
+    "endFrame": 1140.0,
+    "existingProfiler": {
+      "finish": {
+        "namesAvailable": 7.0,
+        "namesRead": 7.0,
+        "readCostMs": 0.0,
+        "scope": "existing inclusive engine special-timer wall time; nested entries overlap; GPU/fence waits may be included",
+        "totalMilliseconds": {
+          "Draw": 18499.462890625,
+          "Lua::Callins::Synced": 563.337585449219,
+          "Lua::Callins::Unsynced": 18624.203125,
+          "Lua::CollectGarbage::Synced": 43.853500366211,
+          "Lua::CollectGarbage::Unsynced": 456.690826416016,
+          "Misc::Profiler::AddTime": 7.545878887177,
+          "Sim": 3363.51318359375
+        }
+      },
+      "start": {
+        "namesAvailable": 7.0,
+        "namesRead": 7.0,
+        "readCostMs": 0.0,
+        "scope": "existing inclusive engine special-timer wall time; nested entries overlap; GPU/fence waits may be included",
+        "totalMilliseconds": {
+          "Draw": 12696.74609375,
+          "Lua::Callins::Synced": 25.371576309204,
+          "Lua::Callins::Unsynced": 13671.814453125,
+          "Lua::CollectGarbage::Synced": 27.667087554932,
+          "Lua::CollectGarbage::Unsynced": 308.451049804688,
+          "Misc::Profiler::AddTime": 2.186279058456,
+          "Sim": 197.26936340332
+        }
+      }
+    },
+    "gameSpeed": {
+      "atRequest": {
+        "actual": 0.949999988079,
+        "paused": true,
+        "requested": 1.0
+      },
+      "finish": {
+        "actual": 0.999998450279,
+        "paused": false,
+        "requested": 1.0
+      },
+      "requested": 1.0,
+      "start": {
+        "actual": 0.949999988079,
+        "paused": false,
+        "requested": 1.0
+      }
+    },
+    "nativeReport": "independent infolog benchmark output",
+    "simulationFrames": 900.0,
+    "startFrame": 240.0,
+    "unitCounts": [
+      {
+        "count": 2.0,
+        "frame": 240.0,
+        "gameSpeed": {
+          "actual": 0.949999988079,
+          "paused": true,
+          "requested": 1.0
+        },
+        "second": 1.004999995232
+      },
+      {
+        "count": 140.0,
+        "frame": 269.0,
+        "gameSpeed": {
+          "actual": 0.949999988079,
+          "paused": false,
+          "requested": 1.0
+        },
+        "second": 2.012000083923
+      },
+      {
+        "count": 156.0,
+        "frame": 298.0,
+        "gameSpeed": {
+          "actual": 0.975000023842,
+          "paused": false,
+          "requested": 1.0
+        },
+        "second": 3.016999959946
+      },
+      {
+        "count": 164.0,
+        "frame": 328.0,
+        "gameSpeed": {
+          "actual": 0.975000023842,
+          "paused": false,
+          "requested": 1.0
+        },
+        "second": 4.052999973297
+      },
+      {
+        "count": 165.0,
+        "frame": 358.0,
+        "gameSpeed": {
+          "actual": 0.987500011921,
+          "paused": false,
+          "requested": 1.0
+        },
+        "second": 5.06500005722
+      },
+      {
+        "count": 165.0,
+        "frame": 388.0,
+        "gameSpeed": {
+          "actual": 0.987500011921,
+          "paused": false,
+          "requested": 1.0
+        },
+        "second": 6.074999809265
+      },
+      {
+        "count": 164.0,
+        "frame": 418.0,
+        "gameSpeed": {
+          "actual": 0.993749976158,
+          "paused": false,
+          "requested": 1.0
+        },
+        "second": 7.080999851227
+      },
+      {
+        "count": 168.0,
+        "frame": 448.0,
+        "gameSpeed": {
+          "actual": 0.993749976158,
+          "paused": false,
+          "requested": 1.0
+        },
+        "second": 8.081000328064
+      },
+      {
+        "count": 151.0,
+        "frame": 478.0,
+        "gameSpeed": {
+          "actual": 0.996874988079,
+          "paused": false,
+          "requested": 1.0
+        },
+        "second": 9.09700012207
+      },
+      {
+        "count": 151.0,
+        "frame": 508.0,
+        "gameSpeed": {
+          "actual": 0.996874988079,
+          "paused": false,
+          "requested": 1.0
+        },
+        "second": 10.105999946594
+      },
+      {
+        "count": 158.0,
+        "frame": 538.0,
+        "gameSpeed": {
+          "actual": 0.998437523842,
+          "paused": false,
+          "requested": 1.0
+        },
+        "second": 11.114000320435
+      },
+      {
+        "count": 150.0,
+        "frame": 569.0,
+        "gameSpeed": {
+          "actual": 0.998437523842,
+          "paused": false,
+          "requested": 1.0
+        },
+        "second": 12.131999969482
+      },
+      {
+        "count": 160.0,
+        "frame": 599.0,
+        "gameSpeed": {
+          "actual": 0.999218761921,
+          "paused": false,
+          "requested": 1.0
+        },
+        "second": 13.138999938965
+      },
+      {
+        "count": 152.0,
+        "frame": 629.0,
+        "gameSpeed": {
+          "actual": 0.999218761921,
+          "paused": false,
+          "requested": 1.0
+        },
+        "second": 14.152000427246
+      },
+      {
+        "count": 150.0,
+        "frame": 660.0,
+        "gameSpeed": {
+          "actual": 0.999609351158,
+          "paused": false,
+          "requested": 1.0
+        },
+        "second": 15.177000045776
+      },
+      {
+        "count": 147.0,
+        "frame": 691.0,
+        "gameSpeed": {
+          "actual": 0.999609351158,
+          "paused": false,
+          "requested": 1.0
+        },
+        "second": 16.200000762939
+      },
+      {
+        "count": 175.0,
+        "frame": 721.0,
+        "gameSpeed": {
+          "actual": 0.999804675579,
+          "paused": false,
+          "requested": 1.0
+        },
+        "second": 17.208000183105
+      },
+      {
+        "count": 171.0,
+        "frame": 751.0,
+        "gameSpeed": {
+          "actual": 0.999804675579,
+          "paused": false,
+          "requested": 1.0
+        },
+        "second": 18.208999633789
+      },
+      {
+        "count": 166.0,
+        "frame": 781.0,
+        "gameSpeed": {
+          "actual": 0.999902367592,
+          "paused": false,
+          "requested": 1.0
+        },
+        "second": 19.214000701904
+      },
+      {
+        "count": 173.0,
+        "frame": 812.0,
+        "gameSpeed": {
+          "actual": 0.999902367592,
+          "paused": false,
+          "requested": 1.0
+        },
+        "second": 20.243999481201
+      },
+      {
+        "count": 165.0,
+        "frame": 843.0,
+        "gameSpeed": {
+          "actual": 0.999951183796,
+          "paused": false,
+          "requested": 1.0
+        },
+        "second": 21.263000488281
+      },
+      {
+        "count": 162.0,
+        "frame": 873.0,
+        "gameSpeed": {
+          "actual": 0.999951183796,
+          "paused": false,
+          "requested": 1.0
+        },
+        "second": 22.264999389648
+      },
+      {
+        "count": 161.0,
+        "frame": 903.0,
+        "gameSpeed": {
+          "actual": 0.999975562096,
+          "paused": false,
+          "requested": 1.0
+        },
+        "second": 23.266000747681
+      },
+      {
+        "count": 167.0,
+        "frame": 933.0,
+        "gameSpeed": {
+          "actual": 0.999975562096,
+          "paused": false,
+          "requested": 1.0
+        },
+        "second": 24.271999359131
+      },
+      {
+        "count": 172.0,
+        "frame": 963.0,
+        "gameSpeed": {
+          "actual": 0.999987781048,
+          "paused": false,
+          "requested": 1.0
+        },
+        "second": 25.27799987793
+      },
+      {
+        "count": 168.0,
+        "frame": 993.0,
+        "gameSpeed": {
+          "actual": 0.999987781048,
+          "paused": false,
+          "requested": 1.0
+        },
+        "second": 26.283000946045
+      },
+      {
+        "count": 166.0,
+        "frame": 1024.0,
+        "gameSpeed": {
+          "actual": 0.999993920326,
+          "paused": false,
+          "requested": 1.0
+        },
+        "second": 27.29400062561
+      },
+      {
+        "count": 159.0,
+        "frame": 1054.0,
+        "gameSpeed": {
+          "actual": 0.999993920326,
+          "paused": false,
+          "requested": 1.0
+        },
+        "second": 28.309999465942
+      },
+      {
+        "count": 158.0,
+        "frame": 1084.0,
+        "gameSpeed": {
+          "actual": 0.999996960163,
+          "paused": false,
+          "requested": 1.0
+        },
+        "second": 29.311000823975
+      },
+      {
+        "count": 161.0,
+        "frame": 1115.0,
+        "gameSpeed": {
+          "actual": 0.999996960163,
+          "paused": false,
+          "requested": 1.0
+        },
+        "second": 30.325000762939
+      }
+    ],
+    "wallSeconds": 30.17200088501
+  },
+  "camera": {
+    "dist": 2254.7705078125,
+    "dx": 0.0,
+    "dy": -0.924302399158,
+    "dz": -0.381660997868,
+    "fov": 45.0,
+    "mode": 2.0,
+    "name": "spring",
+    "px": 4096.0,
+    "py": 254.770629882813,
+    "pz": 3072.0,
+    "rx": 2.75,
+    "ry": 0.0,
+    "rz": 0.0
+  },
+  "engineVersion": "2026.09.01-24-g01efdf4 master (BAR-1.0.3 )",
+  "fixture": {
+    "contract": "metal4-exact-frame240-v1",
+    "expectedFrame": 240.0,
+    "pauseAckFrame": 180.0,
+    "pauseRequestFrame": 180.0,
+    "readyFrame": 240.0,
+    "stepCount": 60.0
+  },
+  "frameTarget": 900.0,
+  "game": "Beyond All Reason",
+  "gameVersion": "test-31671-ad2e1b7",
+  "map": "Seths Ravine Remake 1.3.1",
+  "officialCommand": "luarules benchmark armbull armbull 80 8 1400",
+  "officialSource": "https://github.com/beyond-all-reason/Beyond-All-Reason/blob/433a460ac108c510374abdc9af5b44e3b9fe406f/luarules/gadgets/dbg_benchmark.lua",
+  "qualification": {
+    "pass": true,
+    "stages": [
+      {
+        "draws": 298.0,
+        "fps": 99.102096557617,
+        "seconds": 3.006999969482,
+        "stage": "off-before"
+      },
+      {
+        "draws": 301.0,
+        "fps": 100.099769592285,
+        "frameIntervals": {
+          "count": 300.0,
+          "meanFPS": 100.096748352051,
+          "meanMs": 9.990334510803,
+          "over100Ms": 0.0,
+          "over33Ms": 0.0,
+          "over50Ms": 0.0,
+          "p50Ms": 9.930000305176,
+          "p95Ms": 11.668999671936,
+          "p99Ms": 12.965999603271
+        },
+        "seconds": 3.006999969482,
+        "stage": "on"
+      },
+      {
+        "draws": 297.0,
+        "fps": 98.868179321289,
+        "seconds": 3.003999948502,
+        "stage": "off-after"
+      }
+    ]
+  },
+  "quality": {
+    "config": {
+      "MSAA": 0.0,
+      "MSAALevel": 0.0,
+      "MinSampleShadingRate": 0.0,
+      "VSync": 0.0,
+      "VSyncGame": 0.0
+    },
+    "glSamples": 0.0,
+    "glSamplesConfirmed4": false,
+    "glSamplesScope": "DrawScreen current framebuffer; resolved UI targets may report 0 or 1",
+    "mapEdge": {
+      "actual": 0.5,
+      "exceptionApplied": true,
+      "voidGround": false,
+      "voidWater": true,
+      "wanted": true,
+      "widgetActive": false
+    },
+    "optionValues": {
+      "advmapshading": true,
+      "attackrange_numrangesmult": 1.0,
+      "bloomdeferred": true,
+      "bloomdeferred_quality": 3.0,
+      "camera": 3.0,
+      "cusgl4": true,
+      "decals": true,
+      "decalsgl4": true,
+      "distortioneffects": true,
+      "fogdiaglines": 0.0,
+      "grass": true,
+      "lighteffects": true,
+      "lighteffects_nanoparticlelights": true,
+      "lighteffects_screenspaceshadows": 4.0,
+      "limitidlefps": false,
+      "limitoffscreenfps": false,
+      "losrange": true,
+      "mapedgeextension": 0.5,
+      "msaa": 1.0,
+      "particles": 40000.0,
+      "preset": 5.0,
+      "shadowslider": 6.0,
+      "snow": true,
+      "ssao": true,
+      "ssao_quality": 3.0,
+      "vsync": 1.0,
+      "water": 2.0
+    },
+    "optionsVerified": 20.0,
+    "ultraPreset": 5.0,
+    "ultraVerified": true
+  },
+  "requestId": "c4cbdf80-d1b4-42e4-a75a-64397d953104",
+  "resolution": {
+    "height": 950.0,
+    "width": 1512.0
+  },
+  "schema": 1.0,
+  "seed": 7654321.0,
+  "status": "complete",
+  "workload": {
+    "placementSpan": 1400.0,
+    "populationThresholdIsNotHardCap": true,
+    "populationThresholdPerTeam": 80.0,
+    "rampIncluded": true,
+    "replenishBatchPerTeam": 8.0,
+    "replenishEverySimulationFrames": 3.0,
+    "requestedSimulationSpeed": 1.0,
+    "unitTypeOpponent": "armbull",
+    "unitTypeOwn": "armbull"
+  }
+}

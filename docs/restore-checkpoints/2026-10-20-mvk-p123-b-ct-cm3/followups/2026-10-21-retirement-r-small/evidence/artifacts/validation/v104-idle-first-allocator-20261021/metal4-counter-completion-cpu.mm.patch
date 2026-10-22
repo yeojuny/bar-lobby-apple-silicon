@@ -1,0 +1,96 @@
+--- a/tools/tests/metal4-counter-completion-cpu.mm
++++ b/tools/tests/metal4-counter-completion-cpu.mm
+@@ -1174,9 +1174,93 @@
+     }
+ }
+ 
++static void allocatorIdleFirstPolicy() {
++    // Natural overlapping writers create separate epochs; no fabricated pool
++    // entries or state transitions are needed to distinguish this policy.
++    {
++        Fixture f; auto a = f.begin(); auto b = f.begin(); auto c = f.begin();
++        auto busy = a->_state->allocatorUse.epoch;
++        auto olderIdle = b->_state->allocatorUse.epoch;
++        auto newerIdle = c->_state->allocatorUse.epoch;
++        check(b->end() && c->end(), "two independent idle candidates end");
++        b.reset(); c.reset(); check(a->end(), "live unsubmitted epoch becomes newest available");
++        auto storage = f.queue->_state->storage;
++        check(storage->availableEpochs.back() == busy && busy->liveUses == 1,
++              "newest available can still have an unsubmitted owner");
++        MVKMetal4AllocatorUse selected;
++        {
++            std::lock_guard<std::mutex> lock(storage->poolMutex);
++            const auto idleBytes = storage->poolStats.idleBytes;
++            const auto charge = newerIdle->idleCharge;
++            const auto reused = storage->poolStats.allocatorReused;
++            selected = takeAllocatorLocked(storage);
++            check(selected.epoch == newerIdle, "most recent idle epoch wins over newest busy epoch");
++            check(charge && storage->poolStats.idleBytes == idleBytes - charge &&
++                  !newerIdle->idleCharge && !newerIdle->available && newerIdle->writer && newerIdle->liveUses == 1,
++                  "only selected idle charge is removed and one writer/use is reserved");
++            check(storage->poolStats.allocatorReused == reused + 1 && olderIdle->available &&
++                  busy->available && busy->liveUses == 1 && !busy->writer,
++                  "other idle and busy identities and live owners are preserved");
++        }
++        // With newerIdle reserved, the remaining older idle must beat the busy
++        // epoch irrespective of the swap/pop used to remove the first choice.
++        auto next = f.begin(); check(next->_state->allocatorUse.epoch == olderIdle,
++                                    "second acquisition uses remaining idle storage");
++        selected.release(); check(newerIdle->available && newerIdle->liveUses == 0,
++                                  "cold reservation rollback republishes idle storage");
++        check(next->end(), "second idle recording ends"); next.reset(); a.reset();
++        check(!busy->liveUses && busy->available, "unsubmitted busy storage resets only at final release");
++        std::vector<const void*> identities;
++        for (const auto& epoch : storage->availableEpochs) { identities.push_back(epoch.get()); }
++        std::sort(identities.begin(), identities.end());
++        check(std::adjacent_find(identities.begin(), identities.end()) == identities.end(),
++              "available membership stays unique after repeated non-back selections");
++    }
++    {
++        Fixture f; auto a = f.begin(); auto b = f.begin();
++        auto first = a->_state->allocatorUse.epoch, last = b->_state->allocatorUse.epoch;
++        check(a->end() && b->end(), "all-busy independent epochs end");
++        auto selected = f.begin(); check(selected->_state->allocatorUse.epoch == last,
++                                        "without idle storage the existing LIFO choice is unchanged");
++        check(first->liveUses == 1 && last->liveUses == 2 && last->writer,
++              "busy fallback appends without changing previous owners");
++        check(selected->end(), "busy fallback recording ends"); selected.reset(); b.reset(); a.reset();
++    }
++    {
++        Fixture f; auto a = f.begin(); auto b = f.begin();
++        auto last = b->_state->allocatorUse.epoch;
++        check(a->end() && b->end(), "idle-back case recordings end"); b.reset();
++        auto selected = f.begin(); check(selected->_state->allocatorUse.epoch == last,
++                                        "already-idle back retains the common LIFO fast path");
++        check(selected->end(), "idle-back selected recording ends"); selected.reset(); a.reset();
++    }
++    {
++        Fixture f; auto gpu = f.begin(); auto idle = f.begin();
++        auto busyEpoch = gpu->_state->allocatorUse.epoch, idleEpoch = idle->_state->allocatorUse.epoch;
++        auto busyAllocator = (R77Allocator*)busyEpoch->allocator;
++        check(gpu->end() && f.queue->submit(gpu), "busy epoch has actual pending queue ownership");
++        auto writer = f.begin(); check(writer->_state->allocatorUse.epoch == busyEpoch,
++                                      "open independent writer still shares pending epoch");
++        check(idle->end(), "other epoch ends before busy writer"); idle.reset();
++        check(writer->end(), "pending epoch is most recently offered");
++        auto selected = f.begin(); check(selected->_state->allocatorUse.epoch == idleEpoch && !busyAllocator->resets,
++                                        "idle wins without resetting or waiting for pending GPU memory");
++        f.finishAll(); check(gpu->completed() && !busyAllocator->resets,
++                             "GPU completion cannot reset remaining unsubmitted writer ownership");
++        writer.reset(); check(busyAllocator->resets == 1 && !busyEpoch->liveUses,
++                              "busy epoch resets once after its final independent owner leaves");
++        check(selected->end(), "selected idle recording remains valid"); selected.reset();
++    }
++}
++
+ int main(int argc, char** argv) {
+     @autoreleasepool {
+         try {
++            if (argc == 2 && std::strcmp(argv[1], "idle-first-policy") == 0) {
++                allocatorPolicyBoundaries(); allocatorQuiescentPolicy(); allocatorIdleFirstPolicy();
++                check(liveEvents == 0, "idle-first policy retains no events");
++                std::printf("{\"passed\":true,\"checks\":%u,\"idleSelectionCases\":4,\"gpuExecuted\":false}\n", checks.load()); return 0;
++            }
+             if (argc == 2 && std::strcmp(argv[1], "quiescent-policy") == 0) {
+                 allocatorPolicyBoundaries(); allocatorQuiescentPolicy();
+                 check(liveEvents == 0, "quiescent policy retains no events");

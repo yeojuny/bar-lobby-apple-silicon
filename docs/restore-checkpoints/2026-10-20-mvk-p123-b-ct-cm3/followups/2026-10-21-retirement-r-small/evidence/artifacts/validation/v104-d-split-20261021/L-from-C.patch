@@ -1,0 +1,55 @@
+--- C/GPUObjects/MVKMetal4PreparedResource.h
++++ L/GPUObjects/MVKMetal4PreparedResource.h
+@@ -28,8 +28,13 @@
+     size_t cachedNodeCount() const { return _emptyNodes.size(); }
+     std::pair<iterator, bool> try_emplace(const void* key) {
+         if (_emptyNodes.empty()) { return _values.try_emplace(key); }
+-        auto found = _values.find(key);
++        return try_emplace_after_lookup(key, _values.find(key));
++    }
++    // Consume a fresh lookup of this map before any mutation or unlock. The
++    // caller must use the returned iterator after insertion can rehash the map.
++    std::pair<iterator, bool> try_emplace_after_lookup(const void* key, iterator found) {
+         if (found != _values.end()) { return {found, false}; }
++        if (_emptyNodes.empty()) { return _values.try_emplace(key); }
+         auto node = std::move(_emptyNodes.back());
+         _emptyNodes.pop_back();
+         node.key() = key;
+--- C/GPUObjects/MVKMetal4Submission.mm
++++ L/GPUObjects/MVKMetal4Submission.mm
+@@ -1193,7 +1193,9 @@
+     // Caller holds mutex while recording. Retention and residency are distinct:
+     // an object retained for another purpose must still be registered resident.
+     ObjectIdentity& retainUnique(id object) {
+-        auto result = objects.try_emplace((const void*)object);
++        return retainUnique(object, objects.try_emplace((const void*)object));
++    }
++    ObjectIdentity& retainUnique(id object, std::pair<MVKMetal4ObjectIdentityMap::iterator, bool> result) {
+         if (!result.first->second.gpuRetained) {
+             [retained addObject:object];
+             result.first->second.gpuRetained = true;
+@@ -1219,7 +1221,10 @@
+     }
+     ObjectIdentity& addResident(id<MTLResource> resource, bool stableBufferCandidate = true,
+                                 MVKMetal4ResourceKind kind = MVKMetal4ResourceKind::Unknown) {
+-        auto& identity = retainUnique(resource);
++        return addResident(resource, retainUnique(resource), stableBufferCandidate, kind);
++    }
++    ObjectIdentity& addResident(id<MTLResource> resource, ObjectIdentity& identity,
++                                bool stableBufferCandidate, MVKMetal4ResourceKind kind) {
+         if (!identity.resident) {
+             auto lease = storage->deviceResidency ? storage->deviceResidency->leaseWithKind(resource, kind) : std::shared_ptr<void>{};
+             if (lease) {
+@@ -2199,7 +2204,11 @@
+         }
+         bool isTexture = kind == MVKMetal4ResourceKind::Texture ||
+             (kind == MVKMetal4ResourceKind::Unknown && [resource conformsToProtocol:@protocol(MTLTexture)]);
+-        identity = &_state->addResident(resource, !isTexture,
++        // Validation precedes insertion. No map mutation or unlock separates
++        // the outer lookup from its consumption; drawable retention is later.
++        auto& retainedIdentity = _state->retainUnique(resource,
++            _state->objects.try_emplace_after_lookup((const void*)resource, found));
++        identity = &_state->addResident(resource, retainedIdentity, !isTexture,
+             isTexture ? MVKMetal4ResourceKind::Texture : MVKMetal4ResourceKind::NonTexture);
+         identity->texture = isTexture;
+     }

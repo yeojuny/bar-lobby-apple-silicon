@@ -1,0 +1,740 @@
+{
+  "concurrentUserWorkload": {
+    "interpretation": "Keep work hidden and complete applying the reviewed change; other user workloads may vary during this comparison. Preserve all measured results without presenting them as isolated application-only performance.",
+    "performanceQualification": "Reference results under concurrent user workload; no isolated causal FPS-gain claim.",
+    "productAlreadyAppliedAndPackaged": true,
+    "recordedAtUTC": "2026-10-21T04:11:44.062053+00:00",
+    "userStatement": "다른 일 하고 있어서 그러나봄 백그라운드에서 일단 적용해놔"
+  },
+  "conditions": {
+    "camera": {
+      "dist": 2254.7705078125,
+      "dx": 0,
+      "dy": -0.924302399158,
+      "dz": -0.381660997868,
+      "fov": 45,
+      "mode": 2,
+      "name": "spring",
+      "px": 4096,
+      "py": 254.770629882813,
+      "pz": 3072,
+      "rx": 2.75,
+      "ry": 0,
+      "rz": 0
+    },
+    "game": "Beyond All Reason",
+    "map": "Seths Ravine Remake 1.3.1",
+    "officialCommand": "luarules benchmark armbull armbull 80 8 1400",
+    "qualityConfig": {
+      "MSAA": 0,
+      "MSAALevel": 0,
+      "MinSampleShadingRate": 0,
+      "VSync": 0,
+      "VSyncGame": 0
+    },
+    "qualityOptions": {
+      "advmapshading": true,
+      "attackrange_numrangesmult": 1,
+      "bloomdeferred": true,
+      "bloomdeferred_quality": 3,
+      "camera": 3,
+      "cusgl4": true,
+      "decals": true,
+      "decalsgl4": true,
+      "distortioneffects": true,
+      "fogdiaglines": 0,
+      "grass": true,
+      "lighteffects": true,
+      "lighteffects_nanoparticlelights": true,
+      "lighteffects_screenspaceshadows": 4,
+      "limitidlefps": false,
+      "limitoffscreenfps": false,
+      "losrange": true,
+      "mapedgeextension": 0.5,
+      "msaa": 1,
+      "particles": 40000,
+      "preset": 5,
+      "shadowslider": 6,
+      "snow": true,
+      "ssao": true,
+      "ssao_quality": 3,
+      "vsync": 1,
+      "water": 2
+    },
+    "resolution": {
+      "height": 950,
+      "width": 1512
+    },
+    "seed": 7654321
+  },
+  "groups": {
+    "metal3": {
+      "candidate": {
+        "fps": [
+          48.416568756104,
+          52.132389068604
+        ],
+        "meanFPS": 50.274478912354,
+        "meanRunP95Ms": 36.431499481201,
+        "meanRunP99Ms": 60.724500656128,
+        "ordinals": [
+          5,
+          8
+        ]
+      },
+      "deltaFPSPercent": 16.021550231163562,
+      "deltaP95Percent": -17.423530530721564,
+      "parent": {
+        "fps": [
+          44.249805450439,
+          42.41423034668
+        ],
+        "meanFPS": 43.3320178985595,
+        "meanRunP95Ms": 44.1184997558595,
+        "meanRunP99Ms": 81.930999755859,
+        "ordinals": [
+          6,
+          7
+        ]
+      }
+    },
+    "metal4": {
+      "candidate": {
+        "fps": [
+          27.885301589966,
+          37.31014251709
+        ],
+        "meanFPS": 32.597722053528,
+        "meanRunP95Ms": 63.9169998168945,
+        "meanRunP99Ms": 123.7785034179685,
+        "ordinals": [
+          2,
+          3
+        ]
+      },
+      "deltaFPSPercent": -1.5574520878956943,
+      "deltaP95Percent": 1.7025500542082739,
+      "parent": {
+        "fps": [
+          30.87636756897,
+          35.350528717041
+        ],
+        "meanFPS": 33.1134481430055,
+        "meanRunP95Ms": 62.846998214721495,
+        "meanRunP99Ms": 103.859001159668,
+        "ordinals": [
+          1,
+          4
+        ]
+      }
+    }
+  },
+  "method": "Arithmetic means of two run FPS; p95/p99 are means of per-run percentiles, not pooled percentiles. Concurrent user workload: reference only, no isolated causal gain or statistical significance claimed.",
+  "nPerAppBackend": 2,
+  "nativeSpaceTransitionDeferredWhileHidden": true,
+  "order": "Metal4 parent,candidate,candidate,parent then Metal3 candidate,parent,parent,candidate",
+  "powerObservationCount": 79,
+  "records": [
+    {
+      "backend": "metal4",
+      "cacheError": null,
+      "camera": {
+        "dist": 2254.7705078125,
+        "dx": 0,
+        "dy": -0.924302399158,
+        "dz": -0.381660997868,
+        "fov": 45,
+        "mode": 2,
+        "name": "spring",
+        "px": 4096,
+        "py": 254.770629882813,
+        "pz": 3072,
+        "rx": 2.75,
+        "ry": 0,
+        "rz": 0
+      },
+      "drawIntervals": {
+        "count": 925,
+        "meanFPS": 30.87636756897,
+        "meanMs": 32.387229919434,
+        "over100Ms": 23,
+        "over33Ms": 238,
+        "over50Ms": 103,
+        "p50Ms": 26.482999801636,
+        "p95Ms": 70.922996520996,
+        "p99Ms": 128.477005004883
+      },
+      "engine": {
+        "bytes": 31275968,
+        "path": "${WORKSPACE}/artifacts/runtime/v104-c-reg-candidate-20261020/BAR.app/Contents/Resources/bundled-assets/engine/2026.09.01-24-g01efdf4 master/spring",
+        "sha256": "16cdd896273e09b89e385ec53c24d0216df9a17dd5d7b80c78dc5f8471f13424",
+        "version": "2026.09.01-24-g01efdf4 master"
+      },
+      "error": null,
+      "exit": 0,
+      "fps": 30.87636756897,
+      "fullscreenMode": {
+        "SDLFullscreen": true,
+        "SDLHidden": true,
+        "gameFullscreen": true,
+        "logEvidence": "macOS safe viewport] window=1512x982 view=<0,0 1512x950>",
+        "nativePresentation": "SDL defers native display/Space transition while hidden",
+        "viewport": {
+          "height": 950,
+          "width": 1512
+        },
+        "window": {
+          "height": 982,
+          "width": 1512
+        }
+      },
+      "nativeMetal4": {
+        "activeQueues": 1,
+        "completedSubmissions": [
+          13971
+        ],
+        "proved": true,
+        "requested": true
+      },
+      "ordinal": 1,
+      "p50Ms": 26.482999801636,
+      "p95Ms": 70.922996520996,
+      "p99Ms": 128.477005004883,
+      "protectedInputsUnchanged": true,
+      "receipt": "${WORKSPACE}/artifacts/validation/v104-drawable-size-performance-20261020/1-parent-metal4/sessions/lobby-no-native-hook-1792555631261/execution-receipt.json",
+      "receiptSHA256": "d08a5f4edcfd45a17867fabcfd24695ad8f58f0e3fce6cc14609f5bee2c511b5",
+      "resolution": {
+        "height": 950,
+        "width": 1512
+      },
+      "role": "parent",
+      "status": "completed-not-promoted"
+    },
+    {
+      "backend": "metal4",
+      "cacheError": null,
+      "camera": {
+        "dist": 2254.7705078125,
+        "dx": 0,
+        "dy": -0.924302399158,
+        "dz": -0.381660997868,
+        "fov": 45,
+        "mode": 2,
+        "name": "spring",
+        "px": 4096,
+        "py": 254.770629882813,
+        "pz": 3072,
+        "rx": 2.75,
+        "ry": 0,
+        "rz": 0
+      },
+      "drawIntervals": {
+        "count": 841,
+        "meanFPS": 27.885301589966,
+        "meanMs": 35.861186981201,
+        "over100Ms": 24,
+        "over33Ms": 284,
+        "over50Ms": 118,
+        "p50Ms": 28.341999053955,
+        "p95Ms": 76.043998718262,
+        "p99Ms": 171.087005615234
+      },
+      "engine": {
+        "bytes": 31276160,
+        "path": "${WORKSPACE}/artifacts/runtime/v104-drawable-size-candidate-20261020/BAR.app/Contents/Resources/bundled-assets/engine/2026.09.01-24-g01efdf4 master/spring",
+        "sha256": "d715965659b977e05b8ccafe76fae0936cade1a7481871acff7eec876366f1aa",
+        "version": "2026.09.01-24-g01efdf4 master"
+      },
+      "error": null,
+      "exit": 0,
+      "fps": 27.885301589966,
+      "fullscreenMode": {
+        "SDLFullscreen": true,
+        "SDLHidden": true,
+        "gameFullscreen": true,
+        "logEvidence": "macOS safe viewport] window=1512x982 view=<0,0 1512x950>",
+        "nativePresentation": "SDL defers native display/Space transition while hidden",
+        "viewport": {
+          "height": 950,
+          "width": 1512
+        },
+        "window": {
+          "height": 982,
+          "width": 1512
+        }
+      },
+      "nativeMetal4": {
+        "activeQueues": 1,
+        "completedSubmissions": [
+          12677
+        ],
+        "proved": true,
+        "requested": true
+      },
+      "ordinal": 2,
+      "p50Ms": 28.341999053955,
+      "p95Ms": 76.043998718262,
+      "p99Ms": 171.087005615234,
+      "protectedInputsUnchanged": true,
+      "receipt": "${WORKSPACE}/artifacts/validation/v104-drawable-size-performance-20261020/2-candidate-metal4/sessions/lobby-no-native-hook-1792555758221/execution-receipt.json",
+      "receiptSHA256": "3de689748d218ea65e01a85b7f2a3f1d1a37d81dbb749a2befe4ab274993a829",
+      "resolution": {
+        "height": 950,
+        "width": 1512
+      },
+      "role": "candidate",
+      "status": "completed-not-promoted"
+    },
+    {
+      "backend": "metal4",
+      "cacheError": null,
+      "camera": {
+        "dist": 2254.7705078125,
+        "dx": 0,
+        "dy": -0.924302399158,
+        "dz": -0.381660997868,
+        "fov": 45,
+        "mode": 2,
+        "name": "spring",
+        "px": 4096,
+        "py": 254.770629882813,
+        "pz": 3072,
+        "rx": 2.75,
+        "ry": 0,
+        "rz": 0
+      },
+      "drawIntervals": {
+        "count": 1118,
+        "meanFPS": 37.31014251709,
+        "meanMs": 26.802362442017,
+        "over100Ms": 3,
+        "over33Ms": 208,
+        "over50Ms": 63,
+        "p50Ms": 24.329000473022,
+        "p95Ms": 51.790000915527,
+        "p99Ms": 76.470001220703
+      },
+      "engine": {
+        "bytes": 31276160,
+        "path": "${WORKSPACE}/artifacts/runtime/v104-drawable-size-candidate-20261020/BAR.app/Contents/Resources/bundled-assets/engine/2026.09.01-24-g01efdf4 master/spring",
+        "sha256": "d715965659b977e05b8ccafe76fae0936cade1a7481871acff7eec876366f1aa",
+        "version": "2026.09.01-24-g01efdf4 master"
+      },
+      "error": null,
+      "exit": 0,
+      "fps": 37.31014251709,
+      "fullscreenMode": {
+        "SDLFullscreen": true,
+        "SDLHidden": true,
+        "gameFullscreen": true,
+        "logEvidence": "macOS safe viewport] window=1512x982 view=<0,0 1512x950>",
+        "nativePresentation": "SDL defers native display/Space transition while hidden",
+        "viewport": {
+          "height": 950,
+          "width": 1512
+        },
+        "window": {
+          "height": 982,
+          "width": 1512
+        }
+      },
+      "nativeMetal4": {
+        "activeQueues": 1,
+        "completedSubmissions": [
+          15391
+        ],
+        "proved": true,
+        "requested": true
+      },
+      "ordinal": 3,
+      "p50Ms": 24.329000473022,
+      "p95Ms": 51.790000915527,
+      "p99Ms": 76.470001220703,
+      "protectedInputsUnchanged": true,
+      "receipt": "${WORKSPACE}/artifacts/validation/v104-drawable-size-performance-20261020/3-candidate-metal4/sessions/lobby-no-native-hook-1792555898331/execution-receipt.json",
+      "receiptSHA256": "32f8accd6524001b48d762106586705be5181b751843e1a01d2f45823b6163e1",
+      "resolution": {
+        "height": 950,
+        "width": 1512
+      },
+      "role": "candidate",
+      "status": "completed-not-promoted"
+    },
+    {
+      "backend": "metal4",
+      "cacheError": null,
+      "camera": {
+        "dist": 2254.7705078125,
+        "dx": 0,
+        "dy": -0.924302399158,
+        "dz": -0.381660997868,
+        "fov": 45,
+        "mode": 2,
+        "name": "spring",
+        "px": 4096,
+        "py": 254.770629882813,
+        "pz": 3072,
+        "rx": 2.75,
+        "ry": 0,
+        "rz": 0
+      },
+      "drawIntervals": {
+        "count": 1059,
+        "meanFPS": 35.350528717041,
+        "meanMs": 28.288120269775,
+        "over100Ms": 7,
+        "over33Ms": 259,
+        "over50Ms": 78,
+        "p50Ms": 25.309999465942,
+        "p95Ms": 54.770999908447,
+        "p99Ms": 79.240997314453
+      },
+      "engine": {
+        "bytes": 31275968,
+        "path": "${WORKSPACE}/artifacts/runtime/v104-c-reg-candidate-20261020/BAR.app/Contents/Resources/bundled-assets/engine/2026.09.01-24-g01efdf4 master/spring",
+        "sha256": "16cdd896273e09b89e385ec53c24d0216df9a17dd5d7b80c78dc5f8471f13424",
+        "version": "2026.09.01-24-g01efdf4 master"
+      },
+      "error": null,
+      "exit": 0,
+      "fps": 35.350528717041,
+      "fullscreenMode": {
+        "SDLFullscreen": true,
+        "SDLHidden": true,
+        "gameFullscreen": true,
+        "logEvidence": "macOS safe viewport] window=1512x982 view=<0,0 1512x950>",
+        "nativePresentation": "SDL defers native display/Space transition while hidden",
+        "viewport": {
+          "height": 950,
+          "width": 1512
+        },
+        "window": {
+          "height": 982,
+          "width": 1512
+        }
+      },
+      "nativeMetal4": {
+        "activeQueues": 1,
+        "completedSubmissions": [
+          17059
+        ],
+        "proved": true,
+        "requested": true
+      },
+      "ordinal": 4,
+      "p50Ms": 25.309999465942,
+      "p95Ms": 54.770999908447,
+      "p99Ms": 79.240997314453,
+      "protectedInputsUnchanged": true,
+      "receipt": "${WORKSPACE}/artifacts/validation/v104-drawable-size-performance-20261020/4-parent-metal4/sessions/lobby-no-native-hook-1792556022666/execution-receipt.json",
+      "receiptSHA256": "e263d9476153fa26d28ad385d851e9bb95a2ad1acd8e816935ea26a39c6a2c37",
+      "resolution": {
+        "height": 950,
+        "width": 1512
+      },
+      "role": "parent",
+      "status": "completed-not-promoted"
+    },
+    {
+      "backend": "metal3",
+      "cacheError": null,
+      "camera": {
+        "dist": 2254.7705078125,
+        "dx": 0,
+        "dy": -0.924302399158,
+        "dz": -0.381660997868,
+        "fov": 45,
+        "mode": 2,
+        "name": "spring",
+        "px": 4096,
+        "py": 254.770629882813,
+        "pz": 3072,
+        "rx": 2.75,
+        "ry": 0,
+        "rz": 0
+      },
+      "drawIntervals": {
+        "count": 1451,
+        "meanFPS": 48.416568756104,
+        "meanMs": 20.65408706665,
+        "over100Ms": 2,
+        "over33Ms": 119,
+        "over50Ms": 30,
+        "p50Ms": 19.124000549316,
+        "p95Ms": 38.409999847412,
+        "p99Ms": 60.157001495361
+      },
+      "engine": {
+        "bytes": 31276160,
+        "path": "${WORKSPACE}/artifacts/runtime/v104-drawable-size-candidate-20261020/BAR.app/Contents/Resources/bundled-assets/engine/2026.09.01-24-g01efdf4 master/spring",
+        "sha256": "d715965659b977e05b8ccafe76fae0936cade1a7481871acff7eec876366f1aa",
+        "version": "2026.09.01-24-g01efdf4 master"
+      },
+      "error": null,
+      "exit": 0,
+      "fps": 48.416568756104,
+      "fullscreenMode": {
+        "SDLFullscreen": true,
+        "SDLHidden": true,
+        "gameFullscreen": true,
+        "logEvidence": "macOS safe viewport] window=1512x982 view=<0,0 1512x950>",
+        "nativePresentation": "SDL defers native display/Space transition while hidden",
+        "viewport": {
+          "height": 950,
+          "width": 1512
+        },
+        "window": {
+          "height": 982,
+          "width": 1512
+        }
+      },
+      "nativeMetal4": {
+        "activeQueues": 0,
+        "legacyParentIdentityVerified": false,
+        "proved": false,
+        "requested": false
+      },
+      "ordinal": 5,
+      "p50Ms": 19.124000549316,
+      "p95Ms": 38.409999847412,
+      "p99Ms": 60.157001495361,
+      "protectedInputsUnchanged": true,
+      "receipt": "${WORKSPACE}/artifacts/validation/v104-drawable-size-performance-20261020/5-candidate-metal3/sessions/lobby-no-native-hook-1792556146601/execution-receipt.json",
+      "receiptSHA256": "5373d2c84e95dc73d36d4de3979d08b03a7b8c317c21ef969ff0c9803248ba43",
+      "resolution": {
+        "height": 950,
+        "width": 1512
+      },
+      "role": "candidate",
+      "status": "completed-not-promoted"
+    },
+    {
+      "backend": "metal3",
+      "cacheError": null,
+      "camera": {
+        "dist": 2254.7705078125,
+        "dx": 0,
+        "dy": -0.924302399158,
+        "dz": -0.381660997868,
+        "fov": 45,
+        "mode": 2,
+        "name": "spring",
+        "px": 4096,
+        "py": 254.770629882813,
+        "pz": 3072,
+        "rx": 2.75,
+        "ry": 0,
+        "rz": 0
+      },
+      "drawIntervals": {
+        "count": 1326,
+        "meanFPS": 44.249805450439,
+        "meanMs": 22.598968505859,
+        "over100Ms": 9,
+        "over33Ms": 141,
+        "over50Ms": 51,
+        "p50Ms": 19.875,
+        "p95Ms": 43.380001068115,
+        "p99Ms": 94.99299621582
+      },
+      "engine": {
+        "bytes": 31275968,
+        "path": "${WORKSPACE}/artifacts/runtime/v104-c-reg-candidate-20261020/BAR.app/Contents/Resources/bundled-assets/engine/2026.09.01-24-g01efdf4 master/spring",
+        "sha256": "16cdd896273e09b89e385ec53c24d0216df9a17dd5d7b80c78dc5f8471f13424",
+        "version": "2026.09.01-24-g01efdf4 master"
+      },
+      "error": null,
+      "exit": 0,
+      "fps": 44.249805450439,
+      "fullscreenMode": {
+        "SDLFullscreen": true,
+        "SDLHidden": true,
+        "gameFullscreen": true,
+        "logEvidence": "macOS safe viewport] window=1512x982 view=<0,0 1512x950>",
+        "nativePresentation": "SDL defers native display/Space transition while hidden",
+        "viewport": {
+          "height": 950,
+          "width": 1512
+        },
+        "window": {
+          "height": 982,
+          "width": 1512
+        }
+      },
+      "nativeMetal4": {
+        "activeQueues": 0,
+        "legacyParentIdentityVerified": true,
+        "proved": false,
+        "requested": false
+      },
+      "ordinal": 6,
+      "p50Ms": 19.875,
+      "p95Ms": 43.380001068115,
+      "p99Ms": 94.99299621582,
+      "protectedInputsUnchanged": true,
+      "receipt": "${WORKSPACE}/artifacts/validation/v104-drawable-size-performance-20261020/6-parent-metal3/sessions/lobby-no-native-hook-1792556265511/execution-receipt.json",
+      "receiptSHA256": "d1605de2a2cb59d5fbf423721bd60fb2dd77b4acf51b392d6b4e39032874596a",
+      "resolution": {
+        "height": 950,
+        "width": 1512
+      },
+      "role": "parent",
+      "status": "completed-not-promoted"
+    },
+    {
+      "backend": "metal3",
+      "cacheError": null,
+      "camera": {
+        "dist": 2254.7705078125,
+        "dx": 0,
+        "dy": -0.924302399158,
+        "dz": -0.381660997868,
+        "fov": 45,
+        "mode": 2,
+        "name": "spring",
+        "px": 4096,
+        "py": 254.770629882813,
+        "pz": 3072,
+        "rx": 2.75,
+        "ry": 0,
+        "rz": 0
+      },
+      "drawIntervals": {
+        "count": 1271,
+        "meanFPS": 42.41423034668,
+        "meanMs": 23.576992034912,
+        "over100Ms": 5,
+        "over33Ms": 141,
+        "over50Ms": 44,
+        "p50Ms": 21.589000701904,
+        "p95Ms": 44.856998443604,
+        "p99Ms": 68.869003295898
+      },
+      "engine": {
+        "bytes": 31275968,
+        "path": "${WORKSPACE}/artifacts/runtime/v104-c-reg-candidate-20261020/BAR.app/Contents/Resources/bundled-assets/engine/2026.09.01-24-g01efdf4 master/spring",
+        "sha256": "16cdd896273e09b89e385ec53c24d0216df9a17dd5d7b80c78dc5f8471f13424",
+        "version": "2026.09.01-24-g01efdf4 master"
+      },
+      "error": null,
+      "exit": 0,
+      "fps": 42.41423034668,
+      "fullscreenMode": {
+        "SDLFullscreen": true,
+        "SDLHidden": true,
+        "gameFullscreen": true,
+        "logEvidence": "macOS safe viewport] window=1512x982 view=<0,0 1512x950>",
+        "nativePresentation": "SDL defers native display/Space transition while hidden",
+        "viewport": {
+          "height": 950,
+          "width": 1512
+        },
+        "window": {
+          "height": 982,
+          "width": 1512
+        }
+      },
+      "nativeMetal4": {
+        "activeQueues": 0,
+        "legacyParentIdentityVerified": true,
+        "proved": false,
+        "requested": false
+      },
+      "ordinal": 7,
+      "p50Ms": 21.589000701904,
+      "p95Ms": 44.856998443604,
+      "p99Ms": 68.869003295898,
+      "protectedInputsUnchanged": true,
+      "receipt": "${WORKSPACE}/artifacts/validation/v104-drawable-size-performance-20261020/7-parent-metal3/sessions/lobby-no-native-hook-1792556387499/execution-receipt.json",
+      "receiptSHA256": "2da64f39e72c71475b85e25ed2f959545680f0bc74c55e1a7458b3ed23389bc7",
+      "resolution": {
+        "height": 950,
+        "width": 1512
+      },
+      "role": "parent",
+      "status": "completed-not-promoted"
+    },
+    {
+      "backend": "metal3",
+      "cacheError": null,
+      "camera": {
+        "dist": 2254.7705078125,
+        "dx": 0,
+        "dy": -0.924302399158,
+        "dz": -0.381660997868,
+        "fov": 45,
+        "mode": 2,
+        "name": "spring",
+        "px": 4096,
+        "py": 254.770629882813,
+        "pz": 3072,
+        "rx": 2.75,
+        "ry": 0,
+        "rz": 0
+      },
+      "drawIntervals": {
+        "count": 1562,
+        "meanFPS": 52.132389068604,
+        "meanMs": 19.181932449341,
+        "over100Ms": 4,
+        "over33Ms": 100,
+        "over50Ms": 25,
+        "p50Ms": 18.011999130249,
+        "p95Ms": 34.45299911499,
+        "p99Ms": 61.291999816895
+      },
+      "engine": {
+        "bytes": 31276160,
+        "path": "${WORKSPACE}/artifacts/runtime/v104-drawable-size-candidate-20261020/BAR.app/Contents/Resources/bundled-assets/engine/2026.09.01-24-g01efdf4 master/spring",
+        "sha256": "d715965659b977e05b8ccafe76fae0936cade1a7481871acff7eec876366f1aa",
+        "version": "2026.09.01-24-g01efdf4 master"
+      },
+      "error": null,
+      "exit": 0,
+      "fps": 52.132389068604,
+      "fullscreenMode": {
+        "SDLFullscreen": true,
+        "SDLHidden": true,
+        "gameFullscreen": true,
+        "logEvidence": "macOS safe viewport] window=1512x982 view=<0,0 1512x950>",
+        "nativePresentation": "SDL defers native display/Space transition while hidden",
+        "viewport": {
+          "height": 950,
+          "width": 1512
+        },
+        "window": {
+          "height": 982,
+          "width": 1512
+        }
+      },
+      "nativeMetal4": {
+        "activeQueues": 0,
+        "legacyParentIdentityVerified": false,
+        "proved": false,
+        "requested": false
+      },
+      "ordinal": 8,
+      "p50Ms": 18.011999130249,
+      "p95Ms": 34.45299911499,
+      "p99Ms": 61.291999816895,
+      "protectedInputsUnchanged": true,
+      "receipt": "${WORKSPACE}/artifacts/validation/v104-drawable-size-performance-20261020/8-candidate-metal3/sessions/lobby-no-native-hook-1792556509321/execution-receipt.json",
+      "receiptSHA256": "015d38f6779208ae05ec0cac9c71940989d10b0086e0a237770325b9882e3fc7",
+      "resolution": {
+        "height": 950,
+        "width": 1512
+      },
+      "role": "candidate",
+      "status": "completed-not-promoted"
+    }
+  ],
+  "resolution": {
+    "height": 950,
+    "width": 1512
+  },
+  "sampledRunExcluded": true,
+  "status": "completed",
+  "thermalStates": [
+    0
+  ]
+}

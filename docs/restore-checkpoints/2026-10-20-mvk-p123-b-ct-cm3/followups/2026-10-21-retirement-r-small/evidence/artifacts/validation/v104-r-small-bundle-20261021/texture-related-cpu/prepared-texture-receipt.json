@@ -1,0 +1,40 @@
+{
+  "assertions": 65,
+  "compileCommand": [
+    "xcrun",
+    "clang++",
+    "-std=c++17",
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-O1",
+    "-g",
+    "-fsanitize=address,undefined",
+    "-fno-omit-frame-pointer",
+    "-pthread",
+    "-I${WORKSPACE}/build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects",
+    "${WORKSPACE}/artifacts/validation/v104-r-small-bundle-20261021/texture-related-cpu/prepared-texture-exact.cpp",
+    "-o",
+    "${WORKSPACE}/artifacts/validation/v104-r-small-bundle-20261021/texture-related-cpu/prepared-texture-exact"
+  ],
+  "exactAdmissionBranchSHA256": "41b6dfd853e0f9e6174859d423f590e7e35a74ed5aab5b04e2f4234b63aad89f",
+  "exactLookupBranchSHA256": "617c0fe38d393ad0f7f07d2287654da0fab757895c4b328b004ea44d4d92f40a",
+  "exactRegistryMethodsSHA256": "1f5c01c7dedb1ed89f043914bcdf8437d516676b1fea99ce42e720470b1a1550",
+  "gpuExecuted": false,
+  "linkedMoltenVK": false,
+  "lookupAssertions": 20,
+  "originalAssertions": 45,
+  "passed": true,
+  "samplerAdmissionBranchSHA256": "a73c156f01e1bc81c313b2f1faf771e18773884c7c462f950f63e9bad08b4a89",
+  "samplerFixtureNativeTypeErased": true,
+  "sourceHashes": {
+    "Commands/MVKCommandEncoderState.h": "dac7a20c3963887d5f054322a2bf7884d347271768dd0a124649f7d25862dade",
+    "Commands/MVKCommandEncoderState.mm": "b1013a4a907210de7f527f550758824d1dfcf5d79b05266a984aa2a1e97e62e3",
+    "GPUObjects/MVKDevice.h": "dfa43fcfd4c280b2d8ae0d32dfd78ac0b13d0cdb2c5baccb31d551516c812caa",
+    "GPUObjects/MVKDevice.mm": "0d0985dcecd5ec9e728425a1635ccfb9df9c5fb1f7e3f8d86b4c7fa6eb1545e1",
+    "GPUObjects/MVKImage.h": "10061ddebb517af1879b229719438999fde7f5affdfd9afe7dfd42da9ed302da",
+    "GPUObjects/MVKImage.mm": "b0af01dbb52a90ed44bafc2f66f14e39c3b71f6ffa57510b75a90940d458fa94",
+    "GPUObjects/MVKMetal4PreparedResource.h": "d6222a17d4da569b0abd419f1c7e8b41c2f2101c7acf700e770aa02af7afa653"
+  },
+  "sourceUnchanged": true
+}

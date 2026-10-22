@@ -1,0 +1,14 @@
+--- a/GPUObjects/MVKMetal4Submission.mm
++++ b/GPUObjects/MVKMetal4Submission.mm
+@@ -886,7 +886,10 @@
+     }
+     assert(!epoch.writer);
+     if (storage.poisoned.load(std::memory_order_acquire)) { discardAllocatorLocked(storage, epoch); }
+-    if (epoch.state == MVKMetal4AllocatorState::Sealed) {
++    // Reclaim ended command bytes at genuine quiescence as well as at the
++    // seal bound. A cold reservation has no ended bytes and needs no reset.
++    if (epoch.state == MVKMetal4AllocatorState::Sealed ||
++        (epoch.state == MVKMetal4AllocatorState::Appendable && epoch.recordings)) {
+         removeAllocatorAvailableLocked(storage, epoch);
+         epoch.state = MVKMetal4AllocatorState::Resetting;
+         use.resetElected = true;

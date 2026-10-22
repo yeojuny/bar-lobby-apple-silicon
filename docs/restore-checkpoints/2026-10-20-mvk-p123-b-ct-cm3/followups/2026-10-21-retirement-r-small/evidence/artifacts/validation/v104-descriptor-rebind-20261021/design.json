@@ -1,0 +1,85 @@
+{
+  "BARReach": [
+    {
+      "fact": "The four CmdBindDescriptorSets callsites found in the active Zink C/C++ sources pass dynamicOffsetCount=0 and nullptr. They cover updated sets, identical-set rebinding across compatibility changes, the non-push fallback, and bindless binding.",
+      "limit": "Static source reach; no fresh call count, CPU sample, timing or BAR trace was collected. Other Vulkan applications/clients may use dynamic offsets.",
+      "lines": [
+        1289,
+        1305,
+        1467,
+        1484
+      ],
+      "path": "build/run66-mesa-src-20260903/src/gallium/drivers/zink/zink_descriptors.c"
+    },
+    {
+      "fact": "The R/Small graphics path already skips all per-stage implicit-data preparation when the affected descriptor sets use argument buffers and dynamicOffsetCount is zero. The PR must not reintroduce those loops.",
+      "path": "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCommandEncoderState.mm:1792"
+    },
+    {
+      "fact": "Argument-buffer mode is chosen per layout. Push layouts and some device/feature cases can use Off. Apple-family feature initialization enables native texture swizzle, but a global configuration/one source branch alone is not proof that every actual set uses argument buffers.",
+      "limit": "Do not declare all BAR implicit work absent. Off-mode size/swizzle preparation remains possible; the pinned PR itself marks this path changed unconditionally.",
+      "path": "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKDescriptorSet.mm:188"
+    },
+    {
+      "fact": "Three local invalidateMetal4ImplicitBuffer calls independently invalidate native slot revisions. A legacy changedData-only port leaves those calls, native registration and prepared-payload work unchanged.",
+      "path": "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCommandEncoderState.mm:2560"
+    }
+  ],
+  "costJudgment": {
+    "judgment": "This is too limited a proven target to justify introducing layout/meaningful-size comparison state in this bundle. Prioritize the independently accepted 11a proposal after parent selection.",
+    "notRemoved": [
+      "affected-set descriptorSetData clearing and resource-registration freshness",
+      "argument-buffer root restoration after helpers",
+      "M4 implicit slot-revision invalidation",
+      "native resource retain/proof/preparation traversal"
+    ],
+    "safeRemainingTarget": "With affected-set resource-use invalidation and native M4 invalidation retained, the immediate common argument-buffer/no-dynamic candidate mainly avoids legacy implicit-binding tag checks/clears. Graphics helper preparation is already skipped; compute still has a small set/layout walk.",
+    "uncertainty": "This is a priority judgment from source contracts, not measured zero benefit, a claimed regression, or proof that all duplicate descriptor work has been eliminated."
+  },
+  "decision": "Do not mechanically import the PR or add new tracking state now. The proposed product patch is deliberately empty; root may accept the hold or reopen a narrower experiment after the active comparison.",
+  "executionCounts": {
+    "GPU": 0,
+    "builds": 0,
+    "cleanup": 0,
+    "fixtureEdits": 0,
+    "games": 0,
+    "inventory": 0,
+    "productEdits": 0,
+    "tests": 0
+  },
+  "futureNarrowDesignIfReopened": {
+    "dataHandling": "Preserve offset consumption order, per-stage skipped offsets and final consumed-count assertion. No global descriptor cache, new resource lifetime sharing, temporary full-array copies or broad versioning of M3 descriptors.",
+    "eligibleOptimization": "Only legacy implicit dirty marking when actual copied values, effective size and an established layout/packing association are unchanged. Fresh, grown, unknown association or ambiguous partial state remains dirty.",
+    "holdRationale": "A concrete safe source patch is intentionally not supplied while the useful target is this limited; this document is not approval of an unimplemented general equality memo.",
+    "noNewMeasurementProject": "Use already available observations or the existing bounded comparison workflow if reopened. Do not create a collector merely to keep this candidate active.",
+    "offMode": "Leave Off-mode size/swizzle handling conservative unless a separate exact-value design is explicitly selected. The pinned PR does not optimize those copies.",
+    "reopenEvidence": [
+      "An existing BAR observation or profiler identifies meaningful legacy implicit payload rebinding in a reachable path, rather than only a descriptor bind count.",
+      "A revised upstream change supplies tested size/packing and mutable-resource safeguards appropriate to this local stack.",
+      "Root explicitly elects a bounded low-cost legacy experiment despite uncertain gain; it still requires independent proposal review and a separate implementation grant."
+    ]
+  },
+  "parentIndependence": {
+    "11a": "Engine-only proposal stays separate and byte-identical. No product, fixture, build, raw library, app, profile or pointer is changed here.",
+    "RAndSmall": "The relevant bind/helper/invalidation function bodies are identical in exact R and current Small; reserve modifies a separate earlier preparation region. Any future patch must use exact shared contexts and never copy the full Small state file onto R.",
+    "parentSelected": false
+  },
+  "requiredSafetyBoundaries": {
+    "arrayInitialization": "If pointer comparison is later introduced, explicitly zero-initialize the descriptor pointer array. That initialization alone has no established performance benefit and is not submitted as a standalone optimization here.",
+    "encoderAndHelpers": "First use after a fresh render/compute encoder must bind/register. Preserve graphics/compute stage-switch invalidation and helper-overwritten root/table-slot recovery. Never turn pointer equality into a whole-prepare early return.",
+    "layoutPacking": "Unchanged values and vector capacity do not establish unchanged effective payload length or packing. common._layout may already have been replaced by pipeline binding; it is not a previous descriptor-bind association. Any future memo needs an explicit valid previous association, conservative reset/copy/transition rules and meaningful length, or must miss conservatively.",
+    "legalSchedules": "Do not use an illegal update of an ordinary bound descriptor set to claim a Vulkan bug. Permitted UAB/unused-while-pending updates, host synchronization and actual encode timing need separate legal schedules.",
+    "pointerEquality": "Same descriptor-set pointer is not a contents/revision/incarnation proof. Preserve affected-set clearing in the first narrow port. Current M4 stamps are unavailable or ineligible in M3, foundation-OFF and some mutable cases.",
+    "unchangedScopes": "Keep reserve unit1, 11a proposal, allocator policy, pipeline/descriptor lifetime ownership, argument-buffer modes and all existing M4 invalidation unchanged.",
+    "zeroGrowth": "Mark new meaningful coverage/length dirty before mvkEnsureSize. Comparing after zero-initialized growth can miss [0,0] to [0,0,0] while Metal still holds a two-word payload."
+  },
+  "status": "read-only-design-complete-recommend-hold",
+  "unit": "third bundle: MVK PR2837",
+  "upstream": {
+    "localPreaudit": "artifacts/validation/v104-r-small-bundle-20261021/independent-2837-preaudit.md",
+    "pinnedHead": "5978a64ae125333457ebc35ab1f80321a7eb3924",
+    "pullRequest": "https://github.com/KhronosGroup/MoltenVK/pull/2837",
+    "reviewedCommit": "https://github.com/KhronosGroup/MoltenVK/commit/5978a64ae125333457ebc35ab1f80321a7eb3924",
+    "scope": "Comparison of the pinned change only, not a claim about later PR revisions or its current merge status."
+  }
+}

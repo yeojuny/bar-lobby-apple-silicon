@@ -1,0 +1,232 @@
+--- a/GPUObjects/MVKRenderPass.h
++++ b/GPUObjects/MVKRenderPass.h
+@@ -129,6 +129,15 @@
+ 										 MVKArrayRef<const VkClearValue> clearValues,
+ 										 bool isRenderingEntireAttachment,
+                                          bool loadOverride = false);
++#if MVK_BUILD_METAL4_FOUNDATION
++	void populateMTLRenderPassDescriptor(MVKCommandEncoder* cmdEncoder, MTL4RenderPassDescriptor* mtlRPDesc,
++										 uint32_t passIdx,
++										 MVKFramebuffer* framebuffer,
++										 MVKArrayRef<MVKImageView*const> attachments,
++										 MVKArrayRef<const VkClearValue> clearValues,
++										 bool isRenderingEntireAttachment,
++                                         bool loadOverride = false);
++#endif
+ 
+ 	/**
+ 	 * Populates the specified vector with the attachments that need to be cleared
+@@ -190,6 +199,15 @@
+ 	MVKRenderSubpass(MVKRenderPass* renderPass, const VkRenderingInfo* pRenderingInfo);
+ 
+ protected:
++	template<class Descriptor>
++	void populateMTLRenderPassDescriptorImpl(MVKCommandEncoder* cmdEncoder, Descriptor* mtlRPDesc,
++										 uint32_t passIdx,
++										 MVKFramebuffer* framebuffer,
++										 MVKArrayRef<MVKImageView*const> attachments,
++										 MVKArrayRef<const VkClearValue> clearValues,
++										 bool isRenderingEntireAttachment,
++                                         bool loadOverride);
++
+ 	friend class MVKRenderPass;
+ 	friend class MVKAttachmentDescription;
+ 
+--- a/GPUObjects/MVKRenderPass.mm
++++ b/GPUObjects/MVKRenderPass.mm
+@@ -154,7 +154,8 @@
+ 	return totalViewCount;
+ }
+ 
+-void MVKRenderSubpass::populateMTLRenderPassDescriptor(MVKCommandEncoder* cmdEncoder, MTLRenderPassDescriptor* mtlRPDesc,
++template<class Descriptor>
++void MVKRenderSubpass::populateMTLRenderPassDescriptorImpl(MVKCommandEncoder* cmdEncoder, Descriptor* mtlRPDesc,
+ 													   uint32_t passIdx,
+ 													   MVKFramebuffer* framebuffer,
+ 													   MVKArrayRef<MVKImageView*const> attachments,
+@@ -284,6 +285,17 @@
+         mtlRPDesc.defaultRasterSampleCount = mvkSampleCountFromVkSampleCountFlagBits(_defaultSampleCount);
+ 	}
+ 
++}
++
++void MVKRenderSubpass::populateMTLRenderPassDescriptor(MVKCommandEncoder* cmdEncoder, MTLRenderPassDescriptor* mtlRPDesc,
++													   uint32_t passIdx,
++													   MVKFramebuffer* framebuffer,
++													   MVKArrayRef<MVKImageView*const> attachments,
++													   MVKArrayRef<const VkClearValue> clearValues,
++													   bool isRenderingEntireAttachment,
++													   bool loadOverride) {
++	populateMTLRenderPassDescriptorImpl(cmdEncoder, mtlRPDesc, passIdx, framebuffer, attachments, clearValues, isRenderingEntireAttachment, loadOverride);
++
+ #if MVK_USE_METAL_PRIVATE_API
+ 	if (getMVKConfig().useMetalPrivateAPI) {
+ 		if ([mtlRPDesc respondsToSelector: @selector(setDitherEnabled:)]) {
+@@ -296,6 +308,18 @@
+ 	}
+ #endif
+ }
++
++#if MVK_BUILD_METAL4_FOUNDATION
++void MVKRenderSubpass::populateMTLRenderPassDescriptor(MVKCommandEncoder* cmdEncoder, MTL4RenderPassDescriptor* mtlRPDesc,
++													   uint32_t passIdx,
++													   MVKFramebuffer* framebuffer,
++													   MVKArrayRef<MVKImageView*const> attachments,
++													   MVKArrayRef<const VkClearValue> clearValues,
++													   bool isRenderingEntireAttachment,
++													   bool loadOverride) {
++	populateMTLRenderPassDescriptorImpl(cmdEncoder, mtlRPDesc, passIdx, framebuffer, attachments, clearValues, isRenderingEntireAttachment, loadOverride);
++}
++#endif
+ 
+ void MVKRenderSubpass::encodeStoreActions(MVKCommandEncoder* cmdEncoder,
+                                           bool isRenderingEntireAttachment,
+--- a/Commands/MVKCommandBuffer.h
++++ b/Commands/MVKCommandBuffer.h
+@@ -646,7 +646,7 @@
+     bool _metal4IndependentConversions = false;
+ 	std::vector<std::pair<MVKMTLBufferAllocation*, std::shared_ptr<void>>> _metal4CancelledAllocations;
+ 	std::vector<std::function<void()>> _metal4QueryCompletions;
+-	void beginMetal4RenderPass(MTLRenderPassDescriptor* descriptor, MVKCommandUse cmdUse,
++	void beginMetal4RenderPass(MTL4RenderPassDescriptor* descriptor, MVKCommandUse cmdUse,
+ 	                           uint64_t capturedEpoch = 0, uint64_t leadingOrdinaryDraws = 0);
+ #endif
+     void addActivatedQueries(MVKQueryPool* pQueryPool, uint32_t query, uint32_t queryCount);
+@@ -657,7 +657,8 @@
+ 	void beginNextMultiviewPass();
+ 	void encodeCommandsImpl(MVKCommand* command);
+ 	bool prepareRenderPassAttachmentBackings();
+-	bool prepareVisibilityResultBuffer(MTLRenderPassDescriptor* descriptor);
++	template<class Descriptor> bool prepareVisibilityResultBuffer(Descriptor* descriptor);
++	template<class Descriptor> bool populateRenderPassDescriptor(Descriptor* descriptor, bool isRestart);
+ 	void encodeGPUCounterSample(MVKGPUCounterQueryPool* mvkQryPool, uint32_t sampleIndex, MVKCounterSamplingFlags samplingPoints);
+ 	void encodeTimestampStageCounterSamples();
+ 	id<MTLFence> getStageCountersMTLFence();
+--- a/Commands/MVKCommandBuffer.mm
++++ b/Commands/MVKCommandBuffer.mm
+@@ -999,28 +999,9 @@
+ 	return _mtl4ComputeEncoder;
+ }
+ 
+-void MVKCommandEncoder::beginMetal4RenderPass(MTLRenderPassDescriptor* source, MVKCommandUse cmdUse,
++void MVKCommandEncoder::beginMetal4RenderPass(MTL4RenderPassDescriptor* desc, MVKCommandUse cmdUse,
+ 		uint64_t capturedEpoch, uint64_t leadingOrdinaryDraws) {
+ 	if (_metal4EncodingFailed) { return; }
+-	MTL4RenderPassDescriptor* desc = [[MTL4RenderPassDescriptor new] autorelease];
+-	for (NSUInteger i = 0; i < 8; ++i) { desc.colorAttachments[i] = source.colorAttachments[i]; }
+-	desc.depthAttachment = source.depthAttachment;
+-	desc.stencilAttachment = source.stencilAttachment;
+-	desc.renderTargetWidth = source.renderTargetWidth;
+-	desc.renderTargetHeight = source.renderTargetHeight;
+-	desc.renderTargetArrayLength = source.renderTargetArrayLength;
+-	desc.defaultRasterSampleCount = source.defaultRasterSampleCount;
+-	desc.visibilityResultBuffer = source.visibilityResultBuffer;
+-	desc.visibilityResultType = source.visibilityResultType;
+-	desc.rasterizationRateMap = source.rasterizationRateMap;
+-	desc.imageblockSampleLength = source.imageblockSampleLength;
+-	desc.threadgroupMemoryLength = source.threadgroupMemoryLength;
+-	desc.tileWidth = source.tileWidth;
+-	desc.tileHeight = source.tileHeight;
+-	if (getMetalFeatures().programmableSamplePositions) {
+-		auto positions = _state.updateSamplePositions();
+-		[desc setSamplePositions:positions.data() count:positions.size()];
+-	}
+ 	auto keepAttachment = [&](MTLRenderPassAttachmentDescriptor* att) {
+ 		for (id<MTLTexture> texture : {att.texture, att.resolveTexture}) {
+ 			if (texture && !_metal4Submission->addTextureResource(texture)) {
+@@ -1512,7 +1493,8 @@
+ }
+ 
+ 
+-bool MVKCommandEncoder::prepareVisibilityResultBuffer(MTLRenderPassDescriptor* descriptor) {
++template<class Descriptor>
++bool MVKCommandEncoder::prepareVisibilityResultBuffer(Descriptor* descriptor) {
+ 	auto fail = [&]() {
+ 		_visibilityResultBufferFailed = true;
+ 		_cmdBuffer->setConfigurationResult(reportError(VK_ERROR_OUT_OF_DEVICE_MEMORY,
+@@ -1561,29 +1543,8 @@
+ 	return true;
+ }
+ 
+-// Creates _mtlRenderEncoder and marks cached render state as dirty so it will be set into the _mtlRenderEncoder.
+-void MVKCommandEncoder::beginMetalRenderPass(MVKCommandUse cmdUse) {
+-	if (_attachmentBackingFailed || _visibilityResultBufferFailed) { return; }
+-
+-#if MVK_BUILD_METAL4_FOUNDATION
+-	bool handoff = isUsingMetal4() && cmdUse != kMVKCommandUseRestartSubpass &&
+-		_metal4PrepassProducer && _metal4PrepassProducer == _mtl4ComputeEncoder &&
+-		_metal4PrepassProducerEpoch == _metal4EncodingEpoch && !_mtl4RenderEncoder;
+-	uint64_t leadingOrdinaryDraws = handoff ? _metal4PrepassLeadingDraws : 0;
+-	if (handoff) {
+-		// Consume only the exact immediately preceding producer. All other
+-		// encoder endings discard the token and restore the full dependency.
+-		_metal4PrepassProducer = nil;
+-		_metal4PrepassProducerEpoch = _metal4PrepassLeadingDraws = 0;
+-	}
+-#endif
+-    endCurrentMetalEncoding();
+-#if MVK_BUILD_METAL4_FOUNDATION
+-	uint64_t capturedEpoch = handoff ? _metal4EncodingEpoch : 0;
+-#endif
+-
+-	bool isRestart = cmdUse == kMVKCommandUseRestartSubpass;
+-    MTLRenderPassDescriptor* mtlRPDesc = [MTLRenderPassDescriptor renderPassDescriptor];
++template<class Descriptor>
++bool MVKCommandEncoder::populateRenderPassDescriptor(Descriptor* mtlRPDesc, bool isRestart) {
+ 	getSubpass()->populateMTLRenderPassDescriptor(this, mtlRPDesc,
+ 												  _multiviewPassIndex,
+ 												  _pEncodingContext->getFramebuffer(),
+@@ -1592,7 +1553,7 @@
+ 												  _isRenderingEntireAttachment,
+ 												  isRestart);
+ 	if (_cmdBuffer->_needsVisibilityResultMTLBuffer) {
+-		if (!prepareVisibilityResultBuffer(mtlRPDesc)) { return; }
++		if (!prepareVisibilityResultBuffer(mtlRPDesc)) { return false; }
+ 	}
+ 	_hasMTLRenderEncoderVisibilityResultBuffer = (mtlRPDesc.visibilityResultBuffer != nil);
+ 
+@@ -1643,8 +1604,35 @@
+ 		[mtlRPDesc setSamplePositions: sampPosns.data() count: sampPosns.size()];
+ 	}
+ 
++	return true;
++}
++
++// Creates _mtlRenderEncoder and marks cached render state as dirty so it will be set into the _mtlRenderEncoder.
++void MVKCommandEncoder::beginMetalRenderPass(MVKCommandUse cmdUse) {
++	if (_attachmentBackingFailed || _visibilityResultBufferFailed) { return; }
++
++#if MVK_BUILD_METAL4_FOUNDATION
++	bool handoff = isUsingMetal4() && cmdUse != kMVKCommandUseRestartSubpass &&
++		_metal4PrepassProducer && _metal4PrepassProducer == _mtl4ComputeEncoder &&
++		_metal4PrepassProducerEpoch == _metal4EncodingEpoch && !_mtl4RenderEncoder;
++	uint64_t leadingOrdinaryDraws = handoff ? _metal4PrepassLeadingDraws : 0;
++	if (handoff) {
++		// Consume only the exact immediately preceding producer. All other
++		// encoder endings discard the token and restore the full dependency.
++		_metal4PrepassProducer = nil;
++		_metal4PrepassProducerEpoch = _metal4PrepassLeadingDraws = 0;
++	}
++#endif
++    endCurrentMetalEncoding();
++#if MVK_BUILD_METAL4_FOUNDATION
++	uint64_t capturedEpoch = handoff ? _metal4EncodingEpoch : 0;
++#endif
++
++	bool isRestart = cmdUse == kMVKCommandUseRestartSubpass;
+ #if MVK_BUILD_METAL4_FOUNDATION
+ 	if (isUsingMetal4()) {
++		MTL4RenderPassDescriptor* mtlRPDesc = [[MTL4RenderPassDescriptor new] autorelease];
++		if (!populateRenderPassDescriptor(mtlRPDesc, isRestart)) { return; }
+ 		beginMetal4RenderPass(mtlRPDesc, cmdUse, capturedEpoch, leadingOrdinaryDraws);
+ 		getState().beginGraphicsEncoding(getSampleCount());
+ 		if (!isRestart && !_isRenderingEntireAttachment) {
+@@ -1654,6 +1642,8 @@
+ 		return;
+ 	}
+ #endif
++	MTLRenderPassDescriptor* mtlRPDesc = [MTLRenderPassDescriptor renderPassDescriptor];
++	if (!populateRenderPassDescriptor(mtlRPDesc, isRestart)) { return; }
+     _mtlRenderEncoder = [_mtlCmdBuffer renderCommandEncoderWithDescriptor: mtlRPDesc];
+ 	retainIfImmediatelyEncoding(_mtlRenderEncoder);
+ 	_cmdBuffer->setMetalObjectLabel(_mtlRenderEncoder, getMTLRenderCommandEncoderName(cmdUse));

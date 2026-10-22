@@ -1,0 +1,15 @@
+{
+  "arguments": [
+    "/usr/bin/xcrun",
+    "clang++",
+    "-std=c++17",
+    "-O1",
+    "-g",
+    "-fsanitize=address,undefined",
+    "-fno-omit-frame-pointer",
+    "${WORKSPACE}/tools/tests/metal4-prepared-dependency-cpu.cpp",
+    "-o",
+    "${WORKSPACE}/artifacts/validation/v104-e-structure-20261021/cpu/metal4-prepared-dependency-cpu"
+  ],
+  "exitCode": 0
+}

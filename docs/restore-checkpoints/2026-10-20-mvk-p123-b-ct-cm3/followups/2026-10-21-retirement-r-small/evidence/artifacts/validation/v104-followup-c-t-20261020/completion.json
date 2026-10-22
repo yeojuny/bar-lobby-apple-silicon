@@ -1,0 +1,30 @@
+{
+  "A": "excluded on actual-use evidence",
+  "FPSBenefitUnmeasured": true,
+  "app": "${WORKSPACE}/artifacts/runtime/v104-descriptor-candidate-20261020/BAR.app",
+  "gameRuns": 0,
+  "included": [
+    "P1",
+    "P2",
+    "P3",
+    "B",
+    "C-T",
+    "C-M3"
+  ],
+  "independentReview": "independent-review-common.json",
+  "installed": false,
+  "latestPerformanceReport": "reports/v104-descriptor-performance-comparison-20261020.md",
+  "modelRecommendation": "Implementation SOL 6.1 High, separate review Astra High as authorized; requested settings recorded separately from behavioral model benchmarks.",
+  "packageReceipt": "package-receipt.json",
+  "packagedLibrarySHA256": "7ac71989ca27a99a2f9adf219ac0dcb12f16804cd35733bf7fd2c078635c5c4a",
+  "performanceStageNote": "Original validation was before measurement. Later 8-run comparison observed M3+7.5851%, M4-9.7959%; see report and raw samples.",
+  "protectedPriorAppsFullInventoriesExact": 3,
+  "protectedRecordedPinsExact": 57,
+  "published": false,
+  "rawLibrarySHA256": "443cae49eeca6814a7374cf510178416660e07238715e1ceb451f648e92eb60a",
+  "report": "reports/v104-descriptor-preparation-20261020.md",
+  "sourceReviewPinsStillExact": true,
+  "status": "complete-local-candidate",
+  "validationSummary": "validation-summary.json",
+  "vertexCache": "reviewed as separate experiment; not reintroduced; interaction and FPS benefit unproven"
+}

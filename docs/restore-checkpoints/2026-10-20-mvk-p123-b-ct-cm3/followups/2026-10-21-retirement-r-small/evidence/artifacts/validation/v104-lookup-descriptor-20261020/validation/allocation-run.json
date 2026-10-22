@@ -1,0 +1,8 @@
+{
+  "arguments": [
+    "${WORKSPACE}/artifacts/validation/v104-lookup-descriptor-20261020/validation/allocation-cpu"
+  ],
+  "exitCode": 0,
+  "seconds": 0.47050683300039964,
+  "stdout": "{\"scope\":\"exact production CPU allocation registry and bounded cache policy\",\"passed\":14,\"gpuExecuted\":false,\"tests\":[\"retired_identity_nodes_reused_with_fresh_flags\",\"identity_node_cache_is_bounded_and_survives_pack_transfer\",\"null_and_unknown_have_no_incarnation\",\"paired_shared_owners_preserve_one_incarnation\",\"same_address_reregistration_gets_fresh_incarnation\",\"invalid_or_unowned_cache_entries_stay_dynamic\",\"exact_256_entry_cap_preserves_overflow_fallback\",\"exact_8MiB_budget_and_expiry_recovery\",\"reused_recording_marks_usage_without_duplicate_membership\",\"unused_prior_recording_is_evicted_on_next_acquire\",\"owner_expiry_during_recording_keeps_owned_object_until_next_acquire\",\"old_incarnation_is_pruned_before_same_address_new_admission\",\"all_prune_callbacks_precede_caller_release_phase\",\"concurrent_registry_owners_preserve_outer_lifetime\"]}\n"
+}

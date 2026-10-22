@@ -1,0 +1,56 @@
+--- a/tools/tests/metal4-r49-lifetime-native.mm
++++ b/tools/tests/metal4-r49-lifetime-native.mm
+@@ -1802,6 +1802,45 @@
+     allocatorEpochEvidence = queue->resourcePoolStats(); allocatorEpochCompleted = iterations;
+ }
+ 
++void allocatorIdleFirstGPUReplay(id<MTLDevice> device) {
++    auto queue = makeQueue(device);
++    Owned<id<MTLBuffer>> output([device newBufferWithLength:512 options:MTLResourceStorageModeShared]);
++    require(output.get() != nil, "idle-first output allocation");
++    std::memset(output.get().contents, 0xA5, 512);
++    NSError* error = nil;
++    auto idle = begin(*queue), retained = begin(*queue); // Concurrent writers force two epochs.
++    CHECK_API(idle->end(&error)); idle.reset();
++    require(queue->resourcePoolStats().allocatorResets == 1, "first epoch is reset and available");
++    CHECK_API(retained->addBufferResource(output.get(), &error));
++    auto encoder = [retained->commandBuffer() computeCommandEncoder];
++    require(encoder != nil, "retained recording encoder");
++    [encoder fillBuffer:output.get() range:NSMakeRange(64, 128) value:0x31]; [encoder endEncoding];
++    CHECK_API(retained->end(&error)); // Busy epoch now follows the idle epoch in availability order.
++    auto selected = begin(*queue);
++    CHECK_API(selected->addBufferResource(output.get(), &error));
++    encoder = [selected->commandBuffer() computeCommandEncoder];
++    require(encoder != nil, "selected idle recording encoder");
++    [encoder fillBuffer:output.get() range:NSMakeRange(256, 128) value:0x72]; [encoder endEncoding];
++    finish(*queue, selected);
++    require(queue->resourcePoolStats().allocatorResets == 2 && !retained->completed(),
++            "selected idle epoch retires independently while the earlier ended recording stays owned");
++    auto bytes = static_cast<const uint8_t*>(output.get().contents);
++    for (unsigned index = 0; index < 512; ++index) {
++        require(bytes[index] == (index >= 256 && index < 384 ? 0x72 : 0xA5),
++                "only selected recording executed; retained bytes and guards are intact");
++    }
++    CHECK_API(queue->submit(retained, &error));
++    CHECK_API(retained->wait(kTimeoutMS, &error)); CHECK_API(queue->waitIdle(kTimeoutMS, &error));
++    require(retained->completed(), "retained recording can still submit after independent epoch reuse");
++    for (unsigned index = 0; index < 512; ++index) {
++        require(bytes[index] == (index >= 64 && index < 192 ? 0x31 :
++                                index >= 256 && index < 384 ? 0x72 : 0xA5),
++                "both allocator streams preserve exact output and guard bytes");
++    }
++    require(queue->resourcePoolStats().idleBytes <= MVKMetal4ResourcePoolStats::maxIdleBytes,
++            "independent quiescent reuse retains the shared idle budget");
++}
++
+ int main(int argc, const char* argv[]) {
+     if (argc > 2 || (argc == 2 && std::strcmp(argv[1], "--resource-registration") != 0)) { return 2; }
+     @autoreleasepool {
+@@ -1838,6 +1877,7 @@
+         }
+         test(@"resource_pack_creation_reuse_and_old_wrapper_detach", [&] { resourcePackReuse(device.get()); });
+         test(@"allocator_epochs_repeated_fill_signal_tail_and_guards", [&] { allocatorEpochGPUReplay(device.get(), true); });
++        test(@"allocator_idle_first_preserves_ended_recording_and_guards", [&] { allocatorIdleFirstGPUReplay(device.get()); });
+         test(@"resource_pack_timeout_cancel_and_idle_bounds", [&] { resourcePackBlockedAndCancel(device.get()); });
+         test(@"resource_pack_device_loss_does_not_recycle_inflight", [&] { resourcePackPoisoned(device.get()); });
+         test(@"compute_only_table_clear_and_encoding_snapshots", [&] { computeOnlyTableSnapshots(device.get()); });

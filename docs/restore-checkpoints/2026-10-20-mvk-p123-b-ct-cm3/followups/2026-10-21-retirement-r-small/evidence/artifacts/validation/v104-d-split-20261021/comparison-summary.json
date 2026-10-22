@@ -1,0 +1,484 @@
+{
+  "apps": {
+    "C": {
+      "app": "${WORKSPACE}/artifacts/runtime/v104-typed-buffer-callers-candidate-20261020/BAR.app",
+      "inventoryDigest": "4b24ae823be42b8195b7cdc855a87f31a12b09efe42042f67d8013937132ee0e",
+      "localCandidate": "v1.0.4",
+      "version": "1.0.3"
+    },
+    "L": {
+      "app": "${WORKSPACE}/artifacts/runtime/v104-d-split-lookup-only-20261021/BAR.app",
+      "inventoryDigest": "18dd0234509affa1be9f804eac6a64db1f80824e3993f2bd58a62f9246d86dbb",
+      "localCandidate": "v1.0.4",
+      "version": "1.0.3"
+    },
+    "S": {
+      "app": "${WORKSPACE}/artifacts/runtime/v104-d-split-stats-only-off-20261021/BAR.app",
+      "inventoryDigest": "b70f24a7c897b7fa81afe4029ec8e038a8d87781a52e0915d8db0b3f0e7927e0",
+      "localCandidate": "v1.0.4",
+      "version": "1.0.3"
+    }
+  },
+  "appsCLSDInventoriesExact": true,
+  "awakeReleased": true,
+  "buildComparison": {
+    "builds": [
+      {
+        "arguments": [
+          "/opt/homebrew/bin/ninja",
+          "-C",
+          "${WORKSPACE}/build/metal4-mvk-20261002",
+          "-j",
+          "4",
+          "MoltenVK"
+        ],
+        "diagnostics": false,
+        "exitCode": 0,
+        "label": "C",
+        "rawBytes": 6475440,
+        "rawSHA256": "ed983a2648efe352336ca0896e4682d7d9a61e02b56347a5d2680b8f8795ac9f",
+        "seconds": 25.21643050000057,
+        "sourcePins": {
+          "Commands/MVKCommandEncoderState.mm": "9b28b9a30f6e0d8a975b732dcaf8a49c8e14b32f9ba3157e4f9dce03b14276b9",
+          "GPUObjects/MVKMetal4PreparedResource.h": "d6222a17d4da569b0abd419f1c7e8b41c2f2101c7acf700e770aa02af7afa653",
+          "GPUObjects/MVKMetal4Submission.h": "b16b79f45cebe2ed69e8c0e8c5d8ba5ee4921a0156d7cbd70ca812da57bb18ce",
+          "GPUObjects/MVKMetal4Submission.mm": "5187e25c47ba6487599baf204b9461c539887597a3177bd163dd7da89dc47dcb"
+        }
+      },
+      {
+        "arguments": [
+          "/opt/homebrew/bin/ninja",
+          "-C",
+          "${WORKSPACE}/build/metal4-mvk-20261002",
+          "-j",
+          "4",
+          "MoltenVK"
+        ],
+        "diagnostics": false,
+        "exitCode": 0,
+        "label": "L",
+        "rawBytes": 6475584,
+        "rawSHA256": "814bd3608c1d7b772bf58e6dfa23666f38a022cd183064ae2ec74131450109a2",
+        "seconds": 24.20082929199998,
+        "sourcePins": {
+          "Commands/MVKCommandEncoderState.mm": "9b28b9a30f6e0d8a975b732dcaf8a49c8e14b32f9ba3157e4f9dce03b14276b9",
+          "GPUObjects/MVKMetal4PreparedResource.h": "b8190444dc557782fda486a435c98a523a06ec64a8ec48d2919658b35323df96",
+          "GPUObjects/MVKMetal4Submission.h": "b16b79f45cebe2ed69e8c0e8c5d8ba5ee4921a0156d7cbd70ca812da57bb18ce",
+          "GPUObjects/MVKMetal4Submission.mm": "dd47bd6dd749464d31c51e3b0a95701d1cc53d0e3b5016ce3260ed8294766394"
+        }
+      },
+      {
+        "arguments": [
+          "/opt/homebrew/bin/ninja",
+          "-C",
+          "${WORKSPACE}/build/metal4-mvk-20261002",
+          "-j",
+          "4",
+          "MoltenVK"
+        ],
+        "diagnostics": false,
+        "exitCode": 0,
+        "label": "S",
+        "rawBytes": 6475440,
+        "rawSHA256": "561159304b50481a3791ee8db64ca00446191b39a90fd59d71b91b0a9cf3aa16",
+        "seconds": 24.383229874998506,
+        "sourcePins": {
+          "Commands/MVKCommandEncoderState.mm": "01a168fe8574a584cf645c93442c0605eda6bf7fe98a10a2eebd8fd5b926871b",
+          "GPUObjects/MVKMetal4PreparedResource.h": "d6222a17d4da569b0abd419f1c7e8b41c2f2101c7acf700e770aa02af7afa653",
+          "GPUObjects/MVKMetal4Submission.h": "8a540f704da6785320b472cc260509e6b4891177a02c2997fd757058af97b947",
+          "GPUObjects/MVKMetal4Submission.mm": "a824bf151f772f377ce48ae47a861d6cde1734aba076571de3e709cf606ae432"
+        }
+      }
+    ],
+    "comparisons": [
+      {
+        "differentSections": [],
+        "fileBackedSectionsExact": true,
+        "left": "C",
+        "rawByteExact": true,
+        "right": "priorC"
+      },
+      {
+        "differentSections": [
+          "__TEXT,__objc_stubs",
+          "__TEXT,__stubs"
+        ],
+        "fileBackedSectionsExact": false,
+        "left": "S",
+        "rawByteExact": false,
+        "right": "C"
+      },
+      {
+        "differentSections": [
+          "__TEXT,__objc_stubs",
+          "__TEXT,__stubs"
+        ],
+        "fileBackedSectionsExact": false,
+        "left": "L",
+        "rawByteExact": false,
+        "right": "D"
+      }
+    ],
+    "restoredD": {
+      "arguments": [
+        "/opt/homebrew/bin/ninja",
+        "-C",
+        "${WORKSPACE}/build/metal4-mvk-20261002",
+        "-j",
+        "4",
+        "MoltenVK"
+      ],
+      "diagnostics": false,
+      "exitCode": 0,
+      "label": "D-restored",
+      "rawBytes": 6475584,
+      "rawSHA256": "a79bf2bf5409e971d501907a34e4ac48221b92ba1ac1953e697bee3da9c457a4",
+      "seconds": 24.59272124999916,
+      "sourcePins": {
+        "Commands/MVKCommandEncoderState.mm": "01a168fe8574a584cf645c93442c0605eda6bf7fe98a10a2eebd8fd5b926871b",
+        "GPUObjects/MVKMetal4PreparedResource.h": "b8190444dc557782fda486a435c98a523a06ec64a8ec48d2919658b35323df96",
+        "GPUObjects/MVKMetal4Submission.h": "8a540f704da6785320b472cc260509e6b4891177a02c2997fd757058af97b947",
+        "GPUObjects/MVKMetal4Submission.mm": "76f492804b8129908c305e16ca36fee79ff1890b5fa925c7539752e690817516"
+      }
+    },
+    "sourceAndConfigRestored": true,
+    "status": "completed-four-source-state-builds"
+  },
+  "cleanup": {
+    "leaves": 3992,
+    "logicalBytes": 115427994,
+    "physicalBytesMeasured": false,
+    "roots": 72
+  },
+  "conditions": {
+    "camera": {
+      "dist": 2254.7705078125,
+      "dx": 0,
+      "dy": -0.924302399158,
+      "dz": -0.381660997868,
+      "fov": 45,
+      "mode": 2,
+      "name": "spring",
+      "px": 4096,
+      "py": 254.770629882813,
+      "pz": 3072,
+      "rx": 2.75,
+      "ry": 0,
+      "rz": 0
+    },
+    "game": "Beyond All Reason",
+    "map": "Seths Ravine Remake 1.3.1",
+    "officialCommand": "luarules benchmark armbull armbull 80 8 1400",
+    "quality": {
+      "config": {
+        "MSAA": 0,
+        "MSAALevel": 0,
+        "MinSampleShadingRate": 0,
+        "VSync": 0,
+        "VSyncGame": 0
+      },
+      "glSamples": 0,
+      "glSamplesConfirmed4": false,
+      "glSamplesScope": "DrawScreen current framebuffer; resolved UI targets may report 0 or 1",
+      "mapEdge": {
+        "actual": 0.5,
+        "exceptionApplied": true,
+        "voidGround": false,
+        "voidWater": true,
+        "wanted": true,
+        "widgetActive": false
+      },
+      "optionValues": {
+        "advmapshading": true,
+        "attackrange_numrangesmult": 1,
+        "bloomdeferred": true,
+        "bloomdeferred_quality": 3,
+        "camera": 3,
+        "cusgl4": true,
+        "decals": true,
+        "decalsgl4": true,
+        "distortioneffects": true,
+        "fogdiaglines": 0,
+        "grass": true,
+        "lighteffects": true,
+        "lighteffects_nanoparticlelights": true,
+        "lighteffects_screenspaceshadows": 4,
+        "limitidlefps": false,
+        "limitoffscreenfps": false,
+        "losrange": true,
+        "mapedgeextension": 0.5,
+        "msaa": 1,
+        "particles": 40000,
+        "preset": 5,
+        "shadowslider": 6,
+        "snow": true,
+        "ssao": true,
+        "ssao_quality": 3,
+        "vsync": 1,
+        "water": 2
+      },
+      "optionsVerified": 20,
+      "ultraPreset": 5,
+      "ultraVerified": true
+    },
+    "resolution": {
+      "height": 950,
+      "width": 1512
+    },
+    "seed": 7654321,
+    "workload": {
+      "placementSpan": 1400,
+      "populationThresholdIsNotHardCap": true,
+      "populationThresholdPerTeam": 80,
+      "rampIncluded": true,
+      "replenishBatchPerTeam": 8,
+      "replenishEverySimulationFrames": 3,
+      "requestedSimulationSpeed": 1,
+      "unitTypeOpponent": "armbull",
+      "unitTypeOwn": "armbull"
+    }
+  },
+  "executionOrder": [
+    {
+      "FPS": 44.420768737793,
+      "app": "${WORKSPACE}/artifacts/runtime/v104-typed-buffer-callers-candidate-20261020/BAR.app",
+      "backend": "metal4",
+      "drawIntervals": 1331,
+      "ordinal": 1,
+      "p95Ms": 31.197999954224,
+      "p99Ms": 53.271999359131,
+      "receipt": "${WORKSPACE}/artifacts/validation/v104-d-split-20261021/performance/1-C-metal4/sessions/lobby-no-native-hook-1792572354910/execution-receipt.json",
+      "receiptSHA256": "db8d1588369086f4c52c4d577393c6f57bd1fecfebd183f31b0ac9211e7fcfbf",
+      "role": "C",
+      "simulationFrames": 900,
+      "version": "1.0.3"
+    },
+    {
+      "FPS": 44.145626068115,
+      "app": "${WORKSPACE}/artifacts/runtime/v104-d-split-lookup-only-20261021/BAR.app",
+      "backend": "metal4",
+      "drawIntervals": 1331,
+      "ordinal": 2,
+      "p95Ms": 29.931999206543,
+      "p99Ms": 49.331001281738,
+      "receipt": "${WORKSPACE}/artifacts/validation/v104-d-split-20261021/performance/2-L-metal4/sessions/lobby-no-native-hook-1792572475597/execution-receipt.json",
+      "receiptSHA256": "e5d20a8d1cc9f87c15b573fca66b6cdcea435ddb753f4b01ea78cdccb77cd17a",
+      "role": "L",
+      "simulationFrames": 900,
+      "version": "1.0.3"
+    },
+    {
+      "FPS": 43.627777099609,
+      "app": "${WORKSPACE}/artifacts/runtime/v104-d-split-stats-only-off-20261021/BAR.app",
+      "backend": "metal4",
+      "drawIntervals": 1315,
+      "ordinal": 3,
+      "p95Ms": 30.885000228882,
+      "p99Ms": 49.014999389648,
+      "receipt": "${WORKSPACE}/artifacts/validation/v104-d-split-20261021/performance/3-S-metal4/sessions/lobby-no-native-hook-1792572604251/execution-receipt.json",
+      "receiptSHA256": "16cfeaaca8b5476246c6f3f4a71be2d466b4adc27ce5ce6911aaecea6b5bd2ce",
+      "role": "S",
+      "simulationFrames": 900,
+      "version": "1.0.3"
+    },
+    {
+      "FPS": 44.965362548828,
+      "app": "${WORKSPACE}/artifacts/runtime/v104-d-split-stats-only-off-20261021/BAR.app",
+      "backend": "metal4",
+      "drawIntervals": 1347,
+      "ordinal": 4,
+      "p95Ms": 30.07200050354,
+      "p99Ms": 45.130001068115,
+      "receipt": "${WORKSPACE}/artifacts/validation/v104-d-split-20261021/performance/4-S-metal4/sessions/lobby-no-native-hook-1792572731038/execution-receipt.json",
+      "receiptSHA256": "3534a8c2f298f9ed0eb3825977587f75a3b0b044de701077bed0cff1655651a1",
+      "role": "S",
+      "simulationFrames": 900,
+      "version": "1.0.3"
+    },
+    {
+      "FPS": 45.463203430176,
+      "app": "${WORKSPACE}/artifacts/runtime/v104-d-split-lookup-only-20261021/BAR.app",
+      "backend": "metal4",
+      "drawIntervals": 1362,
+      "ordinal": 5,
+      "p95Ms": 29.788999557495,
+      "p99Ms": 47.744998931885,
+      "receipt": "${WORKSPACE}/artifacts/validation/v104-d-split-20261021/performance/5-L-metal4/sessions/lobby-no-native-hook-1792572849906/execution-receipt.json",
+      "receiptSHA256": "47d50296ebe8493c2dc76ef0ca29454b9c0b9ecf87573317ae1f8e37db7533da",
+      "role": "L",
+      "simulationFrames": 900,
+      "version": "1.0.3"
+    },
+    {
+      "FPS": 46.548225402832,
+      "app": "${WORKSPACE}/artifacts/runtime/v104-typed-buffer-callers-candidate-20261020/BAR.app",
+      "backend": "metal4",
+      "drawIntervals": 1395,
+      "ordinal": 6,
+      "p95Ms": 28.788999557495,
+      "p99Ms": 41.693000793457,
+      "receipt": "${WORKSPACE}/artifacts/validation/v104-d-split-20261021/performance/6-C-metal4/sessions/lobby-no-native-hook-1792572969760/execution-receipt.json",
+      "receiptSHA256": "065e1e88b87e747d491d48552d329deea25fa842fd3f119f2a201967be4287c1",
+      "role": "C",
+      "simulationFrames": 900,
+      "version": "1.0.3"
+    },
+    {
+      "FPS": 52.359218597412,
+      "app": "${WORKSPACE}/artifacts/runtime/v104-d-split-stats-only-off-20261021/BAR.app",
+      "backend": "metal3",
+      "drawIntervals": 1569,
+      "ordinal": 7,
+      "p95Ms": 26.882999420166,
+      "p99Ms": 41.118000030518,
+      "receipt": "${WORKSPACE}/artifacts/validation/v104-d-split-20261021/performance/7-S-metal3/sessions/lobby-no-native-hook-1792573087371/execution-receipt.json",
+      "receiptSHA256": "d5341da5061daaa0867b3435b17f71ad94b453fd476f4793b66166382d3fa75d",
+      "role": "S",
+      "simulationFrames": 900,
+      "version": "1.0.3"
+    },
+    {
+      "FPS": 53.429534912109,
+      "app": "${WORKSPACE}/artifacts/runtime/v104-d-split-lookup-only-20261021/BAR.app",
+      "backend": "metal3",
+      "drawIntervals": 1601,
+      "ordinal": 8,
+      "p95Ms": 26.974000930786,
+      "p99Ms": 36.585998535156,
+      "receipt": "${WORKSPACE}/artifacts/validation/v104-d-split-20261021/performance/8-L-metal3/sessions/lobby-no-native-hook-1792573204909/execution-receipt.json",
+      "receiptSHA256": "2452f86f0d158fbc8f1c046e84904502705b482cbaa53f334055ccbf7d20c2bf",
+      "role": "L",
+      "simulationFrames": 900,
+      "version": "1.0.3"
+    },
+    {
+      "FPS": 50.151435852051,
+      "app": "${WORKSPACE}/artifacts/runtime/v104-typed-buffer-callers-candidate-20261020/BAR.app",
+      "backend": "metal3",
+      "drawIntervals": 1503,
+      "ordinal": 9,
+      "p95Ms": 31.506000518799,
+      "p99Ms": 54.543998718262,
+      "receipt": "${WORKSPACE}/artifacts/validation/v104-d-split-20261021/performance/9-C-metal3/sessions/lobby-no-native-hook-1792573322935/execution-receipt.json",
+      "receiptSHA256": "0b1e915bac762707a393af0c3c0761a53daaf410a2d1ce047bc52750b99d4fca",
+      "role": "C",
+      "simulationFrames": 900,
+      "version": "1.0.3"
+    },
+    {
+      "FPS": 53.154857635498,
+      "app": "${WORKSPACE}/artifacts/runtime/v104-typed-buffer-callers-candidate-20261020/BAR.app",
+      "backend": "metal3",
+      "drawIntervals": 1593,
+      "ordinal": 10,
+      "p95Ms": 26.653999328613,
+      "p99Ms": 35.958999633789,
+      "receipt": "${WORKSPACE}/artifacts/validation/v104-d-split-20261021/performance/10-C-metal3/sessions/lobby-no-native-hook-1792573441551/execution-receipt.json",
+      "receiptSHA256": "c817039ef0d5f04add8199cea6d5b92d3d53fda0fc2310d893e466ace352eb5e",
+      "role": "C",
+      "simulationFrames": 900,
+      "version": "1.0.3"
+    },
+    {
+      "FPS": 52.834331512451,
+      "app": "${WORKSPACE}/artifacts/runtime/v104-d-split-lookup-only-20261021/BAR.app",
+      "backend": "metal3",
+      "drawIntervals": 1583,
+      "ordinal": 11,
+      "p95Ms": 27.190999984741,
+      "p99Ms": 38.512001037598,
+      "receipt": "${WORKSPACE}/artifacts/validation/v104-d-split-20261021/performance/11-L-metal3/sessions/lobby-no-native-hook-1792573558420/execution-receipt.json",
+      "receiptSHA256": "be63c5717fbeb6a701365bf2830af1330bb192bd046cecdc9a91f2980912735d",
+      "role": "L",
+      "simulationFrames": 900,
+      "version": "1.0.3"
+    },
+    {
+      "FPS": 52.466598510742,
+      "app": "${WORKSPACE}/artifacts/runtime/v104-d-split-stats-only-off-20261021/BAR.app",
+      "backend": "metal3",
+      "drawIntervals": 1572,
+      "ordinal": 12,
+      "p95Ms": 27.434999465942,
+      "p99Ms": 38.138000488281,
+      "receipt": "${WORKSPACE}/artifacts/validation/v104-d-split-20261021/performance/12-S-metal3/sessions/lobby-no-native-hook-1792573677068/execution-receipt.json",
+      "receiptSHA256": "d4e6ae01a589d5f7373c54cded0686afddb768d8141da4539d01a51573d20efc",
+      "role": "S",
+      "simulationFrames": 900,
+      "version": "1.0.3"
+    }
+  ],
+  "groups": {
+    "metal3": {
+      "C": {
+        "FPS": [
+          50.151435852051,
+          53.154857635498
+        ],
+        "meanFPS": 51.6531467437745,
+        "meanP95Ms": 29.079999923705998
+      },
+      "L": {
+        "FPS": [
+          53.429534912109,
+          52.834331512451
+        ],
+        "changeFromCPercent": 2.862916514730518,
+        "meanFPS": 53.13193321228,
+        "meanP95Ms": 27.0825004577635
+      },
+      "S": {
+        "FPS": [
+          52.359218597412,
+          52.466598510742
+        ],
+        "changeFromCPercent": 1.4708916265475658,
+        "meanFPS": 52.412908554077006,
+        "meanP95Ms": 27.158999443054
+      }
+    },
+    "metal4": {
+      "C": {
+        "FPS": [
+          44.420768737793,
+          46.548225402832
+        ],
+        "meanFPS": 45.4844970703125,
+        "meanP95Ms": 29.9934997558595
+      },
+      "L": {
+        "FPS": [
+          44.145626068115,
+          45.463203430176
+        ],
+        "changeFromCPercent": -1.4951958688598666,
+        "meanFPS": 44.8044147491455,
+        "meanP95Ms": 29.860499382019
+      },
+      "S": {
+        "FPS": [
+          43.627777099609,
+          44.965362548828
+        ],
+        "changeFromCPercent": -2.61171898692788,
+        "meanFPS": 44.296569824218494,
+        "meanP95Ms": 30.478500366211
+      }
+    }
+  },
+  "limitations": [
+    "Small n2 per app/backend, OS/user background load not fully controlled.",
+    "Stats-only compile OFF removes new counts; standard text/data sections equal C but linker stub differences exist.",
+    "Historical FPS not pooled; timestamp and sampled-exit unresolved cases not claimed repaired.",
+    "SDL native display/Space transition deferred while hidden; 1512x950 safe default1x drawable."
+  ],
+  "nPerAppBackend": 2,
+  "powerObservations": 112,
+  "screenRestored": true,
+  "sourceBuildDExactRestored": true,
+  "status": "completed-12-single-patch-comparison-sessions",
+  "thermalStates": [
+    0
+  ],
+  "userProfilesAndLauncherExact": true
+}

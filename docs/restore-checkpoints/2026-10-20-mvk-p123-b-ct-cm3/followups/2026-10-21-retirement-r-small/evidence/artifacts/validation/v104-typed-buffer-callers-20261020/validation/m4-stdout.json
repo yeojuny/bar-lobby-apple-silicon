@@ -1,0 +1,60 @@
+{
+  "failed": 0,
+  "gameExecuted": false,
+  "native_expected": true,
+  "passed": 7,
+  "planned": 7,
+  "suite": "selected_existing_typed_buffer_paths",
+  "tests": [
+    {
+      "completed_after": 1,
+      "completed_before": 0,
+      "name": "indexed_render_readback",
+      "native_queue": true,
+      "passed": true
+    },
+    {
+      "completed_after": 1,
+      "completed_before": 0,
+      "name": "fill_update_aligned_copy_guards",
+      "native_queue": true,
+      "passed": true
+    },
+    {
+      "completed_after": 2,
+      "completed_before": 0,
+      "name": "independent_copy_distinct_allocations",
+      "native_queue": true,
+      "passed": true
+    },
+    {
+      "completed_after": 2,
+      "completed_before": 0,
+      "name": "independent_copy_same_buffer",
+      "native_queue": true,
+      "passed": true
+    },
+    {
+      "completed_after": 1,
+      "completed_before": 0,
+      "name": "copy_compute_fill_compute_continuation",
+      "native_queue": true,
+      "passed": true
+    },
+    {
+      "completed_after": 6,
+      "completed_before": 0,
+      "name": "timestamp_packed_narrow_strided_copy_reset_reuse",
+      "native_queue": true,
+      "passed": true
+    },
+    {
+      "completed_after": 2,
+      "completed_before": 0,
+      "name": "parallel_byte_copy_pool_reset",
+      "native_queue": true,
+      "passed": true
+    }
+  ],
+  "windowCreated": false
+}

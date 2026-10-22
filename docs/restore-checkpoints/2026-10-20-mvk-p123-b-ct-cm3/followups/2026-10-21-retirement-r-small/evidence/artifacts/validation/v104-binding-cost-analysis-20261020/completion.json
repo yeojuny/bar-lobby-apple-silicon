@@ -1,0 +1,36 @@
+{
+  "decision": {
+    "allocatorPassSynchronizationImplementationReady": false,
+    "boundedImplementationReady": true,
+    "fpsGainProven": false,
+    "newDescriptorCacheOrSharingImplementationReady": false,
+    "nextDescriptorStep": "Reuse existing optional encoding counters with at most 26 fixed path/outcome fields before choosing a descriptor preparation redesign.",
+    "selected": "Existing typed Buffer registration API at residual indexed-draw, buffer-copy and query-copy callers; typed transfer-helper pair belongs to same optional bounded source unit."
+  },
+  "designCompleted": true,
+  "designThread": "${THREAD_ID}",
+  "designTurn": "${THREAD_ID}",
+  "implemented": false,
+  "launcherMatches": {
+    "HEAD": true,
+    "index": true,
+    "status": true
+  },
+  "mismatches": [],
+  "newBuildExecuted": false,
+  "newGameExecuted": false,
+  "newTestExecuted": false,
+  "receiptSHA256": "ce46e34172adfa86df89258198fa2c45c9ee2656c1e84b04b01bd1d92b82d3ae",
+  "report": "${WORKSPACE}/reports/v104-binding-cost-design-20261020.md",
+  "reportSHA256": "bdfda3148dcba9ecd5a1778493d62f9d89d139aa43bd8fb807fffedeee898607",
+  "rootCheckedInputs": {
+    "additional": 8,
+    "binary": 2,
+    "input": 5,
+    "sample": 1,
+    "source": 22
+  },
+  "runtimeExitObservationUnresolved": true,
+  "scopeNote": "Hash preservation applies to listed inputs, not a full workspace or app inventory.",
+  "status": "analysis-design-complete"
+}

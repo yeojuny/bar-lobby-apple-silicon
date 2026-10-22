@@ -1,0 +1,84 @@
+{
+  "actionableFindings": [],
+  "actualHeaderAtRead": "Combined-next",
+  "actualHeaderSHA256AtRead": "a3bde09f61f9ec0b0f1f366eb51c079a60d439e7eacf0b0f8c5086cec219bbbc",
+  "contracts": {
+    "beforeAfterAdmissionAndProofIdentityPreserved": true,
+    "boundsCheckedBeforeStageIndex": true,
+    "cachedStageNotAnApproval": true,
+    "clearMemoBeforeMap": true,
+    "copyAndMoveAllDeleted": true,
+    "existingOwnerAlreadyNoncopyableMutex": true,
+    "explicitDefaultConstructor": true,
+    "fullValidationAndRefreshCallbackOrderingPreserved": true,
+    "keyRemainsScriptOnly": true,
+    "mapNodeReferencesSurviveRehash": true,
+    "max128ExistingUpdateOverflowFallbackPreserved": true,
+    "memoSlots": 6,
+    "noEraseExceptClear": true,
+    "noNegativeCaching": true,
+    "noNewNativeOwnershipResidencyRecordingSharingOrSynchronization": true,
+    "outOfRangeStageMapFallback": true,
+    "positiveLocationMemoOnly": true
+  },
+  "createdUTC": "2026-10-21T19:44:15.306416+00:00",
+  "fixtureReview": {
+    "actualHeaderWithFrozenReference": true,
+    "comparesCompletePartialAndRevisionStableStampCallbackCounts": true,
+    "deterministicRandomTraceSteps": 50000,
+    "path": "tools/tests/metal4-group-locator-cpu.cpp",
+    "sha256": "554fce2fa266714bab05c083544a9427b15973302a3f8911b32b91d72e940a9d",
+    "targetedCoverage": [
+      "rehash after stage0 memo while stage1 grows map to128",
+      "admission cap, existing node update and refused overflow",
+      "same script overwritten from another stage",
+      "stage6/31/UINT32_MAX fallback",
+      "clear then same script reuse",
+      "expired weak proof, revision mismatch and unstable epoch refresh",
+      "partial residual proof, changed incarnation, drawable epoch",
+      "invalid epoch/mask/script refusal",
+      "metadata weak reference released on clear",
+      "copy/move deleted type traits",
+      "six-stage1200 hot lookup hash operation observation without product instrumentation"
+    ]
+  },
+  "independentBindings": {
+    "activeHeaderMatchedFrozenCombinedNextAtRead": true,
+    "bothNextHeadersEqualOnlyExactClassReplacement": true,
+    "countedClassesExactBodiesExceptNamesAndHasher": true,
+    "referenceClassExactFrozenBodyExceptName": true,
+    "twoBaselineGroupCacheBeforeBodiesEqual": true
+  },
+  "independentReadOnlyReview": true,
+  "inputSHA256": {
+    "Combined-next.h": "a3bde09f61f9ec0b0f1f366eb51c079a60d439e7eacf0b0f8c5086cec219bbbc",
+    "Combined-next.patch": "1477e6f4593395ffc234ecc6fef32c626be4efe51722868c234f482535620ba6",
+    "Combined-preimage.h": "b8190444dc557782fda486a435c98a523a06ec64a8ec48d2919658b35323df96",
+    "R-next.h": "dfc0ddbd4f7296542306c1a6ce72d1a1282a44dc807d98cdc187771a14be0627",
+    "R-next.patch": "b772409bcd3ed1ccef3f87c59e23ecbf5920587e55dc938a311ff07bc619ca26",
+    "R-preimage.h": "d6222a17d4da569b0abd419f1c7e8b41c2f2101c7acf700e770aa02af7afa653",
+    "application.json": "b98eacc380e02808be4119f891661ad54ab3a481dce495dae143966baaf423eb",
+    "before.json": "16f9cc6ed27042706db70226d4ba80efd7ee9fe46bff11b4e4e498835da9da9a",
+    "counted-group-caches.inc": "4a3c7c81da9aa7b83e7440ed5176183dd4288caca0b39d04fbcc4f50a3a81222",
+    "group-cache-after.inc": "13116961ba8d5d0bab78009c2bee3db4423dca335117f029399d3bd565e9de6f",
+    "group-cache-before.inc": "c83c870223f225b52515d6063624b399154473231248a41b9e247ca1e3618708",
+    "reference-group-cache.inc": "05134d0fa627e1d02b434a7f14fcd7ce7c0d0331aec26de56df6ef1c36ba16c8",
+    "validate.py": "70d8e07719328fd02ff56eec05f1645bbee24027f33b3090f267d261e2010119"
+  },
+  "limits": [
+    "Source/fixture review only: final per-variant builds, test outputs, packaged-runtime SHA and signatures await separate evidence.",
+    "No new thread-safety or reentrant mutation contract is introduced; cache still belongs to one recording and existing synchronization rules.",
+    "Counting hasher observation is a test-only operation-count experiment, not a timing/FPS measurement.",
+    "Six script/pointer slots add96 bytes on the targeted64-bit ABI; additional branch/clear/space costs mean net FPS or memory benefit is not established.",
+    "A newly inserted node is not immediately memoized, so the first subsequent lookup may still use the map; this is a bounded warm-up cost, not a correctness issue.",
+    "The native fixture uses synthetic CPU proof metadata for cache lifetime and independently validates GPU output ownership; it does not turn synthetic metadata into resource provenance."
+  ],
+  "nextHeaderSHA256": {
+    "Combined": "a3bde09f61f9ec0b0f1f366eb51c079a60d439e7eacf0b0f8c5086cec219bbbc",
+    "R": "dfc0ddbd4f7296542306c1a6ce72d1a1282a44dc807d98cdc187771a14be0627"
+  },
+  "productScope": "Only MVKMetal4PreparedGroupCache in GPUObjects/MVKMetal4PreparedResource.h, identically on R and Combined baselines",
+  "reviewer": "/root/independent_review",
+  "reviewerExecutedBuildTestsGPUAppsOrBenchmarks": false,
+  "status": "source-review-passed-validation-and-packages-pending"
+}

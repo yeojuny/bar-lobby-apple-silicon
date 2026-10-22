@@ -1,0 +1,47 @@
+{
+  "E32NineFrozenPinsMatch": true,
+  "PreparedResourceExactD": true,
+  "SubmissionExactDPlusTwoRAllocatorFunctions": true,
+  "actualProductPins": {
+    "Commands/MVKCommandBuffer.h": "76ec3c345cccfae09d5e0391d2600ed7f2ff241dc796cc021a6521a84803e973",
+    "Commands/MVKCommandBuffer.mm": "d456cbd32406550ec782fd19e3125622aa30e8b87dba3bb447e4f2125cdaacda",
+    "Commands/MVKCommandEncoderState.mm": "d229ff2287e51823ba1ae63fc52823b43e4bb68c16ee115107e71e10ac2916c9",
+    "Commands/MVKMetal4DependencyScopes.h": "be76d4a7fec94a609d687d7d1cd0a93e19b37e96e45e71726180e418048ff568",
+    "GPUObjects/MVKMetal4PreparedResource.h": "b8190444dc557782fda486a435c98a523a06ec64a8ec48d2919658b35323df96",
+    "GPUObjects/MVKMetal4Submission.h": "8a540f704da6785320b472cc260509e6b4891177a02c2997fd757058af97b947",
+    "GPUObjects/MVKMetal4Submission.mm": "b09ff12f09204889bb24986ff6ca4d14a4f064f2941df2da8a27572a593ffbc7",
+    "GPUObjects/MVKPipeline.h": "d8249943835749688ebebcadfa6eb1e43dc51e31a37557ec08b6996f271a57ed",
+    "GPUObjects/MVKPipeline.mm": "6a8c37b9964191a18479fc41f352e7d439f5b8aac87d0b01782409ca7c79f080",
+    "GPUObjects/MVKRenderPass.h": "b602f0bdbd5654c1a64a663ad9fa5e74a97f9878ca409deb3f36c88398ee5dc4",
+    "GPUObjects/MVKRenderPass.mm": "bd13d806ec4677d1188ab64b03eeb9ee1e2d503334d86e7f22b12ddb77c728a1"
+  },
+  "allocatorCount": 32,
+  "combinedFromRPatchSHA256": "4b9a928cb0ef5e60a31a7b538c83f352cfb02850323aed062ebcc408f998835e",
+  "diagnosticsRequiredFinal": 0,
+  "executedBuildTestGPUApp": false,
+  "findings": [],
+  "independentInMemoryExactPatchReplay": {
+    "D": 17,
+    "E1": 4,
+    "E2": 13,
+    "E3": 2,
+    "allStageHashesMatch": true,
+    "allUniqueContext": true
+  },
+  "patchSHA256": {
+    "D": "fbabd4cdadc3254d0187195b9b428a0cb5027e00c17fd3dd7eef2fe4c38cca14",
+    "E1": "ac7a989b3f271c46fb41f3840103ac16a5b7c7793e249055fb06755928862d02",
+    "E2": "76946f8a1e837b79a7f72bba4181770c17979f345953755c598afbbbb2fc472d",
+    "E3": "5ee3c79d558ff455e406653adb03ece944ec6c4ad8493d2239048fd674b9c02c"
+  },
+  "pending": [
+    "Fresh integration fixture build/execution against current production source.",
+    "Combined raw/package/signature/closure and OFF binding.",
+    "Eight actual R/Combined M3/M4 sessions and final interpretation."
+  ],
+  "productEdits": false,
+  "recordedAtUTC": "2026-10-21T18:47:50.113010+00:00",
+  "reviewer": "independent_review sub-agent",
+  "status": "applied-composition-source-reviewed-no-actionable-findings-validation-pending",
+  "takeAllocatorAndReleaseAllocatorExactR": true
+}

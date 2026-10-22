@@ -1,0 +1,41 @@
+--- a/tools/tests/metal4-r49-lifetime-native.mm
++++ b/tools/tests/metal4-r49-lifetime-native.mm
+@@ -1750,7 +1750,7 @@
+ 
+ MVKMetal4ResourcePoolStats allocatorEpochEvidence;
+ uint64_t allocatorEpochCompleted = 0;
+-void allocatorEpochGPUReplay(id<MTLDevice> device) {
++void allocatorEpochGPUReplay(id<MTLDevice> device, bool resetAtQuiescence = false) {
+     auto queue = makeQueue(device);
+     Owned<id<MTLBuffer>> output([device newBufferWithLength:512 options:MTLResourceStorageModeShared]);
+     Owned<id<MTLSharedEvent>> signal([device newSharedEvent]);
+@@ -1759,7 +1759,8 @@
+     static_assert(MVKMetal4ResourcePoolStats::maxAllocatorEpochRecordings >= 2 && MVKMetal4ResourcePoolStats::maxAllocatorEpochRecordings % 2 == 0, "native ending policy permits paired primary/tail records");
+     // One primary and its one existing retirement tail end per execution.
+     constexpr unsigned endingsPerExecution = 2;
+-    constexpr unsigned iterations = (MVKMetal4ResourcePoolStats::maxAllocatorEpochRecordings / endingsPerExecution) * 5;
++    const unsigned iterations = resetAtQuiescence ? 12 :
++        (MVKMetal4ResourcePoolStats::maxAllocatorEpochRecordings / endingsPerExecution) * 5;
+     for (unsigned iteration = 0; iteration < iterations; ++iteration) {
+         NSError* error = nil;
+         auto batch = begin(*queue);
+@@ -1788,7 +1789,9 @@
+                 "native primary and tail packs reused across five bounded allocator epochs");
+         const unsigned nativeEndings = (iteration + 1) * endingsPerExecution;
+         require(stats.allocatorCreated == 1 && stats.allocatorReused == nativeEndings - 1 &&
+-                stats.allocatorResets == nativeEndings / MVKMetal4ResourcePoolStats::maxAllocatorEpochRecordings,
++                stats.allocatorResets == (resetAtQuiescence ? iteration + 1 :
++                    nativeEndings / MVKMetal4ResourcePoolStats::maxAllocatorEpochRecordings),
++                resetAtQuiescence ? "one shared allocator resets once when the primary and tail both retire" :
+                 "one shared allocator counts primary and tail native endings and resets at the configured bound after all users retire");
+         require(stats.allocatorAvailable == 1, "retired small allocator remains a separately charged available epoch");
+         require(stats.idleBytes <= MVKMetal4ResourcePoolStats::maxIdleBytes,
+@@ -1834,7 +1837,7 @@
+             return failed ? 1 : 0;
+         }
+         test(@"resource_pack_creation_reuse_and_old_wrapper_detach", [&] { resourcePackReuse(device.get()); });
+-        test(@"allocator_epochs_repeated_fill_signal_tail_and_guards", [&] { allocatorEpochGPUReplay(device.get()); });
++        test(@"allocator_epochs_repeated_fill_signal_tail_and_guards", [&] { allocatorEpochGPUReplay(device.get(), true); });
+         test(@"resource_pack_timeout_cancel_and_idle_bounds", [&] { resourcePackBlockedAndCancel(device.get()); });
+         test(@"resource_pack_device_loss_does_not_recycle_inflight", [&] { resourcePackPoisoned(device.get()); });
+         test(@"compute_only_table_clear_and_encoding_snapshots", [&] { computeOnlyTableSnapshots(device.get()); });

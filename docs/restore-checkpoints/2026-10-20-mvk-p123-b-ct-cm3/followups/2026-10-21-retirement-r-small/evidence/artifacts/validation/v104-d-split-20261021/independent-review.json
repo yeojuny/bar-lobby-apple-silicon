@@ -1,0 +1,104 @@
+{
+  "activeSourceCompared": false,
+  "allACLowPowerThermal0": true,
+  "executionCount": 12,
+  "executionPerformedByReviewer": false,
+  "findings": [],
+  "frozenSourceStatesVerified": [
+    "C",
+    "L",
+    "S",
+    "D"
+  ],
+  "groups": {
+    "metal3": {
+      "C": {
+        "FPS": [
+          50.151435852051,
+          53.154857635498
+        ],
+        "meanFPS": 51.6531467437745,
+        "meanP95Ms": 29.079999923705998
+      },
+      "L": {
+        "FPS": [
+          53.429534912109,
+          52.834331512451
+        ],
+        "changeFromCPercent": 2.862916514730518,
+        "meanFPS": 53.13193321228,
+        "meanP95Ms": 27.0825004577635
+      },
+      "S": {
+        "FPS": [
+          52.359218597412,
+          52.466598510742
+        ],
+        "changeFromCPercent": 1.4708916265475658,
+        "meanFPS": 52.412908554077006,
+        "meanP95Ms": 27.158999443054
+      }
+    },
+    "metal4": {
+      "C": {
+        "FPS": [
+          44.420768737793,
+          46.548225402832
+        ],
+        "meanFPS": 45.4844970703125,
+        "meanP95Ms": 29.9934997558595
+      },
+      "L": {
+        "FPS": [
+          44.145626068115,
+          45.463203430176
+        ],
+        "changeFromCPercent": -1.4951958688598666,
+        "meanFPS": 44.8044147491455,
+        "meanP95Ms": 29.860499382019
+      },
+      "S": {
+        "FPS": [
+          43.627777099609,
+          44.965362548828
+        ],
+        "changeFromCPercent": -2.61171898692788,
+        "meanFPS": 44.296569824218494,
+        "meanP95Ms": 30.478500366211
+      }
+    }
+  },
+  "inputSHA256": {
+    "build-comparison.json": "e5b54aa1a2e2a3320b002d3ef287bbd6a40ce17ed4f5147186ead9d20e6ed23c",
+    "comparison-summary.json": "ca7076bca434fef4a3ddc16a8243bfc914b229a573f8811d1ae3c1947fee87e0",
+    "completion.json": "961754e3463c54f2c9a9d2ac3eeeb73d628d717e6605f1e543b22dfd286a5c11",
+    "mach-o-sections.json": "26a27baaef894d5d93b15733d48f2c945743c86d0c8cdb5148711c695a8bea05",
+    "package-comparison.json": "5d3a0a88832f3725f41c76d6c3c5e87bf7a2788254fc1ceed8fd03c140de4fc1"
+  },
+  "interpretation": "No established general gain; S differences are not active counting overhead and linker stubs are not proven causal. C remains current.",
+  "modifiedOnly": [
+    "independent-review.md",
+    "independent-review.json"
+  ],
+  "powerObservations": 112,
+  "receiptHashesAndMeasurementsMatch": true,
+  "recordedAtUTC": "2026-10-21T09:19:40.616738+00:00",
+  "recordedDRestorationByteExact": true,
+  "reviewer": "independent_review sub-agent",
+  "sameConditionsAll12": true,
+  "sectionDifferences": {
+    "L/D": [
+      "__TEXT,__stubs",
+      "__TEXT,__objc_stubs"
+    ],
+    "S/C": [
+      "__TEXT,__stubs",
+      "__TEXT,__objc_stubs"
+    ]
+  },
+  "splitMeaning": {
+    "L": "lookup-only",
+    "S": "stats source only; compile OFF"
+  },
+  "status": "review-complete-no-actionable-findings"
+}

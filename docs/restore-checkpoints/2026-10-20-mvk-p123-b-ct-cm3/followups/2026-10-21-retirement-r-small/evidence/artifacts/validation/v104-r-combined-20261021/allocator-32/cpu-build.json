@@ -1,0 +1,29 @@
+{
+  "arguments": [
+    "/usr/bin/xcrun",
+    "clang++",
+    "-std=c++17",
+    "-O1",
+    "-g",
+    "-fno-objc-arc",
+    "-fblocks",
+    "-mmacosx-version-min=27.0",
+    "-DMVK_ENABLE_CUSTOM_DIAGNOSTICS=0",
+    "-Wno-deprecated-declarations",
+    "-framework",
+    "Foundation",
+    "-framework",
+    "Metal",
+    "-I${WORKSPACE}/build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects",
+    "-I${WORKSPACE}/build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands",
+    "-fsanitize=address,undefined",
+    "-fno-omit-frame-pointer",
+    "${WORKSPACE}/tools/tests/metal4-counter-completion-cpu.mm",
+    "${WORKSPACE}/build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKMetal4ArgumentTable.mm",
+    "${WORKSPACE}/build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKBackendTimeline.cpp",
+    "-o",
+    "${WORKSPACE}/artifacts/validation/v104-r-combined-20261021/allocator-32/allocator-cpu"
+  ],
+  "exitCode": 0,
+  "seconds": 10.548822540999936
+}

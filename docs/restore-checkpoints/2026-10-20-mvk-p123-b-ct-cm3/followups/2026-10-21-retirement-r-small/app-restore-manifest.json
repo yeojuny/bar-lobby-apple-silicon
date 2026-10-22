@@ -1,0 +1,2398 @@
+{
+  "CToABBridge": {
+    "C": "v104-typed-buffer-callers-candidate-20261020",
+    "CMatchesExisting1194Basis": true,
+    "olderCheckpoint": "docs/restore-checkpoints/2026-10-20-mvk-p123-b-ct-cm3/followups/2026-10-20-abc-retention",
+    "olderCommit": "90948f178d8194828d024b2278268633a11ef9b0",
+    "olderHelper": "restore-from-c.py",
+    "olderInventory": "docs/restore-checkpoints/2026-10-20-mvk-p123-b-ct-cm3/followups/2026-10-20-abc-retention/inventories/C.json"
+  },
+  "baseApps": {
+    "R": {
+      "id": "v104-idle-first-allocator-candidate-20261021",
+      "inventory": "inventories/v104-idle-first-allocator-candidate-20261021.json"
+    },
+    "Small": {
+      "id": "v104-r-small-bundle-candidate-20261021",
+      "inventory": "inventories/v104-r-small-bundle-candidate-20261021.json"
+    }
+  },
+  "limitations": [
+    "Exact regular-file bytes/modes and symlink targets/modes; arbitrary extended attributes are outside the inventory.",
+    "No full app copy, reconstruction, source build or game execution was performed by this preparation.",
+    "App retirement is not authorized by this local preparation; remote bytes/blob/mode verification and root decision remain required."
+  ],
+  "originalSignatures": {
+    "v104-d-split-lookup-only-20261021": {
+      "exitCode": 0,
+      "strictDeepOriginalSignatureVerified": true
+    },
+    "v104-d-split-stats-only-off-20261021": {
+      "exitCode": 0,
+      "strictDeepOriginalSignatureVerified": true
+    },
+    "v104-descriptor-candidate-20261020": {
+      "exitCode": 0,
+      "strictDeepOriginalSignatureVerified": true
+    },
+    "v104-e-structure-allocator32-20261021": {
+      "exitCode": 0,
+      "strictDeepOriginalSignatureVerified": true
+    },
+    "v104-e-structure-candidate-20261021": {
+      "exitCode": 0,
+      "strictDeepOriginalSignatureVerified": true
+    },
+    "v104-idle-first-allocator-candidate-20261021": {
+      "exitCode": 0,
+      "strictDeepOriginalSignatureVerified": true
+    },
+    "v104-lookup-descriptor-release-20261020": {
+      "exitCode": 0,
+      "strictDeepOriginalSignatureVerified": true
+    },
+    "v104-performance-ab-candidate-20261020": {
+      "exitCode": 0,
+      "strictDeepOriginalSignatureVerified": true
+    },
+    "v104-performance-candidate-20261020": {
+      "exitCode": 0,
+      "strictDeepOriginalSignatureVerified": true
+    },
+    "v104-quiescent-allocator-candidate-20261021": {
+      "exitCode": 0,
+      "strictDeepOriginalSignatureVerified": true
+    },
+    "v104-r-combined-candidate-20261021": {
+      "exitCode": 0,
+      "strictDeepOriginalSignatureVerified": true
+    },
+    "v104-r-combined-group-locator-candidate-20261021": {
+      "exitCode": 0,
+      "strictDeepOriginalSignatureVerified": true
+    },
+    "v104-r-group-locator-candidate-20261021": {
+      "exitCode": 0,
+      "strictDeepOriginalSignatureVerified": true
+    },
+    "v104-r-small-bundle-candidate-20261021": {
+      "exitCode": 0,
+      "strictDeepOriginalSignatureVerified": true
+    },
+    "v104-typed-buffer-callers-candidate-20261020": {
+      "exitCode": 0,
+      "strictDeepOriginalSignatureVerified": true
+    }
+  },
+  "parentCommit": "90948f178d8194828d024b2278268633a11ef9b0",
+  "payloads": {
+    "011bb7b1c754c35c8f6e08289e3118e201b35139a2b3fd14a4f242e81ff24935-420": {
+      "bytes": 328766,
+      "gitBlobSHA1": "97cb0b1f26d5b06503615067502a46e583930887",
+      "gitMode": "100644",
+      "localPath": "payloads/011bb7b1c754c35c8f6e08289e3118e201b35139a2b3fd14a4f242e81ff24935-420.bin",
+      "mode": 420,
+      "repositoryPath": "docs/restore-checkpoints/2026-10-20-mvk-p123-b-ct-cm3/followups/2026-10-21-retirement-r-small/payloads/011bb7b1c754c35c8f6e08289e3118e201b35139a2b3fd14a4f242e81ff24935-420.bin",
+      "sha256": "011bb7b1c754c35c8f6e08289e3118e201b35139a2b3fd14a4f242e81ff24935",
+      "storage": "this-checkpoint"
+    },
+    "025e877659cb3fe6a30cda59ae4d6138dda95d9f3215072979d9ccdf87f38815-493": {
+      "bytes": 33920,
+      "gitBlobSHA1": "cb0b573bfc736eb47dd5bbacf6b0b90263a0129c",
+      "gitMode": "100755",
+      "localPath": "payloads/025e877659cb3fe6a30cda59ae4d6138dda95d9f3215072979d9ccdf87f38815-493.bin",
+      "mode": 493,
+      "repositoryPath": "docs/restore-checkpoints/2026-10-20-mvk-p123-b-ct-cm3/followups/2026-10-21-retirement-r-small/payloads/025e877659cb3fe6a30cda59ae4d6138dda95d9f3215072979d9ccdf87f38815-493.bin",
+      "sha256": "025e877659cb3fe6a30cda59ae4d6138dda95d9f3215072979d9ccdf87f38815",
+      "storage": "this-checkpoint"
+    },
+    "029af81556309a5a14181dcd39315d4b4adac7d7addd441f277527436e861a7a-420": {
+      "bytes": 328766,
+      "gitBlobSHA1": "47595ed00d2fd937db243acd8b40f685042e8730",
+      "gitMode": "100644",
+      "localPath": "payloads/029af81556309a5a14181dcd39315d4b4adac7d7addd441f277527436e861a7a-420.bin",
+      "mode": 420,
+      "repositoryPath": "docs/restore-checkpoints/2026-10-20-mvk-p123-b-ct-cm3/followups/2026-10-21-retirement-r-small/payloads/029af81556309a5a14181dcd39315d4b4adac7d7addd441f277527436e861a7a-420.bin",
+      "sha256": "029af81556309a5a14181dcd39315d4b4adac7d7addd441f277527436e861a7a",
+      "storage": "this-checkpoint"
+    },
+    "043bf4821e7d61fa2f2b630a08e93305bcd7fac1ca5e19290c59d2798eb81163-493": {
+      "bytes": 33920,
+      "gitBlobSHA1": "458bd7a45df8f6a79c3586a94d4911521aa50957",
+      "gitMode": "100755",
+      "localPath": "payloads/043bf4821e7d61fa2f2b630a08e93305bcd7fac1ca5e19290c59d2798eb81163-493.bin",
+      "mode": 493,
+      "repositoryPath": "docs/restore-checkpoints/2026-10-20-mvk-p123-b-ct-cm3/followups/2026-10-21-retirement-r-small/payloads/043bf4821e7d61fa2f2b630a08e93305bcd7fac1ca5e19290c59d2798eb81163-493.bin",
+      "sha256": "043bf4821e7d61fa2f2b630a08e93305bcd7fac1ca5e19290c59d2798eb81163",
+      "storage": "this-checkpoint"
+    },
+    "05ca8f27796bad7e75211259a2df909295e62a8c3cb8db344996356c3990e237-493": {
+      "bytes": 6438064,
+      "gitBlobSHA1": "cd8f7480c0c0e6942df47a21288ee7f0348aadab",
+      "gitMode": "100755",
+      "localPath": "payloads/05ca8f27796bad7e75211259a2df909295e62a8c3cb8db344996356c3990e237-493.bin",
+      "mode": 493,
+      "repositoryPath": "docs/restore-checkpoints/2026-10-20-mvk-p123-b-ct-cm3/followups/2026-10-21-retirement-r-small/payloads/05ca8f27796bad7e75211259a2df909295e62a8c3cb8db344996356c3990e237-493.bin",
+      "sha256": "05ca8f27796bad7e75211259a2df909295e62a8c3cb8db344996356c3990e237",
+      "storage": "this-checkpoint"
+    },
+    "1188a273a15b787a61256c6d2f2f5a88f36baded9a4f2efe3eb0b32a4305daab-420": {
+      "bytes": 328766,
+      "commit": "90948f178d8194828d024b2278268633a11ef9b0",
+      "gitBlobSHA1": "2b3210f97918cb0e4513b1411e6cb5774102f38d",
+      "gitMode": "100644",
+      "mode": 420,
+      "repositoryPath": "docs/restore-checkpoints/2026-10-20-mvk-p123-b-ct-cm3/followups/2026-10-20-typed-buffer-callers/evidence/artifacts/runtime/v104-typed-buffer-callers-candidate-20261020/BAR.app/Contents/_CodeSignature/CodeResources",
+      "sha256": "1188a273a15b787a61256c6d2f2f5a88f36baded9a4f2efe3eb0b32a4305daab",
+      "storage": "existing-immutable-blob"
+    },
+    "129e85bb9a7d1cf53a991bbeb5afbbd578b563182de86a1b60ddf57f6b195077-493": {
+      "bytes": 6438144,
+      "gitBlobSHA1": "ae4c97825cc1f52af2cae78a770721655ba43bea",
+      "gitMode": "100755",
+      "localPath": "payloads/129e85bb9a7d1cf53a991bbeb5afbbd578b563182de86a1b60ddf57f6b195077-493.bin",
+      "mode": 493,
+      "repositoryPath": "docs/restore-checkpoints/2026-10-20-mvk-p123-b-ct-cm3/followups/2026-10-21-retirement-r-small/payloads/129e85bb9a7d1cf53a991bbeb5afbbd578b563182de86a1b60ddf57f6b195077-493.bin",
+      "sha256": "129e85bb9a7d1cf53a991bbeb5afbbd578b563182de86a1b60ddf57f6b195077",
+      "storage": "this-checkpoint"
+    },
+    "16cdd896273e09b89e385ec53c24d0216df9a17dd5d7b80c78dc5f8471f13424-493": {
+      "bytes": 31275968,
+      "commit": "90948f178d8194828d024b2278268633a11ef9b0",
+      "gitBlobSHA1": "da8f531589148482d4b3ab8ba3ea029e6ce57a17",
+      "gitMode": "100755",
+      "mode": 493,
+      "repositoryPath": "docs/restore-checkpoints/2026-10-20-mvk-p123-b-ct-cm3/followups/2026-10-20-abc-retention/payloads/16cdd896273e09b89e385ec53c24d0216df9a17dd5d7b80c78dc5f8471f13424-spring",
+      "sha256": "16cdd896273e09b89e385ec53c24d0216df9a17dd5d7b80c78dc5f8471f13424",
+      "storage": "existing-immutable-blob"
+    },
+    "1b484027de444d96a93fa8de2d835e559485a023e1e2769a577f3b5cf8deef6b-493": {
+      "bytes": 33920,
+      "gitBlobSHA1": "e19df8084491c4d9cabd144902caab1ca2068cb3",
+      "gitMode": "100755",
+      "localPath": "payloads/1b484027de444d96a93fa8de2d835e559485a023e1e2769a577f3b5cf8deef6b-493.bin",
+      "mode": 493,
+      "repositoryPath": "docs/restore-checkpoints/2026-10-20-mvk-p123-b-ct-cm3/followups/2026-10-21-retirement-r-small/payloads/1b484027de444d96a93fa8de2d835e559485a023e1e2769a577f3b5cf8deef6b-493.bin",
+      "sha256": "1b484027de444d96a93fa8de2d835e559485a023e1e2769a577f3b5cf8deef6b",
+      "storage": "this-checkpoint"
+    },
+    "2f88cf4d0388a3208761b5d0b8a1483e0783ace927745e05fdb16d42f60d847e-493": {
+      "bytes": 33920,
+      "gitBlobSHA1": "264849ddfa02a9f7aff5473b7e8a9fe48afb5ab1",
+      "gitMode": "100755",
+      "localPath": "payloads/2f88cf4d0388a3208761b5d0b8a1483e0783ace927745e05fdb16d42f60d847e-493.bin",
+      "mode": 493,
+      "repositoryPath": "docs/restore-checkpoints/2026-10-20-mvk-p123-b-ct-cm3/followups/2026-10-21-retirement-r-small/payloads/2f88cf4d0388a3208761b5d0b8a1483e0783ace927745e05fdb16d42f60d847e-493.bin",
+      "sha256": "2f88cf4d0388a3208761b5d0b8a1483e0783ace927745e05fdb16d42f60d847e",
+      "storage": "this-checkpoint"
+    },
+    "33b1649aa2f60d4a1464562ec72726a6d8740c43049361126632ac6d3eeed594-420": {
+      "bytes": 328766,
+      "gitBlobSHA1": "af83cf869d55a46dde095be9f4529989f9b22dab",
+      "gitMode": "100644",
+      "localPath": "payloads/33b1649aa2f60d4a1464562ec72726a6d8740c43049361126632ac6d3eeed594-420.bin",
+      "mode": 420,
+      "repositoryPath": "docs/restore-checkpoints/2026-10-20-mvk-p123-b-ct-cm3/followups/2026-10-21-retirement-r-small/payloads/33b1649aa2f60d4a1464562ec72726a6d8740c43049361126632ac6d3eeed594-420.bin",
+      "sha256": "33b1649aa2f60d4a1464562ec72726a6d8740c43049361126632ac6d3eeed594",
+      "storage": "this-checkpoint"
+    },
+    "348663cdb393dbc0d2a94305ae00faeebd78b2aa8604b89f17adcdd55260751b-493": {
+      "bytes": 6437984,
+      "gitBlobSHA1": "8bb3096fe56209a8e8faaef682a546d5e38bc73e",
+      "gitMode": "100755",
+      "localPath": "payloads/348663cdb393dbc0d2a94305ae00faeebd78b2aa8604b89f17adcdd55260751b-493.bin",
+      "mode": 493,
+      "repositoryPath": "docs/restore-checkpoints/2026-10-20-mvk-p123-b-ct-cm3/followups/2026-10-21-retirement-r-small/payloads/348663cdb393dbc0d2a94305ae00faeebd78b2aa8604b89f17adcdd55260751b-493.bin",
+      "sha256": "348663cdb393dbc0d2a94305ae00faeebd78b2aa8604b89f17adcdd55260751b",
+      "storage": "this-checkpoint"
+    },
+    "351b668e17ee987db3e4b615c6548abd8d54378654b343100dd1a7ae1a26f0d5-420": {
+      "bytes": 328766,
+      "gitBlobSHA1": "4bc750ba7ade3ed0eb6ec03ba872729fbc9c52bb",
+      "gitMode": "100644",
+      "localPath": "payloads/351b668e17ee987db3e4b615c6548abd8d54378654b343100dd1a7ae1a26f0d5-420.bin",
+      "mode": 420,
+      "repositoryPath": "docs/restore-checkpoints/2026-10-20-mvk-p123-b-ct-cm3/followups/2026-10-21-retirement-r-small/payloads/351b668e17ee987db3e4b615c6548abd8d54378654b343100dd1a7ae1a26f0d5-420.bin",
+      "sha256": "351b668e17ee987db3e4b615c6548abd8d54378654b343100dd1a7ae1a26f0d5",
+      "storage": "this-checkpoint"
+    },
+    "371ed950f75a3bcca206faf13c16255dae21b91f57a2b0bd7134ed788a7758a0-420": {
+      "bytes": 328766,
+      "gitBlobSHA1": "3c2761ba8607b69d34e77ae7da3d8f064d9defe0",
+      "gitMode": "100644",
+      "localPath": "payloads/371ed950f75a3bcca206faf13c16255dae21b91f57a2b0bd7134ed788a7758a0-420.bin",
+      "mode": 420,
+      "repositoryPath": "docs/restore-checkpoints/2026-10-20-mvk-p123-b-ct-cm3/followups/2026-10-21-retirement-r-small/payloads/371ed950f75a3bcca206faf13c16255dae21b91f57a2b0bd7134ed788a7758a0-420.bin",
+      "sha256": "371ed950f75a3bcca206faf13c16255dae21b91f57a2b0bd7134ed788a7758a0",
+      "storage": "this-checkpoint"
+    },
+    "3de11fa4ad010d70eb356bb6d3ed38af0e09802ec203aa93ea4a3db1cd5adbb9-493": {
+      "bytes": 6438144,
+      "gitBlobSHA1": "5554dbfb104fc57985f45e1ee92f69a0959600de",
+      "gitMode": "100755",
+      "localPath": "payloads/3de11fa4ad010d70eb356bb6d3ed38af0e09802ec203aa93ea4a3db1cd5adbb9-493.bin",
+      "mode": 493,
+      "repositoryPath": "docs/restore-checkpoints/2026-10-20-mvk-p123-b-ct-cm3/followups/2026-10-21-retirement-r-small/payloads/3de11fa4ad010d70eb356bb6d3ed38af0e09802ec203aa93ea4a3db1cd5adbb9-493.bin",
+      "sha256": "3de11fa4ad010d70eb356bb6d3ed38af0e09802ec203aa93ea4a3db1cd5adbb9",
+      "storage": "this-checkpoint"
+    },
+    "3f7ae550916228c89eec51f3f1741e54b5fbe62929e03a22038158d7ba076dd6-493": {
+      "bytes": 6437920,
+      "gitBlobSHA1": "e3209484d3793e9378d890b10add72ad3a19385c",
+      "gitMode": "100755",
+      "localPath": "payloads/3f7ae550916228c89eec51f3f1741e54b5fbe62929e03a22038158d7ba076dd6-493.bin",
+      "mode": 493,
+      "repositoryPath": "docs/restore-checkpoints/2026-10-20-mvk-p123-b-ct-cm3/followups/2026-10-21-retirement-r-small/payloads/3f7ae550916228c89eec51f3f1741e54b5fbe62929e03a22038158d7ba076dd6-493.bin",
+      "sha256": "3f7ae550916228c89eec51f3f1741e54b5fbe62929e03a22038158d7ba076dd6",
+      "storage": "this-checkpoint"
+    },
+    "47e120fcdeb4476d8faf40013ac7f9162a0a6db048552d03ea81eb1a65333aa7-493": {
+      "bytes": 6437920,
+      "gitBlobSHA1": "1c187a91fae9bc4a40a62835b8383a1454028378",
+      "gitMode": "100755",
+      "localPath": "payloads/47e120fcdeb4476d8faf40013ac7f9162a0a6db048552d03ea81eb1a65333aa7-493.bin",
+      "mode": 493,
+      "repositoryPath": "docs/restore-checkpoints/2026-10-20-mvk-p123-b-ct-cm3/followups/2026-10-21-retirement-r-small/payloads/47e120fcdeb4476d8faf40013ac7f9162a0a6db048552d03ea81eb1a65333aa7-493.bin",
+      "sha256": "47e120fcdeb4476d8faf40013ac7f9162a0a6db048552d03ea81eb1a65333aa7",
+      "storage": "this-checkpoint"
+    },
+    "4f92a10fad7f1ba9c2ef1bba785e33439a84655c3299aecc9153f8ed79952ab1-493": {
+      "bytes": 33920,
+      "commit": "90948f178d8194828d024b2278268633a11ef9b0",
+      "gitBlobSHA1": "9ff81888c9b3df2578a3b2b54a0d0de6dc797d58",
+      "gitMode": "100755",
+      "mode": 493,
+      "repositoryPath": "docs/restore-checkpoints/2026-10-20-mvk-p123-b-ct-cm3/followups/2026-10-20-typed-buffer-callers/evidence/artifacts/runtime/v104-typed-buffer-callers-candidate-20261020/BAR.app/Contents/MacOS/BAR",
+      "sha256": "4f92a10fad7f1ba9c2ef1bba785e33439a84655c3299aecc9153f8ed79952ab1",
+      "storage": "existing-immutable-blob"
+    },
+    "51bdd7b5e02e1dde07a3114108d81e24d80a9e5fedfcd29aba473ec180973a0c-493": {
+      "bytes": 33920,
+      "gitBlobSHA1": "eb3c4369f0eb7ce81f713a52a221d03ecbdf3f75",
+      "gitMode": "100755",
+      "localPath": "payloads/51bdd7b5e02e1dde07a3114108d81e24d80a9e5fedfcd29aba473ec180973a0c-493.bin",
+      "mode": 493,
+      "repositoryPath": "docs/restore-checkpoints/2026-10-20-mvk-p123-b-ct-cm3/followups/2026-10-21-retirement-r-small/payloads/51bdd7b5e02e1dde07a3114108d81e24d80a9e5fedfcd29aba473ec180973a0c-493.bin",
+      "sha256": "51bdd7b5e02e1dde07a3114108d81e24d80a9e5fedfcd29aba473ec180973a0c",
+      "storage": "this-checkpoint"
+    },
+    "5415db3caf1698264545e478573e00f233f9afd2fb32d80e3f6de62b24921558-420": {
+      "bytes": 328766,
+      "gitBlobSHA1": "a3f19591b46a4fd795dce5eab5d57864273ad19a",
+      "gitMode": "100644",
+      "localPath": "payloads/5415db3caf1698264545e478573e00f233f9afd2fb32d80e3f6de62b24921558-420.bin",
+      "mode": 420,
+      "repositoryPath": "docs/restore-checkpoints/2026-10-20-mvk-p123-b-ct-cm3/followups/2026-10-21-retirement-r-small/payloads/5415db3caf1698264545e478573e00f233f9afd2fb32d80e3f6de62b24921558-420.bin",
+      "sha256": "5415db3caf1698264545e478573e00f233f9afd2fb32d80e3f6de62b24921558",
+      "storage": "this-checkpoint"
+    },
+    "58f64d78861679511328731aa62f609839d35af2a30010e6f1b489d6917a68ab-493": {
+      "bytes": 6438064,
+      "gitBlobSHA1": "432ab11baf8734ef22e612c4a0781f09e56c746d",
+      "gitMode": "100755",
+      "localPath": "payloads/58f64d78861679511328731aa62f609839d35af2a30010e6f1b489d6917a68ab-493.bin",
+      "mode": 493,
+      "repositoryPath": "docs/restore-checkpoints/2026-10-20-mvk-p123-b-ct-cm3/followups/2026-10-21-retirement-r-small/payloads/58f64d78861679511328731aa62f609839d35af2a30010e6f1b489d6917a68ab-493.bin",
+      "sha256": "58f64d78861679511328731aa62f609839d35af2a30010e6f1b489d6917a68ab",
+      "storage": "this-checkpoint"
+    },
+    "670c413a53d70774ae58d88a7ad6c2d3ce620c366666e51180dba95fe0ea394a-493": {
+      "bytes": 33920,
+      "gitBlobSHA1": "8a0424a57bc7464ec2b5238e38248555b10c7b9d",
+      "gitMode": "100755",
+      "localPath": "payloads/670c413a53d70774ae58d88a7ad6c2d3ce620c366666e51180dba95fe0ea394a-493.bin",
+      "mode": 493,
+      "repositoryPath": "docs/restore-checkpoints/2026-10-20-mvk-p123-b-ct-cm3/followups/2026-10-21-retirement-r-small/payloads/670c413a53d70774ae58d88a7ad6c2d3ce620c366666e51180dba95fe0ea394a-493.bin",
+      "sha256": "670c413a53d70774ae58d88a7ad6c2d3ce620c366666e51180dba95fe0ea394a",
+      "storage": "this-checkpoint"
+    },
+    "772042e655d17f2e957230c83b0a2ec186c2c34c0ed76838fd53c6e6ae5db490-493": {
+      "bytes": 6438208,
+      "gitBlobSHA1": "9b0f87c276113cb8ff25aaec140a12921710d860",
+      "gitMode": "100755",
+      "localPath": "payloads/772042e655d17f2e957230c83b0a2ec186c2c34c0ed76838fd53c6e6ae5db490-493.bin",
+      "mode": 493,
+      "repositoryPath": "docs/restore-checkpoints/2026-10-20-mvk-p123-b-ct-cm3/followups/2026-10-21-retirement-r-small/payloads/772042e655d17f2e957230c83b0a2ec186c2c34c0ed76838fd53c6e6ae5db490-493.bin",
+      "sha256": "772042e655d17f2e957230c83b0a2ec186c2c34c0ed76838fd53c6e6ae5db490",
+      "storage": "this-checkpoint"
+    },
+    "7834b3bfe6501ff17ea96e4b428f5fc287fbe9a8b9a19c6436d6e27ca6b205bf-493": {
+      "bytes": 33920,
+      "gitBlobSHA1": "9b266f3c61a433e53c4006207650ee545ae7f0e1",
+      "gitMode": "100755",
+      "localPath": "payloads/7834b3bfe6501ff17ea96e4b428f5fc287fbe9a8b9a19c6436d6e27ca6b205bf-493.bin",
+      "mode": 493,
+      "repositoryPath": "docs/restore-checkpoints/2026-10-20-mvk-p123-b-ct-cm3/followups/2026-10-21-retirement-r-small/payloads/7834b3bfe6501ff17ea96e4b428f5fc287fbe9a8b9a19c6436d6e27ca6b205bf-493.bin",
+      "sha256": "7834b3bfe6501ff17ea96e4b428f5fc287fbe9a8b9a19c6436d6e27ca6b205bf",
+      "storage": "this-checkpoint"
+    },
+    "7a36ec1d65375a5a4080c9cdc8deece5108abf36e7b1953fb0de0916205efc20-493": {
+      "bytes": 33920,
+      "gitBlobSHA1": "e01bf634fa2182463d7cdd2063ad28dd8f217276",
+      "gitMode": "100755",
+      "localPath": "payloads/7a36ec1d65375a5a4080c9cdc8deece5108abf36e7b1953fb0de0916205efc20-493.bin",
+      "mode": 493,
+      "repositoryPath": "docs/restore-checkpoints/2026-10-20-mvk-p123-b-ct-cm3/followups/2026-10-21-retirement-r-small/payloads/7a36ec1d65375a5a4080c9cdc8deece5108abf36e7b1953fb0de0916205efc20-493.bin",
+      "sha256": "7a36ec1d65375a5a4080c9cdc8deece5108abf36e7b1953fb0de0916205efc20",
+      "storage": "this-checkpoint"
+    },
+    "7ac71989ca27a99a2f9adf219ac0dcb12f16804cd35733bf7fd2c078635c5c4a-493": {
+      "bytes": 6437040,
+      "gitBlobSHA1": "73b3808f4110cbd9df63f30e2dbb5362411c0bb0",
+      "gitMode": "100755",
+      "localPath": "payloads/7ac71989ca27a99a2f9adf219ac0dcb12f16804cd35733bf7fd2c078635c5c4a-493.bin",
+      "mode": 493,
+      "repositoryPath": "docs/restore-checkpoints/2026-10-20-mvk-p123-b-ct-cm3/followups/2026-10-21-retirement-r-small/payloads/7ac71989ca27a99a2f9adf219ac0dcb12f16804cd35733bf7fd2c078635c5c4a-493.bin",
+      "sha256": "7ac71989ca27a99a2f9adf219ac0dcb12f16804cd35733bf7fd2c078635c5c4a",
+      "storage": "this-checkpoint"
+    },
+    "7aea926e4c5e815e523bbaf8a301df53363291254c20bd1df97aa015e150c7fe-493": {
+      "bytes": 6437296,
+      "gitBlobSHA1": "61ae0f3ee5678392dff23fe92458bce7cd48abc5",
+      "gitMode": "100755",
+      "localPath": "payloads/7aea926e4c5e815e523bbaf8a301df53363291254c20bd1df97aa015e150c7fe-493.bin",
+      "mode": 493,
+      "repositoryPath": "docs/restore-checkpoints/2026-10-20-mvk-p123-b-ct-cm3/followups/2026-10-21-retirement-r-small/payloads/7aea926e4c5e815e523bbaf8a301df53363291254c20bd1df97aa015e150c7fe-493.bin",
+      "sha256": "7aea926e4c5e815e523bbaf8a301df53363291254c20bd1df97aa015e150c7fe",
+      "storage": "this-checkpoint"
+    },
+    "7ed87c89936f3611c039c3ed5a5b9066c02c235626099cf3913ea535009d20b3-420": {
+      "bytes": 328766,
+      "gitBlobSHA1": "b9d94a612cc8778a7196c248be24ce73679f4c37",
+      "gitMode": "100644",
+      "localPath": "payloads/7ed87c89936f3611c039c3ed5a5b9066c02c235626099cf3913ea535009d20b3-420.bin",
+      "mode": 420,
+      "repositoryPath": "docs/restore-checkpoints/2026-10-20-mvk-p123-b-ct-cm3/followups/2026-10-21-retirement-r-small/payloads/7ed87c89936f3611c039c3ed5a5b9066c02c235626099cf3913ea535009d20b3-420.bin",
+      "sha256": "7ed87c89936f3611c039c3ed5a5b9066c02c235626099cf3913ea535009d20b3",
+      "storage": "this-checkpoint"
+    },
+    "830d3e1512ab227cdf97b558ef6e3261d9303525f2b8e3a50c20414d8c0eaaed-420": {
+      "bytes": 328766,
+      "gitBlobSHA1": "80ede1afcf77897af266a22f4f096281bef338a0",
+      "gitMode": "100644",
+      "localPath": "payloads/830d3e1512ab227cdf97b558ef6e3261d9303525f2b8e3a50c20414d8c0eaaed-420.bin",
+      "mode": 420,
+      "repositoryPath": "docs/restore-checkpoints/2026-10-20-mvk-p123-b-ct-cm3/followups/2026-10-21-retirement-r-small/payloads/830d3e1512ab227cdf97b558ef6e3261d9303525f2b8e3a50c20414d8c0eaaed-420.bin",
+      "sha256": "830d3e1512ab227cdf97b558ef6e3261d9303525f2b8e3a50c20414d8c0eaaed",
+      "storage": "this-checkpoint"
+    },
+    "8f8010bdcb59397564c21c80ad2eb87fb4690b45e6def36478db7e11fc781462-493": {
+      "bytes": 6437920,
+      "gitBlobSHA1": "6699d1af1b32b2e13c158aef7703ea058b3c311e",
+      "gitMode": "100755",
+      "localPath": "payloads/8f8010bdcb59397564c21c80ad2eb87fb4690b45e6def36478db7e11fc781462-493.bin",
+      "mode": 493,
+      "repositoryPath": "docs/restore-checkpoints/2026-10-20-mvk-p123-b-ct-cm3/followups/2026-10-21-retirement-r-small/payloads/8f8010bdcb59397564c21c80ad2eb87fb4690b45e6def36478db7e11fc781462-493.bin",
+      "sha256": "8f8010bdcb59397564c21c80ad2eb87fb4690b45e6def36478db7e11fc781462",
+      "storage": "this-checkpoint"
+    },
+    "931f774b770665095d3e95e3ca1e5a63227b825be6178c006cbdee9a316743f3-493": {
+      "bytes": 33920,
+      "gitBlobSHA1": "58e0cb8de18794b02a255933564a51402f323f5a",
+      "gitMode": "100755",
+      "localPath": "payloads/931f774b770665095d3e95e3ca1e5a63227b825be6178c006cbdee9a316743f3-493.bin",
+      "mode": 493,
+      "repositoryPath": "docs/restore-checkpoints/2026-10-20-mvk-p123-b-ct-cm3/followups/2026-10-21-retirement-r-small/payloads/931f774b770665095d3e95e3ca1e5a63227b825be6178c006cbdee9a316743f3-493.bin",
+      "sha256": "931f774b770665095d3e95e3ca1e5a63227b825be6178c006cbdee9a316743f3",
+      "storage": "this-checkpoint"
+    },
+    "934910e535767331410b5071f3e83a07e1ab7df7e9f7eba21e58608bd169d8f9-420": {
+      "bytes": 328766,
+      "gitBlobSHA1": "f4e6848a33862cdbe0788172788b6d5d9c68412f",
+      "gitMode": "100644",
+      "localPath": "payloads/934910e535767331410b5071f3e83a07e1ab7df7e9f7eba21e58608bd169d8f9-420.bin",
+      "mode": 420,
+      "repositoryPath": "docs/restore-checkpoints/2026-10-20-mvk-p123-b-ct-cm3/followups/2026-10-21-retirement-r-small/payloads/934910e535767331410b5071f3e83a07e1ab7df7e9f7eba21e58608bd169d8f9-420.bin",
+      "sha256": "934910e535767331410b5071f3e83a07e1ab7df7e9f7eba21e58608bd169d8f9",
+      "storage": "this-checkpoint"
+    },
+    "93643e7939e5998f477917508ffdba6b1006c712955ffb06540b2e21e298a7e2-493": {
+      "bytes": 33920,
+      "gitBlobSHA1": "c12ee1d58ff1aec8d216f57e7ab09fe77d0a744a",
+      "gitMode": "100755",
+      "localPath": "payloads/93643e7939e5998f477917508ffdba6b1006c712955ffb06540b2e21e298a7e2-493.bin",
+      "mode": 493,
+      "repositoryPath": "docs/restore-checkpoints/2026-10-20-mvk-p123-b-ct-cm3/followups/2026-10-21-retirement-r-small/payloads/93643e7939e5998f477917508ffdba6b1006c712955ffb06540b2e21e298a7e2-493.bin",
+      "sha256": "93643e7939e5998f477917508ffdba6b1006c712955ffb06540b2e21e298a7e2",
+      "storage": "this-checkpoint"
+    },
+    "99cf887139c8022dcb65e30e9331c8dc0b6ebd4cf6edf59c0d8a1cd942b59ac2-493": {
+      "bytes": 6437040,
+      "gitBlobSHA1": "015e570128cb47ec4bb9bedd688955ac3b81ffdf",
+      "gitMode": "100755",
+      "localPath": "payloads/99cf887139c8022dcb65e30e9331c8dc0b6ebd4cf6edf59c0d8a1cd942b59ac2-493.bin",
+      "mode": 493,
+      "repositoryPath": "docs/restore-checkpoints/2026-10-20-mvk-p123-b-ct-cm3/followups/2026-10-21-retirement-r-small/payloads/99cf887139c8022dcb65e30e9331c8dc0b6ebd4cf6edf59c0d8a1cd942b59ac2-493.bin",
+      "sha256": "99cf887139c8022dcb65e30e9331c8dc0b6ebd4cf6edf59c0d8a1cd942b59ac2",
+      "storage": "this-checkpoint"
+    },
+    "abf4fb1bad831b6295d90dd5a9ffa6af8b25308e99c8724153716e480a0275a2-493": {
+      "bytes": 6438544,
+      "gitBlobSHA1": "f30616b760209ddf504063c6f1dcb14f405bad03",
+      "gitMode": "100755",
+      "localPath": "payloads/abf4fb1bad831b6295d90dd5a9ffa6af8b25308e99c8724153716e480a0275a2-493.bin",
+      "mode": 493,
+      "repositoryPath": "docs/restore-checkpoints/2026-10-20-mvk-p123-b-ct-cm3/followups/2026-10-21-retirement-r-small/payloads/abf4fb1bad831b6295d90dd5a9ffa6af8b25308e99c8724153716e480a0275a2-493.bin",
+      "sha256": "abf4fb1bad831b6295d90dd5a9ffa6af8b25308e99c8724153716e480a0275a2",
+      "storage": "this-checkpoint"
+    },
+    "ad0b143fa926cbba7341fe83a3475772c44008b23f9d991e5f45d08ee8b6b46c-420": {
+      "bytes": 328766,
+      "gitBlobSHA1": "1859bd5e8f8e60e45408f1f09aff4a02ba37b840",
+      "gitMode": "100644",
+      "localPath": "payloads/ad0b143fa926cbba7341fe83a3475772c44008b23f9d991e5f45d08ee8b6b46c-420.bin",
+      "mode": 420,
+      "repositoryPath": "docs/restore-checkpoints/2026-10-20-mvk-p123-b-ct-cm3/followups/2026-10-21-retirement-r-small/payloads/ad0b143fa926cbba7341fe83a3475772c44008b23f9d991e5f45d08ee8b6b46c-420.bin",
+      "sha256": "ad0b143fa926cbba7341fe83a3475772c44008b23f9d991e5f45d08ee8b6b46c",
+      "storage": "this-checkpoint"
+    },
+    "c5ea9b843ba2284c410a0b83b7e2412d4cbc0446f15232b5b317eca56b79f804-493": {
+      "bytes": 6437920,
+      "commit": "90948f178d8194828d024b2278268633a11ef9b0",
+      "gitBlobSHA1": "4f7354427ac0ac7439e897a8b603d480d002971d",
+      "gitMode": "100755",
+      "mode": 493,
+      "repositoryPath": "docs/restore-checkpoints/2026-10-20-mvk-p123-b-ct-cm3/followups/2026-10-20-typed-buffer-callers/evidence/artifacts/runtime/v104-typed-buffer-callers-candidate-20261020/BAR.app/Contents/Resources/bundled-assets/runtime/moltenvk-pr2746/lib/libMoltenVK.1.4.3.dylib",
+      "sha256": "c5ea9b843ba2284c410a0b83b7e2412d4cbc0446f15232b5b317eca56b79f804",
+      "storage": "existing-immutable-blob"
+    },
+    "cd9191a3c0e5155c9138126beadd2f116d898f172fdaf322a28c6a765b5c4b11-420": {
+      "bytes": 328766,
+      "gitBlobSHA1": "ae580e9b206ec005a8af32a799a0a2fa75ed2bc2",
+      "gitMode": "100644",
+      "localPath": "payloads/cd9191a3c0e5155c9138126beadd2f116d898f172fdaf322a28c6a765b5c4b11-420.bin",
+      "mode": 420,
+      "repositoryPath": "docs/restore-checkpoints/2026-10-20-mvk-p123-b-ct-cm3/followups/2026-10-21-retirement-r-small/payloads/cd9191a3c0e5155c9138126beadd2f116d898f172fdaf322a28c6a765b5c4b11-420.bin",
+      "sha256": "cd9191a3c0e5155c9138126beadd2f116d898f172fdaf322a28c6a765b5c4b11",
+      "storage": "this-checkpoint"
+    },
+    "cfd1917c962d5dbd2f6324c7382008b63fc8c8799ca20a9c08e7c516d25dcfdf-420": {
+      "bytes": 328766,
+      "gitBlobSHA1": "bf5a19987175f70421d16c12409c0674a5dbcab9",
+      "gitMode": "100644",
+      "localPath": "payloads/cfd1917c962d5dbd2f6324c7382008b63fc8c8799ca20a9c08e7c516d25dcfdf-420.bin",
+      "mode": 420,
+      "repositoryPath": "docs/restore-checkpoints/2026-10-20-mvk-p123-b-ct-cm3/followups/2026-10-21-retirement-r-small/payloads/cfd1917c962d5dbd2f6324c7382008b63fc8c8799ca20a9c08e7c516d25dcfdf-420.bin",
+      "sha256": "cfd1917c962d5dbd2f6324c7382008b63fc8c8799ca20a9c08e7c516d25dcfdf",
+      "storage": "this-checkpoint"
+    },
+    "d5a5a454b2d4cb1f0a16b4b774864191f3f50fcecf942bf6331fa3cc26201a92-493": {
+      "bytes": 33920,
+      "gitBlobSHA1": "91a8df3787b38a67598e56665f249910cf30aa7c",
+      "gitMode": "100755",
+      "localPath": "payloads/d5a5a454b2d4cb1f0a16b4b774864191f3f50fcecf942bf6331fa3cc26201a92-493.bin",
+      "mode": 493,
+      "repositoryPath": "docs/restore-checkpoints/2026-10-20-mvk-p123-b-ct-cm3/followups/2026-10-21-retirement-r-small/payloads/d5a5a454b2d4cb1f0a16b4b774864191f3f50fcecf942bf6331fa3cc26201a92-493.bin",
+      "sha256": "d5a5a454b2d4cb1f0a16b4b774864191f3f50fcecf942bf6331fa3cc26201a92",
+      "storage": "this-checkpoint"
+    },
+    "d6c62a13009005d70eaf9921ea43e8a9d84afe70bde5be8dbef730d7e672b20e-493": {
+      "bytes": 33920,
+      "gitBlobSHA1": "91a80163dec38193a49af9177e6ddbe7613000f4",
+      "gitMode": "100755",
+      "localPath": "payloads/d6c62a13009005d70eaf9921ea43e8a9d84afe70bde5be8dbef730d7e672b20e-493.bin",
+      "mode": 493,
+      "repositoryPath": "docs/restore-checkpoints/2026-10-20-mvk-p123-b-ct-cm3/followups/2026-10-21-retirement-r-small/payloads/d6c62a13009005d70eaf9921ea43e8a9d84afe70bde5be8dbef730d7e672b20e-493.bin",
+      "sha256": "d6c62a13009005d70eaf9921ea43e8a9d84afe70bde5be8dbef730d7e672b20e",
+      "storage": "this-checkpoint"
+    },
+    "da087778db8ce1d6ba345828420389e29772df165bbb1a7f02179d861ea95d53-493": {
+      "bytes": 34959808,
+      "commit": "90948f178d8194828d024b2278268633a11ef9b0",
+      "gitBlobSHA1": "3d81e777dd9484390200735fd362f85fe34f6128",
+      "gitMode": "100755",
+      "mode": 493,
+      "repositoryPath": "docs/restore-checkpoints/2026-10-20-mvk-p123-b-ct-cm3/followups/2026-10-20-abc-retention/payloads/da087778db8ce1d6ba345828420389e29772df165bbb1a7f02179d861ea95d53-spring",
+      "sha256": "da087778db8ce1d6ba345828420389e29772df165bbb1a7f02179d861ea95d53",
+      "storage": "existing-immutable-blob"
+    },
+    "dbaf23f32b1ecd38a6a7f7818dda33699c65565a10899117114ace8feae1811a-493": {
+      "bytes": 33920,
+      "gitBlobSHA1": "098bfcb9a7bb03d72541da2fee41c44a78a1c840",
+      "gitMode": "100755",
+      "localPath": "payloads/dbaf23f32b1ecd38a6a7f7818dda33699c65565a10899117114ace8feae1811a-493.bin",
+      "mode": 493,
+      "repositoryPath": "docs/restore-checkpoints/2026-10-20-mvk-p123-b-ct-cm3/followups/2026-10-21-retirement-r-small/payloads/dbaf23f32b1ecd38a6a7f7818dda33699c65565a10899117114ace8feae1811a-493.bin",
+      "sha256": "dbaf23f32b1ecd38a6a7f7818dda33699c65565a10899117114ace8feae1811a",
+      "storage": "this-checkpoint"
+    },
+    "dcc56657abbaf3044a59531232f4cfc54c2cadf3585e067f451b73533976bf3a-493": {
+      "bytes": 33920,
+      "gitBlobSHA1": "05bf059bae4fb7f46946178dfbdb23274da9fea8",
+      "gitMode": "100755",
+      "localPath": "payloads/dcc56657abbaf3044a59531232f4cfc54c2cadf3585e067f451b73533976bf3a-493.bin",
+      "mode": 493,
+      "repositoryPath": "docs/restore-checkpoints/2026-10-20-mvk-p123-b-ct-cm3/followups/2026-10-21-retirement-r-small/payloads/dcc56657abbaf3044a59531232f4cfc54c2cadf3585e067f451b73533976bf3a-493.bin",
+      "sha256": "dcc56657abbaf3044a59531232f4cfc54c2cadf3585e067f451b73533976bf3a",
+      "storage": "this-checkpoint"
+    },
+    "df04d3636b72c96bc4956250332f4231d67119cb51278af9259544e007465d7e-420": {
+      "bytes": 328766,
+      "gitBlobSHA1": "b4bde002e38d42355639f01420a13391642b5deb",
+      "gitMode": "100644",
+      "localPath": "payloads/df04d3636b72c96bc4956250332f4231d67119cb51278af9259544e007465d7e-420.bin",
+      "mode": 420,
+      "repositoryPath": "docs/restore-checkpoints/2026-10-20-mvk-p123-b-ct-cm3/followups/2026-10-21-retirement-r-small/payloads/df04d3636b72c96bc4956250332f4231d67119cb51278af9259544e007465d7e-420.bin",
+      "sha256": "df04d3636b72c96bc4956250332f4231d67119cb51278af9259544e007465d7e",
+      "storage": "this-checkpoint"
+    },
+    "e74e41d6f4dfb67c6e01010144eb56d1c535dfc1db8d2f55981481157c7b056d-420": {
+      "bytes": 328766,
+      "gitBlobSHA1": "97ebc80aff6d2405749576e3180e1e53a335cbb1",
+      "gitMode": "100644",
+      "localPath": "payloads/e74e41d6f4dfb67c6e01010144eb56d1c535dfc1db8d2f55981481157c7b056d-420.bin",
+      "mode": 420,
+      "repositoryPath": "docs/restore-checkpoints/2026-10-20-mvk-p123-b-ct-cm3/followups/2026-10-21-retirement-r-small/payloads/e74e41d6f4dfb67c6e01010144eb56d1c535dfc1db8d2f55981481157c7b056d-420.bin",
+      "sha256": "e74e41d6f4dfb67c6e01010144eb56d1c535dfc1db8d2f55981481157c7b056d",
+      "storage": "this-checkpoint"
+    },
+    "f625ec487c96b2f049cf7d1245360b72e729d512d7613692ffa0012c9382b65b-493": {
+      "bytes": 6438144,
+      "gitBlobSHA1": "9bb1b3090acf1d523b41c890aa19117508332e25",
+      "gitMode": "100755",
+      "localPath": "payloads/f625ec487c96b2f049cf7d1245360b72e729d512d7613692ffa0012c9382b65b-493.bin",
+      "mode": 493,
+      "repositoryPath": "docs/restore-checkpoints/2026-10-20-mvk-p123-b-ct-cm3/followups/2026-10-21-retirement-r-small/payloads/f625ec487c96b2f049cf7d1245360b72e729d512d7613692ffa0012c9382b65b-493.bin",
+      "sha256": "f625ec487c96b2f049cf7d1245360b72e729d512d7613692ffa0012c9382b65b",
+      "storage": "this-checkpoint"
+    }
+  },
+  "repository": "yeojuny/bar-lobby-apple-silicon",
+  "retirementAppIDs": [
+    "v104-d-split-lookup-only-20261021",
+    "v104-d-split-stats-only-off-20261021",
+    "v104-descriptor-candidate-20261020",
+    "v104-e-structure-allocator32-20261021",
+    "v104-e-structure-candidate-20261021",
+    "v104-lookup-descriptor-release-20261020",
+    "v104-performance-ab-candidate-20261020",
+    "v104-performance-candidate-20261020",
+    "v104-quiescent-allocator-candidate-20261021",
+    "v104-r-combined-candidate-20261021",
+    "v104-r-combined-group-locator-candidate-20261021",
+    "v104-r-group-locator-candidate-20261021",
+    "v104-typed-buffer-callers-candidate-20261020"
+  ],
+  "schema": "bar-v104-retirement-from-r-or-small-v1",
+  "targets": {
+    "v104-d-split-lookup-only-20261021": {
+      "from": {
+        "R": {
+          "baseInventory": "inventories/v104-idle-first-allocator-candidate-20261021.json",
+          "fullAppReconstructionExecuted": false,
+          "overlay": [
+            {
+              "after": {
+                "bytes": 33920,
+                "mode": 493,
+                "sha256": "93643e7939e5998f477917508ffdba6b1006c712955ffb06540b2e21e298a7e2",
+                "type": "file"
+              },
+              "before": {
+                "bytes": 33920,
+                "mode": 493,
+                "sha256": "51bdd7b5e02e1dde07a3114108d81e24d80a9e5fedfcd29aba473ec180973a0c",
+                "type": "file"
+              },
+              "path": "Contents/MacOS/BAR",
+              "payloadKey": "93643e7939e5998f477917508ffdba6b1006c712955ffb06540b2e21e298a7e2-493"
+            },
+            {
+              "after": {
+                "bytes": 6438064,
+                "mode": 493,
+                "sha256": "58f64d78861679511328731aa62f609839d35af2a30010e6f1b489d6917a68ab",
+                "type": "file"
+              },
+              "before": {
+                "bytes": 6437920,
+                "mode": 493,
+                "sha256": "8f8010bdcb59397564c21c80ad2eb87fb4690b45e6def36478db7e11fc781462",
+                "type": "file"
+              },
+              "path": "Contents/Resources/bundled-assets/runtime/moltenvk-pr2746/lib/libMoltenVK.1.4.3.dylib",
+              "payloadKey": "58f64d78861679511328731aa62f609839d35af2a30010e6f1b489d6917a68ab-493"
+            },
+            {
+              "after": {
+                "bytes": 328766,
+                "mode": 420,
+                "sha256": "df04d3636b72c96bc4956250332f4231d67119cb51278af9259544e007465d7e",
+                "type": "file"
+              },
+              "before": {
+                "bytes": 328766,
+                "mode": 420,
+                "sha256": "7ed87c89936f3611c039c3ed5a5b9066c02c235626099cf3913ea535009d20b3",
+                "type": "file"
+              },
+              "path": "Contents/_CodeSignature/CodeResources",
+              "payloadKey": "df04d3636b72c96bc4956250332f4231d67119cb51278af9259544e007465d7e-420"
+            }
+          ],
+          "virtualExact1194": true
+        },
+        "Small": {
+          "baseInventory": "inventories/v104-r-small-bundle-candidate-20261021.json",
+          "fullAppReconstructionExecuted": false,
+          "overlay": [
+            {
+              "after": {
+                "bytes": 33920,
+                "mode": 493,
+                "sha256": "93643e7939e5998f477917508ffdba6b1006c712955ffb06540b2e21e298a7e2",
+                "type": "file"
+              },
+              "before": {
+                "bytes": 33920,
+                "mode": 493,
+                "sha256": "dbaf23f32b1ecd38a6a7f7818dda33699c65565a10899117114ace8feae1811a",
+                "type": "file"
+              },
+              "path": "Contents/MacOS/BAR",
+              "payloadKey": "93643e7939e5998f477917508ffdba6b1006c712955ffb06540b2e21e298a7e2-493"
+            },
+            {
+              "after": {
+                "bytes": 6438064,
+                "mode": 493,
+                "sha256": "58f64d78861679511328731aa62f609839d35af2a30010e6f1b489d6917a68ab",
+                "type": "file"
+              },
+              "before": {
+                "bytes": 6438544,
+                "mode": 493,
+                "sha256": "abf4fb1bad831b6295d90dd5a9ffa6af8b25308e99c8724153716e480a0275a2",
+                "type": "file"
+              },
+              "path": "Contents/Resources/bundled-assets/runtime/moltenvk-pr2746/lib/libMoltenVK.1.4.3.dylib",
+              "payloadKey": "58f64d78861679511328731aa62f609839d35af2a30010e6f1b489d6917a68ab-493"
+            },
+            {
+              "after": {
+                "bytes": 328766,
+                "mode": 420,
+                "sha256": "df04d3636b72c96bc4956250332f4231d67119cb51278af9259544e007465d7e",
+                "type": "file"
+              },
+              "before": {
+                "bytes": 328766,
+                "mode": 420,
+                "sha256": "830d3e1512ab227cdf97b558ef6e3261d9303525f2b8e3a50c20414d8c0eaaed",
+                "type": "file"
+              },
+              "path": "Contents/_CodeSignature/CodeResources",
+              "payloadKey": "df04d3636b72c96bc4956250332f4231d67119cb51278af9259544e007465d7e-420"
+            }
+          ],
+          "virtualExact1194": true
+        }
+      },
+      "inventory": "inventories/v104-d-split-lookup-only-20261021.json"
+    },
+    "v104-d-split-stats-only-off-20261021": {
+      "from": {
+        "R": {
+          "baseInventory": "inventories/v104-idle-first-allocator-candidate-20261021.json",
+          "fullAppReconstructionExecuted": false,
+          "overlay": [
+            {
+              "after": {
+                "bytes": 33920,
+                "mode": 493,
+                "sha256": "7834b3bfe6501ff17ea96e4b428f5fc287fbe9a8b9a19c6436d6e27ca6b205bf",
+                "type": "file"
+              },
+              "before": {
+                "bytes": 33920,
+                "mode": 493,
+                "sha256": "51bdd7b5e02e1dde07a3114108d81e24d80a9e5fedfcd29aba473ec180973a0c",
+                "type": "file"
+              },
+              "path": "Contents/MacOS/BAR",
+              "payloadKey": "7834b3bfe6501ff17ea96e4b428f5fc287fbe9a8b9a19c6436d6e27ca6b205bf-493"
+            },
+            {
+              "after": {
+                "bytes": 6437920,
+                "mode": 493,
+                "sha256": "47e120fcdeb4476d8faf40013ac7f9162a0a6db048552d03ea81eb1a65333aa7",
+                "type": "file"
+              },
+              "before": {
+                "bytes": 6437920,
+                "mode": 493,
+                "sha256": "8f8010bdcb59397564c21c80ad2eb87fb4690b45e6def36478db7e11fc781462",
+                "type": "file"
+              },
+              "path": "Contents/Resources/bundled-assets/runtime/moltenvk-pr2746/lib/libMoltenVK.1.4.3.dylib",
+              "payloadKey": "47e120fcdeb4476d8faf40013ac7f9162a0a6db048552d03ea81eb1a65333aa7-493"
+            },
+            {
+              "after": {
+                "bytes": 328766,
+                "mode": 420,
+                "sha256": "33b1649aa2f60d4a1464562ec72726a6d8740c43049361126632ac6d3eeed594",
+                "type": "file"
+              },
+              "before": {
+                "bytes": 328766,
+                "mode": 420,
+                "sha256": "7ed87c89936f3611c039c3ed5a5b9066c02c235626099cf3913ea535009d20b3",
+                "type": "file"
+              },
+              "path": "Contents/_CodeSignature/CodeResources",
+              "payloadKey": "33b1649aa2f60d4a1464562ec72726a6d8740c43049361126632ac6d3eeed594-420"
+            }
+          ],
+          "virtualExact1194": true
+        },
+        "Small": {
+          "baseInventory": "inventories/v104-r-small-bundle-candidate-20261021.json",
+          "fullAppReconstructionExecuted": false,
+          "overlay": [
+            {
+              "after": {
+                "bytes": 33920,
+                "mode": 493,
+                "sha256": "7834b3bfe6501ff17ea96e4b428f5fc287fbe9a8b9a19c6436d6e27ca6b205bf",
+                "type": "file"
+              },
+              "before": {
+                "bytes": 33920,
+                "mode": 493,
+                "sha256": "dbaf23f32b1ecd38a6a7f7818dda33699c65565a10899117114ace8feae1811a",
+                "type": "file"
+              },
+              "path": "Contents/MacOS/BAR",
+              "payloadKey": "7834b3bfe6501ff17ea96e4b428f5fc287fbe9a8b9a19c6436d6e27ca6b205bf-493"
+            },
+            {
+              "after": {
+                "bytes": 6437920,
+                "mode": 493,
+                "sha256": "47e120fcdeb4476d8faf40013ac7f9162a0a6db048552d03ea81eb1a65333aa7",
+                "type": "file"
+              },
+              "before": {
+                "bytes": 6438544,
+                "mode": 493,
+                "sha256": "abf4fb1bad831b6295d90dd5a9ffa6af8b25308e99c8724153716e480a0275a2",
+                "type": "file"
+              },
+              "path": "Contents/Resources/bundled-assets/runtime/moltenvk-pr2746/lib/libMoltenVK.1.4.3.dylib",
+              "payloadKey": "47e120fcdeb4476d8faf40013ac7f9162a0a6db048552d03ea81eb1a65333aa7-493"
+            },
+            {
+              "after": {
+                "bytes": 328766,
+                "mode": 420,
+                "sha256": "33b1649aa2f60d4a1464562ec72726a6d8740c43049361126632ac6d3eeed594",
+                "type": "file"
+              },
+              "before": {
+                "bytes": 328766,
+                "mode": 420,
+                "sha256": "830d3e1512ab227cdf97b558ef6e3261d9303525f2b8e3a50c20414d8c0eaaed",
+                "type": "file"
+              },
+              "path": "Contents/_CodeSignature/CodeResources",
+              "payloadKey": "33b1649aa2f60d4a1464562ec72726a6d8740c43049361126632ac6d3eeed594-420"
+            }
+          ],
+          "virtualExact1194": true
+        }
+      },
+      "inventory": "inventories/v104-d-split-stats-only-off-20261021.json"
+    },
+    "v104-descriptor-candidate-20261020": {
+      "from": {
+        "R": {
+          "baseInventory": "inventories/v104-idle-first-allocator-candidate-20261021.json",
+          "fullAppReconstructionExecuted": false,
+          "overlay": [
+            {
+              "after": {
+                "bytes": 33920,
+                "mode": 493,
+                "sha256": "670c413a53d70774ae58d88a7ad6c2d3ce620c366666e51180dba95fe0ea394a",
+                "type": "file"
+              },
+              "before": {
+                "bytes": 33920,
+                "mode": 493,
+                "sha256": "51bdd7b5e02e1dde07a3114108d81e24d80a9e5fedfcd29aba473ec180973a0c",
+                "type": "file"
+              },
+              "path": "Contents/MacOS/BAR",
+              "payloadKey": "670c413a53d70774ae58d88a7ad6c2d3ce620c366666e51180dba95fe0ea394a-493"
+            },
+            {
+              "after": {
+                "bytes": 34959808,
+                "mode": 493,
+                "sha256": "da087778db8ce1d6ba345828420389e29772df165bbb1a7f02179d861ea95d53",
+                "type": "file"
+              },
+              "before": {
+                "bytes": 34960000,
+                "mode": 493,
+                "sha256": "f9653c8b199fad38836715d916a24ead8365f12ea4de38450f5ed33480d24014",
+                "type": "file"
+              },
+              "path": "Contents/Resources/bundled-assets/engine/2026.07.04/spring",
+              "payloadKey": "da087778db8ce1d6ba345828420389e29772df165bbb1a7f02179d861ea95d53-493"
+            },
+            {
+              "after": {
+                "bytes": 31275968,
+                "mode": 493,
+                "sha256": "16cdd896273e09b89e385ec53c24d0216df9a17dd5d7b80c78dc5f8471f13424",
+                "type": "file"
+              },
+              "before": {
+                "bytes": 31276160,
+                "mode": 493,
+                "sha256": "d715965659b977e05b8ccafe76fae0936cade1a7481871acff7eec876366f1aa",
+                "type": "file"
+              },
+              "path": "Contents/Resources/bundled-assets/engine/2026.09.01-24-g01efdf4 master/spring",
+              "payloadKey": "16cdd896273e09b89e385ec53c24d0216df9a17dd5d7b80c78dc5f8471f13424-493"
+            },
+            {
+              "after": {
+                "bytes": 6437040,
+                "mode": 493,
+                "sha256": "7ac71989ca27a99a2f9adf219ac0dcb12f16804cd35733bf7fd2c078635c5c4a",
+                "type": "file"
+              },
+              "before": {
+                "bytes": 6437920,
+                "mode": 493,
+                "sha256": "8f8010bdcb59397564c21c80ad2eb87fb4690b45e6def36478db7e11fc781462",
+                "type": "file"
+              },
+              "path": "Contents/Resources/bundled-assets/runtime/moltenvk-pr2746/lib/libMoltenVK.1.4.3.dylib",
+              "payloadKey": "7ac71989ca27a99a2f9adf219ac0dcb12f16804cd35733bf7fd2c078635c5c4a-493"
+            },
+            {
+              "after": {
+                "bytes": 328766,
+                "mode": 420,
+                "sha256": "cd9191a3c0e5155c9138126beadd2f116d898f172fdaf322a28c6a765b5c4b11",
+                "type": "file"
+              },
+              "before": {
+                "bytes": 328766,
+                "mode": 420,
+                "sha256": "7ed87c89936f3611c039c3ed5a5b9066c02c235626099cf3913ea535009d20b3",
+                "type": "file"
+              },
+              "path": "Contents/_CodeSignature/CodeResources",
+              "payloadKey": "cd9191a3c0e5155c9138126beadd2f116d898f172fdaf322a28c6a765b5c4b11-420"
+            }
+          ],
+          "virtualExact1194": true
+        },
+        "Small": {
+          "baseInventory": "inventories/v104-r-small-bundle-candidate-20261021.json",
+          "fullAppReconstructionExecuted": false,
+          "overlay": [
+            {
+              "after": {
+                "bytes": 33920,
+                "mode": 493,
+                "sha256": "670c413a53d70774ae58d88a7ad6c2d3ce620c366666e51180dba95fe0ea394a",
+                "type": "file"
+              },
+              "before": {
+                "bytes": 33920,
+                "mode": 493,
+                "sha256": "dbaf23f32b1ecd38a6a7f7818dda33699c65565a10899117114ace8feae1811a",
+                "type": "file"
+              },
+              "path": "Contents/MacOS/BAR",
+              "payloadKey": "670c413a53d70774ae58d88a7ad6c2d3ce620c366666e51180dba95fe0ea394a-493"
+            },
+            {
+              "after": {
+                "bytes": 34959808,
+                "mode": 493,
+                "sha256": "da087778db8ce1d6ba345828420389e29772df165bbb1a7f02179d861ea95d53",
+                "type": "file"
+              },
+              "before": {
+                "bytes": 34960000,
+                "mode": 493,
+                "sha256": "f9653c8b199fad38836715d916a24ead8365f12ea4de38450f5ed33480d24014",
+                "type": "file"
+              },
+              "path": "Contents/Resources/bundled-assets/engine/2026.07.04/spring",
+              "payloadKey": "da087778db8ce1d6ba345828420389e29772df165bbb1a7f02179d861ea95d53-493"
+            },
+            {
+              "after": {
+                "bytes": 31275968,
+                "mode": 493,
+                "sha256": "16cdd896273e09b89e385ec53c24d0216df9a17dd5d7b80c78dc5f8471f13424",
+                "type": "file"
+              },
+              "before": {
+                "bytes": 31276160,
+                "mode": 493,
+                "sha256": "d715965659b977e05b8ccafe76fae0936cade1a7481871acff7eec876366f1aa",
+                "type": "file"
+              },
+              "path": "Contents/Resources/bundled-assets/engine/2026.09.01-24-g01efdf4 master/spring",
+              "payloadKey": "16cdd896273e09b89e385ec53c24d0216df9a17dd5d7b80c78dc5f8471f13424-493"
+            },
+            {
+              "after": {
+                "bytes": 6437040,
+                "mode": 493,
+                "sha256": "7ac71989ca27a99a2f9adf219ac0dcb12f16804cd35733bf7fd2c078635c5c4a",
+                "type": "file"
+              },
+              "before": {
+                "bytes": 6438544,
+                "mode": 493,
+                "sha256": "abf4fb1bad831b6295d90dd5a9ffa6af8b25308e99c8724153716e480a0275a2",
+                "type": "file"
+              },
+              "path": "Contents/Resources/bundled-assets/runtime/moltenvk-pr2746/lib/libMoltenVK.1.4.3.dylib",
+              "payloadKey": "7ac71989ca27a99a2f9adf219ac0dcb12f16804cd35733bf7fd2c078635c5c4a-493"
+            },
+            {
+              "after": {
+                "bytes": 328766,
+                "mode": 420,
+                "sha256": "cd9191a3c0e5155c9138126beadd2f116d898f172fdaf322a28c6a765b5c4b11",
+                "type": "file"
+              },
+              "before": {
+                "bytes": 328766,
+                "mode": 420,
+                "sha256": "830d3e1512ab227cdf97b558ef6e3261d9303525f2b8e3a50c20414d8c0eaaed",
+                "type": "file"
+              },
+              "path": "Contents/_CodeSignature/CodeResources",
+              "payloadKey": "cd9191a3c0e5155c9138126beadd2f116d898f172fdaf322a28c6a765b5c4b11-420"
+            }
+          ],
+          "virtualExact1194": true
+        }
+      },
+      "inventory": "inventories/v104-descriptor-candidate-20261020.json"
+    },
+    "v104-e-structure-allocator32-20261021": {
+      "from": {
+        "R": {
+          "baseInventory": "inventories/v104-idle-first-allocator-candidate-20261021.json",
+          "fullAppReconstructionExecuted": false,
+          "overlay": [
+            {
+              "after": {
+                "bytes": 33920,
+                "mode": 493,
+                "sha256": "7a36ec1d65375a5a4080c9cdc8deece5108abf36e7b1953fb0de0916205efc20",
+                "type": "file"
+              },
+              "before": {
+                "bytes": 33920,
+                "mode": 493,
+                "sha256": "51bdd7b5e02e1dde07a3114108d81e24d80a9e5fedfcd29aba473ec180973a0c",
+                "type": "file"
+              },
+              "path": "Contents/MacOS/BAR",
+              "payloadKey": "7a36ec1d65375a5a4080c9cdc8deece5108abf36e7b1953fb0de0916205efc20-493"
+            },
+            {
+              "after": {
+                "bytes": 6438144,
+                "mode": 493,
+                "sha256": "3de11fa4ad010d70eb356bb6d3ed38af0e09802ec203aa93ea4a3db1cd5adbb9",
+                "type": "file"
+              },
+              "before": {
+                "bytes": 6437920,
+                "mode": 493,
+                "sha256": "8f8010bdcb59397564c21c80ad2eb87fb4690b45e6def36478db7e11fc781462",
+                "type": "file"
+              },
+              "path": "Contents/Resources/bundled-assets/runtime/moltenvk-pr2746/lib/libMoltenVK.1.4.3.dylib",
+              "payloadKey": "3de11fa4ad010d70eb356bb6d3ed38af0e09802ec203aa93ea4a3db1cd5adbb9-493"
+            },
+            {
+              "after": {
+                "bytes": 328766,
+                "mode": 420,
+                "sha256": "5415db3caf1698264545e478573e00f233f9afd2fb32d80e3f6de62b24921558",
+                "type": "file"
+              },
+              "before": {
+                "bytes": 328766,
+                "mode": 420,
+                "sha256": "7ed87c89936f3611c039c3ed5a5b9066c02c235626099cf3913ea535009d20b3",
+                "type": "file"
+              },
+              "path": "Contents/_CodeSignature/CodeResources",
+              "payloadKey": "5415db3caf1698264545e478573e00f233f9afd2fb32d80e3f6de62b24921558-420"
+            }
+          ],
+          "virtualExact1194": true
+        },
+        "Small": {
+          "baseInventory": "inventories/v104-r-small-bundle-candidate-20261021.json",
+          "fullAppReconstructionExecuted": false,
+          "overlay": [
+            {
+              "after": {
+                "bytes": 33920,
+                "mode": 493,
+                "sha256": "7a36ec1d65375a5a4080c9cdc8deece5108abf36e7b1953fb0de0916205efc20",
+                "type": "file"
+              },
+              "before": {
+                "bytes": 33920,
+                "mode": 493,
+                "sha256": "dbaf23f32b1ecd38a6a7f7818dda33699c65565a10899117114ace8feae1811a",
+                "type": "file"
+              },
+              "path": "Contents/MacOS/BAR",
+              "payloadKey": "7a36ec1d65375a5a4080c9cdc8deece5108abf36e7b1953fb0de0916205efc20-493"
+            },
+            {
+              "after": {
+                "bytes": 6438144,
+                "mode": 493,
+                "sha256": "3de11fa4ad010d70eb356bb6d3ed38af0e09802ec203aa93ea4a3db1cd5adbb9",
+                "type": "file"
+              },
+              "before": {
+                "bytes": 6438544,
+                "mode": 493,
+                "sha256": "abf4fb1bad831b6295d90dd5a9ffa6af8b25308e99c8724153716e480a0275a2",
+                "type": "file"
+              },
+              "path": "Contents/Resources/bundled-assets/runtime/moltenvk-pr2746/lib/libMoltenVK.1.4.3.dylib",
+              "payloadKey": "3de11fa4ad010d70eb356bb6d3ed38af0e09802ec203aa93ea4a3db1cd5adbb9-493"
+            },
+            {
+              "after": {
+                "bytes": 328766,
+                "mode": 420,
+                "sha256": "5415db3caf1698264545e478573e00f233f9afd2fb32d80e3f6de62b24921558",
+                "type": "file"
+              },
+              "before": {
+                "bytes": 328766,
+                "mode": 420,
+                "sha256": "830d3e1512ab227cdf97b558ef6e3261d9303525f2b8e3a50c20414d8c0eaaed",
+                "type": "file"
+              },
+              "path": "Contents/_CodeSignature/CodeResources",
+              "payloadKey": "5415db3caf1698264545e478573e00f233f9afd2fb32d80e3f6de62b24921558-420"
+            }
+          ],
+          "virtualExact1194": true
+        }
+      },
+      "inventory": "inventories/v104-e-structure-allocator32-20261021.json"
+    },
+    "v104-e-structure-candidate-20261021": {
+      "from": {
+        "R": {
+          "baseInventory": "inventories/v104-idle-first-allocator-candidate-20261021.json",
+          "fullAppReconstructionExecuted": false,
+          "overlay": [
+            {
+              "after": {
+                "bytes": 33920,
+                "mode": 493,
+                "sha256": "1b484027de444d96a93fa8de2d835e559485a023e1e2769a577f3b5cf8deef6b",
+                "type": "file"
+              },
+              "before": {
+                "bytes": 33920,
+                "mode": 493,
+                "sha256": "51bdd7b5e02e1dde07a3114108d81e24d80a9e5fedfcd29aba473ec180973a0c",
+                "type": "file"
+              },
+              "path": "Contents/MacOS/BAR",
+              "payloadKey": "1b484027de444d96a93fa8de2d835e559485a023e1e2769a577f3b5cf8deef6b-493"
+            },
+            {
+              "after": {
+                "bytes": 6438144,
+                "mode": 493,
+                "sha256": "f625ec487c96b2f049cf7d1245360b72e729d512d7613692ffa0012c9382b65b",
+                "type": "file"
+              },
+              "before": {
+                "bytes": 6437920,
+                "mode": 493,
+                "sha256": "8f8010bdcb59397564c21c80ad2eb87fb4690b45e6def36478db7e11fc781462",
+                "type": "file"
+              },
+              "path": "Contents/Resources/bundled-assets/runtime/moltenvk-pr2746/lib/libMoltenVK.1.4.3.dylib",
+              "payloadKey": "f625ec487c96b2f049cf7d1245360b72e729d512d7613692ffa0012c9382b65b-493"
+            },
+            {
+              "after": {
+                "bytes": 328766,
+                "mode": 420,
+                "sha256": "029af81556309a5a14181dcd39315d4b4adac7d7addd441f277527436e861a7a",
+                "type": "file"
+              },
+              "before": {
+                "bytes": 328766,
+                "mode": 420,
+                "sha256": "7ed87c89936f3611c039c3ed5a5b9066c02c235626099cf3913ea535009d20b3",
+                "type": "file"
+              },
+              "path": "Contents/_CodeSignature/CodeResources",
+              "payloadKey": "029af81556309a5a14181dcd39315d4b4adac7d7addd441f277527436e861a7a-420"
+            }
+          ],
+          "virtualExact1194": true
+        },
+        "Small": {
+          "baseInventory": "inventories/v104-r-small-bundle-candidate-20261021.json",
+          "fullAppReconstructionExecuted": false,
+          "overlay": [
+            {
+              "after": {
+                "bytes": 33920,
+                "mode": 493,
+                "sha256": "1b484027de444d96a93fa8de2d835e559485a023e1e2769a577f3b5cf8deef6b",
+                "type": "file"
+              },
+              "before": {
+                "bytes": 33920,
+                "mode": 493,
+                "sha256": "dbaf23f32b1ecd38a6a7f7818dda33699c65565a10899117114ace8feae1811a",
+                "type": "file"
+              },
+              "path": "Contents/MacOS/BAR",
+              "payloadKey": "1b484027de444d96a93fa8de2d835e559485a023e1e2769a577f3b5cf8deef6b-493"
+            },
+            {
+              "after": {
+                "bytes": 6438144,
+                "mode": 493,
+                "sha256": "f625ec487c96b2f049cf7d1245360b72e729d512d7613692ffa0012c9382b65b",
+                "type": "file"
+              },
+              "before": {
+                "bytes": 6438544,
+                "mode": 493,
+                "sha256": "abf4fb1bad831b6295d90dd5a9ffa6af8b25308e99c8724153716e480a0275a2",
+                "type": "file"
+              },
+              "path": "Contents/Resources/bundled-assets/runtime/moltenvk-pr2746/lib/libMoltenVK.1.4.3.dylib",
+              "payloadKey": "f625ec487c96b2f049cf7d1245360b72e729d512d7613692ffa0012c9382b65b-493"
+            },
+            {
+              "after": {
+                "bytes": 328766,
+                "mode": 420,
+                "sha256": "029af81556309a5a14181dcd39315d4b4adac7d7addd441f277527436e861a7a",
+                "type": "file"
+              },
+              "before": {
+                "bytes": 328766,
+                "mode": 420,
+                "sha256": "830d3e1512ab227cdf97b558ef6e3261d9303525f2b8e3a50c20414d8c0eaaed",
+                "type": "file"
+              },
+              "path": "Contents/_CodeSignature/CodeResources",
+              "payloadKey": "029af81556309a5a14181dcd39315d4b4adac7d7addd441f277527436e861a7a-420"
+            }
+          ],
+          "virtualExact1194": true
+        }
+      },
+      "inventory": "inventories/v104-e-structure-candidate-20261021.json"
+    },
+    "v104-idle-first-allocator-candidate-20261021": {
+      "from": {
+        "R": {
+          "baseInventory": "inventories/v104-idle-first-allocator-candidate-20261021.json",
+          "fullAppReconstructionExecuted": false,
+          "overlay": [],
+          "virtualExact1194": true
+        },
+        "Small": {
+          "baseInventory": "inventories/v104-r-small-bundle-candidate-20261021.json",
+          "fullAppReconstructionExecuted": false,
+          "overlay": [
+            {
+              "after": {
+                "bytes": 33920,
+                "mode": 493,
+                "sha256": "51bdd7b5e02e1dde07a3114108d81e24d80a9e5fedfcd29aba473ec180973a0c",
+                "type": "file"
+              },
+              "before": {
+                "bytes": 33920,
+                "mode": 493,
+                "sha256": "dbaf23f32b1ecd38a6a7f7818dda33699c65565a10899117114ace8feae1811a",
+                "type": "file"
+              },
+              "path": "Contents/MacOS/BAR",
+              "payloadKey": "51bdd7b5e02e1dde07a3114108d81e24d80a9e5fedfcd29aba473ec180973a0c-493"
+            },
+            {
+              "after": {
+                "bytes": 6437920,
+                "mode": 493,
+                "sha256": "8f8010bdcb59397564c21c80ad2eb87fb4690b45e6def36478db7e11fc781462",
+                "type": "file"
+              },
+              "before": {
+                "bytes": 6438544,
+                "mode": 493,
+                "sha256": "abf4fb1bad831b6295d90dd5a9ffa6af8b25308e99c8724153716e480a0275a2",
+                "type": "file"
+              },
+              "path": "Contents/Resources/bundled-assets/runtime/moltenvk-pr2746/lib/libMoltenVK.1.4.3.dylib",
+              "payloadKey": "8f8010bdcb59397564c21c80ad2eb87fb4690b45e6def36478db7e11fc781462-493"
+            },
+            {
+              "after": {
+                "bytes": 328766,
+                "mode": 420,
+                "sha256": "7ed87c89936f3611c039c3ed5a5b9066c02c235626099cf3913ea535009d20b3",
+                "type": "file"
+              },
+              "before": {
+                "bytes": 328766,
+                "mode": 420,
+                "sha256": "830d3e1512ab227cdf97b558ef6e3261d9303525f2b8e3a50c20414d8c0eaaed",
+                "type": "file"
+              },
+              "path": "Contents/_CodeSignature/CodeResources",
+              "payloadKey": "7ed87c89936f3611c039c3ed5a5b9066c02c235626099cf3913ea535009d20b3-420"
+            }
+          ],
+          "virtualExact1194": true
+        }
+      },
+      "inventory": "inventories/v104-idle-first-allocator-candidate-20261021.json"
+    },
+    "v104-lookup-descriptor-release-20261020": {
+      "from": {
+        "R": {
+          "baseInventory": "inventories/v104-idle-first-allocator-candidate-20261021.json",
+          "fullAppReconstructionExecuted": false,
+          "overlay": [
+            {
+              "after": {
+                "bytes": 33920,
+                "mode": 493,
+                "sha256": "025e877659cb3fe6a30cda59ae4d6138dda95d9f3215072979d9ccdf87f38815",
+                "type": "file"
+              },
+              "before": {
+                "bytes": 33920,
+                "mode": 493,
+                "sha256": "51bdd7b5e02e1dde07a3114108d81e24d80a9e5fedfcd29aba473ec180973a0c",
+                "type": "file"
+              },
+              "path": "Contents/MacOS/BAR",
+              "payloadKey": "025e877659cb3fe6a30cda59ae4d6138dda95d9f3215072979d9ccdf87f38815-493"
+            },
+            {
+              "after": {
+                "bytes": 6438064,
+                "mode": 493,
+                "sha256": "05ca8f27796bad7e75211259a2df909295e62a8c3cb8db344996356c3990e237",
+                "type": "file"
+              },
+              "before": {
+                "bytes": 6437920,
+                "mode": 493,
+                "sha256": "8f8010bdcb59397564c21c80ad2eb87fb4690b45e6def36478db7e11fc781462",
+                "type": "file"
+              },
+              "path": "Contents/Resources/bundled-assets/runtime/moltenvk-pr2746/lib/libMoltenVK.1.4.3.dylib",
+              "payloadKey": "05ca8f27796bad7e75211259a2df909295e62a8c3cb8db344996356c3990e237-493"
+            },
+            {
+              "after": {
+                "bytes": 328766,
+                "mode": 420,
+                "sha256": "011bb7b1c754c35c8f6e08289e3118e201b35139a2b3fd14a4f242e81ff24935",
+                "type": "file"
+              },
+              "before": {
+                "bytes": 328766,
+                "mode": 420,
+                "sha256": "7ed87c89936f3611c039c3ed5a5b9066c02c235626099cf3913ea535009d20b3",
+                "type": "file"
+              },
+              "path": "Contents/_CodeSignature/CodeResources",
+              "payloadKey": "011bb7b1c754c35c8f6e08289e3118e201b35139a2b3fd14a4f242e81ff24935-420"
+            }
+          ],
+          "virtualExact1194": true
+        },
+        "Small": {
+          "baseInventory": "inventories/v104-r-small-bundle-candidate-20261021.json",
+          "fullAppReconstructionExecuted": false,
+          "overlay": [
+            {
+              "after": {
+                "bytes": 33920,
+                "mode": 493,
+                "sha256": "025e877659cb3fe6a30cda59ae4d6138dda95d9f3215072979d9ccdf87f38815",
+                "type": "file"
+              },
+              "before": {
+                "bytes": 33920,
+                "mode": 493,
+                "sha256": "dbaf23f32b1ecd38a6a7f7818dda33699c65565a10899117114ace8feae1811a",
+                "type": "file"
+              },
+              "path": "Contents/MacOS/BAR",
+              "payloadKey": "025e877659cb3fe6a30cda59ae4d6138dda95d9f3215072979d9ccdf87f38815-493"
+            },
+            {
+              "after": {
+                "bytes": 6438064,
+                "mode": 493,
+                "sha256": "05ca8f27796bad7e75211259a2df909295e62a8c3cb8db344996356c3990e237",
+                "type": "file"
+              },
+              "before": {
+                "bytes": 6438544,
+                "mode": 493,
+                "sha256": "abf4fb1bad831b6295d90dd5a9ffa6af8b25308e99c8724153716e480a0275a2",
+                "type": "file"
+              },
+              "path": "Contents/Resources/bundled-assets/runtime/moltenvk-pr2746/lib/libMoltenVK.1.4.3.dylib",
+              "payloadKey": "05ca8f27796bad7e75211259a2df909295e62a8c3cb8db344996356c3990e237-493"
+            },
+            {
+              "after": {
+                "bytes": 328766,
+                "mode": 420,
+                "sha256": "011bb7b1c754c35c8f6e08289e3118e201b35139a2b3fd14a4f242e81ff24935",
+                "type": "file"
+              },
+              "before": {
+                "bytes": 328766,
+                "mode": 420,
+                "sha256": "830d3e1512ab227cdf97b558ef6e3261d9303525f2b8e3a50c20414d8c0eaaed",
+                "type": "file"
+              },
+              "path": "Contents/_CodeSignature/CodeResources",
+              "payloadKey": "011bb7b1c754c35c8f6e08289e3118e201b35139a2b3fd14a4f242e81ff24935-420"
+            }
+          ],
+          "virtualExact1194": true
+        }
+      },
+      "inventory": "inventories/v104-lookup-descriptor-release-20261020.json"
+    },
+    "v104-performance-ab-candidate-20261020": {
+      "from": {
+        "R": {
+          "baseInventory": "inventories/v104-idle-first-allocator-candidate-20261021.json",
+          "fullAppReconstructionExecuted": false,
+          "overlay": [
+            {
+              "after": {
+                "bytes": 33920,
+                "mode": 493,
+                "sha256": "2f88cf4d0388a3208761b5d0b8a1483e0783ace927745e05fdb16d42f60d847e",
+                "type": "file"
+              },
+              "before": {
+                "bytes": 33920,
+                "mode": 493,
+                "sha256": "51bdd7b5e02e1dde07a3114108d81e24d80a9e5fedfcd29aba473ec180973a0c",
+                "type": "file"
+              },
+              "path": "Contents/MacOS/BAR",
+              "payloadKey": "2f88cf4d0388a3208761b5d0b8a1483e0783ace927745e05fdb16d42f60d847e-493"
+            },
+            {
+              "after": {
+                "bytes": 34959808,
+                "mode": 493,
+                "sha256": "da087778db8ce1d6ba345828420389e29772df165bbb1a7f02179d861ea95d53",
+                "type": "file"
+              },
+              "before": {
+                "bytes": 34960000,
+                "mode": 493,
+                "sha256": "f9653c8b199fad38836715d916a24ead8365f12ea4de38450f5ed33480d24014",
+                "type": "file"
+              },
+              "path": "Contents/Resources/bundled-assets/engine/2026.07.04/spring",
+              "payloadKey": "da087778db8ce1d6ba345828420389e29772df165bbb1a7f02179d861ea95d53-493"
+            },
+            {
+              "after": {
+                "bytes": 31275968,
+                "mode": 493,
+                "sha256": "16cdd896273e09b89e385ec53c24d0216df9a17dd5d7b80c78dc5f8471f13424",
+                "type": "file"
+              },
+              "before": {
+                "bytes": 31276160,
+                "mode": 493,
+                "sha256": "d715965659b977e05b8ccafe76fae0936cade1a7481871acff7eec876366f1aa",
+                "type": "file"
+              },
+              "path": "Contents/Resources/bundled-assets/engine/2026.09.01-24-g01efdf4 master/spring",
+              "payloadKey": "16cdd896273e09b89e385ec53c24d0216df9a17dd5d7b80c78dc5f8471f13424-493"
+            },
+            {
+              "after": {
+                "bytes": 6437040,
+                "mode": 493,
+                "sha256": "99cf887139c8022dcb65e30e9331c8dc0b6ebd4cf6edf59c0d8a1cd942b59ac2",
+                "type": "file"
+              },
+              "before": {
+                "bytes": 6437920,
+                "mode": 493,
+                "sha256": "8f8010bdcb59397564c21c80ad2eb87fb4690b45e6def36478db7e11fc781462",
+                "type": "file"
+              },
+              "path": "Contents/Resources/bundled-assets/runtime/moltenvk-pr2746/lib/libMoltenVK.1.4.3.dylib",
+              "payloadKey": "99cf887139c8022dcb65e30e9331c8dc0b6ebd4cf6edf59c0d8a1cd942b59ac2-493"
+            },
+            {
+              "after": {
+                "bytes": 328766,
+                "mode": 420,
+                "sha256": "351b668e17ee987db3e4b615c6548abd8d54378654b343100dd1a7ae1a26f0d5",
+                "type": "file"
+              },
+              "before": {
+                "bytes": 328766,
+                "mode": 420,
+                "sha256": "7ed87c89936f3611c039c3ed5a5b9066c02c235626099cf3913ea535009d20b3",
+                "type": "file"
+              },
+              "path": "Contents/_CodeSignature/CodeResources",
+              "payloadKey": "351b668e17ee987db3e4b615c6548abd8d54378654b343100dd1a7ae1a26f0d5-420"
+            }
+          ],
+          "virtualExact1194": true
+        },
+        "Small": {
+          "baseInventory": "inventories/v104-r-small-bundle-candidate-20261021.json",
+          "fullAppReconstructionExecuted": false,
+          "overlay": [
+            {
+              "after": {
+                "bytes": 33920,
+                "mode": 493,
+                "sha256": "2f88cf4d0388a3208761b5d0b8a1483e0783ace927745e05fdb16d42f60d847e",
+                "type": "file"
+              },
+              "before": {
+                "bytes": 33920,
+                "mode": 493,
+                "sha256": "dbaf23f32b1ecd38a6a7f7818dda33699c65565a10899117114ace8feae1811a",
+                "type": "file"
+              },
+              "path": "Contents/MacOS/BAR",
+              "payloadKey": "2f88cf4d0388a3208761b5d0b8a1483e0783ace927745e05fdb16d42f60d847e-493"
+            },
+            {
+              "after": {
+                "bytes": 34959808,
+                "mode": 493,
+                "sha256": "da087778db8ce1d6ba345828420389e29772df165bbb1a7f02179d861ea95d53",
+                "type": "file"
+              },
+              "before": {
+                "bytes": 34960000,
+                "mode": 493,
+                "sha256": "f9653c8b199fad38836715d916a24ead8365f12ea4de38450f5ed33480d24014",
+                "type": "file"
+              },
+              "path": "Contents/Resources/bundled-assets/engine/2026.07.04/spring",
+              "payloadKey": "da087778db8ce1d6ba345828420389e29772df165bbb1a7f02179d861ea95d53-493"
+            },
+            {
+              "after": {
+                "bytes": 31275968,
+                "mode": 493,
+                "sha256": "16cdd896273e09b89e385ec53c24d0216df9a17dd5d7b80c78dc5f8471f13424",
+                "type": "file"
+              },
+              "before": {
+                "bytes": 31276160,
+                "mode": 493,
+                "sha256": "d715965659b977e05b8ccafe76fae0936cade1a7481871acff7eec876366f1aa",
+                "type": "file"
+              },
+              "path": "Contents/Resources/bundled-assets/engine/2026.09.01-24-g01efdf4 master/spring",
+              "payloadKey": "16cdd896273e09b89e385ec53c24d0216df9a17dd5d7b80c78dc5f8471f13424-493"
+            },
+            {
+              "after": {
+                "bytes": 6437040,
+                "mode": 493,
+                "sha256": "99cf887139c8022dcb65e30e9331c8dc0b6ebd4cf6edf59c0d8a1cd942b59ac2",
+                "type": "file"
+              },
+              "before": {
+                "bytes": 6438544,
+                "mode": 493,
+                "sha256": "abf4fb1bad831b6295d90dd5a9ffa6af8b25308e99c8724153716e480a0275a2",
+                "type": "file"
+              },
+              "path": "Contents/Resources/bundled-assets/runtime/moltenvk-pr2746/lib/libMoltenVK.1.4.3.dylib",
+              "payloadKey": "99cf887139c8022dcb65e30e9331c8dc0b6ebd4cf6edf59c0d8a1cd942b59ac2-493"
+            },
+            {
+              "after": {
+                "bytes": 328766,
+                "mode": 420,
+                "sha256": "351b668e17ee987db3e4b615c6548abd8d54378654b343100dd1a7ae1a26f0d5",
+                "type": "file"
+              },
+              "before": {
+                "bytes": 328766,
+                "mode": 420,
+                "sha256": "830d3e1512ab227cdf97b558ef6e3261d9303525f2b8e3a50c20414d8c0eaaed",
+                "type": "file"
+              },
+              "path": "Contents/_CodeSignature/CodeResources",
+              "payloadKey": "351b668e17ee987db3e4b615c6548abd8d54378654b343100dd1a7ae1a26f0d5-420"
+            }
+          ],
+          "virtualExact1194": true
+        }
+      },
+      "inventory": "inventories/v104-performance-ab-candidate-20261020.json"
+    },
+    "v104-performance-candidate-20261020": {
+      "from": {
+        "R": {
+          "baseInventory": "inventories/v104-idle-first-allocator-candidate-20261021.json",
+          "fullAppReconstructionExecuted": false,
+          "overlay": [
+            {
+              "after": {
+                "bytes": 33920,
+                "mode": 493,
+                "sha256": "043bf4821e7d61fa2f2b630a08e93305bcd7fac1ca5e19290c59d2798eb81163",
+                "type": "file"
+              },
+              "before": {
+                "bytes": 33920,
+                "mode": 493,
+                "sha256": "51bdd7b5e02e1dde07a3114108d81e24d80a9e5fedfcd29aba473ec180973a0c",
+                "type": "file"
+              },
+              "path": "Contents/MacOS/BAR",
+              "payloadKey": "043bf4821e7d61fa2f2b630a08e93305bcd7fac1ca5e19290c59d2798eb81163-493"
+            },
+            {
+              "after": {
+                "bytes": 34959808,
+                "mode": 493,
+                "sha256": "da087778db8ce1d6ba345828420389e29772df165bbb1a7f02179d861ea95d53",
+                "type": "file"
+              },
+              "before": {
+                "bytes": 34960000,
+                "mode": 493,
+                "sha256": "f9653c8b199fad38836715d916a24ead8365f12ea4de38450f5ed33480d24014",
+                "type": "file"
+              },
+              "path": "Contents/Resources/bundled-assets/engine/2026.07.04/spring",
+              "payloadKey": "da087778db8ce1d6ba345828420389e29772df165bbb1a7f02179d861ea95d53-493"
+            },
+            {
+              "after": {
+                "bytes": 31275968,
+                "mode": 493,
+                "sha256": "16cdd896273e09b89e385ec53c24d0216df9a17dd5d7b80c78dc5f8471f13424",
+                "type": "file"
+              },
+              "before": {
+                "bytes": 31276160,
+                "mode": 493,
+                "sha256": "d715965659b977e05b8ccafe76fae0936cade1a7481871acff7eec876366f1aa",
+                "type": "file"
+              },
+              "path": "Contents/Resources/bundled-assets/engine/2026.09.01-24-g01efdf4 master/spring",
+              "payloadKey": "16cdd896273e09b89e385ec53c24d0216df9a17dd5d7b80c78dc5f8471f13424-493"
+            },
+            {
+              "after": {
+                "bytes": 6437296,
+                "mode": 493,
+                "sha256": "7aea926e4c5e815e523bbaf8a301df53363291254c20bd1df97aa015e150c7fe",
+                "type": "file"
+              },
+              "before": {
+                "bytes": 6437920,
+                "mode": 493,
+                "sha256": "8f8010bdcb59397564c21c80ad2eb87fb4690b45e6def36478db7e11fc781462",
+                "type": "file"
+              },
+              "path": "Contents/Resources/bundled-assets/runtime/moltenvk-pr2746/lib/libMoltenVK.1.4.3.dylib",
+              "payloadKey": "7aea926e4c5e815e523bbaf8a301df53363291254c20bd1df97aa015e150c7fe-493"
+            },
+            {
+              "after": {
+                "bytes": 328766,
+                "mode": 420,
+                "sha256": "371ed950f75a3bcca206faf13c16255dae21b91f57a2b0bd7134ed788a7758a0",
+                "type": "file"
+              },
+              "before": {
+                "bytes": 328766,
+                "mode": 420,
+                "sha256": "7ed87c89936f3611c039c3ed5a5b9066c02c235626099cf3913ea535009d20b3",
+                "type": "file"
+              },
+              "path": "Contents/_CodeSignature/CodeResources",
+              "payloadKey": "371ed950f75a3bcca206faf13c16255dae21b91f57a2b0bd7134ed788a7758a0-420"
+            }
+          ],
+          "virtualExact1194": true
+        },
+        "Small": {
+          "baseInventory": "inventories/v104-r-small-bundle-candidate-20261021.json",
+          "fullAppReconstructionExecuted": false,
+          "overlay": [
+            {
+              "after": {
+                "bytes": 33920,
+                "mode": 493,
+                "sha256": "043bf4821e7d61fa2f2b630a08e93305bcd7fac1ca5e19290c59d2798eb81163",
+                "type": "file"
+              },
+              "before": {
+                "bytes": 33920,
+                "mode": 493,
+                "sha256": "dbaf23f32b1ecd38a6a7f7818dda33699c65565a10899117114ace8feae1811a",
+                "type": "file"
+              },
+              "path": "Contents/MacOS/BAR",
+              "payloadKey": "043bf4821e7d61fa2f2b630a08e93305bcd7fac1ca5e19290c59d2798eb81163-493"
+            },
+            {
+              "after": {
+                "bytes": 34959808,
+                "mode": 493,
+                "sha256": "da087778db8ce1d6ba345828420389e29772df165bbb1a7f02179d861ea95d53",
+                "type": "file"
+              },
+              "before": {
+                "bytes": 34960000,
+                "mode": 493,
+                "sha256": "f9653c8b199fad38836715d916a24ead8365f12ea4de38450f5ed33480d24014",
+                "type": "file"
+              },
+              "path": "Contents/Resources/bundled-assets/engine/2026.07.04/spring",
+              "payloadKey": "da087778db8ce1d6ba345828420389e29772df165bbb1a7f02179d861ea95d53-493"
+            },
+            {
+              "after": {
+                "bytes": 31275968,
+                "mode": 493,
+                "sha256": "16cdd896273e09b89e385ec53c24d0216df9a17dd5d7b80c78dc5f8471f13424",
+                "type": "file"
+              },
+              "before": {
+                "bytes": 31276160,
+                "mode": 493,
+                "sha256": "d715965659b977e05b8ccafe76fae0936cade1a7481871acff7eec876366f1aa",
+                "type": "file"
+              },
+              "path": "Contents/Resources/bundled-assets/engine/2026.09.01-24-g01efdf4 master/spring",
+              "payloadKey": "16cdd896273e09b89e385ec53c24d0216df9a17dd5d7b80c78dc5f8471f13424-493"
+            },
+            {
+              "after": {
+                "bytes": 6437296,
+                "mode": 493,
+                "sha256": "7aea926e4c5e815e523bbaf8a301df53363291254c20bd1df97aa015e150c7fe",
+                "type": "file"
+              },
+              "before": {
+                "bytes": 6438544,
+                "mode": 493,
+                "sha256": "abf4fb1bad831b6295d90dd5a9ffa6af8b25308e99c8724153716e480a0275a2",
+                "type": "file"
+              },
+              "path": "Contents/Resources/bundled-assets/runtime/moltenvk-pr2746/lib/libMoltenVK.1.4.3.dylib",
+              "payloadKey": "7aea926e4c5e815e523bbaf8a301df53363291254c20bd1df97aa015e150c7fe-493"
+            },
+            {
+              "after": {
+                "bytes": 328766,
+                "mode": 420,
+                "sha256": "371ed950f75a3bcca206faf13c16255dae21b91f57a2b0bd7134ed788a7758a0",
+                "type": "file"
+              },
+              "before": {
+                "bytes": 328766,
+                "mode": 420,
+                "sha256": "830d3e1512ab227cdf97b558ef6e3261d9303525f2b8e3a50c20414d8c0eaaed",
+                "type": "file"
+              },
+              "path": "Contents/_CodeSignature/CodeResources",
+              "payloadKey": "371ed950f75a3bcca206faf13c16255dae21b91f57a2b0bd7134ed788a7758a0-420"
+            }
+          ],
+          "virtualExact1194": true
+        }
+      },
+      "inventory": "inventories/v104-performance-candidate-20261020.json"
+    },
+    "v104-quiescent-allocator-candidate-20261021": {
+      "from": {
+        "R": {
+          "baseInventory": "inventories/v104-idle-first-allocator-candidate-20261021.json",
+          "fullAppReconstructionExecuted": false,
+          "overlay": [
+            {
+              "after": {
+                "bytes": 33920,
+                "mode": 493,
+                "sha256": "dcc56657abbaf3044a59531232f4cfc54c2cadf3585e067f451b73533976bf3a",
+                "type": "file"
+              },
+              "before": {
+                "bytes": 33920,
+                "mode": 493,
+                "sha256": "51bdd7b5e02e1dde07a3114108d81e24d80a9e5fedfcd29aba473ec180973a0c",
+                "type": "file"
+              },
+              "path": "Contents/MacOS/BAR",
+              "payloadKey": "dcc56657abbaf3044a59531232f4cfc54c2cadf3585e067f451b73533976bf3a-493"
+            },
+            {
+              "after": {
+                "bytes": 6437920,
+                "mode": 493,
+                "sha256": "3f7ae550916228c89eec51f3f1741e54b5fbe62929e03a22038158d7ba076dd6",
+                "type": "file"
+              },
+              "before": {
+                "bytes": 6437920,
+                "mode": 493,
+                "sha256": "8f8010bdcb59397564c21c80ad2eb87fb4690b45e6def36478db7e11fc781462",
+                "type": "file"
+              },
+              "path": "Contents/Resources/bundled-assets/runtime/moltenvk-pr2746/lib/libMoltenVK.1.4.3.dylib",
+              "payloadKey": "3f7ae550916228c89eec51f3f1741e54b5fbe62929e03a22038158d7ba076dd6-493"
+            },
+            {
+              "after": {
+                "bytes": 328766,
+                "mode": 420,
+                "sha256": "934910e535767331410b5071f3e83a07e1ab7df7e9f7eba21e58608bd169d8f9",
+                "type": "file"
+              },
+              "before": {
+                "bytes": 328766,
+                "mode": 420,
+                "sha256": "7ed87c89936f3611c039c3ed5a5b9066c02c235626099cf3913ea535009d20b3",
+                "type": "file"
+              },
+              "path": "Contents/_CodeSignature/CodeResources",
+              "payloadKey": "934910e535767331410b5071f3e83a07e1ab7df7e9f7eba21e58608bd169d8f9-420"
+            }
+          ],
+          "virtualExact1194": true
+        },
+        "Small": {
+          "baseInventory": "inventories/v104-r-small-bundle-candidate-20261021.json",
+          "fullAppReconstructionExecuted": false,
+          "overlay": [
+            {
+              "after": {
+                "bytes": 33920,
+                "mode": 493,
+                "sha256": "dcc56657abbaf3044a59531232f4cfc54c2cadf3585e067f451b73533976bf3a",
+                "type": "file"
+              },
+              "before": {
+                "bytes": 33920,
+                "mode": 493,
+                "sha256": "dbaf23f32b1ecd38a6a7f7818dda33699c65565a10899117114ace8feae1811a",
+                "type": "file"
+              },
+              "path": "Contents/MacOS/BAR",
+              "payloadKey": "dcc56657abbaf3044a59531232f4cfc54c2cadf3585e067f451b73533976bf3a-493"
+            },
+            {
+              "after": {
+                "bytes": 6437920,
+                "mode": 493,
+                "sha256": "3f7ae550916228c89eec51f3f1741e54b5fbe62929e03a22038158d7ba076dd6",
+                "type": "file"
+              },
+              "before": {
+                "bytes": 6438544,
+                "mode": 493,
+                "sha256": "abf4fb1bad831b6295d90dd5a9ffa6af8b25308e99c8724153716e480a0275a2",
+                "type": "file"
+              },
+              "path": "Contents/Resources/bundled-assets/runtime/moltenvk-pr2746/lib/libMoltenVK.1.4.3.dylib",
+              "payloadKey": "3f7ae550916228c89eec51f3f1741e54b5fbe62929e03a22038158d7ba076dd6-493"
+            },
+            {
+              "after": {
+                "bytes": 328766,
+                "mode": 420,
+                "sha256": "934910e535767331410b5071f3e83a07e1ab7df7e9f7eba21e58608bd169d8f9",
+                "type": "file"
+              },
+              "before": {
+                "bytes": 328766,
+                "mode": 420,
+                "sha256": "830d3e1512ab227cdf97b558ef6e3261d9303525f2b8e3a50c20414d8c0eaaed",
+                "type": "file"
+              },
+              "path": "Contents/_CodeSignature/CodeResources",
+              "payloadKey": "934910e535767331410b5071f3e83a07e1ab7df7e9f7eba21e58608bd169d8f9-420"
+            }
+          ],
+          "virtualExact1194": true
+        }
+      },
+      "inventory": "inventories/v104-quiescent-allocator-candidate-20261021.json"
+    },
+    "v104-r-combined-candidate-20261021": {
+      "from": {
+        "R": {
+          "baseInventory": "inventories/v104-idle-first-allocator-candidate-20261021.json",
+          "fullAppReconstructionExecuted": false,
+          "overlay": [
+            {
+              "after": {
+                "bytes": 33920,
+                "mode": 493,
+                "sha256": "931f774b770665095d3e95e3ca1e5a63227b825be6178c006cbdee9a316743f3",
+                "type": "file"
+              },
+              "before": {
+                "bytes": 33920,
+                "mode": 493,
+                "sha256": "51bdd7b5e02e1dde07a3114108d81e24d80a9e5fedfcd29aba473ec180973a0c",
+                "type": "file"
+              },
+              "path": "Contents/MacOS/BAR",
+              "payloadKey": "931f774b770665095d3e95e3ca1e5a63227b825be6178c006cbdee9a316743f3-493"
+            },
+            {
+              "after": {
+                "bytes": 6438144,
+                "mode": 493,
+                "sha256": "129e85bb9a7d1cf53a991bbeb5afbbd578b563182de86a1b60ddf57f6b195077",
+                "type": "file"
+              },
+              "before": {
+                "bytes": 6437920,
+                "mode": 493,
+                "sha256": "8f8010bdcb59397564c21c80ad2eb87fb4690b45e6def36478db7e11fc781462",
+                "type": "file"
+              },
+              "path": "Contents/Resources/bundled-assets/runtime/moltenvk-pr2746/lib/libMoltenVK.1.4.3.dylib",
+              "payloadKey": "129e85bb9a7d1cf53a991bbeb5afbbd578b563182de86a1b60ddf57f6b195077-493"
+            },
+            {
+              "after": {
+                "bytes": 328766,
+                "mode": 420,
+                "sha256": "ad0b143fa926cbba7341fe83a3475772c44008b23f9d991e5f45d08ee8b6b46c",
+                "type": "file"
+              },
+              "before": {
+                "bytes": 328766,
+                "mode": 420,
+                "sha256": "7ed87c89936f3611c039c3ed5a5b9066c02c235626099cf3913ea535009d20b3",
+                "type": "file"
+              },
+              "path": "Contents/_CodeSignature/CodeResources",
+              "payloadKey": "ad0b143fa926cbba7341fe83a3475772c44008b23f9d991e5f45d08ee8b6b46c-420"
+            }
+          ],
+          "virtualExact1194": true
+        },
+        "Small": {
+          "baseInventory": "inventories/v104-r-small-bundle-candidate-20261021.json",
+          "fullAppReconstructionExecuted": false,
+          "overlay": [
+            {
+              "after": {
+                "bytes": 33920,
+                "mode": 493,
+                "sha256": "931f774b770665095d3e95e3ca1e5a63227b825be6178c006cbdee9a316743f3",
+                "type": "file"
+              },
+              "before": {
+                "bytes": 33920,
+                "mode": 493,
+                "sha256": "dbaf23f32b1ecd38a6a7f7818dda33699c65565a10899117114ace8feae1811a",
+                "type": "file"
+              },
+              "path": "Contents/MacOS/BAR",
+              "payloadKey": "931f774b770665095d3e95e3ca1e5a63227b825be6178c006cbdee9a316743f3-493"
+            },
+            {
+              "after": {
+                "bytes": 6438144,
+                "mode": 493,
+                "sha256": "129e85bb9a7d1cf53a991bbeb5afbbd578b563182de86a1b60ddf57f6b195077",
+                "type": "file"
+              },
+              "before": {
+                "bytes": 6438544,
+                "mode": 493,
+                "sha256": "abf4fb1bad831b6295d90dd5a9ffa6af8b25308e99c8724153716e480a0275a2",
+                "type": "file"
+              },
+              "path": "Contents/Resources/bundled-assets/runtime/moltenvk-pr2746/lib/libMoltenVK.1.4.3.dylib",
+              "payloadKey": "129e85bb9a7d1cf53a991bbeb5afbbd578b563182de86a1b60ddf57f6b195077-493"
+            },
+            {
+              "after": {
+                "bytes": 328766,
+                "mode": 420,
+                "sha256": "ad0b143fa926cbba7341fe83a3475772c44008b23f9d991e5f45d08ee8b6b46c",
+                "type": "file"
+              },
+              "before": {
+                "bytes": 328766,
+                "mode": 420,
+                "sha256": "830d3e1512ab227cdf97b558ef6e3261d9303525f2b8e3a50c20414d8c0eaaed",
+                "type": "file"
+              },
+              "path": "Contents/_CodeSignature/CodeResources",
+              "payloadKey": "ad0b143fa926cbba7341fe83a3475772c44008b23f9d991e5f45d08ee8b6b46c-420"
+            }
+          ],
+          "virtualExact1194": true
+        }
+      },
+      "inventory": "inventories/v104-r-combined-candidate-20261021.json"
+    },
+    "v104-r-combined-group-locator-candidate-20261021": {
+      "from": {
+        "R": {
+          "baseInventory": "inventories/v104-idle-first-allocator-candidate-20261021.json",
+          "fullAppReconstructionExecuted": false,
+          "overlay": [
+            {
+              "after": {
+                "bytes": 33920,
+                "mode": 493,
+                "sha256": "d5a5a454b2d4cb1f0a16b4b774864191f3f50fcecf942bf6331fa3cc26201a92",
+                "type": "file"
+              },
+              "before": {
+                "bytes": 33920,
+                "mode": 493,
+                "sha256": "51bdd7b5e02e1dde07a3114108d81e24d80a9e5fedfcd29aba473ec180973a0c",
+                "type": "file"
+              },
+              "path": "Contents/MacOS/BAR",
+              "payloadKey": "d5a5a454b2d4cb1f0a16b4b774864191f3f50fcecf942bf6331fa3cc26201a92-493"
+            },
+            {
+              "after": {
+                "bytes": 6438208,
+                "mode": 493,
+                "sha256": "772042e655d17f2e957230c83b0a2ec186c2c34c0ed76838fd53c6e6ae5db490",
+                "type": "file"
+              },
+              "before": {
+                "bytes": 6437920,
+                "mode": 493,
+                "sha256": "8f8010bdcb59397564c21c80ad2eb87fb4690b45e6def36478db7e11fc781462",
+                "type": "file"
+              },
+              "path": "Contents/Resources/bundled-assets/runtime/moltenvk-pr2746/lib/libMoltenVK.1.4.3.dylib",
+              "payloadKey": "772042e655d17f2e957230c83b0a2ec186c2c34c0ed76838fd53c6e6ae5db490-493"
+            },
+            {
+              "after": {
+                "bytes": 328766,
+                "mode": 420,
+                "sha256": "e74e41d6f4dfb67c6e01010144eb56d1c535dfc1db8d2f55981481157c7b056d",
+                "type": "file"
+              },
+              "before": {
+                "bytes": 328766,
+                "mode": 420,
+                "sha256": "7ed87c89936f3611c039c3ed5a5b9066c02c235626099cf3913ea535009d20b3",
+                "type": "file"
+              },
+              "path": "Contents/_CodeSignature/CodeResources",
+              "payloadKey": "e74e41d6f4dfb67c6e01010144eb56d1c535dfc1db8d2f55981481157c7b056d-420"
+            }
+          ],
+          "virtualExact1194": true
+        },
+        "Small": {
+          "baseInventory": "inventories/v104-r-small-bundle-candidate-20261021.json",
+          "fullAppReconstructionExecuted": false,
+          "overlay": [
+            {
+              "after": {
+                "bytes": 33920,
+                "mode": 493,
+                "sha256": "d5a5a454b2d4cb1f0a16b4b774864191f3f50fcecf942bf6331fa3cc26201a92",
+                "type": "file"
+              },
+              "before": {
+                "bytes": 33920,
+                "mode": 493,
+                "sha256": "dbaf23f32b1ecd38a6a7f7818dda33699c65565a10899117114ace8feae1811a",
+                "type": "file"
+              },
+              "path": "Contents/MacOS/BAR",
+              "payloadKey": "d5a5a454b2d4cb1f0a16b4b774864191f3f50fcecf942bf6331fa3cc26201a92-493"
+            },
+            {
+              "after": {
+                "bytes": 6438208,
+                "mode": 493,
+                "sha256": "772042e655d17f2e957230c83b0a2ec186c2c34c0ed76838fd53c6e6ae5db490",
+                "type": "file"
+              },
+              "before": {
+                "bytes": 6438544,
+                "mode": 493,
+                "sha256": "abf4fb1bad831b6295d90dd5a9ffa6af8b25308e99c8724153716e480a0275a2",
+                "type": "file"
+              },
+              "path": "Contents/Resources/bundled-assets/runtime/moltenvk-pr2746/lib/libMoltenVK.1.4.3.dylib",
+              "payloadKey": "772042e655d17f2e957230c83b0a2ec186c2c34c0ed76838fd53c6e6ae5db490-493"
+            },
+            {
+              "after": {
+                "bytes": 328766,
+                "mode": 420,
+                "sha256": "e74e41d6f4dfb67c6e01010144eb56d1c535dfc1db8d2f55981481157c7b056d",
+                "type": "file"
+              },
+              "before": {
+                "bytes": 328766,
+                "mode": 420,
+                "sha256": "830d3e1512ab227cdf97b558ef6e3261d9303525f2b8e3a50c20414d8c0eaaed",
+                "type": "file"
+              },
+              "path": "Contents/_CodeSignature/CodeResources",
+              "payloadKey": "e74e41d6f4dfb67c6e01010144eb56d1c535dfc1db8d2f55981481157c7b056d-420"
+            }
+          ],
+          "virtualExact1194": true
+        }
+      },
+      "inventory": "inventories/v104-r-combined-group-locator-candidate-20261021.json"
+    },
+    "v104-r-group-locator-candidate-20261021": {
+      "from": {
+        "R": {
+          "baseInventory": "inventories/v104-idle-first-allocator-candidate-20261021.json",
+          "fullAppReconstructionExecuted": false,
+          "overlay": [
+            {
+              "after": {
+                "bytes": 33920,
+                "mode": 493,
+                "sha256": "d6c62a13009005d70eaf9921ea43e8a9d84afe70bde5be8dbef730d7e672b20e",
+                "type": "file"
+              },
+              "before": {
+                "bytes": 33920,
+                "mode": 493,
+                "sha256": "51bdd7b5e02e1dde07a3114108d81e24d80a9e5fedfcd29aba473ec180973a0c",
+                "type": "file"
+              },
+              "path": "Contents/MacOS/BAR",
+              "payloadKey": "d6c62a13009005d70eaf9921ea43e8a9d84afe70bde5be8dbef730d7e672b20e-493"
+            },
+            {
+              "after": {
+                "bytes": 6437984,
+                "mode": 493,
+                "sha256": "348663cdb393dbc0d2a94305ae00faeebd78b2aa8604b89f17adcdd55260751b",
+                "type": "file"
+              },
+              "before": {
+                "bytes": 6437920,
+                "mode": 493,
+                "sha256": "8f8010bdcb59397564c21c80ad2eb87fb4690b45e6def36478db7e11fc781462",
+                "type": "file"
+              },
+              "path": "Contents/Resources/bundled-assets/runtime/moltenvk-pr2746/lib/libMoltenVK.1.4.3.dylib",
+              "payloadKey": "348663cdb393dbc0d2a94305ae00faeebd78b2aa8604b89f17adcdd55260751b-493"
+            },
+            {
+              "after": {
+                "bytes": 328766,
+                "mode": 420,
+                "sha256": "cfd1917c962d5dbd2f6324c7382008b63fc8c8799ca20a9c08e7c516d25dcfdf",
+                "type": "file"
+              },
+              "before": {
+                "bytes": 328766,
+                "mode": 420,
+                "sha256": "7ed87c89936f3611c039c3ed5a5b9066c02c235626099cf3913ea535009d20b3",
+                "type": "file"
+              },
+              "path": "Contents/_CodeSignature/CodeResources",
+              "payloadKey": "cfd1917c962d5dbd2f6324c7382008b63fc8c8799ca20a9c08e7c516d25dcfdf-420"
+            }
+          ],
+          "virtualExact1194": true
+        },
+        "Small": {
+          "baseInventory": "inventories/v104-r-small-bundle-candidate-20261021.json",
+          "fullAppReconstructionExecuted": false,
+          "overlay": [
+            {
+              "after": {
+                "bytes": 33920,
+                "mode": 493,
+                "sha256": "d6c62a13009005d70eaf9921ea43e8a9d84afe70bde5be8dbef730d7e672b20e",
+                "type": "file"
+              },
+              "before": {
+                "bytes": 33920,
+                "mode": 493,
+                "sha256": "dbaf23f32b1ecd38a6a7f7818dda33699c65565a10899117114ace8feae1811a",
+                "type": "file"
+              },
+              "path": "Contents/MacOS/BAR",
+              "payloadKey": "d6c62a13009005d70eaf9921ea43e8a9d84afe70bde5be8dbef730d7e672b20e-493"
+            },
+            {
+              "after": {
+                "bytes": 6437984,
+                "mode": 493,
+                "sha256": "348663cdb393dbc0d2a94305ae00faeebd78b2aa8604b89f17adcdd55260751b",
+                "type": "file"
+              },
+              "before": {
+                "bytes": 6438544,
+                "mode": 493,
+                "sha256": "abf4fb1bad831b6295d90dd5a9ffa6af8b25308e99c8724153716e480a0275a2",
+                "type": "file"
+              },
+              "path": "Contents/Resources/bundled-assets/runtime/moltenvk-pr2746/lib/libMoltenVK.1.4.3.dylib",
+              "payloadKey": "348663cdb393dbc0d2a94305ae00faeebd78b2aa8604b89f17adcdd55260751b-493"
+            },
+            {
+              "after": {
+                "bytes": 328766,
+                "mode": 420,
+                "sha256": "cfd1917c962d5dbd2f6324c7382008b63fc8c8799ca20a9c08e7c516d25dcfdf",
+                "type": "file"
+              },
+              "before": {
+                "bytes": 328766,
+                "mode": 420,
+                "sha256": "830d3e1512ab227cdf97b558ef6e3261d9303525f2b8e3a50c20414d8c0eaaed",
+                "type": "file"
+              },
+              "path": "Contents/_CodeSignature/CodeResources",
+              "payloadKey": "cfd1917c962d5dbd2f6324c7382008b63fc8c8799ca20a9c08e7c516d25dcfdf-420"
+            }
+          ],
+          "virtualExact1194": true
+        }
+      },
+      "inventory": "inventories/v104-r-group-locator-candidate-20261021.json"
+    },
+    "v104-r-small-bundle-candidate-20261021": {
+      "from": {
+        "R": {
+          "baseInventory": "inventories/v104-idle-first-allocator-candidate-20261021.json",
+          "fullAppReconstructionExecuted": false,
+          "overlay": [
+            {
+              "after": {
+                "bytes": 33920,
+                "mode": 493,
+                "sha256": "dbaf23f32b1ecd38a6a7f7818dda33699c65565a10899117114ace8feae1811a",
+                "type": "file"
+              },
+              "before": {
+                "bytes": 33920,
+                "mode": 493,
+                "sha256": "51bdd7b5e02e1dde07a3114108d81e24d80a9e5fedfcd29aba473ec180973a0c",
+                "type": "file"
+              },
+              "path": "Contents/MacOS/BAR",
+              "payloadKey": "dbaf23f32b1ecd38a6a7f7818dda33699c65565a10899117114ace8feae1811a-493"
+            },
+            {
+              "after": {
+                "bytes": 6438544,
+                "mode": 493,
+                "sha256": "abf4fb1bad831b6295d90dd5a9ffa6af8b25308e99c8724153716e480a0275a2",
+                "type": "file"
+              },
+              "before": {
+                "bytes": 6437920,
+                "mode": 493,
+                "sha256": "8f8010bdcb59397564c21c80ad2eb87fb4690b45e6def36478db7e11fc781462",
+                "type": "file"
+              },
+              "path": "Contents/Resources/bundled-assets/runtime/moltenvk-pr2746/lib/libMoltenVK.1.4.3.dylib",
+              "payloadKey": "abf4fb1bad831b6295d90dd5a9ffa6af8b25308e99c8724153716e480a0275a2-493"
+            },
+            {
+              "after": {
+                "bytes": 328766,
+                "mode": 420,
+                "sha256": "830d3e1512ab227cdf97b558ef6e3261d9303525f2b8e3a50c20414d8c0eaaed",
+                "type": "file"
+              },
+              "before": {
+                "bytes": 328766,
+                "mode": 420,
+                "sha256": "7ed87c89936f3611c039c3ed5a5b9066c02c235626099cf3913ea535009d20b3",
+                "type": "file"
+              },
+              "path": "Contents/_CodeSignature/CodeResources",
+              "payloadKey": "830d3e1512ab227cdf97b558ef6e3261d9303525f2b8e3a50c20414d8c0eaaed-420"
+            }
+          ],
+          "virtualExact1194": true
+        },
+        "Small": {
+          "baseInventory": "inventories/v104-r-small-bundle-candidate-20261021.json",
+          "fullAppReconstructionExecuted": false,
+          "overlay": [],
+          "virtualExact1194": true
+        }
+      },
+      "inventory": "inventories/v104-r-small-bundle-candidate-20261021.json"
+    },
+    "v104-typed-buffer-callers-candidate-20261020": {
+      "from": {
+        "R": {
+          "baseInventory": "inventories/v104-idle-first-allocator-candidate-20261021.json",
+          "fullAppReconstructionExecuted": false,
+          "overlay": [
+            {
+              "after": {
+                "bytes": 33920,
+                "mode": 493,
+                "sha256": "4f92a10fad7f1ba9c2ef1bba785e33439a84655c3299aecc9153f8ed79952ab1",
+                "type": "file"
+              },
+              "before": {
+                "bytes": 33920,
+                "mode": 493,
+                "sha256": "51bdd7b5e02e1dde07a3114108d81e24d80a9e5fedfcd29aba473ec180973a0c",
+                "type": "file"
+              },
+              "path": "Contents/MacOS/BAR",
+              "payloadKey": "4f92a10fad7f1ba9c2ef1bba785e33439a84655c3299aecc9153f8ed79952ab1-493"
+            },
+            {
+              "after": {
+                "bytes": 6437920,
+                "mode": 493,
+                "sha256": "c5ea9b843ba2284c410a0b83b7e2412d4cbc0446f15232b5b317eca56b79f804",
+                "type": "file"
+              },
+              "before": {
+                "bytes": 6437920,
+                "mode": 493,
+                "sha256": "8f8010bdcb59397564c21c80ad2eb87fb4690b45e6def36478db7e11fc781462",
+                "type": "file"
+              },
+              "path": "Contents/Resources/bundled-assets/runtime/moltenvk-pr2746/lib/libMoltenVK.1.4.3.dylib",
+              "payloadKey": "c5ea9b843ba2284c410a0b83b7e2412d4cbc0446f15232b5b317eca56b79f804-493"
+            },
+            {
+              "after": {
+                "bytes": 328766,
+                "mode": 420,
+                "sha256": "1188a273a15b787a61256c6d2f2f5a88f36baded9a4f2efe3eb0b32a4305daab",
+                "type": "file"
+              },
+              "before": {
+                "bytes": 328766,
+                "mode": 420,
+                "sha256": "7ed87c89936f3611c039c3ed5a5b9066c02c235626099cf3913ea535009d20b3",
+                "type": "file"
+              },
+              "path": "Contents/_CodeSignature/CodeResources",
+              "payloadKey": "1188a273a15b787a61256c6d2f2f5a88f36baded9a4f2efe3eb0b32a4305daab-420"
+            }
+          ],
+          "virtualExact1194": true
+        },
+        "Small": {
+          "baseInventory": "inventories/v104-r-small-bundle-candidate-20261021.json",
+          "fullAppReconstructionExecuted": false,
+          "overlay": [
+            {
+              "after": {
+                "bytes": 33920,
+                "mode": 493,
+                "sha256": "4f92a10fad7f1ba9c2ef1bba785e33439a84655c3299aecc9153f8ed79952ab1",
+                "type": "file"
+              },
+              "before": {
+                "bytes": 33920,
+                "mode": 493,
+                "sha256": "dbaf23f32b1ecd38a6a7f7818dda33699c65565a10899117114ace8feae1811a",
+                "type": "file"
+              },
+              "path": "Contents/MacOS/BAR",
+              "payloadKey": "4f92a10fad7f1ba9c2ef1bba785e33439a84655c3299aecc9153f8ed79952ab1-493"
+            },
+            {
+              "after": {
+                "bytes": 6437920,
+                "mode": 493,
+                "sha256": "c5ea9b843ba2284c410a0b83b7e2412d4cbc0446f15232b5b317eca56b79f804",
+                "type": "file"
+              },
+              "before": {
+                "bytes": 6438544,
+                "mode": 493,
+                "sha256": "abf4fb1bad831b6295d90dd5a9ffa6af8b25308e99c8724153716e480a0275a2",
+                "type": "file"
+              },
+              "path": "Contents/Resources/bundled-assets/runtime/moltenvk-pr2746/lib/libMoltenVK.1.4.3.dylib",
+              "payloadKey": "c5ea9b843ba2284c410a0b83b7e2412d4cbc0446f15232b5b317eca56b79f804-493"
+            },
+            {
+              "after": {
+                "bytes": 328766,
+                "mode": 420,
+                "sha256": "1188a273a15b787a61256c6d2f2f5a88f36baded9a4f2efe3eb0b32a4305daab",
+                "type": "file"
+              },
+              "before": {
+                "bytes": 328766,
+                "mode": 420,
+                "sha256": "830d3e1512ab227cdf97b558ef6e3261d9303525f2b8e3a50c20414d8c0eaaed",
+                "type": "file"
+              },
+              "path": "Contents/_CodeSignature/CodeResources",
+              "payloadKey": "1188a273a15b787a61256c6d2f2f5a88f36baded9a4f2efe3eb0b32a4305daab-420"
+            }
+          ],
+          "virtualExact1194": true
+        }
+      },
+      "inventory": "inventories/v104-typed-buffer-callers-candidate-20261020.json"
+    }
+  }
+}

@@ -1,0 +1,93 @@
+{
+  "base": "healthbar standalone 1.0.3",
+  "checks": {
+    "VBO": {
+      "cpu-chobby": "cases=2024 assertions=41666 failures=0",
+      "cpu-lobby": "cases=2024 assertions=41666 failures=0"
+    },
+    "appliedCodeReview": "passed; entry/upload methods exact; original named lookup body recoverable exactly",
+    "nativeBuilds": {
+      "chobby": {
+        "exit": 0,
+        "seconds": 19.670514083001763
+      },
+      "lobby": {
+        "exit": 0,
+        "seconds": 11.947528584001702
+      }
+    },
+    "preservation": {
+      "automation": "PAUSED; untouched",
+      "frozenAppEntriesExact": 1194,
+      "launcherHeadIndexAndDirtyStatusExact": true,
+      "noAppGameLaunchOrQuit": true,
+      "noInstallPublicationUploadCleanupOtherProjectOrMessages": true,
+      "numericAndSyncBuildInputsUnchanged": true,
+      "v103Pins": {
+        "artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Lua/LuaBundledPresentation.h": "0437f31d5ae390c90fd2dffc89d9d447fcaa7881b1fda4f4bf0687cf34fc7c71",
+        "artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Lua/LuaBundledPresentationSources.h": "38191c58c6b10e1811ab54fe71ed80c30781c6564fd26ed11c25208347be34db",
+        "artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Lua/LuaVFS.cpp": "68e9cdb22ec5291188053af70f72eb04171da1f4c21ce5c0a8f526ce5b920189",
+        "build/run91-recoil-src-694e9df7/rts/Lua/LuaBundledPresentation.h": "0437f31d5ae390c90fd2dffc89d9d447fcaa7881b1fda4f4bf0687cf34fc7c71",
+        "build/run91-recoil-src-694e9df7/rts/Lua/LuaBundledPresentationSources.h": "8dabc9211ba99c21f079db943a86594766e6eb7c5543f38e48346760ef968b67",
+        "build/run91-recoil-src-694e9df7/rts/Lua/LuaVFS.cpp": "c5766b70e74c608b84b3080e6b07c8028b9ca521963aca0c23473c2559f1c9cc",
+        "sources/bar-lobby/bundled-assets/macos-luaui-overlays/bar-chobby/LuaUI/BARMacOS/Healthbars/healthbars.frag.glsl": "f362dd508b3e940e322040a61ce4d20a5f65701b23e5caeb02eac439e3c3eab8",
+        "sources/bar-lobby/bundled-assets/macos-luaui-overlays/bar-chobby/LuaUI/BARMacOS/Healthbars/healthbars.vert.glsl": "24aa5ef53af37a1db5506217647417b9387defe52da4fd19339c0da4772f65ab",
+        "sources/bar-lobby/bundled-assets/macos-luaui-overlays/bar-chobby/LuaUI/Shaders/HealthbarsGL4_NoGS.vert.glsl": null,
+        "sources/bar-lobby/bundled-assets/macos-luaui-overlays/bar-chobby/LuaUI/Widgets/gui_healthbars_gl4.lua": "98f9da593ad29f6c0cd3823c02151401ee25bee088aa804af770becc6f2ded95",
+        "sources/bar-lobby/bundled-assets/macos-luaui-overlays/bar-chobby/manifest.json": "28e2f9aa85b851c5d591fbb92ebb118b05bd33fcfde1294aedeec63a03c6983d",
+        "sources/bar-lobby/bundled-assets/macos-luaui-overlays/bar-lobby/LuaUI/BARMacOS/Healthbars/healthbars.frag.glsl": "f362dd508b3e940e322040a61ce4d20a5f65701b23e5caeb02eac439e3c3eab8",
+        "sources/bar-lobby/bundled-assets/macos-luaui-overlays/bar-lobby/LuaUI/BARMacOS/Healthbars/healthbars.vert.glsl": "24aa5ef53af37a1db5506217647417b9387defe52da4fd19339c0da4772f65ab",
+        "sources/bar-lobby/bundled-assets/macos-luaui-overlays/bar-lobby/LuaUI/Shaders/HealthbarsGL4_NoGS.vert.glsl": null,
+        "sources/bar-lobby/bundled-assets/macos-luaui-overlays/bar-lobby/LuaUI/Widgets/gui_healthbars_gl4.lua": "98f9da593ad29f6c0cd3823c02151401ee25bee088aa804af770becc6f2ded95",
+        "sources/bar-lobby/bundled-assets/macos-luaui-overlays/bar-lobby/manifest.json": "499ce6e1065c51cfacab0b42ce684af7329329a34c28fe9ff0a3edfc48870880",
+        "sources/bar-lobby/electron-builder.ts": "2ab1e5cd03423ba185181a19a0e328823273cff5d0a3e3d32c297c2f0bbcb6f4",
+        "sources/bar-lobby/package-lock.json": "4744055faa4070ee7f0b2377c00f8f479dde04b2e5038bd638c898756e3ba2ef",
+        "sources/bar-lobby/package.json": "dd686b37e9eacaf4a142874f6463af0cd29ac759077d26c95b35f9674603a6cb",
+        "tools/lib/run94-release-source-adapter.mjs": "d90dcc332fa9c5f5499cb7fa2d35ca277fc6edae26361ebdee8d49d5bc16d3ee",
+        "tools/tests/run94-canonical-overlay-intake.test.mjs": "f391b0c2b26b243c914c5c9b6f31b22ff6f013cc4af2a4ccdc41fea5be6a52ae"
+      },
+      "v103SourceEditsRetained": 21
+    },
+    "textureSharedIdenticalSourceCPU": {
+      "dynamicCases": 6,
+      "namedDifferentialCases": 80,
+      "sanitizers": "ASan+UBSan; GL/load boundaries stubbed"
+    }
+  },
+  "dateLocal": "2026-10-20 America/Los_Angeles",
+  "existingFixtureDeclarationsChanged": 1,
+  "externalSameFixFound": {
+    "P1": false,
+    "P2": false,
+    "P3": false
+  },
+  "limits": [
+    "No FPS or frame time measurement",
+    "No app/game/GPU/Metal3/Metal4 runtime or multiplayer acceptance",
+    "Texture CPU tests stub GL/load calls; prebuilt Lua/streflop libraries not newly sanitized",
+    "Frozen app not repackaged; new engines remain in existing active build directories",
+    "External search bounded to recorded sources/queries; not a claim that no matching contribution exists anywhere"
+  ],
+  "lookupCounts": {
+    "P1SuccessNameLookups": [
+      2,
+      1
+    ],
+    "P2NonemptyTableAttributeLookups": [
+      5,
+      3
+    ],
+    "P2ScalarAttributeLookups": [
+      3,
+      2
+    ],
+    "P3CachedNameLookups": [
+      2,
+      1
+    ]
+  },
+  "model": "SOL 6.1 / High",
+  "productFilesChanged": 10,
+  "report": "reports/v103-performance-p1-p3-20261020.md",
+  "status": "P1-P2-P3-implemented-in-both-active-engines-CPU-and-incremental-builds-passed"
+}

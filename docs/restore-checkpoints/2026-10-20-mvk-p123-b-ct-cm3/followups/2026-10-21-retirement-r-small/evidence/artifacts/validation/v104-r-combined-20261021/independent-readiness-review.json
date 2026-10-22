@@ -1,0 +1,123 @@
+{
+  "actionableFindings": [],
+  "bindings": {
+    "addedEntries": 0,
+    "allocator": {
+      "QResetAndRIdleFirstRetained": true,
+      "availableLimit": 8,
+      "growthBytes": 2097152,
+      "idleBytes": 67108864,
+      "recordingCountLimit": 32
+    },
+    "changedEntries": [
+      "Contents/MacOS/BAR",
+      "Contents/Resources/bundled-assets/runtime/moltenvk-pr2746/lib/libMoltenVK.1.4.3.dylib",
+      "Contents/_CodeSignature/CodeResources"
+    ],
+    "closureEdgesFromPackagingReceipt": 211,
+    "diagnosticsCompile": 0,
+    "exactCurrentQueueEmissionAndEncoderLocalBarrierBlock": true,
+    "exactCurrentSubpassAndFrozenRReference": true,
+    "exactCurrentVisibilityPrepareTemplate": true,
+    "exactProductionPlan": true,
+    "fourLanguageCompilerFlags": 0,
+    "inventoryEntriesPerApp": 1194,
+    "packagedLibrarySHA256": "129e85bb9a7d1cf53a991bbeb5afbbd578b563182de86a1b60ddf57f6b195077",
+    "pinMismatches": 0,
+    "rawAndCurrentBuildSHA256": "3e7741bd33083cb287c7faba80be75489040b549811ae52d30bc7ef8b72f96ff",
+    "removedEntries": 0,
+    "sourceFixtureBuildPins": 38,
+    "strictDeepSignatureFromPackagingReceipt": true
+  },
+  "blockers": [],
+  "candidate": "R+D+E1+E2+E3",
+  "comparisonScope": {
+    "OS": "macOS 27.2 build 26B118",
+    "actualRuntimeConditionsRequireReceiptReview": true,
+    "candidatePointerAtPreparation": "R",
+    "order": [
+      "M3 R",
+      "M3 Combined",
+      "M3 Combined",
+      "M3 R",
+      "M4 Combined",
+      "M4 R",
+      "M4 R",
+      "M4 Combined"
+    ],
+    "plannedSessions": 8,
+    "runtimeDiagnosticsRequested": false
+  },
+  "createdUTC": "2026-10-21T18:53:30.487918+00:00",
+  "displayedVersion": "1.0.3",
+  "freshValidation": {
+    "VulkanCasesEachBackend": 15,
+    "allocationCases": 14,
+    "allocatorCPUSanitizedChecks": 1027,
+    "allocatorNativeCases": 6,
+    "allocatorNativeCompletedBatches": 12,
+    "allocatorNativeResets": 12,
+    "bindingPlanCases": 432,
+    "changedTranslationUnitSyntaxConfigurations": 8,
+    "compactTemplateCasesEachBackend": 1,
+    "dependencyCases": 524606,
+    "descriptorParityAssertions": 20728,
+    "diagnosticsOffFlagCases": 3,
+    "existingDescriptorCases": 629,
+    "existingDescriptorFoundationOffCases": 134,
+    "finalExitCodes": 0,
+    "nativeRegistrationCases": 6,
+    "preparedDependencyAssertions": 4916882,
+    "preparedRecordingCases": 3,
+    "preservedPreparationFailure": {
+      "exitCode": 1,
+      "path": "gpu-validation/prepared-build.json",
+      "productExecutionFailure": false,
+      "reason": "Missing MVKFoundation.h include path",
+      "resolution": "prepared-build-attempt2.json adds existing Ninja include/define set; exit 0; subsequent executions pass"
+    },
+    "queueBarrierAssertions": 2097163,
+    "registrationAssertions": 416,
+    "submissionFoundationSyntaxConfigurations": 2,
+    "visibilityAssertionsByConfiguration": {
+      "foundation0OldSDK": 196761,
+      "foundation0SDK26": 196842,
+      "foundation1SDK26": 196941
+    }
+  },
+  "independentExecution": {
+    "GPU": false,
+    "app": false,
+    "benchmark": false,
+    "build": false,
+    "tests": false
+  },
+  "inputSHA256": {
+    "allocator-32/completion.json": "9b8ddc8e37c98b850fdba66de930e94bb54a29a5c6d5d904f83fdf2b18de3fa7",
+    "combined-build.json": "fb5aa7edf793690270b17419cf036f69b96af1608ebacc411e2e6ba0a91b31e8",
+    "combined-package.json": "fd7b2aac32a70763f1afc488a69d51ae7b669fc2ce61df39df2e04fbfd04cc68",
+    "combined-source-pins.json": "23056189e90106561cc6ca8de658076e9f69d375713acecb77c3b8196cde57a9",
+    "cpu-complete.json": "d155d10efb0ec30c43722b7cb7dc4341cc5e82954d2e0c3e19987b650461b2ab",
+    "gpu-complete.json": "a78111161d8212211eeff5ea12fa7a223ccfee3104fbeb0f40dc198bdcd4a5f3",
+    "independent-source-review.json": "ce4ca4181676e4220fa7dd59114db0372b4a248bb85d55a79f63adff22febae7",
+    "ownership-gpu-complete.json": "121ad03b5250197c3e260f1bd6a51a0d73c28e1357e2c1884f9ed51b38e6c556",
+    "performance-before.json": "16f9cc6ed27042706db70226d4ba80efd7ee9fe46bff11b4e4e498835da9da9a",
+    "performance/preparation.json": "3d23f8ef69205b607bb73f748fb2b7507dfa97d8b6a4241e7999faa03b2dc712",
+    "queue-barrier/completion.json": "02aff66e58956eb48fdc98bf4b5e7bfb99c9b771828e75886924a4d784b44523",
+    "registration-complete.json": "a50599344f6267969c5cca03dd1271db4a63dfa3322b4685e3fe6510139d90db",
+    "review-pins.json": "75443d996fcce84f0ea978df5bc7920041932c0bc32bbef4c664b7b5e3873b94",
+    "visibility/completion.json": "9ac32dcee4a30f72ccbc512389a7f74f8b9febbdd6e4b61ed001870b52c067fc"
+  },
+  "limits": [
+    "Readiness is not BAR FPS improvement, universal gameplay, MP, race-freedom, or other-Mac acceptance.",
+    "CPU plan cases cover immutable metadata rather than every complete binder path; actual variable payload, layout fallback, ownership and output are separately exercised by selected GPU cases.",
+    "Subpass descriptor parity does not exhaust every outer extent/layer/sample-position configuration; fresh visibility and selected render/resolve/reuse cases provide related coverage.",
+    "Native allocator tests demonstrate selected last-user reset/idle choice and protected GPU or unsubmitted ownership; they do not measure peak-memory benefit or prove all concurrent schedules.",
+    "Runtime backend selection, actual loaded package, power/thermal state, exact frames and OFF diagnostics must be checked against the forthcoming eight execution receipts.",
+    "No historical success was substituted for this combined build; original prepared compilation failure is retained, not concealed."
+  ],
+  "localDesignation": "v1.0.4 candidate",
+  "review": "Combined integration readiness; read-only independent evidence review",
+  "reviewer": "/root/independent_review",
+  "status": "ready-for-authorized-eight-session-comparison"
+}

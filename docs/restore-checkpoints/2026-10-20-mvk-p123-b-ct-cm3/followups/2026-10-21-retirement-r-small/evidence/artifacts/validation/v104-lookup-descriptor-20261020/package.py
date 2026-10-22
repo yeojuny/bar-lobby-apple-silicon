@@ -1,0 +1,12 @@
+from pathlib import Path
+import importlib.util,json,shutil,sys
+R=Path(__file__).resolve().parents[3];O=Path(__file__).resolve().parent
+label=sys.argv[1];assert label in ['release','diagnostic']
+def module(name,rel):
+ s=importlib.util.spec_from_file_location(name,R/rel);m=importlib.util.module_from_spec(s);s.loader.exec_module(m);return m
+m=module('pkg','tools/package-metal4-bar-candidate.py');c=module('closure','tools/run95-package-stack.py');parent=R/'artifacts/runtime/v104-typed-buffer-callers-candidate-20261020/BAR.app';app=R/f'artifacts/runtime/v104-lookup-descriptor-{label}-20261020/BAR.app';assert not app.parent.exists();old=m.inventory(parent);assert old==json.loads((R/'artifacts/validation/v104-typed-buffer-callers-20261020/candidate-inventory.json').read_text());m.run('/usr/bin/codesign','--verify','--deep','--strict',str(parent));app.parent.mkdir();m.run('/bin/cp','-cR',str(parent),str(app));assert m.inventory(app)==old
+rel='Contents/Resources/bundled-assets/runtime/moltenvk-pr2746/lib/libMoltenVK.1.4.3.dylib';raw=R/'build/metal4-mvk-20261002/MoltenVK/libMoltenVK.1.4.3.dylib';target=app/rel
+assert c.loads(raw)==c.loads(parent/rel) and c.rpaths(raw)==[];shutil.copy2(raw,O/f'{label}-raw-MoltenVK.dylib');shutil.copy2(raw,target);m.run('/usr/bin/install_name_tool','-id',c.dylib_id(parent/rel),str(target));m.run('/usr/bin/codesign','--force','--sign','-',str(target));assert m.text_sha(raw)==m.text_sha(target)
+edges=c.closure([app/'Contents/Resources/bundled-assets/engine'/v/'spring' for v in ['2026.07.04','2026.09.01-24-g01efdf4 master']],app)
+m.run('/usr/bin/codesign','--force','--sign','-','--preserve-metadata=identifier,entitlements,requirements,flags,runtime',str(app));m.run('/usr/bin/codesign','--verify','--deep','--strict',str(app));after=m.inventory(app);changed=sorted(k for k in old if old[k]!=after[k]);assert set(changed)=={rel,'Contents/MacOS/BAR','Contents/_CodeSignature/CodeResources'};assert m.text_sha(app/'Contents/MacOS/BAR')==m.text_sha(parent/'Contents/MacOS/BAR');assert m.inventory(parent)==old
+(O/f'{label}-inventory.json').write_text(json.dumps(after,indent=2));(O/f'{label}-package.json').write_text(json.dumps(dict(app=str(app),parent=str(parent),entries=len(after),changedFiles=changed,rawSHA256=m.sha(raw),packagedSHA256=m.sha(target),strictDeepSignature=True,closureEdges=len(edges),displayedVersion='1.0.3',localCandidate='v1.0.4',diagnostics=label=='diagnostic'),indent=2));print(label,'packaged',len(after),'entries',len(edges),'closure edges')

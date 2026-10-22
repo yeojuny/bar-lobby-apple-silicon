@@ -1,0 +1,80 @@
+--- a/GPUObjects/MVKPipeline.h
++++ b/GPUObjects/MVKPipeline.h
+@@ -94,9 +94,30 @@
+ #if MVK_BUILD_METAL4_FOUNDATION
+ // A shader-used argument-buffer binding whose payload needs native residency
+ // and lifetime discovery. This is local pipeline metadata, not serialized MSL ABI.
++// The pipeline retains its layout, which retains the descriptor-set layouts.
++// Only immutable interpretation is prepared here; payloads and GPU leases stay live.
++struct MVKMetal4ResourceBindingPlan {
++	const MVKDescriptorSetLayout* layout = nullptr;
++	uint32_t descriptorCount = 0, cpuOffset = 0, cpuStride = 0, immSamplerIndex = 0;
++	MVKDescriptorResourceCount perDescriptorResourceCount = {};
++	MVKDescriptorCPULayout cpuLayout = MVKDescriptorCPULayout::None;
++	bool variable = false, immutable = false;
++	MVKMetal4ResourceBindingPlan() = default;
++	MVKMetal4ResourceBindingPlan(const MVKDescriptorSetLayout* owner, const MVKDescriptorBinding& binding)
++		: layout(owner), descriptorCount(binding.getDescriptorCount(binding.descriptorCount)),
++		  cpuOffset(binding.cpuOffset), cpuStride(descriptorCPUSize(binding.cpuLayout)),
++		  immSamplerIndex(binding.hasImmutableSamplers() ? binding.immSamplerIndex : 0),
++		  perDescriptorResourceCount(binding.perDescriptorResourceCount), cpuLayout(binding.cpuLayout),
++		  variable(binding.descriptorType != VK_DESCRIPTOR_TYPE_INLINE_UNIFORM_BLOCK && binding.isVariable()),
++		  immutable(binding.hasImmutableSamplers()) {}
++	uint32_t getDescriptorCount(uint32_t variableCount) const { return variable ? variableCount : descriptorCount; }
++	bool hasImmutableSamplers() const { return immutable; }
++};
++
+ struct MVKMetal4ResourceBinding {
+ 	uint32_t set;
+ 	uint32_t bindingIdx;
++	MVKMetal4ResourceBindingPlan preparation;
+ };
+ #endif
+ 
+--- a/GPUObjects/MVKPipeline.mm
++++ b/GPUObjects/MVKPipeline.mm
+@@ -621,12 +621,12 @@
+ 		// The legacy script may omit indirect UseResource operations when the
+ 		// device has a global residency set. Native queues still need GPU leases:
+ 		// record the same shader-used bindings before that legacy policy branch.
+-		// Keep descriptor values live: only the immutable binding index is cached.
++		// Keep descriptor values live: prepare only their immutable interpretation.
+ 		if (mvkUseMetal4() && layout->argBufMode() != MVKArgumentBufferMode::Off) {
+ 			auto duplicate = std::find_if(script.metal4ResourceBindings.begin(), script.metal4ResourceBindings.end(),
+ 				[&](const MVKMetal4ResourceBinding& used) { return used.set == set && used.bindingIdx == descIdx; });
+ 			if (duplicate == script.metal4ResourceBindings.end()) {
+-				script.metal4ResourceBindings.push_back({set, descIdx});
++				script.metal4ResourceBindings.push_back({set, descIdx, {layout, desc}});
+ 				script.metal4PreparationSetMask |= (1u << set);
+ 				// A single binding already has a persistent snapshot. Grouping pays
+ 				// only when it can bypass multiple binding preparations.
+--- a/Commands/MVKCommandEncoderState.mm
++++ b/Commands/MVKCommandEncoderState.mm
+@@ -238,8 +238,16 @@
+ 					}
+ 					auto* set = common._descriptorSets[used.set];
+ 					auto* layout = common._layout->getDescriptorSetLayout(used.set);
+-					if (used.bindingIdx >= layout->bindings().size()) { return metal4Failure(sink.encoder, "Native indirect binding is outside its layout."); }
+-					const auto& binding = layout->bindings()[used.bindingIdx];
++					MVKMetal4ResourceBindingPlan fallback;
++					const auto* plan = &used.preparation;
++					// Pointer equality selects prepared metadata, never resource ownership.
++					// Different compatible layouts retain the original interpretation path.
++					if (plan->layout != layout || set->layout != layout) {
++						if (used.bindingIdx >= layout->bindings().size()) { return metal4Failure(sink.encoder, "Native indirect binding is outside its layout."); }
++						fallback = {layout, layout->bindings()[used.bindingIdx]};
++						plan = &fallback;
++					}
++					const auto& binding = *plan;
+ 					uint32_t count = binding.getDescriptorCount(set->variableDescriptorCount);
+ 					const auto& counts = binding.perDescriptorResourceCount;
+ 					if (stats && count && (counts.texture || counts.sampler)) { ++stats->textureBindingVisits; }
+@@ -348,7 +356,7 @@
+ #endif
+ 					return true;
+ 				}
+-				size_t stride = descriptorCPUSize(binding.cpuLayout);
++				size_t stride = binding.cpuStride;
+ 				if (!stride) {
+ 					captureBinding = false;
+ #if MVK_ENABLE_CUSTOM_DIAGNOSTICS

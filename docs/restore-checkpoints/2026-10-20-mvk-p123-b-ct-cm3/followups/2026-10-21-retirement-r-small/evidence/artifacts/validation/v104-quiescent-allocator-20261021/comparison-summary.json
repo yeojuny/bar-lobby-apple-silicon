@@ -1,0 +1,430 @@
+{
+  "apps": {
+    "C": {
+      "app": "${WORKSPACE}/artifacts/runtime/v104-typed-buffer-callers-candidate-20261020/BAR.app",
+      "inventoryDigest": "4b24ae823be42b8195b7cdc855a87f31a12b09efe42042f67d8013937132ee0e",
+      "localCandidate": "v1.0.4",
+      "version": "1.0.3"
+    },
+    "Q": {
+      "app": "${WORKSPACE}/artifacts/runtime/v104-quiescent-allocator-candidate-20261021/BAR.app",
+      "inventoryDigest": "d57144b1b12ad489f2754c18e684af4d76cef21535fd2169042e5e17e8d4b0ac",
+      "localCandidate": "v1.0.4",
+      "version": "1.0.3"
+    }
+  },
+  "appsCQInventoriesExact": true,
+  "awakeReleased": true,
+  "cleanup": {
+    "leaves": 5329,
+    "logicalBytes": 153929972,
+    "physicalBytesMeasured": false,
+    "roots": 96
+  },
+  "comparisonSelection": "All four fresh Metal4 sessions plus all four fresh Metal3 retest sessions; previous original eight are reference only. User explicitly requested new Metal3; old primary preserved in pre-metal3-rerun.",
+  "conditions": {
+    "camera": {
+      "dist": 2254.7705078125,
+      "dx": 0,
+      "dy": -0.924302399158,
+      "dz": -0.381660997868,
+      "fov": 45,
+      "mode": 2,
+      "name": "spring",
+      "px": 4096,
+      "py": 254.770629882813,
+      "pz": 3072,
+      "rx": 2.75,
+      "ry": 0,
+      "rz": 0
+    },
+    "game": "Beyond All Reason",
+    "map": "Seths Ravine Remake 1.3.1",
+    "officialCommand": "luarules benchmark armbull armbull 80 8 1400",
+    "quality": {
+      "config": {
+        "MSAA": 0,
+        "MSAALevel": 0,
+        "MinSampleShadingRate": 0,
+        "VSync": 0,
+        "VSyncGame": 0
+      },
+      "glSamples": 0,
+      "glSamplesConfirmed4": false,
+      "glSamplesScope": "DrawScreen current framebuffer; resolved UI targets may report 0 or 1",
+      "mapEdge": {
+        "actual": 0.5,
+        "exceptionApplied": true,
+        "voidGround": false,
+        "voidWater": true,
+        "wanted": true,
+        "widgetActive": false
+      },
+      "optionValues": {
+        "advmapshading": true,
+        "attackrange_numrangesmult": 1,
+        "bloomdeferred": true,
+        "bloomdeferred_quality": 3,
+        "camera": 3,
+        "cusgl4": true,
+        "decals": true,
+        "decalsgl4": true,
+        "distortioneffects": true,
+        "fogdiaglines": 0,
+        "grass": true,
+        "lighteffects": true,
+        "lighteffects_nanoparticlelights": true,
+        "lighteffects_screenspaceshadows": 4,
+        "limitidlefps": false,
+        "limitoffscreenfps": false,
+        "losrange": true,
+        "mapedgeextension": 0.5,
+        "msaa": 1,
+        "particles": 40000,
+        "preset": 5,
+        "shadowslider": 6,
+        "snow": true,
+        "ssao": true,
+        "ssao_quality": 3,
+        "vsync": 1,
+        "water": 2
+      },
+      "optionsVerified": 20,
+      "ultraPreset": 5,
+      "ultraVerified": true
+    },
+    "resolution": {
+      "height": 950,
+      "width": 1512
+    },
+    "seed": 7654321,
+    "workload": {
+      "placementSpan": 1400,
+      "populationThresholdIsNotHardCap": true,
+      "populationThresholdPerTeam": 80,
+      "rampIncluded": true,
+      "replenishBatchPerTeam": 8,
+      "replenishEverySimulationFrames": 3,
+      "requestedSimulationSpeed": 1,
+      "unitTypeOpponent": "armbull",
+      "unitTypeOwn": "armbull"
+    }
+  },
+  "executionOrder": [
+    {
+      "FPS": 47.247936248779,
+      "app": "${WORKSPACE}/artifacts/runtime/v104-typed-buffer-callers-candidate-20261020/BAR.app",
+      "backend": "metal4",
+      "benchmarkStartUnixMS": 1792599149145,
+      "drawIntervals": 1416,
+      "ordinal": 1,
+      "p95Ms": 28.559999465942,
+      "p99Ms": 41.368999481201,
+      "receipt": "${WORKSPACE}/artifacts/validation/v104-quiescent-allocator-20261021/performance-idle-metal4/1-C-metal4/sessions/lobby-no-native-hook-1792599078259/execution-receipt.json",
+      "receiptSHA256": "af6617fd0ea5a15462f516e680a0a1f94f78e2def9e9b002ad98aa0a1c9238cc",
+      "role": "C",
+      "simulationFrames": 900,
+      "sourceOrdinal": 1,
+      "sourcePhase": "fresh-metal4",
+      "version": "1.0.3"
+    },
+    {
+      "FPS": 46.805953979492,
+      "app": "${WORKSPACE}/artifacts/runtime/v104-quiescent-allocator-candidate-20261021/BAR.app",
+      "backend": "metal4",
+      "benchmarkStartUnixMS": 1792599265436,
+      "drawIntervals": 1402,
+      "ordinal": 2,
+      "p95Ms": 29.158000946045,
+      "p99Ms": 43.73099899292,
+      "receipt": "${WORKSPACE}/artifacts/validation/v104-quiescent-allocator-20261021/performance-idle-metal4/2-Q-metal4/sessions/lobby-no-native-hook-1792599194994/execution-receipt.json",
+      "receiptSHA256": "ebe6cc214a11a9d318959a1c0117a3861393163422c06cd7f453f78f79d4bbdb",
+      "role": "Q",
+      "simulationFrames": 900,
+      "sourceOrdinal": 2,
+      "sourcePhase": "fresh-metal4",
+      "version": "1.0.3"
+    },
+    {
+      "FPS": 47.097057342529,
+      "app": "${WORKSPACE}/artifacts/runtime/v104-quiescent-allocator-candidate-20261021/BAR.app",
+      "backend": "metal4",
+      "benchmarkStartUnixMS": 1792599383913,
+      "drawIntervals": 1413,
+      "ordinal": 3,
+      "p95Ms": 28.843999862671,
+      "p99Ms": 41.481998443604,
+      "receipt": "${WORKSPACE}/artifacts/validation/v104-quiescent-allocator-20261021/performance-idle-metal4/3-Q-metal4/sessions/lobby-no-native-hook-1792599313492/execution-receipt.json",
+      "receiptSHA256": "d92f378a8649ebae90a4c535943d1bde67c99b11b5941dc24654eb64b27166a0",
+      "role": "Q",
+      "simulationFrames": 900,
+      "sourceOrdinal": 3,
+      "sourcePhase": "fresh-metal4",
+      "version": "1.0.3"
+    },
+    {
+      "FPS": 45.888317108154,
+      "app": "${WORKSPACE}/artifacts/runtime/v104-typed-buffer-callers-candidate-20261020/BAR.app",
+      "backend": "metal4",
+      "benchmarkStartUnixMS": 1792599502088,
+      "drawIntervals": 1375,
+      "ordinal": 4,
+      "p95Ms": 29.628000259399,
+      "p99Ms": 42.095001220703,
+      "receipt": "${WORKSPACE}/artifacts/validation/v104-quiescent-allocator-20261021/performance-idle-metal4/4-C-metal4/sessions/lobby-no-native-hook-1792599431766/execution-receipt.json",
+      "receiptSHA256": "f2c45fe975cab2d2b644076ebe657332bb4a8ec8ca9da067da69c206a9eb5a31",
+      "role": "C",
+      "simulationFrames": 900,
+      "sourceOrdinal": 4,
+      "sourcePhase": "fresh-metal4",
+      "version": "1.0.3"
+    },
+    {
+      "FPS": 53.355155944824,
+      "app": "${WORKSPACE}/artifacts/runtime/v104-typed-buffer-callers-candidate-20261020/BAR.app",
+      "backend": "metal3",
+      "benchmarkStartUnixMS": 1792599889701,
+      "drawIntervals": 1599,
+      "ordinal": 5,
+      "p95Ms": 26.285999298096,
+      "p99Ms": 40.20299911499,
+      "receipt": "${WORKSPACE}/artifacts/validation/v104-quiescent-allocator-20261021/performance-idle-metal3-retest/1-C-metal3/sessions/lobby-no-native-hook-1792599818901/execution-receipt.json",
+      "receiptSHA256": "c89a4885a77a4e7b574f713215fa6b08421b17ae7aa23682e31c0a9509e7d4c8",
+      "role": "C",
+      "simulationFrames": 900,
+      "sourceOrdinal": 1,
+      "sourcePhase": "fresh-metal3-retest",
+      "version": "1.0.3"
+    },
+    {
+      "FPS": 52.539978027344,
+      "app": "${WORKSPACE}/artifacts/runtime/v104-quiescent-allocator-candidate-20261021/BAR.app",
+      "backend": "metal3",
+      "benchmarkStartUnixMS": 1792600008270,
+      "drawIntervals": 1574,
+      "ordinal": 6,
+      "p95Ms": 27.257999420166,
+      "p99Ms": 40.44100189209,
+      "receipt": "${WORKSPACE}/artifacts/validation/v104-quiescent-allocator-20261021/performance-idle-metal3-retest/2-Q-metal3/sessions/lobby-no-native-hook-1792599938195/execution-receipt.json",
+      "receiptSHA256": "d6b28b6a0eda49873952b1ab7383c1a591b58a676ade7161e2368f5cf1f38ab9",
+      "role": "Q",
+      "simulationFrames": 900,
+      "sourceOrdinal": 2,
+      "sourcePhase": "fresh-metal3-retest",
+      "version": "1.0.3"
+    },
+    {
+      "FPS": 52.653873443604,
+      "app": "${WORKSPACE}/artifacts/runtime/v104-quiescent-allocator-candidate-20261021/BAR.app",
+      "backend": "metal3",
+      "benchmarkStartUnixMS": 1792600126414,
+      "drawIntervals": 1578,
+      "ordinal": 7,
+      "p95Ms": 27.92200088501,
+      "p99Ms": 40.695999145508,
+      "receipt": "${WORKSPACE}/artifacts/validation/v104-quiescent-allocator-20261021/performance-idle-metal3-retest/3-Q-metal3/sessions/lobby-no-native-hook-1792600056411/execution-receipt.json",
+      "receiptSHA256": "173ea9fd35abc89195ead57d82b3b73020d5863a38a1a9b8ba31a4b6483dacb5",
+      "role": "Q",
+      "simulationFrames": 900,
+      "sourceOrdinal": 3,
+      "sourcePhase": "fresh-metal3-retest",
+      "version": "1.0.3"
+    },
+    {
+      "FPS": 51.953414916992,
+      "app": "${WORKSPACE}/artifacts/runtime/v104-typed-buffer-callers-candidate-20261020/BAR.app",
+      "backend": "metal3",
+      "benchmarkStartUnixMS": 1792600244954,
+      "drawIntervals": 1557,
+      "ordinal": 8,
+      "p95Ms": 26.958999633789,
+      "p99Ms": 39.554000854492,
+      "receipt": "${WORKSPACE}/artifacts/validation/v104-quiescent-allocator-20261021/performance-idle-metal3-retest/4-C-metal3/sessions/lobby-no-native-hook-1792600175152/execution-receipt.json",
+      "receiptSHA256": "f53e510025e8a2256e1dee00f2b49c6ad9f700b9ea8c331388d4c363523b35d9",
+      "role": "C",
+      "simulationFrames": 900,
+      "sourceOrdinal": 4,
+      "sourcePhase": "fresh-metal3-retest",
+      "version": "1.0.3"
+    }
+  ],
+  "groups": {
+    "metal3": {
+      "C": {
+        "FPS": [
+          53.355155944824,
+          51.953414916992
+        ],
+        "meanFPS": 52.654285430908004,
+        "meanP95Ms": 26.6224994659425
+      },
+      "Q": {
+        "FPS": [
+          52.539978027344,
+          52.653873443604
+        ],
+        "changeFromCPercent": -0.10893642362551637,
+        "meanFPS": 52.596925735474,
+        "meanP95Ms": 27.590000152588
+      }
+    },
+    "metal4": {
+      "C": {
+        "FPS": [
+          47.247936248779,
+          45.888317108154
+        ],
+        "meanFPS": 46.5681266784665,
+        "meanP95Ms": 29.0939998626705
+      },
+      "Q": {
+        "FPS": [
+          46.805953979492,
+          47.097057342529
+        ],
+        "changeFromCPercent": 0.8232647733310783,
+        "meanFPS": 46.9515056610105,
+        "meanP95Ms": 29.001000404358003
+      }
+    }
+  },
+  "humanBackgroundInterference": {
+    "activeOrdinalAtObservation": 4,
+    "atUTC": "2026-10-21T16:01:52.925017+00:00",
+    "backgroundWorkKnownFinished": false,
+    "completedAtObservation": [
+      {
+        "backend": "metal4",
+        "fps": 46.594192504883,
+        "ordinal": 1,
+        "role": "C"
+      },
+      {
+        "backend": "metal4",
+        "fps": 43.367881774902,
+        "ordinal": 2,
+        "role": "Q"
+      },
+      {
+        "backend": "metal4",
+        "fps": 44.076370239258,
+        "ordinal": 3,
+        "role": "Q"
+      }
+    ],
+    "humanMessage": "다른 일을 하고 있었다.",
+    "interpretation": "Human confirms other work overlapped this benchmark. End time and per-arm burden are unknown; do not infer Q-caused slowdown from these comparisons. Continue existing bounded matrix unless user steers otherwise."
+  },
+  "idleConfirmation": {
+    "activeOrdinalAtObservation": 5,
+    "atUTC": "2026-10-21T16:03:06.430063+00:00",
+    "confirmedIdleAtUnixMS": 1792598586430,
+    "humanMessage": "지금은 끝났어",
+    "observationNote": "Arm5 host was already initializing; measured-window timestamp guard is mandatory. If it began too early, do not silently include it.",
+    "plan": "Preregistered before arm5 results: use original Metal3 arms5-8 only if every measured benchmark start is after confirmedIdleAtUnixMS. Add fresh Metal4 C/Q/Q/C4sessions. Earlier Metal4 arms1-4 remain confounded reference. Do not choose or reject based on FPS."
+  },
+  "limitations": [
+    "Small n2 per app/backend, OS/user background load not fully controlled.",
+    "All diagnostics compiled OFF. Q changes only genuine quiescent last-use reset; no peak-memory benefit inferred from FPS.",
+    "Historical FPS not pooled; timestamp and sampled-exit unresolved cases not claimed repaired.",
+    "SDL native display/Space transition deferred while hidden; 1512x950 safe default1x drawable.",
+    "Human confirmed own work finished; no claim all OS/background load is zero. Metal3 differences are not direct effects of the Metal4-only allocator policy."
+  ],
+  "metal3RetestGrant": {
+    "automaticRetry": false,
+    "backend": "metal3",
+    "humanTask": "아니 메탈3도 다시 재측정해봐",
+    "maximumGameSessions": 4,
+    "order": [
+      "C",
+      "Q",
+      "Q",
+      "C"
+    ],
+    "primarySelection": "all four fresh Metal4 sessions plus all four fresh Metal3 retest sessions",
+    "registeredUnixMS": 1792599808324,
+    "sourceAndAppsFrozen": true,
+    "supersedes": "reuse of original Metal3 arms5-8; previous primary summary preserved in pre-metal3-rerun"
+  },
+  "nPerAppBackend": 2,
+  "powerObservations": 72,
+  "primarySessions": 8,
+  "referenceSessions": 8,
+  "screenRestored": true,
+  "sourceBindings": {
+    "CApp": "${WORKSPACE}/artifacts/runtime/v104-typed-buffer-callers-candidate-20261020/BAR.app",
+    "CMakeCacheSHA256": "0418fd1490c4c368e8d303c3588311dd7bff28bf0133d7148bcd6e18f17aaf9f",
+    "QApp": "${WORKSPACE}/artifacts/runtime/v104-quiescent-allocator-candidate-20261021/BAR.app",
+    "QPackage": "${WORKSPACE}/artifacts/validation/v104-quiescent-allocator-20261021/Q-package.json",
+    "currentCandidate": {
+      "app": "${WORKSPACE}/artifacts/runtime/v104-typed-buffer-callers-candidate-20261020/BAR.app",
+      "currentCandidate": "C",
+      "designation": "local v1.0.4 cumulative candidate",
+      "displayedVersion": "1.0.3",
+      "githubABCManagement": "https://github.com/yeojuny/bar-lobby-apple-silicon/tree/90948f178d8194828d024b2278268633a11ef9b0/docs/restore-checkpoints/2026-10-20-mvk-p123-b-ct-cm3/followups/2026-10-20-abc-retention",
+      "githubCommit": "90948f178d8194828d024b2278268633a11ef9b0",
+      "inventoryEntries": 1194,
+      "localAExists": false,
+      "localBExists": false,
+      "nextInvestigation": {
+        "statusAtWrite": "running Astra + Max, read-only investigation/design; no implementation requested",
+        "threadTitle": "BAR Metal 4 전환 범위 조사",
+        "turnId": "${THREAD_ID}"
+      },
+      "preservedSourceBuildAndMarkdown": true,
+      "retentionCompletion": "artifacts/validation/v104-abc-local-retention-20261020/completion.json",
+      "status": "C-only-local-among-A-B-C"
+    },
+    "packageSHA256": {
+      "Q": "ac869a840f7bf5662e2f887dd1c5e25a76b9a1aaa3fd5bfa082ac7aac2aa3cf1"
+    },
+    "rawSHA256": "685f3f3b6901e12ff781e0c2bbd797953737f851b2193d665f8cbf86740ac3bd",
+    "sourcePins": {
+      "artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Rendering/GlobalRendering.cpp": "1d7cd698a097171fa1c3ca226aa88506a32c0f7246f0d42f6e0ae5a3b686162d",
+      "artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/System/Platform/Mac/MacSDL3EGLBridge.h": "7a87e73d9fbadd9f4d2326010263a29598ebeb7648a4f21447c18aa449cab733",
+      "artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/System/Platform/Mac/MacSDL3EGLBridge.mm": "e65cc88decc124356196b727b6220db68236c89e19164b90a5587ace409d4258",
+      "build/metal4-mvk-20261002/CMakeCache.txt": "0418fd1490c4c368e8d303c3588311dd7bff28bf0133d7148bcd6e18f17aaf9f",
+      "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCmdDraw.mm": "b0664412727e21c2b36300667e488919c8efa747113a8d66e23a4ef7ca4875f5",
+      "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCmdPipeline.mm": "8e663764a00e70ae9b6ede6996da275a9c0aad8a4de632fab8e9ed20e80e1d33",
+      "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCmdTransfer.mm": "1845cab26d229c9637216cfba710a3bfb7ef3140a8e040d6cdf81a7318740fc4",
+      "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCommandBuffer.h": "ea6eb8b685fe9a180c2f53faa08b0ca19545a1b764f426c3aac5eadd7b35609a",
+      "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCommandBuffer.mm": "c66515484dfda8a7d5b05ed45622b03f64e9695eedcbb607d4e71387eb354c74",
+      "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCommandEncoderState.h": "dac7a20c3963887d5f054322a2bf7884d347271768dd0a124649f7d25862dade",
+      "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCommandEncoderState.mm": "9b28b9a30f6e0d8a975b732dcaf8a49c8e14b32f9ba3157e4f9dce03b14276b9",
+      "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKMetal4ArgumentTable.h": "5c384246248d634381f2530a636f2c7c86d917ce62111564edaac9917ca8a6f2",
+      "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKMetal4ArgumentTable.mm": "e0cace2976b83bf3a57ea5eb00b1d1eb786c3431a1069a8776b06a45b2c949db",
+      "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKMetal4DependencyScopes.h": "23eb82a647ea1632fcf3bcad7a330a53f42ab9d51cf04145722ea331b8530128",
+      "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKBackendTimeline.cpp": "07bce1a877f56230c4e57afdcbb7e594ae45b0255506e86b3638322c60c11b39",
+      "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKBackendTimeline.h": "e5f4307aea9684f9a9dacddd8f5dfb287fdf53a7dc78dab301062fd4f686ca6c",
+      "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKDescriptorSet.h": "fb7583ab4debcf0e8f6afcaa1abc62b87d80e1b457280a77136d3cf5afaae1f5",
+      "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKDescriptorSet.mm": "b87caab357dd43ba2c2cd937dcd7cdd0836c6418f90ddc5d2b90e13022257dc4",
+      "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKDevice.h": "dfa43fcfd4c280b2d8ae0d32dfd78ac0b13d0cdb2c5baccb31d551516c812caa",
+      "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKDevice.mm": "0d0985dcecd5ec9e728425a1635ccfb9df9c5fb1f7e3f8d86b4c7fa6eb1545e1",
+      "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKMetal4PreparedResource.h": "d6222a17d4da569b0abd419f1c7e8b41c2f2101c7acf700e770aa02af7afa653",
+      "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKMetal4Submission.h": "b16b79f45cebe2ed69e8c0e8c5d8ba5ee4921a0156d7cbd70ca812da57bb18ce",
+      "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKMetal4Submission.mm": "8457e8c935d2edcd54f00a6e391140ab751f5e8ae4c014fd41e732c2559fbf36",
+      "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKPipeline.h": "aad8ee804ef963d234f815841b400f6c826491aa9478428e687fc8e869bca140",
+      "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKPipeline.mm": "aaa8e9f7c9e8ddaab644d08bce02138b60254cb21aa4f2107541ebe3c0f440ba",
+      "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKQueryPool.mm": "f90a7eda645fe9ef306337f5cd90f6684629f7c2f151209ecc1fd7ed5e73ec74",
+      "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKRenderPass.h": "12d96adb474ace60aa5a746eaa5cf922d54f6e32c154f3ecc4f864f7fc5b8984",
+      "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKRenderPass.mm": "8b6ce3de27c32d931dd5b9de39b31e96745389a25bd549f92b08fccc8ed45f14",
+      "build/run91-recoil-src-694e9df7/rts/Rendering/GlobalRendering.cpp": "ea57a439ac1afa0f92dfa93968b5e8d971a1c4ca68ad16e83f38b34719d16c94",
+      "build/run91-recoil-src-694e9df7/rts/System/Platform/Mac/MacSDL3EGLBridge.h": "a7858558e572a9108f8ed0d7d0cae1b8f73f0c36145db5874716f7db3236c445",
+      "build/run91-recoil-src-694e9df7/rts/System/Platform/Mac/MacSDL3EGLBridge.mm": "1f9fc4311ae1ca3707bbc2fad869e5b5960497e00e44ff4ece8fb91a9854695a",
+      "tools/tests/metal4-counter-completion-cpu.mm": "443a36f87ff7869653f7b6bcd1faba98f5be4febbdade45008a222c06013faa8",
+      "tools/tests/metal4-prepared-recording-vulkan.mm": "c59916e913b2ad69927b7c7667570c016d3b67b350ae0db42d6dd5452155851d",
+      "tools/tests/metal4-queue-barrier-reuse-cpu.mm": "7d23f02370d6336571a21d451d381a1e2c0536815f276f76711f996313268b41",
+      "tools/tests/metal4-r49-lifetime-native.mm": "62abed0ed599af6a6c9c3be74966a3510fb1921d99c724bfeb74e8ed7906853d",
+      "tools/tests/metal4-r50-texture-registration-cpu.py": "b5fb5656bb0ff41492db4f18e5d1228c1305247dc354322b48ffc522727d4feb",
+      "tools/tests/metal4-suspend-resolve-cpu.mm": "7b932cb172b287140e70698847e45b5a5642d0f1988181bcf4b1c780cf518a14",
+      "tools/tests/metal4-visibility-recycle-cpu.mm": "89186f6a7c0790dac30011824a89ac8badc6cdfbb0a976a5d2f9355f880f3948"
+    }
+  },
+  "sourceBuildQPreserved": true,
+  "status": "completed-8-C-Q-quiescent-comparison-sessions",
+  "thermalStates": [
+    0
+  ],
+  "totalCompletedSessions": 16,
+  "userProfilesAndLauncherExact": true
+}

@@ -1,0 +1,118 @@
+{
+  "allACLowPowerThermal0": true,
+  "allFinalArmsIncluded": true,
+  "cleanupIndependentTotals": {
+    "leaves": 5329,
+    "logicalBytes": 153929972,
+    "physicalBytesMeasured": false,
+    "roots": 96
+  },
+  "completedSessionsTotal": 16,
+  "decision": "Keep C current; Q unpromoted experimental candidate; no reliable causal gain or net memory benefit established.",
+  "executedBuildTestGPUApp": false,
+  "finalReportSHA256": "11e11538555ce4105303de579b6442527c0628757091a7cff3b536c6ac05fe85",
+  "findings": [],
+  "groupsIndependentlyRecomputed": {
+    "metal3": {
+      "C": {
+        "FPS": [
+          53.355155944824,
+          51.953414916992
+        ],
+        "meanFPS": 52.654285430908004,
+        "meanP95Ms": 26.6224994659425
+      },
+      "Q": {
+        "FPS": [
+          52.539978027344,
+          52.653873443604
+        ],
+        "changeFromCPercent": -0.10893642362551637,
+        "meanFPS": 52.596925735474,
+        "meanP95Ms": 27.590000152588
+      }
+    },
+    "metal4": {
+      "C": {
+        "FPS": [
+          47.247936248779,
+          45.888317108154
+        ],
+        "meanFPS": 46.5681266784665,
+        "meanP95Ms": 29.0939998626705
+      },
+      "Q": {
+        "FPS": [
+          46.805953979492,
+          47.097057342529
+        ],
+        "changeFromCPercent": 0.8232647733310783,
+        "meanFPS": 46.9515056610105,
+        "meanP95Ms": 29.001000404358003
+      }
+    }
+  },
+  "inputSHA256": {
+    "additional-metal3-retest-grant.json": "54729f4842b47b15a827b6fee5f9cf6bfb2f17b7e1b340618a6bc25897becf39",
+    "analyze-final.py": "a0baeab0ff4d11c7b16d7d87988dfa842cc040f7e1c8fc5d0143f8a536d04864",
+    "comparison-summary.json": "f7fd348eeae1d2011df396845e5538a8ba699a25ee2e2a4f34a5508fca70e593",
+    "completion.json": "d4212eeea4eb2f244e7bc9b83a93effcd7bb70dfaa61dec8d9e6cd61371c9831",
+    "performance-idle-metal3-retest/outcome.json": "1de9b4f556d488138ff5eecbbd4c92823e7432b788fa76d13ced9b883d38a6f3",
+    "performance-idle-metal3-retest/preparation.json": "fde13bf48d9c3e0d876240eaf07aa9df1c00b805c9cec5873b643aac0506b106",
+    "performance-idle-metal3-retest/screen-guard.json": "ffc430bd2225bbf0a47bfc60ec13b573cd41297ff4e492311cda96288aa938d3",
+    "performance-idle-metal4/outcome.json": "67ec0551a3e14a23d2c6397717df296a03720222e2b0d50573bec51cd5829f0d",
+    "performance-idle-metal4/preparation.json": "69fe041a9be2d1753246a5ed89f49f268af545b378dad952f13d51e3b504b9f0",
+    "pre-metal3-rerun/completion.json": "8aca80609792b4cc92d2262611f115b65b2a7ac06dcf845669f3e3ab63016df9"
+  },
+  "newM3MeasuredStartAfterInstructionMS": [
+    81377,
+    199946,
+    318090,
+    436630
+  ],
+  "previousSourcePackageReadinessReused": true,
+  "primaryPowerObservations": 72,
+  "primarySessions": 8,
+  "productEdits": false,
+  "receiptHashes": [
+    {
+      "ordinal": 1,
+      "sha256": "af6617fd0ea5a15462f516e680a0a1f94f78e2def9e9b002ad98aa0a1c9238cc"
+    },
+    {
+      "ordinal": 2,
+      "sha256": "ebe6cc214a11a9d318959a1c0117a3861393163422c06cd7f453f78f79d4bbdb"
+    },
+    {
+      "ordinal": 3,
+      "sha256": "d92f378a8649ebae90a4c535943d1bde67c99b11b5941dc24654eb64b27166a0"
+    },
+    {
+      "ordinal": 4,
+      "sha256": "f2c45fe975cab2d2b644076ebe657332bb4a8ec8ca9da067da69c206a9eb5a31"
+    },
+    {
+      "ordinal": 5,
+      "sha256": "c89a4885a77a4e7b574f713215fa6b08421b17ae7aa23682e31c0a9509e7d4c8"
+    },
+    {
+      "ordinal": 6,
+      "sha256": "d6b28b6a0eda49873952b1ab7383c1a591b58a676ade7161e2368f5cf1f38ab9"
+    },
+    {
+      "ordinal": 7,
+      "sha256": "173ea9fd35abc89195ead57d82b3b73020d5863a38a1a9b8ba31a4b6483dacb5"
+    },
+    {
+      "ordinal": 8,
+      "sha256": "f53e510025e8a2256e1dee00f2b49c6ad9f700b9ea8c331388d4c363523b35d9"
+    }
+  ],
+  "receiptRuntimeBackendAndPlanBindingsVerified": true,
+  "recordedAtUTC": "2026-10-21T16:34:05.002676+00:00",
+  "referenceOnlySessions": 8,
+  "reviewer": "independent_review sub-agent",
+  "selection": "All four fresh Metal4 and all four user-requested fresh Metal3; original eight reference only.",
+  "status": "final-fresh-M3-M4-reviewed-no-actionable-findings",
+  "wholeAppHashRepeated": false
+}

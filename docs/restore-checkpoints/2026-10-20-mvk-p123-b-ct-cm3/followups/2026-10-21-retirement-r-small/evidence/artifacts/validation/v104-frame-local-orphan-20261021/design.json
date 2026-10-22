@@ -1,0 +1,103 @@
+{
+  "bindingAndCompatibility": {
+    "DSA": "Use glNamedBufferData only when (GLAD_GL_VERSION_4_5 OR GLAD_GL_ARB_direct_state_access) AND glNamedBufferData!=nullptr. No binding/query operations on this branch.",
+    "HEADLESS": "Compile out all new GL capability tests and orphan GL calls under #ifndef HEADLESS; only reset the marker. No new gladstub symbols or behavior required.",
+    "VAO": "Both paths leave the current VAO, its EBO association, ARRAY_BUFFER, indexed SSBO bindings and unrelated COPY_WRITE binding unchanged.",
+    "fallback": "Only when core3.1 or GLAD_GL_ARB_copy_buffer is supported: save GL_COPY_WRITE_BUFFER_BINDING, bind the same id to GL_COPY_WRITE_BUFFER, replace storage, and restore the exact previous binding. Never touch ELEMENT_ARRAY_BUFFER.",
+    "fallbackCost": "One state query and two binds on a real invalidation; possible driver/thread overhead remains unmeasured.",
+    "fallbackEvidence": "GlobalRendering.cpp:56-57 allows GL3.0; VBO.cpp checks GLAD_GL_ARB_copy_buffer separately.",
+    "unsupported": "If neither guarded DSA nor COPY_WRITE is supported, skip the optimization with no GL call; preserve existing bytes and clear the frame upload marker. Generic engine configuration permits GL3.0.",
+    "whyBothChecks": "The local core4.5 loader has its version guard commented out. A non-null loaded pointer alone is not sufficient evidence of API support."
+  },
+  "callerContracts": [
+    {
+      "contract": "Readonly returns before Swap, Invalidate and Clear. For other Typed buffers, Swap each existing stream, explicitly Invalidate it, then retain the original CPU Clear and upload/start-index reset.",
+      "lanes": "both",
+      "path": "rts/Rendering/GL/RenderBuffers.h:407"
+    },
+    {
+      "contract": "IStreamBuffer gets a default no-op Invalidate. Only BufferSubDataImpl overrides it. Ordinary stream Swap remains unchanged, including persistent/ring/fence behavior.",
+      "lanes": "both; exact same current file",
+      "path": "rts/Rendering/GL/StreamBuffer.h"
+    },
+    {
+      "contract": "Sparse/idle model data and indexed SSBO bindings continue to retain their bytes. The uploader calls ordinary Swap, never the new Invalidate. Its BufferSubData fallback also retains content across frames.",
+      "lanes": "both; exact same current file",
+      "path": "rts/Rendering/ModelsDataUploader.cpp:106"
+    },
+    {
+      "contract": "RenderBuffer::SwapRenderBuffers precedes existing PutBufferLocks and native presentation. No draw-frame boundary, fence ordering or GPU-completion requirement changes.",
+      "lanes": "both",
+      "path": "rts/Rendering/GlobalRendering.cpp"
+    },
+    {
+      "contract": "CopyCurrent creates independent CPU vectors and later independent streams/VAO. Readonly copies survive source frame resets; non-readonly copies retain their own frame-local behavior. Existing index-bias arithmetic and move ownership are unchanged.",
+      "lanes": "both, with lane-specific line numbers",
+      "path": "rts/Rendering/GL/RenderBuffers.h:962"
+    },
+    {
+      "contract": "GetPendingElemsRange/DrawElementsRange remain valid until the next SwapBuffer. Projectile reuse requires matching drawFrame. Chobby lacks this API; do not add it or pretend to test its presence there.",
+      "lanes": "lobby only",
+      "path": "rts/Rendering/GL/RenderBuffers.h:926 and rts/Rendering/Env/Particles/ProjectileDrawer.cpp:889"
+    },
+    {
+      "contract": "Font primary/outline streams explicitly select BufferSubData; the Typed default also selects it. This establishes static reach, not current workload frequency or benefit.",
+      "lanes": "both",
+      "path": "rts/Rendering/Fonts/glFontRenderer.cpp:130"
+    }
+  ],
+  "executed": {
+    "GPU": 0,
+    "builds": 0,
+    "cleanup": 0,
+    "fixtureWrites": 0,
+    "games": 0,
+    "parentSelection": 0,
+    "productWrites": 0,
+    "tests": 0
+  },
+  "externalPrecedent": {
+    "adaptation": "Keep the explicit Invalidate API and Typed-only caller; replace target Bind/Unbind with guarded DSA or binding-preserving COPY_WRITE fallback. Reset the upload marker on new storage and ignore zero-byte upload calls without losing a prior positive marker.",
+    "author": "Leon Seemann",
+    "committer": "Tom J Nowell",
+    "originalScope": "22 additions and 2 deletions in RenderBuffers.h and StreamBuffer.h",
+    "performanceEvidence": "External KK lobby observations motivate the experiment; no conversion into expected BAR/MVK FPS or pass reduction.",
+    "url": "https://github.com/tomjn/RecoilEngine/commit/46e9a9ce8d80cd0b8228a84e3fdb33ed6f317fa0"
+  },
+  "implementationGate": "Root completes R/Small comparison, selects the parent, and issues a separate source/build grant. No parent is selected here.",
+  "laterBuildAndPackaging": {
+    "MVKTrap": "The active raw MoltenVK currently contains Small. Never copy it into this engine-only candidate. Preserve the chosen parent's packaged MVK by exact hash and inventory, even when the chosen parent is R.",
+    "apply": "Verify selected-parent source and proposal preimages first. Apply textual hunks as new edits with current mtime; never restore historical header mtimes using copy2. Preserve file modes. The added virtual method changes internal vtable layout, so all dependent native translation units must rebuild consistently.",
+    "buildRoots": [
+      "build/run91-recoil-engine-694e9df7-macos27",
+      "artifacts/runtime/run94-chobby-official-20260704-20260924/build"
+    ],
+    "package": "Clone the selected parent into a new private candidate; replace and sign only the two corresponding engine executables, then sign the outer app. Expected additional differences are outer signature records only.",
+    "parent": "Root will choose the exact R or accepted Small frozen app after comparison. Unresolved now.",
+    "qualification": "Verify both unchanged official version identities, loader closure, unchanged launcher code/ASAR, runtime libraries, presentation assets and parent inventory. No installation or publication; root owns later app/game/performance acceptance.",
+    "target": "Existing engine-legacy/spring target, incremental only; preserve CMake configuration and verify dependent compilation in the build log. No clean build, competing lane or whole-stack refresh."
+  },
+  "risksAndStopConditions": [
+    "A frame-local candidate can reduce implicit synchronization or staging, but orphaning can increase retained in-flight backing and driver allocation work.",
+    "Extra virtual calls on Typed Swap and upload-marker writes are small new CPU work, not assumed free.",
+    "Binding mutation, readonly/model content loss, same-frame range failure, unsupported entrypoint calls or excessive memory churn require correction or withdrawal before adoption.",
+    "This does not repair unrelated pre-existing CPU-buffer/Resize/CopyCurrent behavior or alter its arithmetic. Report any newly observed issue separately instead of broadening silently."
+  ],
+  "scopeAndPreservation": {
+    "AI": "Codex-assisted local design and proposed code. No upstream PR/issue/comment is submitted. Future external contribution must follow the lane AI_POLICY disclosure, accepted-issue and human-verification requirements.",
+    "nativePolicy": "Keep official engine identities, SYNCCHECK, numeric/compiler policy, NoGS and immutable healthbar/tracker sources byte-identical. No synced code, game content, Lua syntax or visual assets change.",
+    "proposedProductFiles": "Only RenderBuffers.h and StreamBuffer.h in each of the two native lanes, 4 paths total.",
+    "sourcePins": "unapplied-source-proposal.json records exact preimages, proposed images, the two CMake caches, inspected callers/fixtures, and current immutable presentation-provider source bytes.",
+    "stack": "No Mesa/Loader/SDL/MoltenVK source or binary replacement. MVK #2837 is a separate third unit."
+  },
+  "status": "design-and-unapplied-proposal-only",
+  "storageState": {
+    "gpuLifetime": "The GL storage-replacement contract preserves already-issued commands. The driver may rename, retain old storage or synchronize internally; this proposal does not prescribe its allocator or claim lower peak memory.",
+    "initial": "uploaded=false; no allocation or query added by fresh/no-upload Invalidate",
+    "invalidate": "Only when marked, use a supported storage-replacement branch on the same id/byteSize/usage; otherwise leave storage intact. Clear the marker after the frame-boundary attempt. Repeated calls do no GL work.",
+    "move": "Typed move transfers unique stream ownership; the upload marker travels with that stream object. Do not reset it on Typed move.",
+    "resize": "The existing Init/CreateBuffer replaces storage and resets uploaded=false. CPU client pointer, own-buffer allocation, partial-upload rules and existing Resize behavior remain unchanged.",
+    "upload": "After the existing Unmap/BufferSubData call, OR the marker with mapElemCount>0. A zero-byte call does not erase an earlier upload marker."
+  },
+  "unit": "11a"
+}

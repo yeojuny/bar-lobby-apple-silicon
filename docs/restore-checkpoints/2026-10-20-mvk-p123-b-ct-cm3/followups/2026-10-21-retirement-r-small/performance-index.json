@@ -1,0 +1,1631 @@
+{
+  "CNotableObservation": {
+    "appID": "v104-typed-buffer-callers-candidate-20261020",
+    "conditions": {
+      "camera": {
+        "dist": 2254.7705078125,
+        "dx": 0,
+        "dy": -0.924302399158,
+        "dz": -0.381660997868,
+        "fov": 45,
+        "mode": 2,
+        "name": "spring",
+        "px": 4096,
+        "py": 254.770629882813,
+        "pz": 3072,
+        "rx": 2.75,
+        "ry": 0,
+        "rz": 0
+      },
+      "game": "Beyond All Reason",
+      "map": "Seths Ravine Remake 1.3.1",
+      "officialCommand": "luarules benchmark armbull armbull 80 8 1400",
+      "quality": {
+        "config": {
+          "MSAA": 0,
+          "MSAALevel": 0,
+          "MinSampleShadingRate": 0,
+          "VSync": 0,
+          "VSyncGame": 0
+        },
+        "glSamples": 0,
+        "glSamplesConfirmed4": false,
+        "glSamplesScope": "DrawScreen current framebuffer; resolved UI targets may report 0 or 1",
+        "mapEdge": {
+          "actual": 0.5,
+          "exceptionApplied": true,
+          "voidGround": false,
+          "voidWater": true,
+          "wanted": true,
+          "widgetActive": false
+        },
+        "optionValues": {
+          "advmapshading": true,
+          "attackrange_numrangesmult": 1,
+          "bloomdeferred": true,
+          "bloomdeferred_quality": 3,
+          "camera": 3,
+          "cusgl4": true,
+          "decals": true,
+          "decalsgl4": true,
+          "distortioneffects": true,
+          "fogdiaglines": 0,
+          "grass": true,
+          "lighteffects": true,
+          "lighteffects_nanoparticlelights": true,
+          "lighteffects_screenspaceshadows": 4,
+          "limitidlefps": false,
+          "limitoffscreenfps": false,
+          "losrange": true,
+          "mapedgeextension": 0.5,
+          "msaa": 1,
+          "particles": 40000,
+          "preset": 5,
+          "shadowslider": 6,
+          "snow": true,
+          "ssao": true,
+          "ssao_quality": 3,
+          "vsync": 1,
+          "water": 2
+        },
+        "optionsVerified": 20,
+        "ultraPreset": 5,
+        "ultraVerified": true
+      },
+      "resolution": {
+        "height": 950,
+        "width": 1512
+      },
+      "seed": 7654321,
+      "workload": {
+        "placementSpan": 1400,
+        "populationThresholdIsNotHardCap": true,
+        "populationThresholdPerTeam": 80,
+        "rampIncluded": true,
+        "replenishBatchPerTeam": 8,
+        "replenishEverySimulationFrames": 3,
+        "requestedSimulationSpeed": 1,
+        "unitTypeOpponent": "armbull",
+        "unitTypeOwn": "armbull"
+      }
+    },
+    "limitations": [
+      "Small sample n=2 per app/backend; OS and user background load not fully controlled.",
+      "Hidden SDL fullscreen rendering with native display/Space transition deferred; logical container1512x982 safeviewport1512x950 default1x.",
+      "Historical FPS not pooled; previous sampled native-exit failure and M3 timestamp mismatch are not claimed repaired."
+    ],
+    "maximumSingleRunFPS": 56.965129852295,
+    "meaning": "Historical observation within this batch; not a cross-session causal gain or a guaranteed restored FPS.",
+    "metal3FPS": [
+      56.21106338501,
+      56.965129852295
+    ],
+    "n": 2,
+    "pairedMeanFPS": 56.5880966186525,
+    "source": "artifacts/validation/v104-lookup-descriptor-retest-20261021/comparison-summary.json"
+  },
+  "comparisons": [
+    {
+      "originalSHA256": "b7463fec7c323a1fa741a6e9015a2735a8b71b6a247c1514cf4692e61febdec7",
+      "publicPath": "evidence/artifacts/validation/v104-c-reg-performance-20261020/comparison-summary.json",
+      "source": "artifacts/validation/v104-c-reg-performance-20261020/comparison-summary.json"
+    },
+    {
+      "originalSHA256": "7d8bd2c9c58a5cdd842dad6b668be4350e828ab2efce9eacc4e0494c3e947fef",
+      "publicPath": "evidence/artifacts/validation/v104-c-reg-fullscreen-reverse-20261020/comparison-summary.json",
+      "source": "artifacts/validation/v104-c-reg-fullscreen-reverse-20261020/comparison-summary.json"
+    },
+    {
+      "originalSHA256": "350d1375e8ebb38a9aef8a7611418a98c107a026191dfc3d8fc9cf9c9a57afb7",
+      "publicPath": "evidence/artifacts/validation/v104-drawable-size-performance-20261020/comparison-summary.json",
+      "source": "artifacts/validation/v104-drawable-size-performance-20261020/comparison-summary.json"
+    },
+    {
+      "originalSHA256": "2dae08854ecd161578ecfa936d43a871dc9ba55a090c7281202bcdbc3c9101f9",
+      "publicPath": "evidence/artifacts/validation/v104-three-candidate-performance-20261020/comparison-summary.json",
+      "source": "artifacts/validation/v104-three-candidate-performance-20261020/comparison-summary.json"
+    },
+    {
+      "originalSHA256": "738d880596cb1c911d67798413ae7f7b5da3ab56df886c0e65d5267dee113af2",
+      "publicPath": "evidence/artifacts/validation/v104-lookup-descriptor-20261020/comparison-summary.json",
+      "source": "artifacts/validation/v104-lookup-descriptor-20261020/comparison-summary.json"
+    },
+    {
+      "originalSHA256": "8fcfce59ff33e4d977ae4dee2a63d535c94b4056f88529ba54d3c9c73bcfa87b",
+      "publicPath": "evidence/artifacts/validation/v104-lookup-descriptor-retest-20261021/comparison-summary.json",
+      "source": "artifacts/validation/v104-lookup-descriptor-retest-20261021/comparison-summary.json"
+    },
+    {
+      "originalSHA256": "ca7076bca434fef4a3ddc16a8243bfc914b229a573f8811d1ae3c1947fee87e0",
+      "publicPath": "evidence/artifacts/validation/v104-d-split-20261021/comparison-summary.json",
+      "source": "artifacts/validation/v104-d-split-20261021/comparison-summary.json"
+    },
+    {
+      "originalSHA256": "c2c72360739f973539ee7f453c38c2c06f41b7af3fa25ebd55b29e5cffd448b1",
+      "publicPath": "evidence/artifacts/validation/v104-e-performance-20261021/comparison-summary.json",
+      "source": "artifacts/validation/v104-e-performance-20261021/comparison-summary.json"
+    },
+    {
+      "originalSHA256": "6d7b181e66f4e24fb31969af13c050469ae1f6b89cd9e1fea0a4e42ddbd891fa",
+      "publicPath": "evidence/artifacts/validation/v104-e-metal3-retest-20261021/comparison-summary.json",
+      "source": "artifacts/validation/v104-e-metal3-retest-20261021/comparison-summary.json"
+    },
+    {
+      "originalSHA256": "f7fd348eeae1d2011df396845e5538a8ba699a25ee2e2a4f34a5508fca70e593",
+      "publicPath": "evidence/artifacts/validation/v104-quiescent-allocator-20261021/comparison-summary.json",
+      "source": "artifacts/validation/v104-quiescent-allocator-20261021/comparison-summary.json"
+    },
+    {
+      "originalSHA256": "30c3d173443b2bee56f7a247ebfb690a0e6cabc93ce51052a6e0275ba42de026",
+      "publicPath": "evidence/artifacts/validation/v104-quiescent-allocator-20261021/mixed-comparison-summary.json",
+      "source": "artifacts/validation/v104-quiescent-allocator-20261021/mixed-comparison-summary.json"
+    },
+    {
+      "originalSHA256": "ff72b151debd67260b7bc6b103174ea412f932c963d373f340d64ea3519b2a02",
+      "publicPath": "evidence/artifacts/validation/v104-quiescent-allocator-20261021/pre-metal3-rerun/comparison-summary.json",
+      "source": "artifacts/validation/v104-quiescent-allocator-20261021/pre-metal3-rerun/comparison-summary.json"
+    },
+    {
+      "originalSHA256": "c73c16c617a711a42b68aca6943266bff67f097151d3ed0031484638b3bd1383",
+      "publicPath": "evidence/artifacts/validation/v104-idle-first-allocator-20261021/comparison-summary.json",
+      "source": "artifacts/validation/v104-idle-first-allocator-20261021/comparison-summary.json"
+    },
+    {
+      "originalSHA256": "24e55491133c9afac02eea61d7e9d93ee51f984627a3021691811fa6d7234cd9",
+      "publicPath": "evidence/artifacts/validation/v104-r-combined-20261021/comparison-summary.json",
+      "source": "artifacts/validation/v104-r-combined-20261021/comparison-summary.json"
+    },
+    {
+      "originalSHA256": "93b906971c9099ab56ac4e43941635c14a32dad5926053762ed0a316d6a50cc2",
+      "publicPath": "evidence/artifacts/validation/v104-r-combined-reverse-20261021/comparison-summary.json",
+      "source": "artifacts/validation/v104-r-combined-reverse-20261021/comparison-summary.json"
+    },
+    {
+      "originalSHA256": "a4f649651714cbb2006ff239974c5f9f3c97f153c276fe5efb00d702ed6354a7",
+      "publicPath": "evidence/artifacts/validation/v104-group-lookup-performance-20261021/comparison-summary.json",
+      "source": "artifacts/validation/v104-group-lookup-performance-20261021/comparison-summary.json"
+    },
+    {
+      "originalSHA256": "41e3212f77692f7103f28cbe35536f54aec4e027718ee096b5780f736c4d6d8f",
+      "publicPath": "evidence/artifacts/validation/v104-group-lookup-performance-reverse-20261021/comparison-summary.json",
+      "source": "artifacts/validation/v104-group-lookup-performance-reverse-20261021/comparison-summary.json"
+    },
+    {
+      "originalSHA256": "91c0cfa9fe73aa433593375eedae13da03dd3bca46d86e96502bdbf1ecc86dc0",
+      "publicPath": "evidence/artifacts/validation/v104-r-small-bundle-20261021/comparison-summary.json",
+      "source": "artifacts/validation/v104-r-small-bundle-20261021/comparison-summary.json"
+    }
+  ],
+  "qualification": "Comparisons remain separate with original ordering/conditions and uncertainty. No pooling across power or workload conditions.",
+  "receipts": {
+    "artifacts/validation/v104-c-reg-fullscreen-reverse-20261020/1-parent-metal3/sessions/lobby-no-native-hook-1792552156660/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "7cc77bf6592df3722beda0827eaad3fa168a793bfa5238a506c5fe3635b3a5f4",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-c-reg-fullscreen-reverse-20261020/1-parent-metal3/sessions/lobby-no-native-hook-1792552156660/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "b83832227fda1ef5deb9c1bad6d397f8773fd86bdb46d7523ff958652f5227f4",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-c-reg-fullscreen-reverse-20261020/1-parent-metal3/sessions/lobby-no-native-hook-1792552156660/execution-receipt.json"
+    },
+    "artifacts/validation/v104-c-reg-fullscreen-reverse-20261020/2-candidate-metal3/sessions/lobby-no-native-hook-1792552274445/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "4e4301112c7424cab302dd8f065a62f308b0bad062e42de2cf6b40f8457418c6",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-c-reg-fullscreen-reverse-20261020/2-candidate-metal3/sessions/lobby-no-native-hook-1792552274445/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "6f14d1e0becd3597239a9d500a33b5cace97d02c9d925ad14b7821c57b85a196",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-c-reg-fullscreen-reverse-20261020/2-candidate-metal3/sessions/lobby-no-native-hook-1792552274445/execution-receipt.json"
+    },
+    "artifacts/validation/v104-c-reg-fullscreen-reverse-20261020/3-candidate-metal3/sessions/lobby-no-native-hook-1792552391179/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "fddab406f0a953bacdc6c1b242964d149d518c487f9deec5c8db6fd520c0d76c",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-c-reg-fullscreen-reverse-20261020/3-candidate-metal3/sessions/lobby-no-native-hook-1792552391179/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "2b4ff4e63d3524c814ac43d52c261b1956f477aeb7c89c73a96a7701c1c3cea1",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-c-reg-fullscreen-reverse-20261020/3-candidate-metal3/sessions/lobby-no-native-hook-1792552391179/execution-receipt.json"
+    },
+    "artifacts/validation/v104-c-reg-fullscreen-reverse-20261020/4-parent-metal3/sessions/lobby-no-native-hook-1792552508977/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "13b760a73e371e15ea22c6e19027902c741c0c8a385b554c3896195b73be1256",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-c-reg-fullscreen-reverse-20261020/4-parent-metal3/sessions/lobby-no-native-hook-1792552508977/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "54552760468b28ae939bb9ecc30864a82abb22dbab50e3294ca637f25b7f1257",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-c-reg-fullscreen-reverse-20261020/4-parent-metal3/sessions/lobby-no-native-hook-1792552508977/execution-receipt.json"
+    },
+    "artifacts/validation/v104-c-reg-fullscreen-reverse-20261020/5-candidate-metal4/sessions/lobby-no-native-hook-1792552625292/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "7dd24e6428e10ee4ec41dc793ba0706671383c32819cba4a996f1ead718994f7",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-c-reg-fullscreen-reverse-20261020/5-candidate-metal4/sessions/lobby-no-native-hook-1792552625292/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "e0d7a52e7753a1a9fe6841f5b8e81eb752ae3a788d3623ac333412416249ab7f",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-c-reg-fullscreen-reverse-20261020/5-candidate-metal4/sessions/lobby-no-native-hook-1792552625292/execution-receipt.json"
+    },
+    "artifacts/validation/v104-c-reg-fullscreen-reverse-20261020/6-parent-metal4/sessions/lobby-no-native-hook-1792552740582/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "f0814565465b27eb6d906fd1ca212f37c1160d84067d582eb55bc088b8ee15f0",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-c-reg-fullscreen-reverse-20261020/6-parent-metal4/sessions/lobby-no-native-hook-1792552740582/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "902bf8d21a33099fa6cba19d0e7ada23c7c77d7dd9e2cc0ce2af8ab71be86b71",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-c-reg-fullscreen-reverse-20261020/6-parent-metal4/sessions/lobby-no-native-hook-1792552740582/execution-receipt.json"
+    },
+    "artifacts/validation/v104-c-reg-fullscreen-reverse-20261020/7-parent-metal4/sessions/lobby-no-native-hook-1792552857491/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "bcc32d3bcbea67399e19f82a8fd8bcb9a43ecbd9f4c8a13d8232c686fd7796e0",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-c-reg-fullscreen-reverse-20261020/7-parent-metal4/sessions/lobby-no-native-hook-1792552857491/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "fb4105848a711bb21895f05b75ee6af833637199be47694f2b7e5e3aa62b38a0",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-c-reg-fullscreen-reverse-20261020/7-parent-metal4/sessions/lobby-no-native-hook-1792552857491/execution-receipt.json"
+    },
+    "artifacts/validation/v104-c-reg-fullscreen-reverse-20261020/8-candidate-metal4/sessions/lobby-no-native-hook-1792552975393/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "1147294bd81648460ebc3298720e7068e9b8082d6b666774bf41c944d1d6c9f0",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-c-reg-fullscreen-reverse-20261020/8-candidate-metal4/sessions/lobby-no-native-hook-1792552975393/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "f2f9426ba920369d6242cd7d50fca0725a0c23755745080cbd235af98ac50375",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-c-reg-fullscreen-reverse-20261020/8-candidate-metal4/sessions/lobby-no-native-hook-1792552975393/execution-receipt.json"
+    },
+    "artifacts/validation/v104-c-reg-performance-20261020/1-parent-metal4/sessions/lobby-no-native-hook-1792550857477/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "e85739152be933cfdcf882237409e07c5e303484c9c32ae9f6bc3070c327b64e",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-c-reg-performance-20261020/1-parent-metal4/sessions/lobby-no-native-hook-1792550857477/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "b4905f5917ba2c489314ceb87f8529350850dcf3006f9cbba97454ccaab7af8f",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-c-reg-performance-20261020/1-parent-metal4/sessions/lobby-no-native-hook-1792550857477/execution-receipt.json"
+    },
+    "artifacts/validation/v104-c-reg-performance-20261020/2-candidate-metal4/sessions/lobby-no-native-hook-1792550978515/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "5e2041776ce846bcde7f9eee88a66581447bcb36b60556d3677259683afb965a",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-c-reg-performance-20261020/2-candidate-metal4/sessions/lobby-no-native-hook-1792550978515/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "b68d043179f9d36bbc73fef1144f17fc301023368d40ff8f5dec5510e3b0a921",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-c-reg-performance-20261020/2-candidate-metal4/sessions/lobby-no-native-hook-1792550978515/execution-receipt.json"
+    },
+    "artifacts/validation/v104-c-reg-performance-20261020/3-candidate-metal4/sessions/lobby-no-native-hook-1792551109262/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "18af178e5faebdfd9e191b7275079e8b2ae61e0a05ca4b82b4a8c58e97ed76eb",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-c-reg-performance-20261020/3-candidate-metal4/sessions/lobby-no-native-hook-1792551109262/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "cbbd26df9f7cbf99bab50b613dbb9f4b9291775b32156329e72d920214a4a5fd",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-c-reg-performance-20261020/3-candidate-metal4/sessions/lobby-no-native-hook-1792551109262/execution-receipt.json"
+    },
+    "artifacts/validation/v104-c-reg-performance-20261020/4-parent-metal4/sessions/lobby-no-native-hook-1792551226254/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "66c71e6897b3b3b6aca55db6e2ab2327eed73732e9857a382dec03277d31c7e1",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-c-reg-performance-20261020/4-parent-metal4/sessions/lobby-no-native-hook-1792551226254/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "c235e42e09b87e7c1b0f2d2ac0841a2d3f974abd5b1830c0819068c57e96e8a2",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-c-reg-performance-20261020/4-parent-metal4/sessions/lobby-no-native-hook-1792551226254/execution-receipt.json"
+    },
+    "artifacts/validation/v104-c-reg-performance-20261020/5-candidate-metal3/sessions/lobby-no-native-hook-1792551342276/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "c90cd6b830f90e6c1abe120d2017dc5b0de3ecf63bc32ce6def9a4ed8a703aa2",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-c-reg-performance-20261020/5-candidate-metal3/sessions/lobby-no-native-hook-1792551342276/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "854ed319f6732a3af93d7dfa8326866eae18e767e6a7695cebd35d6ca536a3ca",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-c-reg-performance-20261020/5-candidate-metal3/sessions/lobby-no-native-hook-1792551342276/execution-receipt.json"
+    },
+    "artifacts/validation/v104-c-reg-performance-20261020/6-parent-metal3/sessions/lobby-no-native-hook-1792551458773/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "26100de4651fbf71adf812ba103b6ce41bf9745c4eb7d005a45e98e62be6b7eb",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-c-reg-performance-20261020/6-parent-metal3/sessions/lobby-no-native-hook-1792551458773/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "fb6009fd76ee4ee427a26860e33bc31a042ce05cc57829c45bfe938ddd28ea91",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-c-reg-performance-20261020/6-parent-metal3/sessions/lobby-no-native-hook-1792551458773/execution-receipt.json"
+    },
+    "artifacts/validation/v104-c-reg-performance-20261020/7-parent-metal3/sessions/lobby-no-native-hook-1792551574909/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "cbdb0463abeeb809914edbcc9600d3eeba443cb8cef49d12af56f16fb3471274",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-c-reg-performance-20261020/7-parent-metal3/sessions/lobby-no-native-hook-1792551574909/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "bb192dd7d9f3499171051001d37d75f34aa56d0ce4bc6add4c677929f211bd68",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-c-reg-performance-20261020/7-parent-metal3/sessions/lobby-no-native-hook-1792551574909/execution-receipt.json"
+    },
+    "artifacts/validation/v104-c-reg-performance-20261020/8-candidate-metal3/sessions/lobby-no-native-hook-1792551693111/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "87d8d5f43132556b92789fd6a027056e651953db107dec1929094cf0e2bd6122",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-c-reg-performance-20261020/8-candidate-metal3/sessions/lobby-no-native-hook-1792551693111/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "4fde63f8e29aa0fa3979c940661ab38ade080f31b9c43d7d1cdffd767ea4dde4",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-c-reg-performance-20261020/8-candidate-metal3/sessions/lobby-no-native-hook-1792551693111/execution-receipt.json"
+    },
+    "artifacts/validation/v104-d-split-20261021/performance/1-C-metal4/sessions/lobby-no-native-hook-1792572354910/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "d9ae2eb7803d7e1e966aa7a21e21ecea442083ef41ee9fee7bee8094aa4e72ea",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-d-split-20261021/performance/1-C-metal4/sessions/lobby-no-native-hook-1792572354910/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "db8d1588369086f4c52c4d577393c6f57bd1fecfebd183f31b0ac9211e7fcfbf",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-d-split-20261021/performance/1-C-metal4/sessions/lobby-no-native-hook-1792572354910/execution-receipt.json"
+    },
+    "artifacts/validation/v104-d-split-20261021/performance/10-C-metal3/sessions/lobby-no-native-hook-1792573441551/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "f0e62407afedd4597e409139a2d70caa140e01466e535d2fc65073804035083e",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-d-split-20261021/performance/10-C-metal3/sessions/lobby-no-native-hook-1792573441551/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "c817039ef0d5f04add8199cea6d5b92d3d53fda0fc2310d893e466ace352eb5e",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-d-split-20261021/performance/10-C-metal3/sessions/lobby-no-native-hook-1792573441551/execution-receipt.json"
+    },
+    "artifacts/validation/v104-d-split-20261021/performance/11-L-metal3/sessions/lobby-no-native-hook-1792573558420/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "d564fcf36044dacb1348b87c34318b0aa1e5ff729e69f9e10673ac224860be05",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-d-split-20261021/performance/11-L-metal3/sessions/lobby-no-native-hook-1792573558420/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "be63c5717fbeb6a701365bf2830af1330bb192bd046cecdc9a91f2980912735d",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-d-split-20261021/performance/11-L-metal3/sessions/lobby-no-native-hook-1792573558420/execution-receipt.json"
+    },
+    "artifacts/validation/v104-d-split-20261021/performance/12-S-metal3/sessions/lobby-no-native-hook-1792573677068/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "6edb54eed8a01470ab039ea9123b8657cc1fbc90d3292acf7cf9469363a95dd8",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-d-split-20261021/performance/12-S-metal3/sessions/lobby-no-native-hook-1792573677068/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "d4e6ae01a589d5f7373c54cded0686afddb768d8141da4539d01a51573d20efc",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-d-split-20261021/performance/12-S-metal3/sessions/lobby-no-native-hook-1792573677068/execution-receipt.json"
+    },
+    "artifacts/validation/v104-d-split-20261021/performance/2-L-metal4/sessions/lobby-no-native-hook-1792572475597/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "6353960d044d9850938c79ebcdd8cd847db5418636a48a11bf7578d45f6a50db",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-d-split-20261021/performance/2-L-metal4/sessions/lobby-no-native-hook-1792572475597/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "e5d20a8d1cc9f87c15b573fca66b6cdcea435ddb753f4b01ea78cdccb77cd17a",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-d-split-20261021/performance/2-L-metal4/sessions/lobby-no-native-hook-1792572475597/execution-receipt.json"
+    },
+    "artifacts/validation/v104-d-split-20261021/performance/3-S-metal4/sessions/lobby-no-native-hook-1792572604251/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "b17562991081b0cb55d9a06d794856111b7334a9d064765c07bdf5e08af06c29",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-d-split-20261021/performance/3-S-metal4/sessions/lobby-no-native-hook-1792572604251/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "16cfeaaca8b5476246c6f3f4a71be2d466b4adc27ce5ce6911aaecea6b5bd2ce",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-d-split-20261021/performance/3-S-metal4/sessions/lobby-no-native-hook-1792572604251/execution-receipt.json"
+    },
+    "artifacts/validation/v104-d-split-20261021/performance/4-S-metal4/sessions/lobby-no-native-hook-1792572731038/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "69e5ddd8abfef7c2f78e88a26409f169f1ac09dffef737df958da29b1ac86f49",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-d-split-20261021/performance/4-S-metal4/sessions/lobby-no-native-hook-1792572731038/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "3534a8c2f298f9ed0eb3825977587f75a3b0b044de701077bed0cff1655651a1",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-d-split-20261021/performance/4-S-metal4/sessions/lobby-no-native-hook-1792572731038/execution-receipt.json"
+    },
+    "artifacts/validation/v104-d-split-20261021/performance/5-L-metal4/sessions/lobby-no-native-hook-1792572849906/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "a868cf1de9265044b8b47fc749f4311d8036ed93d06536feec1598a7d4ce19a1",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-d-split-20261021/performance/5-L-metal4/sessions/lobby-no-native-hook-1792572849906/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "47d50296ebe8493c2dc76ef0ca29454b9c0b9ecf87573317ae1f8e37db7533da",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-d-split-20261021/performance/5-L-metal4/sessions/lobby-no-native-hook-1792572849906/execution-receipt.json"
+    },
+    "artifacts/validation/v104-d-split-20261021/performance/6-C-metal4/sessions/lobby-no-native-hook-1792572969760/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "3018be22c09820158524485a34e6f4431684ca3037b1347ce8bf7ddcb8d4a2e2",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-d-split-20261021/performance/6-C-metal4/sessions/lobby-no-native-hook-1792572969760/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "065e1e88b87e747d491d48552d329deea25fa842fd3f119f2a201967be4287c1",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-d-split-20261021/performance/6-C-metal4/sessions/lobby-no-native-hook-1792572969760/execution-receipt.json"
+    },
+    "artifacts/validation/v104-d-split-20261021/performance/7-S-metal3/sessions/lobby-no-native-hook-1792573087371/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "d105123c111c7586f63516d5950b72a72094342cf40acbb2262f939abeab4d38",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-d-split-20261021/performance/7-S-metal3/sessions/lobby-no-native-hook-1792573087371/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "d5341da5061daaa0867b3435b17f71ad94b453fd476f4793b66166382d3fa75d",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-d-split-20261021/performance/7-S-metal3/sessions/lobby-no-native-hook-1792573087371/execution-receipt.json"
+    },
+    "artifacts/validation/v104-d-split-20261021/performance/8-L-metal3/sessions/lobby-no-native-hook-1792573204909/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "57cfa5885e2ed946ceda292c6aa881ac29be33ce8fc9c6275dad9656403f9101",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-d-split-20261021/performance/8-L-metal3/sessions/lobby-no-native-hook-1792573204909/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "2452f86f0d158fbc8f1c046e84904502705b482cbaa53f334055ccbf7d20c2bf",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-d-split-20261021/performance/8-L-metal3/sessions/lobby-no-native-hook-1792573204909/execution-receipt.json"
+    },
+    "artifacts/validation/v104-d-split-20261021/performance/9-C-metal3/sessions/lobby-no-native-hook-1792573322935/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "a6ecb5e9f63e431ace8f95b86c13aae3d98652d7840aafa186e1be3680f7b647",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-d-split-20261021/performance/9-C-metal3/sessions/lobby-no-native-hook-1792573322935/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "0b1e915bac762707a393af0c3c0761a53daaf410a2d1ce047bc52750b99d4fca",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-d-split-20261021/performance/9-C-metal3/sessions/lobby-no-native-hook-1792573322935/execution-receipt.json"
+    },
+    "artifacts/validation/v104-drawable-size-performance-20261020/1-parent-metal4/sessions/lobby-no-native-hook-1792555631261/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "16d481440d35f98abfc8c1e2c8440bd99866629cc9a6537531d98043cb9eeea9",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-drawable-size-performance-20261020/1-parent-metal4/sessions/lobby-no-native-hook-1792555631261/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "d08a5f4edcfd45a17867fabcfd24695ad8f58f0e3fce6cc14609f5bee2c511b5",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-drawable-size-performance-20261020/1-parent-metal4/sessions/lobby-no-native-hook-1792555631261/execution-receipt.json"
+    },
+    "artifacts/validation/v104-drawable-size-performance-20261020/2-candidate-metal4/sessions/lobby-no-native-hook-1792555758221/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "e500a72ae5ccfc23c73ba3b100f77525f196a4c835793ac62d292e5dd61f721b",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-drawable-size-performance-20261020/2-candidate-metal4/sessions/lobby-no-native-hook-1792555758221/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "3de689748d218ea65e01a85b7f2a3f1d1a37d81dbb749a2befe4ab274993a829",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-drawable-size-performance-20261020/2-candidate-metal4/sessions/lobby-no-native-hook-1792555758221/execution-receipt.json"
+    },
+    "artifacts/validation/v104-drawable-size-performance-20261020/3-candidate-metal4/sessions/lobby-no-native-hook-1792555898331/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "eb5a15880e3529ae92e9e04dbc43d90820d887c3ac8e017e93148aba0ac90f13",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-drawable-size-performance-20261020/3-candidate-metal4/sessions/lobby-no-native-hook-1792555898331/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "32f8accd6524001b48d762106586705be5181b751843e1a01d2f45823b6163e1",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-drawable-size-performance-20261020/3-candidate-metal4/sessions/lobby-no-native-hook-1792555898331/execution-receipt.json"
+    },
+    "artifacts/validation/v104-drawable-size-performance-20261020/4-parent-metal4/sessions/lobby-no-native-hook-1792556022666/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "2d97a4b6802f92619f2219cc4d26f383110d18cdf3517c8b3eb5d9fd83e58e0e",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-drawable-size-performance-20261020/4-parent-metal4/sessions/lobby-no-native-hook-1792556022666/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "e263d9476153fa26d28ad385d851e9bb95a2ad1acd8e816935ea26a39c6a2c37",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-drawable-size-performance-20261020/4-parent-metal4/sessions/lobby-no-native-hook-1792556022666/execution-receipt.json"
+    },
+    "artifacts/validation/v104-drawable-size-performance-20261020/5-candidate-metal3/sessions/lobby-no-native-hook-1792556146601/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "14fb473fd9ab5bccc92374776d09b319b82a5890775913280a687503071833ac",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-drawable-size-performance-20261020/5-candidate-metal3/sessions/lobby-no-native-hook-1792556146601/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "5373d2c84e95dc73d36d4de3979d08b03a7b8c317c21ef969ff0c9803248ba43",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-drawable-size-performance-20261020/5-candidate-metal3/sessions/lobby-no-native-hook-1792556146601/execution-receipt.json"
+    },
+    "artifacts/validation/v104-drawable-size-performance-20261020/6-parent-metal3/sessions/lobby-no-native-hook-1792556265511/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "6fcdd317f1fac27e7a5c71fa952d187ba61e7b7a7f8fd8601b7a0fcf992f4df9",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-drawable-size-performance-20261020/6-parent-metal3/sessions/lobby-no-native-hook-1792556265511/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "d1605de2a2cb59d5fbf423721bd60fb2dd77b4acf51b392d6b4e39032874596a",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-drawable-size-performance-20261020/6-parent-metal3/sessions/lobby-no-native-hook-1792556265511/execution-receipt.json"
+    },
+    "artifacts/validation/v104-drawable-size-performance-20261020/7-parent-metal3/sessions/lobby-no-native-hook-1792556387499/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "921016c9b180a929fcec59665508005b17d533b974f589cec666be7e234cc904",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-drawable-size-performance-20261020/7-parent-metal3/sessions/lobby-no-native-hook-1792556387499/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "2da64f39e72c71475b85e25ed2f959545680f0bc74c55e1a7458b3ed23389bc7",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-drawable-size-performance-20261020/7-parent-metal3/sessions/lobby-no-native-hook-1792556387499/execution-receipt.json"
+    },
+    "artifacts/validation/v104-drawable-size-performance-20261020/8-candidate-metal3/sessions/lobby-no-native-hook-1792556509321/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "9633369ee3bea3520940c4a7f48c3e5b7de207f4d9643212c90c3ce4e93e6555",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-drawable-size-performance-20261020/8-candidate-metal3/sessions/lobby-no-native-hook-1792556509321/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "015d38f6779208ae05ec0cac9c71940989d10b0086e0a237770325b9882e3fc7",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-drawable-size-performance-20261020/8-candidate-metal3/sessions/lobby-no-native-hook-1792556509321/execution-receipt.json"
+    },
+    "artifacts/validation/v104-e-metal3-retest-20261021/performance/1-C-metal3/sessions/lobby-no-native-hook-1792577363482/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "22349489fef4d2396ed4f75ae5e35fc786629a23e7f16f6c669469ef12ec5290",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-e-metal3-retest-20261021/performance/1-C-metal3/sessions/lobby-no-native-hook-1792577363482/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "912d5a1cf1b8debdbfdb80a04fa73660ff903aa8716d8bca7ee08e5cf864e400",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-e-metal3-retest-20261021/performance/1-C-metal3/sessions/lobby-no-native-hook-1792577363482/execution-receipt.json"
+    },
+    "artifacts/validation/v104-e-metal3-retest-20261021/performance/2-E32-metal3/sessions/lobby-no-native-hook-1792577482573/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "a5fcf2c9bd550538cb1b777b4770c64fa35264d746066464699a67c94c9e37de",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-e-metal3-retest-20261021/performance/2-E32-metal3/sessions/lobby-no-native-hook-1792577482573/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "be99d017dffbda438e10e392fa14b133f2a485f714cb491342ecd8357b5fc599",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-e-metal3-retest-20261021/performance/2-E32-metal3/sessions/lobby-no-native-hook-1792577482573/execution-receipt.json"
+    },
+    "artifacts/validation/v104-e-metal3-retest-20261021/performance/3-E64-metal3/sessions/lobby-no-native-hook-1792577599748/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "eed308889d682b8b5ae2a85b450df46e292385e1a552270642183ac6659fea0c",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-e-metal3-retest-20261021/performance/3-E64-metal3/sessions/lobby-no-native-hook-1792577599748/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "ac9a46e5cb30abcf762688d390cc5b0252205248d3ddd7834aa3fca4b42ff909",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-e-metal3-retest-20261021/performance/3-E64-metal3/sessions/lobby-no-native-hook-1792577599748/execution-receipt.json"
+    },
+    "artifacts/validation/v104-e-metal3-retest-20261021/performance/4-E64-metal3/sessions/lobby-no-native-hook-1792577717344/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "e1e81f02f3abe0a8aac673efaba8477ed9d68a9df82cb4ed6e87bb3d19a0b182",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-e-metal3-retest-20261021/performance/4-E64-metal3/sessions/lobby-no-native-hook-1792577717344/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "f36bd13b528917c0c02654aa5bbe3a1423588374d01f0ca42aa7cbeff56a129c",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-e-metal3-retest-20261021/performance/4-E64-metal3/sessions/lobby-no-native-hook-1792577717344/execution-receipt.json"
+    },
+    "artifacts/validation/v104-e-metal3-retest-20261021/performance/5-E32-metal3/sessions/lobby-no-native-hook-1792577834889/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "9e925a8e86d179aadd090329da332b48e8c7aaa4364e66a39e6666f5ee1ad3cd",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-e-metal3-retest-20261021/performance/5-E32-metal3/sessions/lobby-no-native-hook-1792577834889/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "7fb4e2e4141ba0007c8d42807e625a601811339147594a96423928cb8cd96949",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-e-metal3-retest-20261021/performance/5-E32-metal3/sessions/lobby-no-native-hook-1792577834889/execution-receipt.json"
+    },
+    "artifacts/validation/v104-e-metal3-retest-20261021/performance/6-C-metal3/sessions/lobby-no-native-hook-1792577952007/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "b102a19fc13c06f0762c1916eb92b883c779d2ba3869e9f6d77df4579cfc22f1",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-e-metal3-retest-20261021/performance/6-C-metal3/sessions/lobby-no-native-hook-1792577952007/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "83cdf8c85e6b5283b04864845ff5fcfae4d8a86078010b33a5326ba74f5f8391",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-e-metal3-retest-20261021/performance/6-C-metal3/sessions/lobby-no-native-hook-1792577952007/execution-receipt.json"
+    },
+    "artifacts/validation/v104-e-performance-20261021/performance/1-C-metal3/sessions/lobby-no-native-hook-1792575185377/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "918f5a727423b78096c4d57767b261a5a8decff5a05809f2ca4d1fa3b485faaf",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-e-performance-20261021/performance/1-C-metal3/sessions/lobby-no-native-hook-1792575185377/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "789d3a8ab28067c1ab650ae8108c60416868966e9adc9b6daf7201654db2a528",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-e-performance-20261021/performance/1-C-metal3/sessions/lobby-no-native-hook-1792575185377/execution-receipt.json"
+    },
+    "artifacts/validation/v104-e-performance-20261021/performance/10-C-metal4/sessions/lobby-no-native-hook-1792576259607/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "a45417313d327a44c63709ced72fcfcbbb5b73e26921c2a5d47009765e2ae2e2",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-e-performance-20261021/performance/10-C-metal4/sessions/lobby-no-native-hook-1792576259607/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "257fe338a34095945fa4e346f14794b523ec59fea969e4858707a91a316ca020",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-e-performance-20261021/performance/10-C-metal4/sessions/lobby-no-native-hook-1792576259607/execution-receipt.json"
+    },
+    "artifacts/validation/v104-e-performance-20261021/performance/11-E32-metal4/sessions/lobby-no-native-hook-1792576377258/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "bb42e78fa83fe871cd334402d51b77a386f1299e8dd2d3af70476c218a723dc4",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-e-performance-20261021/performance/11-E32-metal4/sessions/lobby-no-native-hook-1792576377258/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "43382fb40637754d78b8435734fcd63eacb19cd53ca271334cf91696cc87eb26",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-e-performance-20261021/performance/11-E32-metal4/sessions/lobby-no-native-hook-1792576377258/execution-receipt.json"
+    },
+    "artifacts/validation/v104-e-performance-20261021/performance/12-E64-metal4/sessions/lobby-no-native-hook-1792576495088/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "f67739e4eb96801c3787e671d5ea02d00e79d7e8f4fd97b91e00dc31f97be547",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-e-performance-20261021/performance/12-E64-metal4/sessions/lobby-no-native-hook-1792576495088/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "9b2dc076c13238e04d1b20cc4eab690cf632d5b1ef27678996ffb84d8b7910a4",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-e-performance-20261021/performance/12-E64-metal4/sessions/lobby-no-native-hook-1792576495088/execution-receipt.json"
+    },
+    "artifacts/validation/v104-e-performance-20261021/performance/2-E32-metal3/sessions/lobby-no-native-hook-1792575307101/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "b8669abd4e03b005bee5505a3db56c200be4c9c52908a1e775715767833b126c",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-e-performance-20261021/performance/2-E32-metal3/sessions/lobby-no-native-hook-1792575307101/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "e2cb6fd7f708104958abbfc7261f79a9a0629e9e493410295491d09dc43010d9",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-e-performance-20261021/performance/2-E32-metal3/sessions/lobby-no-native-hook-1792575307101/execution-receipt.json"
+    },
+    "artifacts/validation/v104-e-performance-20261021/performance/3-E64-metal3/sessions/lobby-no-native-hook-1792575428035/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "0c9be03290eede86ad66b12c60e27b5ee55196e07855cdb3ada4d8e8ca620d68",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-e-performance-20261021/performance/3-E64-metal3/sessions/lobby-no-native-hook-1792575428035/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "a0856add46b459726fba6c9ef1a4d5ab6a87913abdca8b2c3a574ac06b76218b",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-e-performance-20261021/performance/3-E64-metal3/sessions/lobby-no-native-hook-1792575428035/execution-receipt.json"
+    },
+    "artifacts/validation/v104-e-performance-20261021/performance/4-E64-metal3/sessions/lobby-no-native-hook-1792575547883/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "0d0123a35f58d136266387d62d7704ed669836bd7f20635eca76a958acf0e01d",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-e-performance-20261021/performance/4-E64-metal3/sessions/lobby-no-native-hook-1792575547883/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "cfff0a47ee291bdc31ab8c0dccdc1e2d207235821f27fe17c6d9840c7554be47",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-e-performance-20261021/performance/4-E64-metal3/sessions/lobby-no-native-hook-1792575547883/execution-receipt.json"
+    },
+    "artifacts/validation/v104-e-performance-20261021/performance/5-E32-metal3/sessions/lobby-no-native-hook-1792575667349/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "9d7cf5b0ee2db3f95815aa42db154979b23241254a91e89d5952a166c86c4441",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-e-performance-20261021/performance/5-E32-metal3/sessions/lobby-no-native-hook-1792575667349/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "d2c25073aeaede1dae3434a16b7d2dfe61326fb9e77f77274ebee750e8d2b6a6",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-e-performance-20261021/performance/5-E32-metal3/sessions/lobby-no-native-hook-1792575667349/execution-receipt.json"
+    },
+    "artifacts/validation/v104-e-performance-20261021/performance/6-C-metal3/sessions/lobby-no-native-hook-1792575784750/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "b45cdc8cfcafb83b71b866add277c97f940d882c627034c79dcc1c897999a74b",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-e-performance-20261021/performance/6-C-metal3/sessions/lobby-no-native-hook-1792575784750/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "afd661ac5e6ef74b5a3163b52b5ea3bf4330aad544005046606d12dc7f7e6f73",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-e-performance-20261021/performance/6-C-metal3/sessions/lobby-no-native-hook-1792575784750/execution-receipt.json"
+    },
+    "artifacts/validation/v104-e-performance-20261021/performance/7-E64-metal4/sessions/lobby-no-native-hook-1792575903331/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "5715993df3734df73633a55693bb0b033276770c1a76dd31698efbfaedb54ad5",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-e-performance-20261021/performance/7-E64-metal4/sessions/lobby-no-native-hook-1792575903331/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "99a8e5325f2f15176db08e28702a42c99183f9089412054badb0c918e7116535",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-e-performance-20261021/performance/7-E64-metal4/sessions/lobby-no-native-hook-1792575903331/execution-receipt.json"
+    },
+    "artifacts/validation/v104-e-performance-20261021/performance/8-E32-metal4/sessions/lobby-no-native-hook-1792576020552/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "f433ce16e08536e4ba33662b57921b1568fc8e43d31f4024bafb0281cbd573df",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-e-performance-20261021/performance/8-E32-metal4/sessions/lobby-no-native-hook-1792576020552/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "184c4d5e8db79a33c17f94f2deacf603d2820438d4908ac52ed3201510e4b5a7",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-e-performance-20261021/performance/8-E32-metal4/sessions/lobby-no-native-hook-1792576020552/execution-receipt.json"
+    },
+    "artifacts/validation/v104-e-performance-20261021/performance/9-C-metal4/sessions/lobby-no-native-hook-1792576139724/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "0ba1e57491e3df09926f1a14bd96f5f3266dcf669fbc2c79e4aab1e45c8563fb",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-e-performance-20261021/performance/9-C-metal4/sessions/lobby-no-native-hook-1792576139724/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "11eda06edeeb3e1e677e830069cae06364e9dd60653895882f2d2643e282603e",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-e-performance-20261021/performance/9-C-metal4/sessions/lobby-no-native-hook-1792576139724/execution-receipt.json"
+    },
+    "artifacts/validation/v104-group-lookup-performance-20261021/performance/1-R-metal3/sessions/lobby-no-native-hook-1792612307052/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "cadea05e7c8f419c10290a536f3a7dde75d70a95a1c97c5751d512410feb074a",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-group-lookup-performance-20261021/performance/1-R-metal3/sessions/lobby-no-native-hook-1792612307052/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "991db968322df2e71a02b4d2e17e36a0474a1e3476116bc6edc1d0d6ca0c761c",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-group-lookup-performance-20261021/performance/1-R-metal3/sessions/lobby-no-native-hook-1792612307052/execution-receipt.json"
+    },
+    "artifacts/validation/v104-group-lookup-performance-20261021/performance/10-Combined-metal4/sessions/lobby-no-native-hook-1792613401026/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "a8f10bf3d6c08032ae39be4d338e33f5095bd05d8e073d09b8b8ac5ac61eb498",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-group-lookup-performance-20261021/performance/10-Combined-metal4/sessions/lobby-no-native-hook-1792613401026/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "4524f478ea9f56b2ad03895f9d888e27ef1468f9288a71257577b4a60cd88344",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-group-lookup-performance-20261021/performance/10-Combined-metal4/sessions/lobby-no-native-hook-1792613401026/execution-receipt.json"
+    },
+    "artifacts/validation/v104-group-lookup-performance-20261021/performance/11-RLookup-metal4/sessions/lobby-no-native-hook-1792613521333/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "7c4443b225f80481cbcaa59556dab0284dcd9175ba65adff05a618dc0bb0f85b",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-group-lookup-performance-20261021/performance/11-RLookup-metal4/sessions/lobby-no-native-hook-1792613521333/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "b3e5d3498c856c5753e8ca177643abbcaa6aac75d6de234fe9329c9fda3888ac",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-group-lookup-performance-20261021/performance/11-RLookup-metal4/sessions/lobby-no-native-hook-1792613521333/execution-receipt.json"
+    },
+    "artifacts/validation/v104-group-lookup-performance-20261021/performance/12-R-metal4/sessions/lobby-no-native-hook-1792613641388/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "459980992934e69b2d74578b32508d3692e06e98f87a2a68a20348e67b099cef",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-group-lookup-performance-20261021/performance/12-R-metal4/sessions/lobby-no-native-hook-1792613641388/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "30e49c107be02158dc745e06cfcc9917cffab8dbef651939c2bc2d0c5ba1fe54",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-group-lookup-performance-20261021/performance/12-R-metal4/sessions/lobby-no-native-hook-1792613641388/execution-receipt.json"
+    },
+    "artifacts/validation/v104-group-lookup-performance-20261021/performance/13-R-metal4/sessions/lobby-no-native-hook-1792613762144/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "43a6b11c29da46360fb6d48f93ea3ddce3189146760f7780b66622be4f9bccc6",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-group-lookup-performance-20261021/performance/13-R-metal4/sessions/lobby-no-native-hook-1792613762144/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "0b27384b50608be8ad138cf34a45b9794795249d1fd218d34e221020c15a011a",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-group-lookup-performance-20261021/performance/13-R-metal4/sessions/lobby-no-native-hook-1792613762144/execution-receipt.json"
+    },
+    "artifacts/validation/v104-group-lookup-performance-20261021/performance/14-RLookup-metal4/sessions/lobby-no-native-hook-1792613881654/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "2247fddcd712b915b36c9f097ed89151af824eab9b3aa5814cdd073bae245e75",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-group-lookup-performance-20261021/performance/14-RLookup-metal4/sessions/lobby-no-native-hook-1792613881654/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "651e3d80638aa18f28a63df7769fbf68b8593a8b6af4d88971cec0a9b5ac77bb",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-group-lookup-performance-20261021/performance/14-RLookup-metal4/sessions/lobby-no-native-hook-1792613881654/execution-receipt.json"
+    },
+    "artifacts/validation/v104-group-lookup-performance-20261021/performance/15-Combined-metal4/sessions/lobby-no-native-hook-1792614000523/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "29372f39bcf489829f03f9b83af3cf2059321fe14ba0ff40a86082fd65206ec3",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-group-lookup-performance-20261021/performance/15-Combined-metal4/sessions/lobby-no-native-hook-1792614000523/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "77ccd50146a559343f593b3be6397cfc3d832885a8031abad7ee87ef663e7d32",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-group-lookup-performance-20261021/performance/15-Combined-metal4/sessions/lobby-no-native-hook-1792614000523/execution-receipt.json"
+    },
+    "artifacts/validation/v104-group-lookup-performance-20261021/performance/16-CombinedLookup-metal4/sessions/lobby-no-native-hook-1792614121329/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "16da7ca9038bdfc5c80be9faf8965cc1b1e2d18bcd00e22aa987b91145beab33",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-group-lookup-performance-20261021/performance/16-CombinedLookup-metal4/sessions/lobby-no-native-hook-1792614121329/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "91c4f04627f9e4a11872f56b46356c742c20cf62cef9854b3b97e8f594781440",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-group-lookup-performance-20261021/performance/16-CombinedLookup-metal4/sessions/lobby-no-native-hook-1792614121329/execution-receipt.json"
+    },
+    "artifacts/validation/v104-group-lookup-performance-20261021/performance/2-RLookup-metal3/sessions/lobby-no-native-hook-1792612428541/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "85979e53973621b003b5b381fecca5263c7a4ea73394e2c85563f561301caa82",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-group-lookup-performance-20261021/performance/2-RLookup-metal3/sessions/lobby-no-native-hook-1792612428541/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "6ae5d8448a22c736803a6bcc36e43056df4f80efcf5547b25b83d73e0d6e3680",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-group-lookup-performance-20261021/performance/2-RLookup-metal3/sessions/lobby-no-native-hook-1792612428541/execution-receipt.json"
+    },
+    "artifacts/validation/v104-group-lookup-performance-20261021/performance/3-Combined-metal3/sessions/lobby-no-native-hook-1792612551788/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "3322636002535255e921fdd976fa9d0fe72808917dd2416efdabb6caee2bf384",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-group-lookup-performance-20261021/performance/3-Combined-metal3/sessions/lobby-no-native-hook-1792612551788/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "0c0d682319d03af567ca25ec51110edff24e57836cd7d23bf827c5510626c409",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-group-lookup-performance-20261021/performance/3-Combined-metal3/sessions/lobby-no-native-hook-1792612551788/execution-receipt.json"
+    },
+    "artifacts/validation/v104-group-lookup-performance-20261021/performance/4-CombinedLookup-metal3/sessions/lobby-no-native-hook-1792612671495/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "b2b6dd2affd58271242f12d204181e9f037aba8f296326dbdd9dd808f138005c",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-group-lookup-performance-20261021/performance/4-CombinedLookup-metal3/sessions/lobby-no-native-hook-1792612671495/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "32deb89adaa8750d91c07984572fadf8b9ef311e073785f3980b1e8be8806db8",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-group-lookup-performance-20261021/performance/4-CombinedLookup-metal3/sessions/lobby-no-native-hook-1792612671495/execution-receipt.json"
+    },
+    "artifacts/validation/v104-group-lookup-performance-20261021/performance/5-CombinedLookup-metal3/sessions/lobby-no-native-hook-1792612801470/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "d3812329f67df488d0fc1f3a5afe04ebc3ae7d37d16336a861597fad8e47d4d9",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-group-lookup-performance-20261021/performance/5-CombinedLookup-metal3/sessions/lobby-no-native-hook-1792612801470/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "0f1b31d489e40253104d16719a7ccfc906d3cce84fb2a92ff081ae692ce638c2",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-group-lookup-performance-20261021/performance/5-CombinedLookup-metal3/sessions/lobby-no-native-hook-1792612801470/execution-receipt.json"
+    },
+    "artifacts/validation/v104-group-lookup-performance-20261021/performance/6-Combined-metal3/sessions/lobby-no-native-hook-1792612920296/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "61f5fdf8a9ac609d1a8f4ed1dffad844c4287638a38ce6234cf07b21f0561b0d",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-group-lookup-performance-20261021/performance/6-Combined-metal3/sessions/lobby-no-native-hook-1792612920296/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "bd603b7b23e7b566a6b9f0ed84300bc1d56ffddbec563c1449fc2c8b967ab9bb",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-group-lookup-performance-20261021/performance/6-Combined-metal3/sessions/lobby-no-native-hook-1792612920296/execution-receipt.json"
+    },
+    "artifacts/validation/v104-group-lookup-performance-20261021/performance/7-RLookup-metal3/sessions/lobby-no-native-hook-1792613040319/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "b3e3af4de4ae0720b58d915f279eed02777587801b70b8ad1af9ea598aed6c97",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-group-lookup-performance-20261021/performance/7-RLookup-metal3/sessions/lobby-no-native-hook-1792613040319/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "9add22da5b9f7692e061422c562d5f1b1e81ac84e1c32b85fb4dfa328389e1e9",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-group-lookup-performance-20261021/performance/7-RLookup-metal3/sessions/lobby-no-native-hook-1792613040319/execution-receipt.json"
+    },
+    "artifacts/validation/v104-group-lookup-performance-20261021/performance/8-R-metal3/sessions/lobby-no-native-hook-1792613159571/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "d22cf2f659cd47b4e1df6da1457e664cab13fedf34b5ca70ce9209988111fa54",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-group-lookup-performance-20261021/performance/8-R-metal3/sessions/lobby-no-native-hook-1792613159571/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "8c60845f5e180e73a691bf395bf56e42e61a32e057c09f214a9e2e60751a508b",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-group-lookup-performance-20261021/performance/8-R-metal3/sessions/lobby-no-native-hook-1792613159571/execution-receipt.json"
+    },
+    "artifacts/validation/v104-group-lookup-performance-20261021/performance/9-CombinedLookup-metal4/sessions/lobby-no-native-hook-1792613280011/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "2a91d850880309220428a7594b20ba466b9deb3091fcba10f5f0c9fb4af0a844",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-group-lookup-performance-20261021/performance/9-CombinedLookup-metal4/sessions/lobby-no-native-hook-1792613280011/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "89236d9c8c0c20151b8a873bc1eac6e0613d6071c87bf141e3843fec2dea662c",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-group-lookup-performance-20261021/performance/9-CombinedLookup-metal4/sessions/lobby-no-native-hook-1792613280011/execution-receipt.json"
+    },
+    "artifacts/validation/v104-group-lookup-performance-reverse-20261021/performance/1-R-metal4/sessions/lobby-no-native-hook-1792614620207/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "314372daff24efd5b136f6403c47ab1cf90de3c878077518a5f9bde496ea2c4c",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-group-lookup-performance-reverse-20261021/performance/1-R-metal4/sessions/lobby-no-native-hook-1792614620207/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "33f7daaa067b2cb110dd094d3ab4bb26e92fb94c2fb9b84c096ce71880c98a4f",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-group-lookup-performance-reverse-20261021/performance/1-R-metal4/sessions/lobby-no-native-hook-1792614620207/execution-receipt.json"
+    },
+    "artifacts/validation/v104-group-lookup-performance-reverse-20261021/performance/10-Combined-metal3/sessions/lobby-no-native-hook-1792615701468/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "57b8b967329133bedba6536f91733df4c0efb445fce1c1cb34bf490d68677168",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-group-lookup-performance-reverse-20261021/performance/10-Combined-metal3/sessions/lobby-no-native-hook-1792615701468/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "ff5e3590d477fbe9031e399214d62b83a3b388ac4fb306f59a1800bd7c2097af",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-group-lookup-performance-reverse-20261021/performance/10-Combined-metal3/sessions/lobby-no-native-hook-1792615701468/execution-receipt.json"
+    },
+    "artifacts/validation/v104-group-lookup-performance-reverse-20261021/performance/11-RLookup-metal3/sessions/lobby-no-native-hook-1792615821625/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "ba884a3adcd8d91c0e566de91af28ca96f534f86e5ddb28d1f4f8785b8570531",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-group-lookup-performance-reverse-20261021/performance/11-RLookup-metal3/sessions/lobby-no-native-hook-1792615821625/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "aa6459f3ee5b5b204d7f081f6647058cc8d9e2e66c732addb9cced504c58aa04",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-group-lookup-performance-reverse-20261021/performance/11-RLookup-metal3/sessions/lobby-no-native-hook-1792615821625/execution-receipt.json"
+    },
+    "artifacts/validation/v104-group-lookup-performance-reverse-20261021/performance/12-R-metal3/sessions/lobby-no-native-hook-1792615942232/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "e63f938218c2105892f07cefd677316d55a9eda8faaabed61f25b6330966897f",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-group-lookup-performance-reverse-20261021/performance/12-R-metal3/sessions/lobby-no-native-hook-1792615942232/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "847a15a7f88f5f74190da104d899cb99e80a8fddd71b5e433d30af3ce55807c6",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-group-lookup-performance-reverse-20261021/performance/12-R-metal3/sessions/lobby-no-native-hook-1792615942232/execution-receipt.json"
+    },
+    "artifacts/validation/v104-group-lookup-performance-reverse-20261021/performance/13-R-metal3/sessions/lobby-no-native-hook-1792616062565/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "1747e100508c47f503d5dc5f47f84023afeefccf7f3efe765019e1f550e2c97a",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-group-lookup-performance-reverse-20261021/performance/13-R-metal3/sessions/lobby-no-native-hook-1792616062565/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "218f9acc3fb99b5f2be398795ae9626d9b8bd1268b5e974bbb035b626741b1e1",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-group-lookup-performance-reverse-20261021/performance/13-R-metal3/sessions/lobby-no-native-hook-1792616062565/execution-receipt.json"
+    },
+    "artifacts/validation/v104-group-lookup-performance-reverse-20261021/performance/14-RLookup-metal3/sessions/lobby-no-native-hook-1792616182173/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "8c3071fe39abf4dae369f5a8713e91d47a72aaa7e0124a4919eb054b7aa10db1",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-group-lookup-performance-reverse-20261021/performance/14-RLookup-metal3/sessions/lobby-no-native-hook-1792616182173/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "d59425cbee516fba09d66069ea46650926226ba6ee07f2b938f1c37d4d0a1c33",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-group-lookup-performance-reverse-20261021/performance/14-RLookup-metal3/sessions/lobby-no-native-hook-1792616182173/execution-receipt.json"
+    },
+    "artifacts/validation/v104-group-lookup-performance-reverse-20261021/performance/15-Combined-metal3/sessions/lobby-no-native-hook-1792616303014/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "c9c598d8cf2bc09163346ee0ff6d0f03c46f4779e445246fedd0d204e2ff9365",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-group-lookup-performance-reverse-20261021/performance/15-Combined-metal3/sessions/lobby-no-native-hook-1792616303014/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "723016ed6d40078e8e951eae508c1ca8b1ff0e06c3fb0a1843682944dff34f13",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-group-lookup-performance-reverse-20261021/performance/15-Combined-metal3/sessions/lobby-no-native-hook-1792616303014/execution-receipt.json"
+    },
+    "artifacts/validation/v104-group-lookup-performance-reverse-20261021/performance/16-CombinedLookup-metal3/sessions/lobby-no-native-hook-1792616423465/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "58de5532cee3fc8aa0821cbf20e3b0497cb84ec11f4e1ae51633fce8e082d29e",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-group-lookup-performance-reverse-20261021/performance/16-CombinedLookup-metal3/sessions/lobby-no-native-hook-1792616423465/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "48e3b85a596071e5479043e356f9f4b4d4bc94b675a8a1241f115c6bda5c4e5c",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-group-lookup-performance-reverse-20261021/performance/16-CombinedLookup-metal3/sessions/lobby-no-native-hook-1792616423465/execution-receipt.json"
+    },
+    "artifacts/validation/v104-group-lookup-performance-reverse-20261021/performance/2-RLookup-metal4/sessions/lobby-no-native-hook-1792614741093/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "6f3ba3b4d746540907d2d810af28a516a6bbedfc000d43dcbe25c0d685326bd2",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-group-lookup-performance-reverse-20261021/performance/2-RLookup-metal4/sessions/lobby-no-native-hook-1792614741093/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "6d7bc51701c02470fe68e18d9b6faa17dd9ecfe90f47da1c9f1de0b0cd30c799",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-group-lookup-performance-reverse-20261021/performance/2-RLookup-metal4/sessions/lobby-no-native-hook-1792614741093/execution-receipt.json"
+    },
+    "artifacts/validation/v104-group-lookup-performance-reverse-20261021/performance/3-Combined-metal4/sessions/lobby-no-native-hook-1792614860090/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "3c324700b26a05f6f246f7759805fb2a362aab852c85a273ade69a71117c6495",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-group-lookup-performance-reverse-20261021/performance/3-Combined-metal4/sessions/lobby-no-native-hook-1792614860090/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "8743f9ccf1501e72e4f957bc6a9ed4bfb225684e0115f4f7b08e677629bbfc66",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-group-lookup-performance-reverse-20261021/performance/3-Combined-metal4/sessions/lobby-no-native-hook-1792614860090/execution-receipt.json"
+    },
+    "artifacts/validation/v104-group-lookup-performance-reverse-20261021/performance/4-CombinedLookup-metal4/sessions/lobby-no-native-hook-1792614980781/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "720becf0edcf5cd751b91168528eefa17e4058c9d95ddfc82139a120eab72ce2",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-group-lookup-performance-reverse-20261021/performance/4-CombinedLookup-metal4/sessions/lobby-no-native-hook-1792614980781/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "674952f70f7fb692a91a956c9d73ab05a4283e999a9a5d43c7309877c6e7daf5",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-group-lookup-performance-reverse-20261021/performance/4-CombinedLookup-metal4/sessions/lobby-no-native-hook-1792614980781/execution-receipt.json"
+    },
+    "artifacts/validation/v104-group-lookup-performance-reverse-20261021/performance/5-CombinedLookup-metal4/sessions/lobby-no-native-hook-1792615099464/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "87734a6710a0858b2a6fa21a4be43a39fc2f734b51396bc26b65ed22fc841f24",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-group-lookup-performance-reverse-20261021/performance/5-CombinedLookup-metal4/sessions/lobby-no-native-hook-1792615099464/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "dbe79f246d74a87e10eaa0ee1e2985cff5fcb326b160f39e248250cd04c2cdd5",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-group-lookup-performance-reverse-20261021/performance/5-CombinedLookup-metal4/sessions/lobby-no-native-hook-1792615099464/execution-receipt.json"
+    },
+    "artifacts/validation/v104-group-lookup-performance-reverse-20261021/performance/6-Combined-metal4/sessions/lobby-no-native-hook-1792615219464/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "0ddc84ffe55abae261c3753e246ac878603e3aba4ebbb173d33aa8436da0a917",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-group-lookup-performance-reverse-20261021/performance/6-Combined-metal4/sessions/lobby-no-native-hook-1792615219464/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "b2a26c40cf88949767ba9eb5555e7032f597c296733407190c15ad6fa508f860",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-group-lookup-performance-reverse-20261021/performance/6-Combined-metal4/sessions/lobby-no-native-hook-1792615219464/execution-receipt.json"
+    },
+    "artifacts/validation/v104-group-lookup-performance-reverse-20261021/performance/7-RLookup-metal4/sessions/lobby-no-native-hook-1792615338895/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "e89158c06f0c7de453fd916e526c8fe23728bca38f48ea342ee67469c1b7d87c",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-group-lookup-performance-reverse-20261021/performance/7-RLookup-metal4/sessions/lobby-no-native-hook-1792615338895/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "5fc429c13b2eb2e2a94507e52b147dad0ec5b2c016414809a600c6effdd4e3ac",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-group-lookup-performance-reverse-20261021/performance/7-RLookup-metal4/sessions/lobby-no-native-hook-1792615338895/execution-receipt.json"
+    },
+    "artifacts/validation/v104-group-lookup-performance-reverse-20261021/performance/8-R-metal4/sessions/lobby-no-native-hook-1792615458977/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "61af0bf3d7d66d4f9bdc1a13fd0ac0936baffa9845fbeb303a77e6c861bd9360",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-group-lookup-performance-reverse-20261021/performance/8-R-metal4/sessions/lobby-no-native-hook-1792615458977/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "2e5962fcfd57c651c38893f76f6577be9deb4f80919da0324af425c4d2892ebc",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-group-lookup-performance-reverse-20261021/performance/8-R-metal4/sessions/lobby-no-native-hook-1792615458977/execution-receipt.json"
+    },
+    "artifacts/validation/v104-group-lookup-performance-reverse-20261021/performance/9-CombinedLookup-metal3/sessions/lobby-no-native-hook-1792615580652/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "f5f5301531ee0706a56e4e7ee84b870cf5cd5331a5d841b5808ac3d57599f5d8",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-group-lookup-performance-reverse-20261021/performance/9-CombinedLookup-metal3/sessions/lobby-no-native-hook-1792615580652/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "15da7bcaf23142a2cb2950c2c32c3ef0bda6824d492a1b463fd974e37afed8c7",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-group-lookup-performance-reverse-20261021/performance/9-CombinedLookup-metal3/sessions/lobby-no-native-hook-1792615580652/execution-receipt.json"
+    },
+    "artifacts/validation/v104-idle-first-allocator-20261021/performance/1-Q-metal4/sessions/lobby-no-native-hook-1792604588599/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "07012ba7b65e3a219e938a6c5ea353faa62fc7505031f855041fede39f4c0658",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-idle-first-allocator-20261021/performance/1-Q-metal4/sessions/lobby-no-native-hook-1792604588599/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "25711f6c4817200a1636dece0bedd159b5f9dc75e96afac180e751b24dcb49fb",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-idle-first-allocator-20261021/performance/1-Q-metal4/sessions/lobby-no-native-hook-1792604588599/execution-receipt.json"
+    },
+    "artifacts/validation/v104-idle-first-allocator-20261021/performance/2-R-metal4/sessions/lobby-no-native-hook-1792604710235/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "2654aaa196523aded29c101012c1fdb8871ac9117cdc67548f217baac00f7665",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-idle-first-allocator-20261021/performance/2-R-metal4/sessions/lobby-no-native-hook-1792604710235/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "a3e0a9866ce3157ed82e454eb0de183d6f780b761506d050f4272a3f0f8c35d9",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-idle-first-allocator-20261021/performance/2-R-metal4/sessions/lobby-no-native-hook-1792604710235/execution-receipt.json"
+    },
+    "artifacts/validation/v104-idle-first-allocator-20261021/performance/3-R-metal4/sessions/lobby-no-native-hook-1792604831643/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "54a75a4d4ec122b643aaa22bda7c7e75adf6f61c7b60c4635e705580747b32e7",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-idle-first-allocator-20261021/performance/3-R-metal4/sessions/lobby-no-native-hook-1792604831643/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "52552f6ae7244e4fbf896663fce7ee4fa9887e4da439e09afce29c46b2c84b55",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-idle-first-allocator-20261021/performance/3-R-metal4/sessions/lobby-no-native-hook-1792604831643/execution-receipt.json"
+    },
+    "artifacts/validation/v104-idle-first-allocator-20261021/performance/4-Q-metal4/sessions/lobby-no-native-hook-1792604950461/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "62eb021758c450b06a5bbf4ae5426a7113b9c2575a868ee74cb680c73d854b09",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-idle-first-allocator-20261021/performance/4-Q-metal4/sessions/lobby-no-native-hook-1792604950461/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "6452ac730b429ab85fb71907a057b317919d57866cde3b293dd0940db55e2acb",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-idle-first-allocator-20261021/performance/4-Q-metal4/sessions/lobby-no-native-hook-1792604950461/execution-receipt.json"
+    },
+    "artifacts/validation/v104-lookup-descriptor-20261020/performance/1-C-metal3/sessions/lobby-no-native-hook-1792566182094/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "5f20057e08162f63d353ce9c1430d8f3bbc4d70bbdf251557f192ac21ddb90c8",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-lookup-descriptor-20261020/performance/1-C-metal3/sessions/lobby-no-native-hook-1792566182094/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "d6f6c99609c48c6e89534160c376b62c30b5e8022d9a772d16406dc00459dfe0",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-lookup-descriptor-20261020/performance/1-C-metal3/sessions/lobby-no-native-hook-1792566182094/execution-receipt.json"
+    },
+    "artifacts/validation/v104-lookup-descriptor-20261020/performance/2-D-metal3/sessions/lobby-no-native-hook-1792566299987/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "6b2690f9e8e5bc894907fe7c2f654ef425b0f2aabe21556558cf3a0a59e081d7",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-lookup-descriptor-20261020/performance/2-D-metal3/sessions/lobby-no-native-hook-1792566299987/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "4155ea99ed1c65f2d78e20f88b2c5ebe9a75214124050c6cce4b202fcbaaa33a",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-lookup-descriptor-20261020/performance/2-D-metal3/sessions/lobby-no-native-hook-1792566299987/execution-receipt.json"
+    },
+    "artifacts/validation/v104-lookup-descriptor-20261020/performance/3-D-metal3/sessions/lobby-no-native-hook-1792566426328/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "20cd2fbb0499deae2f73ac7b3c278e62e840bd4a9320e5fca5b9edf0f1edb5b1",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-lookup-descriptor-20261020/performance/3-D-metal3/sessions/lobby-no-native-hook-1792566426328/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "ec1cfa94cbdeea89e01a5cdeecbb95b9e2ffbc83202c3bcbacf6d28e79cc8e1e",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-lookup-descriptor-20261020/performance/3-D-metal3/sessions/lobby-no-native-hook-1792566426328/execution-receipt.json"
+    },
+    "artifacts/validation/v104-lookup-descriptor-20261020/performance/4-C-metal3/sessions/lobby-no-native-hook-1792566543647/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "a781df7625e05c940a5bc0acbdea34cef76b5268ddc8c0dafb9b9ea4c454268a",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-lookup-descriptor-20261020/performance/4-C-metal3/sessions/lobby-no-native-hook-1792566543647/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "fd53b557957b5cb78781b9f97c7a67c14727469c7cf6b6541d8840c3a6a04b5d",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-lookup-descriptor-20261020/performance/4-C-metal3/sessions/lobby-no-native-hook-1792566543647/execution-receipt.json"
+    },
+    "artifacts/validation/v104-lookup-descriptor-20261020/performance/5-D-metal4/sessions/lobby-no-native-hook-1792566660050/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "5d6985b441aa16173ec46cf2c9b91de197b6d097f7677e80474a21fcd54cbc5d",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-lookup-descriptor-20261020/performance/5-D-metal4/sessions/lobby-no-native-hook-1792566660050/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "3b2941233cb619873589688c77d345025f67617c4e1961ca6f9e29ed85488512",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-lookup-descriptor-20261020/performance/5-D-metal4/sessions/lobby-no-native-hook-1792566660050/execution-receipt.json"
+    },
+    "artifacts/validation/v104-lookup-descriptor-20261020/performance/6-C-metal4/sessions/lobby-no-native-hook-1792566776731/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "cdd911512f59dec674620b56808a15c0d01d29065553a7ce72977e9a625c5394",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-lookup-descriptor-20261020/performance/6-C-metal4/sessions/lobby-no-native-hook-1792566776731/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "7f7e79f9164118ae6c2c856b20474f54a13f5f2ac215ef5093a469eb61e73cdc",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-lookup-descriptor-20261020/performance/6-C-metal4/sessions/lobby-no-native-hook-1792566776731/execution-receipt.json"
+    },
+    "artifacts/validation/v104-lookup-descriptor-20261020/performance/7-C-metal4/sessions/lobby-no-native-hook-1792566894647/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "2e535325c7a0a2ee464200b8082bc2d371fcd62ba1b452f07f17ab0a278d4a27",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-lookup-descriptor-20261020/performance/7-C-metal4/sessions/lobby-no-native-hook-1792566894647/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "2f9fe9ed84bde69f3f8fd7b5706be1c285f4eff61d8faf1c2d0b7fe7c3121f03",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-lookup-descriptor-20261020/performance/7-C-metal4/sessions/lobby-no-native-hook-1792566894647/execution-receipt.json"
+    },
+    "artifacts/validation/v104-lookup-descriptor-20261020/performance/8-D-metal4/sessions/lobby-no-native-hook-1792567012702/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "7feb2ac5002fde701bf78761c29439691658538799c91961271e8687be1f9149",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-lookup-descriptor-20261020/performance/8-D-metal4/sessions/lobby-no-native-hook-1792567012702/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "5cca3ef5e422372a83c3c972302e12156c0d2c9b66bdac069f98f1779b451f69",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-lookup-descriptor-20261020/performance/8-D-metal4/sessions/lobby-no-native-hook-1792567012702/execution-receipt.json"
+    },
+    "artifacts/validation/v104-lookup-descriptor-retest-20261021/performance/1-C-metal4/sessions/lobby-no-native-hook-1792567988751/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "bbd79d323548fe4ee18ab7db8176d22e96fee0cc2a3966557c29b827b583267f",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-lookup-descriptor-retest-20261021/performance/1-C-metal4/sessions/lobby-no-native-hook-1792567988751/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "1d3544d7f1a2e9bab273832c3ecabd54f48c9182191819be7481ff6312de7cf2",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-lookup-descriptor-retest-20261021/performance/1-C-metal4/sessions/lobby-no-native-hook-1792567988751/execution-receipt.json"
+    },
+    "artifacts/validation/v104-lookup-descriptor-retest-20261021/performance/2-D-metal4/sessions/lobby-no-native-hook-1792568107230/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "111133c24458f56da884f0d95e60c0299d14a9d719ab0cf7cdf8b62e5b29f4f3",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-lookup-descriptor-retest-20261021/performance/2-D-metal4/sessions/lobby-no-native-hook-1792568107230/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "fcb85ba1b5a8cbfb92621f23bad8fed3e6075902b57c80362097d908ad843163",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-lookup-descriptor-retest-20261021/performance/2-D-metal4/sessions/lobby-no-native-hook-1792568107230/execution-receipt.json"
+    },
+    "artifacts/validation/v104-lookup-descriptor-retest-20261021/performance/3-D-metal4/sessions/lobby-no-native-hook-1792568222250/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "80ee2e5a49dc05d4243640120737cf467fc05442dbeb2b9df89696ff2d67bad5",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-lookup-descriptor-retest-20261021/performance/3-D-metal4/sessions/lobby-no-native-hook-1792568222250/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "3d6eedc8296edb6783dff0d602942dfbfe88dcebe29aba852f6be49f932847aa",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-lookup-descriptor-retest-20261021/performance/3-D-metal4/sessions/lobby-no-native-hook-1792568222250/execution-receipt.json"
+    },
+    "artifacts/validation/v104-lookup-descriptor-retest-20261021/performance/4-C-metal4/sessions/lobby-no-native-hook-1792568339221/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "a62d55c4b10daeab6abeed3126723c392da0b145866126cb1d0e9909d970c52d",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-lookup-descriptor-retest-20261021/performance/4-C-metal4/sessions/lobby-no-native-hook-1792568339221/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "381395c7a5056943343b786af6ea5ca8ccb528f3a84beefaa38bb1d7b5cb0843",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-lookup-descriptor-retest-20261021/performance/4-C-metal4/sessions/lobby-no-native-hook-1792568339221/execution-receipt.json"
+    },
+    "artifacts/validation/v104-lookup-descriptor-retest-20261021/performance/5-D-metal3/sessions/lobby-no-native-hook-1792568456835/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "3dec554fc50157ac6169a2f70f514f22d184d1e395381a4a100c8067f770b29f",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-lookup-descriptor-retest-20261021/performance/5-D-metal3/sessions/lobby-no-native-hook-1792568456835/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "3e394eb2ce84ce1464dcf311ea11e0f1acd2f62874b013ff8dc17b9fdbbc8901",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-lookup-descriptor-retest-20261021/performance/5-D-metal3/sessions/lobby-no-native-hook-1792568456835/execution-receipt.json"
+    },
+    "artifacts/validation/v104-lookup-descriptor-retest-20261021/performance/6-C-metal3/sessions/lobby-no-native-hook-1792568574018/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "7c3865d3377a22a9e42320c2a16f0ecaa52b36ccd9e0fee7e07c8e0b22dd482d",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-lookup-descriptor-retest-20261021/performance/6-C-metal3/sessions/lobby-no-native-hook-1792568574018/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "464f6d94ff3c5791e29ea61cf296e579f5432bab6b36ecd0019cc4a2141fadc2",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-lookup-descriptor-retest-20261021/performance/6-C-metal3/sessions/lobby-no-native-hook-1792568574018/execution-receipt.json"
+    },
+    "artifacts/validation/v104-lookup-descriptor-retest-20261021/performance/7-C-metal3/sessions/lobby-no-native-hook-1792568690233/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "2d63480eb4808d076c49ebee0ccddeb66eac17d3f1a8d78ebe8222d5eece51fe",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-lookup-descriptor-retest-20261021/performance/7-C-metal3/sessions/lobby-no-native-hook-1792568690233/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "0a7fa03bd2ffe039ab25f37cf5915fa35e8069e40c9b1e8314e608564b7f0456",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-lookup-descriptor-retest-20261021/performance/7-C-metal3/sessions/lobby-no-native-hook-1792568690233/execution-receipt.json"
+    },
+    "artifacts/validation/v104-lookup-descriptor-retest-20261021/performance/8-D-metal3/sessions/lobby-no-native-hook-1792568807852/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "ecbb29330a5a8efa5e7c0880a1164af65e325659bfb0172306bf9870f94930df",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-lookup-descriptor-retest-20261021/performance/8-D-metal3/sessions/lobby-no-native-hook-1792568807852/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "0aabcc6a36136c2b7edf484492b00f93e8140571b88c86a7fecb192b0ab37c45",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-lookup-descriptor-retest-20261021/performance/8-D-metal3/sessions/lobby-no-native-hook-1792568807852/execution-receipt.json"
+    },
+    "artifacts/validation/v104-quiescent-allocator-20261021/performance-idle-metal3-retest/1-C-metal3/sessions/lobby-no-native-hook-1792599818901/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "b3d197d55b9771b3f8116ebb1dc504ca4d353288c20fc8d36a4c58879fa7a8a0",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-quiescent-allocator-20261021/performance-idle-metal3-retest/1-C-metal3/sessions/lobby-no-native-hook-1792599818901/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "c89a4885a77a4e7b574f713215fa6b08421b17ae7aa23682e31c0a9509e7d4c8",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-quiescent-allocator-20261021/performance-idle-metal3-retest/1-C-metal3/sessions/lobby-no-native-hook-1792599818901/execution-receipt.json"
+    },
+    "artifacts/validation/v104-quiescent-allocator-20261021/performance-idle-metal3-retest/2-Q-metal3/sessions/lobby-no-native-hook-1792599938195/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "829407e84992c53d1811cff60a16890cf21d57e3593eb999f2fa472a3fa40445",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-quiescent-allocator-20261021/performance-idle-metal3-retest/2-Q-metal3/sessions/lobby-no-native-hook-1792599938195/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "d6b28b6a0eda49873952b1ab7383c1a591b58a676ade7161e2368f5cf1f38ab9",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-quiescent-allocator-20261021/performance-idle-metal3-retest/2-Q-metal3/sessions/lobby-no-native-hook-1792599938195/execution-receipt.json"
+    },
+    "artifacts/validation/v104-quiescent-allocator-20261021/performance-idle-metal3-retest/3-Q-metal3/sessions/lobby-no-native-hook-1792600056411/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "a90d7755941cbc3fcfd58c832c547b385709585a3a709be8819698bc10e5e8c6",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-quiescent-allocator-20261021/performance-idle-metal3-retest/3-Q-metal3/sessions/lobby-no-native-hook-1792600056411/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "173ea9fd35abc89195ead57d82b3b73020d5863a38a1a9b8ba31a4b6483dacb5",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-quiescent-allocator-20261021/performance-idle-metal3-retest/3-Q-metal3/sessions/lobby-no-native-hook-1792600056411/execution-receipt.json"
+    },
+    "artifacts/validation/v104-quiescent-allocator-20261021/performance-idle-metal3-retest/4-C-metal3/sessions/lobby-no-native-hook-1792600175152/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "091b695073506259f23cb391317d5d3269e6442aaa62d508eaa87475eedc981e",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-quiescent-allocator-20261021/performance-idle-metal3-retest/4-C-metal3/sessions/lobby-no-native-hook-1792600175152/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "f53e510025e8a2256e1dee00f2b49c6ad9f700b9ea8c331388d4c363523b35d9",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-quiescent-allocator-20261021/performance-idle-metal3-retest/4-C-metal3/sessions/lobby-no-native-hook-1792600175152/execution-receipt.json"
+    },
+    "artifacts/validation/v104-quiescent-allocator-20261021/performance-idle-metal4/1-C-metal4/sessions/lobby-no-native-hook-1792599078259/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "026e28535a14482056ee4621d52e01d15f3207cd788b94926a4d42728fe0b10e",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-quiescent-allocator-20261021/performance-idle-metal4/1-C-metal4/sessions/lobby-no-native-hook-1792599078259/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "af6617fd0ea5a15462f516e680a0a1f94f78e2def9e9b002ad98aa0a1c9238cc",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-quiescent-allocator-20261021/performance-idle-metal4/1-C-metal4/sessions/lobby-no-native-hook-1792599078259/execution-receipt.json"
+    },
+    "artifacts/validation/v104-quiescent-allocator-20261021/performance-idle-metal4/2-Q-metal4/sessions/lobby-no-native-hook-1792599194994/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "e25423f76d58971ee21f64663271395532f43de633e90e30067bf72a2f96c183",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-quiescent-allocator-20261021/performance-idle-metal4/2-Q-metal4/sessions/lobby-no-native-hook-1792599194994/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "ebe6cc214a11a9d318959a1c0117a3861393163422c06cd7f453f78f79d4bbdb",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-quiescent-allocator-20261021/performance-idle-metal4/2-Q-metal4/sessions/lobby-no-native-hook-1792599194994/execution-receipt.json"
+    },
+    "artifacts/validation/v104-quiescent-allocator-20261021/performance-idle-metal4/3-Q-metal4/sessions/lobby-no-native-hook-1792599313492/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "327b5af7394c6ac0f2d5ff6e19e3141811ccc3a831ea4f3b8be8378a377442de",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-quiescent-allocator-20261021/performance-idle-metal4/3-Q-metal4/sessions/lobby-no-native-hook-1792599313492/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "d92f378a8649ebae90a4c535943d1bde67c99b11b5941dc24654eb64b27166a0",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-quiescent-allocator-20261021/performance-idle-metal4/3-Q-metal4/sessions/lobby-no-native-hook-1792599313492/execution-receipt.json"
+    },
+    "artifacts/validation/v104-quiescent-allocator-20261021/performance-idle-metal4/4-C-metal4/sessions/lobby-no-native-hook-1792599431766/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "09411ad8adde033e34d7230e5bcc12452f1cd969aacac5b950967cec50e3b339",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-quiescent-allocator-20261021/performance-idle-metal4/4-C-metal4/sessions/lobby-no-native-hook-1792599431766/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "f2c45fe975cab2d2b644076ebe657332bb4a8ec8ca9da067da69c206a9eb5a31",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-quiescent-allocator-20261021/performance-idle-metal4/4-C-metal4/sessions/lobby-no-native-hook-1792599431766/execution-receipt.json"
+    },
+    "artifacts/validation/v104-quiescent-allocator-20261021/performance/1-C-metal4/sessions/lobby-no-native-hook-1792598081948/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "125aa0d89b6d5bea1a87b8aaacf5e27777060faea2bbf455cece27585200099d",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-quiescent-allocator-20261021/performance/1-C-metal4/sessions/lobby-no-native-hook-1792598081948/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "3de22c4d644fb9c9e5403695e23c72adb8582bd8719a63cadcec90f31805d5aa",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-quiescent-allocator-20261021/performance/1-C-metal4/sessions/lobby-no-native-hook-1792598081948/execution-receipt.json"
+    },
+    "artifacts/validation/v104-quiescent-allocator-20261021/performance/2-Q-metal4/sessions/lobby-no-native-hook-1792598201606/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "2650b9177e173fa12b7a3b86bd8e519fe49608cd0e11d8b1fa57693c80454774",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-quiescent-allocator-20261021/performance/2-Q-metal4/sessions/lobby-no-native-hook-1792598201606/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "3138e820c081d88b27c44a14fc94ddf7ecf1b38d45c8ec73110472c49a0d5b9d",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-quiescent-allocator-20261021/performance/2-Q-metal4/sessions/lobby-no-native-hook-1792598201606/execution-receipt.json"
+    },
+    "artifacts/validation/v104-quiescent-allocator-20261021/performance/3-Q-metal4/sessions/lobby-no-native-hook-1792598328130/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "c86fa31067d4e97c0d306c9f7f1fd2982e919411a8515ab787c0b6b762b83aac",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-quiescent-allocator-20261021/performance/3-Q-metal4/sessions/lobby-no-native-hook-1792598328130/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "4b4e92855b40d51e012961a6c2a1a659ed2eee4244b33c9af34e054396c2ad4b",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-quiescent-allocator-20261021/performance/3-Q-metal4/sessions/lobby-no-native-hook-1792598328130/execution-receipt.json"
+    },
+    "artifacts/validation/v104-quiescent-allocator-20261021/performance/4-C-metal4/sessions/lobby-no-native-hook-1792598445510/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "7c2317ba449026c0842976a66097bbd2a4e29fe5fffe5891f348b7ae2df9e0e6",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-quiescent-allocator-20261021/performance/4-C-metal4/sessions/lobby-no-native-hook-1792598445510/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "6696969688422f067f0bd2ff7ed1ba3d8c1eced1be8600850d21f2f5215236fb",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-quiescent-allocator-20261021/performance/4-C-metal4/sessions/lobby-no-native-hook-1792598445510/execution-receipt.json"
+    },
+    "artifacts/validation/v104-quiescent-allocator-20261021/performance/5-Q-metal3/sessions/lobby-no-native-hook-1792598565452/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "cf15babc215ae7380d7c0744ca9ac95c0e4630d41a075660ec3d853289fcf1a5",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-quiescent-allocator-20261021/performance/5-Q-metal3/sessions/lobby-no-native-hook-1792598565452/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "b9b648214640bd843afde8b0ef3bff15cc8c969b69cf292949469f8c1a3e9411",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-quiescent-allocator-20261021/performance/5-Q-metal3/sessions/lobby-no-native-hook-1792598565452/execution-receipt.json"
+    },
+    "artifacts/validation/v104-quiescent-allocator-20261021/performance/6-C-metal3/sessions/lobby-no-native-hook-1792598683421/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "e779797f212e976dedeb49c90ac2dd3611989268b327ed79bfb60d39c3b0f0ed",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-quiescent-allocator-20261021/performance/6-C-metal3/sessions/lobby-no-native-hook-1792598683421/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "4ddc0b5b27dbbb5c5821e61e3d8116d22c709ab1d172355aae3fe20a9d62df2f",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-quiescent-allocator-20261021/performance/6-C-metal3/sessions/lobby-no-native-hook-1792598683421/execution-receipt.json"
+    },
+    "artifacts/validation/v104-quiescent-allocator-20261021/performance/7-C-metal3/sessions/lobby-no-native-hook-1792598800868/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "fffd4e4c7ebf3ddb142427d36daef45d9fbe26bd5a5ce700b64f96a8ca07acd7",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-quiescent-allocator-20261021/performance/7-C-metal3/sessions/lobby-no-native-hook-1792598800868/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "84f6cfee1b5f44d8ab20ae6f0f051b38aad9f805f2f6d0b96b1f3d2b2f08b0ed",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-quiescent-allocator-20261021/performance/7-C-metal3/sessions/lobby-no-native-hook-1792598800868/execution-receipt.json"
+    },
+    "artifacts/validation/v104-quiescent-allocator-20261021/performance/8-Q-metal3/sessions/lobby-no-native-hook-1792598917605/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "a8508857ef7f33726ceb547188e51fc310fc3f9de78b0d6a06df4c3bc9828591",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-quiescent-allocator-20261021/performance/8-Q-metal3/sessions/lobby-no-native-hook-1792598917605/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "3e466749224358b14f4b1c1e21ed4605b4cdc6bd3627cef179622c1510f0c5ef",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-quiescent-allocator-20261021/performance/8-Q-metal3/sessions/lobby-no-native-hook-1792598917605/execution-receipt.json"
+    },
+    "artifacts/validation/v104-r-combined-20261021/performance/1-R-metal3/sessions/lobby-no-native-hook-1792608749270/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "e13f1b847a3442b97ffc8647201d28c2c37152d05150cb0f3eac957ca77f1afb",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-r-combined-20261021/performance/1-R-metal3/sessions/lobby-no-native-hook-1792608749270/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "5b092b90e25712b6ed080bd281b742d57e583faf03a9fec6f233fcb6ddee8a35",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-r-combined-20261021/performance/1-R-metal3/sessions/lobby-no-native-hook-1792608749270/execution-receipt.json"
+    },
+    "artifacts/validation/v104-r-combined-20261021/performance/2-Combined-metal3/sessions/lobby-no-native-hook-1792608870613/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "264f990ceacc23b73a1d44f1a87fad648f0860ea55f33c949a31189b9ed6c3a2",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-r-combined-20261021/performance/2-Combined-metal3/sessions/lobby-no-native-hook-1792608870613/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "a22b2ead17c4075d9c5e398caf1e85744ab3090172bc652817da4b1e3600c232",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-r-combined-20261021/performance/2-Combined-metal3/sessions/lobby-no-native-hook-1792608870613/execution-receipt.json"
+    },
+    "artifacts/validation/v104-r-combined-20261021/performance/3-Combined-metal3/sessions/lobby-no-native-hook-1792608990818/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "ba2c6625a19f77eed7671729e7f18429924cfdd5af22f70a43cf06c232c41508",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-r-combined-20261021/performance/3-Combined-metal3/sessions/lobby-no-native-hook-1792608990818/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "533832fc4745a8bff5ebf2184caa5397dde24502fcd42d9bdc6b2fbbc70d504e",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-r-combined-20261021/performance/3-Combined-metal3/sessions/lobby-no-native-hook-1792608990818/execution-receipt.json"
+    },
+    "artifacts/validation/v104-r-combined-20261021/performance/4-R-metal3/sessions/lobby-no-native-hook-1792609109300/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "73d141329b40fc434e10443e267c128defcdf276ec741edbd15ded04d704d985",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-r-combined-20261021/performance/4-R-metal3/sessions/lobby-no-native-hook-1792609109300/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "79fab8ec8d388756ec56ea6f26bf0abc12f97e3dae870fc12eeed562c434ad7e",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-r-combined-20261021/performance/4-R-metal3/sessions/lobby-no-native-hook-1792609109300/execution-receipt.json"
+    },
+    "artifacts/validation/v104-r-combined-20261021/performance/5-Combined-metal4/sessions/lobby-no-native-hook-1792609227835/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "d5a6b132d85fba1a05aadde2c316dc2579216ab657691e4e57675f94748d41ac",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-r-combined-20261021/performance/5-Combined-metal4/sessions/lobby-no-native-hook-1792609227835/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "e9ee64b6c4c276052b49af8229168be649f91e6d9a4f877b410e705cc71d03f1",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-r-combined-20261021/performance/5-Combined-metal4/sessions/lobby-no-native-hook-1792609227835/execution-receipt.json"
+    },
+    "artifacts/validation/v104-r-combined-20261021/performance/6-R-metal4/sessions/lobby-no-native-hook-1792609346678/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "1347f91dca15e44d8e0314a5eaaaa1f7cddcff7dedb07e7626f462f362248286",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-r-combined-20261021/performance/6-R-metal4/sessions/lobby-no-native-hook-1792609346678/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "c5f38ab0ae4bbe131c12dc63ce87b7eb233a340de01f9b421acf96ac7eeb7388",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-r-combined-20261021/performance/6-R-metal4/sessions/lobby-no-native-hook-1792609346678/execution-receipt.json"
+    },
+    "artifacts/validation/v104-r-combined-20261021/performance/7-R-metal4/sessions/lobby-no-native-hook-1792609463904/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "087e6fc227de01a9f040727b3dede738f5efec8bc28bd18cc3f13e215a96809a",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-r-combined-20261021/performance/7-R-metal4/sessions/lobby-no-native-hook-1792609463904/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "a4bf9f7738d3dbbe74cdc0f8fb73995c27ca334e908c0c443344439101956c7b",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-r-combined-20261021/performance/7-R-metal4/sessions/lobby-no-native-hook-1792609463904/execution-receipt.json"
+    },
+    "artifacts/validation/v104-r-combined-20261021/performance/8-Combined-metal4/sessions/lobby-no-native-hook-1792609582913/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "3d647edbfec86ab8f5b8ab69f17a086e6a5b9afa4ad9c2a06ccd999ebccb7e26",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-r-combined-20261021/performance/8-Combined-metal4/sessions/lobby-no-native-hook-1792609582913/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "751411f6c3cf26212a92dd2865b17a94f0ede0bfb3c0a79df71938c1165e7c9f",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-r-combined-20261021/performance/8-Combined-metal4/sessions/lobby-no-native-hook-1792609582913/execution-receipt.json"
+    },
+    "artifacts/validation/v104-r-combined-reverse-20261021/performance/1-R-metal4/sessions/lobby-no-native-hook-1792610146064/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "6a1fb42ff48175c02dfea7d80307969006a696ebba8785b143d36d08644e4654",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-r-combined-reverse-20261021/performance/1-R-metal4/sessions/lobby-no-native-hook-1792610146064/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "1f30dad12c5e888f9a1e6cc5c468ca51b705e29eebcf9eb4de5dec2ff1007ac5",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-r-combined-reverse-20261021/performance/1-R-metal4/sessions/lobby-no-native-hook-1792610146064/execution-receipt.json"
+    },
+    "artifacts/validation/v104-r-combined-reverse-20261021/performance/2-Combined-metal4/sessions/lobby-no-native-hook-1792610265892/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "bdd8e6a2a97058527c1e80b2dfdd3d43432b7f74f154ef65ef9146df8cd27969",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-r-combined-reverse-20261021/performance/2-Combined-metal4/sessions/lobby-no-native-hook-1792610265892/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "558e13bbd1bb7647272c71a6c5a26c8c27dc5d4d83aff4680f04a5cb5768c363",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-r-combined-reverse-20261021/performance/2-Combined-metal4/sessions/lobby-no-native-hook-1792610265892/execution-receipt.json"
+    },
+    "artifacts/validation/v104-r-combined-reverse-20261021/performance/3-Combined-metal4/sessions/lobby-no-native-hook-1792610383172/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "ee369a2f028179f2fac3c69df57462cc35cf6cf3832c3aebce7424f2c236fd09",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-r-combined-reverse-20261021/performance/3-Combined-metal4/sessions/lobby-no-native-hook-1792610383172/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "8428811f46c75347a171d08cce1b443230b2fc7dd3d20f394cf3033ac0200ff7",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-r-combined-reverse-20261021/performance/3-Combined-metal4/sessions/lobby-no-native-hook-1792610383172/execution-receipt.json"
+    },
+    "artifacts/validation/v104-r-combined-reverse-20261021/performance/4-R-metal4/sessions/lobby-no-native-hook-1792610502350/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "98e729d8c3929bc01f8f32ce017407f132d18451bae5e89e4d3f1dd65489fa38",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-r-combined-reverse-20261021/performance/4-R-metal4/sessions/lobby-no-native-hook-1792610502350/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "03d78d00466fa87ad4d8962b97572b9a23287bd208f76ad8d6f6081b021d2cb5",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-r-combined-reverse-20261021/performance/4-R-metal4/sessions/lobby-no-native-hook-1792610502350/execution-receipt.json"
+    },
+    "artifacts/validation/v104-r-combined-reverse-20261021/performance/5-Combined-metal3/sessions/lobby-no-native-hook-1792610620295/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "5f5a0b2fd3574882f0e922a6799ce69afd6b8a27539796ed845da6895d1354a1",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-r-combined-reverse-20261021/performance/5-Combined-metal3/sessions/lobby-no-native-hook-1792610620295/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "59a7a9056b71f063d95797ac4c70acbac4f4612b1ac7c8811f3092d47be7c9de",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-r-combined-reverse-20261021/performance/5-Combined-metal3/sessions/lobby-no-native-hook-1792610620295/execution-receipt.json"
+    },
+    "artifacts/validation/v104-r-combined-reverse-20261021/performance/6-R-metal3/sessions/lobby-no-native-hook-1792610739992/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "f7d095d6f2ca83e215615494f3e9006ce39379bfdfe1823f798f5ad5d37bfae9",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-r-combined-reverse-20261021/performance/6-R-metal3/sessions/lobby-no-native-hook-1792610739992/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "72b0db42e07a473a8372482a50393e4bd51272b3bc2e4a21a254beaabdf39579",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-r-combined-reverse-20261021/performance/6-R-metal3/sessions/lobby-no-native-hook-1792610739992/execution-receipt.json"
+    },
+    "artifacts/validation/v104-r-combined-reverse-20261021/performance/7-R-metal3/sessions/lobby-no-native-hook-1792610857799/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "71147a4abc0937b6bf0ba5421c69e4b6eb2b1615d38d418bf6fdab803d266c53",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-r-combined-reverse-20261021/performance/7-R-metal3/sessions/lobby-no-native-hook-1792610857799/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "dd14b7821de123bc126da08167fc8e3826706a874c397b39741cc0f65377531a",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-r-combined-reverse-20261021/performance/7-R-metal3/sessions/lobby-no-native-hook-1792610857799/execution-receipt.json"
+    },
+    "artifacts/validation/v104-r-combined-reverse-20261021/performance/8-Combined-metal3/sessions/lobby-no-native-hook-1792610979812/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "86f64ade5a417ef3de0cc5ced9befeb96ab4fbfa871e7b9901727150bc4e6169",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-r-combined-reverse-20261021/performance/8-Combined-metal3/sessions/lobby-no-native-hook-1792610979812/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "03a3a78da627c85ddfd5961cd57bd501b9f2139628b510f704dc1d577b962816",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-r-combined-reverse-20261021/performance/8-Combined-metal3/sessions/lobby-no-native-hook-1792610979812/execution-receipt.json"
+    },
+    "artifacts/validation/v104-r-small-bundle-20261021/performance/1-R-metal4/sessions/lobby-no-native-hook-1792623642830/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "fb1108b7fc16c1768265afe8f2e2d11beb9ef06be64642212539bbb31c2978f9",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-r-small-bundle-20261021/performance/1-R-metal4/sessions/lobby-no-native-hook-1792623642830/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "abd8d3bf778a59fe59b1bc6507cd47d5c1fabba9d2a18830c521f61ed837eb5f",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-r-small-bundle-20261021/performance/1-R-metal4/sessions/lobby-no-native-hook-1792623642830/execution-receipt.json"
+    },
+    "artifacts/validation/v104-r-small-bundle-20261021/performance/2-Small-metal4/sessions/lobby-no-native-hook-1792623763395/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "736731eeb91a14d2da8ef673b629d3beb00378fdd1ee9f73b9166f5fe968ee81",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-r-small-bundle-20261021/performance/2-Small-metal4/sessions/lobby-no-native-hook-1792623763395/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "e5aa678a0537ae4e7822e9dbc878f110d047bf01a775c4a15e3edc1d5287a35f",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-r-small-bundle-20261021/performance/2-Small-metal4/sessions/lobby-no-native-hook-1792623763395/execution-receipt.json"
+    },
+    "artifacts/validation/v104-r-small-bundle-20261021/performance/3-Small-metal4/sessions/lobby-no-native-hook-1792623884041/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "b79189363bc5470b70ce8a0aac017ddff37e0ada31517f0dbf38f9e2fded0b93",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-r-small-bundle-20261021/performance/3-Small-metal4/sessions/lobby-no-native-hook-1792623884041/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "0aa986ad48984131cf8fc519bde7666da9d5ac0bf9ae68dca9a2ffa0a503908f",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-r-small-bundle-20261021/performance/3-Small-metal4/sessions/lobby-no-native-hook-1792623884041/execution-receipt.json"
+    },
+    "artifacts/validation/v104-r-small-bundle-20261021/performance/4-R-metal4/sessions/lobby-no-native-hook-1792624003413/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "8013078585dcc047acf4ce3685481525bba93cf7f022adc66a9a612aa4ba9b21",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-r-small-bundle-20261021/performance/4-R-metal4/sessions/lobby-no-native-hook-1792624003413/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "6ca422eef5f985e82c5bc40be3b65caa1a41b6bb06b5bca407b9dc41ef9a9f4e",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-r-small-bundle-20261021/performance/4-R-metal4/sessions/lobby-no-native-hook-1792624003413/execution-receipt.json"
+    },
+    "artifacts/validation/v104-r-small-bundle-20261021/performance/5-Small-metal3/sessions/lobby-no-native-hook-1792624122893/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "758ab578405e175f4d41ebe9215eef1044952c0a240aa971e29b0ae5a86c7fb6",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-r-small-bundle-20261021/performance/5-Small-metal3/sessions/lobby-no-native-hook-1792624122893/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "84f5ef056cb62ba583c6f3cd723d61a90f63ee6e0c686657aa45a56775d85642",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-r-small-bundle-20261021/performance/5-Small-metal3/sessions/lobby-no-native-hook-1792624122893/execution-receipt.json"
+    },
+    "artifacts/validation/v104-r-small-bundle-20261021/performance/6-R-metal3/sessions/lobby-no-native-hook-1792624242467/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "f6e7dcaa110b0f6d4b4cdf27a5098295445f0126be3475ad9c4d85f88253a121",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-r-small-bundle-20261021/performance/6-R-metal3/sessions/lobby-no-native-hook-1792624242467/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "8ef9cf6af7f3739be7e7761e385311db10715e778e3147b3b61896622045dd41",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-r-small-bundle-20261021/performance/6-R-metal3/sessions/lobby-no-native-hook-1792624242467/execution-receipt.json"
+    },
+    "artifacts/validation/v104-r-small-bundle-20261021/performance/7-R-metal3/sessions/lobby-no-native-hook-1792624359899/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "21cbc09d483396d1c0ca580c9decb322d06e2b4a5f37f58560631d7ace666a6c",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-r-small-bundle-20261021/performance/7-R-metal3/sessions/lobby-no-native-hook-1792624359899/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "3f2c7b16e3acfaedd0d61cb26776d2b4bbb445445c30d07468787585c1bed265",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-r-small-bundle-20261021/performance/7-R-metal3/sessions/lobby-no-native-hook-1792624359899/execution-receipt.json"
+    },
+    "artifacts/validation/v104-r-small-bundle-20261021/performance/8-Small-metal3/sessions/lobby-no-native-hook-1792624478430/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "30bc8c0ef78e547ac2fe985a343588b70ef953d4d671bb84267fa76748c94929",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-r-small-bundle-20261021/performance/8-Small-metal3/sessions/lobby-no-native-hook-1792624478430/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "ab20ee2f11b54895e284ac5f7a114c93816e138addad79ca024f63f23bf3f58d",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-r-small-bundle-20261021/performance/8-Small-metal3/sessions/lobby-no-native-hook-1792624478430/execution-receipt.json"
+    },
+    "artifacts/validation/v104-three-candidate-performance-20261020/1-A-metal3/sessions/lobby-no-native-hook-1792560423797/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "4dabc44d036edc135940441205b2ac78f68acc4c158a4ee6cdabc17cb6838285",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-three-candidate-performance-20261020/1-A-metal3/sessions/lobby-no-native-hook-1792560423797/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "1827a7a6fc45737c2099a0cb8a6a74e651e58b2b583b3c07b9315ceb9849b642",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-three-candidate-performance-20261020/1-A-metal3/sessions/lobby-no-native-hook-1792560423797/execution-receipt.json"
+    },
+    "artifacts/validation/v104-three-candidate-performance-20261020/10-A-metal4/sessions/lobby-no-native-hook-1792561503635/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "4740adb8b1cd4e3d013ab788dc54957aa38c3c0f127f4a212022be2e238e54b7",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-three-candidate-performance-20261020/10-A-metal4/sessions/lobby-no-native-hook-1792561503635/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "c7f110ec3d4df5ad3854b2a65e3d9d85bcb10640610922c54b5c05037d3f025b",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-three-candidate-performance-20261020/10-A-metal4/sessions/lobby-no-native-hook-1792561503635/execution-receipt.json"
+    },
+    "artifacts/validation/v104-three-candidate-performance-20261020/11-B-metal4/sessions/lobby-no-native-hook-1792561623078/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "a0e68ce73641ff941495c9ff17ddeecffc34bfdf4229abeb056d17b515dc0e6d",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-three-candidate-performance-20261020/11-B-metal4/sessions/lobby-no-native-hook-1792561623078/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "22170effd547d2073865a40a550ab8fcc3fe783605b22beccba2df8adbeeb1a4",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-three-candidate-performance-20261020/11-B-metal4/sessions/lobby-no-native-hook-1792561623078/execution-receipt.json"
+    },
+    "artifacts/validation/v104-three-candidate-performance-20261020/12-C-metal4/sessions/lobby-no-native-hook-1792561742146/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "1d5b5fd8ccaa1db1b09a6b39342a700825203b1563a7b766c8fcad614f0d5a94",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-three-candidate-performance-20261020/12-C-metal4/sessions/lobby-no-native-hook-1792561742146/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "eb801e6c3895fe1339b3df7655163f6961b397e686b7f2541d2042f352b1cb7f",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-three-candidate-performance-20261020/12-C-metal4/sessions/lobby-no-native-hook-1792561742146/execution-receipt.json"
+    },
+    "artifacts/validation/v104-three-candidate-performance-20261020/2-B-metal3/sessions/lobby-no-native-hook-1792560545000/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "d2d6c0c82b17c67539c0aff0ee6b1f09875aac188e2f51137adff2da9f9a8724",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-three-candidate-performance-20261020/2-B-metal3/sessions/lobby-no-native-hook-1792560545000/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "eaa220ce4f8d121b1a40b4fd0e036cd69621a532a037a7b61308820a8dad9bf6",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-three-candidate-performance-20261020/2-B-metal3/sessions/lobby-no-native-hook-1792560545000/execution-receipt.json"
+    },
+    "artifacts/validation/v104-three-candidate-performance-20261020/3-C-metal3/sessions/lobby-no-native-hook-1792560663904/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "ee090d4e9b8d87f43ac909656e8f06526a51d3e030e5aff7175194b575578340",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-three-candidate-performance-20261020/3-C-metal3/sessions/lobby-no-native-hook-1792560663904/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "7471ddfbaa02ec2cef2634ca0a835aa6a81835c49ad07ec13ac878e73da99b71",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-three-candidate-performance-20261020/3-C-metal3/sessions/lobby-no-native-hook-1792560663904/execution-receipt.json"
+    },
+    "artifacts/validation/v104-three-candidate-performance-20261020/4-C-metal3/sessions/lobby-no-native-hook-1792560791920/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "76a70214189474ab0064c8b75b2ebff1924197c1602d11b16e1226cbae5da6c2",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-three-candidate-performance-20261020/4-C-metal3/sessions/lobby-no-native-hook-1792560791920/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "107add78d8cfd86f8fa09c37be527ce7c4a00683b40641487426cc5ea6631819",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-three-candidate-performance-20261020/4-C-metal3/sessions/lobby-no-native-hook-1792560791920/execution-receipt.json"
+    },
+    "artifacts/validation/v104-three-candidate-performance-20261020/5-B-metal3/sessions/lobby-no-native-hook-1792560910547/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "46bbf2554c8f8c4e8bed0214164d1d873a53a46db9f7920713158059a1f08dee",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-three-candidate-performance-20261020/5-B-metal3/sessions/lobby-no-native-hook-1792560910547/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "3e8c26010370204505072706cfae3ab32bad6be08ba139b617a8ef39f9c6f856",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-three-candidate-performance-20261020/5-B-metal3/sessions/lobby-no-native-hook-1792560910547/execution-receipt.json"
+    },
+    "artifacts/validation/v104-three-candidate-performance-20261020/6-A-metal3/sessions/lobby-no-native-hook-1792561029269/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "e98d2c092e58de8e6b2c3f2fda5874ba65da6f5854885939f48ba6cf2318bbfe",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-three-candidate-performance-20261020/6-A-metal3/sessions/lobby-no-native-hook-1792561029269/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "9bf3a4ab8b1dc30c5b4d145c5ae983138848e98e7b0611cc6728ab03584893af",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-three-candidate-performance-20261020/6-A-metal3/sessions/lobby-no-native-hook-1792561029269/execution-receipt.json"
+    },
+    "artifacts/validation/v104-three-candidate-performance-20261020/7-C-metal4/sessions/lobby-no-native-hook-1792561148015/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "3aec939a2b765ebe9f6000bce7ef1855e0bc91abfb2eb4e573d79c1d25f87981",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-three-candidate-performance-20261020/7-C-metal4/sessions/lobby-no-native-hook-1792561148015/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "e44456e68909b524744ce1d5a055ed6d9c7ab88e9f0205538bf4ee141e9a84c8",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-three-candidate-performance-20261020/7-C-metal4/sessions/lobby-no-native-hook-1792561148015/execution-receipt.json"
+    },
+    "artifacts/validation/v104-three-candidate-performance-20261020/8-B-metal4/sessions/lobby-no-native-hook-1792561266507/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "9f6ae842bdcc17b5cd27daddd5fcb8981316abd55ca066678bf87b3772de6c63",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-three-candidate-performance-20261020/8-B-metal4/sessions/lobby-no-native-hook-1792561266507/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "b40542139191db78cb1055b4a8cb041573b6e5a07be52ec4ca490b9a17103274",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-three-candidate-performance-20261020/8-B-metal4/sessions/lobby-no-native-hook-1792561266507/execution-receipt.json"
+    },
+    "artifacts/validation/v104-three-candidate-performance-20261020/9-A-metal4/sessions/lobby-no-native-hook-1792561385053/execution-receipt.json": {
+      "available": true,
+      "benchmarkNumericalFieldsPreserved": true,
+      "benchmarkResultOriginalSHA256": "471947e18ef90ae0388921007d2dae5574052d72f33f34109fc88f2f3da2ec90",
+      "benchmarkResultPath": "evidence/artifacts/validation/v104-three-candidate-performance-20261020/9-A-metal4/sessions/lobby-no-native-hook-1792561385053/state/data/LuaUI/Config/v104-performance-result.json",
+      "originalSHA256": "92a4f32fe5a94d49f64f33ae0d7cfdb3435b896082c04292eedb02f85be98772",
+      "privateSessionAndProcessFieldsOmitted": true,
+      "publicPath": "evidence/artifacts/validation/v104-three-candidate-performance-20261020/9-A-metal4/sessions/lobby-no-native-hook-1792561385053/execution-receipt.json"
+    }
+  },
+  "smallOriginalEightRunAdoptionDecision": {
+    "originalSHA256": "81e82563a200639cd1a5f2cb7eda5e4be51b567fca724abd5ee433382591e0ee",
+    "privateProcessMetadataOmitted": true,
+    "publicPath": "evidence/artifacts/validation/v104-r-small-bundle-20261021/performance/background-overlap-note.json",
+    "useForAdoption": false
+  },
+  "smallPendingStatus": "R/Small original eight-run batch is explicitly excluded from adoption (useForAdoption=false) because of possible background overlap. Planned idle forward/reverse retest was deferred; no result is fabricated."
+}

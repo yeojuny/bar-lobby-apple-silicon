@@ -1,0 +1,275 @@
+--- a/tools/tests/metal4-suspend-resolve-cpu.mm
++++ b/tools/tests/metal4-suspend-resolve-cpu.mm
+@@ -104,6 +104,9 @@
+     bool isMultiview(){return multiview;}
+     uint32_t getFirstViewIndexInMetalPass(uint32_t){return 3;}
+     void populateMTLRenderPassDescriptor(MVKCommandEncoder*,MTLRenderPassDescriptor*,uint32_t,MVKFramebuffer*,MVKArrayRef<MVKImageView*const>,MVKArrayRef<const VkClearValue>,bool,bool);
++    void populateMTLRenderPassDescriptor(MVKCommandEncoder*,MTL4RenderPassDescriptor*,uint32_t,MVKFramebuffer*,MVKArrayRef<MVKImageView*const>,MVKArrayRef<const VkClearValue>,bool,bool);
++    template<class Descriptor> void populateMTLRenderPassDescriptorImpl(MVKCommandEncoder*,Descriptor*,uint32_t,MVKFramebuffer*,MVKArrayRef<MVKImageView*const>,MVKArrayRef<const VkClearValue>,bool,bool);
++    void populateLegacyReference(MVKCommandEncoder*,MTLRenderPassDescriptor*,uint32_t,MVKFramebuffer*,MVKArrayRef<MVKImageView*const>,MVKArrayRef<const VkClearValue>,bool,bool);
+     void resolveUnresolvableAttachments(MVKCommandEncoder*,MVKArrayRef<MVKImageView*const>);
+ };
+ #include MVK_SUSPEND_RESOLVE_BODY
+@@ -137,5 +140,39 @@
+         check(!none.colorAttachments[0].resolveTexture&&!none.depthAttachment.resolveTexture&&!none.stencilAttachment.resolveTexture,"no-resolve path unchanged");
+     }}
+ }
+-int main(){@autoreleasepool{try{descriptors();printf("PASS: %u CPU assertions; actual descriptor and software-resolve bodies; no GPU execution\n",checks);return 0;}
++
++static void sameAttachment(MTLRenderPassAttachmentDescriptor* a,MTLRenderPassAttachmentDescriptor* b){
++ check(a!=nil&&b!=nil,"both descriptor types provide attachment objects");
++ check(a.texture==b.texture&&a.resolveTexture==b.resolveTexture,"attachment textures");
++ check(a.level==b.level&&a.slice==b.slice&&a.depthPlane==b.depthPlane,"attachment subresources");
++ check(a.resolveLevel==b.resolveLevel&&a.resolveSlice==b.resolveSlice&&a.resolveDepthPlane==b.resolveDepthPlane,"resolve subresources");
++ check(a.loadAction==b.loadAction&&a.storeAction==b.storeAction&&a.storeActionOptions==b.storeActionOptions,"load/store actions");
++}
++static void sameDescriptor(MTLRenderPassDescriptor* old,MTL4RenderPassDescriptor* native){
++ for(unsigned i=0;i<8;++i){sameAttachment(old.colorAttachments[i],native.colorAttachments[i]);auto a=old.colorAttachments[i].clearColor,b=native.colorAttachments[i].clearColor;check(a.red==b.red&&a.green==b.green&&a.blue==b.blue&&a.alpha==b.alpha,"clear color");}
++ sameAttachment(old.depthAttachment,native.depthAttachment);sameAttachment(old.stencilAttachment,native.stencilAttachment);
++ check(old.depthAttachment.clearDepth==native.depthAttachment.clearDepth&&old.depthAttachment.depthResolveFilter==native.depthAttachment.depthResolveFilter,"depth properties");
++ check(old.stencilAttachment.clearStencil==native.stencilAttachment.clearStencil&&old.stencilAttachment.stencilResolveFilter==native.stencilAttachment.stencilResolveFilter,"stencil properties");
++ check(old.renderTargetWidth==native.renderTargetWidth&&old.renderTargetHeight==native.renderTargetHeight&&old.renderTargetArrayLength==native.renderTargetArrayLength,"extent defaults");
++ check(old.defaultRasterSampleCount==native.defaultRasterSampleCount,"sample defaults");
++ check(old.visibilityResultBuffer==native.visibilityResultBuffer&&old.visibilityResultType==native.visibilityResultType,"visibility defaults");
++ check(old.rasterizationRateMap==native.rasterizationRateMap&&old.imageblockSampleLength==native.imageblockSampleLength&&old.threadgroupMemoryLength==native.threadgroupMemoryLength&&old.tileWidth==native.tileWidth&&old.tileHeight==native.tileHeight,"remaining copied defaults");
++}
++static void descriptorParity(){
++ sameDescriptor([MTLRenderPassDescriptor renderPassDescriptor],[[[MTL4RenderPassDescriptor alloc]init]autorelease]);
++ for(auto flags:{VkRenderingFlags(0),VkRenderingFlags(VK_RENDERING_SUSPENDING_BIT),VkRenderingFlags(VK_RENDERING_RESUMING_BIT),VkRenderingFlags(VK_RENDERING_SUSPENDING_BIT|VK_RENDERING_RESUMING_BIT)})
++ for(bool multiview:{false,true})for(bool native:{false,true})for(bool entire:{false,true})for(bool restart:{false,true})for(unsigned mode=0;mode<5;++mode){@autoreleasepool{
++  RenderPass rp;rp.flags=flags;rp.formats.nativeResolve=native;MVKCommandEncoder encoder(&rp);MVKRenderSubpass subpass(&rp);subpass.multiview=multiview;
++  if(mode&1)subpass._colorAttachments[0].attachment=VK_ATTACHMENT_UNUSED;
++  if(mode&2)subpass._depthAttachment.attachment=subpass._stencilAttachment.attachment=VK_ATTACHMENT_UNUSED;
++  if(mode==4){subpass._resolveAttachments[0].attachment=VK_ATTACHMENT_UNUSED;subpass._depthResolveMode=subpass._stencilResolveMode=VK_RESOLVE_MODE_NONE;}
++  MVKFramebuffer fb;MVKImageView v[6];MVKImageView* views[6];VkClearValue clear[6]{};for(unsigned i=0;i<6;++i){views[i]=&v[i];clear[i].color={{.25f,.5f,.75f,1.f}};}
++  auto* old=[MTLRenderPassDescriptor renderPassDescriptor];auto* d=[[[MTL4RenderPassDescriptor alloc]init]autorelease];
++  subpass.populateLegacyReference(&encoder,old,0,&fb,{views,6},{clear,6},entire,restart);
++  subpass.populateMTLRenderPassDescriptor(&encoder,d,0,&fb,{views,6},{clear,6},entire,restart);
++  sameDescriptor(old,d);
++ }}
++}
++
++int main(){@autoreleasepool{try{descriptors();descriptorParity();printf("PASS: %u CPU assertions; actual descriptor and software-resolve bodies; no GPU execution\n",checks);return 0;}
+ catch(const exception& e){fprintf(stderr,"FAIL: %s\n",e.what());return 1;}}}
+--- a/tools/tests/metal4-visibility-recycle-cpu.mm
++++ b/tools/tests/metal4-visibility-recycle-cpu.mm
+@@ -90,15 +90,15 @@
+     id<MTLBlitCommandEncoder> getMTLBlitEncoder(MVKCommandUse){return failEncoder?nil:(id<MTLBlitCommandEncoder>)native;}
+     id<MTL4ComputeCommandEncoder> getMetal4ComputeEncoder(MVKCommandUse,bool,bool,MTLStages,MVKMetal4QueryOperation op){operation=op;return failEncoder?nil:(id<MTL4ComputeCommandEncoder>)native;}
+     void endCurrentMetalEncoding(){++recorder.ends;}
+-    bool prepareVisibilityResultBuffer(MTLRenderPassDescriptor* descriptor);
++    template<class Descriptor> bool prepareVisibilityResultBuffer(Descriptor* descriptor);
+ };
+ #include MVK_VISIBILITY_PREPARE_BODY
+ #include MVK_VISIBILITY_KERNEL_BODY
+ 
+-static void initialization(bool metal4) {
++template<class Descriptor> static void initialization(bool metal4) {
+     Device device;
+     {
+-        MVKCommandEncoder a(&device,metal4);auto* desc=[MTLRenderPassDescriptor renderPassDescriptor];
++        MVKCommandEncoder a(&device,metal4);auto* desc=[[[Descriptor alloc] init] autorelease];
+         check(a.prepareVisibilityResultBuffer(desc),"admit initial visibility storage");
+         auto& b=a.context.visibilityResultBuffer;
+         check(desc.visibilityResultBuffer==b.buffer(),"descriptor uses owned buffer");
+@@ -126,22 +126,22 @@
+     }
+     check(liveBuffers==0,"completed lease release");
+     { // A local unsubmitted recording is dropped, including its initialization state.
+-        MVKCommandEncoder cancelled(&device,metal4);auto* d=[MTLRenderPassDescriptor renderPassDescriptor];
++        MVKCommandEncoder cancelled(&device,metal4);auto* d=[[[Descriptor alloc] init] autorelease];
+         check(cancelled.prepareVisibilityResultBuffer(d),"cancelled record can be encoded");d.visibilityResultBuffer=nil;
+     }
+     check(liveBuffers==0,"cancel releases buffer rather than publishing initialized state");
+     {
+-        MVKCommandEncoder fresh(&device,metal4);auto* d=[MTLRenderPassDescriptor renderPassDescriptor];
++        MVKCommandEncoder fresh(&device,metal4);auto* d=[[[Descriptor alloc] init] autorelease];
+         check(fresh.prepareVisibilityResultBuffer(d),"record after cancellation");
+         check(fresh.recorder.fills==(MVK_XCODE_26?1u:0u),"new lease gets own initialization");d.visibilityResultBuffer=nil;
+     }
+ }
+ 
+-static void failures(bool metal4) {
++template<class Descriptor> static void failures(bool metal4) {
+     for(unsigned kind=0;kind<(MVK_XCODE_26?(metal4?3u:2u):1u);++kind){
+         Device device;device.native.failBuffer=kind==0;
+         MVKCommandEncoder c(&device,metal4);c.failEncoder=kind==1;c.submission.reject=kind==2;
+-        auto* d=[MTLRenderPassDescriptor renderPassDescriptor];
++        auto* d=[[[Descriptor alloc] init] autorelease];
+         check(!c.prepareVisibilityResultBuffer(d)&&c._visibilityResultBufferFailed&&c.cb.result==VK_ERROR_OUT_OF_DEVICE_MEMORY,"failed initialization is observable");
+         check(c.recorder.fills==0,"failure cannot publish or clear");
+         if(kind)check(c.context.visibilityResultBuffer.needsInitialClear(),"failed preparation keeps initialization pending");
+@@ -190,7 +190,13 @@
+ #if !MVK_BUILD_METAL4_FOUNDATION
+         if(m)continue;
+ #endif
+-        @autoreleasepool{initialization(m);failures(m);}
++        @autoreleasepool{
++#if MVK_BUILD_METAL4_FOUNDATION
++            if(m){initialization<MTL4RenderPassDescriptor>(true);failures<MTL4RenderPassDescriptor>(true);}
++            else
++#endif
++            {initialization<MTLRenderPassDescriptor>(false);failures<MTLRenderPassDescriptor>(false);}
++        }
+     }
+     check(liveBuffers==0,"no CPU mock buffer leaked");
+     printf("PASS: %u CPU assertions; actual visibility bodies; no GPU execution\n",checks);return 0;
+--- a/tools/tests/metal4-counter-completion-cpu.mm
++++ b/tools/tests/metal4-counter-completion-cpu.mm
+@@ -1048,9 +1048,63 @@
+     return cases;
+ }
+ 
++
++// Exercise the actual allocator state machine at the selected count and growth
++// limits. Receivers remain CPU mocks; no new product diagnostic hooks.
++static void allocatorPolicyBoundaries() {
++    const unsigned limit = MVKMetal4ResourcePoolStats::maxAllocatorEpochRecordings;
++    for (bool submitted : {false, true}) {
++        Fixture f;
++        std::vector<std::shared_ptr<MVKMetal4Submission>> records;
++        std::shared_ptr<MVKMetal4AllocatorEpoch> epoch;
++        for (unsigned i = 0; i < limit; ++i) {
++            auto b = f.begin();
++            if (!epoch) { epoch = b->_state->allocatorUse.epoch; }
++            check(b->_state->allocatorUse.epoch == epoch && epoch->writer, "one exclusive writer appends to the same epoch");
++            check(b->end(), "bounded recording ends");
++            check(epoch->recordings == i + 1 && !epoch->writer, "count tracks native ends");
++            check(epoch->state == (i + 1 == limit ? MVKMetal4AllocatorState::Sealed : MVKMetal4AllocatorState::Appendable), "seal exactly at selected count");
++            records.push_back(std::move(b));
++        }
++        auto allocator = (R77Allocator*)epoch->allocator;
++        check(!epoch->available && epoch->liveUses == limit && allocator->resets == 0, "sealing never resets retained bytes");
++        auto other = f.begin();check(other->_state->allocatorUse.epoch != epoch, "sealed epoch cannot admit next writer");other.reset();
++        if (submitted) {
++            for (auto& b : records) { check(f.queue->submit(b), "submit retained epoch user"); }
++            for (unsigned i = limit; i > 1; --i) {
++                [f.native() finish:i-1 error:nil];check(records[i-1]->completed(), "out-of-order GPU user completed");
++                check(allocator->resets == 0, "inflight first user prevents reset");
++            }
++            [f.native() finish:0 error:nil];check(records[0]->completed(), "last GPU user completed");
++        } else {
++            while (records.size() > 1) { records.pop_back();check(allocator->resets == 0, "unsubmitted user prevents reset"); }
++            records.clear();
++        }
++        check(!epoch->liveUses && allocator->resets == 1 && epoch->recordings == 0, "last user alone elects one reset");
++        check(epoch->state == MVKMetal4AllocatorState::Appendable && epoch->available, "reset epoch reoffered under same idle bound");
++    }
++    {
++        Fixture f;auto a=f.begin();auto epoch=a->_state->allocatorUse.epoch;auto allocator=(R77Allocator*)epoch->allocator;
++        check(a->end(), "growth baseline ends");auto b=f.begin();
++        allocator->bytes=epoch->resetAllocatedBytes+MVKMetal4ResourcePoolStats::maxAllocatorEpochGrowthBytes-1;
++        check(b->end()&&epoch->state==MVKMetal4AllocatorState::Appendable, "growth below limit remains appendable");
++        auto c=f.begin();++allocator->bytes;
++        check(c->end()&&epoch->state==MVKMetal4AllocatorState::Sealed, "growth at 2MiB seals independent of count");
++        a.reset();b.reset();check(allocator->resets==0, "last growth user retained");c.reset();check(allocator->resets==1, "growth epoch resets only at last release");
++    }
++    {
++        Fixture f;auto a=f.begin();auto epoch=a->_state->allocatorUse.epoch;auto allocator=(R77Allocator*)epoch->allocator;
++        a.reset();check(epoch->state==MVKMetal4AllocatorState::DiscardOnly&&!epoch->available&&!epoch->liveUses&&allocator->resets==0, "cancelled open recording never resets/reoffers incomplete bytes");
++    }
++}
++
+ int main(int argc, char** argv) {
+     @autoreleasepool {
+         try {
++            if (argc == 2 && std::strcmp(argv[1], "allocator-policy") == 0) {
++                allocatorPolicyBoundaries();check(liveEvents == 0, "allocator policy retains no events");
++                std::printf("{\"passed\":true,\"checks\":%u,\"countLimit\":%u,\"gpuExecuted\":false}\n", checks.load(),MVKMetal4ResourcePoolStats::maxAllocatorEpochRecordings);return 0;
++            }
+             if (argc == 2 && std::strcmp(argv[1], "single-child-locks") == 0) {
+                 unsigned cases = singleChildLocks();
+                 check(liveEvents == 0, "single-child locks fixture retains no events");
+--- a/tools/tests/metal4-r49-lifetime-native.mm
++++ b/tools/tests/metal4-r49-lifetime-native.mm
+@@ -1756,7 +1756,7 @@
+     Owned<id<MTLSharedEvent>> signal([device newSharedEvent]);
+     require(output.get() && signal.get(), "allocator epoch output and event");
+     std::shared_ptr<MVKMetal4Submission> previous;
+-    static_assert(MVKMetal4ResourcePoolStats::maxAllocatorEpochRecordings == 32, "native ending policy");
++    static_assert(MVKMetal4ResourcePoolStats::maxAllocatorEpochRecordings >= 2 && MVKMetal4ResourcePoolStats::maxAllocatorEpochRecordings % 2 == 0, "native ending policy permits paired primary/tail records");
+     // One primary and its one existing retirement tail end per execution.
+     constexpr unsigned endingsPerExecution = 2;
+     constexpr unsigned iterations = (MVKMetal4ResourcePoolStats::maxAllocatorEpochRecordings / endingsPerExecution) * 5;
+@@ -1789,7 +1789,7 @@
+         const unsigned nativeEndings = (iteration + 1) * endingsPerExecution;
+         require(stats.allocatorCreated == 1 && stats.allocatorReused == nativeEndings - 1 &&
+                 stats.allocatorResets == nativeEndings / MVKMetal4ResourcePoolStats::maxAllocatorEpochRecordings,
+-                "one shared allocator counts primary and tail native endings and resets once per 32 after all users retire");
++                "one shared allocator counts primary and tail native endings and resets at the configured bound after all users retire");
+         require(stats.allocatorAvailable == 1, "retired small allocator remains a separately charged available epoch");
+         require(stats.idleBytes <= MVKMetal4ResourcePoolStats::maxIdleBytes,
+                 "allocator epochs retain the existing idle memory bound");
+--- /dev/null
++++ b/tools/tests/metal4-queue-barrier-reuse-cpu.mm
+@@ -0,0 +1,70 @@
++// Actual production emission and compute-local barrier block are supplied by
++// the runner. Native receivers are CPU doubles; this creates no GPU device.
++#import <Foundation/Foundation.h>
++#import <Metal/Metal.h>
++#include "MVKMetal4DependencyScopes.h"
++#include <cassert>
++#include <cstdio>
++#include <vector>
++using Scopes=MVKMetal4DependencyScopes<MTLStageVertex,MTLStageFragment,MTLStageDispatch,MTLStageBlit>;
++using Summary=MVKMetal4PreparedDependencySummary<MTLStageVertex,MTLStageFragment,MTLStageDispatch,MTLStageBlit>;
++struct Edge { MTLStages sources,destinations;MTL4VisibilityOptions visibility; };
++@interface QueueBarrierCPU : NSObject { @public std::vector<Edge> queue,local; }
++- (void)barrierAfterQueueStages:(MTLStages)s beforeStages:(MTLStages)d visibilityOptions:(MTL4VisibilityOptions)v;
++- (void)barrierAfterEncoderStages:(MTLStages)s beforeEncoderStages:(MTLStages)d visibilityOptions:(MTL4VisibilityOptions)v;
++@end
++@implementation QueueBarrierCPU
++- (void)barrierAfterQueueStages:(MTLStages)s beforeStages:(MTLStages)d visibilityOptions:(MTL4VisibilityOptions)v {queue.push_back({s,d,v});}
++- (void)barrierAfterEncoderStages:(MTLStages)s beforeEncoderStages:(MTLStages)d visibilityOptions:(MTL4VisibilityOptions)v {local.push_back({s,d,v});}
++@end
++struct Stats {unsigned computeBarrierContinuations=0;};
++struct MVKCommandEncoder {
++ Scopes _metal4Dependencies,_metal4EncoderDependencies,_metal4ComputeQueueDependencies;
++ Summary _metal4PreparedSummary;bool _metal4CollectPreparedDependencies=true;
++ id<MTL4ComputeCommandEncoder> _mtl4ComputeEncoder=nil;
++ Stats stats;Stats* getMetal4EncodingStats(){return &stats;}
++ void encodeMetal4PendingDependencies(id<MTL4CommandEncoder>,MTLStages,MTLStages=0);
++ void computeBarrier(MTLStages sourceStages,MTLStages destinationStages,bool memoryDependency);
++ MVKCommandEncoder(){_metal4Dependencies.satisfy(Scopes::all,Scopes::all);_metal4EncoderDependencies.satisfy(Scopes::all,Scopes::all);_metal4ComputeQueueDependencies.satisfy(Scopes::all,Scopes::all);}
++};
++#include MVK_QUEUE_BARRIER_BODY
++int main(){@autoreleasepool{
++ unsigned checks=0;auto check=[&](bool v){assert(v);++checks;};
++ // Exhaust the stage-pair lattice independently: a required edge remains iff
++ // that pair lacks sufficient execution/memory coverage, only in selected dst.
++ for(unsigned need=0;need<256;++need)for(unsigned covered=0;covered<256;++covered){
++  Scopes p,e;p.satisfy(Scopes::all,Scopes::all);e.satisfy(Scopes::all,Scopes::all);
++  for(unsigned d=0;d<4;++d)for(unsigned s=0;s<4;++s){
++   if(need&(1u<<s))p.add(Scopes::stages[s],Scopes::stages[d],need&(1u<<(s+4)));
++   if(covered&(1u<<s))e.add(Scopes::stages[s],Scopes::stages[d],covered&(1u<<(s+4)));
++  }
++  Scopes old=p;p.satisfyAlreadyEmitted(e,MTLStageDispatch|MTLStageBlit);
++  for(unsigned d=0;d<4;++d)for(unsigned s=0;s<4;++s){auto bit=Scopes::stages[s];
++   bool required=old.sources[d]&bit,visible=old.memory[d]&bit;
++   bool satisfied=d>=2&&(e.sources[d]&bit)&&(!visible||(e.memory[d]&bit));
++   check(bool(p.sources[d]&bit)==(required&&!satisfied));check(bool(p.memory[d]&bit)==(visible&&!satisfied));
++  }
++ }
++ auto* receiver=[QueueBarrierCPU new];MVKCommandEncoder c;c._mtl4ComputeEncoder=(id<MTL4ComputeCommandEncoder>)receiver;
++ c.computeBarrier(MTLStageDispatch,MTLStageDispatch,true);
++ check(receiver->queue.size()==1&&receiver->local.size()==1);
++ c._metal4PreparedSummary={};c.computeBarrier(MTLStageDispatch,MTLStageDispatch,true);
++ check(receiver->queue.size()==1&&receiver->local.size()==2);
++ check(c._metal4PreparedSummary.consumedDestinations==MTLStageDispatch);
++ check(c._metal4EncoderDependencies.memory[2]&MTLStageDispatch);
++ c.computeBarrier(MTLStageBlit,MTLStageDispatch,false);check(receiver->queue.size()==2);
++ c.computeBarrier(MTLStageBlit,MTLStageDispatch,true);check(receiver->queue.size()==3);
++ c.computeBarrier(MTLStageBlit,MTLStageDispatch,false);check(receiver->queue.size()==3&&receiver->local.size()==5);
++ c.encodeMetal4PendingDependencies((id<MTL4CommandEncoder>)receiver,MTLStageDispatch,MTLStageDispatch|MTLStageBlit);
++ check(receiver->queue.size()==3);
++ c._metal4Dependencies.add(MTLStageDispatch,MTLStageFragment,true);
++ c.encodeMetal4PendingDependencies((id<MTL4CommandEncoder>)receiver,MTLStageFragment);
++ c._metal4Dependencies.add(MTLStageDispatch,MTLStageFragment,true);
++ c.encodeMetal4PendingDependencies((id<MTL4CommandEncoder>)receiver,MTLStageFragment);
++ check(receiver->queue.size()==5); // Graphics destination intentionally excluded.
++ c._metal4ComputeQueueDependencies.satisfy(Scopes::all,Scopes::all);
++ c.computeBarrier(MTLStageDispatch,MTLStageDispatch,true);check(receiver->queue.size()==6);
++ auto* render=[QueueBarrierCPU new];c._metal4Dependencies.add(MTLStageDispatch,MTLStageDispatch,true);
++ c.encodeMetal4PendingDependencies((id<MTL4CommandEncoder>)render,MTLStageDispatch);check(render->queue.size()==1);
++ [render release];[receiver release];printf("PASS %u checks; production queue emission and compute-local block; GPU=false\n",checks);
++}}

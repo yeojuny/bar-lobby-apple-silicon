@@ -1,0 +1,107 @@
+--- a/tools/tests/metal4-counter-completion-cpu.mm
++++ b/tools/tests/metal4-counter-completion-cpu.mm
+@@ -87,6 +87,7 @@
+     unsigned begins, ends, resets, sizeQueries;
+     bool recording;
+     uint64_t bytes;
++    std::function<void()> duringReset;
+ }
+ - (void)reset;
+ - (NSUInteger)allocatedSize;
+@@ -96,6 +97,7 @@
+ - (void)reset {
+     check(!recording, "reset cannot overlap an unfinished recording");
+     ++resets;
++    if (duringReset) { duringReset(); }
+ }
+ - (NSUInteger)allocatedSize { ++sizeQueries; return bytes; }
+ @end
+@@ -1098,9 +1100,88 @@
+     }
+ }
+ 
++static void allocatorQuiescentPolicy() {
++    {
++        Fixture f; NSError* error = nil;
++        auto use = createAllocatorUse(f.queue->_state->storage, &error);
++        check(use.epoch && !error, "cold allocator reservation acquired");
++        auto epoch = use.epoch; auto allocator = (R77Allocator*)epoch->allocator;
++        use.release();
++        check(!epoch->liveUses && epoch->available && !allocator->resets,
++              "cold reservation rollback does not reset empty storage");
++        auto b = f.begin(); check(b->_state->allocatorUse.epoch == epoch, "cold storage reused");
++        check(b->end(), "single recording ends below count limit"); b.reset();
++        check(allocator->resets == 1 && epoch->recordings == 0 && epoch->available,
++              "last ended unsubmitted owner resets below the count limit");
++    }
++    {
++        Fixture f; auto a = f.begin(); auto epoch = a->_state->allocatorUse.epoch;
++        auto allocator = (R77Allocator*)epoch->allocator; check(a->end(), "first unsubmitted recording ends");
++        auto b = f.begin(); check(b->_state->allocatorUse.epoch == epoch && b->end(), "second shares ended storage");
++        a.reset(); check(epoch->liveUses == 1 && !allocator->resets, "unsubmitted owner prevents early reset");
++        b.reset(); check(!epoch->liveUses && allocator->resets == 1 && !epoch->recordings,
++                         "last of two unsubmitted owners elects exactly one reset");
++    }
++    {
++        Fixture f; auto a = f.begin(); auto epoch = a->_state->allocatorUse.epoch;
++        auto allocator = (R77Allocator*)epoch->allocator; check(a->end() && f.queue->submit(a), "first GPU work submitted");
++        auto writer = f.begin(); check(writer->_state->allocatorUse.epoch == epoch, "later writer appends to the same epoch");
++        [f.native() finish:0 error:nil];
++        check(a->completed() && epoch->writer && !allocator->resets, "GPU completion cannot reset an open later writer");
++        check(writer->end(), "later writer ends"); writer.reset();
++        check(allocator->resets == 1 && !epoch->liveUses, "later writer release reaches genuine quiescence");
++    }
++    {
++        Fixture f; auto a = f.begin(); auto epoch = a->_state->allocatorUse.epoch;
++        auto allocator = (R77Allocator*)epoch->allocator; check(a->end(), "first pending work ends");
++        auto b = f.begin(); check(b->end() && f.queue->submit(a) && f.queue->submit(b), "two works submitted");
++        [f.native() finish:1 error:nil]; check(b->completed() && !allocator->resets, "older pending GPU work prevents reset");
++        [f.native() finish:0 error:nil]; check(a->completed() && allocator->resets == 1, "last out-of-order GPU completion resets once");
++    }
++    {
++        Fixture f; auto b = f.begin(); auto epoch = b->_state->allocatorUse.epoch;
++        auto allocator = (R77Allocator*)epoch->allocator; auto storage = f.queue->_state->storage;
++        std::shared_ptr<MVKMetal4Submission> nested;
++        allocator->duringReset = [&] {
++            bool unlocked = storage->poolMutex.try_lock();
++            if (unlocked) { storage->poolMutex.unlock(); }
++            check(unlocked, "native reset stays outside the pool mutex");
++            check(epoch->state == MVKMetal4AllocatorState::Resetting && !epoch->available,
++                  "reset election removes storage before native reset");
++            nested = f.begin(); check(nested->_state->allocatorUse.epoch != epoch,
++                                      "concurrent acquisition cannot borrow resetting storage");
++        };
++        check(b->end(), "recording for reset reentry ends"); b.reset(); allocator->duringReset = {};
++        check(allocator->resets == 1 && epoch->available, "reset storage is published once after native reset");
++        check(nested->end(), "independent nested writer ends"); nested.reset();
++    }
++    {
++        Fixture f; auto b = f.begin(); auto epoch = b->_state->allocatorUse.epoch;
++        auto allocator = (R77Allocator*)epoch->allocator;
++        allocator->bytes = MVKMetal4ResourcePoolStats::maxIdleBytes + 1;
++        check(b->end(), "large retained capacity ends"); b.reset();
++        check(allocator->resets == 1 && epoch->state == MVKMetal4AllocatorState::DiscardOnly && !epoch->available,
++              "reset retained capacity cannot bypass the existing idle budget");
++        check(f.queue->resourcePoolStats().idleBytes <= MVKMetal4ResourcePoolStats::maxIdleBytes,
++              "quiescent reset preserves idle memory accounting");
++    }
++    {
++        Fixture f; auto b = f.begin(); auto epoch = b->_state->allocatorUse.epoch;
++        auto allocator = (R77Allocator*)epoch->allocator; check(b->end(), "poisoned test recording ends");
++        f.queue->_state->storage->poisoned.store(true); b.reset();
++        check(!allocator->resets && epoch->state == MVKMetal4AllocatorState::DiscardOnly && !epoch->available,
++              "poisoned storage is discarded instead of reset and reoffered");
++    }
++}
++
+ int main(int argc, char** argv) {
+     @autoreleasepool {
+         try {
++            if (argc == 2 && std::strcmp(argv[1], "quiescent-policy") == 0) {
++                allocatorPolicyBoundaries(); allocatorQuiescentPolicy();
++                check(liveEvents == 0, "quiescent policy retains no events");
++                std::printf("{\"passed\":true,\"checks\":%u,\"cases\":7,\"gpuExecuted\":false}\n", checks.load()); return 0;
++            }
+             if (argc == 2 && std::strcmp(argv[1], "allocator-policy") == 0) {
+                 allocatorPolicyBoundaries();check(liveEvents == 0, "allocator policy retains no events");
+                 std::printf("{\"passed\":true,\"checks\":%u,\"countLimit\":%u,\"gpuExecuted\":false}\n", checks.load(),MVKMetal4ResourcePoolStats::maxAllocatorEpochRecordings);return 0;

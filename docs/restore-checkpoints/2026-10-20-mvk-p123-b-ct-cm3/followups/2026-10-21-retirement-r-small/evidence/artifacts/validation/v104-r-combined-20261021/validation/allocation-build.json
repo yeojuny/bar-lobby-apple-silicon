@@ -1,0 +1,17 @@
+{
+  "arguments": [
+    "/usr/bin/xcrun",
+    "clang++",
+    "-std=c++17",
+    "-O1",
+    "-g",
+    "-fsanitize=address,undefined",
+    "-fno-omit-frame-pointer",
+    "${WORKSPACE}/tools/tests/metal4-allocation-lifetime-cpu.cpp",
+    "-o",
+    "${WORKSPACE}/artifacts/validation/v104-r-combined-20261021/validation/allocation-cpu"
+  ],
+  "exitCode": 0,
+  "seconds": 2.66854474999991,
+  "stdout": ""
+}

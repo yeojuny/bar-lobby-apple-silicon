@@ -1,0 +1,342 @@
+{
+  "actionableFindings": [],
+  "allEightIncludedNoRetriesNoPooling": true,
+  "candidatePromoted": false,
+  "candidateVersions": {
+    "displayed": "1.0.3",
+    "localDesignation": "v1.0.4 candidate"
+  },
+  "cleanup": {
+    "allSelectedRootsIndependentlyObservedAbsent": true,
+    "derivedStandalone": {
+      "allAbsent": true,
+      "executablesRemoved": 18,
+      "leavesRemoved": 72,
+      "logicalBytes": 45519724,
+      "physicalBytesMeasured": false,
+      "rootsRemoved": 36,
+      "sourcesLogsRawAppsAndMarkdownPreserved": true
+    },
+    "gameCaches": {
+      "leaves": 2666,
+      "logicalBytes": 76970979,
+      "physicalBytesMeasured": false,
+      "roots": 48
+    },
+    "logsSourcesRawAppsMarkdownRetained": true,
+    "noPhysicalReclaimClaim": true,
+    "originalPreparedIncludeFailurePreserved": true,
+    "selectionCountsAndLogicalBytesIndependentlyRecomputed": true,
+    "zeroSelectionCompilerWrapperPreflightStoppedWithoutDeletionRecorded": true
+  },
+  "createdUTC": "2026-10-21T19:11:26.096447+00:00",
+  "groups": {
+    "metal3": {
+      "Combined": {
+        "FPS": [
+          48.023193359375,
+          49.295299530029
+        ],
+        "changeFromRPercent": 0.5536797250871084,
+        "meanFPS": 48.659246444702,
+        "meanP95Ms": 33.2384996414185
+      },
+      "R": {
+        "FPS": [
+          49.35538482666,
+          47.427242279053
+        ],
+        "meanFPS": 48.3913135528565,
+        "meanP95Ms": 34.310501098633
+      }
+    },
+    "metal4": {
+      "Combined": {
+        "FPS": [
+          40.656257629395,
+          43.321155548096
+        ],
+        "changeFromRPercent": 0.08041739030659745,
+        "meanFPS": 41.9887065887455,
+        "meanP95Ms": 41.4169998168945
+      },
+      "R": {
+        "FPS": [
+          41.960826873779,
+          41.949108123779
+        ],
+        "meanFPS": 41.954967498779,
+        "meanP95Ms": 40.1319999694825
+      }
+    }
+  },
+  "includedSessions": [
+    {
+      "FPS": 49.35538482666,
+      "actualLoadedMoltenVKSHA256": "8f8010bdcb59397564c21c80ad2eb87fb4690b45e6def36478db7e11fc781462",
+      "backend": "metal3",
+      "drawIntervals": 1479,
+      "nativeMetal4": {
+        "activeQueues": 0,
+        "legacyParentIdentityVerified": true,
+        "proved": false,
+        "requested": false
+      },
+      "ordinal": 1,
+      "p95Ms": 32.930000305176,
+      "powerObservations": 9,
+      "receipt": "${WORKSPACE}/artifacts/validation/v104-r-combined-20261021/performance/1-R-metal3/sessions/lobby-no-native-hook-1792608749270/execution-receipt.json",
+      "receiptSHA256": "5b092b90e25712b6ed080bd281b742d57e583faf03a9fec6f233fcb6ddee8a35",
+      "role": "R",
+      "runtimeDiagnosticsOff": true,
+      "simulationFrames": 900
+    },
+    {
+      "FPS": 48.023193359375,
+      "actualLoadedMoltenVKSHA256": "129e85bb9a7d1cf53a991bbeb5afbbd578b563182de86a1b60ddf57f6b195077",
+      "backend": "metal3",
+      "drawIntervals": 1439,
+      "nativeMetal4": {
+        "activeQueues": 0,
+        "legacyParentIdentityVerified": false,
+        "proved": false,
+        "requested": false
+      },
+      "ordinal": 2,
+      "p95Ms": 34.625,
+      "powerObservations": 10,
+      "receipt": "${WORKSPACE}/artifacts/validation/v104-r-combined-20261021/performance/2-Combined-metal3/sessions/lobby-no-native-hook-1792608870613/execution-receipt.json",
+      "receiptSHA256": "a22b2ead17c4075d9c5e398caf1e85744ab3090172bc652817da4b1e3600c232",
+      "role": "Combined",
+      "runtimeDiagnosticsOff": true,
+      "simulationFrames": 900
+    },
+    {
+      "FPS": 49.295299530029,
+      "actualLoadedMoltenVKSHA256": "129e85bb9a7d1cf53a991bbeb5afbbd578b563182de86a1b60ddf57f6b195077",
+      "backend": "metal3",
+      "drawIntervals": 1477,
+      "nativeMetal4": {
+        "activeQueues": 0,
+        "legacyParentIdentityVerified": false,
+        "proved": false,
+        "requested": false
+      },
+      "ordinal": 3,
+      "p95Ms": 31.851999282837,
+      "powerObservations": 9,
+      "receipt": "${WORKSPACE}/artifacts/validation/v104-r-combined-20261021/performance/3-Combined-metal3/sessions/lobby-no-native-hook-1792608990818/execution-receipt.json",
+      "receiptSHA256": "533832fc4745a8bff5ebf2184caa5397dde24502fcd42d9bdc6b2fbbc70d504e",
+      "role": "Combined",
+      "runtimeDiagnosticsOff": true,
+      "simulationFrames": 900
+    },
+    {
+      "FPS": 47.427242279053,
+      "actualLoadedMoltenVKSHA256": "8f8010bdcb59397564c21c80ad2eb87fb4690b45e6def36478db7e11fc781462",
+      "backend": "metal3",
+      "drawIntervals": 1421,
+      "nativeMetal4": {
+        "activeQueues": 0,
+        "legacyParentIdentityVerified": true,
+        "proved": false,
+        "requested": false
+      },
+      "ordinal": 4,
+      "p95Ms": 35.69100189209,
+      "powerObservations": 9,
+      "receipt": "${WORKSPACE}/artifacts/validation/v104-r-combined-20261021/performance/4-R-metal3/sessions/lobby-no-native-hook-1792609109300/execution-receipt.json",
+      "receiptSHA256": "79fab8ec8d388756ec56ea6f26bf0abc12f97e3dae870fc12eeed562c434ad7e",
+      "role": "R",
+      "runtimeDiagnosticsOff": true,
+      "simulationFrames": 900
+    },
+    {
+      "FPS": 40.656257629395,
+      "actualLoadedMoltenVKSHA256": "129e85bb9a7d1cf53a991bbeb5afbbd578b563182de86a1b60ddf57f6b195077",
+      "backend": "metal4",
+      "drawIntervals": 1218,
+      "nativeMetal4": {
+        "activeQueues": 1,
+        "completedSubmissions": [
+          18222
+        ],
+        "proved": true,
+        "requested": true
+      },
+      "ordinal": 5,
+      "p95Ms": 43.561000823975,
+      "powerObservations": 9,
+      "receipt": "${WORKSPACE}/artifacts/validation/v104-r-combined-20261021/performance/5-Combined-metal4/sessions/lobby-no-native-hook-1792609227835/execution-receipt.json",
+      "receiptSHA256": "e9ee64b6c4c276052b49af8229168be649f91e6d9a4f877b410e705cc71d03f1",
+      "role": "Combined",
+      "runtimeDiagnosticsOff": true,
+      "simulationFrames": 900
+    },
+    {
+      "FPS": 41.960826873779,
+      "actualLoadedMoltenVKSHA256": "8f8010bdcb59397564c21c80ad2eb87fb4690b45e6def36478db7e11fc781462",
+      "backend": "metal4",
+      "drawIntervals": 1257,
+      "nativeMetal4": {
+        "activeQueues": 1,
+        "completedSubmissions": [
+          18036
+        ],
+        "proved": true,
+        "requested": true
+      },
+      "ordinal": 6,
+      "p95Ms": 40.832000732422,
+      "powerObservations": 9,
+      "receipt": "${WORKSPACE}/artifacts/validation/v104-r-combined-20261021/performance/6-R-metal4/sessions/lobby-no-native-hook-1792609346678/execution-receipt.json",
+      "receiptSHA256": "c5f38ab0ae4bbe131c12dc63ce87b7eb233a340de01f9b421acf96ac7eeb7388",
+      "role": "R",
+      "runtimeDiagnosticsOff": true,
+      "simulationFrames": 900
+    },
+    {
+      "FPS": 41.949108123779,
+      "actualLoadedMoltenVKSHA256": "8f8010bdcb59397564c21c80ad2eb87fb4690b45e6def36478db7e11fc781462",
+      "backend": "metal4",
+      "drawIntervals": 1257,
+      "nativeMetal4": {
+        "activeQueues": 1,
+        "completedSubmissions": [
+          18656
+        ],
+        "proved": true,
+        "requested": true
+      },
+      "ordinal": 7,
+      "p95Ms": 39.431999206543,
+      "powerObservations": 9,
+      "receipt": "${WORKSPACE}/artifacts/validation/v104-r-combined-20261021/performance/7-R-metal4/sessions/lobby-no-native-hook-1792609463904/execution-receipt.json",
+      "receiptSHA256": "a4bf9f7738d3dbbe74cdc0f8fb73995c27ca334e908c0c443344439101956c7b",
+      "role": "R",
+      "runtimeDiagnosticsOff": true,
+      "simulationFrames": 900
+    },
+    {
+      "FPS": 43.321155548096,
+      "actualLoadedMoltenVKSHA256": "129e85bb9a7d1cf53a991bbeb5afbbd578b563182de86a1b60ddf57f6b195077",
+      "backend": "metal4",
+      "drawIntervals": 1298,
+      "nativeMetal4": {
+        "activeQueues": 1,
+        "completedSubmissions": [
+          18826
+        ],
+        "proved": true,
+        "requested": true
+      },
+      "ordinal": 8,
+      "p95Ms": 39.272998809814,
+      "powerObservations": 9,
+      "receipt": "${WORKSPACE}/artifacts/validation/v104-r-combined-20261021/performance/8-Combined-metal4/sessions/lobby-no-native-hook-1792609582913/execution-receipt.json",
+      "receiptSHA256": "751411f6c3cf26212a92dd2865b17a94f0ede0bfb3c0a79df71938c1165e7c9f",
+      "role": "Combined",
+      "runtimeDiagnosticsOff": true,
+      "simulationFrames": 900
+    }
+  ],
+  "inputSHA256": {
+    "analyze.py": "ff04871174696b6baa5231447d73edebadde190b8d3e9b7a164419297b30d2b3",
+    "comparison-summary.json": "24e55491133c9afac02eea61d7e9d93ee51f984627a3021691811fa6d7234cd9",
+    "completion.json": "8ab9a05c0aacd61b6f9bc37ae6a3e08b861aff47a9257e659393952994b72d3a",
+    "derived-cleanup-completion.json": "97c92ba6c80de49f4dee3167f02173355f70636ffa37ab1b2ee77c43f2663060",
+    "derived-cleanup-selection.json": "4ba83f330a14caafa7aa40e3f4f938a80563b4b5c23f3838457da4d8e1cd5f8d",
+    "independent-readiness-review.json": "f8ac76bd37eef79a3175f3173a1b02955346577974afed0dcf679fcf952629f9",
+    "independent-source-review.json": "ce4ca4181676e4220fa7dd59114db0372b4a248bb85d55a79f63adff22febae7",
+    "performance-before.json": "16f9cc6ed27042706db70226d4ba80efd7ee9fe46bff11b4e4e498835da9da9a",
+    "performance/outcome.json": "957e6266ffe0532b6035cd85c97d1b355778dd08ae2e01fcb4343b149a3231ae",
+    "performance/preparation.json": "3d23f8ef69205b607bb73f748fb2b7507dfa97d8b6a4241e7999faa03b2dc712",
+    "performance/screen-guard.json": "fa1e6ec6d6b4d0deb57ce09b87316c9017664722d2ec1fcb01a593927434acdb"
+  },
+  "limits": [
+    "Two measurements per candidate/backend; background load, OS services and clocks were not fully controlled.",
+    "M3 +0.553679725% and M4 +0.080417390% are observed arithmetic changes, not demonstrated repeatable causal improvements.",
+    "M4 Combined runs span 40.6563 to 43.3212 FPS, crossing both R runs near41.955; mean per-run p95 increased3.201933%.",
+    "Mean FPS is an unweighted arithmetic mean of the two reported run FPS values; mean p95 is the arithmetic mean of per-run p95 values, not a pooled percentile.",
+    "Draw interval counts differ from900 simulation frames; no identical render sample count is claimed.",
+    "Hidden fullscreen defers native display/Space presentation; this is not visible fullscreen presentation acceptance.",
+    "No allocator time/frequency/peak-memory gain, individual D/E1/E2/E3 attribution, synergy, race-freedom, MP or other-Mac acceptance is established.",
+    "No earlier benchmark data is pooled; absolute FPS should not be causally compared with older OS/environment results.",
+    "The preserved timestamp mismatch/sampled-exit issues are not claimed fixed."
+  ],
+  "meanPerRunP95ChangePercent": {
+    "metal3": -3.1244121271583825,
+    "metal4": 3.2019332412766666
+  },
+  "rawResultLogReferencesVerified": {
+    "${WORKSPACE}/artifacts/validation/v104-r-combined-20261021/performance/1-R-metal3/sessions/lobby-no-native-hook-1792608749270/state/data/LuaUI/Config/v104-performance-result.json": "e13f1b847a3442b97ffc8647201d28c2c37152d05150cb0f3eac957ca77f1afb",
+    "${WORKSPACE}/artifacts/validation/v104-r-combined-20261021/performance/1-R-metal3/sessions/lobby-no-native-hook-1792608749270/state/data/infolog.txt": "ba4d5cab664889fffd7bce0062c1bcbe8f4ecf98a493243a2495a51678f389a8",
+    "${WORKSPACE}/artifacts/validation/v104-r-combined-20261021/performance/1-R-metal3/sessions/lobby-no-native-hook-1792608749270/state/data/stack-game.stderr.log": "ca590f6a69ef4445b4c2bcc2ed6692c7bf09579554c729c79430b49007c58a51",
+    "${WORKSPACE}/artifacts/validation/v104-r-combined-20261021/performance/2-Combined-metal3/sessions/lobby-no-native-hook-1792608870613/state/data/LuaUI/Config/v104-performance-result.json": "264f990ceacc23b73a1d44f1a87fad648f0860ea55f33c949a31189b9ed6c3a2",
+    "${WORKSPACE}/artifacts/validation/v104-r-combined-20261021/performance/2-Combined-metal3/sessions/lobby-no-native-hook-1792608870613/state/data/infolog.txt": "c9c0fb044eabf9f1485dd3273843a5c4ae118f8ef00749d9b756a2f9d9717976",
+    "${WORKSPACE}/artifacts/validation/v104-r-combined-20261021/performance/2-Combined-metal3/sessions/lobby-no-native-hook-1792608870613/state/data/stack-game.stderr.log": "1650eb305ba7740f8d0b3a843351883895eb6fa84fa76c5e04599149107e0984",
+    "${WORKSPACE}/artifacts/validation/v104-r-combined-20261021/performance/3-Combined-metal3/sessions/lobby-no-native-hook-1792608990818/state/data/LuaUI/Config/v104-performance-result.json": "ba2c6625a19f77eed7671729e7f18429924cfdd5af22f70a43cf06c232c41508",
+    "${WORKSPACE}/artifacts/validation/v104-r-combined-20261021/performance/3-Combined-metal3/sessions/lobby-no-native-hook-1792608990818/state/data/infolog.txt": "b4dd4bd5115645c9da0ef105bc1630e7de8c4b5c3e625f95a95548ddee20fdab",
+    "${WORKSPACE}/artifacts/validation/v104-r-combined-20261021/performance/3-Combined-metal3/sessions/lobby-no-native-hook-1792608990818/state/data/stack-game.stderr.log": "378cfd96a5b88a461adf9e0d3244a8b31334cf922764aa3384be0a16f51abf40",
+    "${WORKSPACE}/artifacts/validation/v104-r-combined-20261021/performance/4-R-metal3/sessions/lobby-no-native-hook-1792609109300/state/data/LuaUI/Config/v104-performance-result.json": "73d141329b40fc434e10443e267c128defcdf276ec741edbd15ded04d704d985",
+    "${WORKSPACE}/artifacts/validation/v104-r-combined-20261021/performance/4-R-metal3/sessions/lobby-no-native-hook-1792609109300/state/data/infolog.txt": "22359a61ded6145d3c609a4ecf8d8cd46cd4d71dc15ad282b8770e257d2d8cbf",
+    "${WORKSPACE}/artifacts/validation/v104-r-combined-20261021/performance/4-R-metal3/sessions/lobby-no-native-hook-1792609109300/state/data/stack-game.stderr.log": "a425327bede71183b41e97a0926ab0833169263f81e2b63b03491bd9236ed698",
+    "${WORKSPACE}/artifacts/validation/v104-r-combined-20261021/performance/5-Combined-metal4/sessions/lobby-no-native-hook-1792609227835/state/data/LuaUI/Config/v104-performance-result.json": "d5a6b132d85fba1a05aadde2c316dc2579216ab657691e4e57675f94748d41ac",
+    "${WORKSPACE}/artifacts/validation/v104-r-combined-20261021/performance/5-Combined-metal4/sessions/lobby-no-native-hook-1792609227835/state/data/infolog.txt": "7f446baabfc768231fe5c9d0df68387e0bbaac8d3086dac90ca601596ebb0c0d",
+    "${WORKSPACE}/artifacts/validation/v104-r-combined-20261021/performance/5-Combined-metal4/sessions/lobby-no-native-hook-1792609227835/state/data/stack-game.stderr.log": "dc8b855d395271e6c7a741549257df3d7431b17835be7acfe218bf95b5b63b14",
+    "${WORKSPACE}/artifacts/validation/v104-r-combined-20261021/performance/6-R-metal4/sessions/lobby-no-native-hook-1792609346678/state/data/LuaUI/Config/v104-performance-result.json": "1347f91dca15e44d8e0314a5eaaaa1f7cddcff7dedb07e7626f462f362248286",
+    "${WORKSPACE}/artifacts/validation/v104-r-combined-20261021/performance/6-R-metal4/sessions/lobby-no-native-hook-1792609346678/state/data/infolog.txt": "cc247929d46e8359864583d03ce0a15e7d74a5cf1db14f164510165185208319",
+    "${WORKSPACE}/artifacts/validation/v104-r-combined-20261021/performance/6-R-metal4/sessions/lobby-no-native-hook-1792609346678/state/data/stack-game.stderr.log": "ec67396a2ebdcc8476dda8752d813375723cc537f2b1dae17a0bae8d86486587",
+    "${WORKSPACE}/artifacts/validation/v104-r-combined-20261021/performance/7-R-metal4/sessions/lobby-no-native-hook-1792609463904/state/data/LuaUI/Config/v104-performance-result.json": "087e6fc227de01a9f040727b3dede738f5efec8bc28bd18cc3f13e215a96809a",
+    "${WORKSPACE}/artifacts/validation/v104-r-combined-20261021/performance/7-R-metal4/sessions/lobby-no-native-hook-1792609463904/state/data/infolog.txt": "d46c28cc9c68c3ce5c5b66573a162c94b64255e59ca25e1f37e2f94853a6949a",
+    "${WORKSPACE}/artifacts/validation/v104-r-combined-20261021/performance/7-R-metal4/sessions/lobby-no-native-hook-1792609463904/state/data/stack-game.stderr.log": "3e20b4ccb9fd462ea2baf1bce0527452c7f0f22be6a68b156ea75ae5264a71ef",
+    "${WORKSPACE}/artifacts/validation/v104-r-combined-20261021/performance/8-Combined-metal4/sessions/lobby-no-native-hook-1792609582913/state/data/LuaUI/Config/v104-performance-result.json": "3d647edbfec86ab8f5b8ab69f17a086e6a5b9afa4ad9c2a06ccd999ebccb7e26",
+    "${WORKSPACE}/artifacts/validation/v104-r-combined-20261021/performance/8-Combined-metal4/sessions/lobby-no-native-hook-1792609582913/state/data/infolog.txt": "aa00332016d0636c3c7116c65def9ef81f94b427e9916fa5f6105ee88b167726",
+    "${WORKSPACE}/artifacts/validation/v104-r-combined-20261021/performance/8-Combined-metal4/sessions/lobby-no-native-hook-1792609582913/state/data/stack-game.stderr.log": "ac393c573281aef907f83dc46157b9ea13825be33ba2b239b7cfa27d3d15be64"
+  },
+  "readOnlyReview": true,
+  "reviewedReportSHA256": "e007b0727b4a375f09a6a341fe115f059e7f274b6de13f7ea5bc1f5ad461f72e",
+  "reviewer": "/root/independent_review",
+  "reviewerRanBuildsTestsGPUAppsOrBenchmarks": false,
+  "selectedCandidate": "R",
+  "sourceBuildState": "Combined frozen; not rolled back to selected R",
+  "status": "passed-evidence-integrity-and-arithmetic-review",
+  "verdict": "No clear additional FPS benefit established; retaining selected R and preserving Combined is supported.",
+  "verified": {
+    "OS": "macOS 27.2 build 26B118",
+    "all900SimulationFrames240To1140": true,
+    "allBenchmarkNativeLogDriverLogHashes": true,
+    "allColdCachesInitiallyEmpty": true,
+    "allReceiptPlanHostHashes": true,
+    "allocator32FromReadiness": true,
+    "backendMetal3FourRuntimeZeroSelectionAndZeroNativeQueue": true,
+    "backendMetal4FourActualNativeQueueProofs": true,
+    "benchmarkJSONEqualsReceiptPayload": true,
+    "candidatePointerUnchangedFromBeforeR": true,
+    "diagnosticsCompileOff": true,
+    "diagnosticsRuntimeOff": true,
+    "eightResultObjectsEqualOutcome": true,
+    "finalInventorySourceBuildLauncherPreservationViaRootAnalyzerAndReadiness": true,
+    "hiddenSDLFullscreenAllEight": true,
+    "loadedLibraryPathSHAsMatchPerArmPlanAndFrozenPackage": true,
+    "logicalWindow": {
+      "height": 982,
+      "width": 1512
+    },
+    "officialNativeBenchmark400SpawnedUnits900Frames": true,
+    "powerACLowPowerAllObservations": true,
+    "powerObservationCount": 73,
+    "protectedInputsAndNoOwnedProcessesOnExit": true,
+    "safeViewport": {
+      "height": 950,
+      "width": 1512
+    },
+    "sameActualQualityCameraResolutionSeedWorkloadGameMapAndVersion": true,
+    "sameControllerSceneContentSettingsPins": true,
+    "samplerTimelineCaptureOff": true,
+    "screenRestoredAndAwakeReleased": true,
+    "thermalStates": [
+      0
+    ]
+  }
+}

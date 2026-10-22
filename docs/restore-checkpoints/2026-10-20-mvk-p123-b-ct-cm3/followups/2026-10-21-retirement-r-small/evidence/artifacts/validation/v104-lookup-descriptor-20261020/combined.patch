@@ -1,0 +1,230 @@
+--- a/GPUObjects/MVKMetal4PreparedResource.h
++++ b/GPUObjects/MVKMetal4PreparedResource.h
+@@ -28,8 +28,13 @@
+     size_t cachedNodeCount() const { return _emptyNodes.size(); }
+     std::pair<iterator, bool> try_emplace(const void* key) {
+         if (_emptyNodes.empty()) { return _values.try_emplace(key); }
+-        auto found = _values.find(key);
++        return try_emplace_after_lookup(key, _values.find(key));
++    }
++    // Consume a fresh lookup of this map before any mutation or unlock. The
++    // caller must use the returned iterator after insertion can rehash the map.
++    std::pair<iterator, bool> try_emplace_after_lookup(const void* key, iterator found) {
+         if (found != _values.end()) { return {found, false}; }
++        if (_emptyNodes.empty()) { return _values.try_emplace(key); }
+         auto node = std::move(_emptyNodes.back());
+         _emptyNodes.pop_back();
+         node.key() = key;
+--- a/GPUObjects/MVKMetal4Submission.h
++++ b/GPUObjects/MVKMetal4Submission.h
+@@ -128,6 +128,18 @@
+     uint64_t textureProofReady = 0, textureProofRejected = 0;
+     uint64_t directTextureBindings = 0;
+     uint64_t indirectGroupChecks = 0, indirectGroupHits = 0, indirectGroupPreparations = 0;
++#if MVK_ENABLE_CUSTOM_DIAGNOSTICS
++    // Indirect preparation path counts; resource slots count actual CPU reads.
++    uint64_t groupRecordingPartial = 0;
++    uint64_t groupSnapshotFull = 0;
++    uint64_t groupSnapshotPartial = 0;
++    uint64_t bindingVisits = 0;
++    uint64_t bindingBufferHits = 0;
++    uint64_t bindingSnapshotHits = 0;
++    uint64_t bindingSlowSuccess = 0;
++    uint64_t bindingResidualVisits = 0;
++    uint64_t bindingSlowResourceSlots = 0;
++#endif
+     // Mutually exclusive pipeline proof categories, in logical draw units.
+     uint64_t invariantNoFlatDraws = 0, invariantAdmittedDraws = 0;
+     uint64_t invariantExternalWritesDraws = 0, invariantBuiltinsDraws = 0;
+--- a/GPUObjects/MVKMetal4Submission.mm
++++ b/GPUObjects/MVKMetal4Submission.mm
+@@ -134,6 +134,15 @@
+     {"indirectGroupChecks", &MVKMetal4EncodingStats::indirectGroupChecks},
+     {"indirectGroupHits", &MVKMetal4EncodingStats::indirectGroupHits},
+     {"indirectGroupPreparations", &MVKMetal4EncodingStats::indirectGroupPreparations},
++    {"groupRecordingPartial", &MVKMetal4EncodingStats::groupRecordingPartial},
++    {"groupSnapshotFull", &MVKMetal4EncodingStats::groupSnapshotFull},
++    {"groupSnapshotPartial", &MVKMetal4EncodingStats::groupSnapshotPartial},
++    {"bindingVisits", &MVKMetal4EncodingStats::bindingVisits},
++    {"bindingBufferHits", &MVKMetal4EncodingStats::bindingBufferHits},
++    {"bindingSnapshotHits", &MVKMetal4EncodingStats::bindingSnapshotHits},
++    {"bindingSlowSuccess", &MVKMetal4EncodingStats::bindingSlowSuccess},
++    {"bindingResidualVisits", &MVKMetal4EncodingStats::bindingResidualVisits},
++    {"bindingSlowResourceSlots", &MVKMetal4EncodingStats::bindingSlowResourceSlots},
+     {"invariantNoFlatDraws", &MVKMetal4EncodingStats::invariantNoFlatDraws},
+     {"invariantAdmittedDraws", &MVKMetal4EncodingStats::invariantAdmittedDraws},
+     {"invariantExternalWritesDraws", &MVKMetal4EncodingStats::invariantExternalWritesDraws},
+@@ -1193,7 +1202,9 @@
+     // Caller holds mutex while recording. Retention and residency are distinct:
+     // an object retained for another purpose must still be registered resident.
+     ObjectIdentity& retainUnique(id object) {
+-        auto result = objects.try_emplace((const void*)object);
++        return retainUnique(object, objects.try_emplace((const void*)object));
++    }
++    ObjectIdentity& retainUnique(id object, std::pair<MVKMetal4ObjectIdentityMap::iterator, bool> result) {
+         if (!result.first->second.gpuRetained) {
+             [retained addObject:object];
+             result.first->second.gpuRetained = true;
+@@ -1219,7 +1230,10 @@
+     }
+     ObjectIdentity& addResident(id<MTLResource> resource, bool stableBufferCandidate = true,
+                                 MVKMetal4ResourceKind kind = MVKMetal4ResourceKind::Unknown) {
+-        auto& identity = retainUnique(resource);
++        return addResident(resource, retainUnique(resource), stableBufferCandidate, kind);
++    }
++    ObjectIdentity& addResident(id<MTLResource> resource, ObjectIdentity& identity,
++                                bool stableBufferCandidate, MVKMetal4ResourceKind kind) {
+         if (!identity.resident) {
+             auto lease = storage->deviceResidency ? storage->deviceResidency->leaseWithKind(resource, kind) : std::shared_ptr<void>{};
+             if (lease) {
+@@ -2199,7 +2213,11 @@
+         }
+         bool isTexture = kind == MVKMetal4ResourceKind::Texture ||
+             (kind == MVKMetal4ResourceKind::Unknown && [resource conformsToProtocol:@protocol(MTLTexture)]);
+-        identity = &_state->addResident(resource, !isTexture,
++        // Validation precedes insertion. No map mutation or unlock separates
++        // the outer lookup from its consumption; drawable retention is later.
++        auto& retainedIdentity = _state->retainUnique(resource,
++            _state->objects.try_emplace_after_lookup((const void*)resource, found));
++        identity = &_state->addResident(resource, retainedIdentity, !isTexture,
+             isTexture ? MVKMetal4ResourceKind::Texture : MVKMetal4ResourceKind::NonTexture);
+         identity->texture = isTexture;
+     }
+@@ -2564,6 +2582,15 @@
+     add(total.indirectGroupChecks, stats.indirectGroupChecks);
+     add(total.indirectGroupHits, stats.indirectGroupHits);
+     add(total.indirectGroupPreparations, stats.indirectGroupPreparations);
++    add(total.groupRecordingPartial, stats.groupRecordingPartial);
++    add(total.groupSnapshotFull, stats.groupSnapshotFull);
++    add(total.groupSnapshotPartial, stats.groupSnapshotPartial);
++    add(total.bindingVisits, stats.bindingVisits);
++    add(total.bindingBufferHits, stats.bindingBufferHits);
++    add(total.bindingSnapshotHits, stats.bindingSnapshotHits);
++    add(total.bindingSlowSuccess, stats.bindingSlowSuccess);
++    add(total.bindingResidualVisits, stats.bindingResidualVisits);
++    add(total.bindingSlowResourceSlots, stats.bindingSlowResourceSlots);
+     add(total.invariantNoFlatDraws, stats.invariantNoFlatDraws);
+     add(total.invariantAdmittedDraws, stats.invariantAdmittedDraws);
+     add(total.invariantExternalWritesDraws, stats.invariantExternalWritesDraws);
+--- a/Commands/MVKCommandEncoderState.mm
++++ b/Commands/MVKCommandEncoderState.mm
+@@ -181,6 +181,9 @@
+ 			++stats->indirectGroupChecks;
+ 			if (groupHit) { ++stats->indirectGroupHits; }
+ 			else { ++stats->indirectGroupPreparations; }
++#if MVK_ENABLE_CUSTOM_DIAGNOSTICS
++			if (retained) { ++stats->groupRecordingPartial; }
++#endif
+ 		}
+ 		using Snapshots = MVKMetal4PreparedBindingSnapshots;
+ 		auto* groupSnapshot = resources.bindScript.metal4GroupSnapshot.get();
+@@ -194,6 +197,12 @@
+ 				return replayMetal4Resource(sink, resource);
+ 			}, captureGroup, &retained);
+ 			if (result == Snapshots::Result::Failed) { return false; }
++#if MVK_ENABLE_CUSTOM_DIAGNOSTICS
++			if (stats && before.setMask && result == Snapshots::Result::Hit) {
++				if (retained->residual.empty()) { ++stats->groupSnapshotFull; }
++				else { ++stats->groupSnapshotPartial; }
++			}
++#endif
+ 			if (result == Snapshots::Result::Hit && retained->residual.empty()) {
+ 				groupPreparation.remember(before, groupStamp(), std::move(retained));
+ 				groupHit = true;
+@@ -211,6 +220,9 @@
+ 			// Mutable/unproved resources keep their original live guards. Unchanged,
+ 			// recording-retained bindings can reuse their exact allocation/view proofs.
+ 			auto prepareBinding = [&](size_t ordinal) {
++#if MVK_ENABLE_CUSTOM_DIAGNOSTICS
++				if (stats) { ++stats->bindingVisits; }
++#endif
+ 				const auto& used = resourceBindings[ordinal];
+ 				const size_t groupStart = groupResources.size();
+ 				bool captureBinding = captureGroup;
+@@ -243,6 +255,9 @@
+ 					if (cacheEligible && preparation.matches(set->metal4Preparation, used.bindingIdx, generation,
+ 						[&] { return liveResources.buffers.generation(); })) {
+ 						appendGroupBinding(set->metal4Preparation, used.bindingIdx, bindingRevision);
++#if MVK_ENABLE_CUSTOM_DIAGNOSTICS
++						if (stats) { ++stats->bindingBufferHits; }
++#endif
+ 						return true;
+ 					}
+ 					bool allBuffersLive = cacheEligible;
+@@ -294,6 +309,9 @@
+ 							});
+ 						if (result == Snapshots::Result::Failed) { return false; }
+ 						if (result == Snapshots::Result::Hit) {
++#if MVK_ENABLE_CUSTOM_DIAGNOSTICS
++							if (stats) { ++stats->bindingSnapshotHits; }
++#endif
+ 							if (cacheEligible && snapshotGeneration == liveResources.buffers.generation()) {
+ 								if (!allBuffersProven || bufferProofs.size() != count) { bufferProofs.clear(); }
+ 								preparation.remember(set->metal4Preparation, used.bindingIdx, snapshotGeneration, std::move(bufferProofs));
+@@ -324,9 +342,20 @@
+ 						if (!sink.object(samplers[binding.immSamplerIndex + i]->getMTLSamplerState())) { return false; }
+ 					}
+ 				}
+-				if (binding.cpuLayout == MVKDescriptorCPULayout::InlineData || !count) { return true; }
++				if (binding.cpuLayout == MVKDescriptorCPULayout::InlineData || !count) {
++#if MVK_ENABLE_CUSTOM_DIAGNOSTICS
++					if (stats) { ++stats->bindingSlowSuccess; }
++#endif
++					return true;
++				}
+ 				size_t stride = descriptorCPUSize(binding.cpuLayout);
+-				if (!stride) { captureBinding = false; return true; }
++				if (!stride) {
++					captureBinding = false;
++#if MVK_ENABLE_CUSTOM_DIAGNOSTICS
++					if (stats) { ++stats->bindingSlowSuccess; }
++#endif
++					return true;
++				}
+ 				uint64_t span = uint64_t(stride) * count;
+ 				if (binding.cpuOffset > set->cpuBufferSize || span > set->cpuBufferSize - binding.cpuOffset || !set->cpuBuffer) {
+ 					return metal4Failure(sink.encoder, "Native indirect descriptor range exceeds CPU payload.");
+@@ -337,6 +366,9 @@
+ 						id<MTLTexture> value = nil;
+ 						if ((t + 1) * sizeof(id) > stride) { return metal4Failure(sink.encoder, "Native indirect texture layout is invalid."); }
+ 						memcpy(&value, data + t * sizeof(id), sizeof(value));
++#if MVK_ENABLE_CUSTOM_DIAGNOSTICS
++						if (stats) { ++stats->bindingSlowResourceSlots; }
++#endif
+ 						auto live = liveResources.textures.isLive(value);
+ 						if (live && !sink.resource(value)) { return false; }
+ 						if (snapshotEligible || allTexturesProven) {
+@@ -352,6 +384,9 @@
+ 						if ((counts.texture + 1) * sizeof(id) > stride) { return metal4Failure(sink.encoder, "Native indirect descriptor layout is invalid."); }
+ 						id value = nil;
+ 						memcpy(&value, data + counts.texture * sizeof(id), sizeof(value));
++#if MVK_ENABLE_CUSTOM_DIAGNOSTICS
++						if (stats) { ++stats->bindingSlowResourceSlots; }
++#endif
+ 						if (counts.buffer) {
+ 							auto live = liveResources.buffers.isLive(value);
+ 							if (live && !sink.bufferResource(value)) { return false; }
+@@ -402,6 +437,9 @@
+ 					if (stats) { ++stats->textureProofRejected; }
+ 		            texturePreparation.reject(set->metal4Preparation.incarnation, bindingRevision, used.bindingIdx);
+ 				}
++#if MVK_ENABLE_CUSTOM_DIAGNOSTICS
++				if (stats) { ++stats->bindingSlowSuccess; }
++#endif
+ 				return true;
+ 				};
+ 				if (!prepareCurrentPayload()) { return false; }
+@@ -419,7 +457,12 @@
+ 			if (retained) {
+ 				// A partial plan skips only its proven bindings; residual payloads are
+ 				// read in the original immutable script order, with no per-draw copy.
+-				for (uint32_t ordinal : retained->residual) { if (!prepareBinding(ordinal)) { return false; } }
++				for (uint32_t ordinal : retained->residual) {
++#if MVK_ENABLE_CUSTOM_DIAGNOSTICS
++					if (stats) { ++stats->bindingResidualVisits; }
++#endif
++					if (!prepareBinding(ordinal)) { return false; }
++				}
+ 			} else {
+ 				for (size_t ordinal = 0; ordinal < resourceBindings.size(); ++ordinal) {
+ 					if (!prepareBinding(ordinal)) { return false; }

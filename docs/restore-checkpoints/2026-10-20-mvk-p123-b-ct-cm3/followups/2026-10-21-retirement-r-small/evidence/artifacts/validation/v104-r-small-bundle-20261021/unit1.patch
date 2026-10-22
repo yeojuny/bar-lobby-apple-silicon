@@ -1,0 +1,69 @@
+--- a/build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCommandEncoderState.mm
++++ b/build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCommandEncoderState.mm
+@@ -275,6 +275,13 @@
+ 					std::vector<MVKMetal4PreparedResourceProof> textureProofs;
+ 					bool allTexturesProven = textureCacheEligible;
+ 					uint64_t resourceCount = uint64_t(count) * (counts.buffer + counts.texture + counts.sampler);
++					// Call only after an item is accepted. Each eligible capture is bounded
++					// to 16 resources and still moves its storage into the existing cache.
++					auto reserveCapture = [](auto& values, size_t expectedCount) {
++						if (expectedCount > 1 && values.empty() && values.capacity() < expectedCount) {
++							values.reserve(expectedCount);
++						}
++					};
+ 					bool snapshotEligible = bindingRevision && set->metal4Preparation.snapshots &&
+ 					                        set->layout == layout && resourceCount && resourceCount <= Snapshots::kMaxResources &&
+ 					                        binding.cpuLayout != MVKDescriptorCPULayout::InlineData && !binding.hasImmutableSamplers();
+@@ -283,9 +290,15 @@
+ 						auto result = set->metal4Preparation.snapshots->replay(used.bindingIdx, bindingRevision,
+ 							[&](const Snapshots::Resource& resource) {
+ 								auto result = replayMetal4Resource(sink, resource);
+-								if (result == Snapshots::Result::Hit && allTexturesProven) { textureProofs.push_back(resource.proof); }
++								if (result == Snapshots::Result::Hit && allTexturesProven) {
++									reserveCapture(textureProofs, resourceCount);
++									textureProofs.push_back(resource.proof);
++								}
+ 								if (result == Snapshots::Result::Hit && allBuffersProven &&
+-								    resource.kind == Snapshots::Kind::Buffer) { bufferProofs.push_back(resource.proof); }
++								    resource.kind == Snapshots::Kind::Buffer) {
++									reserveCapture(bufferProofs, count);
++									bufferProofs.push_back(resource.proof);
++								}
+ 								if (result == Snapshots::Result::Hit && captureBinding) {
+ 									if (groupResources.size() < Group::kMaxResources) { groupResources.push_back(resource); }
+ 									else { captureBinding = false; }
+@@ -313,6 +326,7 @@
+ 						if (!value || !proof.valid()) { snapshotEligible = false; return; }
+ 						bool ordinary = kind == Snapshots::Kind::Texture &&
+ 						    MVKMetal4Submission::drawableRegistrationGeneration((id<MTLTexture>)value) == 0;
++						reserveCapture(snapshotResources, resourceCount);
+ 						snapshotResources.push_back({(const void*)value, kind, proof, ordinary});
+ 				};
+ 				if (binding.hasImmutableSamplers()) {
+@@ -343,7 +357,7 @@
+ 							auto proof = liveResources.textures.preparationProof(value, live);
+ 							if (snapshotEligible) { captureSnapshot(live ? value : nil, Snapshots::Kind::Texture, proof); }
+ 							if (allTexturesProven) {
+-								if (proof.valid()) { textureProofs.push_back(std::move(proof)); }
++								if (proof.valid()) { reserveCapture(textureProofs, resourceCount); textureProofs.push_back(std::move(proof)); }
+ 								else { allTexturesProven = false; }
+ 							}
+ 						}
+@@ -359,7 +373,7 @@
+ 								auto proof = liveResources.buffers.membershipProof(value, live);
+ 								captureSnapshot(live ? value : nil, Snapshots::Kind::Buffer, proof);
+ 								if (allBuffersProven) {
+-									if (proof.valid()) { bufferProofs.push_back(std::move(proof)); }
++									if (proof.valid()) { reserveCapture(bufferProofs, count); bufferProofs.push_back(std::move(proof)); }
+ 									else { allBuffersProven = false; }
+ 								}
+ 							}
+@@ -371,7 +385,7 @@
+ 								auto proof = liveResources.samplers.preparationProof(value, live);
+ 								if (snapshotEligible) { captureSnapshot(live ? value : nil, Snapshots::Kind::Sampler, proof); }
+ 								if (allTexturesProven) {
+-									if (proof.valid()) { textureProofs.push_back(std::move(proof)); }
++									if (proof.valid()) { reserveCapture(textureProofs, resourceCount); textureProofs.push_back(std::move(proof)); }
+ 									else { allTexturesProven = false; }
+ 								}
+ 							}

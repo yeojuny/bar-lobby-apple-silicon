@@ -1,0 +1,28 @@
+{
+  "arguments": [
+    "/usr/bin/xcrun",
+    "clang++",
+    "-std=c++17",
+    "-mmacosx-version-min=27.0",
+    "-O1",
+    "-g",
+    "-fno-objc-arc",
+    "-fblocks",
+    "-DMVK_ENABLE_CUSTOM_DIAGNOSTICS=0",
+    "-Wno-deprecated-declarations",
+    "-framework",
+    "Foundation",
+    "-framework",
+    "Metal",
+    "-fsanitize=address,undefined",
+    "-fno-omit-frame-pointer",
+    "-DMVK_BUILD_METAL4_FOUNDATION=1",
+    "-DMVK_USE_METAL_PRIVATE_API=0",
+    "-I${WORKSPACE}/build/run66-vulkan-headers-src-20260903/include",
+    "-DMVK_SUSPEND_RESOLVE_BODY=\"${WORKSPACE}/artifacts/validation/v104-r-combined-20261021/cpu/suspend-body.inc\"",
+    "${WORKSPACE}/tools/tests/metal4-suspend-resolve-cpu.mm",
+    "-o",
+    "${WORKSPACE}/artifacts/validation/v104-r-combined-20261021/cpu/suspend-parity"
+  ],
+  "exitCode": 0
+}

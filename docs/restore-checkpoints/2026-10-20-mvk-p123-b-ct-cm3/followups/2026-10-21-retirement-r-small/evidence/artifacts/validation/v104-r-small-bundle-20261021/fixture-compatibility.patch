@@ -1,0 +1,296 @@
+--- a/tools/tests/metal4-prepared-texture-cpu.py
++++ b/tools/tests/metal4-prepared-texture-cpu.py
+@@ -12,15 +12,260 @@
+ dev=(BASE/files[2]).read_text();state=(BASE/files[-1]).read_text()
+ membership=dev[dev.index('void MVKLiveList::add(id object) {'):dev.index('\nstd::pair<MVKLiveList::Lock*, bool>')]
+ proofs=dev[dev.index('void MVKLiveList::addPrepared('):dev.index('\n#pragma mark - MVKVisibilityBuffer')]
++def block(text, marker):
++    start=text.index(marker);opening=text.index('{',start);depth=1
++    for end in range(opening+1,len(text)):
++        depth+=(text[end]=='{')-(text[end]=='}')
++        if not depth:return text[start:end+1]
++    raise ValueError('unclosed production block: '+marker)
++
++reserve_lambda=block(state,'auto reserveCapture =')+';' if 'auto reserveCapture =' in state else ''
++
++if len(sys.argv)>2 and sys.argv[2]=='--capture-reserve':
++    # Exercise the complete production payload lambda, not a model of reserve.
++    # The reference is an exact, SHA-bound source preimage supplied by the caller.
++    reference=Path(sys.argv[3]).read_text()
++    descriptor=(BASE/'GPUObjects/MVKDescriptorSet.h').read_text()
++    flags=descriptor[descriptor.index('enum MVKDescriptorBindingFlagBits {'):]
++    flags=flags[:flags.index('\n};')+3]
++    helpers=descriptor[descriptor.index('struct MVKMetal4DescriptorPreparationStamp {'):]
++    helpers=helpers[:helpers.index('\n#endif')]
++    # Test-only access changes; method bodies and std::vector types are exact.
++    helpers=helpers.replace('class MVKMetal4DescriptorPreparationCache {','struct MVKMetal4DescriptorPreparationCache {')
++    prepared=(BASE/'GPUObjects/MVKMetal4PreparedResource.h').read_text()
++    prepared=prepared.replace('private:','public:').replace(
++        'class MVKMetal4PreparedTextureBindingCache {','struct MVKMetal4PreparedTextureBindingCache {')
++    (OUT/'capture-prepared.h').write_text(prepared)
++    exact={}
++    for name,text in [('reference',reference),('candidate',state)]:
++        payload=block(text,'auto prepareCurrentPayload =')+';'
++        exact[name]=hashlib.sha256(payload.encode()).hexdigest()
++        payload=re.sub(r'id<[^>]+>','id',payload)
++        # Nonallocating observation after the original inserts, in both bodies.
++        for index,vector in enumerate(['bufferProofs','textureProofs','snapshotResources']):
++            pattern=re.compile(re.escape(vector)+r'\.push_back\([^\n]*?\);')
++            payload=pattern.sub(lambda m:m.group(0)+f' observe(e,{index},{vector});',payload)
++        exact[name+'_body']=payload
++    source=r'''
++#include "capture-prepared.h"
++#include <vulkan/vulkan.h>
++#include <atomic>
++#include <mutex>
++#include <cstdio>
++#include <cstdlib>
++#include <cstring>
++#include <new>
++#include <stdexcept>
++#include <algorithm>
++using id=const void*;
++constexpr id nil=nullptr;
++static bool counting=false;
++static size_t allocations=0,allocationBytes=0;
++void* operator new(size_t size){void*p=std::malloc(size?size:1);if(!p)throw std::bad_alloc();if(counting){++allocations;allocationBytes+=size;}return p;}
++void operator delete(void*p)noexcept{std::free(p);}
++void* operator new[](size_t n){return ::operator new(n);}
++void operator delete[](void*p)noexcept{::operator delete(p);}
++class FixtureLiveList {
++public:
++    using Lock=std::mutex;
++    struct Group {Lock lock;std::unordered_map<id,uint32_t> entries;std::unordered_map<id,MVKMetal4PreparedResourceIdentity> preparationIdentities;std::unordered_map<id,std::shared_ptr<void>> membershipIdentities;};
++    Group groups[16];std::atomic<uint64_t> _generation{1};
++    Group* getGroup(id object){return &groups[(reinterpret_cast<uintptr_t>(object)>>4)%16];}
++    struct IsLiveResult {Lock*lock;bool value;IsLiveResult(Lock*l,bool v):lock(l),value(v){};IsLiveResult(IsLiveResult&&)=delete;~IsLiveResult(){lock->unlock();}operator bool()const{return value;}};
++    IsLiveResult isLive(id object){auto*g=getGroup(object);g->lock.lock();return {&g->lock,g->entries.count(object)!=0};}
++    void add(id);void remove(id);void advanceGeneration();void addPrepared(id,const MVKMetal4PreparedResourceProof*parent=nullptr);
++    MVKMetal4PreparedResourceProof preparationProof(id,const IsLiveResult&);
++    MVKMetal4PreparedResourceProof membershipProof(id,const IsLiveResult&);
++    uint64_t generation()const{return _generation.load(std::memory_order_acquire);}
++};
++''' +(membership+proofs).replace('MVKLiveList::','FixtureLiveList::')+'\n'+flags+'\n'+helpers+r'''
++using Snapshots=MVKMetal4PreparedBindingSnapshots;
++using Group=MVKMetal4PreparedGroupSnapshot;
++enum class MVKDescriptorCPULayout {Normal,InlineData};
++struct Counts {uint32_t buffer=0,texture=0,sampler=0;};
++struct Binding {
++    uint32_t n=0,cpuOffset=0,immSamplerIndex=0;Counts perDescriptorResourceCount;
++    MVKDescriptorCPULayout cpuLayout=MVKDescriptorCPULayout::Normal;
++    uint32_t getDescriptorCount(uint32_t)const{return n;}bool hasImmutableSamplers()const{return false;}
++};
++struct DummySampler {id getMTLSamplerState(){return nil;}};
++struct Layout {std::array<Binding,1>b;std::array<DummySampler*,0>s;auto&bindings(){return b;}auto&immutableSamplers(){return s;}};
++struct PipelineLayout {Layout*l;size_t getDescriptorSetCount(){return 1;}Layout*getDescriptorSetLayout(size_t){return l;}};
++struct Set {Layout*layout;uint32_t variableDescriptorCount=0,cpuBufferSize=0;char*cpuBuffer=nullptr;MVKMetal4DescriptorPreparationStamp metal4Preparation{};};
++struct Resources {struct {struct {bool get(size_t){return true;}} descriptorSetData;} resources;};
++struct Common {PipelineLayout*_layout;std::array<Set*,1>_descriptorSets;};
++struct Used {uint32_t set=0,bindingIdx=0;};
++struct Stats {uint64_t textureBindingVisits=0,textureCacheEligible=0,textureCacheHits=0,textureHitResourceSlots=0,textureCacheMisses=0,textureProofAttempts=0,textureNegativeMemoSkips=0,textureProofReady=0,textureProofRejected=0;};
++constexpr size_t kMVKMaxDescriptorSetCount=16;
++static thread_local size_t fixtureStride=sizeof(id);
++size_t descriptorCPUSize(MVKDescriptorCPULayout){return fixtureStride;}
++struct MVKMetal4Submission {static uint64_t drawableRegistrationGeneration(id){return 0;}};
++struct LiveResources {FixtureLiveList buffers,textures,samplers;auto isLive(id v){return samplers.isLive(v);}};
++struct State {
++    MVKMetal4DescriptorPreparationCache buffers;MVKMetal4PreparedTextureBindingCache textures;
++    auto&metal4DescriptorPreparationCache(){return buffers;}auto&metal4TexturePreparationCache(){return textures;}
++};
++struct Device {LiveResources live;auto&getLiveResources(){return live;}};
++struct Encoder {State state;Device device;auto&getState(){return state;}auto*getDevice(){return &device;}};
++struct Trace {id value;unsigned kind;bool operator==(const Trace&r)const{return value==r.value&&kind==r.kind;}};
++struct Metal4BindingSink {
++    Encoder encoder;std::array<Trace,128>trace{};size_t traceCount=0;size_t failAt=0;
++    bool add(id v,unsigned kind){trace[traceCount++]={v,kind};return traceCount!=failAt;}
++    bool bufferResource(id v){return add(v,0);}bool resource(id v){return add(v,1);}bool object(id v){return add(v,2);}
++};
++static bool metal4Failure(Encoder&,const char*){return false;}
++struct Env {
++    Layout layout;PipelineLayout pipeline{&layout};Set set{&layout};Common common{&pipeline,{&set}};
++    Resources resources;Used used;Metal4BindingSink sink;Snapshots snapshots;
++    std::array<id,40>payload{};std::vector<Snapshots::Resource>groupResources;
++    bool captureBinding=false;uint64_t capturedRevision=0;
++    struct Observation {size_t inserts=0,growth=0,maxCapacity=0;const void*data=nullptr;size_t capacity=0;};
++    std::array<Observation,3>observed{};
++    unsigned mode;size_t n;
++    Env(unsigned mode_,size_t n_,bool snapshotsOn=true):mode(mode_),n(n_){
++        auto&b=layout.b[0];b.n=n;
++        if(mode==0)b.perDescriptorResourceCount.buffer=1;
++        if(mode==1||mode==3)b.perDescriptorResourceCount.texture=1;
++        if(mode==2||mode==3)b.perDescriptorResourceCount.sampler=1;
++        set.metal4Preparation.initialize(true);set.metal4Preparation.incarnation=7;
++        set.metal4Preparation.snapshots=snapshotsOn?&snapshots:nullptr;
++        fixtureStride=sizeof(id)*(mode==3?2:1);
++        for(size_t i=0;i<n*(mode==3?2:1);++i){
++            payload[i]=reinterpret_cast<id>((i+1)*16);
++            auto&l=list(i);l.addPrepared(payload[i]);auto guard=l.isLive(payload[i]);l.membershipProof(payload[i],guard);
++        }
++        set.cpuBuffer=reinterpret_cast<char*>(payload.data());set.cpuBufferSize=n*fixtureStride;
++    }
++    FixtureLiveList&list(size_t i){return mode==0?sink.encoder.device.live.buffers:mode==2||(mode==3&&i%2)?sink.encoder.device.live.samplers:sink.encoder.device.live.textures;}
++    Snapshots::Kind kind(size_t i){return mode==0?Snapshots::Kind::Buffer:mode==2||(mode==3&&i%2)?Snapshots::Kind::Sampler:Snapshots::Kind::Texture;}
++    MVKMetal4PreparedResourceProof proof(size_t i){auto&l=list(i);auto guard=l.isLive(payload[i]);return mode==0?l.membershipProof(payload[i],guard):l.preparationProof(payload[i],guard);}
++    void preseed(){
++        std::vector<Snapshots::Resource>v;
++        for(size_t i=0;i<n*(mode==3?2:1);++i)v.push_back({payload[i],kind(i),proof(i),true});
++        snapshots.remember(0,1,std::move(v));
++    }
++    void resetObservation(){observed={};sink.traceCount=0;capturedRevision=0;}
++};
++template<class V>void observe(Env&e,size_t which,const V&v){
++    auto&o=e.observed[which];++o.inserts;if(o.capacity!=v.capacity())++o.growth;
++    o.capacity=v.capacity();o.maxCapacity=std::max(o.maxCapacity,v.capacity());o.data=v.data();
++}
++''' + re.sub(r'id<[^>]+>','id',block(state,'static MVKMetal4PreparedBindingSnapshots::Result replayMetal4Resource('))+'\n'
++    for name in ['reference','candidate']:
++        source+='bool run_'+name+'(Env&e){auto&common=e.common;auto&resources=e.resources;auto&used=e.used;auto&sink=e.sink;auto&liveResources=sink.encoder.device.live;Stats*stats=nullptr;auto&groupResources=e.groupResources;const size_t groupStart=groupResources.size();auto&captureBinding=e.captureBinding;auto&capturedRevision=e.capturedRevision;auto appendGroupBinding=[&](const MVKMetal4DescriptorPreparationStamp&stamp,uint32_t binding,uint64_t revision){if(captureBinding&&(!stamp.snapshots||!stamp.snapshots->append(binding,revision,groupResources,Group::kMaxResources)))captureBinding=false;};\n'+exact[name+'_body']+'\nreturn prepareCurrentPayload();}\n'
++    source+=r'''
++static unsigned assertions=0,cases=0;
++void require(bool v,const char*m){++assertions;if(!v)throw std::runtime_error(m);}
++using Run=bool(*)(Env&);
++struct Outcome {
++    bool ok;size_t allocs,bytes;std::array<Env::Observation,3>obs;
++    std::array<Trace,128>trace;size_t traceCount;std::array<size_t,3>stored{};
++    std::array<bool,3>sameStorage{};bool textureNegative=false;uint64_t capturedRevision=0;
++    std::array<uint64_t,4>contents{};size_t groupSize=0;
++};
++uint64_t proofDigest(const MVKMetal4PreparedResourceProof&p){return p.count*2u+unsigned(p.valid());}
++void digest(uint64_t&h,uint64_t v){h=h*1099511628211ull+v+1;}
++void digestResource(uint64_t&h,const Snapshots::Resource&r){digest(h,reinterpret_cast<uintptr_t>(r.identity));digest(h,unsigned(r.kind));digest(h,proofDigest(r.proof));digest(h,r.drawableIndependent);}
++Outcome execute(Run fn,Env&e){
++    e.resetObservation();allocations=allocationBytes=0;counting=true;bool ok=fn(e);counting=false;
++    Outcome r{ok,allocations,allocationBytes,e.observed,e.sink.trace,e.sink.traceCount};
++    r.capturedRevision=e.capturedRevision;
++    for(auto&x:e.sink.encoder.state.buffers._bindings){r.stored[0]+=x.second.proofs.size();r.sameStorage[0]=x.second.proofs.data()==r.obs[0].data;}
++    for(auto&x:e.sink.encoder.state.textures._bindings){r.stored[1]+=x.second.proofs.size();r.sameStorage[1]=x.second.proofs.data()==r.obs[1].data;r.textureNegative=x.second.proofs.empty();}
++    for(auto&x:e.snapshots._bindings){r.stored[2]+=x.second.resources.size();r.sameStorage[2]=x.second.resources.data()==r.obs[2].data;}
++    for(auto&x:e.sink.encoder.state.buffers._bindings)for(auto&p:x.second.proofs)digest(r.contents[0],proofDigest(p));
++    for(auto&x:e.sink.encoder.state.textures._bindings)for(auto&p:x.second.proofs)digest(r.contents[1],proofDigest(p));
++    for(auto&x:e.snapshots._bindings)for(auto&v:x.second.resources)digestResource(r.contents[2],v);
++    r.groupSize=e.groupResources.size();for(auto&v:e.groupResources)digestResource(r.contents[3],v);
++    return r;
++}
++void equivalent(const Outcome&a,const Outcome&b){
++    require(a.ok==b.ok,"return parity");require(a.traceCount==b.traceCount,"native retain count parity");
++    for(size_t i=0;i<a.traceCount;++i)require(a.trace[i]==b.trace[i],"native retention order parity");
++    require(a.stored==b.stored,"persistent cardinality parity");require(a.textureNegative==b.textureNegative,"negative memo parity");
++    require(a.capturedRevision==b.capturedRevision,"revision parity");
++    require(a.contents==b.contents&&a.groupSize==b.groupSize,"stored contents/order and group prefix parity");
++    for(size_t i=0;i<3;++i)require(a.obs[i].inserts==b.obs[i].inserts,"collected cardinality parity");
++}
++void setup(Env&e,unsigned scenario){
++    const auto total=e.n*(e.mode==3?2:1);
++    if(scenario==1||scenario==2)e.preseed();
++    if(scenario==2&&total>1){auto&l=e.list(1);l.remove(e.payload[1]);l.addPrepared(e.payload[1]);auto g=l.isLive(e.payload[1]);l.membershipProof(e.payload[1],g);}
++    if(scenario==2&&total){e.captureBinding=true;e.groupResources.push_back({e.payload[0],e.kind(0),e.proof(0),true});}
++    if(scenario==3&&total){e.list(0).remove(e.payload[0]);if(e.mode!=0)e.list(0).add(e.payload[0]);}
++    if(scenario==4&&total>1){e.list(1).remove(e.payload[1]);if(e.mode!=0)e.list(1).add(e.payload[1]);}
++    if(scenario==5)e.sink.failAt=1;
++    if(scenario==6)e.sink.failAt=total>1?2:1;
++    if(scenario==7||scenario==8)e.sink.encoder.state.textures.reject(7,1,0);
++}
++int main(){try{
++    unsigned lateFailureExamples=0;
++    for(unsigned mode=0;mode<4;++mode)for(size_t n:{0u,1u,2u,3u,8u,16u,17u}){
++        const size_t total=n*(mode==3?2:1);if(total>34)continue;
++        for(unsigned scenario=0;scenario<9;++scenario){
++            if((scenario==7||scenario==8)&&mode==0)continue;
++            if((scenario==1||scenario==2)&&(!total||total>16))continue;
++            Env a(mode,n,scenario!=7),b(mode,n,scenario!=7);setup(a,scenario);setup(b,scenario);
++            auto x=execute(run_reference,a),y=execute(run_candidate,b);equivalent(x,y);++cases;
++            if(total<=1||total>16||scenario==3||scenario==5||scenario==7)
++                require(y.allocs==x.allocs,"no extra allocations for singleton/empty/ineligible/first failure/negative-only");
++            if(scenario==0&&total>1&&total<=16){
++                require(y.allocs<x.allocs,"successful multi-entry capture reduces actual allocations");
++                for(size_t k=0;k<3;++k)if(y.stored[k]){require(y.sameStorage[k],"persistent cache takes original vector storage");require(y.obs[k].growth==1,"one capture storage growth");}
++            }
++            if(scenario==1&&total>1){require(y.allocs<x.allocs,"snapshot Hit is positive collection and has reduced growth");}
++            if(scenario==2){
++                for(size_t k=0;k<2;++k)if(y.obs[k].inserts)require(y.obs[k].growth==1,"partial replay clear preserves reserved capacity for fallback");
++            }
++            if((scenario==4||scenario==6)&&total==16){
++                ++lateFailureExamples;
++                require(y.obs[mode==0?0:1].maxCapacity<=16,"late failure capacity remains bounded");
++                std::printf("{\"case\":\"late_failure\",\"mode\":%u,\"scenario\":%u,\"referenceAllocations\":%zu,\"candidateAllocations\":%zu,\"referenceBytes\":%zu,\"candidateBytes\":%zu,\"referenceCapacity\":%zu,\"candidateCapacity\":%zu}\n",mode,scenario,x.allocs,y.allocs,x.bytes,y.bytes,x.obs[mode==0?0:1].maxCapacity,y.obs[mode==0?0:1].maxCapacity);
++            }
++            if(scenario==0&&total>0&&total<=16){
++                auto hitA=execute(run_reference,a),hitB=execute(run_candidate,b);equivalent(hitA,hitB);
++                require(hitA.traceCount==0&&hitB.allocs==0,"recording cache Hit skips collection and allocations");
++                // Cache entries remain weak: removing native identity invalidates proofs.
++                for(size_t i=0;i<total;++i){a.list(i).remove(a.payload[i]);b.list(i).remove(b.payload[i]);}
++                if(!b.snapshots._bindings.empty())require(!b.snapshots._bindings.begin()->second.resources.front().proof.valid(),"moved snapshot does not own native identity");
++                a.sink.encoder.state.buffers.clear();b.sink.encoder.state.buffers.clear();
++                a.sink.encoder.state.textures.clear();b.sink.encoder.state.textures.clear();
++                a.snapshots.clear();b.snapshots.clear();
++                require(b.snapshots._bindings.empty(),"destination clear releases metadata");
++            }
++            if(scenario==0&&total==16)std::printf("{\"case\":\"success16\",\"mode\":%u,\"referenceAllocations\":%zu,\"candidateAllocations\":%zu,\"referenceBytes\":%zu,\"candidateBytes\":%zu}\n",mode,x.allocs,y.allocs,x.bytes,y.bytes);
++        }
++    }
++    require(lateFailureExamples>0,"late failure examples exercised");
++    std::printf("{\"passed\":true,\"cases\":%u,\"assertions\":%u,\"sizeofProof\":%zu,\"sizeofResource\":%zu,\"gpuExecuted\":false}\n",cases,assertions,sizeof(MVKMetal4PreparedResourceProof),sizeof(Snapshots::Resource));
++    return 0;
++}catch(const std::exception&e){counting=false;std::fprintf(stderr,"FAIL %s\n",e.what());return 1;}}
++'''
++    cpp=OUT/'capture-reserve-exact.cpp';cpp.write_text(source);exe=OUT/'capture-reserve-exact'
++    command=['xcrun','clang++','-std=c++17','-O1','-g','-fsanitize=address,undefined','-fno-omit-frame-pointer','-pthread','-I'+str(ROOT/'build/run66-vulkan-headers-src-20260903/include'),str(cpp),'-o',str(exe)]
++    p=subprocess.run(command,capture_output=True,text=True);(OUT/'capture-compile.log').write_text(p.stdout+p.stderr)
++    if p.returncode:raise SystemExit(p.stderr)
++    p=subprocess.run([str(exe)],capture_output=True,text=True);(OUT/'capture-run.log').write_text(p.stdout+p.stderr)
++    if p.returncode:raise SystemExit(p.stdout+p.stderr)
++    rows=[json.loads(x) for x in p.stdout.splitlines()];receipt=dict(status='passed',result=rows[-1],allocationExamples=rows[:-1],
++        sourceHashes=pins,referenceSourceSHA256=hashlib.sha256(reference.encode()).hexdigest(),
++        exactPayloadSHA256={k:v for k,v in exact.items() if not k.endswith('_body')},compileCommand=command,
++        limits=['CPU fixture: native object types erased; layouts and retain sinks are bounded doubles.',
++                'Production payload/replay/metadata methods are extracted, with test-only private visibility and nonallocating post-insert observations.',
++                'Global new byte counts cover the whole invocation, including equal cache bookkeeping; not GPU memory or BAR timing.',
++                'Snapshot replay Hit is positive capture; texture-negative memo can still permit independently eligible snapshot capture.'])
++    (OUT/'capture-receipt.json').write_text(json.dumps(receipt,indent=2)+'\n');print(json.dumps(receipt));raise SystemExit(0)
++
+ lookup_start=state.index('if (textureCacheEligible) {')
+-lookup_branch=state[lookup_start:state.index('\n\t\t\t\tstd::vector<MVKMetal4PreparedResourceProof> textureProofs;',lookup_start)]
++lookup_branch=block(state,'if (textureCacheEligible) {')
+ assert lookup_branch.count('texturePreparation.lookup(')==1
+ assert 'texturePreparation.matches(' not in lookup_branch and 'texturePreparation.shouldAttempt(' not in lookup_branch
+ payload=state.index('auto captureSnapshot =')
+-start=state.index('auto live = liveResources.textures.isLive(value);',payload)
+-branch=state[start:state.index('\n\t\t\t\t}\n\t\t\t\tif (counts.buffer',start)]
++outer=block(state,'for (uint32_t t = 0; t < counts.texture; ++t)')
++branch=outer[outer.index('auto live = liveResources.textures.isLive(value);'):outer.rfind('}')]
+ start=state.index('auto live = liveResources.isLive(static_cast<id<MTLSamplerState>>(value));',payload)
+-sampler_branch=state[start:state.index('\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}',start)]
++end=state.index('if (snapshotEligible || allTexturesProven)',start)
++sampler_branch=state[start:end]+block(state[end:],'if (snapshotEligible || allTexturesProven)')
+ assert branch.count('preparationProof(value, live)')==1
+ assert sampler_branch.count('preparationProof(value, live)')==1
+ # Only erase the native Objective-C sampler type in this CPU registry fixture.
+@@ -90,6 +335,8 @@
+         if(afterSnapshot)afterSnapshot();
+     };
+     std::vector<MVKMetal4PreparedResourceProof> textureProofs;
++    uint64_t resourceCount=count*(counts.texture+counts.sampler);
++''' + reserve_lambda + r'''
+     if(sampler){
+ ''' + sampler_cpp + r'''
+     }else{
+--- a/tools/tests/metal4-descriptor-preparation-cpu.py
++++ b/tools/tests/metal4-descriptor-preparation-cpu.py
+@@ -59,6 +59,8 @@
+ bounds_start = state.index('if (binding.cpuOffset > set->cpuBufferSize')
+ bounds_end = block_end(state, bounds_start)
+ bounds_branch = state[bounds_start:bounds_end]
++reserve_start = state.find('auto reserveCapture =')
++reserve_capture = state[reserve_start:block_end(state, reserve_start)] + ';' if reserve_start >= 0 else ''
+ buffer_start = state.index('if (counts.buffer) {', bounds_end)
+ live_start = state.index('auto live = liveResources.buffers.isLive(value);', buffer_start)
+ live_end = block_end(state, buffer_start) - 1
+@@ -96,7 +98,7 @@
+     using Snapshots = MVKMetal4PreparedBindingSnapshots;
+     auto captureSnapshot = [](auto, auto, auto) {};
+     constexpr auto nil = nullptr;
+-''' + bounds_branch + '\n' + live_branch + '\n' + admit_branch + r'''
++''' + reserve_capture + '\n' + bounds_branch + '\n' + live_branch + '\n' + admit_branch + r'''
+     return true;
+ }
+ '''

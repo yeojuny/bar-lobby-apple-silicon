@@ -1,0 +1,33 @@
+--- a/Commands/MVKCommandBuffer.mm
++++ b/Commands/MVKCommandBuffer.mm
+@@ -793,6 +793,12 @@
+         MTLStages destinations, MTLStages conservativeSources) {
+     if (_metal4CollectPreparedDependencies) { _metal4PreparedSummary.recordConsumption(destinations); }
+     _metal4Dependencies.add(conservativeSources, destinations, true);
++    if (encoder && encoder == _mtl4ComputeEncoder) {
++        // The prior-pass prefix is unchanged inside this encoder. Its own
++        // producers remain covered by separate encoder-local dependencies.
++        _metal4Dependencies.satisfyAlreadyEmitted(_metal4ComputeQueueDependencies,
++            destinations & (MTLStageDispatch | MTLStageBlit));
++    }
+     _metal4Dependencies.encode(destinations, [&](uint64_t sources, uint64_t consumers, bool visible) {
+         auto visibility = visible ? MTL4VisibilityOptionDevice | MTL4VisibilityOptionResourceAlias
+                                   : MTL4VisibilityOptionNone;
+--- a/Commands/MVKMetal4DependencyScopes.h
++++ b/Commands/MVKMetal4DependencyScopes.h
+@@ -62,6 +62,15 @@
+             }
+         }
+     }
++    // Reuse only actual prior-pass barriers in the same active encoder. A
++    // memory edge needs memory coverage; execution-only coverage cannot upgrade it.
++    void satisfyAlreadyEmitted(const MVKMetal4DependencyScopes& emitted, uint64_t dst) {
++        for (unsigned i = 0; i < 4; ++i) if (dst & stages[i]) {
++            const uint64_t covered = (memory[i] & emitted.memory[i]) |
++                ((sources[i] & ~memory[i]) & emitted.sources[i]);
++            satisfy(covered, stages[i]);
++        }
++    }
+     // Call only after an actual queue barrier covers prior-pass sources.
+     // Consumer barriers cover the selected destinations in subsequent passes too.
+     void satisfy(uint64_t src, uint64_t dst) {

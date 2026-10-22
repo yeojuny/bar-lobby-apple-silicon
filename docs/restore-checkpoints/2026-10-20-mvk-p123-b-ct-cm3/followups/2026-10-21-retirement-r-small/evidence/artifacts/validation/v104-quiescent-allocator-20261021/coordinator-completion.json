@@ -1,0 +1,109 @@
+{
+  "awakeReleased": true,
+  "bindings": {
+    "additional-metal3-retest-grant.json": {
+      "path": "${WORKSPACE}/artifacts/validation/v104-quiescent-allocator-20261021/additional-metal3-retest-grant.json",
+      "sha256": "54729f4842b47b15a827b6fee5f9cf6bfb2f17b7e1b340618a6bc25897becf39"
+    },
+    "comparison-summary.json": {
+      "path": "${WORKSPACE}/artifacts/validation/v104-quiescent-allocator-20261021/comparison-summary.json",
+      "sha256": "f7fd348eeae1d2011df396845e5538a8ba699a25ee2e2a4f34a5508fca70e593"
+    },
+    "completion.json": {
+      "path": "${WORKSPACE}/artifacts/validation/v104-quiescent-allocator-20261021/completion.json",
+      "sha256": "d4212eeea4eb2f244e7bc9b83a93effcd7bb70dfaa61dec8d9e6cd61371c9831"
+    },
+    "independent-final-performance-review.json": {
+      "path": "${WORKSPACE}/artifacts/validation/v104-quiescent-allocator-20261021/independent-final-performance-review.json",
+      "sha256": "89bfd5bc400eebd1d7d7e83771b1c2fd2846ee634af0d83aa99266ac5b2e31e6"
+    },
+    "independent-readiness-review.json": {
+      "path": "${WORKSPACE}/artifacts/validation/v104-quiescent-allocator-20261021/independent-readiness-review.json",
+      "sha256": "755964205462da83d2eb8f0f994994a45f0ab81b538602d1e7532dda82bf59d9"
+    },
+    "independent-source-review.json": {
+      "path": "${WORKSPACE}/artifacts/validation/v104-quiescent-allocator-20261021/independent-source-review.json",
+      "sha256": "d8bb8b88d352e34bc4e731e5e437ee2c1835f9d1a6e6aa4a80513a1e6657b4c1"
+    },
+    "performance-idle-metal3-retest/outcome.json": {
+      "path": "${WORKSPACE}/artifacts/validation/v104-quiescent-allocator-20261021/performance-idle-metal3-retest/outcome.json",
+      "sha256": "1de9b4f556d488138ff5eecbbd4c92823e7432b788fa76d13ced9b883d38a6f3"
+    },
+    "performance-idle-metal4/outcome.json": {
+      "path": "${WORKSPACE}/artifacts/validation/v104-quiescent-allocator-20261021/performance-idle-metal4/outcome.json",
+      "sha256": "67ec0551a3e14a23d2c6397717df296a03720222e2b0d50573bec51cd5829f0d"
+    },
+    "performance/outcome.json": {
+      "path": "${WORKSPACE}/artifacts/validation/v104-quiescent-allocator-20261021/performance/outcome.json",
+      "sha256": "dbfa2ab076900129df298773f45675022d0d4015d260d171167375b997ffb4a0"
+    },
+    "report": {
+      "path": "${WORKSPACE}/reports/v104-quiescent-allocator-20261021.md",
+      "sha256": "11e11538555ce4105303de579b6442527c0628757091a7cff3b536c6ac05fe85"
+    }
+  },
+  "candidatePromoted": false,
+  "cleanup": {
+    "leaves": 5329,
+    "logicalBytes": 153929972,
+    "physicalBytesMeasured": false,
+    "roots": 96
+  },
+  "completedAtUTC": "2026-10-21T16:34:17.601682+00:00",
+  "groups": {
+    "metal3": {
+      "C": {
+        "FPS": [
+          53.355155944824,
+          51.953414916992
+        ],
+        "meanFPS": 52.654285430908004,
+        "meanP95Ms": 26.6224994659425
+      },
+      "Q": {
+        "FPS": [
+          52.539978027344,
+          52.653873443604
+        ],
+        "changeFromCPercent": -0.10893642362551637,
+        "meanFPS": 52.596925735474,
+        "meanP95Ms": 27.590000152588
+      }
+    },
+    "metal4": {
+      "C": {
+        "FPS": [
+          47.247936248779,
+          45.888317108154
+        ],
+        "meanFPS": 46.5681266784665,
+        "meanP95Ms": 29.0939998626705
+      },
+      "Q": {
+        "FPS": [
+          46.805953979492,
+          47.097057342529
+        ],
+        "changeFromCPercent": 0.8232647733310783,
+        "meanFPS": 46.9515056610105,
+        "meanP95Ms": 29.001000404358003
+      }
+    }
+  },
+  "limits": [
+    "Small n2 per app/backend, OS/user background load not fully controlled.",
+    "All diagnostics compiled OFF. Q changes only genuine quiescent last-use reset; no peak-memory benefit inferred from FPS.",
+    "Historical FPS not pooled; timestamp and sampled-exit unresolved cases not claimed repaired.",
+    "SDL native display/Space transition deferred while hidden; 1512x950 safe default1x drawable.",
+    "Human confirmed own work finished; no claim all OS/background load is zero. Metal3 differences are not direct effects of the Metal4-only allocator policy."
+  ],
+  "primarySessions": 8,
+  "referenceSessions": 8,
+  "screenRestored": true,
+  "selectedCandidate": "C unchanged",
+  "sourceAndAppInventoriesVerified": true,
+  "sourceAndBuild": "Q frozen, not promoted",
+  "status": "complete-C-Q-fresh-metal3-metal4-comparison",
+  "totalCompletedSessions": 16,
+  "userProfilesAndLauncherExact": true
+}

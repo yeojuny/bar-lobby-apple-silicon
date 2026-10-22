@@ -1,0 +1,686 @@
+{
+  "allAppsAndInputsUnchangedPerRun": true,
+  "cacheCleanup": {
+    "leaves": 2663,
+    "logicalBytes": 76957573,
+    "physicalBytesNotMeasured": true,
+    "roots": 48
+  },
+  "conditions": {
+    "camera": {
+      "dist": 2254.7705078125,
+      "dx": 0,
+      "dy": -0.924302399158,
+      "dz": -0.381660997868,
+      "fov": 45,
+      "mode": 2,
+      "name": "spring",
+      "px": 4096,
+      "py": 254.770629882813,
+      "pz": 3072,
+      "rx": 2.75,
+      "ry": 0,
+      "rz": 0
+    },
+    "game": "Beyond All Reason",
+    "map": "Seths Ravine Remake 1.3.1",
+    "officialCommand": "luarules benchmark armbull armbull 80 8 1400",
+    "qualityConfig": {
+      "MSAA": 0,
+      "MSAALevel": 0,
+      "MinSampleShadingRate": 0,
+      "VSync": 0,
+      "VSyncGame": 0
+    },
+    "qualityOptions": {
+      "advmapshading": true,
+      "attackrange_numrangesmult": 1,
+      "bloomdeferred": true,
+      "bloomdeferred_quality": 3,
+      "camera": 3,
+      "cusgl4": true,
+      "decals": true,
+      "decalsgl4": true,
+      "distortioneffects": true,
+      "fogdiaglines": 0,
+      "grass": true,
+      "lighteffects": true,
+      "lighteffects_nanoparticlelights": true,
+      "lighteffects_screenspaceshadows": 4,
+      "limitidlefps": false,
+      "limitoffscreenfps": false,
+      "losrange": true,
+      "mapedgeextension": 0.5,
+      "msaa": 1,
+      "particles": 40000,
+      "preset": 5,
+      "shadowslider": 6,
+      "snow": true,
+      "ssao": true,
+      "ssao_quality": 3,
+      "vsync": 1,
+      "water": 2
+    },
+    "resolution": {
+      "height": 902,
+      "width": 1432
+    },
+    "seed": 7654321
+  },
+  "evidence": "${WORKSPACE}/artifacts/validation/v104-c-reg-performance-20261020",
+  "fullscreenGame": false,
+  "groups": {
+    "metal3": {
+      "candidate": {
+        "fps": [
+          45.53987121582,
+          50.832027435303
+        ],
+        "maxFPS": 50.832027435303,
+        "meanFPS": 48.185949325561495,
+        "meanRunP95Ms": 32.987000465392995,
+        "meanRunP99Ms": 47.882999420166,
+        "minFPS": 45.53987121582,
+        "ordinals": [
+          5,
+          8
+        ]
+      },
+      "deltaFPSPercent": 0.05163507711198889,
+      "deltaP95Percent": -2.9422987044831483,
+      "parent": {
+        "fps": [
+          46.507347106934,
+          49.81481552124
+        ],
+        "maxFPS": 49.81481552124,
+        "meanFPS": 48.161081314087,
+        "meanRunP95Ms": 33.986999511719,
+        "meanRunP99Ms": 47.8145008087155,
+        "minFPS": 46.507347106934,
+        "ordinals": [
+          6,
+          7
+        ]
+      }
+    },
+    "metal4": {
+      "candidate": {
+        "fps": [
+          39.804271697998,
+          40.984306335449
+        ],
+        "maxFPS": 40.984306335449,
+        "meanFPS": 40.3942890167235,
+        "meanRunP95Ms": 37.138000488280994,
+        "meanRunP99Ms": 60.1164989471435,
+        "minFPS": 39.804271697998,
+        "ordinals": [
+          2,
+          3
+        ]
+      },
+      "deltaFPSPercent": 3.1745720883564754,
+      "deltaP95Percent": -5.727957461544597,
+      "parent": {
+        "fps": [
+          36.956966400146,
+          41.345832824707
+        ],
+        "maxFPS": 41.345832824707,
+        "meanFPS": 39.1513996124265,
+        "meanRunP95Ms": 39.394500732422,
+        "meanRunP99Ms": 59.663499832153505,
+        "minFPS": 36.956966400146,
+        "ordinals": [
+          1,
+          4
+        ]
+      }
+    }
+  },
+  "loadedLibraryIdentityVerifiedPerRun": true,
+  "nativeDisplayPresentationDeferredWhileHidden": false,
+  "order": "Metal4 parent,candidate,candidate,parent then Metal3 candidate,parent,parent,candidate",
+  "powerObservationCount": 74,
+  "records": [
+    {
+      "backend": "metal4",
+      "cacheError": null,
+      "camera": {
+        "dist": 2254.7705078125,
+        "dx": 0,
+        "dy": -0.924302399158,
+        "dz": -0.381660997868,
+        "fov": 45,
+        "mode": 2,
+        "name": "spring",
+        "px": 4096,
+        "py": 254.770629882813,
+        "pz": 3072,
+        "rx": 2.75,
+        "ry": 0,
+        "rz": 0
+      },
+      "drawIntervals": {
+        "count": 1107,
+        "meanFPS": 36.956966400146,
+        "meanMs": 27.058498382568,
+        "over100Ms": 2,
+        "over33Ms": 155,
+        "over50Ms": 30,
+        "p50Ms": 25.857999801636,
+        "p95Ms": 41.736000061035,
+        "p99Ms": 68.236999511719
+      },
+      "error": null,
+      "exit": 0,
+      "fps": 36.956966400146,
+      "frameCount": 900,
+      "fullscreenMode": null,
+      "library": {
+        "path": "${WORKSPACE}/artifacts/runtime/v104-descriptor-candidate-20261020/BAR.app/Contents/Resources/bundled-assets/runtime/moltenvk-pr2746/lib/libMoltenVK.1.4.3.dylib",
+        "sha256": "7ac71989ca27a99a2f9adf219ac0dcb12f16804cd35733bf7fd2c078635c5c4a"
+      },
+      "nativeMetal4": {
+        "activeQueues": 1,
+        "completedSubmissions": [
+          14947
+        ],
+        "proved": true,
+        "requested": true
+      },
+      "officialNativeReport": {
+        "nativeLog": {
+          "path": "${WORKSPACE}/artifacts/validation/v104-c-reg-performance-20261020/1-parent-metal4/sessions/lobby-no-native-hook-1792550857477/state/data/infolog.txt",
+          "sha256": "f6b8c210ad1655bf4d07780eb5ed8ff667e431cf6a23d1a9991aed086aa76d64"
+        },
+        "present": true
+      },
+      "ordinal": 1,
+      "p50Ms": 25.857999801636,
+      "p95Ms": 41.736000061035,
+      "p99Ms": 68.236999511719,
+      "protectedInputsUnchanged": true,
+      "receipt": "${WORKSPACE}/artifacts/validation/v104-c-reg-performance-20261020/1-parent-metal4/sessions/lobby-no-native-hook-1792550857477/execution-receipt.json",
+      "receiptSHA256": "b4905f5917ba2c489314ceb87f8529350850dcf3006f9cbba97454ccaab7af8f",
+      "resolution": {
+        "height": 902,
+        "width": 1432
+      },
+      "role": "parent",
+      "status": "completed-not-promoted"
+    },
+    {
+      "backend": "metal4",
+      "cacheError": null,
+      "camera": {
+        "dist": 2254.7705078125,
+        "dx": 0,
+        "dy": -0.924302399158,
+        "dz": -0.381660997868,
+        "fov": 45,
+        "mode": 2,
+        "name": "spring",
+        "px": 4096,
+        "py": 254.770629882813,
+        "pz": 3072,
+        "rx": 2.75,
+        "ry": 0,
+        "rz": 0
+      },
+      "drawIntervals": {
+        "count": 1202,
+        "meanFPS": 39.804271697998,
+        "meanMs": 25.122932434082,
+        "over100Ms": 9,
+        "over33Ms": 106,
+        "over50Ms": 24,
+        "p50Ms": 23.236999511719,
+        "p95Ms": 36.812000274658,
+        "p99Ms": 68.653999328613
+      },
+      "error": null,
+      "exit": 0,
+      "fps": 39.804271697998,
+      "frameCount": 900,
+      "fullscreenMode": null,
+      "library": {
+        "path": "${WORKSPACE}/artifacts/runtime/v104-c-reg-candidate-20261020/BAR.app/Contents/Resources/bundled-assets/runtime/moltenvk-pr2746/lib/libMoltenVK.1.4.3.dylib",
+        "sha256": "79dfe6e5fe91e35c14751316d0acc5f96837516619945388c5c073e94295ebdc"
+      },
+      "nativeMetal4": {
+        "activeQueues": 1,
+        "completedSubmissions": [
+          15414
+        ],
+        "proved": true,
+        "requested": true
+      },
+      "officialNativeReport": {
+        "nativeLog": {
+          "path": "${WORKSPACE}/artifacts/validation/v104-c-reg-performance-20261020/2-candidate-metal4/sessions/lobby-no-native-hook-1792550978515/state/data/infolog.txt",
+          "sha256": "814a76c69fb420910f49d0c9520dba45a9323f18bd897f3110fd86c854c72c63"
+        },
+        "present": true
+      },
+      "ordinal": 2,
+      "p50Ms": 23.236999511719,
+      "p95Ms": 36.812000274658,
+      "p99Ms": 68.653999328613,
+      "protectedInputsUnchanged": true,
+      "receipt": "${WORKSPACE}/artifacts/validation/v104-c-reg-performance-20261020/2-candidate-metal4/sessions/lobby-no-native-hook-1792550978515/execution-receipt.json",
+      "receiptSHA256": "b68d043179f9d36bbc73fef1144f17fc301023368d40ff8f5dec5510e3b0a921",
+      "resolution": {
+        "height": 902,
+        "width": 1432
+      },
+      "role": "candidate",
+      "status": "completed-not-promoted"
+    },
+    {
+      "backend": "metal4",
+      "cacheError": null,
+      "camera": {
+        "dist": 2254.7705078125,
+        "dx": 0,
+        "dy": -0.924302399158,
+        "dz": -0.381660997868,
+        "fov": 45,
+        "mode": 2,
+        "name": "spring",
+        "px": 4096,
+        "py": 254.770629882813,
+        "pz": 3072,
+        "rx": 2.75,
+        "ry": 0,
+        "rz": 0
+      },
+      "drawIntervals": {
+        "count": 1228,
+        "meanFPS": 40.984306335449,
+        "meanMs": 24.399583816528,
+        "over100Ms": 1,
+        "over33Ms": 114,
+        "over50Ms": 16,
+        "p50Ms": 23.194000244141,
+        "p95Ms": 37.464000701904,
+        "p99Ms": 51.578998565674
+      },
+      "error": null,
+      "exit": 0,
+      "fps": 40.984306335449,
+      "frameCount": 900,
+      "fullscreenMode": null,
+      "library": {
+        "path": "${WORKSPACE}/artifacts/runtime/v104-c-reg-candidate-20261020/BAR.app/Contents/Resources/bundled-assets/runtime/moltenvk-pr2746/lib/libMoltenVK.1.4.3.dylib",
+        "sha256": "79dfe6e5fe91e35c14751316d0acc5f96837516619945388c5c073e94295ebdc"
+      },
+      "nativeMetal4": {
+        "activeQueues": 1,
+        "completedSubmissions": [
+          16831
+        ],
+        "proved": true,
+        "requested": true
+      },
+      "officialNativeReport": {
+        "nativeLog": {
+          "path": "${WORKSPACE}/artifacts/validation/v104-c-reg-performance-20261020/3-candidate-metal4/sessions/lobby-no-native-hook-1792551109262/state/data/infolog.txt",
+          "sha256": "34987eaaaeaf1aff345ad7992aad8fb79905606c854fe53d5d572d8b509f4e45"
+        },
+        "present": true
+      },
+      "ordinal": 3,
+      "p50Ms": 23.194000244141,
+      "p95Ms": 37.464000701904,
+      "p99Ms": 51.578998565674,
+      "protectedInputsUnchanged": true,
+      "receipt": "${WORKSPACE}/artifacts/validation/v104-c-reg-performance-20261020/3-candidate-metal4/sessions/lobby-no-native-hook-1792551109262/execution-receipt.json",
+      "receiptSHA256": "cbbd26df9f7cbf99bab50b613dbb9f4b9291775b32156329e72d920214a4a5fd",
+      "resolution": {
+        "height": 902,
+        "width": 1432
+      },
+      "role": "candidate",
+      "status": "completed-not-promoted"
+    },
+    {
+      "backend": "metal4",
+      "cacheError": null,
+      "camera": {
+        "dist": 2254.7705078125,
+        "dx": 0,
+        "dy": -0.924302399158,
+        "dz": -0.381660997868,
+        "fov": 45,
+        "mode": 2,
+        "name": "spring",
+        "px": 4096,
+        "py": 254.770629882813,
+        "pz": 3072,
+        "rx": 2.75,
+        "ry": 0,
+        "rz": 0
+      },
+      "drawIntervals": {
+        "count": 1239,
+        "meanFPS": 41.345832824707,
+        "meanMs": 24.186233520508,
+        "over100Ms": 1,
+        "over33Ms": 113,
+        "over50Ms": 15,
+        "p50Ms": 23.354999542236,
+        "p95Ms": 37.053001403809,
+        "p99Ms": 51.090000152588
+      },
+      "error": null,
+      "exit": 0,
+      "fps": 41.345832824707,
+      "frameCount": 900,
+      "fullscreenMode": null,
+      "library": {
+        "path": "${WORKSPACE}/artifacts/runtime/v104-descriptor-candidate-20261020/BAR.app/Contents/Resources/bundled-assets/runtime/moltenvk-pr2746/lib/libMoltenVK.1.4.3.dylib",
+        "sha256": "7ac71989ca27a99a2f9adf219ac0dcb12f16804cd35733bf7fd2c078635c5c4a"
+      },
+      "nativeMetal4": {
+        "activeQueues": 1,
+        "completedSubmissions": [
+          16100
+        ],
+        "proved": true,
+        "requested": true
+      },
+      "officialNativeReport": {
+        "nativeLog": {
+          "path": "${WORKSPACE}/artifacts/validation/v104-c-reg-performance-20261020/4-parent-metal4/sessions/lobby-no-native-hook-1792551226254/state/data/infolog.txt",
+          "sha256": "8c635d9ab7869edd81b2fc93ffb315f25486486f9c2ad76e1b2699c8e22550df"
+        },
+        "present": true
+      },
+      "ordinal": 4,
+      "p50Ms": 23.354999542236,
+      "p95Ms": 37.053001403809,
+      "p99Ms": 51.090000152588,
+      "protectedInputsUnchanged": true,
+      "receipt": "${WORKSPACE}/artifacts/validation/v104-c-reg-performance-20261020/4-parent-metal4/sessions/lobby-no-native-hook-1792551226254/execution-receipt.json",
+      "receiptSHA256": "c235e42e09b87e7c1b0f2d2ac0841a2d3f974abd5b1830c0819068c57e96e8a2",
+      "resolution": {
+        "height": 902,
+        "width": 1432
+      },
+      "role": "parent",
+      "status": "completed-not-promoted"
+    },
+    {
+      "backend": "metal3",
+      "cacheError": null,
+      "camera": {
+        "dist": 2254.7705078125,
+        "dx": 0,
+        "dy": -0.924302399158,
+        "dz": -0.381660997868,
+        "fov": 45,
+        "mode": 2,
+        "name": "spring",
+        "px": 4096,
+        "py": 254.770629882813,
+        "pz": 3072,
+        "rx": 2.75,
+        "ry": 0,
+        "rz": 0
+      },
+      "drawIntervals": {
+        "count": 1364,
+        "meanFPS": 45.53987121582,
+        "meanMs": 21.958780288696,
+        "over100Ms": 2,
+        "over33Ms": 108,
+        "over50Ms": 19,
+        "p50Ms": 20.653999328613,
+        "p95Ms": 35.262001037598,
+        "p99Ms": 54.814998626709
+      },
+      "error": null,
+      "exit": 0,
+      "fps": 45.53987121582,
+      "frameCount": 900,
+      "fullscreenMode": null,
+      "library": {
+        "path": "${WORKSPACE}/artifacts/runtime/v104-c-reg-candidate-20261020/BAR.app/Contents/Resources/bundled-assets/runtime/moltenvk-pr2746/lib/libMoltenVK.1.4.3.dylib",
+        "sha256": "79dfe6e5fe91e35c14751316d0acc5f96837516619945388c5c073e94295ebdc"
+      },
+      "nativeMetal4": {
+        "activeQueues": 0,
+        "legacyParentIdentityVerified": false,
+        "proved": false,
+        "requested": false
+      },
+      "officialNativeReport": {
+        "nativeLog": {
+          "path": "${WORKSPACE}/artifacts/validation/v104-c-reg-performance-20261020/5-candidate-metal3/sessions/lobby-no-native-hook-1792551342276/state/data/infolog.txt",
+          "sha256": "5a0bfcdb5e7c967af6b4cc2964cff700913d884563b54c38cd35f6737d9cfd22"
+        },
+        "present": true
+      },
+      "ordinal": 5,
+      "p50Ms": 20.653999328613,
+      "p95Ms": 35.262001037598,
+      "p99Ms": 54.814998626709,
+      "protectedInputsUnchanged": true,
+      "receipt": "${WORKSPACE}/artifacts/validation/v104-c-reg-performance-20261020/5-candidate-metal3/sessions/lobby-no-native-hook-1792551342276/execution-receipt.json",
+      "receiptSHA256": "854ed319f6732a3af93d7dfa8326866eae18e767e6a7695cebd35d6ca536a3ca",
+      "resolution": {
+        "height": 902,
+        "width": 1432
+      },
+      "role": "candidate",
+      "status": "completed-not-promoted"
+    },
+    {
+      "backend": "metal3",
+      "cacheError": null,
+      "camera": {
+        "dist": 2254.7705078125,
+        "dx": 0,
+        "dy": -0.924302399158,
+        "dz": -0.381660997868,
+        "fov": 45,
+        "mode": 2,
+        "name": "spring",
+        "px": 4096,
+        "py": 254.770629882813,
+        "pz": 3072,
+        "rx": 2.75,
+        "ry": 0,
+        "rz": 0
+      },
+      "drawIntervals": {
+        "count": 1393,
+        "meanFPS": 46.507347106934,
+        "meanMs": 21.501977920532,
+        "over100Ms": 1,
+        "over33Ms": 100,
+        "over50Ms": 14,
+        "p50Ms": 20.114999771118,
+        "p95Ms": 36.375999450684,
+        "p99Ms": 53.513000488281
+      },
+      "error": null,
+      "exit": 0,
+      "fps": 46.507347106934,
+      "frameCount": 900,
+      "fullscreenMode": null,
+      "library": {
+        "path": "${WORKSPACE}/artifacts/runtime/v104-descriptor-candidate-20261020/BAR.app/Contents/Resources/bundled-assets/runtime/moltenvk-pr2746/lib/libMoltenVK.1.4.3.dylib",
+        "sha256": "7ac71989ca27a99a2f9adf219ac0dcb12f16804cd35733bf7fd2c078635c5c4a"
+      },
+      "nativeMetal4": {
+        "activeQueues": 0,
+        "legacyParentIdentityVerified": true,
+        "proved": false,
+        "requested": false
+      },
+      "officialNativeReport": {
+        "nativeLog": {
+          "path": "${WORKSPACE}/artifacts/validation/v104-c-reg-performance-20261020/6-parent-metal3/sessions/lobby-no-native-hook-1792551458773/state/data/infolog.txt",
+          "sha256": "7d91ed83c88a5e004ad44e188a9e8aff1c30d13c3158a7fe82ee79404654d7bf"
+        },
+        "present": true
+      },
+      "ordinal": 6,
+      "p50Ms": 20.114999771118,
+      "p95Ms": 36.375999450684,
+      "p99Ms": 53.513000488281,
+      "protectedInputsUnchanged": true,
+      "receipt": "${WORKSPACE}/artifacts/validation/v104-c-reg-performance-20261020/6-parent-metal3/sessions/lobby-no-native-hook-1792551458773/execution-receipt.json",
+      "receiptSHA256": "fb6009fd76ee4ee427a26860e33bc31a042ce05cc57829c45bfe938ddd28ea91",
+      "resolution": {
+        "height": 902,
+        "width": 1432
+      },
+      "role": "parent",
+      "status": "completed-not-promoted"
+    },
+    {
+      "backend": "metal3",
+      "cacheError": null,
+      "camera": {
+        "dist": 2254.7705078125,
+        "dx": 0,
+        "dy": -0.924302399158,
+        "dz": -0.381660997868,
+        "fov": 45,
+        "mode": 2,
+        "name": "spring",
+        "px": 4096,
+        "py": 254.770629882813,
+        "pz": 3072,
+        "rx": 2.75,
+        "ry": 0,
+        "rz": 0
+      },
+      "drawIntervals": {
+        "count": 1493,
+        "meanFPS": 49.81481552124,
+        "meanMs": 20.074350357056,
+        "over100Ms": 1,
+        "over33Ms": 60,
+        "over50Ms": 9,
+        "p50Ms": 19.445999145508,
+        "p95Ms": 31.597999572754,
+        "p99Ms": 42.11600112915
+      },
+      "error": null,
+      "exit": 0,
+      "fps": 49.81481552124,
+      "frameCount": 900,
+      "fullscreenMode": null,
+      "library": {
+        "path": "${WORKSPACE}/artifacts/runtime/v104-descriptor-candidate-20261020/BAR.app/Contents/Resources/bundled-assets/runtime/moltenvk-pr2746/lib/libMoltenVK.1.4.3.dylib",
+        "sha256": "7ac71989ca27a99a2f9adf219ac0dcb12f16804cd35733bf7fd2c078635c5c4a"
+      },
+      "nativeMetal4": {
+        "activeQueues": 0,
+        "legacyParentIdentityVerified": true,
+        "proved": false,
+        "requested": false
+      },
+      "officialNativeReport": {
+        "nativeLog": {
+          "path": "${WORKSPACE}/artifacts/validation/v104-c-reg-performance-20261020/7-parent-metal3/sessions/lobby-no-native-hook-1792551574909/state/data/infolog.txt",
+          "sha256": "0ac38fa6870c27bfcc09b75693efd186c5713069dbbfd55738ad5376121e244f"
+        },
+        "present": true
+      },
+      "ordinal": 7,
+      "p50Ms": 19.445999145508,
+      "p95Ms": 31.597999572754,
+      "p99Ms": 42.11600112915,
+      "protectedInputsUnchanged": true,
+      "receipt": "${WORKSPACE}/artifacts/validation/v104-c-reg-performance-20261020/7-parent-metal3/sessions/lobby-no-native-hook-1792551574909/execution-receipt.json",
+      "receiptSHA256": "bb192dd7d9f3499171051001d37d75f34aa56d0ce4bc6add4c677929f211bd68",
+      "resolution": {
+        "height": 902,
+        "width": 1432
+      },
+      "role": "parent",
+      "status": "completed-not-promoted"
+    },
+    {
+      "backend": "metal3",
+      "cacheError": null,
+      "camera": {
+        "dist": 2254.7705078125,
+        "dx": 0,
+        "dy": -0.924302399158,
+        "dz": -0.381660997868,
+        "fov": 45,
+        "mode": 2,
+        "name": "spring",
+        "px": 4096,
+        "py": 254.770629882813,
+        "pz": 3072,
+        "rx": 2.75,
+        "ry": 0,
+        "rz": 0
+      },
+      "drawIntervals": {
+        "count": 1523,
+        "meanFPS": 50.832027435303,
+        "meanMs": 19.672636032104,
+        "over100Ms": 0,
+        "over33Ms": 54,
+        "over50Ms": 6,
+        "p50Ms": 19.135999679565,
+        "p95Ms": 30.711999893188,
+        "p99Ms": 40.951000213623
+      },
+      "error": null,
+      "exit": 0,
+      "fps": 50.832027435303,
+      "frameCount": 900,
+      "fullscreenMode": null,
+      "library": {
+        "path": "${WORKSPACE}/artifacts/runtime/v104-c-reg-candidate-20261020/BAR.app/Contents/Resources/bundled-assets/runtime/moltenvk-pr2746/lib/libMoltenVK.1.4.3.dylib",
+        "sha256": "79dfe6e5fe91e35c14751316d0acc5f96837516619945388c5c073e94295ebdc"
+      },
+      "nativeMetal4": {
+        "activeQueues": 0,
+        "legacyParentIdentityVerified": false,
+        "proved": false,
+        "requested": false
+      },
+      "officialNativeReport": {
+        "nativeLog": {
+          "path": "${WORKSPACE}/artifacts/validation/v104-c-reg-performance-20261020/8-candidate-metal3/sessions/lobby-no-native-hook-1792551693111/state/data/infolog.txt",
+          "sha256": "282e58c4500fe7e7a2dbf5c82238f6a4afdc243deb8dd38db7c9c2b90b29c088"
+        },
+        "present": true
+      },
+      "ordinal": 8,
+      "p50Ms": 19.135999679565,
+      "p95Ms": 30.711999893188,
+      "p99Ms": 40.951000213623,
+      "protectedInputsUnchanged": true,
+      "receipt": "${WORKSPACE}/artifacts/validation/v104-c-reg-performance-20261020/8-candidate-metal3/sessions/lobby-no-native-hook-1792551693111/execution-receipt.json",
+      "receiptSHA256": "4fde63f8e29aa0fa3979c940661ab38ade080f31b9c43d7d1cdffd767ea4dde4",
+      "resolution": {
+        "height": 902,
+        "width": 1432
+      },
+      "role": "candidate",
+      "status": "completed-not-promoted"
+    }
+  ],
+  "resolution": {
+    "height": 902,
+    "width": 1432
+  },
+  "screenGuardRestored": true,
+  "status": "completed",
+  "summaryMethod": "Arithmetic mean of two run FPS; p95/p99 are means of per-run percentiles, not pooled percentiles. No statistical significance claimed.",
+  "thermalStates": [
+    0
+  ]
+}

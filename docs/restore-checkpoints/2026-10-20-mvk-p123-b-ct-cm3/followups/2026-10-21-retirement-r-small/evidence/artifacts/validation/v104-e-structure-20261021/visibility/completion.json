@@ -1,0 +1,117 @@
+{
+  "gpuExecuted": false,
+  "rows": [
+    {
+      "compile": [
+        "/usr/bin/xcrun",
+        "clang++",
+        "-std=c++17",
+        "-mmacosx-version-min=27.0",
+        "-g",
+        "-O1",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "-Wno-unused-parameter",
+        "-Wno-unused-function",
+        "-I${WORKSPACE}/build/run66-vulkan-headers-src-20260903/include",
+        "-I${WORKSPACE}/build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands",
+        "-framework",
+        "Foundation",
+        "-framework",
+        "Metal",
+        "-DMVK_BUILD_METAL4_FOUNDATION=0",
+        "-DMVK_XCODE_26=1",
+        "-DMVK_VISIBILITY_CLASS=\"${WORKSPACE}/artifacts/validation/v104-e-structure-20261021/visibility/visibility-class.inc\"",
+        "-DMVK_VISIBILITY_BUFFER_BODY=\"${WORKSPACE}/artifacts/validation/v104-e-structure-20261021/visibility/visibility-buffer.inc\"",
+        "-DMVK_VISIBILITY_PREPARE_BODY=\"${WORKSPACE}/artifacts/validation/v104-e-structure-20261021/visibility/visibility-prepare.inc\"",
+        "-DMVK_VISIBILITY_KERNEL_BODY=\"${WORKSPACE}/artifacts/validation/v104-e-structure-20261021/visibility/visibility-kernel.inc\"",
+        "${WORKSPACE}/tools/tests/metal4-visibility-recycle-cpu.mm",
+        "-o",
+        "${WORKSPACE}/artifacts/validation/v104-e-structure-20261021/visibility/cpu/visibility-foundation0-sdk26-1-sanitize",
+        "-fsanitize=address,undefined",
+        "-fno-omit-frame-pointer"
+      ],
+      "execute": [
+        "${WORKSPACE}/artifacts/validation/v104-e-structure-20261021/visibility/cpu/visibility-foundation0-sdk26-1-sanitize"
+      ],
+      "expected": 0,
+      "label": "visibility-foundation0-sdk26-1-sanitize"
+    },
+    {
+      "compile": [
+        "/usr/bin/xcrun",
+        "clang++",
+        "-std=c++17",
+        "-mmacosx-version-min=27.0",
+        "-g",
+        "-O1",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "-Wno-unused-parameter",
+        "-Wno-unused-function",
+        "-I${WORKSPACE}/build/run66-vulkan-headers-src-20260903/include",
+        "-I${WORKSPACE}/build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands",
+        "-framework",
+        "Foundation",
+        "-framework",
+        "Metal",
+        "-DMVK_BUILD_METAL4_FOUNDATION=1",
+        "-DMVK_XCODE_26=1",
+        "-DMVK_VISIBILITY_CLASS=\"${WORKSPACE}/artifacts/validation/v104-e-structure-20261021/visibility/visibility-class.inc\"",
+        "-DMVK_VISIBILITY_BUFFER_BODY=\"${WORKSPACE}/artifacts/validation/v104-e-structure-20261021/visibility/visibility-buffer.inc\"",
+        "-DMVK_VISIBILITY_PREPARE_BODY=\"${WORKSPACE}/artifacts/validation/v104-e-structure-20261021/visibility/visibility-prepare.inc\"",
+        "-DMVK_VISIBILITY_KERNEL_BODY=\"${WORKSPACE}/artifacts/validation/v104-e-structure-20261021/visibility/visibility-kernel.inc\"",
+        "${WORKSPACE}/tools/tests/metal4-visibility-recycle-cpu.mm",
+        "-o",
+        "${WORKSPACE}/artifacts/validation/v104-e-structure-20261021/visibility/cpu/visibility-foundation1-sdk26-1-sanitize",
+        "-fsanitize=address,undefined",
+        "-fno-omit-frame-pointer"
+      ],
+      "execute": [
+        "${WORKSPACE}/artifacts/validation/v104-e-structure-20261021/visibility/cpu/visibility-foundation1-sdk26-1-sanitize"
+      ],
+      "expected": 0,
+      "label": "visibility-foundation1-sdk26-1-sanitize"
+    },
+    {
+      "compile": [
+        "/usr/bin/xcrun",
+        "clang++",
+        "-std=c++17",
+        "-mmacosx-version-min=27.0",
+        "-g",
+        "-O1",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "-Wno-unused-parameter",
+        "-Wno-unused-function",
+        "-I${WORKSPACE}/build/run66-vulkan-headers-src-20260903/include",
+        "-I${WORKSPACE}/build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands",
+        "-framework",
+        "Foundation",
+        "-framework",
+        "Metal",
+        "-DMVK_BUILD_METAL4_FOUNDATION=0",
+        "-DMVK_XCODE_26=0",
+        "-DMVK_VISIBILITY_CLASS=\"${WORKSPACE}/artifacts/validation/v104-e-structure-20261021/visibility/visibility-class.inc\"",
+        "-DMVK_VISIBILITY_BUFFER_BODY=\"${WORKSPACE}/artifacts/validation/v104-e-structure-20261021/visibility/visibility-buffer.inc\"",
+        "-DMVK_VISIBILITY_PREPARE_BODY=\"${WORKSPACE}/artifacts/validation/v104-e-structure-20261021/visibility/visibility-prepare.inc\"",
+        "-DMVK_VISIBILITY_KERNEL_BODY=\"${WORKSPACE}/artifacts/validation/v104-e-structure-20261021/visibility/visibility-kernel.inc\"",
+        "${WORKSPACE}/tools/tests/metal4-visibility-recycle-cpu.mm",
+        "-o",
+        "${WORKSPACE}/artifacts/validation/v104-e-structure-20261021/visibility/cpu/visibility-foundation0-sdk26-0-sanitize",
+        "-fsanitize=address,undefined",
+        "-fno-omit-frame-pointer"
+      ],
+      "execute": [
+        "${WORKSPACE}/artifacts/validation/v104-e-structure-20261021/visibility/cpu/visibility-foundation0-sdk26-0-sanitize"
+      ],
+      "expected": 0,
+      "label": "visibility-foundation0-sdk26-0-sanitize"
+    }
+  ],
+  "status": "passed"
+}

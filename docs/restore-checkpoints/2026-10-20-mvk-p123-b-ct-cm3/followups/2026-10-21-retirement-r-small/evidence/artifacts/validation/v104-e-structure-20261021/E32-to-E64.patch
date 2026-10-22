@@ -1,0 +1,11 @@
+--- E32/GPUObjects/MVKMetal4Submission.h
++++ E64/GPUObjects/MVKMetal4Submission.h
+@@ -79,7 +79,7 @@
+     // command memory until cancellation or proven GPU retirement. Seal at either
+     // count or capacity-growth bound, reset only after the last user. Existing
+     // native heap capacity may survive reset and is charged to maxIdleBytes.
+-    static constexpr uint32_t maxAllocatorEpochRecordings = 32;
++    static constexpr uint32_t maxAllocatorEpochRecordings = 64;
+     static constexpr size_t maxAvailableAllocatorEpochs = 8;
+     static constexpr uint64_t maxAllocatorEpochGrowthBytes = 2 * 1024 * 1024;
+     static constexpr uint64_t maxUploadSlabsPerPack = 8;

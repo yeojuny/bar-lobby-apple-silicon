@@ -1,0 +1,52 @@
+{
+  "candidatePromoted": false,
+  "combinedCandidatePreserved": true,
+  "completedAtUTC": "2026-10-21T19:08:46.071974+00:00",
+  "currentCandidateUnchanged": true,
+  "groups": {
+    "metal3": {
+      "Combined": {
+        "FPS": [
+          48.023193359375,
+          49.295299530029
+        ],
+        "changeFromRPercent": 0.5536797250871084,
+        "meanFPS": 48.659246444702,
+        "meanP95Ms": 33.2384996414185
+      },
+      "R": {
+        "FPS": [
+          49.35538482666,
+          47.427242279053
+        ],
+        "meanFPS": 48.3913135528565,
+        "meanP95Ms": 34.310501098633
+      }
+    },
+    "metal4": {
+      "Combined": {
+        "FPS": [
+          40.656257629395,
+          43.321155548096
+        ],
+        "changeFromRPercent": 0.08041739030659745,
+        "meanFPS": 41.9887065887455,
+        "meanP95Ms": 41.4169998168945
+      },
+      "R": {
+        "FPS": [
+          41.960826873779,
+          41.949108123779
+        ],
+        "meanFPS": 41.954967498779,
+        "meanP95Ms": 40.1319999694825
+      }
+    }
+  },
+  "independentPerformanceReviewPending": false,
+  "report": "${WORKSPACE}/reports/v104-r-combined-20261021.md",
+  "reportSHA256": "e007b0727b4a375f09a6a341fe115f059e7f274b6de13f7ea5bc1f5ad461f72e",
+  "selectedCandidate": "R",
+  "sourceBuild": "Combined frozen",
+  "status": "R-combined-implemented-validated-independently-reviewed-and-compared"
+}

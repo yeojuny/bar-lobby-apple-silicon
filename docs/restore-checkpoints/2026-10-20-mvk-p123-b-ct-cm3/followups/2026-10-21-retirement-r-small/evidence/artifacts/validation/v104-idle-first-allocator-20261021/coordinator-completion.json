@@ -1,0 +1,104 @@
+{
+  "awakeReleased": true,
+  "bindings": {
+    "R-build.json": {
+      "path": "${WORKSPACE}/artifacts/validation/v104-idle-first-allocator-20261021/R-build.json",
+      "sha256": "8fb766fd2a054ea71c3ac273befb592b1af38433dc3d88cb85766f74e451e159"
+    },
+    "R-next-iteration-selection.json": {
+      "path": "${WORKSPACE}/artifacts/validation/v104-idle-first-allocator-20261021/R-next-iteration-selection.json",
+      "sha256": "2e7f4b7c30de7e2fa12c9de970b8a69cafc546996e3fea3a3810aa7a0d3e7ea9"
+    },
+    "R-package.json": {
+      "path": "${WORKSPACE}/artifacts/validation/v104-idle-first-allocator-20261021/R-package.json",
+      "sha256": "03287f64d1fd81f3072bf4390465d05cfef1322f3c7a059565b5db1bcd23d6d7"
+    },
+    "allocator-32/completion.json": {
+      "path": "${WORKSPACE}/artifacts/validation/v104-idle-first-allocator-20261021/allocator-32/completion.json",
+      "sha256": "9b8ddc8e37c98b850fdba66de930e94bb54a29a5c6d5d904f83fdf2b18de3fa7"
+    },
+    "allocator-32/cpu-Q-oracle.json": {
+      "path": "${WORKSPACE}/artifacts/validation/v104-idle-first-allocator-20261021/allocator-32/cpu-Q-oracle.json",
+      "sha256": "f0e383f02ec74ee83707aae55b7b45dd697690dbc68842ff3be96b8bd57caeb1"
+    },
+    "comparison-summary.json": {
+      "path": "${WORKSPACE}/artifacts/validation/v104-idle-first-allocator-20261021/comparison-summary.json",
+      "sha256": "c73c16c617a711a42b68aca6943266bff67f097151d3ed0031484638b3bd1383"
+    },
+    "completion.json": {
+      "path": "${WORKSPACE}/artifacts/validation/v104-idle-first-allocator-20261021/completion.json",
+      "sha256": "efbd16d5a4831aaa6d51b929917c1ee43edaf7eb8fde939832f60e058ebfd791"
+    },
+    "independent-final-performance-review.json": {
+      "path": "${WORKSPACE}/artifacts/validation/v104-idle-first-allocator-20261021/independent-final-performance-review.json",
+      "sha256": "80afebee3582cb00b875f397f50492b92b6bf401615e3960af3f6d889749270b"
+    },
+    "independent-readiness-review.json": {
+      "path": "${WORKSPACE}/artifacts/validation/v104-idle-first-allocator-20261021/independent-readiness-review.json",
+      "sha256": "0b0f69bd9a49569e678a50d9e706b270154c77ce171cad1eeeb314e4f13f967f"
+    },
+    "independent-source-review.json": {
+      "path": "${WORKSPACE}/artifacts/validation/v104-idle-first-allocator-20261021/independent-source-review.json",
+      "sha256": "9087b865d1ea56da06f5c99d35d009a709d145e9e17d40ea7482fc0b0ede6658"
+    },
+    "metal3-history-answer.json": {
+      "path": "${WORKSPACE}/artifacts/validation/v104-idle-first-allocator-20261021/metal3-history-answer.json",
+      "sha256": "df1dda93876e761efa185c6b8196f82e6e65a1489c33548793ad299e5b83f526"
+    },
+    "os-context.json": {
+      "path": "${WORKSPACE}/artifacts/validation/v104-idle-first-allocator-20261021/os-context.json",
+      "sha256": "e27d5411b0f30b735d32b910c19ee271415763b24733880d0ebfb94a7881837f"
+    },
+    "performance/outcome.json": {
+      "path": "${WORKSPACE}/artifacts/validation/v104-idle-first-allocator-20261021/performance/outcome.json",
+      "sha256": "d8cd6a9250a58d3be9c3aa0b12e5302713d37441abe04dde19ed920355e41cf9"
+    },
+    "report": {
+      "path": "${WORKSPACE}/reports/v104-idle-first-allocator-20261021.md",
+      "sha256": "f90b16540e9a557cdfa4d9842288d960ef76d918178f98099c4fc58cd17eecf8"
+    },
+    "selectedCandidate": {
+      "path": "${WORKSPACE}/artifacts/runtime/v104-local-candidate.json",
+      "sha256": "5f3dd7430871c247fde2a36bc7f03352b2fbf73c8778a7a4adabee8e70322ca9"
+    },
+    "test-executable-cleanup-completion.json": {
+      "path": "${WORKSPACE}/artifacts/validation/v104-idle-first-allocator-20261021/test-executable-cleanup-completion.json",
+      "sha256": "68094c6381dd27601cf6dd9395cc483482d5543664ba6e4019dc0567b2f90434"
+    }
+  },
+  "cleanup": {
+    "leaves": 1332,
+    "logicalBytes": 38483426,
+    "physicalBytesMeasured": false,
+    "roots": 24
+  },
+  "completedAtUTC": "2026-10-21T17:54:43.515377+00:00",
+  "formalPublication": false,
+  "groups": {
+    "Q": {
+      "FPS": [
+        46.07670211792,
+        46.099296569824
+      ],
+      "meanFPS": 46.087999343872,
+      "meanP95Ms": 29.977499961853
+    },
+    "R": {
+      "FPS": [
+        46.895664215088,
+        46.059989929199
+      ],
+      "changeFromQPercent": 0.8458334790428124,
+      "meanFPS": 46.4778270721435,
+      "meanP95Ms": 29.9174995422365
+    }
+  },
+  "osSwVers": "ProductName:\t\tmacOS\nProductVersion:\t\t27.2\nBuildVersion:\t\t26B118\n",
+  "previousQAndCPreserved": true,
+  "screenRestored": true,
+  "selectedApp": "${WORKSPACE}/artifacts/runtime/v104-idle-first-allocator-candidate-20261021/BAR.app",
+  "selectedWorkingCandidate": "R",
+  "sessions": 4,
+  "sourceBuild": "R frozen",
+  "status": "complete"
+}

@@ -1,0 +1,172 @@
+{
+  "baseline": {
+    "pinCount": 39,
+    "pins": "R-source-pins.json",
+    "policy": "allocator32/growth2MiB/available8/idle64MiB; diagnosticsOFF",
+    "rawBuild": "previous RLookup; not rebuilt and not claimed to match R source",
+    "selectedApp": "artifacts/runtime/v104-idle-first-allocator-candidate-20261021/BAR.app",
+    "source": "exact R"
+  },
+  "execution": {
+    "builds": 0,
+    "cleanup": 0,
+    "cpuTests": 0,
+    "fixtureEdits": 0,
+    "gameFPS": 0,
+    "nativeGpu": 0,
+    "newAgentsOrThreads": 0,
+    "productEdits": 0,
+    "publish": 0
+  },
+  "next": "Root independent review of the exact source proposal. This is not build/package completion; raw source/binary mismatch remains explicit.",
+  "phase": "First bundle candidates 1 and 2; no product/fixture changes applied",
+  "reviewInputs": [
+    "artifacts/validation/v104-optimization-risk-return-20261021/primary-assessment.json",
+    "artifacts/validation/v104-optimization-risk-return-20261021/independent-assessment.json",
+    "artifacts/validation/v104-optimization-precedents-20261021/external-assessment.json",
+    "independent-gate-review.json"
+  ],
+  "scope": {
+    "authority": "root-first-bundle-grant.json plus later bounded-capacity experimental-candidate clarification",
+    "excluded": [
+      "unit4 early-State",
+      "11a",
+      "2837",
+      "global/threadlocal scratch",
+      "new collector",
+      "shared ownership redesign",
+      "game/FPS",
+      "cleanup/publication/install",
+      "launcher/native-engine/profile/pointer edits"
+    ],
+    "modelReasoning": "current unchanged"
+  },
+  "status": "unit1-proposal-ready-for-independent-source-review-unit2-held",
+  "unit1": {
+    "applied": false,
+    "arrays": [
+      {
+        "bound": 16,
+        "expected": "count",
+        "name": "bufferProofs",
+        "proof": "allBuffersProven implies cacheEligible and count<=Snapshots::kMaxResources; pure single-buffer descriptor"
+      },
+      {
+        "bound": 16,
+        "expected": "resourceCount",
+        "name": "textureProofs",
+        "proof": "allTexturesProven implies textureCacheEligible, counts.buffer==0 and texture+sampler count<=PreparedTextureBindingCache::kMaxResources"
+      },
+      {
+        "bound": 16,
+        "expected": "resourceCount",
+        "name": "snapshotResources",
+        "proof": "snapshotEligible includes resourceCount<=Snapshots::kMaxResources; capture checks value/proof before reserve"
+      }
+    ],
+    "countDefinition": "expected number of entries in that vector, not necessarily Vk descriptorCount. A single combined image+sampler descriptor can yield two entries.",
+    "decision": "Conditional controlled candidate: reserve exact expected capacity only at an accepted first insertion",
+    "evidence": [
+      [
+        "Commands/MVKCommandEncoderState.mm",
+        248,
+        "bufferProofs and admission"
+      ],
+      [
+        "Commands/MVKCommandEncoderState.mm",
+        275,
+        "textureProofs/expected count"
+      ],
+      [
+        "Commands/MVKCommandEncoderState.mm",
+        283,
+        "snapshot replay paths"
+      ],
+      [
+        "Commands/MVKCommandEncoderState.mm",
+        311,
+        "captureSnapshot"
+      ],
+      [
+        "Commands/MVKCommandEncoderState.mm",
+        384,
+        "group copy then persistent snapshot move"
+      ],
+      [
+        "GPUObjects/MVKMetal4PreparedResource.h",
+        157,
+        "binding snapshot move"
+      ],
+      [
+        "GPUObjects/MVKMetal4PreparedResource.h",
+        467,
+        "texture proof move"
+      ],
+      [
+        "GPUObjects/MVKDescriptorSet.h",
+        554,
+        "buffer proof cache move"
+      ]
+    ],
+    "hitNegativeOne": "No helper on complete group/cache hits; no reservation before first accepted value; expected vector length0/1 never reserves. Texture negative memo suppresses texture-proof reserve, while independently eligible snapshot capture may still operate exactly as before.",
+    "insertionSites": [
+      "snapshot replay Hit -> textureProofs (copy retained source proof as before)",
+      "snapshot replay Hit Buffer -> bufferProofs (copy as before)",
+      "captureSnapshot value/proof admitted -> snapshotResources (existing resource construction)",
+      "slow texture valid proof -> textureProofs (move as before)",
+      "slow buffer valid proof -> bufferProofs (move as before)",
+      "slow sampler valid proof -> textureProofs (move as before)"
+    ],
+    "patch": "unit1.patch",
+    "patchSHA256": "d2cc1b83b29b8b83ed5ffd42eea85fd2f95e9bfb92881b20ea4b625fbb99641e",
+    "preimageSHA256": "9b28b9a30f6e0d8a975b732dcaf8a49c8e14b32f9ba3157e4f9dce03b14276b9",
+    "product": "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCommandEncoderState.mm",
+    "productsChanged": 1,
+    "proposedSHA256": "b1013a4a907210de7f527f550758824d1dfcf5d79b05266a984aa2a1e97e62e3",
+    "requiredValidationBeforeBuildAcceptance": [
+      "Existing descriptor/prepared-texture fixtures: extract actual reserve lambda plus actual affected collection/retention branches, not a parallel reimplementation",
+      "Counted allocations in fixture only: expected lengths0,1,2,3,16; old/new value/proof order and allocations; no exact allocation-count claim before run",
+      "Complete group/individual hit, negative texture cache with independent snapshot path, immediate invalid first proof, late invalid/registration failure",
+      "Partial snapshot replay success then miss/clear/fallback; existing capacity reused without repeated reserve",
+      "Existing buffer/texture/snapshot remember methods: unchanged weak ownership, resource identity and no extra vector storage allocation on move",
+      "Update only affected existing fixture extraction/wiring as needed; preserve reference R result",
+      "After source review: apply unit1, related CPU validation, single active incremental build, foundation-OFF syntax, selected existing Vulkan M3/M4 cases if source path warrants; coordinate GPU start with root",
+      "Package only after checks pass, preserving selected R and four frozen apps and original launcher; no game/FPS here"
+    ],
+    "rollback": "Reverse unit1.patch only; any related fixture adaptation separately recorded. unit2 has no source hunk.",
+    "rule": "expectedCount>1 && values.empty() && values.capacity()<expectedCount; reserve immediately before existing accepted push",
+    "tradeoffs": [
+      "extra cheap predicate on successful insertion sites; FPS impact unmeasured",
+      "after the first valid entry a late failure can retain capacity for up to16 entries until original scope/cache lifetime ends",
+      "expected length is exact for successful eligible capture, not a proof the whole capture will succeed",
+      "stdlib reserve capacity behavior and actual allocations must be observed in related fixture, not guessed"
+    ],
+    "unchanged": [
+      "groupResources/coveredBindings/residualBindings growth",
+      "snapshot-to-group copy required for two destinations",
+      "weak proof data and all move/copy sites",
+      "eligibility, live guards, native retention/residency",
+      "cache admission/revision/drawable/alias checks",
+      "partial replay clear and reused capacity",
+      "M3 branch and current early-record policy"
+    ],
+    "workReduction": "For a successful multi-entry capture, capacity is acquired once before the first insert, eliminating intermediate capacity-growth allocations and moves. Same std::vector storage is moved into the existing persistent cache, without a new final copy."
+  },
+  "unit2": {
+    "decision": "Hold; no product patch",
+    "notClaimed": "Not a proof every BAR prefix has zero calls. no-push/unchanged-push/pre-push bind/separable/descriptor-mode or extension differences remain possible, but meaningful repeated pre-Deferred use is not established.",
+    "patch": "unit2.patch",
+    "patchBytes": 0,
+    "patchSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "reason": "Generation-time metadata would add work and storage even when the query loop is not reached; no source-bound BAR reduction demonstrated for this bundle.",
+    "reopenCondition": "Existing evidence establishes meaningful repeated layout classification before first Deferred. Do not add collector or implement unit4 to manufacture reach.",
+    "sourceChain": [
+      "zink_draw.cpp:765 descriptor update on batch/descriptor changes",
+      "zink_descriptors.c:1345 new-batch push flags,1407 condition,1453 push-template before1476 masked updates",
+      "Vulkan/vulkan.mm:3043 captures push command and calls addCommand; compact mode stays same class",
+      "MVKCmdPipeline.h:323 push-template has no getMetal4RecordPolicy override; MVKCommand.h:107 default Deferred",
+      "MVKCommandBuffer.mm:347 checks policy only while early flag true;365 first Deferred clears it",
+      "MVKCmdPipeline.mm:361 later bind policy loop therefore not invoked on that path"
+    ]
+  }
+}

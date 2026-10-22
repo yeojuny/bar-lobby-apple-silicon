@@ -1,0 +1,53 @@
+{
+  "CPUChecks": [
+    "Actual BufferSubData: fresh/no upload, zero-byte call, two partial uploads then one invalidation, repeat invalidation, next-frame upload, owned CPU memory/client pointer, both usage hints, Resize before/after upload; preserve ID/byteSize/offsets and reset marker only when appropriate. In unsupported/HEADLESS mode, a frame-boundary call clears only the marker; consecutive no-upload frames issue no GL work.",
+    "Use nonzero foreign VAO with a different EBO, nonzero COPY_WRITE binding, ARRAY_BUFFER and indexed SSBO state. DSA and fallback must preserve all of them. DSA should record no state query/bind calls.",
+    "Feature matrix: core4.5+named pointer and ARB DSA+pointer; null pointer or unsupported DSA flags may use COPY_WRITE only with core3.1 or ARB_copy_buffer. GL3.0 with neither capability, including non-null unsupported named pointer, must issue no GL call and preserve bytes/state. HEADLESS compiles/links without the new DSA pointer/ARB DSA variable and performs no orphan GL calls.",
+    "Run the external target Bind/Unbind body only as a fixture negative control; the VAO assertion must reject it. No unsafe body goes into product sources.",
+    "Actual Typed Swap/Clear/upload: fresh object, non-indexed/indexed buffers, upload/no-upload frames, readonly, CopyCurrent readonly and writable independent copies, move ownership, and offset-zero reupload after frame reset.",
+    "Lobby only: actual GetPendingElemsRange/DrawElementsRange redraw before Swap yields the same queued geometry and does not invalidate early. Chobby uses its existing indexed draw API; do not add the missing range API.",
+    "Model uploader regression: reuse only sparse/fallback/idle examples from existing CheckSparseSnapshotMaps/CheckUniformRing selections. General Swap produces zero orphan calls and retains unchanged indexed bytes; persistent paths remain no-op Invalidate.",
+    "Retain old-generation reads across the frame boundary and consume them after fresh-generation upload; distinguish this CPU model from proof of actual GPU behavior."
+  ],
+  "CPUExecutionPlan": {
+    "lanes": "Both source roots, interactive feature matrix and a HEADLESS compatibility variant; use existing ASan/UBSan flags and bounded cases.",
+    "resultAccounting": "Record changed-path assertions, extracted source hashes and failures. No FPS or GPU guarantee from mock results. Do not rerun unrelated concurrency suites."
+  },
+  "currentExecutionCounts": {
+    "GPU": 0,
+    "appLaunches": 0,
+    "compiles": 0,
+    "fixtureEdits": 0,
+    "nativeBuilds": 0,
+    "tests": 0
+  },
+  "laterRealGL": {
+    "cases": "Query actual context version/ARB DSA support and loaded named pointer, preserve foreign VAO/EBO/COPY_WRITE state around storage replacement, and check indexed/nonindexed output plus same-frame reuse and post-orphan reupload. Use the chosen candidate's packaged stack.",
+    "gate": "No GPU/context/app execution during the current R/Small comparison. Actual later execution requires the source/build/runtime handoff.",
+    "limits": "These API/component controls do not execute Recoil's full game path. Actual Typed C++ behavior is covered by the CPU source-path fixture; later private BAR.app acceptance remains separate and root-owned.",
+    "reuse": "tools/probe-run75-vbo-vao.py already supplies pinned EGL/Zink context, finite indexed/nonindexed drawing, state queries and readback. Reuse its context and add a bounded case selection; do not run its full MSAA/instancing matrix for this change."
+  },
+  "packageAndAcceptance": {
+    "newCandidateOnly": true,
+    "parentSelection": "deferred to root",
+    "performance": "Root chooses bounded fair comparison after functionality/packaging. Assess frame time and any meaningful memory regression; no premature FPS promise or instrumentation project.",
+    "replace": "Exactly the two selected-parent engine executables plus required signing records; never copy active raw MVK.",
+    "verify": "Parent inventory unchanged; candidate runtime/MVK, launcher code, Lua/NoGS/healthbar assets exact; engine version identity, closure and strict signature valid."
+  },
+  "reuse": {
+    "actualCode": "Use actual StreamBuffer.h/cpp and actual TypedRenderBuffer methods. Prefer the actual RenderBuffers.h; if shader/link dependencies are excessive, extract exact class/method bodies with source hashes and mock only unrelated shader/VAO receivers. Do not substitute a hand-written Typed algorithm.",
+    "approach": "Add a bounded frame-local-orphan selection to the existing runner/fixture after implementation grant. Retain --source-root so each lane is checked. Avoid invoking unrelated list, Lua, producer-publication or thread suites.",
+    "backingModel": "Track buffer object separately from storage generation. Issued reads retain the old generation; orphan creates poisoned fresh bytes. New writes must not mutate old queued reads. Keep persistent-storage fence semantics from the existing fixture.",
+    "existingFakeGL": "artifacts/validation/r58-stream-lifetime-20261005/stream-lifetime-checks.cpp",
+    "fakeGLDefect": "The existing single global bound ignores target/VAO and cannot detect EBO damage. Extend only the selected test mode to target-specific bindings, current VAO and per-VAO element attachment.",
+    "fixture": "tools/tests/test-step7-model-shared-upload.cpp",
+    "runner": "tools/tests/test-step7-model-shared-upload.py"
+  },
+  "scope": "11a changed stream/Typed paths only; no global audit, new production collector or broad benchmark suite",
+  "status": "planned-not-executed",
+  "syntaxAndBuild": {
+    "identity": "Before and after, compare official version and numeric/sync policy plus immutable provider source pins. Version-only checks later use the private workspace, not a user profile.",
+    "incremental": "After independent proposal review and explicit grant, apply exact current-mtime hunks, verify both CMake caches unchanged, then build existing engine-legacy targets in both active build roots. Record dependent TU recompilation; no clean/configure/whole-stack rebuild.",
+    "syntax": "Use each existing compile configuration for changed-header consumers StreamBuffer.cpp and glFontRenderer.cpp. Verify HEADLESS symbol exclusion through the bounded fixture/link check."
+  }
+}

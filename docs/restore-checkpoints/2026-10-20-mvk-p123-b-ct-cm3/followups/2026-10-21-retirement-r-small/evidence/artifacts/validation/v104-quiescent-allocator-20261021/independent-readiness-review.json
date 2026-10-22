@@ -1,0 +1,51 @@
+{
+  "CPUChecks": 916,
+  "decision": "Freeze source/build and proceed C/Q matched performance; C remains current pending results.",
+  "diagnosticsFourLanguageFlags": 0,
+  "executedBuildTestGPUApp": false,
+  "findings": [],
+  "fixturePins": {
+    "tools/tests/metal4-counter-completion-cpu.mm": "443a36f87ff7869653f7b6bcd1faba98f5be4febbdade45008a222c06013faa8",
+    "tools/tests/metal4-r49-lifetime-native.mm": "62abed0ed599af6a6c9c3be74966a3510fb1921d99c724bfeb74e8ed7906853d"
+  },
+  "inputSHA256": {
+    "C-inventory.json": "9a399eee40e580f9102234e157aa3588fbb53bad73d3df718f9e0f7901450759",
+    "Q-build.json": "2d43fff4e96f1386a06e01696b4bbf19826eaf70358c8d2c2b2f667252568db8",
+    "Q-from-C.patch": "0b5055809ff640bdcdee374dab76ee4e06cd77d6e5895c32cfc61a212f0f8e59",
+    "Q-inventory.json": "daf44ad811afffea12741c65e107f0c24b3287b93d359ad06a34c203f1d48444",
+    "Q-package.json": "ac869a840f7bf5662e2f887dd1c5e25a76b9a1aaa3fd5bfa082ac7aac2aa3cf1",
+    "Q-source-pins.json": "d52773b5bfd5cd82197ec0a0c1751a07da57fd95b5ebfd75670e16bfe6ca1e8a",
+    "allocator-32/completion.json": "72bb5442f0bd87d111c0f5bc928a932dd213f8ecc397f7e96017b08b5ed658f5",
+    "allocator-32/cpu-run.json": "660180b1ba468c162add8ed50189afd9d8a7f62a9de6a166ffba78eade10c27c",
+    "allocator-32/cpu-run.log": "d80e2b509a299a18212b6becc5147abe0ca27ea21cf916f0cfe2ddafd0627cae",
+    "allocator-32/native-run.json": "295644a3e57dc5bc91a651d6e3602f88f4636893d2d11273352ca6bbcafb0b90",
+    "allocator-32/native-run.log": "2f4ab7518bbae2f4abf694885aece36330e0344747701073b7020ed7b06a97a7",
+    "fixture-pins.json": "c85280d3f9e61635779ec0eb21c09a88165cac993b7d7f4344336a14d6992ec6"
+  },
+  "inventories1194AndThreeExpectedDeltasVerified": true,
+  "nativeCases": 5,
+  "nativeQuiescentCompletions": 12,
+  "nativeResets": 12,
+  "packagedSHA256IndependentlyVerified": "3f7ae550916228c89eec51f3f1741e54b5fbe62929e03a22038158d7ba076dd6",
+  "postRunFixtureTextChanges": "General main selects same tested explicittrue mode; failure text clarified; no tested body/condition/product change.",
+  "productEdits": false,
+  "productPins": {
+    "Commands/MVKCommandBuffer.h": "ea6eb8b685fe9a180c2f53faa08b0ca19545a1b764f426c3aac5eadd7b35609a",
+    "Commands/MVKCommandBuffer.mm": "c66515484dfda8a7d5b05ed45622b03f64e9695eedcbb607d4e71387eb354c74",
+    "Commands/MVKCommandEncoderState.mm": "9b28b9a30f6e0d8a975b732dcaf8a49c8e14b32f9ba3157e4f9dce03b14276b9",
+    "Commands/MVKMetal4DependencyScopes.h": "23eb82a647ea1632fcf3bcad7a330a53f42ab9d51cf04145722ea331b8530128",
+    "GPUObjects/MVKMetal4PreparedResource.h": "d6222a17d4da569b0abd419f1c7e8b41c2f2101c7acf700e770aa02af7afa653",
+    "GPUObjects/MVKMetal4Submission.h": "b16b79f45cebe2ed69e8c0e8c5d8ba5ee4921a0156d7cbd70ca812da57bb18ce",
+    "GPUObjects/MVKMetal4Submission.mm": "8457e8c935d2edcd54f00a6e391140ab751f5e8ae4c014fd41e732c2559fbf36",
+    "GPUObjects/MVKPipeline.h": "aad8ee804ef963d234f815841b400f6c826491aa9478428e687fc8e869bca140",
+    "GPUObjects/MVKPipeline.mm": "aaa8e9f7c9e8ddaab644d08bce02138b60254cb21aa4f2107541ebe3c0f440ba",
+    "GPUObjects/MVKRenderPass.h": "12d96adb474ace60aa5a746eaa5cf922d54f6e32c154f3ecc4f864f7fc5b8984",
+    "GPUObjects/MVKRenderPass.mm": "8b6ce3de27c32d931dd5b9de39b31e96745389a25bd549f92b08fccc8ed45f14"
+  },
+  "rawSHA256IndependentlyVerified": "685f3f3b6901e12ff781e0c2bbd797953737f851b2193d665f8cbf86740ac3bd",
+  "recordedAtUTC": "2026-10-21T15:54:05.164640+00:00",
+  "recordedClosureEdges": 211,
+  "recordedDeepStrictSignature": true,
+  "reviewer": "independent_review sub-agent",
+  "status": "ready-for-root-performance-no-actionable-blockers"
+}

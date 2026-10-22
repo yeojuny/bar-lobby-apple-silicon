@@ -1,0 +1,36 @@
+{
+  "buildAndPackageIfLaterAuthorized": "Apply only independent exact-context hunks against root-selected R/Small(+11a) source, with fresh mtimes and required dependent recompilation; never restore whole prior files. Package only the intended MVK into a fresh clone of the selected parent, preserving its two engines and launcher. Existing strict signature/closure/version checks suffice.",
+  "configurationMatrix": [
+    {
+      "backend": "legacy M3",
+      "check": "Related syntax/CPU fixture; do not reference absent M4 stamp fields.",
+      "foundation": 0
+    },
+    {
+      "backend": "runtime M3",
+      "check": "Selected implicit dynamic/layout case and residency bookkeeping as appropriate to device residency mode.",
+      "foundation": 1
+    },
+    {
+      "backend": "native M4",
+      "check": "Preserved unconditional M4 invalidation and helper/encoder recovery; no claim of native optimization from a legacy-only change.",
+      "foundation": 1
+    }
+  ],
+  "executed": false,
+  "gate": "Current recommendation is hold. Execute nothing unless root reopens an exact independent-reviewed source proposal after the active performance comparison.",
+  "performance": "Root owns any later bounded comparison. A same-set-bind frequency alone is not a saved-time claim. Retain M3 as a first-class beneficiary; do not trade its performance away for relative M4 gains.",
+  "requiredCPUCases": [
+    "First bind, repeated equal data, equal pointer with changed metadata, changed pointer, zero/nonzero offsets, multiple sets and per-stage consumption.",
+    "Zero-growth counterexample: P1 set0 A has one dynamic descriptor and set1 S has one, offsets [0,0]; P2 changes set0 to B with two, retaining a compatible S definition, offsets [0,0,0]. The implicit payload must rebind with three words even if every value is zero.",
+    "Prefix-layout/packing change, equal counts with different associations, shrink/grow/partial rebind, no-dynamic argument-buffer fast path, and conservative Off-mode handling.",
+    "Resource-use affected clearing remains exact, including a state-level X-to-Y update at the same address; distinguish this modeled contract from a legal Vulkan runtime reproduction.",
+    "Fresh encoder, graphics/compute stage switch, helper overwritten root bindings, native table slot revisions and copied/restored state must retain original first-use behavior."
+  ],
+  "reuse": [
+    "Extend the existing descriptor/preparation CPU fixture with actual extracted bind helper, layout/count and invalidation bodies; no hand-written equality-loop substitute or production collector.",
+    "Use selected cases from tools/tests/metal4-vulkan-integration.mm and tools/tests/metal4-prepared-recording-vulkan.mm for native descriptor/layout/helper behavior; no unrelated full suite."
+  ],
+  "runtimeRules": "For mutable same-set updates, first document a valid UAB/unused schedule, host synchronization and native encoding boundary. Do not use ordinary invalidated command buffers as negative controls. Foundation-OFF native M4 is not an available test lane.",
+  "status": "conditional-plan-only-not-queued"
+}
