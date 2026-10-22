@@ -1,0 +1,15 @@
+{
+  "afterDeletionVerificationAvailableBytes": 231714619392,
+  "afterEvidenceCompactionAvailableBytes": 231795523584,
+  "allValuesWholeVolumeObservations": true,
+  "beforeDeletionAvailableBytes": 231661170688,
+  "generatedEvidenceOriginalBytes": 94186203,
+  "generatedEvidenceRetainedBytes": 10486712,
+  "interpretation": "The deletion window increased free space. The longer task window decreased free space. Concurrent filesystem activity and delayed accounting were not isolated; neither whole-volume change is attributed solely to this cleanup.",
+  "isolatedCausalReclaimMeasured": false,
+  "logicalOriginalDuplicateBytesRemoved": 967644316,
+  "measuredAt": "after source retirement and lossless evidence compaction, before final result publication",
+  "observedDeletionWindowIncreaseBytes": 53448704,
+  "observedWholeTaskChangeBytes": -1741541376,
+  "taskStartAvailableBytes": 233537064960
+}

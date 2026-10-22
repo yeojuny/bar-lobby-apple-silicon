@@ -1,0 +1,122 @@
+{
+  "schema": 1,
+  "status": "independent-final-review-passed-exact-selection",
+  "atUTC": "2026-10-22T16:42:47.633908+00:00",
+  "reviewer": "storage_independent_review",
+  "readyForDeletion": true,
+  "commit": "e39c9be0b507e67d70470eaa8eb026f601cca3d6",
+  "tree": "61ddf35c904d9339e11f3e962d56e06b09d97f19",
+  "parent": "82a19979f837abbe54e6c0c9a083fa74589e4351",
+  "blockingFindings": [],
+  "boundSHA256": {
+    "selection.json": "7b971c9d1f41d13819b74d6d82f7d662c82f4a3f4afc6241da13bf1716fe9676",
+    "commit-proposal.json": "5ff7029c7025ea2ed7762d5f2bc350410be862747b862484de2a0be73491ba08",
+    "inventory-private.json": "5e1ef40be9d299fb5b79f7b8a4085f6c10d3292dab9229e79703165ff2e08475",
+    "prepublication-review.json": "7057826818234c6a9714e5e692f17b19a34de062d19a8dd5fa82b97f66cf4f55",
+    "protected-before.json": "473d345419504eba49a267f6a1bd7cf6ca96beddc539cf31c8bcc66106954014",
+    "safety-before.json": "0eb3d900641f781e0156863c59b85522d3c3e0010344e4daa8f1e32eff8452a9",
+    "cleanup.py": "df7b3389d645fdf8242476e942c6330c51de7f812242756b1d9fa54a531c1a02",
+    "guard.py": "9ae8861e9673d71ad284c0cab568e01669d9399203dac27830b9b26c2f1721d9",
+    "prepare.py": "69097bfc9ed32b5396ccde69e112b958d4f6af1284df0921979359b84a3fbd2c",
+    "verify-remote.py": "a4400f75b8dc1014537f59a80de1c2391b5ba0216ce190d74fb32cd8b53d3bb4",
+    "remote-certification.json": "00ea9adf5abb2a41ccc0af605d19ee48eb471630b210371b975da9a01b59e524",
+    "remote-external-certification.json": "ca1b6a1dcde674916d7f28b700110219de851576002d4c3050cd085dac4c1450",
+    "remote-restoration.json": "38c28fa7ce243561d1074454b3fb67fcc7dd40d1edd6c47942e731661748c9a2",
+    "publication/manifest.json": "54bbdd006aa4b660b105cdfc0598d6dcec13af25a182c9d320da2ee588222be3",
+    "publication/catalog.json.gz": "903a70b6321479b9c84b556b7beeafb5eb2ac32fbd3253c152eb205bd1dd9c24",
+    "publication/README.md": "467dd7b02e111b26d746aa30a4595dd3492ecae923469b322c57dffb4b5926a3",
+    "publication/restore.py": "233db8bc32bb0863111083d4c0b55d987236b6857935e51c88c253867539f513",
+    "publication/fetch-inputs.py": "44a02cd2067a111954120fc1233d94f8543bf984d145b4cc0e379b36e30bda12",
+    "publication/packs/delta-000.zip": "290af4a4e0e9fb072b99ac6bb203705190838ffd0ef9f5b9f0ce5ec6c86a455f",
+    "publication/deltas/fullscreen-chobby.json": "211bcfedfe307574133026cae1ce742146da6b40947e95aa25ad0e0f6f4c3b72",
+    "publication/deltas/fullscreen-lobby.json": "f577ffd6f789894031a8a3d28690e9adff4f93a67730d8c7c9fcb590f33f50de",
+    "publication/deltas/jsoncpp-chobby.json": "8483ae57c71f6426bdaf58d0ea7142849de77a895e889578a9cb516ee4135f6b",
+    "publication/deltas/jsoncpp-lobby.json": "e2350c49c26d6c448f88f0f9e78ea7697319b7c6fabf35e59bb2e1ae8f8bc08e",
+    "publication/deltas/upgrade-launcher.json": "517b96518c0ce10e6373687606155dad3745fb62c507d688038182792409ad1f",
+    "publication/deltas/upgrade-lobby.json": "fe2d825f4cc79fea82a60607b3ce5c7a8ac804d5023ea09dd6905197b389594f"
+  },
+  "scope": {
+    "files": 43953,
+    "logicalBytes": 967644316,
+    "oldSourceRoots": 6,
+    "onlyProposalGroup": 1,
+    "commonRootsRemain": 3,
+    "gitDatabasesRemain": 2,
+    "topLevelFixturesRemain": 2,
+    "priorCanonicalPathsRemain": 30,
+    "localOnlyFilesRemain": 123,
+    "noDirectoryRetirement": true
+  },
+  "prepublicationReviewRevalidated": {
+    "exactPublicFiles": 12,
+    "publicBytes": 16475197,
+    "allBoundFilesUnchanged": true,
+    "allParentPublicPathsUnchanged": true,
+    "prepublicationReviewSHA256": "7057826818234c6a9714e5e692f17b19a34de062d19a8dd5fa82b97f66cf4f55"
+  },
+  "remoteReview": {
+    "anonymousCheckpointFiles": 12,
+    "allCheckpointBytesGitBlobsModesExact": true,
+    "downloadedCheckpointComparedToReviewedLocalPublicBytes": true,
+    "allExternalFiveDownloadedAnonymously": true,
+    "externalUsedLocalSourceCopies": false,
+    "sourceWrapperSHA256": "61ae84d7e6da5b4fe758f6d5cd97239902c1c88dd3c56914b313b2634bda4ac1",
+    "externalCurrentDownloadedFilesIndependentlyHashed": 5,
+    "actualPublicSnapshotsRestoredByCoordinator": 9,
+    "publicFilesVerified": 65875,
+    "publicBytesRestored": 1556549872,
+    "allSelectedFilesVerified": 43953,
+    "eachReturnedInventoryDigestRecomputedIndependentlyFromCatalogAndPrivateOriginalPins": true,
+    "allNineCountsBytesHashModesMtimesAndSelectedCoverageMatch": true,
+    "expectedDirectoryModesVerified": true,
+    "existingDestinationRejected": true,
+    "corruptPayloadRejected": true,
+    "temporaryMaterializationsRemoved": true,
+    "originalBackupsDeletedDuringVerification": false,
+    "independentReviewerDidNotRepeatNetworkOrBulkRestore": true
+  },
+  "executionBoundaryReview": {
+    "cleanup": "Exact43953 unique regular files and967644316 bytes within six explicit old roots; canonical parity; no .git/Markdown/prior canonical; independent+remote gates; no recursive deletion; exclusive per-file journal; identity recheck before unlink; retained protection before/after.",
+    "guard": "Content,mode,mtime,inode,flags,nlink,xattr names checked; incoming symlinks to any selected ancestor checked; bounded selected open-file scan; current/source/test/canonical content and retained tree metadata comparison.",
+    "remoteVerifier": "Only exact immutable downloaded code/payloads used; source dependencies downloaded and verified; every public snapshot file compared with frozen private inventory; file set/mode/mtime/hash and expected directory modes checked; selected coverage counted; refuses existing destination and corrupt pack.",
+    "blockingCodeDefectFound": false
+  },
+  "protection": {
+    "beforeTrees": 14,
+    "beforeContentHashedFiles": 18808,
+    "allBackupsIncludedInRetainedMetadataComparison": true,
+    "incomingLinksAtPreparation": 0,
+    "selectedOpenFilesAtPreparation": 0,
+    "realLauncherHEAD": "6a3b298c236cd10eff8fd7ce27d15cdb589f650f",
+    "realIndexSHA256": "073483d1f4a62c9cda7006b467f60da926f889d1c8f126dc0016e3a23b761c87"
+  },
+  "executionConditions": [
+    "The root owner binds the final clearance to this review and every reviewed selection, proposal, remote receipt, protection and execution-code hash.",
+    "Use only the reviewed cleanup.py/guard.py/prepare.py; retain their final immediate canonical/selected identity-content-xattr, open-file/link and protection checks.",
+    "Stop if any final check fails or any bound input changes; this review does not authorize a substituted selection.",
+    "Compare protected state after unlink and retain the per-file journal and completion receipt."
+  ],
+  "temporaryEvidenceHandling": {
+    "remoteCheckpointDownloadsAndDerivedCacheMayBeRemovedAfterTheirVerifiedReceiptsAreRetained": true,
+    "notOriginalBackupData": true,
+    "reviewBoundPathsDoNotRequireKeepingTemporaryRemoteCheckpoint": "The bound publication originals and verification receipts are retained.",
+    "largeTaskGeneratedJsonOrJournalCompression": "After completion, lossless gzip archival is compatible with this approval if decompressed bytes are rehashed to the original bound SHA256, archive mapping is retained, and usage instructions explain materialization. It is not approval to remove tests, original backups, Markdown, or unique evidence."
+  },
+  "limitations": [
+    "Scope is the exact reviewed checkpoint and selection, not a general deletion tool approval.",
+    "Whole-tree protection uses metadata and named critical/canonical content hashes; xattr values outside selected files are not fully snapshotted.",
+    "Open-file/link scan is bounded to documented workspace/same-user visibility.",
+    "The reviewer independently checked downloaded files and receipts without repeating network downloads or deleting original backups.",
+    "Current final source/canonical/protection checks remain the cleanup executor responsibility and occur immediately before and after unlink.",
+    "Remote reconstruction is the public source projection, not full Git/local-private state or a clean historical executable rebuild.",
+    "The v1.0.3 source asset must remain available with its pinned hash or a retained verified equivalent; no future remote availability guarantee.",
+    "Logical bytes are not a prediction of isolated physical reclaim."
+  ],
+  "actions": {
+    "backupDeletedByReviewer": false,
+    "remoteMutationByReviewer": false,
+    "productEdits": false,
+    "appGameBuildGPU": false,
+    "onlyFinalReviewUpdated": true
+  }
+}
