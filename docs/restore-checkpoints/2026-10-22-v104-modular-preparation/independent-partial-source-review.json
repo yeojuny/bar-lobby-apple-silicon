@@ -1,0 +1,160 @@
+{
+  "status": "source-capsule-accepted-not-activated",
+  "createdUTC": "2026-10-22T18:09:44.983638+00:00",
+  "blockingFindings": [],
+  "actionableFindings": [],
+  "module": 8,
+  "adjacentSubmodule": "08b-partial-group-replay",
+  "variants": {
+    "R-and-Small": {
+      "files": [
+        {
+          "target": "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKMetal4PreparedResource.h",
+          "mode": 420,
+          "before": {
+            "path": "payload/d6222a17d4da569b0abd419f1c7e8b41c2f2101c7acf700e770aa02af7afa653",
+            "sha256": "d6222a17d4da569b0abd419f1c7e8b41c2f2101c7acf700e770aa02af7afa653",
+            "bytes": 23696
+          },
+          "after": {
+            "path": "payload/cccf0e6fb94a151529b1b03f47a4c6b43a35859b0cd76122dfa55258a29ebe44",
+            "sha256": "cccf0e6fb94a151529b1b03f47a4c6b43a35859b0cd76122dfa55258a29ebe44",
+            "bytes": 26432
+          }
+        }
+      ],
+      "patchSHA256": "cdab9686402bad24ea1db57b70d6eb5f22caa36b3437ddb543fc2c59dbdb736b",
+      "reversePatchSHA256": "a3dda106816d9d2d1e66c2ae6992ece1c88c1f87c5bcd46a678c5598bf99bdf1"
+    },
+    "after09": {
+      "files": [
+        {
+          "target": "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKMetal4PreparedResource.h",
+          "mode": 420,
+          "before": {
+            "path": "payload/b7422521cf7427e09c6c261d9180a98c1ad9523603aa734b453a41796c100dc6",
+            "sha256": "b7422521cf7427e09c6c261d9180a98c1ad9523603aa734b453a41796c100dc6",
+            "bytes": 24661
+          },
+          "after": {
+            "path": "payload/7a18cebc639c6fa083c7fe0fa1b4b0140d5a326f5f4f25e6ee834f81f83c06ca",
+            "sha256": "7a18cebc639c6fa083c7fe0fa1b4b0140d5a326f5f4f25e6ee834f81f83c06ca",
+            "bytes": 27382
+          }
+        }
+      ],
+      "patchSHA256": "19193baf0caf17119f4ae3c049b623cbf5b7d5bf6749f64c228806953e10306a",
+      "reversePatchSHA256": "3e8f37c83c6ff056a02e509a922b335f41ddf27b6c6d1619012d2af3cac940e4"
+    }
+  },
+  "combinedHeaderSHA256": "7a18cebc639c6fa083c7fe0fa1b4b0140d5a326f5f4f25e6ee834f81f83c06ca",
+  "tradeoffs": [
+    "Partial hit does not automatically promote stable changed combination; per-recording derived allocations may recur",
+    "No measured contention/net CPU/FPS or GPU memory benefit",
+    "Native resource and descriptor synchronization contracts unchanged"
+  ],
+  "activationReady": false,
+  "reviewedReportSHA256": "cc27bcd1c297ee192329a1b780c79d7fbedfd4b4e0f48e5bc6c1b7e6acc8669d",
+  "readPins": [
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/prepare-partial.py",
+      "sha256": "63d64ed9809eac2c1e7bcefec4c9938353c57a43dff08f9ba67b8f8406801bcb",
+      "bytes": 6825
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/partial-checks.cpp",
+      "sha256": "8fe573d343c24dc965c1b287a01c39828a95f066314ee1ef89917fc7fc67090b",
+      "bytes": 9959
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/validate-partial.py",
+      "sha256": "4031c00ce7756d0f2a31d5c3c8fa6d35fe6471861965cc306194a31591990639",
+      "bytes": 2789
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/modules/08b-partial-group-replay/module.json",
+      "sha256": "b15772f8b43417a854c9f59bbdf0f320300aca36fb77e793929da8a29debd92e",
+      "bytes": 2747
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/modules/09-snapshot-unlocked-retain/module.json",
+      "sha256": "6df5353a057aad424d464a24502d710efce9f06b9b8a6d9e6c1eacf547937630",
+      "bytes": 2509
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/payload/d6222a17d4da569b0abd419f1c7e8b41c2f2101c7acf700e770aa02af7afa653",
+      "sha256": "d6222a17d4da569b0abd419f1c7e8b41c2f2101c7acf700e770aa02af7afa653",
+      "bytes": 23696
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/payload/cccf0e6fb94a151529b1b03f47a4c6b43a35859b0cd76122dfa55258a29ebe44",
+      "sha256": "cccf0e6fb94a151529b1b03f47a4c6b43a35859b0cd76122dfa55258a29ebe44",
+      "bytes": 26432
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/modules/08b-partial-group-replay/R-and-Small.patch",
+      "sha256": "cdab9686402bad24ea1db57b70d6eb5f22caa36b3437ddb543fc2c59dbdb736b",
+      "bytes": 4248
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/modules/08b-partial-group-replay/R-and-Small.reverse.patch",
+      "sha256": "a3dda106816d9d2d1e66c2ae6992ece1c88c1f87c5bcd46a678c5598bf99bdf1",
+      "bytes": 4248
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/payload/b7422521cf7427e09c6c261d9180a98c1ad9523603aa734b453a41796c100dc6",
+      "sha256": "b7422521cf7427e09c6c261d9180a98c1ad9523603aa734b453a41796c100dc6",
+      "bytes": 24661
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/payload/7a18cebc639c6fa083c7fe0fa1b4b0140d5a326f5f4f25e6ee834f81f83c06ca",
+      "sha256": "7a18cebc639c6fa083c7fe0fa1b4b0140d5a326f5f4f25e6ee834f81f83c06ca",
+      "bytes": 27382
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/modules/08b-partial-group-replay/after09.patch",
+      "sha256": "19193baf0caf17119f4ae3c049b623cbf5b7d5bf6749f64c228806953e10306a",
+      "bytes": 4112
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/modules/08b-partial-group-replay/after09.reverse.patch",
+      "sha256": "3e8f37c83c6ff056a02e509a922b335f41ddf27b6c6d1619012d2af3cac940e4",
+      "bytes": 4112
+    },
+    {
+      "path": "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCommandEncoderState.mm",
+      "sha256": "b1013a4a907210de7f527f550758824d1dfcf5d79b05266a984aa2a1e97e62e3",
+      "bytes": 159087
+    },
+    {
+      "path": "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKDescriptorSet.h",
+      "sha256": "fb7583ab4debcf0e8f6afcaa1abc62b87d80e1b457280a77136d3cf5afaae1f5",
+      "bytes": 35024
+    },
+    {
+      "path": "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKDescriptorSet.mm",
+      "sha256": "b87caab357dd43ba2c2cd937dcd7cdd0836c6418f90ddc5d2b90e13022257dc4",
+      "bytes": 99509
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/partial-baseline-attempt1/receipt.json",
+      "sha256": "26c48359cafe5d739794d15ee1631454d36f196312616963ae0bfcc8603cc511",
+      "bytes": 1154
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/partial-08b-attempt1/receipt.json",
+      "sha256": "c95d6f5be475851c3b24a30bbd152b4a70c6f6f0b6ea317eb8ccae5b0c9ae709",
+      "bytes": 1140
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/partial-combined-attempt1/receipt.json",
+      "sha256": "b88115cb19a9e3f68b4767b1a08734692eeb6b0600042340235d23300077ea8c",
+      "bytes": 1153
+    }
+  ],
+  "reviewerExecution": {
+    "testCompileGPUAppBenchmarkRuns": 0,
+    "activeWrites": 0,
+    "remoteOrCleanup": 0
+  }
+}

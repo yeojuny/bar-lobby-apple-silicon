@@ -1,0 +1,19 @@
+# Independent source review — 08b partial group replay
+
+Status: accepted as an unapplied source capsule, with no blocking source finding. GPU behavior, actual BAR reach and net performance remain unverified.
+
+The snapshot selects an original immutable entry only after current stamp validity and exact script/stage/setMask/set-incarnation identity. Full matches retain the original path and allocate no derived metadata. A mismatch can produce partial reuse only for a caller requesting a returned proof. A surviving binding must have a nonzero old revision equal to its current revision; changed and zero-revision bindings become residuals.
+
+The original remember admission already proves covered ordinals strictly increase, covered/residual partition every binding once, resourceCount is positive and its sum exactly matches resources.size, with both caps64. Therefore each covered binding owns a known contiguous resource slice. The new cursor advances across both kept and changed slices; derived covered order is preserved and residuals are sorted. The union remains the same complete partition. Different scripts, stages, set masks, incarnations and invalid stamps cannot supply a slice.
+
+Only weak resource proofs/CPU identities are copied. Every surviving resource still invokes the original live-validation and fresh native-retain callback. The original strong entry remains alive separately from the derived proof throughout callbacks. On Miss, exact original entry identity is checked before invalidation, protecting a replacement, including same-revision replacement and pointer ABA. Failed stops immediately and does not erase. Neither callback runs under the snapshot mutex. Allocation failure returns Miss with the original cache intact and no derived output.
+
+Successful partial replay always has a nonnull retained output and resets capture to false. The current sink therefore prepares exactly retained->residual in immutable script order, then applies its existing before==after admission guard in the recording-local group cache. It cannot accidentally publish an incomplete global capture from empty groupResources. The derived stamp is the current before stamp, and drawableIndependent is recomputed from only retained resources. Legal descriptor update synchronization and resource lifetime remain required; this is not permission to mutate descriptors concurrently with native encoding.
+
+The global snapshot remains original. Consequently, when some original bindings remain stable but a new combination persists, each new recording can allocate/copy a derived partial proof again rather than promoting that new combination to a full global entry. Future full capture is available only on a later Miss/other normal capture entry, not guaranteed by a partial hit. This is an explicit CPU allocation/retention tradeoff; automatic promotion is outside this capsule. Map/cache bounds do not establish total concurrent retained CPU memory or GPU memory savings.
+
+Root receipts read (no rerun): baseline993 checks;08b2208 checks;09+08b2208 checks, with three concurrent schedules in each partial-enabled run. They report ASan+UBSan success using the full staged header and mock native retention. These records support source contracts only; they do not substitute for actual GPU aliases/drawables/descriptor lifetime/driver callback checks or establish profitability.
+
+Both baseline and after09 payloads and patch digests were read and matched their manifests. The combined header is `7a18cebc639c6fa083c7fe0fa1b4b0140d5a326f5f4f25e6ee834f81f83c06ca`. Module09 has an after08b stage; exact composition pins are required because both use one header. Activation remains pending an explicit cue, related rebuild/native validation and a separate benefit decision.
+
+Reviewer execution for this review: reads and these review files only; no tests, compiler, GPU, app, benchmark, remote operation or active change.

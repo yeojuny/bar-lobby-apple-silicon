@@ -1,0 +1,42 @@
+{
+  "number": 9,
+  "title": "per-binding snapshot replay 잠금 범위 축소",
+  "source": "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKMetal4PreparedResource.h",
+  "existingWork": "MVKMetal4PreparedBindingSnapshots::replay는 cache mutex 안에서 retain callback을 수행. group snapshot의 밖에서 retain하는 구조는 이미 완료.",
+  "missingEvidence": "잠금 경합이나 대기가 실제 병목이라는 증거가 없음.",
+  "requiredBoundary": "불변 entry 수명과 동시 교체/삭제 계약 설계 필요.",
+  "risk": {
+    "function": "중간~높음: retain 중 replacement/Miss 시 새 entry를 잘못 erase하지 않아야 함.",
+    "lifetime": "높음: mutex 해제 뒤 vectors/node raw pointer 사용 금지; immutable entry 수명 확보 필요.",
+    "synchronization": "높음: cache→resource lock 중첩을 줄일 수 있으나 교체/재생/실패 계약 재설계 필요. 현재 deadlock을 발견했다는 뜻 아님.",
+    "memory": "immutable shared_ptr entry/atomic 참조·메타데이터 할당이 추가될 수 있음."
+  },
+  "sourceReferences": [
+    "dxvk-memory",
+    "angle-descriptor"
+  ],
+  "status": "source-capsule-prepared-contention-gates-activation",
+  "strategy": "Acquire shared immutable entry under mutex, run unchanged live-retain callback outside, and erase on Miss only if exact entry identity still matches. Admitted allocation failure preserves the old map and current native ownership. Replacement adds allocation/refcount cost; concurrently replayed old entries can temporarily exceed the map64 bound.",
+  "acceptance": [
+    "Per-binding mutex contention is established, not inferred from a nested callback",
+    "Entry ownership and replace/delete races reviewed jointly with the group8 design",
+    "Noncontended path cost and bounded retained memory remain acceptable"
+  ],
+  "tests": [
+    "Existing snapshot replay fixture with deterministic replacement between lookup/retain/failure cleanup",
+    "Stale failed entry must not erase a new entry; old owner survives callback; no dangling pointer"
+  ],
+  "codeModules": [
+    "09-snapshot-unlocked-retain"
+  ],
+  "interactions": [
+    1,
+    8
+  ],
+  "dependencyMeaning": "Interactions require re-review; they are not permission to enable all related changes together.",
+  "designStage": "Exact source capsules where named; broader missing-target/ownership/pass designs remain gated where stated",
+  "codeActivationAutomatic": false,
+  "FPSBenefitEstablished": false,
+  "stopRule": "Any unclosed correctness/lifetime counterexample, changed parent, failed check or unclear measurement stops this module. Preserve failure evidence; no automatic replay.",
+  "rollback": "Prepared source module: exact reverse patch only against its postimage, refresh mtimes and rebuild all affected headers. No-code module: active product remains unchanged; no invented reverse patch."
+}

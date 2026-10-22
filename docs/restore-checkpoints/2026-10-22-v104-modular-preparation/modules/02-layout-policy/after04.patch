@@ -1,0 +1,68 @@
+--- a/build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCmdPipeline.mm
++++ b/build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCmdPipeline.mm
+@@ -363,19 +363,7 @@
+ 	for (size_t i = 0; i < _descriptorSets.size(); ++i) {
+ 		auto* set = _descriptorSets[i];
+ 		if (!set || !set->layout) { return MVKMetal4RecordPolicy::Deferred; }
+-		for (const auto& binding : set->layout->bindings()) {
+-			// Optional/mutable bindings require a separate host-use contract.
+-			if (binding.flags & MVK_DESCRIPTOR_BINDING_ALL_VULKAN_FLAG_BITS) {
+-				return MVKMetal4RecordPolicy::Deferred;
+-			}
+-			switch (binding.descriptorType) {
+-				case VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER:
+-				case VK_DESCRIPTOR_TYPE_STORAGE_BUFFER:
+-				case VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER_DYNAMIC:
+-				case VK_DESCRIPTOR_TYPE_STORAGE_BUFFER_DYNAMIC: break;
+-				default: return MVKMetal4RecordPolicy::Deferred;
+-			}
+-		}
++		if (!set->layout->metal4EarlyRecordEligible()) { return MVKMetal4RecordPolicy::Deferred; }
+ 	}
+ 	return MVKMetal4RecordPolicy::State;
+ }
+--- a/build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKDescriptorSet.h
++++ b/build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKDescriptorSet.h
+@@ -317,6 +317,9 @@
+ 
+ 	/** Returns the list of bindings, ordered by binding number. */
+ 	MVKArrayRef<const MVKDescriptorBinding> bindings() const { return _bindings; }
++#if MVK_BUILD_METAL4_FOUNDATION
++	bool metal4EarlyRecordEligible() const { return _metal4EarlyRecordEligible; }
++#endif
+ 	/** Returns the list of immutable samplers. */
+ 	MVKArrayRef<MVKSampler*const> immutableSamplers() const { return _immutableSamplers; }
+ 	/** Returns the total resource counts for the entire set. */
+@@ -397,6 +400,10 @@
+ 	};
+ 	/** A list of bindings sorted by binding number. */
+ 	MVKInlineArray<MVKDescriptorBinding> _bindings;
++#if MVK_BUILD_METAL4_FOUNDATION
++	// Immutable after Create; empty layouts satisfy the original predicate.
++	bool _metal4EarlyRecordEligible = true;
++#endif
+ 	/** A list of immutable samplers. */
+ 	MVKInlineArray<MVKSampler*> _immutableSamplers;
+ 	/** Argument encoder for encoding argument buffers. */
+--- a/build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKDescriptorSet.mm
++++ b/build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKDescriptorSet.mm
+@@ -608,6 +608,19 @@
+ 		ret->_bindings[i].populate(pCreateInfo->pBindings[i]);
+ 		if (flagList)
+ 			ret->_bindings[i].flags |= flagList[i] & MVK_DESCRIPTOR_BINDING_ALL_VULKAN_FLAG_BITS;
++#if MVK_BUILD_METAL4_FOUNDATION
++		const auto& binding = ret->_bindings[i];
++		if (binding.flags & MVK_DESCRIPTOR_BINDING_ALL_VULKAN_FLAG_BITS) {
++			ret->_metal4EarlyRecordEligible = false;
++		}
++		switch (binding.descriptorType) {
++			case VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER:
++			case VK_DESCRIPTOR_TYPE_STORAGE_BUFFER:
++			case VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER_DYNAMIC:
++			case VK_DESCRIPTOR_TYPE_STORAGE_BUFFER_DYNAMIC: break;
++			default: ret->_metal4EarlyRecordEligible = false;
++		}
++#endif
+ 	}
+ 
+ 	qsort(ret->_bindings.data(), ret->_bindings.size(), sizeof(_bindings[0]), bindingCompare);

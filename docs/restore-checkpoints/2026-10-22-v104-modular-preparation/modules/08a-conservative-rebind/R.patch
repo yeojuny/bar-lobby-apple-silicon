@@ -1,0 +1,177 @@
+--- a/build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCommandEncoderState.h
++++ b/build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCommandEncoderState.h
+@@ -214,7 +214,7 @@
+ 	}
+ 
+ 	/** Bind the given descriptor sets, placing their bindings into `_descriptorSetBindings`. */
+-	void bindDescriptorSets(MVKPipelineLayout* layout,
++	bool bindDescriptorSets(MVKPipelineLayout* layout,
+ 	                        uint32_t firstSet,
+ 	                        uint32_t setCount,
+ 	                        MVKDescriptorSet*const* sets,
+@@ -228,7 +228,7 @@
+ 	MVKImplicitBufferData _implicitBufferData;
+ 
+ 	/** Bind the given descriptor sets, placing their bindings into `_descriptorSetBindings`. */
+-	void bindDescriptorSets(MVKPipelineLayout* layout,
++	bool bindDescriptorSets(MVKPipelineLayout* layout,
+ 	                        uint32_t firstSet,
+ 	                        uint32_t setCount,
+ 	                        MVKDescriptorSet*const* sets,
+--- a/build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCommandEncoderState.mm
++++ b/build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCommandEncoderState.mm
+@@ -1102,11 +1102,12 @@
+ 	}
+ }
+ 
+-static void bindDescriptorSets(MVKImplicitBufferData& target,
++static bool bindDescriptorSets(MVKImplicitBufferData& target,
+                                MVKShaderStage stage,
+                                MVKPipelineLayout* layout,
+                                uint32_t firstSet, uint32_t setCount, MVKDescriptorSet*const* sets,
+                                uint32_t dynamicOffsetCount, const uint32_t* dynamicOffsets) {
++	bool changed = false;
+ 	[[maybe_unused]] const uint32_t* dynamicOffsetsEnd = dynamicOffsets + dynamicOffsetCount;
+ 	VkShaderStageFlags vkStage = mvkVkShaderStageFlagBitsFromMVKShaderStage(stage);
+ 	for (uint32_t i = 0; i < setCount; i++) {
+@@ -1119,12 +1120,15 @@
+ 		uint32_t varCount = set->variableDescriptorCount;
+ 		if (uint32_t count = setLayout->dynamicOffsetCount(varCount)) {
+ 			if (stride.dynamicOffsetBufferIndex) {
++				// Newly meaningful zero words still require a longer Metal payload.
++				changed |= target.dynamicOffsets.size() < offsets.dynamicOffsetBufferIndex + stride.dynamicOffsetBufferIndex;
+ 				mvkEnsureSize(target.dynamicOffsets, offsets.dynamicOffsetBufferIndex + stride.dynamicOffsetBufferIndex);
+ 				uint32_t* write = &target.dynamicOffsets[offsets.dynamicOffsetBufferIndex];
+ 				for (const auto& binding : setLayout->bindings()) {
+ 					if (!binding.perDescriptorResourceCount.dynamicOffset)
+ 						continue;
+ 					if (binding.stageFlags & vkStage) {
++						changed |= memcmp(write, dynamicOffsets, binding.descriptorCount * sizeof(uint32_t)) != 0;
+ 						mvkCopy(write, dynamicOffsets, binding.descriptorCount);
+ 						write += binding.descriptorCount;
+ 					}
+@@ -1139,16 +1143,19 @@
+ 			// If we grab these now, we can be guaranteed the sets are valid
+ 			// If we wait until draw time, we can only be guaranteed statically used sets are valid
+ 			if (!layout->getMetalFeatures().nativeTextureSwizzle && stride.textureIndex) {
++				changed = true; // Non-argument metadata retains conservative invalidation.
+ 				mvkEnsureSize(target.textureSwizzles, offsets.textureIndex + stride.textureIndex);
+ 				bindImplicitBufferData<ImplicitBufferData::TextureSwizzle>(&target.textureSwizzles[offsets.textureIndex], setLayout, set->cpuBuffer, vkStage, varCount);
+ 			}
+ 			if (stride.bufferIndex) {
++				changed = true; // Non-argument metadata retains conservative invalidation.
+ 				mvkEnsureSize(target.bufferSizes, offsets.bufferIndex + stride.bufferIndex);
+ 				bindImplicitBufferData<ImplicitBufferData::BufferSize>(&target.bufferSizes[offsets.bufferIndex], setLayout, set->cpuBuffer, vkStage, varCount);
+ 			}
+ 		}
+ 	}
+ 	assert(dynamicOffsets == dynamicOffsetsEnd && "All dynamic offsets should have been used, and no more than that");
++	return changed;
+ }
+ 
+ static void bindImmediateData(id<MTLCommandEncoder> encoder,
+@@ -1767,7 +1774,7 @@
+ 	}
+ }
+ 
+-void MVKVulkanGraphicsCommandEncoderState::bindDescriptorSets(
++bool MVKVulkanGraphicsCommandEncoderState::bindDescriptorSets(
+ 	MVKPipelineLayout* layout,
+ 	uint32_t firstSet,
+ 	uint32_t setCount,
+@@ -1775,6 +1782,7 @@
+ 	uint32_t dynamicOffsetCount,
+ 	const uint32_t* dynamicOffsets)
+ {
++	bool changed = false;
+ 	bool needsImplicitData = dynamicOffsetCount != 0;
+ 	if (!needsImplicitData) {
+ 		for (uint32_t i = 0; i < setCount; i++) {
+@@ -1789,17 +1797,18 @@
+ 	if (needsImplicitData) {
+ 		for (uint32_t i = 0; i <= kMVKShaderStageFragment; i++) {
+ 			MVKShaderStage stage = static_cast<MVKShaderStage>(i);
+-			::bindDescriptorSets(_implicitBufferData[stage], stage, layout, firstSet, setCount, sets, dynamicOffsetCount, dynamicOffsets);
++			changed |= ::bindDescriptorSets(_implicitBufferData[stage], stage, layout, firstSet, setCount, sets, dynamicOffsetCount, dynamicOffsets);
+ 		}
+ 	}
+ 	for (uint32_t i = 0; i < setCount; i++) {
+ 		_descriptorSets[firstSet + i] = sets[i];
+ 	}
++	return changed;
+ }
+ 
+ #pragma mark - MVKVulkanComputeCommandEncoderState
+ 
+-void MVKVulkanComputeCommandEncoderState::bindDescriptorSets(
++bool MVKVulkanComputeCommandEncoderState::bindDescriptorSets(
+ 	MVKPipelineLayout* layout,
+ 	uint32_t firstSet,
+ 	uint32_t setCount,
+@@ -1807,10 +1816,12 @@
+ 	uint32_t dynamicOffsetCount,
+ 	const uint32_t* dynamicOffsets)
+ {
+-	::bindDescriptorSets(_implicitBufferData, kMVKShaderStageCompute, layout, firstSet, setCount, sets, dynamicOffsetCount, dynamicOffsets);
++	bool changed = false;
++	changed |= ::bindDescriptorSets(_implicitBufferData, kMVKShaderStageCompute, layout, firstSet, setCount, sets, dynamicOffsetCount, dynamicOffsets);
+ 	for (uint32_t i = 0; i < setCount; i++) {
+ 		_descriptorSets[firstSet + i] = sets[i];
+ 	}
++	return changed;
+ }
+ 
+ #pragma mark - MVKMetalGraphicsCommandEncoderState
+@@ -2503,6 +2514,10 @@
+ }
+ 
+ void MVKCommandEncoderState::bindGraphicsPipeline(MVKGraphicsPipeline* pipeline) {
++	// A pipeline/layout transition can change implicit packing or payload length.
++	if (_vkGraphics._pipeline != pipeline || _vkGraphics._layout != pipeline->getLayout()) {
++		applyToActiveMTLState(VK_PIPELINE_BIND_POINT_GRAPHICS, [](auto& mtl){ invalidateDescriptorSetImplicitBuffers(mtl); });
++	}
+ 	_mtlGraphics.changePipeline(_vkGraphics._pipeline, pipeline);
+ 	_vkGraphics._pipeline = pipeline;
+ 	MVKPipelineLayout* layout = pipeline->getLayout();
+@@ -2516,6 +2531,10 @@
+ }
+ 
+ void MVKCommandEncoderState::bindComputePipeline(MVKComputePipeline* pipeline) {
++	// A pipeline/layout transition can change implicit packing or payload length.
++	if (_vkCompute._pipeline != pipeline || _vkCompute._layout != pipeline->getLayout()) {
++		applyToActiveMTLState(VK_PIPELINE_BIND_POINT_COMPUTE, [](auto& mtl){ invalidateDescriptorSetImplicitBuffers(mtl); });
++	}
+ 	_vkCompute._pipeline = pipeline;
+ 	MVKPipelineLayout* layout = pipeline->getLayout();
+ 	if (_vkCompute._layout != layout) {
+@@ -2547,17 +2566,23 @@
+ 	invalidateMetal4ImplicitBuffer(bindPoint, MVKNonVolatileImplicitBuffer::DynamicOffset);
+ 	invalidateMetal4ImplicitBuffer(bindPoint, MVKNonVolatileImplicitBuffer::Swizzle);
+ #endif
+-	applyToActiveMTLState(bindPoint, [affected](auto& mtl){
+-		invalidateDescriptorSetImplicitBuffers(mtl);
++	bool sameLayout = false;
++	bool changed = true;
++	if (bindPoint == VK_PIPELINE_BIND_POINT_GRAPHICS) {
++		sameLayout = _vkGraphics._pipeline && _vkGraphics._layout == layout;
++		changed = _vkGraphics.bindDescriptorSets(layout, firstSet, setCount, sets, dynamicOffsetCount, dynamicOffsets);
++	} else if (bindPoint == VK_PIPELINE_BIND_POINT_COMPUTE) {
++		sameLayout = _vkCompute._pipeline && _vkCompute._layout == layout;
++		changed = _vkCompute.bindDescriptorSets(layout, firstSet, setCount, sets, dynamicOffsetCount, dynamicOffsets);
++	}
++	applyToActiveMTLState(bindPoint, [affected, sameLayout, changed](auto& mtl){
++		if (!sameLayout || changed)
++			invalidateDescriptorSetImplicitBuffers(mtl);
++		// Same set pointers do not prove unchanged residency or resource contents.
+ 		for (MVKStageResourceBits& exists : mtl.exists()) {
+ 			exists.descriptorSetData.clearAllIn(affected);
+ 		}
+ 	});
+-	if (bindPoint == VK_PIPELINE_BIND_POINT_GRAPHICS) {
+-		_vkGraphics.bindDescriptorSets(layout, firstSet, setCount, sets, dynamicOffsetCount, dynamicOffsets);
+-	} else if (bindPoint == VK_PIPELINE_BIND_POINT_COMPUTE) {
+-		_vkCompute.bindDescriptorSets(layout, firstSet, setCount, sets, dynamicOffsetCount, dynamicOffsets);
+-	}
+ }
+ 
+ MVKVulkanCommonEncoderState* MVKCommandEncoderState::getVkEncoderState(VkPipelineBindPoint bindPoint) {

@@ -1,0 +1,49 @@
+{
+  "number": 11,
+  "title": "불필요한 render pass 종료·재시작 감소",
+  "source": "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCommandBuffer.mm",
+  "existingWork": "E2 descriptor 직접 작성은 패스 병합이 아님. Zink의 상위 종료와 MVK의 image/fragment 경계를 따로 추적해야 함.",
+  "missingEvidence": "어느 분할이 중복인지 현재 BAR의 종료 사유·빈도 근거가 부족.",
+  "requiredBoundary": "attachment/subresource·load/store·query·alias·실제 producer/consumer 의존을 보존.",
+  "risk": {
+    "function": "매우 높음: attachment/subresource/load-store/partial clear/query/alias/fragment 소비 의미.",
+    "lifetime": "높음: transient backing·visibility buffer·query retirement·중간resolve 수명.",
+    "synchronization": "매우 높음: 동일encoder local hazard와 prior-queue producer/consumer를 구분해야 함.",
+    "memory": "합쳐진 긴 pass와 backing 생존이 늘거나 오히려 추가 encoder를 만들 수 있음."
+  },
+  "sourceReferences": [
+    "tomjn-buffer-orphan",
+    "angle-metal",
+    "vkd3d-command",
+    "vkd3d-changelog",
+    "apple-pass",
+    "benbreen-zink-pass",
+    "mesa23-release"
+  ],
+  "status": "11a-patch-ready-general-pass-merging-gated",
+  "strategy": "First test Typed frame-local discard (11a), which communicates ended data lifetime upstream. Any later driver pass merge must target one proven redundant boundary and preserve attachment/subresource, load/store, sampling, query, alias and producer-consumer requirements. Never equate E2 descriptor construction with pass merging.",
+  "acceptance": [
+    "11a readonly/model retention/DSA and actual context checks pass",
+    "For broader merging, establish a specific repeated boundary with preserved intermediate observations",
+    "Review fallback for every unknown attachment/query/alias case before code"
+  ],
+  "tests": [
+    "11a actual StreamBuffer and Typed owner CPU checks plus later real Mesa context",
+    "Existing suspend/resolve/visibility/native cases for exact proposed merge"
+  ],
+  "codeModules": [
+    "11a-typed-frame-discard"
+  ],
+  "interactions": [
+    5,
+    10,
+    12,
+    13
+  ],
+  "dependencyMeaning": "Interactions require re-review; they are not permission to enable all related changes together.",
+  "designStage": "Exact source capsules where named; broader missing-target/ownership/pass designs remain gated where stated",
+  "codeActivationAutomatic": false,
+  "FPSBenefitEstablished": false,
+  "stopRule": "Any unclosed correctness/lifetime counterexample, changed parent, failed check or unclear measurement stops this module. Preserve failure evidence; no automatic replay.",
+  "rollback": "Prepared source module: exact reverse patch only against its postimage, refresh mtimes and rebuild all affected headers. No-code module: active product remains unchanged; no invented reverse patch."
+}

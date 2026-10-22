@@ -1,0 +1,32 @@
+{
+  "stage": "08b",
+  "status": "passed-cpu-contracts-only",
+  "headerSHA256": "cccf0e6fb94a151529b1b03f47a4c6b43a35859b0cd76122dfa55258a29ebe44",
+  "fixtureSHA256": "829c2cb7f25d2b4f3e0f186b0421208c05608faadf841e20e9e8a3a5f0888952",
+  "command": [
+    "/usr/bin/clang++",
+    "-std=c++17",
+    "-O1",
+    "-g",
+    "-fsanitize=address,undefined",
+    "-fno-omit-frame-pointer",
+    "-pthread",
+    "-DEXPECT_PARTIAL=1",
+    "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-modular-preparation-20261022/partial-08b-attempt1/fixture.cpp",
+    "-o",
+    "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-modular-preparation-20261022/partial-08b-attempt1/check"
+  ],
+  "activeSourceWrites": 0,
+  "productBuilds": 0,
+  "actualGPU": false,
+  "boundaries": "Actual whole production header. Native retention is a weak-proof/id mock; legal descriptor updates supplied by test. No Metal device, execution or race-freedom claim.",
+  "compileExit": 0,
+  "runExit": 0,
+  "result": {
+    "status": "passed",
+    "checks": 2208,
+    "partialEnabled": 1,
+    "concurrentSchedules": 3,
+    "actualGPU": false
+  }
+}

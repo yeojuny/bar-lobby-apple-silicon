@@ -1,0 +1,316 @@
+{
+  "status": "independent-exact-module-source-review-passed-unapplied-runtime-validation-pending",
+  "createdUTC": "2026-10-22T16:57:37.288615+00:00",
+  "blockingFindings": [],
+  "blockingFindingCount": 0,
+  "actionableFindings": [],
+  "sourceReviewPassed": true,
+  "readyForProductActivation": false,
+  "rootCPUAndSyntaxEvidencePending": true,
+  "modules": {
+    "11a-typed-frame-discard": {
+      "id": "11a-typed-frame-discard",
+      "variants": {
+        "R-and-Small": {
+          "patchSHA256": "7521c06c732d1022e9f55117fe7be6aaac0ac1b5a8d9bacec0f89fef0d0d4797",
+          "reversePatchSHA256": "d0d707ca1a5ca8b14328f127aee5a543e435c8b3858df5dff5a909f681a5e816",
+          "files": [
+            {
+              "target": "build/run91-recoil-src-694e9df7/rts/Rendering/GL/StreamBuffer.h",
+              "mode": 420,
+              "before": {
+                "path": "payload/0be518866c031f0c87e6827ddf3c39625b83fee181e2ded5abc3d66a72ea0640",
+                "sha256": "0be518866c031f0c87e6827ddf3c39625b83fee181e2ded5abc3d66a72ea0640",
+                "bytes": 17228
+              },
+              "after": {
+                "path": "payload/44914aceb2f395a922dafabc0974fb7583c560365a96934f3bb03e38c4623b16",
+                "sha256": "44914aceb2f395a922dafabc0974fb7583c560365a96934f3bb03e38c4623b16",
+                "bytes": 17999
+              }
+            },
+            {
+              "target": "build/run91-recoil-src-694e9df7/rts/Rendering/GL/RenderBuffers.h",
+              "mode": 420,
+              "before": {
+                "path": "payload/a58bcbf6105628b263bf4aef1f434ef8bdcda2cfa3efb91d57507df798fd2c05",
+                "sha256": "a58bcbf6105628b263bf4aef1f434ef8bdcda2cfa3efb91d57507df798fd2c05",
+                "bytes": 29608
+              },
+              "after": {
+                "path": "payload/232f45c81ad6304b9163023c81cd5822604998d36e34381605c343f4d275116b",
+                "sha256": "232f45c81ad6304b9163023c81cd5822604998d36e34381605c343f4d275116b",
+                "bytes": 29664
+              }
+            },
+            {
+              "target": "artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Rendering/GL/StreamBuffer.h",
+              "mode": 420,
+              "before": {
+                "path": "payload/0be518866c031f0c87e6827ddf3c39625b83fee181e2ded5abc3d66a72ea0640",
+                "sha256": "0be518866c031f0c87e6827ddf3c39625b83fee181e2ded5abc3d66a72ea0640",
+                "bytes": 17228
+              },
+              "after": {
+                "path": "payload/44914aceb2f395a922dafabc0974fb7583c560365a96934f3bb03e38c4623b16",
+                "sha256": "44914aceb2f395a922dafabc0974fb7583c560365a96934f3bb03e38c4623b16",
+                "bytes": 17999
+              }
+            },
+            {
+              "target": "artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Rendering/GL/RenderBuffers.h",
+              "mode": 420,
+              "before": {
+                "path": "payload/72a1572ad29bea76f498a5a9518c96727d891233015065a17291c6b571aa5c0d",
+                "sha256": "72a1572ad29bea76f498a5a9518c96727d891233015065a17291c6b571aa5c0d",
+                "bytes": 28375
+              },
+              "after": {
+                "path": "payload/6ce94352fc10c6584bea499a903af5b9a11ead6582139cfc58277c4476175fc3",
+                "sha256": "6ce94352fc10c6584bea499a903af5b9a11ead6582139cfc58277c4476175fc3",
+                "bytes": 28431
+              }
+            }
+          ]
+        }
+      }
+    },
+    "08a-conservative-rebind": {
+      "id": "08a-conservative-rebind",
+      "variants": {
+        "R": {
+          "patchSHA256": "b8ede7f9d1f3cebf380eb8dcc06f5332bb0c249eee31f6933f8ab0e13611a071",
+          "reversePatchSHA256": "7ce9f2aaa75d0c88951019a3a35378ad95b45be68133c8b6a46f92788a6c6d25",
+          "files": [
+            {
+              "target": "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCommandEncoderState.h",
+              "mode": 420,
+              "before": {
+                "path": "payload/dac7a20c3963887d5f054322a2bf7884d347271768dd0a124649f7d25862dade",
+                "sha256": "dac7a20c3963887d5f054322a2bf7884d347271768dd0a124649f7d25862dade",
+                "bytes": 32327
+              },
+              "after": {
+                "path": "payload/b3f64f869dec74a7858826cb6217e7401c2c15863145923b51041cff8bcf59fc",
+                "sha256": "b3f64f869dec74a7858826cb6217e7401c2c15863145923b51041cff8bcf59fc",
+                "bytes": 32327
+              }
+            },
+            {
+              "target": "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCommandEncoderState.mm",
+              "mode": 420,
+              "before": {
+                "path": "payload/9b28b9a30f6e0d8a975b732dcaf8a49c8e14b32f9ba3157e4f9dce03b14276b9",
+                "sha256": "9b28b9a30f6e0d8a975b732dcaf8a49c8e14b32f9ba3157e4f9dce03b14276b9",
+                "bytes": 158404
+              },
+              "after": {
+                "path": "payload/cc47e81c569403e8221631cba7da38dd0f19b0c203a139d9c7866819e2bca026",
+                "sha256": "cc47e81c569403e8221631cba7da38dd0f19b0c203a139d9c7866819e2bca026",
+                "bytes": 159913
+              }
+            }
+          ]
+        },
+        "Small": {
+          "patchSHA256": "9b387177f91a09c02f4fecb14902a8c6890dbe2addfdac92fbe5c13b9dd5271a",
+          "reversePatchSHA256": "ad8ebe956cbbf530319c8d54fcd65d7a9a1a7431e1d125043165a0ef6a09ec1c",
+          "files": [
+            {
+              "target": "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCommandEncoderState.h",
+              "mode": 420,
+              "before": {
+                "path": "payload/dac7a20c3963887d5f054322a2bf7884d347271768dd0a124649f7d25862dade",
+                "sha256": "dac7a20c3963887d5f054322a2bf7884d347271768dd0a124649f7d25862dade",
+                "bytes": 32327
+              },
+              "after": {
+                "path": "payload/b3f64f869dec74a7858826cb6217e7401c2c15863145923b51041cff8bcf59fc",
+                "sha256": "b3f64f869dec74a7858826cb6217e7401c2c15863145923b51041cff8bcf59fc",
+                "bytes": 32327
+              }
+            },
+            {
+              "target": "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCommandEncoderState.mm",
+              "mode": 420,
+              "before": {
+                "path": "payload/b1013a4a907210de7f527f550758824d1dfcf5d79b05266a984aa2a1e97e62e3",
+                "sha256": "b1013a4a907210de7f527f550758824d1dfcf5d79b05266a984aa2a1e97e62e3",
+                "bytes": 159087
+              },
+              "after": {
+                "path": "payload/5bdb0211ecddf113d66b297c6344f15c070022b4b3a9b5caa54ea15ed204cd0b",
+                "sha256": "5bdb0211ecddf113d66b297c6344f15c070022b4b3a9b5caa54ea15ed204cd0b",
+                "bytes": 160596
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  "payloadRoot": "artifacts/validation/v104-modular-preparation-20261022",
+  "readPins": [
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/modules/11a-typed-frame-discard/module.json",
+      "sha256": "9335ab6cfad46e0cdf2e164356f72d284438ee3f4d99689a949d1e65e851762f",
+      "bytes": 3806
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/modules/11a-typed-frame-discard/R-and-Small.patch",
+      "sha256": "7521c06c732d1022e9f55117fe7be6aaac0ac1b5a8d9bacec0f89fef0d0d4797",
+      "bytes": 3914
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/modules/11a-typed-frame-discard/R-and-Small.reverse.patch",
+      "sha256": "d0d707ca1a5ca8b14328f127aee5a543e435c8b3858df5dff5a909f681a5e816",
+      "bytes": 3914
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/payload/0be518866c031f0c87e6827ddf3c39625b83fee181e2ded5abc3d66a72ea0640",
+      "sha256": "0be518866c031f0c87e6827ddf3c39625b83fee181e2ded5abc3d66a72ea0640",
+      "bytes": 17228
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/payload/44914aceb2f395a922dafabc0974fb7583c560365a96934f3bb03e38c4623b16",
+      "sha256": "44914aceb2f395a922dafabc0974fb7583c560365a96934f3bb03e38c4623b16",
+      "bytes": 17999
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/payload/a58bcbf6105628b263bf4aef1f434ef8bdcda2cfa3efb91d57507df798fd2c05",
+      "sha256": "a58bcbf6105628b263bf4aef1f434ef8bdcda2cfa3efb91d57507df798fd2c05",
+      "bytes": 29608
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/payload/232f45c81ad6304b9163023c81cd5822604998d36e34381605c343f4d275116b",
+      "sha256": "232f45c81ad6304b9163023c81cd5822604998d36e34381605c343f4d275116b",
+      "bytes": 29664
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/payload/0be518866c031f0c87e6827ddf3c39625b83fee181e2ded5abc3d66a72ea0640",
+      "sha256": "0be518866c031f0c87e6827ddf3c39625b83fee181e2ded5abc3d66a72ea0640",
+      "bytes": 17228
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/payload/44914aceb2f395a922dafabc0974fb7583c560365a96934f3bb03e38c4623b16",
+      "sha256": "44914aceb2f395a922dafabc0974fb7583c560365a96934f3bb03e38c4623b16",
+      "bytes": 17999
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/payload/72a1572ad29bea76f498a5a9518c96727d891233015065a17291c6b571aa5c0d",
+      "sha256": "72a1572ad29bea76f498a5a9518c96727d891233015065a17291c6b571aa5c0d",
+      "bytes": 28375
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/payload/6ce94352fc10c6584bea499a903af5b9a11ead6582139cfc58277c4476175fc3",
+      "sha256": "6ce94352fc10c6584bea499a903af5b9a11ead6582139cfc58277c4476175fc3",
+      "bytes": 28431
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/modules/08a-conservative-rebind/module.json",
+      "sha256": "4f976fe43fc952317c5fc57a28b3808b1b65b3147263ac849aa1da6a160b65a5",
+      "bytes": 4191
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/modules/08a-conservative-rebind/R.patch",
+      "sha256": "b8ede7f9d1f3cebf380eb8dcc06f5332bb0c249eee31f6933f8ab0e13611a071",
+      "bytes": 8579
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/modules/08a-conservative-rebind/R.reverse.patch",
+      "sha256": "7ce9f2aaa75d0c88951019a3a35378ad95b45be68133c8b6a46f92788a6c6d25",
+      "bytes": 8579
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/modules/08a-conservative-rebind/Small.patch",
+      "sha256": "9b387177f91a09c02f4fecb14902a8c6890dbe2addfdac92fbe5c13b9dd5271a",
+      "bytes": 8579
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/modules/08a-conservative-rebind/Small.reverse.patch",
+      "sha256": "ad8ebe956cbbf530319c8d54fcd65d7a9a1a7431e1d125043165a0ef6a09ec1c",
+      "bytes": 8579
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/payload/dac7a20c3963887d5f054322a2bf7884d347271768dd0a124649f7d25862dade",
+      "sha256": "dac7a20c3963887d5f054322a2bf7884d347271768dd0a124649f7d25862dade",
+      "bytes": 32327
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/payload/b3f64f869dec74a7858826cb6217e7401c2c15863145923b51041cff8bcf59fc",
+      "sha256": "b3f64f869dec74a7858826cb6217e7401c2c15863145923b51041cff8bcf59fc",
+      "bytes": 32327
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/payload/9b28b9a30f6e0d8a975b732dcaf8a49c8e14b32f9ba3157e4f9dce03b14276b9",
+      "sha256": "9b28b9a30f6e0d8a975b732dcaf8a49c8e14b32f9ba3157e4f9dce03b14276b9",
+      "bytes": 158404
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/payload/cc47e81c569403e8221631cba7da38dd0f19b0c203a139d9c7866819e2bca026",
+      "sha256": "cc47e81c569403e8221631cba7da38dd0f19b0c203a139d9c7866819e2bca026",
+      "bytes": 159913
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/payload/dac7a20c3963887d5f054322a2bf7884d347271768dd0a124649f7d25862dade",
+      "sha256": "dac7a20c3963887d5f054322a2bf7884d347271768dd0a124649f7d25862dade",
+      "bytes": 32327
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/payload/b3f64f869dec74a7858826cb6217e7401c2c15863145923b51041cff8bcf59fc",
+      "sha256": "b3f64f869dec74a7858826cb6217e7401c2c15863145923b51041cff8bcf59fc",
+      "bytes": 32327
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/payload/b1013a4a907210de7f527f550758824d1dfcf5d79b05266a984aa2a1e97e62e3",
+      "sha256": "b1013a4a907210de7f527f550758824d1dfcf5d79b05266a984aa2a1e97e62e3",
+      "bytes": 159087
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/payload/5bdb0211ecddf113d66b297c6344f15c070022b4b3a9b5caa54ea15ed204cd0b",
+      "sha256": "5bdb0211ecddf113d66b297c6344f15c070022b4b3a9b5caa54ea15ed204cd0b",
+      "bytes": 160596
+    }
+  ],
+  "reviewedReportSHA256": "54cce0e45908473dcfc91bcbbe4a205c7efb70f6a7288455bfaf0e7d623d4ab3",
+  "verifiedContracts": [
+    "11a DSA capability AND entrypoint; unsupported and HEADLESS no GL; marker reset on all invalidation requests",
+    "11a writable Typed-only; general swap/model/readOnly/same-frame semantics preserved; header ABI rebuild deferred",
+    "08a pre-resize growth plus changed values; nonarg metadata conservative",
+    "08a same current pipeline/layout gate; transition legacy trio dirty; unknown layout conservative",
+    "08a affected resource-use clear and nativeM4 separate invalidations preserved",
+    "08a R/Small payload baselines isolated; no new raw lifetime memo"
+  ],
+  "limitations": [
+    "source proposal only; no compiler/GPU/readiness/FPS proof",
+    "orphan and memcmp/transition invalidation can add costs",
+    "metadata/invalidation behavior still requires related production-body CPU and post-cue GPU checks",
+    "source module payload paths are preparation-root-relative, not per-module-directory-relative"
+  ],
+  "executionCounts": {
+    "productSourceFixtureBuildAppEdits": 0,
+    "newBuildsTestsGPUAppsGamesBenchmarks": 0,
+    "OSSamplingOrServiceChanges": 0,
+    "remoteWriteOrDeletion": 0
+  },
+  "updatedUTC": "2026-10-22T17:02:47.745628+00:00",
+  "additionalCPUFixturePreparation": {
+    "explicitlyDelegatedByRoot": true,
+    "files": [
+      {
+        "path": "artifacts/validation/v104-modular-preparation-20261022/validate-rebind.py",
+        "sha256": "50728bcc7676e4dfaeb8aca6bed634c5dea8f0e5421f8d707ca36bd3063b9e68",
+        "bytes": 8222
+      },
+      {
+        "path": "artifacts/validation/v104-modular-preparation-20261022/rebind-fixture.cpp",
+        "sha256": "f52a7df0c18343416519a7db2c2f6314b45c42995602e8eac87581c16939889a",
+        "bytes": 20459
+      }
+    ],
+    "executedByIndependentReviewer": false,
+    "compiledByIndependentReviewer": false,
+    "resultsPendingRootExecution": true,
+    "boundary": "Actual extracted proposal bodies plus before helper; stage/layout/Metal surface mocked; no GPU or full ABI proof"
+  }
+}

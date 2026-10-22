@@ -1,0 +1,231 @@
+{
+  "status": "source-capsules-accepted-activation-pending",
+  "createdUTC": "2026-10-22T17:56:17.849198+00:00",
+  "blockingFindings": [],
+  "actionableFindings": [],
+  "modules": {
+    "02-layout-policy": {
+      "files": [
+        {
+          "target": "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCmdPipeline.mm",
+          "before": "8e663764a00e70ae9b6ede6996da275a9c0aad8a4de632fab8e9ed20e80e1d33",
+          "after": "04fe43b293cb515e9ff5e56424ee2546a2011d12153d57aeea4bf7b728268954"
+        },
+        {
+          "target": "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKDescriptorSet.h",
+          "before": "fb7583ab4debcf0e8f6afcaa1abc62b87d80e1b457280a77136d3cf5afaae1f5",
+          "after": "4f5f3b3cde601f493d73445b458f2dd5899c4f3919d454dac6833b9fb77403ee"
+        },
+        {
+          "target": "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKDescriptorSet.mm",
+          "before": "b87caab357dd43ba2c2cd937dcd7cdd0836c6418f90ddc5d2b90e13022257dc4",
+          "after": "d6c55de4e7379fa988bbc9c718edd0671f0746ac06900f36e16512984c5ffeff"
+        }
+      ],
+      "moduleSHA256": "fb05a67911a4c1637e449ab41561f60d6a5f79bdc8ef635d5f37d3ca14a6b403"
+    },
+    "03-owned-replay-chain": {
+      "files": [
+        {
+          "target": "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCommandBuffer.h",
+          "before": "ea6eb8b685fe9a180c2f53faa08b0ca19545a1b764f426c3aac5eadd7b35609a",
+          "after": "a23cc321eebd7da11ea912dc09fbe7afa1e51c61a707fd9eab6b790d1a2c797a"
+        },
+        {
+          "target": "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCommandBuffer.mm",
+          "before": "c66515484dfda8a7d5b05ed45622b03f64e9695eedcbb607d4e71387eb354c74",
+          "after": "d02dd270eb5d1ce4e115956a075a5ef54467d083954e7a3d366efa2da7368fa0"
+        }
+      ],
+      "moduleSHA256": "fbe2dac235aa914b24e60d08867272fed3ed9fb69e8231c797e2b250c195ef29"
+    },
+    "09-snapshot-unlocked-retain": {
+      "files": [
+        {
+          "target": "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKMetal4PreparedResource.h",
+          "before": "d6222a17d4da569b0abd419f1c7e8b41c2f2101c7acf700e770aa02af7afa653",
+          "after": "b7422521cf7427e09c6c261d9180a98c1ad9523603aa734b453a41796c100dc6"
+        }
+      ],
+      "moduleSHA256": "f1cb5144ba0d5e988b7fbc729aa8f5a61bc9d87eee63223a93abe9875baace5b"
+    }
+  },
+  "readPins": [
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/prepare-control.py",
+      "sha256": "51f6c96bde34727f62e22bc7aa2007baf7a487242dfe090e0f9dc90035f44544",
+      "bytes": 9558
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/design-deepening-02-03-09.json",
+      "sha256": "36ef37c2c9b89b9cb45844a7147ee26a87d1569d89f8b304e386136c202a7770",
+      "bytes": 4815
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/modules/02-layout-policy/module.json",
+      "sha256": "fb05a67911a4c1637e449ab41561f60d6a5f79bdc8ef635d5f37d3ca14a6b403",
+      "bytes": 2790
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/payload/8e663764a00e70ae9b6ede6996da275a9c0aad8a4de632fab8e9ed20e80e1d33",
+      "sha256": "8e663764a00e70ae9b6ede6996da275a9c0aad8a4de632fab8e9ed20e80e1d33",
+      "bytes": 27403
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/payload/04fe43b293cb515e9ff5e56424ee2546a2011d12153d57aeea4bf7b728268954",
+      "sha256": "04fe43b293cb515e9ff5e56424ee2546a2011d12153d57aeea4bf7b728268954",
+      "bytes": 26953
+    },
+    {
+      "path": "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCmdPipeline.mm",
+      "sha256": "8e663764a00e70ae9b6ede6996da275a9c0aad8a4de632fab8e9ed20e80e1d33",
+      "bytes": 27403
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/payload/fb7583ab4debcf0e8f6afcaa1abc62b87d80e1b457280a77136d3cf5afaae1f5",
+      "sha256": "fb7583ab4debcf0e8f6afcaa1abc62b87d80e1b457280a77136d3cf5afaae1f5",
+      "bytes": 35024
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/payload/4f5f3b3cde601f493d73445b458f2dd5899c4f3919d454dac6833b9fb77403ee",
+      "sha256": "4f5f3b3cde601f493d73445b458f2dd5899c4f3919d454dac6833b9fb77403ee",
+      "bytes": 35296
+    },
+    {
+      "path": "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKDescriptorSet.h",
+      "sha256": "fb7583ab4debcf0e8f6afcaa1abc62b87d80e1b457280a77136d3cf5afaae1f5",
+      "bytes": 35024
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/payload/b87caab357dd43ba2c2cd937dcd7cdd0836c6418f90ddc5d2b90e13022257dc4",
+      "sha256": "b87caab357dd43ba2c2cd937dcd7cdd0836c6418f90ddc5d2b90e13022257dc4",
+      "bytes": 99509
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/payload/d6c55de4e7379fa988bbc9c718edd0671f0746ac06900f36e16512984c5ffeff",
+      "sha256": "d6c55de4e7379fa988bbc9c718edd0671f0746ac06900f36e16512984c5ffeff",
+      "bytes": 99996
+    },
+    {
+      "path": "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKDescriptorSet.mm",
+      "sha256": "b87caab357dd43ba2c2cd937dcd7cdd0836c6418f90ddc5d2b90e13022257dc4",
+      "bytes": 99509
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/modules/02-layout-policy/R-and-Small.patch",
+      "sha256": "a9ce81af104882be44014843cf16bd20f8d176d403366bae0bdd68ce90105b64",
+      "bytes": 3115
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/modules/02-layout-policy/R-and-Small.reverse.patch",
+      "sha256": "50279c28bb5328b332b5c0b9bbcc88961a0552baaac076112e09a87c618248d5",
+      "bytes": 3115
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/modules/03-owned-replay-chain/module.json",
+      "sha256": "fbe2dac235aa914b24e60d08867272fed3ed9fb69e8231c797e2b250c195ef29",
+      "bytes": 2208
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/payload/ea6eb8b685fe9a180c2f53faa08b0ca19545a1b764f426c3aac5eadd7b35609a",
+      "sha256": "ea6eb8b685fe9a180c2f53faa08b0ca19545a1b764f426c3aac5eadd7b35609a",
+      "bytes": 30862
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/payload/a23cc321eebd7da11ea912dc09fbe7afa1e51c61a707fd9eab6b790d1a2c797a",
+      "sha256": "a23cc321eebd7da11ea912dc09fbe7afa1e51c61a707fd9eab6b790d1a2c797a",
+      "bytes": 30995
+    },
+    {
+      "path": "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCommandBuffer.h",
+      "sha256": "ea6eb8b685fe9a180c2f53faa08b0ca19545a1b764f426c3aac5eadd7b35609a",
+      "bytes": 30862
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/payload/c66515484dfda8a7d5b05ed45622b03f64e9695eedcbb607d4e71387eb354c74",
+      "sha256": "c66515484dfda8a7d5b05ed45622b03f64e9695eedcbb607d4e71387eb354c74",
+      "bytes": 111540
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/payload/d02dd270eb5d1ce4e115956a075a5ef54467d083954e7a3d366efa2da7368fa0",
+      "sha256": "d02dd270eb5d1ce4e115956a075a5ef54467d083954e7a3d366efa2da7368fa0",
+      "bytes": 111663
+    },
+    {
+      "path": "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCommandBuffer.mm",
+      "sha256": "c66515484dfda8a7d5b05ed45622b03f64e9695eedcbb607d4e71387eb354c74",
+      "bytes": 111540
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/modules/03-owned-replay-chain/R-and-Small.patch",
+      "sha256": "cbe16893b412a2e4a3144d4d9c9c2c303433064ea82c0c0302c687c53d5c6f99",
+      "bytes": 2966
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/modules/03-owned-replay-chain/R-and-Small.reverse.patch",
+      "sha256": "68d1f2989e54ddf26d23c2b89c0da360b06f2801a66d9cb3e3e6e874494bdd97",
+      "bytes": 2966
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/modules/09-snapshot-unlocked-retain/module.json",
+      "sha256": "f1cb5144ba0d5e988b7fbc729aa8f5a61bc9d87eee63223a93abe9875baace5b",
+      "bytes": 1623
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/payload/d6222a17d4da569b0abd419f1c7e8b41c2f2101c7acf700e770aa02af7afa653",
+      "sha256": "d6222a17d4da569b0abd419f1c7e8b41c2f2101c7acf700e770aa02af7afa653",
+      "bytes": 23696
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/payload/b7422521cf7427e09c6c261d9180a98c1ad9523603aa734b453a41796c100dc6",
+      "sha256": "b7422521cf7427e09c6c261d9180a98c1ad9523603aa734b453a41796c100dc6",
+      "bytes": 24661
+    },
+    {
+      "path": "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKMetal4PreparedResource.h",
+      "sha256": "d6222a17d4da569b0abd419f1c7e8b41c2f2101c7acf700e770aa02af7afa653",
+      "bytes": 23696
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/modules/09-snapshot-unlocked-retain/R-and-Small.patch",
+      "sha256": "dca192f7d9051aaa3c64ad59e8cb7caaff5a01fa83704a747b23d51bb130a5bf",
+      "bytes": 4277
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/modules/09-snapshot-unlocked-retain/R-and-Small.reverse.patch",
+      "sha256": "7086be9c652baa009931da5cf06a22e34ade68f2d5853846360e081262041254",
+      "bytes": 4277
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/layout-cpu-attempt1/receipt.json",
+      "sha256": "bc116cd77e5e47aa111e4cf36dfaaec3e5008c4b43b16bc692c0ecac9f71095d",
+      "bytes": 937
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/chain-cpu-attempt1/receipt.json",
+      "sha256": "81a350b6c24be4a8ba6f66a41d31b55f0a4560563cd331b12021b89f433ea208",
+      "bytes": 941
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/snapshot-cpu-attempt1/receipt.json",
+      "sha256": "6cb52ae6e638f2e2e1fb8e695de30cbef74984d05332db43be676325a1d435ee",
+      "bytes": 980
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/control-syntax-attempt1/receipt.json",
+      "sha256": "36de935a204cbfaa32f0c85070cdc0746322f2c30c47ff35ffe3473f87c831ce",
+      "bytes": 41394
+    }
+  ],
+  "reviewedReportSHA256": "e6baadb44fcc654f2b1c75a2a74fd9824b7fcf58364e4084dae350ab9f65b3a2",
+  "limits": [
+    "CPU chain fixture does not execute real multiview encoder",
+    "No native GPU/build/app/performance acceptance",
+    "Map64 does not bound concurrent retained CPU entries"
+  ],
+  "reviewerExecution": {
+    "activeWrites": 0,
+    "buildsTestsGPUApps": 0,
+    "remoteOrCleanup": 0
+  }
+}

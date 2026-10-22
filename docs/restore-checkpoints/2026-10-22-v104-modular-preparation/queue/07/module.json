@@ -1,0 +1,41 @@
+{
+  "number": 7,
+  "title": "동일 제출 그룹의 불변 signal 순서 재검사 재사용",
+  "source": "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKMetal4Submission.mm",
+  "existingWork": "validGroupSignals는 제출 준비와 publication에서 호출되며 이전 signal pair를 다시 순회.",
+  "missingEvidence": "zero/one signal에서는 절약이 작고 proof 전달 비용이 더 클 수 있음.",
+  "requiredBoundary": "같은 그룹의 상대 순서 proof만 재사용; 현재 event 값은 publication 때 다시 확인. 첫 검사 없는 직접 호출자는 full validation.",
+  "risk": {
+    "function": "중간: direct publication은 full validation이 기본이어야 함. 이전 성공 proof 없는 호출자에서 생략하면 거부조건 약화.",
+    "lifetime": "낮음~중간: proof는 같은 group/같은 children/signals에만 귀속. raw event 주소 global cache 금지.",
+    "synchronization": "중간: 첫 검사 후 외부 event signaledValue 증가를 publication에서 다시 거부해야 함.",
+    "memory": "작은 bool/token 가능하지만 one-signal common path에는 branch/plumbing만 늘 수 있음."
+  },
+  "sourceReferences": [
+    "vkd3d-changelog"
+  ],
+  "status": "source-capsule-prepared-immutable-proof-reviewed",
+  "strategy": "A noncopyable submit-local proof names the exact fresh strongly-held group after its successful complete check. Ended claimed children reject legal event mutation. Publication still reads current event values; direct calls and absent/mismatched proof run full validation.",
+  "acceptance": [
+    "Repeated multi-signal groups established; zero/one-signal paths not burdened with new allocation",
+    "Token cannot outlive or cross changed children/signal lists",
+    "Concurrent external event advancement remains rejected at publication"
+  ],
+  "tests": [
+    "Existing group signal/timeline cases: unsorted/duplicate, zero/one/multi, direct publication and retry",
+    "Current value advances after validation; wrong-group proof falls back, legal Ended mutation is rejected. Arbitrary private-vector mutation is outside the proven invariant."
+  ],
+  "codeModules": [
+    "07-signal-order-proof"
+  ],
+  "interactions": [
+    6,
+    13
+  ],
+  "dependencyMeaning": "Interactions require re-review; they are not permission to enable all related changes together.",
+  "designStage": "Exact source capsules where named; broader missing-target/ownership/pass designs remain gated where stated",
+  "codeActivationAutomatic": false,
+  "FPSBenefitEstablished": false,
+  "stopRule": "Any unclosed correctness/lifetime counterexample, changed parent, failed check or unclear measurement stops this module. Preserve failure evidence; no automatic replay.",
+  "rollback": "Prepared source module: exact reverse patch only against its postimage, refresh mtimes and rebuild all affected headers. No-code module: active product remains unchanged; no invented reverse patch."
+}

@@ -1,0 +1,17 @@
+In file included from /Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-modular-preparation-20261022/typed-cpu-attempt1/fixture.cpp:148:
+/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-modular-preparation-20261022/typed-cpu-attempt1/typed-owner-methods.inc:2:13: error: no matching function for call to 'max'
+    2 |                 maxSize = std::max(maxSize, { verts.size(), indcs.size() });
+      |                           ^~~~~~~~
+/Library/Developer/CommandLineTools/SDKs/MacOSX27.0.sdk/usr/include/c++/v1/__algorithm/max.h:35:1: note: candidate function [with _Tp = unsigned long] not viable: cannot convert initializer list argument to 'const unsigned long'
+   35 | max(_LIBCPP_LIFETIMEBOUND const _Tp& __a, _LIBCPP_LIFETIMEBOUND const _Tp& __b) {
+      | ^                                                               ~~~~~~~~~~~~~~
+/Library/Developer/CommandLineTools/SDKs/MacOSX27.0.sdk/usr/include/c++/v1/__algorithm/max.h:43:1: note: candidate template ignored: could not match 'initializer_list<_Tp>' against 'size_t' (aka 'unsigned long')
+   43 | max(initializer_list<_Tp> __t, _Compare __comp) {
+      | ^
+/Library/Developer/CommandLineTools/SDKs/MacOSX27.0.sdk/usr/include/c++/v1/__algorithm/max.h:48:82: note: candidate function template not viable: requires single argument '__t', but 2 arguments were provided
+   48 | [[__nodiscard__]] inline _LIBCPP_HIDE_FROM_ABI _LIBCPP_CONSTEXPR_SINCE_CXX14 _Tp max(initializer_list<_Tp> __t) {
+      |                                                                                  ^   ~~~~~~~~~~~~~~~~~~~~~~~~~
+/Library/Developer/CommandLineTools/SDKs/MacOSX27.0.sdk/usr/include/c++/v1/__algorithm/max.h:29:1: note: candidate function template not viable: requires 3 arguments, but 2 were provided
+   29 | max(_LIBCPP_LIFETIMEBOUND const _Tp& __a, _LIBCPP_LIFETIMEBOUND const _Tp& __b, _Compare __comp) {
+      | ^                         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 error generated.

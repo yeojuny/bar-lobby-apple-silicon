@@ -1,0 +1,248 @@
+{
+  "status": "independent-module-scope-review-complete-narrow-11a-and-conservative2837-unapplied-preparation-only",
+  "createdUTC": "2026-10-22T16:49:57.213128+00:00",
+  "blockingFindings": [],
+  "scope": "13 original workgroups; new source payload preparation limited to two explicit submodules; active Small/source/build and R/Small apps frozen",
+  "selectedCandidate": "R",
+  "activeSource": "Small R plus bounded reserve; no D/E/lookup adoption",
+  "items": [
+    {
+      "number": 1,
+      "title": "proof/snapshot 임시 배열",
+      "classification": "bounded-implementation-completed-in-Small-not-adopted",
+      "reason": "Small의16상한·첫유효proof이후reserve 단위는구현/관련검증완료. R에는없고일반SBO/추가공유는완료아님. 기존Small을재사용하고중복새패치금지."
+    },
+    {
+      "number": 2,
+      "title": "layout 조기 적격성 분류",
+      "classification": "held-no-current-BAR-prefix-reach",
+      "reason": "Zink push-template가먼저Deferred로전환하는관측prefix에서는후속정책조회비도달. #4를강제로켜기위한선행패치로만들지않음."
+    },
+    {
+      "number": 3,
+      "title": "fallback vector 연결목록",
+      "classification": "design-held",
+      "reason": "원vector capacity재사용은완료. 명령보유node와pool/free-list 소유·prefix복원·취소순서가미설계."
+    },
+    {
+      "number": 4,
+      "title": "compact UBO 조기 CPU 기록",
+      "classification": "design-held",
+      "reason": "mapped최신입력·layout소유·기록시점·late query/fallback을닫고총작업감소가능범위를정해야함. #2/#3와상호작용."
+    },
+    {
+      "number": 5,
+      "title": "no-conversion lookahead 생략",
+      "classification": "design-held",
+      "reason": "첫draw/pipeline만으로skip불가. whole-pass negative proof와dynamic topology/unknown/write/2048경계가정의돼야함."
+    },
+    {
+      "number": 6,
+      "title": "완료 전 예비 notify 축소",
+      "classification": "design-held",
+      "reason": "작은코드라도실제sleeping waiter와success/error/poison/final완료의notify인과가먼저닫혀야함. 과거종료실패수정을주장하지않음."
+    },
+    {
+      "number": 7,
+      "title": "불변 signal 순서 proof 재사용",
+      "classification": "conditional-narrow-design-held",
+      "reason": "원칙상작은후속후보지만proof전달·불변signals소유·직접publication/no-first-check경로설계아직없음. live event값검사는계속유지. 이번코드모듈범위에서제외."
+    },
+    {
+      "number": 8,
+      "title": "기록 간 부분 snapshot 확대",
+      "classification": "design-held-with-separate-conservative-2837-submodule",
+      "reason": "기존snapshot/weakproof/현재recording retain은완료. 추가partial miss구제는미설계. 인접2837 rebind는별도보수적소형모듈로준비가능하며partial확대완료로세지않음."
+    },
+    {
+      "number": 9,
+      "title": "per-binding snapshot 잠금 축소",
+      "classification": "design-held",
+      "reason": "group밖retain은기존완료. per-binding해제후entry수명/동시교체/conditionalerase와shared_ptr비용검토필요."
+    },
+    {
+      "number": 10,
+      "title": "allocator 성장·풀·idle 추가조정",
+      "classification": "design-held-existing-QR-and64-experiment-complete",
+      "reason": "Q reset/R idle-first완료,32→64는기존E실험. 현재32/2MiB/8/64MiB유지. 근거없는상수복사나새allocatorcollector없음."
+    },
+    {
+      "number": 11,
+      "title": "불필요 pass 종료·재시작 감소",
+      "classification": "design-held-with-ready-to-prepare-11a-submodule",
+      "reason": "일반pass합침/fragment경계제거는아직미정의. 11a Typed frame-local orphan만기존미적용제안·계약이정의돼작은payload준비가능."
+    },
+    {
+      "number": 12,
+      "title": "중간 MSAA resolve 생략",
+      "classification": "design-held",
+      "reason": "intermediate/finalfragment·no-next-draw최종resolve·memoryless/private·query예외를설계해야함. AAOff/window샘플0은offscreen경로부재증명아님."
+    },
+    {
+      "number": 13,
+      "title": "추가 barrier/GPU wait 중복 축소",
+      "classification": "design-held-existing-E3-experiment-not-R",
+      "reason": "E3제한compute prior coverage는Combined의완료분기이며R에채택된것아님. 정확한중복dependencyedge없이는대기/완료gate삭제불가."
+    }
+  ],
+  "sourceModulesRecommendedForPreparation": [
+    {
+      "id": "11a-frame-local-orphan",
+      "relatedOriginalWorkgroup": 11,
+      "existingReviewedUnappliedPatchSHA256": "6708badf0af62cc4fb6b336cd7bccba81d5e3f93c229b8459bf4b10684d2f0d6",
+      "sourceApplied": false,
+      "moduleRuntimeReadinessClaimed": false,
+      "scope": "Latest narrowed DSA-only: Typed non-readonly frame-local BufferSubData invalidation only; two engine lanes; core4.5/ARB_DSA capability AND named-buffer pointer; unsupported/HEADLESS no new GL, no COPY binding/state queries",
+      "existingReviewedPatchIsPrecedentNotFinalModule": true
+    },
+    {
+      "id": "8a-conservative2837",
+      "relatedOriginalWorkgroup": 8,
+      "sourceApplied": false,
+      "upstreamPRHead": "5978a64ae125333457ebc35ab1f80321a7eb3924",
+      "upstreamAsIsSafe": false,
+      "scope": "Proven unchanged legacy implicit dynamic offset values/valid length/packing only; preserve affected resourceUse clears and all nativeM4 separate invalidation/reset/helper contracts",
+      "parentVariants": {
+        "R-State-mm": "9b28b9a30f6e0d8a975b732dcaf8a49c8e14b32f9ba3157e4f9dce03b14276b9",
+        "Small-State-mm": "b1013a4a907210de7f527f550758824d1dfcf5d79b05266a984aa2a1e97e62e3"
+      }
+    }
+  ],
+  "dependenciesAndConflicts": [
+    {
+      "modules": [
+        "11a",
+        "conservative2837"
+      ],
+      "relation": "no direct product-file overlap or mandatory order; runtime workload interactions possible"
+    },
+    {
+      "modules": [
+        "existingSmall-reserve",
+        "conservative2837"
+      ],
+      "relation": "same State.mm, exact parent-specific payloads/full hashes; preserve reserve or R no-reserve independently"
+    },
+    {
+      "modules": [
+        2,
+        4
+      ],
+      "relation": "early recording changes may alter reach; no automatic eligibility activation"
+    },
+    {
+      "modules": [
+        3,
+        4
+      ],
+      "relation": "command ownership/prefix fallback/lifetime overlap"
+    },
+    {
+      "modules": [
+        8,
+        9
+      ],
+      "relation": "snapshot immutable entry/replacement ownership overlap"
+    },
+    {
+      "modules": [
+        6,
+        7,
+        13
+      ],
+      "relation": "submit verification/waiter/error/completion cross-impact; separate proofs"
+    },
+    {
+      "modules": [
+        5,
+        11,
+        12,
+        13,
+        10
+      ],
+      "relation": "pass boundaries/dependency/resolve and allocator distribution cross-impact"
+    }
+  ],
+  "futureValidationOnly": true,
+  "minimumPayloadContract": [
+    "exact source basis ID + before bytes/mode/hash",
+    "after payload and patch hash",
+    "exact-context in-memory composition and parent-specific sequential pins",
+    "no active source/fixture writes or build/test now",
+    "unapplied and runtime unvalidated status explicit",
+    "later minimal related fixture branches and rollback",
+    "never restore stale active-header mtime via copy2"
+  ],
+  "readPins": [
+    {
+      "path": "artifacts/validation/v104-remaining-optimization-inventory-20261021/inventory.json",
+      "bytes": 20260,
+      "sha256": "de10dbebe8418d34de05378ce056d4f4cda3fb2f3e33741592c1110b7dd7e744"
+    },
+    {
+      "path": "artifacts/validation/v104-optimization-risk-return-20261021/independent-assessment.json",
+      "bytes": 52988,
+      "sha256": "e1939ee82ad3445d1609f398b0ae7c06cec636ac8c7061de8d44c7037245b05f"
+    },
+    {
+      "path": "artifacts/validation/v104-optimization-risk-return-20261021/primary-assessment.json",
+      "bytes": 59831,
+      "sha256": "b9a9b97156950408009f88e763e6b6e5122e6135f886da10a56e9552b0de4158"
+    },
+    {
+      "path": "artifacts/validation/v104-optimization-precedents-20261021/external-assessment.md",
+      "bytes": 50050,
+      "sha256": "3f45f46fc7a52b3b39cc68c5439661416ab162baf1c0600dc0405a7a16982d7c"
+    },
+    {
+      "path": "artifacts/validation/v104-r-small-bundle-20261021/independent-gate-review.json",
+      "bytes": 14776,
+      "sha256": "7ead45216ebbe17cbbc522727e65ba9bb4edd7ccd199d6e3e0aa8802fcab2626"
+    },
+    {
+      "path": "artifacts/validation/v104-r-small-bundle-20261021/independent-readiness-review.json",
+      "bytes": 21964,
+      "sha256": "fdefc382135eae65ecd91dfcf6c80603c0585838c4216ea9d5dd548968a04295"
+    },
+    {
+      "path": "artifacts/validation/v104-r-small-bundle-20261021/independent-11a-preaudit.json",
+      "bytes": 18050,
+      "sha256": "456b7e90b45e2fa1ba5dcba6c79c637524e90fca818f06cd2b6d87e728163c08"
+    },
+    {
+      "path": "artifacts/validation/v104-r-small-bundle-20261021/independent-2837-preaudit.md",
+      "bytes": 7394,
+      "sha256": "b86a61f4656e166e5a1a744e255dc4f41d1e07fe7c7c0c99a43ffd4dd0dc4541"
+    },
+    {
+      "path": "artifacts/validation/v104-frame-local-orphan-20261021/independent-proposal-addendum.md",
+      "bytes": 2351,
+      "sha256": "8875da3aa6fbe15040df506983e225aa515902f2b6988bd63f65f396f600f6eb"
+    },
+    {
+      "path": "artifacts/validation/v104-frame-local-orphan-20261021/design.json",
+      "bytes": 9015,
+      "sha256": "352485440e18da6dc7afc4719176c5ba1135b1a87d5f5f494195e31f575a512b"
+    },
+    {
+      "path": "artifacts/validation/v104-frame-local-orphan-20261021/validation-plan.json",
+      "bytes": 6292,
+      "sha256": "49611fdb9bab1734c667e0a4fdf5b32fb2f1c0a43919bedf4bd64aef2e017685"
+    }
+  ],
+  "reportSHA256": "f5f7bd648fe39241d18ac658e95a629f23b6cea488e340bf4a670b0d80879979",
+  "executionCounts": {
+    "productFixtureBuildCMakeAppPointerProfileOrRunnerChanges": 0,
+    "patchImplementationByReviewer": 0,
+    "buildsTestsGPUAppsGamesBenchmarks": 0,
+    "remoteWrites": 0,
+    "OSSamplingOrServiceChanges": 0,
+    "cleanup": 0,
+    "newAgentsOrChats": 0
+  },
+  "updatedUTC": "2026-10-22T16:52:00.719876+00:00",
+  "latestDesignGuidance": {
+    "11a": "DSA only is narrower and acceptable; no requirement to implement fallback. Clear upload marker after invalidation request.",
+    "2837": "Pipeline bind currently does not clear descriptor implicit trio; conservatively invalidate legacy BufferSize/DynamicOffset/Swizzle on pipeline/layout transition. Use changed output plus new-range/growth dirty; optional existing current pipeline/layout identity gate, no new raw memo; unknown layout retains full clear. Preserve affected resources and nativeM4 invalidations."
+  }
+}

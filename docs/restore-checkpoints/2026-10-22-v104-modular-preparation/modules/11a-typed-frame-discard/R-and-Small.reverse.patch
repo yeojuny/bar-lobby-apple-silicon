@@ -1,0 +1,132 @@
+--- a/build/run91-recoil-src-694e9df7/rts/Rendering/GL/StreamBuffer.h
++++ b/build/run91-recoil-src-694e9df7/rts/Rendering/GL/StreamBuffer.h
+@@ -125,8 +125,6 @@
+ 
+ 	virtual void Unmap() = 0;
+ 	virtual void SwapBuffer() {};
+-	// Only callers that discard every byte may invalidate the storage.
+-	virtual void Invalidate() {};
+ 
+ 	virtual bool HasClientPtr() const { return false; };
+ 	virtual uint32_t BufferElemOffset() const { return 0; };
+@@ -226,7 +224,6 @@
+ 	}
+ 
+ 	void Init() override {
+-		uploadedSinceInvalidate = false;
+ 		this->byteSize = this->GetAlignedByteSize(this->numElements * sizeof(T));;
+ 		this->CreateBuffer(this->byteSize, this->optimizeForStreaming ? GL_STREAM_DRAW : GL_STATIC_DRAW);
+ 	}
+@@ -269,27 +266,11 @@
+ 		);
+ 
+ 		this->Unbind();
+-		uploadedSinceInvalidate |= (this->mapElemCount != 0);
+-	}
+-
+-	void Invalidate() override {
+-		const bool hadUpload = uploadedSinceInvalidate;
+-		uploadedSinceInvalidate = false;
+-#ifndef HEADLESS
+-		// Named storage replacement preserves the current VAO's EBO and all
+-		// buffer bindings. Unsupported contexts keep their existing storage.
+-		if (!hadUpload || !(GLAD_GL_VERSION_4_5 || GLAD_GL_ARB_direct_state_access) || !glNamedBufferData)
+-			return;
+-		glNamedBufferData(this->id, this->byteSize, nullptr, this->optimizeForStreaming ? GL_STREAM_DRAW : GL_STATIC_DRAW);
+-#else
+-		(void)hadUpload;
+-#endif
+ 	}
+ 
+ 	bool HasClientPtr() const override { return clientMem; };
+ private:
+ 	bool clientMem;
+-	bool uploadedSinceInvalidate = false;
+ 	T* buffer;
+ };
+ 
+--- a/build/run91-recoil-src-694e9df7/rts/Rendering/GL/RenderBuffers.h
++++ b/build/run91-recoil-src-694e9df7/rts/Rendering/GL/RenderBuffers.h
+@@ -408,14 +408,10 @@
+ 		if (readOnly)
+ 			return;
+ 
+-		if (vbo) {
++		if (vbo)
+ 			vbo->SwapBuffer();
+-			vbo->Invalidate();
+-		}
+-		if (ebo) {
++		if (ebo)
+ 			ebo->SwapBuffer();
+-			ebo->Invalidate();
+-		}
+ 
+ 		Clear();
+ 	}
+--- a/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Rendering/GL/StreamBuffer.h
++++ b/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Rendering/GL/StreamBuffer.h
+@@ -125,8 +125,6 @@
+ 
+ 	virtual void Unmap() = 0;
+ 	virtual void SwapBuffer() {};
+-	// Only callers that discard every byte may invalidate the storage.
+-	virtual void Invalidate() {};
+ 
+ 	virtual bool HasClientPtr() const { return false; };
+ 	virtual uint32_t BufferElemOffset() const { return 0; };
+@@ -226,7 +224,6 @@
+ 	}
+ 
+ 	void Init() override {
+-		uploadedSinceInvalidate = false;
+ 		this->byteSize = this->GetAlignedByteSize(this->numElements * sizeof(T));;
+ 		this->CreateBuffer(this->byteSize, this->optimizeForStreaming ? GL_STREAM_DRAW : GL_STATIC_DRAW);
+ 	}
+@@ -269,27 +266,11 @@
+ 		);
+ 
+ 		this->Unbind();
+-		uploadedSinceInvalidate |= (this->mapElemCount != 0);
+-	}
+-
+-	void Invalidate() override {
+-		const bool hadUpload = uploadedSinceInvalidate;
+-		uploadedSinceInvalidate = false;
+-#ifndef HEADLESS
+-		// Named storage replacement preserves the current VAO's EBO and all
+-		// buffer bindings. Unsupported contexts keep their existing storage.
+-		if (!hadUpload || !(GLAD_GL_VERSION_4_5 || GLAD_GL_ARB_direct_state_access) || !glNamedBufferData)
+-			return;
+-		glNamedBufferData(this->id, this->byteSize, nullptr, this->optimizeForStreaming ? GL_STREAM_DRAW : GL_STATIC_DRAW);
+-#else
+-		(void)hadUpload;
+-#endif
+ 	}
+ 
+ 	bool HasClientPtr() const override { return clientMem; };
+ private:
+ 	bool clientMem;
+-	bool uploadedSinceInvalidate = false;
+ 	T* buffer;
+ };
+ 
+--- a/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Rendering/GL/RenderBuffers.h
++++ b/artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Rendering/GL/RenderBuffers.h
+@@ -408,14 +408,10 @@
+ 		if (readOnly)
+ 			return;
+ 
+-		if (vbo) {
++		if (vbo)
+ 			vbo->SwapBuffer();
+-			vbo->Invalidate();
+-		}
+-		if (ebo) {
++		if (ebo)
+ 			ebo->SwapBuffer();
+-			ebo->Invalidate();
+-		}
+ 
+ 		Clear();
+ 	}

@@ -1,0 +1,92 @@
+{
+  "status": "design-boundary-contracts-accepted-not-code-ready",
+  "createdUTC": "2026-10-22T18:14:44.189821+00:00",
+  "blockingFindings": [],
+  "actionableFindings": [],
+  "items": [
+    {
+      "group": 5,
+      "sourceCodePrepared": false,
+      "assessment": "Boundary and counterexample contract accepted; no exact new patch justified by present inputs",
+      "remaining": "No existing cheap, authoritative per-pass state summary or measured dominant negative scanning interval is identified. Adding a generic per-command summary currently expands recording work and ABI without demonstrated net benefit."
+    },
+    {
+      "group": 10,
+      "sourceCodePrepared": false,
+      "assessment": "Boundary and counterexample contract accepted; no exact new patch justified by present inputs",
+      "remaining": "No new alternative value is supported by a distinct observed churn or memory-pressure cause. An arbitrary tuning constant is not a completed optimization."
+    },
+    {
+      "group": "11b",
+      "sourceCodePrepared": false,
+      "assessment": "Boundary and counterexample contract accepted; no exact new patch justified by present inputs",
+      "remaining": "No specific BAR redundant split with all observers accounted for is identified.11a reducing the upstream split cause is an untested hypothesis, so rerank afterward instead of adding general merging now."
+    },
+    {
+      "group": 12,
+      "sourceCodePrepared": false,
+      "assessment": "Boundary and counterexample contract accepted; no exact new patch justified by present inputs",
+      "remaining": "No observed repeated eligible offscreen MSAA split with complete consumer/backing lifetime is identified; current narrow no-combined optimization already exists."
+    },
+    {
+      "group": 13,
+      "sourceCodePrepared": false,
+      "assessment": "Boundary and counterexample contract accepted; no exact new patch justified by present inputs",
+      "remaining": "No exact remaining redundant edge, alternate issued coverage and critical-path interval have been established. Suppressing waits by category would violate the current correctness model."
+    }
+  ],
+  "readPins": [
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/remaining-design-boundaries.md",
+      "sha256": "aaabf8ebf00cfab04b7b051dc0afd82847438f55e384af3a629a8d306cb92a6e",
+      "bytes": 10656
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/remaining-design-boundaries.json",
+      "sha256": "1404d03168d47a5f94bd3906589007c13c4325f24c18d569dfb1c7681f537148",
+      "bytes": 17734
+    },
+    {
+      "path": "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCmdDraw.mm",
+      "sha256": "b0664412727e21c2b36300667e488919c8efa747113a8d66e23a4ef7ca4875f5",
+      "bytes": 134515
+    },
+    {
+      "path": "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCommandBuffer.mm",
+      "sha256": "c66515484dfda8a7d5b05ed45622b03f64e9695eedcbb607d4e71387eb354c74",
+      "bytes": 111540
+    },
+    {
+      "path": "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKMetal4Submission.h",
+      "sha256": "b16b79f45cebe2ed69e8c0e8c5d8ba5ee4921a0156d7cbd70ca812da57bb18ce",
+      "bytes": 26924
+    },
+    {
+      "path": "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKMetal4Submission.mm",
+      "sha256": "2e680f300575bdd99816c32252ef62c8ca8ad0398f5cd2543399b915ef8e012f",
+      "bytes": 157542
+    },
+    {
+      "path": "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKRenderPass.mm",
+      "sha256": "8b6ce3de27c32d931dd5b9de39b31e96745389a25bd549f92b08fccc8ed45f14",
+      "bytes": 57634
+    },
+    {
+      "path": "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKMetal4DependencyScopes.h",
+      "sha256": "23eb82a647ea1632fcf3bcad7a330a53f42ab9d51cf04145722ea331b8530128",
+      "bytes": 4811
+    },
+    {
+      "path": "artifacts/validation/v104-e-structure-20261021/E3.patch",
+      "sha256": "5ee3c79d558ff455e406653adb03ece944ec6c4ad8493d2239048fd674b9c02c",
+      "bytes": 1823
+    }
+  ],
+  "reviewedReportSHA256": "dc1fd16adcf93165248bf2af5598a02ec1a8e6699c1a15cfa8d0c4c739998db4",
+  "all13Implemented": false,
+  "reviewerExecutionCounts": {
+    "activeWrites": 0,
+    "newTestsBuildGPUAppOrBenchmark": 0,
+    "samplingRemoteCleanup": 0
+  }
+}

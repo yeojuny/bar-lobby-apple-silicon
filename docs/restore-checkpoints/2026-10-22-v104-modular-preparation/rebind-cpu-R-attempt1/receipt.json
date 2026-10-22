@@ -1,0 +1,165 @@
+{
+  "status": "passed-cpu-production-body-contracts-only",
+  "variant": "R",
+  "createdUTC": "2026-10-22T17:06:15.146708+00:00",
+  "moduleManifestSHA256": "4f976fe43fc952317c5fc57a28b3808b1b65b3147263ac849aa1da6a160b65a5",
+  "fixtureSHA256": "f52a7df0c18343416519a7db2c2f6314b45c42995602e8eac87581c16939889a",
+  "productionIncludeSHA256": "8986ef6f5c2aaa6a3cd785b8786a725774817886280630e3adff7dcd36e21643",
+  "inputPins": [
+    {
+      "target": "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCommandEncoderState.h",
+      "role": "before",
+      "path": "payload/dac7a20c3963887d5f054322a2bf7884d347271768dd0a124649f7d25862dade",
+      "sha256": "dac7a20c3963887d5f054322a2bf7884d347271768dd0a124649f7d25862dade",
+      "bytes": 32327
+    },
+    {
+      "target": "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCommandEncoderState.h",
+      "role": "after",
+      "path": "payload/b3f64f869dec74a7858826cb6217e7401c2c15863145923b51041cff8bcf59fc",
+      "sha256": "b3f64f869dec74a7858826cb6217e7401c2c15863145923b51041cff8bcf59fc",
+      "bytes": 32327
+    },
+    {
+      "target": "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCommandEncoderState.mm",
+      "role": "before",
+      "path": "payload/9b28b9a30f6e0d8a975b732dcaf8a49c8e14b32f9ba3157e4f9dce03b14276b9",
+      "sha256": "9b28b9a30f6e0d8a975b732dcaf8a49c8e14b32f9ba3157e4f9dce03b14276b9",
+      "bytes": 158404
+    },
+    {
+      "target": "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCommandEncoderState.mm",
+      "role": "after",
+      "path": "payload/cc47e81c569403e8221631cba7da38dd0f19b0c203a139d9c7866819e2bca026",
+      "sha256": "cc47e81c569403e8221631cba7da38dd0f19b0c203a139d9c7866819e2bca026",
+      "bytes": 159913
+    }
+  ],
+  "extractedSegments": [
+    {
+      "name": "descriptor-metadata-production-body",
+      "sha256": "7f0e3f5561d32f1657783303ad51ca17fdda7877fbb1a366b07e01b9724ede78",
+      "bytes": 2854
+    },
+    {
+      "name": "reference-before-helper",
+      "sha256": "365ef2ce52d50bfbd9f7f7f70c20f6478db4217ce607404040448987f0e2e538",
+      "bytes": 2700
+    },
+    {
+      "name": "static bool bindDescriptorSets(MVKImplicitBufferData&",
+      "sha256": "6059dc2aa3907463596166aabcb2fd742dd56c1084a14341cf19dba912fffa2e",
+      "bytes": 3153
+    },
+    {
+      "name": "bool MVKVulkanGraphicsCommandEncoderState::bindDescriptorSets(",
+      "sha256": "f769ccaf59a5090b7d4a086e5671bb7a01a1b01b27d75a4d915d3e7c313369bf",
+      "bytes": 1076
+    },
+    {
+      "name": "bool MVKVulkanComputeCommandEncoderState::bindDescriptorSets(",
+      "sha256": "a6b0b78f70752a698b6622eb061da39fdb742e0052c45694690321ab385c5cf4",
+      "bytes": 506
+    },
+    {
+      "name": "void MVKCommandEncoderState::bindGraphicsPipeline(",
+      "sha256": "99d1d2ede1caa925a4aed8d81d16bca2bb24be3f4a70a97288cc38250ed43a06",
+      "bytes": 912
+    },
+    {
+      "name": "void MVKCommandEncoderState::bindComputePipeline(",
+      "sha256": "b354864c746427610e021b73a52c3bc2104022b6a6f85cba5b79c1770f8e6f14",
+      "bytes": 838
+    },
+    {
+      "name": "void MVKCommandEncoderState::bindDescriptorSets(",
+      "sha256": "8eb13ea576e0fcff98e65b47336d2b8777fb67871098b550257387ff5fa9b2c6",
+      "bytes": 1527
+    },
+    {
+      "name": "active-Metal-stage-filter",
+      "sha256": "cb66e0d5609025eb2abded50dab12ab8e1fa82840daae2e91a08c3e91f1f889b",
+      "bytes": 616
+    },
+    {
+      "name": "implicit-payload-limit",
+      "sha256": "7a173f9ee5571f6b9bef5b4d720db81f532f3595205b3ef7e17efc14efeb63c8",
+      "bytes": 196
+    },
+    {
+      "name": "compute-transition-production-block",
+      "sha256": "6f978740de1809e77a6c3720cc062a0bd33fb50357e04d27941d643adc7b9285",
+      "bytes": 349
+    },
+    {
+      "name": "graphics-helper-transition-production-block",
+      "sha256": "ce1f514ec6a44de17d927fb4b3e206d53e4d59e60e209d551d1f88af5fdca33c",
+      "bytes": 336
+    }
+  ],
+  "runs": [
+    {
+      "foundation": 0,
+      "compileCommand": [
+        "/usr/bin/clang++",
+        "-std=c++17",
+        "-O1",
+        "-g",
+        "-fsanitize=address,undefined",
+        "-fno-omit-frame-pointer",
+        "-DMVK_BUILD_METAL4_FOUNDATION=0",
+        "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-modular-preparation-20261022/rebind-cpu-R-attempt1/rebind-fixture.cpp",
+        "-I",
+        "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-modular-preparation-20261022/rebind-cpu-R-attempt1",
+        "-o",
+        "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-modular-preparation-20261022/rebind-cpu-R-attempt1/rebind-foundation-0"
+      ],
+      "compileExit": 0,
+      "runExit": 0,
+      "stdoutSHA256": "6b4968eb971de762ddd189259e98ac26a678d0a4b7a28b862e263893e9ef08c1",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result": {
+        "status": "passed",
+        "foundation": 0,
+        "scenarios": 10,
+        "checks": 616,
+        "productionBodiesExtracted": true,
+        "actualGPU": false
+      }
+    },
+    {
+      "foundation": 1,
+      "compileCommand": [
+        "/usr/bin/clang++",
+        "-std=c++17",
+        "-O1",
+        "-g",
+        "-fsanitize=address,undefined",
+        "-fno-omit-frame-pointer",
+        "-DMVK_BUILD_METAL4_FOUNDATION=1",
+        "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-modular-preparation-20261022/rebind-cpu-R-attempt1/rebind-fixture.cpp",
+        "-I",
+        "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-modular-preparation-20261022/rebind-cpu-R-attempt1",
+        "-o",
+        "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-modular-preparation-20261022/rebind-cpu-R-attempt1/rebind-foundation-1"
+      ],
+      "compileExit": 0,
+      "runExit": 0,
+      "stdoutSHA256": "38c93167bcb3f53f07e2983549530b51f847a86c6ca4692cfd0c3ae52ec12d07",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result": {
+        "status": "passed",
+        "foundation": 1,
+        "scenarios": 10,
+        "checks": 616,
+        "productionBodiesExtracted": true,
+        "actualGPU": false
+      }
+    }
+  ],
+  "qualification": "CPU production-body contract checks with stage/layout/Metal surfaces mocked; no actual GPU or full header ABI proof.",
+  "activeSourceModified": false,
+  "appLaunched": false,
+  "GPUExecuted": false,
+  "completedUTC": "2026-10-22T17:06:17.696743+00:00"
+}

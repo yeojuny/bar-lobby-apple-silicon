@@ -1,0 +1,74 @@
+{
+  "status": "exact-comment-only-correction",
+  "createdUTC": "2026-10-22T18:13:44.982122+00:00",
+  "oldModuleSHA256": "c3f64eed9e4d9ad50a9849b846d20df7f98538d34a5f963db9977bffef505d38",
+  "newModuleSHA256": "01ac55033cdb14f9a7f5e206e9c2d5bd433b1a4f7ad2c440ff030beae0fe9b80",
+  "rows": [
+    {
+      "variant": "R-and-Small",
+      "target": "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCmdPipeline.h",
+      "oldAfter": {
+        "path": "payload/db1e37cc82c62139b2f79c84dbd3f2a5da91ed6481d4b3ac3f5bd2892378c273",
+        "sha256": "db1e37cc82c62139b2f79c84dbd3f2a5da91ed6481d4b3ac3f5bd2892378c273",
+        "bytes": 12844
+      },
+      "newAfter": {
+        "path": "payload/db1e37cc82c62139b2f79c84dbd3f2a5da91ed6481d4b3ac3f5bd2892378c273",
+        "sha256": "db1e37cc82c62139b2f79c84dbd3f2a5da91ed6481d4b3ac3f5bd2892378c273",
+        "bytes": 12844
+      },
+      "onlyExactCommentReplacement": true
+    },
+    {
+      "variant": "R-and-Small",
+      "target": "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCmdPipeline.mm",
+      "oldAfter": {
+        "path": "payload/046d7a3e2c04957b47f85583c9cde03468280be0594e721d4614c70ad6d7c42a",
+        "sha256": "046d7a3e2c04957b47f85583c9cde03468280be0594e721d4614c70ad6d7c42a",
+        "bytes": 27609
+      },
+      "newAfter": {
+        "path": "payload/fef1cbb17036c19c7ef7a8193ae3ebb1b07657428339a1992aef213ab3b0aec1",
+        "sha256": "fef1cbb17036c19c7ef7a8193ae3ebb1b07657428339a1992aef213ab3b0aec1",
+        "bytes": 27653
+      },
+      "onlyExactCommentReplacement": true
+    },
+    {
+      "variant": "after02",
+      "target": "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCmdPipeline.h",
+      "oldAfter": {
+        "path": "payload/db1e37cc82c62139b2f79c84dbd3f2a5da91ed6481d4b3ac3f5bd2892378c273",
+        "sha256": "db1e37cc82c62139b2f79c84dbd3f2a5da91ed6481d4b3ac3f5bd2892378c273",
+        "bytes": 12844
+      },
+      "newAfter": {
+        "path": "payload/db1e37cc82c62139b2f79c84dbd3f2a5da91ed6481d4b3ac3f5bd2892378c273",
+        "sha256": "db1e37cc82c62139b2f79c84dbd3f2a5da91ed6481d4b3ac3f5bd2892378c273",
+        "bytes": 12844
+      },
+      "onlyExactCommentReplacement": true
+    },
+    {
+      "variant": "after02",
+      "target": "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCmdPipeline.mm",
+      "oldAfter": {
+        "path": "payload/574bd65d7ad13f26d55ed62f4f2999ccf047f38899ed996b9b834f1c8dff05e9",
+        "sha256": "574bd65d7ad13f26d55ed62f4f2999ccf047f38899ed996b9b834f1c8dff05e9",
+        "bytes": 27159
+      },
+      "newAfter": {
+        "path": "payload/8b09d32ae6d360215c2443c2f4a9aff39895f5797de95f7a0c5a95d1caa56377",
+        "sha256": "8b09d32ae6d360215c2443c2f4a9aff39895f5797de95f7a0c5a95d1caa56377",
+        "bytes": 27203
+      },
+      "onlyExactCommentReplacement": true
+    }
+  ],
+  "behaviorCodeByteExact": true,
+  "CPUQualification": "Existing final CPU receipts transfer by exact comment-only equality; no rerun",
+  "oldArtifactsRetained": "compact-comment-correction/preimage.json",
+  "newCombinedMM_SHA256": "8b09d32ae6d360215c2443c2f4a9aff39895f5797de95f7a0c5a95d1caa56377",
+  "activeWrites": 0,
+  "newRuns": 0
+}

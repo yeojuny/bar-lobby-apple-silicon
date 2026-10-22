@@ -1,0 +1,69 @@
+{
+  "status": "source-preparation-complete-awaiting-human-cue",
+  "originalGroups": 13,
+  "newCodeCapsules": 9,
+  "newCodeGroups": [
+    2,
+    3,
+    4,
+    6,
+    7,
+    8,
+    9,
+    11
+  ],
+  "existingCodeGroup1": "Frozen Small; unpromoted pending separate R/Small comparison",
+  "designOnlyGroups": [
+    5,
+    10,
+    12,
+    13
+  ],
+  "additionalDesignOnly": "11b general pass merging beyond11a",
+  "newTargetFiles": 14,
+  "exactVariants": 16,
+  "parents": [
+    "R",
+    "Small"
+  ],
+  "sourceCompositionRoundTrip": "Both complete nine-module compositions exact in two orders,14files each",
+  "finalMVKCombinedSyntaxConfigurations": 10,
+  "productSourceApplied": false,
+  "productBuilds": 0,
+  "GPUOrAppOrGameRuns": 0,
+  "newBenchmarkGrants": 0,
+  "selection": "R",
+  "formalReleaseOrHomebrewUpdated": false,
+  "localAppsOrRecoveryDeleted": false,
+  "noClaim": [
+    "FPS gain",
+    "GPU correctness",
+    "race freedom",
+    "all13 implemented"
+  ],
+  "evidence": {
+    "QUEUE.json": "17484ee556705238ed1547ca6e792d47a6ab52b1ab14f3933ba39b311b92be58",
+    "patch-validation-final.json": "123296bee7028e372d32b17f8a3ec34d45c6d7d3548f93090883167c9bc02367",
+    "complete-composition.json": "60dd496e8b76ba4d79d6454245524a3871beea0900bb5c78cbe8ffc40f627afe",
+    "all-mvk-modules-syntax-final/receipt.json": "578ee3022b54bba6d556fae203ad6c30f4a0e04df2de11cd63879149f89a2422",
+    "frozen-inputs-final.json": "023ed209a7d6c63e312e122da29e63d3a0b5718c7c6c73d8599ec1df45f3145e",
+    "independent-module-review.json": "e0c04dc067314e402d9313ba4e96ec9e6fec5160ceb8d2b1c6b57515bf17aef8",
+    "independent-control-source-review.json": "73695e35853f83bb05eb5853645381d110a719fb7e52225be1c0bb7ca1e9a653",
+    "independent-sync-source-review.json": "aca85df4a77b4dc3fadf7f2c4dfe9273a0f82dff30f62dc297479e88d1373d0b",
+    "independent-compact-source-review.json": "a2f3ced591d47569368ef30cc896fc0d67d0c027474cbaa277a07c9f2b0fb88a",
+    "independent-partial-source-addendum.json": "89509a1949bcfa7b076532ab61ded60dcfb410a95901369c5794a992f492b493",
+    "independent-remaining-design-review.json": "6797b6d741d44a99fda9bced8488013f4a73d76787f16168f82e3c78a7028491"
+  },
+  "moduleManifests": {
+    "02-layout-policy": "df0101b8b8dc6976be56411e1cf82954228552c76a26759d01dda6a3d6629def",
+    "03-owned-replay-chain": "fbe2dac235aa914b24e60d08867272fed3ed9fb69e8231c797e2b250c195ef29",
+    "04-compact-cpu-state": "01ac55033cdb14f9a7f5e206e9c2d5bd433b1a4f7ad2c440ff030beae0fe9b80",
+    "06-success-notify": "75923ad444701cba128b291fb8ec166a04f3dad6bf9c2b44ad82e48704ed969f",
+    "07-signal-order-proof": "24d4106bc2f24e080eb4add2d71770ab079388873a0d26ec5203f775b0b02e1e",
+    "08a-conservative-rebind": "4f976fe43fc952317c5fc57a28b3808b1b65b3147263ac849aa1da6a160b65a5",
+    "08b-partial-group-replay": "6ee79959876d62ce9f878e415155aafb407ed18d3e4f7420aae9bd58bfc736b0",
+    "09-snapshot-unlocked-retain": "4cf910b85748584ab40ae11fc94d1c5528d1250dddc8a799c315bd03274368c2",
+    "11a-typed-frame-discard": "9335ab6cfad46e0cdf2e164356f72d284438ee3f4d99689a949d1e65e851762f"
+  },
+  "publication": "Exact compact source/evidence checkpoint is separate; see publication-completion.json once verified."
+}

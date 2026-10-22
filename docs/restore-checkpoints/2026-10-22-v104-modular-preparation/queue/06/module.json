@@ -1,0 +1,41 @@
+{
+  "number": 6,
+  "title": "성공 feedback의 완료 전 예비 깨우기 축소",
+  "source": "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKMetal4Submission.mm",
+  "existingWork": "성공 feedback에서도 retireIfReady 전 notifyGroupWaiters가 호출됨.",
+  "missingEvidence": "과거 종료 문제 인근의 동시성 경로. 실제 불필요 wake와 비용 미확정.",
+  "requiredBoundary": "error/poison/final-retirement notify와 실제 sleeping child/queue waiter 종료를 유지.",
+  "risk": {
+    "function": "높음: error/poison/완료 wake 누락은 종료/대기를 영구 지연할 수 있음.",
+    "lifetime": "높음: success state/retirement와 semantic signal owner 해제 조건 유지.",
+    "synchronization": "높음: 이미 잠든 waiter, missing terminal feedback, error-success race, inline/duplicate/range/tail callback.",
+    "memory": "새 저장소는 불필요하지만 hang은 in-flight 자원 장기보유 가능."
+  },
+  "sourceReferences": [
+    "dxvk-cs"
+  ],
+  "status": "source-capsule-prepared-terminal-predicates-reviewed",
+  "strategy": "Suppress only success feedback pre-retirement notification. Actual child predicate is Completed||error; queue predicate is pending0||firstError. Success feedback bits alone satisfy neither. feedback.error preserves the early notification even with zero handlers; final/error/poison notifications remain.",
+  "acceptance": [
+    "CPU sleeping-waiter schedules pass; validate actual native callback progress after activation",
+    "Every terminal/error path and inline/duplicate/range/tail callback reaches a preserved notification",
+    "Existing shutdown failures remain visible; this is not a shutdown fix without reproduction"
+  ],
+  "tests": [
+    "Existing backend timeline/completion/recording-ownership CPU tests with deterministic sleeper-before-notify schedules",
+    "Error-success race, missing terminal feedback and delayed completion; bounded timeout is test failure"
+  ],
+  "codeModules": [
+    "06-success-notify"
+  ],
+  "interactions": [
+    7,
+    13
+  ],
+  "dependencyMeaning": "Interactions require re-review; they are not permission to enable all related changes together.",
+  "designStage": "Exact source capsules where named; broader missing-target/ownership/pass designs remain gated where stated",
+  "codeActivationAutomatic": false,
+  "FPSBenefitEstablished": false,
+  "stopRule": "Any unclosed correctness/lifetime counterexample, changed parent, failed check or unclear measurement stops this module. Preserve failure evidence; no automatic replay.",
+  "rollback": "Prepared source module: exact reverse patch only against its postimage, refresh mtimes and rebuild all affected headers. No-code module: active product remains unchanged; no invented reverse patch."
+}

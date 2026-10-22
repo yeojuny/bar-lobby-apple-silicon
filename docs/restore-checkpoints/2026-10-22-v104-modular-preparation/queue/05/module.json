@@ -1,0 +1,38 @@
+{
+  "number": 5,
+  "title": "primitive 변환이 없는 패스의 lookahead 순회 생략",
+  "source": "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCmdDraw.mm",
+  "existingWork": "preconvertMetal4Draws에서 최대2048 command plan 순회가 남아 있음.",
+  "missingEvidence": "첫 pipeline이나 첫 draw만으로 생략할 수 없고 실제 불필요 순회 빈도 미확정.",
+  "requiredBoundary": "일반 패스 전체의 no-conversion 증명이 필요. fan/restart/dynamic topology/provoking/shader write/unknown command 예외 유지.",
+  "risk": {
+    "function": "높음: 뒤의 fan/restart/provoking/dynamic topology/inherited state/unknown·shader write를 첫 pipeline만으로 배제 불가.",
+    "lifetime": "중간: plan은 command/pipeline/index 상태와 command 수명에 연결.",
+    "synchronization": "중간~높음: prepass producer/handoff와 local/queue barrier 유지.",
+    "memory": "보수적 요약 bit는 작을 수 있으나 per-command 상태/plan을 추가 보관하면 비용이 큼."
+  },
+  "sourceReferences": [
+    "angle-vertex",
+    "benbreen-improvements-corrected"
+  ],
+  "status": "negative-pass-proof-gated-no-code",
+  "strategy": "Attach a conservative no-conversion summary to an already recorded pass interval only if the existing capture path can produce it cheaply. Any unknown/dynamic topology, fan, restart, provoking requirement, shader write or inherited uncertainty selects the original full planner.",
+  "acceptance": [
+    "Existing evidence shows meaningful negative lookahead scanning",
+    "All commands in the exact interval are covered; first pipeline/draw alone is never proof",
+    "Summary construction cost does not simply duplicate the skipped scan"
+  ],
+  "tests": [
+    "Existing primitive-plan/native cases with baseline planner as oracle",
+    "Dynamic topology, secondary/inherited state and unknown command force fallback; producer/handoff barriers unchanged"
+  ],
+  "interactions": [
+    11
+  ],
+  "dependencyMeaning": "Interactions require re-review; they are not permission to enable all related changes together.",
+  "designStage": "Exact source capsules where named; broader missing-target/ownership/pass designs remain gated where stated",
+  "codeActivationAutomatic": false,
+  "FPSBenefitEstablished": false,
+  "stopRule": "Any unclosed correctness/lifetime counterexample, changed parent, failed check or unclear measurement stops this module. Preserve failure evidence; no automatic replay.",
+  "rollback": "Prepared source module: exact reverse patch only against its postimage, refresh mtimes and rebuild all affected headers. No-code module: active product remains unchanged; no invented reverse patch."
+}

@@ -1,0 +1,55 @@
+{
+  "inventoryGroup": 9,
+  "implementation": "Unapplied exact source capsule",
+  "designReview": "design-deepening-02-03-09.json; independent reviewer source-path approval",
+  "requiredAfterCue": [
+    "Recheck exact parent and finished frozen R/Small comparison",
+    "Related incremental builds, functional GPU checks and separate performance comparison"
+  ],
+  "title": "Immutable per-binding entry across unlocked replay",
+  "limits": "Adds shared ownership/allocation cost. Map remains limited to64; concurrently replayed replaced entries may outlive the map. No native ownership is extended. Contention/benefit not established.",
+  "id": "09-snapshot-unlocked-retain",
+  "activation": "awaiting-human-cue",
+  "variants": {
+    "R-and-Small": {
+      "files": [
+        {
+          "target": "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKMetal4PreparedResource.h",
+          "mode": 420,
+          "before": {
+            "path": "payload/d6222a17d4da569b0abd419f1c7e8b41c2f2101c7acf700e770aa02af7afa653",
+            "sha256": "d6222a17d4da569b0abd419f1c7e8b41c2f2101c7acf700e770aa02af7afa653",
+            "bytes": 23696
+          },
+          "after": {
+            "path": "payload/b7422521cf7427e09c6c261d9180a98c1ad9523603aa734b453a41796c100dc6",
+            "sha256": "b7422521cf7427e09c6c261d9180a98c1ad9523603aa734b453a41796c100dc6",
+            "bytes": 24661
+          }
+        }
+      ],
+      "patchSHA256": "dca192f7d9051aaa3c64ad59e8cb7caaff5a01fa83704a747b23d51bb130a5bf",
+      "reversePatchSHA256": "7086be9c652baa009931da5cf06a22e34ade68f2d5853846360e081262041254"
+    },
+    "after08b": {
+      "files": [
+        {
+          "target": "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKMetal4PreparedResource.h",
+          "mode": 420,
+          "before": {
+            "path": "payload/1d6f0d731c505ba6cc0a90924e82bebebdf41acbe9e18e4008ec3747f9c80152",
+            "sha256": "1d6f0d731c505ba6cc0a90924e82bebebdf41acbe9e18e4008ec3747f9c80152",
+            "bytes": 26598
+          },
+          "after": {
+            "path": "payload/dc87cbeda402b77a665fe276e5b823b4b1ce3ece055a294177b105a0ea9bc1e7",
+            "sha256": "dc87cbeda402b77a665fe276e5b823b4b1ce3ece055a294177b105a0ea9bc1e7",
+            "bytes": 27548
+          }
+        }
+      ],
+      "patchSHA256": "5f68984d43504b239d9d52fdaa6a6e58961e5bf0d0d59347f1604c3a4b66d423",
+      "reversePatchSHA256": "16d1a21e2ff67b10570bee79a2873017f77cd4be62eb8dc561ef2ea0ce824616"
+    }
+  }
+}

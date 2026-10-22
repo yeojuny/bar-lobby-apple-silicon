@@ -1,0 +1,60 @@
+--- a/build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCommandBuffer.h
++++ b/build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCommandBuffer.h
+@@ -222,7 +222,9 @@
+ 	MVKMetal4RecordingDependencies _metal4PreparedLocalOutput;
+ 	bool _metal4EarlyRecording = false, _metal4StagingPass = false, _metal4PrefixPaused = false;
+     MVKCmdWriteTimestamp* _metal4PreparedTimestamp = nullptr;
+-    std::vector<MVKCommand*> _metal4PreparedReplay;
++    // Exclusively owned prefix; no node is pool-owned until detached release.
++    MVKCommand* _metal4PreparedReplayHead = nullptr;
++    MVKCommand* _metal4PreparedReplayTail = nullptr;
+     bool _metal4RetainPreparedReplay = false;
+ #endif
+ 	void beginSecondaryEncoding(MVKCommandEncoder* cmdEncoder);
+--- a/build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCommandBuffer.mm
++++ b/build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCommandBuffer.mm
+@@ -217,7 +217,9 @@
+ #if MVK_BUILD_METAL4_FOUNDATION
+         if (_metal4RetainPreparedReplay) {
+             command->_next = nullptr;
+-            _metal4PreparedReplay.push_back(command);
++            if (_metal4PreparedReplayTail) { _metal4PreparedReplayTail->_next = command; }
++            else { _metal4PreparedReplayHead = command; }
++            _metal4PreparedReplayTail = command;
+             command = nextCommand;
+             continue;
+         }
+@@ -465,23 +467,22 @@
+ void MVKCommandBuffer::releaseMetal4PreparedReplay(bool asyncReturn) {
+     _metal4RetainPreparedReplay = false;
+     _metal4PreparedTimestamp = nullptr;
+-    for (auto* command : _metal4PreparedReplay) { releaseCommands(command, asyncReturn); }
+-    _metal4PreparedReplay.clear();
++    auto* head = _metal4PreparedReplayHead;
++    _metal4PreparedReplayHead = _metal4PreparedReplayTail = nullptr;
++    // releaseCommands saves each successor before an async pool reuses _next.
++    releaseCommands(head, asyncReturn);
+ }
+ void MVKCommandBuffer::restoreMetal4PreparedReplay() {
+     // Restore the exact original prefix before the unencoded suffix. Nothing
+     // has been published by the prepared timestamp when activation rejects it.
+     _metal4RetainPreparedReplay = false;
+     _metal4PreparedTimestamp = nullptr;
+-    for (size_t i = 1; i < _metal4PreparedReplay.size(); ++i) {
+-        _metal4PreparedReplay[i - 1]->_next = _metal4PreparedReplay[i];
+-    }
+-    if (!_metal4PreparedReplay.empty()) {
+-        _metal4PreparedReplay.back()->_next = _head;
+-        if (!_tail) { _tail = _metal4PreparedReplay.back(); }
+-        _head = _metal4PreparedReplay.front();
+-        _metal4PreparedReplay.clear();
+-    }
++    if (_metal4PreparedReplayHead) {
++        _metal4PreparedReplayTail->_next = _head;
++        if (!_tail) { _tail = _metal4PreparedReplayTail; }
++        _head = _metal4PreparedReplayHead;
++    }
++    _metal4PreparedReplayHead = _metal4PreparedReplayTail = nullptr;
+     clearMetal4PreparedRecording();
+ }
+ #endif

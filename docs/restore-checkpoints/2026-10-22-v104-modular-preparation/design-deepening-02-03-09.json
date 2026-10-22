@@ -1,0 +1,76 @@
+{
+  "phase": "design-before-code",
+  "reason": "Human authorizes preparation of all13; activation/performance evidence stays separate from code preparation.",
+  "02": {
+    "implementation": "Add foundation-only immutable bool on MVKDescriptorSetLayout; default true. In Create existing populate loop after Vulkan flags merge, AND the exact prior predicate; no new loop. Replace nested bindings loop in getMetal4RecordPolicy with getter; retain null pipeline/set/layout and empty-set behavior.",
+    "invariants": [
+      "Use all original four buffer types and ALL_VULKAN_FLAG_BITS mask",
+      "descriptorCount0 still tested exactly as original; empty layout remains eligible",
+      "No mutation after Create and no global pointer cache",
+      "FoundationOFF has no member or new work; active Metal3 foundationON may incur small create-time work"
+    ],
+    "rollback": "Exact3file reverse; rebuild header dependents. No policy change to compact push.",
+    "validation": [
+      "Original predicate vs cached predicate across all Vulkan descriptor types, flags subsets, zero/empty/mixed bindings",
+      "Full source ObjC++ syntax foundation0/1",
+      "Actual early-policy path and benefit remain activation gate"
+    ]
+  },
+  "03": {
+    "implementation": "Replace replay vector with two replay-owned head/tail pointers. In retain branch of releaseCommands, save next first, detach command->_next, append to replay tail. No pool return while replay owns command. Release detaches both replay pointers before traversing old head through existing releaseCommands. Restore splices prefix tail to ordinary suffix in O(1), assigns ordinary head/tail, clears replay pointers before clearMetal4PreparedRecording.",
+    "ownership": [
+      [
+        "recorded",
+        "ordinary _head/_tail",
+        "encode may read _next; no mutation until encode returns"
+      ],
+      [
+        "retained",
+        "replay head/tail",
+        "not pool-owned; _next is replay chain exclusively"
+      ],
+      [
+        "restored",
+        "ordinary _head/_tail",
+        "replay pointers cleared before cleanup, exact prefix order"
+      ],
+      [
+        "released",
+        "pool or async-return queue",
+        "next captured before return; replay pointers already cleared; never touch returned node"
+      ]
+    ],
+    "invariants": [
+      "No additional link in every command; ownership separation is temporal and must be reviewed",
+      "Only leading timestamp activates replay retention; secondary/simultaneous flags unchanged",
+      "Timestamp non-owning pointer validity ends before release",
+      "Failure/reset/destruction return each node once",
+      "Reentrancy into recording while submission uses same buffer remains prohibited as before"
+    ],
+    "validation": [
+      "Retain multiple batches plus empty/single/long prefix and ordinary suffix; exact baseline order",
+      "Synchronous/async pool mock overwrites returned _next immediately; later chain remains valid",
+      "Repeated restore/reset/cancel/accepted and rejected activation do not double-return",
+      "Full source ObjC++ syntax foundation0/1"
+    ]
+  },
+  "09": {
+    "implementation": "Map values become shared_ptr<const Entry>. Replay takes exact immutable entry owner under mutex, releases mutex for existing retain callback, and on Miss re-locks then erases only if map still points to same entry. Failed preserves existing map. Remember validates same proof/limit then creates one entry on admitted insertion/replacement. append still copies under lock; clear semantics and resource proof remain.",
+    "invariants": [
+      "Entry keeps CPU identity metadata and weak proofs only, never native-resource ownership",
+      "Each recording retains live resources using unchanged production callback",
+      "Map clear/replacement cannot destroy in-flight entry",
+      "Old Miss cannot erase newer entry even with same revision; compare entry identity",
+      "External descriptor lifetime/synchronization still required; no permission for API-invalid simultaneous descriptor mutation"
+    ],
+    "validation": [
+      "Deterministic callback interleaving with replacement, same revision replacement and clear",
+      "Callback can acquire snapshot mutex through remember/clear without deadlock",
+      "Old entry expires after callback, proof revocation gives Miss, Failed retains map",
+      "Bounds64bindings/16resources and append/partial limits unchanged",
+      "Existing production header CPU tests with ASan/UBSan; explicit bounded thread schedule"
+    ],
+    "tradeoff": "Adds entry allocation and refcounts; faster only with meaningful contention or callback duration, not yet observed."
+  },
+  "activation": "No live source write now. Pending R/Small16 retained; code capsules only after independent design review."
+}

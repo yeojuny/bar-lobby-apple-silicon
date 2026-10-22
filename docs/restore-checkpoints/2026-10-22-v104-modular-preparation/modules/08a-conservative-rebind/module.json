@@ -1,0 +1,93 @@
+{
+  "inventoryGroup": 8,
+  "adjacentSubmodule": true,
+  "title": "Conservative legacy implicit-buffer rebind suppression",
+  "scope": "Same current pipeline/layout only; output dynamic values and pre-resize growth compared; non-argument metadata conservative",
+  "preserves": [
+    "affected descriptor resource-use clear every bind",
+    "Metal4 separate invalidation",
+    "argument root/helper restoration",
+    "dynamic offset consumption/stage ordering",
+    "R no-dynamic argument-buffer fast path"
+  ],
+  "requiredAfterCue": [
+    "single active MVK build with all header dependents rebuilt",
+    "foundation OFF syntax and ON native M3/M4 related checks",
+    "grow/shrink/layout transition and helper/encoder GPU cases",
+    "signed isolated app and actual MVK identity",
+    "separate performance comparison"
+  ],
+  "limits": "Adjacent to PR2837, not its wholesale import and not cross-record snapshot sharing. M3 benefit hypothesis only; M4-specific invalidation intentionally retained. memcmp and transition invalidation add work.",
+  "id": "08a-conservative-rebind",
+  "activation": "awaiting-human-cue",
+  "variants": {
+    "R": {
+      "files": [
+        {
+          "target": "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCommandEncoderState.h",
+          "mode": 420,
+          "before": {
+            "path": "payload/dac7a20c3963887d5f054322a2bf7884d347271768dd0a124649f7d25862dade",
+            "sha256": "dac7a20c3963887d5f054322a2bf7884d347271768dd0a124649f7d25862dade",
+            "bytes": 32327
+          },
+          "after": {
+            "path": "payload/b3f64f869dec74a7858826cb6217e7401c2c15863145923b51041cff8bcf59fc",
+            "sha256": "b3f64f869dec74a7858826cb6217e7401c2c15863145923b51041cff8bcf59fc",
+            "bytes": 32327
+          }
+        },
+        {
+          "target": "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCommandEncoderState.mm",
+          "mode": 420,
+          "before": {
+            "path": "payload/9b28b9a30f6e0d8a975b732dcaf8a49c8e14b32f9ba3157e4f9dce03b14276b9",
+            "sha256": "9b28b9a30f6e0d8a975b732dcaf8a49c8e14b32f9ba3157e4f9dce03b14276b9",
+            "bytes": 158404
+          },
+          "after": {
+            "path": "payload/cc47e81c569403e8221631cba7da38dd0f19b0c203a139d9c7866819e2bca026",
+            "sha256": "cc47e81c569403e8221631cba7da38dd0f19b0c203a139d9c7866819e2bca026",
+            "bytes": 159913
+          }
+        }
+      ],
+      "patchSHA256": "b8ede7f9d1f3cebf380eb8dcc06f5332bb0c249eee31f6933f8ab0e13611a071",
+      "reversePatchSHA256": "7ce9f2aaa75d0c88951019a3a35378ad95b45be68133c8b6a46f92788a6c6d25"
+    },
+    "Small": {
+      "files": [
+        {
+          "target": "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCommandEncoderState.h",
+          "mode": 420,
+          "before": {
+            "path": "payload/dac7a20c3963887d5f054322a2bf7884d347271768dd0a124649f7d25862dade",
+            "sha256": "dac7a20c3963887d5f054322a2bf7884d347271768dd0a124649f7d25862dade",
+            "bytes": 32327
+          },
+          "after": {
+            "path": "payload/b3f64f869dec74a7858826cb6217e7401c2c15863145923b51041cff8bcf59fc",
+            "sha256": "b3f64f869dec74a7858826cb6217e7401c2c15863145923b51041cff8bcf59fc",
+            "bytes": 32327
+          }
+        },
+        {
+          "target": "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCommandEncoderState.mm",
+          "mode": 420,
+          "before": {
+            "path": "payload/b1013a4a907210de7f527f550758824d1dfcf5d79b05266a984aa2a1e97e62e3",
+            "sha256": "b1013a4a907210de7f527f550758824d1dfcf5d79b05266a984aa2a1e97e62e3",
+            "bytes": 159087
+          },
+          "after": {
+            "path": "payload/5bdb0211ecddf113d66b297c6344f15c070022b4b3a9b5caa54ea15ed204cd0b",
+            "sha256": "5bdb0211ecddf113d66b297c6344f15c070022b4b3a9b5caa54ea15ed204cd0b",
+            "bytes": 160596
+          }
+        }
+      ],
+      "patchSHA256": "9b387177f91a09c02f4fecb14902a8c6890dbe2addfdac92fbe5c13b9dd5271a",
+      "reversePatchSHA256": "ad8ebe956cbbf530319c8d54fcd65d7a9a1a7431e1d125043165a0ef6a09ec1c"
+    }
+  }
+}

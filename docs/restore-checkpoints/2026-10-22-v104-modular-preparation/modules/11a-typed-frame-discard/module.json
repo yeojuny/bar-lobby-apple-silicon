@@ -1,0 +1,88 @@
+{
+  "inventoryGroup": 11,
+  "title": "Frame-local TypedRenderBuffer storage discard",
+  "scope": "Both native engine lanes; BufferSubData only; writable Typed Swap only",
+  "implementation": "DSA only, capability and loaded entrypoint required; unsupported and HEADLESS no-op",
+  "preserves": [
+    "readOnly buffers",
+    "Clear semantics",
+    "same-frame ranges",
+    "model partial/idle uploads",
+    "general SwapBuffer",
+    "fences and submission order",
+    "buffer identity/size/usage"
+  ],
+  "requiredAfterCue": [
+    "single active native builds for both lanes",
+    "actual Mesa context DSA/VAO/old backing/new upload checks",
+    "new separately signed candidate",
+    "authorized R/Small comparison after all other work ends"
+  ],
+  "limits": "Source proposal only until receipts say otherwise. Orphan can increase transient allocations; no FPS or GPU lifetime proof. No whole pass merging.",
+  "id": "11a-typed-frame-discard",
+  "activation": "awaiting-human-cue",
+  "variants": {
+    "R-and-Small": {
+      "files": [
+        {
+          "target": "build/run91-recoil-src-694e9df7/rts/Rendering/GL/StreamBuffer.h",
+          "mode": 420,
+          "before": {
+            "path": "payload/0be518866c031f0c87e6827ddf3c39625b83fee181e2ded5abc3d66a72ea0640",
+            "sha256": "0be518866c031f0c87e6827ddf3c39625b83fee181e2ded5abc3d66a72ea0640",
+            "bytes": 17228
+          },
+          "after": {
+            "path": "payload/44914aceb2f395a922dafabc0974fb7583c560365a96934f3bb03e38c4623b16",
+            "sha256": "44914aceb2f395a922dafabc0974fb7583c560365a96934f3bb03e38c4623b16",
+            "bytes": 17999
+          }
+        },
+        {
+          "target": "build/run91-recoil-src-694e9df7/rts/Rendering/GL/RenderBuffers.h",
+          "mode": 420,
+          "before": {
+            "path": "payload/a58bcbf6105628b263bf4aef1f434ef8bdcda2cfa3efb91d57507df798fd2c05",
+            "sha256": "a58bcbf6105628b263bf4aef1f434ef8bdcda2cfa3efb91d57507df798fd2c05",
+            "bytes": 29608
+          },
+          "after": {
+            "path": "payload/232f45c81ad6304b9163023c81cd5822604998d36e34381605c343f4d275116b",
+            "sha256": "232f45c81ad6304b9163023c81cd5822604998d36e34381605c343f4d275116b",
+            "bytes": 29664
+          }
+        },
+        {
+          "target": "artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Rendering/GL/StreamBuffer.h",
+          "mode": 420,
+          "before": {
+            "path": "payload/0be518866c031f0c87e6827ddf3c39625b83fee181e2ded5abc3d66a72ea0640",
+            "sha256": "0be518866c031f0c87e6827ddf3c39625b83fee181e2ded5abc3d66a72ea0640",
+            "bytes": 17228
+          },
+          "after": {
+            "path": "payload/44914aceb2f395a922dafabc0974fb7583c560365a96934f3bb03e38c4623b16",
+            "sha256": "44914aceb2f395a922dafabc0974fb7583c560365a96934f3bb03e38c4623b16",
+            "bytes": 17999
+          }
+        },
+        {
+          "target": "artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Rendering/GL/RenderBuffers.h",
+          "mode": 420,
+          "before": {
+            "path": "payload/72a1572ad29bea76f498a5a9518c96727d891233015065a17291c6b571aa5c0d",
+            "sha256": "72a1572ad29bea76f498a5a9518c96727d891233015065a17291c6b571aa5c0d",
+            "bytes": 28375
+          },
+          "after": {
+            "path": "payload/6ce94352fc10c6584bea499a903af5b9a11ead6582139cfc58277c4476175fc3",
+            "sha256": "6ce94352fc10c6584bea499a903af5b9a11ead6582139cfc58277c4476175fc3",
+            "bytes": 28431
+          }
+        }
+      ],
+      "patchSHA256": "7521c06c732d1022e9f55117fe7be6aaac0ac1b5a8d9bacec0f89fef0d0d4797",
+      "reversePatchSHA256": "d0d707ca1a5ca8b14328f127aee5a543e435c8b3858df5dff5a909f681a5e816"
+    }
+  }
+}

@@ -1,0 +1,17 @@
+/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-modular-preparation-20261022/sync-07-attempt1/sync-fixture.mm:34:17: warning: method 'waitUntilSignaledValue:timeoutMS:' in protocol 'MTLSharedEvent' not implemented [-Wprotocol]
+   34 | @implementation SyncEvent
+      |                 ^
+   35 | - (uint64_t)signaledValue { ++currentReads; return _value; }
+   36 | - (void)setSignaledValue:(uint64_t)value { _value = value; }
+   37 | - (id<MTLDevice>)device { return nil; }
+   38 | - (NSString*)label { return nil; }
+   39 | - (void)setLabel:(NSString*)label { (void)label; }
+   40 | - (MTLSharedEventHandle*)newSharedEventHandle { return nil; }
+   41 | - (void)notifyListener:(MTLSharedEventListener*)listener atValue:(uint64_t)value block:(MTLSharedEventNotificationBlock)block {
+   42 |     (void)listener; (void)value; (void)block;
+   43 | }
+   44 | @end
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/Metal.framework/Headers/MTLEvent.h:62:1: note: method 'waitUntilSignaledValue:timeoutMS:' declared here
+   62 | - (BOOL)waitUntilSignaledValue:(uint64_t)value timeoutMS:(uint64_t)milliseconds API_AVAILABLE(macos(12.0), ios(15.0)) NS_SWIFT_UNAVAILABLE_FROM_ASYNC("Use 'await valueSignaled(...)' instead.");
+      | ^
+1 warning generated.

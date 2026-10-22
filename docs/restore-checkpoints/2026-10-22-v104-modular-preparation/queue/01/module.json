@@ -1,0 +1,40 @@
+{
+  "number": 1,
+  "title": "proof/snapshot 임시 배열의 할당·복사 축소",
+  "source": "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCommandEncoderState.mm",
+  "existingWork": "bufferProofs, textureProofs, snapshotResources 및 groupResources 수집·복사는 남아 있음. 기존 std::move 변경은 완료 범위.",
+  "missingEvidence": "현재 slow/capture 경로의 반복 빈도와 비용 미확정.",
+  "requiredBoundary": "실제 유효 capture 이후 필요한 크기만 확보; hit/negative/failure/단일원소에서 새 할당을 늘리지 않음.",
+  "risk": {
+    "function": "낮음~중간: 같은 순서/개수/weak proof를 보존하는 reserve만. proof→snapshot→group의 소유 목록을 합치면 별도 설계가 된다.",
+    "lifetime": "현재 std::move는 완료 범위. weak proof를 strong/native owner로 바꾸거나 전역 scratch를 공유하면 안 된다.",
+    "synchronization": "새 lock/공유 저장소가 없으면 낮음.",
+    "memory": "선예약은 실패가 늦게 나면 기존보다 큰 capacity를 잠깐 잡을 수 있다. 첫 유효 proof를 봤다는 것만으로 전체 capture 성공을 알 수 없다."
+  },
+  "sourceReferences": [
+    "mvk-smallvector",
+    "angle-layout"
+  ],
+  "status": "implemented-Small-awaiting-qualified-performance",
+  "strategy": "Reuse the exact bounded-positive-reserve patch and existing correctness qualification. Do not implement another vector/SBO/cache scheme.",
+  "acceptance": [
+    "Finish the already prepared forward8/reverse8 comparison without original contaminated8 pooling",
+    "Keep R selected unless a later adoption decision names Small"
+  ],
+  "tests": [
+    "Existing Small descriptor/texture CPU, native and package receipts; do not repeat without cause"
+  ],
+  "code": [
+    "artifacts/validation/v104-r-small-bundle-20261021/unit1.patch"
+  ],
+  "interactions": [
+    8,
+    9
+  ],
+  "dependencyMeaning": "Interactions require re-review; they are not permission to enable all related changes together.",
+  "designStage": "Exact source capsules where named; broader missing-target/ownership/pass designs remain gated where stated",
+  "codeActivationAutomatic": false,
+  "FPSBenefitEstablished": false,
+  "stopRule": "Any unclosed correctness/lifetime counterexample, changed parent, failed check or unclear measurement stops this module. Preserve failure evidence; no automatic replay.",
+  "rollback": "Prepared source module: exact reverse patch only against its postimage, refresh mtimes and rebuild all affected headers. No-code module: active product remains unchanged; no invented reverse patch."
+}

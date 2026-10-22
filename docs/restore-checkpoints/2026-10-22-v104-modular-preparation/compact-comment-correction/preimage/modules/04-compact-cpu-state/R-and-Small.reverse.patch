@@ -1,0 +1,34 @@
+--- a/build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCmdPipeline.h
++++ b/build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCmdPipeline.h
+@@ -334,17 +334,13 @@
+ 	~MVKCmdPushDescriptorSetWithTemplate() override;
+ 
+ #if MVK_BUILD_METAL4_FOUNDATION
+-    // Only an already captured singleton-UBO payload is CPU-only State.
+-    MVKMetal4RecordPolicy getMetal4RecordPolicy() const override {
+-        return _compactUniformWriteCount ? MVKMetal4RecordPolicy::State : MVKMetal4RecordPolicy::Deferred;
+-    }
+     bool planMetal4Draws(MVKMetal4DrawPlanState&) const override { return true; }
+ #endif
+ 
+ protected:
+ 	MVKCommandTypePool<MVKCommand>* getTypePool(MVKCommandPool* cmdPool) override;
+ 
+-	// Capture only singleton UBOs; completed capture may be early CPU State.
++	// Capture only singleton UBOs; this does not admit early native recording.
+ 	VkResult captureUniforms(const void* pData, bool requireSmallerCapture);
+ 	uint32_t _compactUniformWriteCount = 0;
+ 	VkPipelineBindPoint _compactUniformBindPoint = VK_PIPELINE_BIND_POINT_GRAPHICS;
+--- a/build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCmdPipeline.mm
++++ b/build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCmdPipeline.mm
+@@ -653,10 +653,6 @@
+ 
+ void MVKCmdPushDescriptorSetWithTemplate::encode(MVKCommandEncoder* cmdEncoder) {
+ 	if (_compactUniformWriteCount) {
+-#if MVK_BUILD_METAL4_FOUNDATION
+-		// A pooled command may be reused before the prepared encoder finishes.
+-		if (cmdEncoder->isUsingMetal4()) { cmdEncoder->retainMetal4VulkanState(_pipelineLayout); }
+-#endif
+ 		auto* infos = static_cast<VkDescriptorBufferInfo*>(_pData);
+ 		auto* writes = reinterpret_cast<VkWriteDescriptorSet*>(infos + _compactUniformWriteCount);
+ 		cmdEncoder->getState().pushDescriptorSet(_compactUniformBindPoint, _pipelineLayout, _set,

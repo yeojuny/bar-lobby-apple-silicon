@@ -1,0 +1,63 @@
+{
+  "inventoryGroup": 2,
+  "implementation": "Unapplied exact source capsule",
+  "designReview": "design-deepening-02-03-09.json; independent reviewer source-path approval",
+  "requiredAfterCue": [
+    "Recheck exact parent and finished frozen R/Small comparison",
+    "Related incremental builds, functional GPU checks and separate performance comparison"
+  ],
+  "title": "Immutable layout early-record predicate",
+  "limits": "Original predicate only. Does not admit compact push; BAR early-prefix reach and benefit remain unmeasured.",
+  "id": "02-layout-policy",
+  "activation": "awaiting-human-cue",
+  "variants": {
+    "R-and-Small": {
+      "files": [
+        {
+          "target": "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCmdPipeline.mm",
+          "mode": 420,
+          "before": {
+            "path": "payload/8e663764a00e70ae9b6ede6996da275a9c0aad8a4de632fab8e9ed20e80e1d33",
+            "sha256": "8e663764a00e70ae9b6ede6996da275a9c0aad8a4de632fab8e9ed20e80e1d33",
+            "bytes": 27403
+          },
+          "after": {
+            "path": "payload/04fe43b293cb515e9ff5e56424ee2546a2011d12153d57aeea4bf7b728268954",
+            "sha256": "04fe43b293cb515e9ff5e56424ee2546a2011d12153d57aeea4bf7b728268954",
+            "bytes": 26953
+          }
+        },
+        {
+          "target": "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKDescriptorSet.h",
+          "mode": 420,
+          "before": {
+            "path": "payload/fb7583ab4debcf0e8f6afcaa1abc62b87d80e1b457280a77136d3cf5afaae1f5",
+            "sha256": "fb7583ab4debcf0e8f6afcaa1abc62b87d80e1b457280a77136d3cf5afaae1f5",
+            "bytes": 35024
+          },
+          "after": {
+            "path": "payload/4f5f3b3cde601f493d73445b458f2dd5899c4f3919d454dac6833b9fb77403ee",
+            "sha256": "4f5f3b3cde601f493d73445b458f2dd5899c4f3919d454dac6833b9fb77403ee",
+            "bytes": 35296
+          }
+        },
+        {
+          "target": "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKDescriptorSet.mm",
+          "mode": 420,
+          "before": {
+            "path": "payload/b87caab357dd43ba2c2cd937dcd7cdd0836c6418f90ddc5d2b90e13022257dc4",
+            "sha256": "b87caab357dd43ba2c2cd937dcd7cdd0836c6418f90ddc5d2b90e13022257dc4",
+            "bytes": 99509
+          },
+          "after": {
+            "path": "payload/d6c55de4e7379fa988bbc9c718edd0671f0746ac06900f36e16512984c5ffeff",
+            "sha256": "d6c55de4e7379fa988bbc9c718edd0671f0746ac06900f36e16512984c5ffeff",
+            "bytes": 99996
+          }
+        }
+      ],
+      "patchSHA256": "a9ce81af104882be44014843cf16bd20f8d176d403366bae0bdd68ce90105b64",
+      "reversePatchSHA256": "50279c28bb5328b332b5c0b9bbcc88961a0552baaac076112e09a87c618248d5"
+    }
+  }
+}

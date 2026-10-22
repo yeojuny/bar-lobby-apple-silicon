@@ -1,0 +1,424 @@
+{
+  "status": "prepared-cpu-and-syntax-qualified-not-activated",
+  "createdUTC": "2026-10-22T18:09:08.235131+00:00",
+  "module": 4,
+  "moduleSHA256": "01ac55033cdb14f9a7f5e206e9c2d5bd433b1a4f7ad2c440ff030beae0fe9b80",
+  "module02CurrentManifestSHA256": "df0101b8b8dc6976be56411e1cf82954228552c76a26759d01dda6a3d6629def",
+  "variants": {
+    "R-and-Small": {
+      "files": [
+        {
+          "target": "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCmdPipeline.h",
+          "mode": 420,
+          "before": {
+            "path": "payload/91de07b4f0304ebaae3811b855c3c72cdc481fbedd6f126680977a541a7dcd53",
+            "sha256": "91de07b4f0304ebaae3811b855c3c72cdc481fbedd6f126680977a541a7dcd53",
+            "bytes": 12593
+          },
+          "after": {
+            "path": "payload/db1e37cc82c62139b2f79c84dbd3f2a5da91ed6481d4b3ac3f5bd2892378c273",
+            "sha256": "db1e37cc82c62139b2f79c84dbd3f2a5da91ed6481d4b3ac3f5bd2892378c273",
+            "bytes": 12844
+          }
+        },
+        {
+          "target": "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCmdPipeline.mm",
+          "mode": 420,
+          "before": {
+            "path": "payload/8e663764a00e70ae9b6ede6996da275a9c0aad8a4de632fab8e9ed20e80e1d33",
+            "sha256": "8e663764a00e70ae9b6ede6996da275a9c0aad8a4de632fab8e9ed20e80e1d33",
+            "bytes": 27403
+          },
+          "after": {
+            "path": "payload/fef1cbb17036c19c7ef7a8193ae3ebb1b07657428339a1992aef213ab3b0aec1",
+            "sha256": "fef1cbb17036c19c7ef7a8193ae3ebb1b07657428339a1992aef213ab3b0aec1",
+            "bytes": 27653
+          }
+        }
+      ],
+      "patchSHA256": "6702f04c30ae6800a6d3b7dbfeb1268afe11098d9c2c8416caa3e7c704887bd7",
+      "reversePatchSHA256": "06a30794d8fb7f32bae8a719abceaaec79d1d2e7f1d03525ee6cae0334cc563e"
+    },
+    "after02": {
+      "files": [
+        {
+          "target": "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCmdPipeline.h",
+          "mode": 420,
+          "before": {
+            "path": "payload/91de07b4f0304ebaae3811b855c3c72cdc481fbedd6f126680977a541a7dcd53",
+            "sha256": "91de07b4f0304ebaae3811b855c3c72cdc481fbedd6f126680977a541a7dcd53",
+            "bytes": 12593
+          },
+          "after": {
+            "path": "payload/db1e37cc82c62139b2f79c84dbd3f2a5da91ed6481d4b3ac3f5bd2892378c273",
+            "sha256": "db1e37cc82c62139b2f79c84dbd3f2a5da91ed6481d4b3ac3f5bd2892378c273",
+            "bytes": 12844
+          }
+        },
+        {
+          "target": "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCmdPipeline.mm",
+          "mode": 420,
+          "before": {
+            "path": "payload/04fe43b293cb515e9ff5e56424ee2546a2011d12153d57aeea4bf7b728268954",
+            "sha256": "04fe43b293cb515e9ff5e56424ee2546a2011d12153d57aeea4bf7b728268954",
+            "bytes": 26953
+          },
+          "after": {
+            "path": "payload/8b09d32ae6d360215c2443c2f4a9aff39895f5797de95f7a0c5a95d1caa56377",
+            "sha256": "8b09d32ae6d360215c2443c2f4a9aff39895f5797de95f7a0c5a95d1caa56377",
+            "bytes": 27203
+          }
+        }
+      ],
+      "patchSHA256": "2700914b735545b51dc40bce07ce9ec67fb0144fbc4c46077d3b3c3920f1016c",
+      "reversePatchSHA256": "3a6bada08691eb50f3d247399c15927fa4fce319c291a00ba0b4007ae3d79a8a"
+    }
+  },
+  "compositionMM_SHA256": "8b09d32ae6d360215c2443c2f4a9aff39895f5797de95f7a0c5a95d1caa56377",
+  "reverseOrderByteExact": true,
+  "exactDiffRegeneration": true,
+  "CPU": [
+    {
+      "receipt": "artifacts/validation/v104-modular-preparation-20261022/compact-cpu-baseline-final/receipt.json",
+      "receiptSHA256": "5f2eb37d198dcb28cf9faffd444bda2c1603b811bfa663f8c1b4cee8ebb9646e",
+      "runs": [
+        {
+          "foundation": 0,
+          "compileExit": 0,
+          "runExit": 0,
+          "result": "PASS compact CPU checks=817 foundation=0; no GPU/native queue/query execution"
+        },
+        {
+          "foundation": 1,
+          "compileExit": 0,
+          "runExit": 0,
+          "result": "PASS compact CPU checks=937 foundation=1; no GPU/native queue/query execution"
+        }
+      ]
+    },
+    {
+      "receipt": "artifacts/validation/v104-modular-preparation-20261022/compact-cpu-after02-final/receipt.json",
+      "receiptSHA256": "0df61bb48da777f10d81d5b1464dda3edeeaadee944d116e24e1d067cb2798b0",
+      "runs": [
+        {
+          "foundation": 0,
+          "compileExit": 0,
+          "runExit": 0,
+          "result": "PASS compact CPU checks=817 foundation=0; no GPU/native queue/query execution"
+        },
+        {
+          "foundation": 1,
+          "compileExit": 0,
+          "runExit": 0,
+          "result": "PASS compact CPU checks=937 foundation=1; no GPU/native queue/query execution"
+        }
+      ]
+    }
+  ],
+  "syntax": [
+    {
+      "receipt": "artifacts/validation/v104-modular-preparation-20261022/compact-syntax-baseline-attempt1/receipt.json",
+      "receiptSHA256": "239a14d291519796eb82bff9518b6a381fce62c46f41d4638eef98f9861c5c15",
+      "runs": [
+        {
+          "tu": "Commands/MVKCmdPipeline.mm",
+          "foundation": 0,
+          "exit": 0
+        },
+        {
+          "tu": "Commands/MVKCmdPipeline.mm",
+          "foundation": 1,
+          "exit": 0
+        }
+      ]
+    },
+    {
+      "receipt": "artifacts/validation/v104-modular-preparation-20261022/compact-syntax-after02-attempt1/receipt.json",
+      "receiptSHA256": "294a23efcf40c5c1d690e2ff597a61b5063b5376dbdc4282c24f1e5b22983ba5",
+      "runs": [
+        {
+          "tu": "Commands/MVKCmdPipeline.mm",
+          "foundation": 0,
+          "exit": 0
+        },
+        {
+          "tu": "Commands/MVKCmdPipeline.mm",
+          "foundation": 1,
+          "exit": 0
+        }
+      ]
+    }
+  ],
+  "fixtureCorrection": {
+    "failedAttempt": "compact-cpu-baseline-attempt1",
+    "reason": "Fixture assumed compact admission when raw input was smaller than normalized output; Foundation OFF correctly chose generic",
+    "productChanged": false,
+    "rawPreserved": true
+  },
+  "blockingPreparationFindings": [],
+  "activationReady": false,
+  "activeTargetsByteExact": true,
+  "readPins": [
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/prepare-compact.py",
+      "sha256": "1bb2acc39f87869fbb5609168409202568d9033f3c3c85264b0806238182b2e6",
+      "bytes": 6782
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/validate-compact.py",
+      "sha256": "309e92948b9ae7ba5122be4561761912c54256e33e3179d67b686714b73255af",
+      "bytes": 8947
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/compact-fixture.mm",
+      "sha256": "c1389f20e7d917d9e63a23e53906ababc6b301da0701385207f8ea6cb150bc01",
+      "bytes": 19265
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/design-deepening-04.md",
+      "sha256": "05bb748996d4f7f0015f4a7bdafe8d43dc823b17e9b6f0cbc3a016cc7716ae52",
+      "bytes": 9985
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/design-deepening-04.json",
+      "sha256": "b0a59bb2863432617ec26bb78c9a6d7cdead339ca7df6b717866c78b0351e732",
+      "bytes": 7124
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/modules/04-compact-cpu-state/module.json",
+      "sha256": "01ac55033cdb14f9a7f5e206e9c2d5bd433b1a4f7ad2c440ff030beae0fe9b80",
+      "bytes": 4168
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/payload/91de07b4f0304ebaae3811b855c3c72cdc481fbedd6f126680977a541a7dcd53",
+      "sha256": "91de07b4f0304ebaae3811b855c3c72cdc481fbedd6f126680977a541a7dcd53",
+      "bytes": 12593
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/payload/db1e37cc82c62139b2f79c84dbd3f2a5da91ed6481d4b3ac3f5bd2892378c273",
+      "sha256": "db1e37cc82c62139b2f79c84dbd3f2a5da91ed6481d4b3ac3f5bd2892378c273",
+      "bytes": 12844
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/payload/8e663764a00e70ae9b6ede6996da275a9c0aad8a4de632fab8e9ed20e80e1d33",
+      "sha256": "8e663764a00e70ae9b6ede6996da275a9c0aad8a4de632fab8e9ed20e80e1d33",
+      "bytes": 27403
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/payload/046d7a3e2c04957b47f85583c9cde03468280be0594e721d4614c70ad6d7c42a",
+      "sha256": "046d7a3e2c04957b47f85583c9cde03468280be0594e721d4614c70ad6d7c42a",
+      "bytes": 27609
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/compact-comment-correction/preimage/modules/04-compact-cpu-state/R-and-Small.patch",
+      "sha256": "33666bea1bded2a382a3203dd9d730bb38a75daa498de6335d2e258da832ba95",
+      "bytes": 1845
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/compact-comment-correction/preimage/modules/04-compact-cpu-state/R-and-Small.reverse.patch",
+      "sha256": "f0a1e5c49057325f9941b826ca7ab5451963dce0551a162fd42aa41aef48c84d",
+      "bytes": 1845
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/payload/04fe43b293cb515e9ff5e56424ee2546a2011d12153d57aeea4bf7b728268954",
+      "sha256": "04fe43b293cb515e9ff5e56424ee2546a2011d12153d57aeea4bf7b728268954",
+      "bytes": 26953
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/payload/574bd65d7ad13f26d55ed62f4f2999ccf047f38899ed996b9b834f1c8dff05e9",
+      "sha256": "574bd65d7ad13f26d55ed62f4f2999ccf047f38899ed996b9b834f1c8dff05e9",
+      "bytes": 27159
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/compact-comment-correction/preimage/modules/04-compact-cpu-state/after02.patch",
+      "sha256": "4e0f5d2613bb8c100226a6c9a442f8884587d48253e7a46a9683f2b92628a1ee",
+      "bytes": 1845
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/compact-comment-correction/preimage/modules/04-compact-cpu-state/after02.reverse.patch",
+      "sha256": "ea47ec75941cb53c1a57733fac6fd93d383343f92852e883ca8abb5acf0144cb",
+      "bytes": 1845
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/compact-cpu-baseline-final/receipt.json",
+      "sha256": "5f2eb37d198dcb28cf9faffd444bda2c1603b811bfa663f8c1b4cee8ebb9646e",
+      "bytes": 6518
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/compact-cpu-baseline-final/foundation0-run.log",
+      "sha256": "01e585ad61456d10098eaf4392e427f5559f1eb76be30b001290d76147233d3c",
+      "bytes": 78
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/compact-cpu-baseline-final/foundation1-run.log",
+      "sha256": "d7c450397c9fb55021e46296d784b46c486f26a4bf365c9d6f0cc40aae14f588",
+      "bytes": 78
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/compact-cpu-after02-final/receipt.json",
+      "sha256": "0df61bb48da777f10d81d5b1464dda3edeeaadee944d116e24e1d067cb2798b0",
+      "bytes": 6508
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/compact-cpu-after02-final/foundation0-run.log",
+      "sha256": "01e585ad61456d10098eaf4392e427f5559f1eb76be30b001290d76147233d3c",
+      "bytes": 78
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/compact-cpu-after02-final/foundation1-run.log",
+      "sha256": "d7c450397c9fb55021e46296d784b46c486f26a4bf365c9d6f0cc40aae14f588",
+      "bytes": 78
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/compact-syntax-baseline-attempt1/receipt.json",
+      "sha256": "239a14d291519796eb82bff9518b6a381fce62c46f41d4638eef98f9861c5c15",
+      "bytes": 10620
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/compact-syntax-after02-attempt1/receipt.json",
+      "sha256": "294a23efcf40c5c1d690e2ff597a61b5063b5376dbdc4282c24f1e5b22983ba5",
+      "bytes": 10780
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/modules/04-compact-cpu-state/R-and-Small.patch",
+      "sha256": "6702f04c30ae6800a6d3b7dbfeb1268afe11098d9c2c8416caa3e7c704887bd7",
+      "bytes": 2358
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/modules/04-compact-cpu-state/R-and-Small.reverse.patch",
+      "sha256": "06a30794d8fb7f32bae8a719abceaaec79d1d2e7f1d03525ee6cae0334cc563e",
+      "bytes": 2358
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/modules/04-compact-cpu-state/after02.patch",
+      "sha256": "2700914b735545b51dc40bce07ce9ec67fb0144fbc4c46077d3b3c3920f1016c",
+      "bytes": 2358
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/modules/04-compact-cpu-state/after02.reverse.patch",
+      "sha256": "3a6bada08691eb50f3d247399c15927fa4fce319c291a00ba0b4007ae3d79a8a",
+      "bytes": 2358
+    }
+  ],
+  "reportSHA256": "662426dac139b120e49a1d4e4bd75cc71d522173775574d55ae6ad30abdfad20",
+  "executionCounts": {
+    "sourceProductFixtureBuildAppWrites": 0,
+    "CPUAttempts": 4,
+    "finalCPURuns": 4,
+    "syntaxOnlyTURuns": 4,
+    "productBuilds": 0,
+    "GPUOrAppOrGameOrBench": 0,
+    "remoteOrCleanup": 0,
+    "totalCPUExecutionsIncludingPreservedAttempts": 7
+  },
+  "generatorMaintenance": "Preserve original module02 manifest blob when regenerating module04; no source/postimage/fixture change or rerun.",
+  "commentOnlyCorrection": {
+    "status": "exact-comment-only-correction",
+    "createdUTC": "2026-10-22T18:13:44.982122+00:00",
+    "oldModuleSHA256": "c3f64eed9e4d9ad50a9849b846d20df7f98538d34a5f963db9977bffef505d38",
+    "newModuleSHA256": "01ac55033cdb14f9a7f5e206e9c2d5bd433b1a4f7ad2c440ff030beae0fe9b80",
+    "rows": [
+      {
+        "variant": "R-and-Small",
+        "target": "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCmdPipeline.h",
+        "oldAfter": {
+          "path": "payload/db1e37cc82c62139b2f79c84dbd3f2a5da91ed6481d4b3ac3f5bd2892378c273",
+          "sha256": "db1e37cc82c62139b2f79c84dbd3f2a5da91ed6481d4b3ac3f5bd2892378c273",
+          "bytes": 12844
+        },
+        "newAfter": {
+          "path": "payload/db1e37cc82c62139b2f79c84dbd3f2a5da91ed6481d4b3ac3f5bd2892378c273",
+          "sha256": "db1e37cc82c62139b2f79c84dbd3f2a5da91ed6481d4b3ac3f5bd2892378c273",
+          "bytes": 12844
+        },
+        "onlyExactCommentReplacement": true
+      },
+      {
+        "variant": "R-and-Small",
+        "target": "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCmdPipeline.mm",
+        "oldAfter": {
+          "path": "payload/046d7a3e2c04957b47f85583c9cde03468280be0594e721d4614c70ad6d7c42a",
+          "sha256": "046d7a3e2c04957b47f85583c9cde03468280be0594e721d4614c70ad6d7c42a",
+          "bytes": 27609
+        },
+        "newAfter": {
+          "path": "payload/fef1cbb17036c19c7ef7a8193ae3ebb1b07657428339a1992aef213ab3b0aec1",
+          "sha256": "fef1cbb17036c19c7ef7a8193ae3ebb1b07657428339a1992aef213ab3b0aec1",
+          "bytes": 27653
+        },
+        "onlyExactCommentReplacement": true
+      },
+      {
+        "variant": "after02",
+        "target": "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCmdPipeline.h",
+        "oldAfter": {
+          "path": "payload/db1e37cc82c62139b2f79c84dbd3f2a5da91ed6481d4b3ac3f5bd2892378c273",
+          "sha256": "db1e37cc82c62139b2f79c84dbd3f2a5da91ed6481d4b3ac3f5bd2892378c273",
+          "bytes": 12844
+        },
+        "newAfter": {
+          "path": "payload/db1e37cc82c62139b2f79c84dbd3f2a5da91ed6481d4b3ac3f5bd2892378c273",
+          "sha256": "db1e37cc82c62139b2f79c84dbd3f2a5da91ed6481d4b3ac3f5bd2892378c273",
+          "bytes": 12844
+        },
+        "onlyExactCommentReplacement": true
+      },
+      {
+        "variant": "after02",
+        "target": "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCmdPipeline.mm",
+        "oldAfter": {
+          "path": "payload/574bd65d7ad13f26d55ed62f4f2999ccf047f38899ed996b9b834f1c8dff05e9",
+          "sha256": "574bd65d7ad13f26d55ed62f4f2999ccf047f38899ed996b9b834f1c8dff05e9",
+          "bytes": 27159
+        },
+        "newAfter": {
+          "path": "payload/8b09d32ae6d360215c2443c2f4a9aff39895f5797de95f7a0c5a95d1caa56377",
+          "sha256": "8b09d32ae6d360215c2443c2f4a9aff39895f5797de95f7a0c5a95d1caa56377",
+          "bytes": 27203
+        },
+        "onlyExactCommentReplacement": true
+      }
+    ],
+    "behaviorCodeByteExact": true,
+    "CPUQualification": "Existing final CPU receipts transfer by exact comment-only equality; no rerun",
+    "oldArtifactsRetained": "compact-comment-correction/preimage.json",
+    "newCombinedMM_SHA256": "8b09d32ae6d360215c2443c2f4a9aff39895f5797de95f7a0c5a95d1caa56377",
+    "activeWrites": 0,
+    "newRuns": 0
+  },
+  "evidencePinCorrection": {
+    "reason": "Historical patch readPins moved to preserved preimage paths; current patches added separately",
+    "previousCompletion": "artifacts/validation/v104-modular-preparation-20261022/compact-comment-correction/compact-completion-before-pin-correction.json",
+    "previousCompletionSHA256": "962f27afb6c57ea3bdea688f7762540fac5c758f2c95834e0d94478010f22f1e",
+    "historicalPatchPins": [
+      "artifacts/validation/v104-modular-preparation-20261022/compact-comment-correction/preimage/modules/04-compact-cpu-state/R-and-Small.patch",
+      "artifacts/validation/v104-modular-preparation-20261022/compact-comment-correction/preimage/modules/04-compact-cpu-state/R-and-Small.reverse.patch",
+      "artifacts/validation/v104-modular-preparation-20261022/compact-comment-correction/preimage/modules/04-compact-cpu-state/after02.patch",
+      "artifacts/validation/v104-modular-preparation-20261022/compact-comment-correction/preimage/modules/04-compact-cpu-state/after02.reverse.patch"
+    ],
+    "currentPatchPins": [
+      {
+        "path": "artifacts/validation/v104-modular-preparation-20261022/modules/04-compact-cpu-state/R-and-Small.patch",
+        "sha256": "6702f04c30ae6800a6d3b7dbfeb1268afe11098d9c2c8416caa3e7c704887bd7",
+        "bytes": 2358
+      },
+      {
+        "path": "artifacts/validation/v104-modular-preparation-20261022/modules/04-compact-cpu-state/R-and-Small.reverse.patch",
+        "sha256": "06a30794d8fb7f32bae8a719abceaaec79d1d2e7f1d03525ee6cae0334cc563e",
+        "bytes": 2358
+      },
+      {
+        "path": "artifacts/validation/v104-modular-preparation-20261022/modules/04-compact-cpu-state/after02.patch",
+        "sha256": "2700914b735545b51dc40bce07ce9ec67fb0144fbc4c46077d3b3c3920f1016c",
+        "bytes": 2358
+      },
+      {
+        "path": "artifacts/validation/v104-modular-preparation-20261022/modules/04-compact-cpu-state/after02.reverse.patch",
+        "sha256": "3a6bada08691eb50f3d247399c15927fa4fce319c291a00ba0b4007ae3d79a8a",
+        "bytes": 2358
+      }
+    ],
+    "sourceOrExecutableChange": false,
+    "newRuns": 0
+  }
+}

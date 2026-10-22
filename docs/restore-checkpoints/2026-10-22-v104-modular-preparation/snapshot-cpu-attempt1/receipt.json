@@ -1,0 +1,30 @@
+{
+  "module": "09-snapshot-unlocked-retain",
+  "compile": [
+    "/usr/bin/clang++",
+    "-std=c++17",
+    "-O1",
+    "-g",
+    "-DMVK_BUILD_METAL4_FOUNDATION=1",
+    "-fsanitize=address,undefined",
+    "-fno-omit-frame-pointer",
+    "-pthread",
+    "-I/Users/yeojun/Desktop/BAR-AppleSilicon-App/build/run66-vulkan-headers-src-20260903/include",
+    "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-modular-preparation-20261022/snapshot-cpu-attempt1/fixture.cpp",
+    "-o",
+    "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-modular-preparation-20261022/snapshot-cpu-attempt1/check"
+  ],
+  "compileExit": 0,
+  "sourceSHA256": "1c23101ac26d9e533fcf4f6bb65ba6661442bfff555a62812157c05682858f53",
+  "productBuilds": 0,
+  "activeSourceWrites": 0,
+  "actualGPU": false,
+  "status": "passed-cpu-contracts-only",
+  "runExit": 0,
+  "result": {
+    "status": "passed",
+    "checks": 49,
+    "actualGPU": false,
+    "concurrentSchedules": 6
+  }
+}

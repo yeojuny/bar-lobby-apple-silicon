@@ -1,0 +1,49 @@
+{
+  "inventoryGroup": 3,
+  "implementation": "Unapplied exact source capsule",
+  "designReview": "design-deepening-02-03-09.json; independent reviewer source-path approval",
+  "requiredAfterCue": [
+    "Recheck exact parent and finished frozen R/Small comparison",
+    "Related incremental builds, functional GPU checks and separate performance comparison"
+  ],
+  "title": "Exclusive prepared-prefix replay chain",
+  "limits": "Preserves multiview encode-before-transfer and single ownership. Does not alter async-return or early-record eligibility. Long-prefix frequency/benefit unmeasured.",
+  "id": "03-owned-replay-chain",
+  "activation": "awaiting-human-cue",
+  "variants": {
+    "R-and-Small": {
+      "files": [
+        {
+          "target": "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCommandBuffer.h",
+          "mode": 420,
+          "before": {
+            "path": "payload/ea6eb8b685fe9a180c2f53faa08b0ca19545a1b764f426c3aac5eadd7b35609a",
+            "sha256": "ea6eb8b685fe9a180c2f53faa08b0ca19545a1b764f426c3aac5eadd7b35609a",
+            "bytes": 30862
+          },
+          "after": {
+            "path": "payload/a23cc321eebd7da11ea912dc09fbe7afa1e51c61a707fd9eab6b790d1a2c797a",
+            "sha256": "a23cc321eebd7da11ea912dc09fbe7afa1e51c61a707fd9eab6b790d1a2c797a",
+            "bytes": 30995
+          }
+        },
+        {
+          "target": "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCommandBuffer.mm",
+          "mode": 420,
+          "before": {
+            "path": "payload/c66515484dfda8a7d5b05ed45622b03f64e9695eedcbb607d4e71387eb354c74",
+            "sha256": "c66515484dfda8a7d5b05ed45622b03f64e9695eedcbb607d4e71387eb354c74",
+            "bytes": 111540
+          },
+          "after": {
+            "path": "payload/d02dd270eb5d1ce4e115956a075a5ef54467d083954e7a3d366efa2da7368fa0",
+            "sha256": "d02dd270eb5d1ce4e115956a075a5ef54467d083954e7a3d366efa2da7368fa0",
+            "bytes": 111663
+          }
+        }
+      ],
+      "patchSHA256": "cbe16893b412a2e4a3144d4d9c9c2c303433064ea82c0c0302c687c53d5c6f99",
+      "reversePatchSHA256": "68d1f2989e54ddf26d23c2b89c0da360b06f2801a66d9cb3e3e6e874494bdd97"
+    }
+  }
+}

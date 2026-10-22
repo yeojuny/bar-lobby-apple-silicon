@@ -1,0 +1,92 @@
+--- a/build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKMetal4Submission.mm
++++ b/build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKMetal4Submission.mm
+@@ -1826,7 +1826,25 @@
+ // signals within this ordered group that do not strictly increase one event.
+ // Values remain immutable after each recording's end(). Invalid concurrent host
+ // advancement is still excluded by the same Metal/Vulkan caller contract.
+-bool validGroupSignals(const MVKMetal4SubmissionGroup& group, NSError** error) {
++// A submit-local proof of relative signal order for one fresh, strongly held
++// group. Ended children are exclusively claimed; legal event mutators reject
++// them, and neither child order nor signal arrays change before publication.
++// Current shared-event values are deliberately NOT part of this proof.
++class GroupSignalOrderProof {
++    const MVKMetal4SubmissionGroup* _group = nullptr;
++    friend bool validateAndProveGroupSignals(const MVKMetal4SubmissionGroup&, NSError**, GroupSignalOrderProof&);
++public:
++    GroupSignalOrderProof() = default;
++    GroupSignalOrderProof(const GroupSignalOrderProof&) = delete;
++    GroupSignalOrderProof& operator=(const GroupSignalOrderProof&) = delete;
++    GroupSignalOrderProof(GroupSignalOrderProof&&) = delete;
++    GroupSignalOrderProof& operator=(GroupSignalOrderProof&&) = delete;
++    bool covers(const MVKMetal4SubmissionGroup& group) const { return _group == &group; }
++};
++
++bool validGroupSignals(const MVKMetal4SubmissionGroup& group, NSError** error,
++                       const GroupSignalOrderProof* proof = nullptr) {
++    const bool checkRelativeOrder = !proof || !proof->covers(group);
+     for (size_t i = 0; i < group.children.size(); ++i) {
+         auto& signals = group.children[i]->signals;
+         for (size_t j = 0; j < signals.size(); ++j) {
+@@ -1834,6 +1852,7 @@
+             if (!validSignalValue(signal.event, signal.value)) {
+                 return fail(error, 3, @"An event signal must increase its current value at submission.");
+             }
++            if (!checkRelativeOrder) { continue; }
+             for (size_t before = 0; before <= i; ++before) {
+                 auto& prior = group.children[before]->signals;
+                 size_t count = before == i ? j : prior.size();
+@@ -1848,6 +1867,17 @@
+     return true;
+ }
+ 
++
++// Only a successful complete check creates a proof. Reusing a local output
++// after failure must not preserve a prior group's proof.
++bool validateAndProveGroupSignals(const MVKMetal4SubmissionGroup& group, NSError** error,
++                                 GroupSignalOrderProof& proof) {
++    proof._group = nullptr;
++    if (!validGroupSignals(group, error)) { return false; }
++    proof._group = &group;
++    return true;
++}
++
+ // The submit lock is held. All children are exclusively claimed before this
+ // function; publication takes group -> sorted child -> queue locks. Poison sees
+ // the complete strong notification owner and Submitted state, or no group.
+@@ -1855,7 +1885,7 @@
+                                SubmissionChildLocks& children,
+                                MVKMetal4TailRecording tail,
+                                bool notificationRegistered, NotificationSlotReservation& reservation,
+-                               NSError** error) {
++                               NSError** error, const GroupSignalOrderProof* orderProof = nullptr) {
+     std::lock_guard<std::mutex> groupLock(group->mutex);
+     children.lock();
+     struct UnlockChildren { SubmissionChildLocks& locks; ~UnlockChildren() { locks.unlock(); } } unlock{children};
+@@ -1865,7 +1895,7 @@
+             return fail(error, 3, @"Only an exclusively claimed, ended group may be committed.");
+         }
+     }
+-    if (!validGroupSignals(*group, error)) { return false; }
++    if (!validGroupSignals(*group, error, orderProof)) { return false; }
+     std::lock_guard<std::mutex> queueLock(queue->stateMutex);
+     if (queue->firstError) { return report(error, queue->firstError); }
+     if (queue->storage->poisoned.load(std::memory_order_acquire)) {
+@@ -2886,7 +2916,8 @@
+             }];
+         }
+     }
+-    if (!validGroupSignals(*group, error)) { return false; }
++    GroupSignalOrderProof orderProof;
++    if (!validateAndProveGroupSignals(*group, error, orderProof)) { return false; }
+     bool needsSignalRetirement = false;
+     for (auto& batch : group->children) {
+         needsSignalRetirement = needsSignalRetirement || !batch->signals.empty() || !batch->presentations.empty();
+@@ -2928,7 +2959,7 @@
+         @autoreleasepool { recordFeedback(group, feedback, true); }
+ #endif
+     }];
+-    if (!publishPreparedSubmission(group, childLocks, std::move(tail), notificationRegistered, notification, error)) {
++    if (!publishPreparedSubmission(group, childLocks, std::move(tail), notificationRegistered, notification, error, &orderProof)) {
+         return false;
+     }
+     // Adoption publishes host journals in Vulkan order before queue operations.

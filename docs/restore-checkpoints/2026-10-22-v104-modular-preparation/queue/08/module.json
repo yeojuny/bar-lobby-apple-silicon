@@ -1,0 +1,45 @@
+{
+  "number": 8,
+  "title": "기록 간 CPU snapshot의 부분 재사용 확대",
+  "source": "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKMetal4PreparedResource.h",
+  "existingWork": "기존 per-binding/group snapshot 및 weak proof/fresh recording retention은 이미 구현. 그 이상의 partial coverage/miss 구제 범위.",
+  "missingEvidence": "기존 선택 표본 group full/partial replay가0이었음. 실제 반복 조합과 miss 사유가 먼저 필요.",
+  "requiredBoundary": "resource lease를 주소만으로 공유하지 않고 현재 recording live/retain/residency를 유지.",
+  "risk": {
+    "function": "높음: 바뀐 descriptor를 예전 목록으로 재생하거나 binding coverage 겹침/누락 위험.",
+    "lifetime": "높음: CPU 불변 metadata만 공유하고 현재 recording live guard/retain/residency를 다시 확보해야 함.",
+    "synchronization": "높음: 동시 snapshot 교체·descriptor revision/incarnation·weak proof revocation.",
+    "memory": "공유 항목·변형별 저장소·refcount 증가와 낮은 hit에서 churn 가능."
+  },
+  "sourceReferences": [
+    "angle-descriptor",
+    "sample-descriptor_management",
+    "mvk-pr2837",
+    "benbreen-kk-descriptor"
+  ],
+  "status": "08a-and-08b-source-capsules-prepared-runtime-and-benefit-open",
+  "strategy": "08a preserves conservative resource invalidation while skipping unchanged legacy implicit payload invalidation. Separately08b derives a bounded recording-local proof for unchanged covered binding slices in a new descriptor combination; changed slices become residual. Repeated observations return to existing full capture, except rejected captures. Global snapshot identity and per-recording fresh native guards/retention/residency remain.",
+  "acceptance": [
+    "08a source/CPU/build/GPU gates are separate from partial-sharing acceptance",
+    "Identify repeated subsets and concrete rescuable miss causes; old selected full/partial replay0 is not evidence of benefit",
+    "Actual partial/full transition, concurrent replacement, drawable/alias revocation and native lifetime fixture after cue"
+  ],
+  "tests": [
+    "08a value/growth/layout/encoder/helper cases",
+    "Broader snapshot: existing descriptor/prepared-texture lifecycle cases plus concurrent replacement and stale weak-proof rejection"
+  ],
+  "codeModules": [
+    "08a-conservative-rebind",
+    "08b-partial-group-replay"
+  ],
+  "interactions": [
+    1,
+    9
+  ],
+  "dependencyMeaning": "Interactions require re-review; they are not permission to enable all related changes together.",
+  "designStage": "Exact source capsules where named; broader missing-target/ownership/pass designs remain gated where stated",
+  "codeActivationAutomatic": false,
+  "FPSBenefitEstablished": false,
+  "stopRule": "Any unclosed correctness/lifetime counterexample, changed parent, failed check or unclear measurement stops this module. Preserve failure evidence; no automatic replay.",
+  "rollback": "Prepared source module: exact reverse patch only against its postimage, refresh mtimes and rebuild all affected headers. No-code module: active product remains unchanged; no invented reverse patch."
+}

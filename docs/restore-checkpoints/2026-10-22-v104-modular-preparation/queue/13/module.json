@@ -1,0 +1,45 @@
+{
+  "number": 13,
+  "title": "E3 범위를 넘는 barrier·GPU 완료 대기 중복 축소",
+  "source": "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCommandBuffer.mm",
+  "existingWork": "동일 compute 패스의 발행 완료 범위 재사용(E3)은 이미 구현·실험. 그 밖의 render stage/submit/query/fence 경계가 조사 범위.",
+  "missingEvidence": "worker idle wait는 제거 가능한 GPU wait 증거가 아님. 정확한 critical-path blocked time과 중복 증명이 없음.",
+  "requiredBoundary": "실제 의존성·query 가용성·완료/실패·주소 재사용 계약을 유지.",
+  "risk": {
+    "function": "매우높음: query availability·host read·opaque counter/외부wait·실패처리 의미.",
+    "lifetime": "매우높음: GPU완료 이전 resource/address/allocator 재사용 방지.",
+    "synchronization": "매우높음: RAW/WAR/WAW·local/queue·목적지별 stage·actual signal/feedback/error/cancel 계약.",
+    "memory": "불필요 fullwait 축소가 memory lifetime을 줄일 수도 있지만 성급한완료는UAF, 느슨한defer는retention확대."
+  },
+  "sourceReferences": [
+    "vkd3d-changelog",
+    "sample-wait_idle",
+    "sample-pipeline_barriers",
+    "benbreen-kk-order",
+    "benbreen-improvements-corrected"
+  ],
+  "status": "dependency-edge-proof-gated-no-code",
+  "strategy": "Choose one observed redundant edge outside the completed experimental E3/Combined candidate; E3 is not active in frozen R unless explicitly composed. Preserve actual issued RAW/WAR/WAW visibility, destination stages, query availability, host reads, semantic signals, error cleanup and address/allocator reuse. A worker idle wait alone never proves a removable GPU wait.",
+  "acceptance": [
+    "Name the exact edge, producer/consumer and critical-path wait interval",
+    "Prove alternative ordered visibility for every affected consumer and terminal failure path",
+    "Independent ownership/synchronization design review passes before any wait/barrier change"
+  ],
+  "tests": [
+    "Existing queue-barrier-reuse/completion/timeline/native tests",
+    "Cross-queue/host/query/address-reuse and poison/cancel cases; no global wait suppression"
+  ],
+  "interactions": [
+    6,
+    7,
+    10,
+    11,
+    12
+  ],
+  "dependencyMeaning": "Interactions require re-review; they are not permission to enable all related changes together.",
+  "designStage": "Exact source capsules where named; broader missing-target/ownership/pass designs remain gated where stated",
+  "codeActivationAutomatic": false,
+  "FPSBenefitEstablished": false,
+  "stopRule": "Any unclosed correctness/lifetime counterexample, changed parent, failed check or unclear measurement stops this module. Preserve failure evidence; no automatic replay.",
+  "rollback": "Prepared source module: exact reverse patch only against its postimage, refresh mtimes and rebuild all affected headers. No-code module: active product remains unchanged; no invented reverse patch."
+}

@@ -1,0 +1,1712 @@
+{
+  "status": "passed-source-capsule-validation",
+  "activeSourceWrites": 0,
+  "productBuilds": 0,
+  "gameSessions": 0,
+  "variants": [
+    {
+      "module": "02-layout-policy",
+      "variant": "R-and-Small",
+      "forwardReverseExact": true,
+      "negativeCases": {
+        "changedParent": true,
+        "doubleApply": true,
+        "reverseOnParent": true,
+        "missingFile": true
+      },
+      "liveParentComparison": {
+        "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCmdPipeline.mm": {
+          "sha256": "8e663764a00e70ae9b6ede6996da275a9c0aad8a4de632fab8e9ed20e80e1d33",
+          "mode": 420,
+          "parentMatches": true
+        },
+        "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKDescriptorSet.h": {
+          "sha256": "fb7583ab4debcf0e8f6afcaa1abc62b87d80e1b457280a77136d3cf5afaae1f5",
+          "mode": 420,
+          "parentMatches": true
+        },
+        "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKDescriptorSet.mm": {
+          "sha256": "b87caab357dd43ba2c2cd937dcd7cdd0836c6418f90ddc5d2b90e13022257dc4",
+          "mode": 420,
+          "parentMatches": true
+        }
+      }
+    },
+    {
+      "module": "02-layout-policy",
+      "variant": "after04",
+      "forwardReverseExact": true,
+      "negativeCases": {
+        "changedParent": true,
+        "doubleApply": true,
+        "reverseOnParent": true,
+        "missingFile": true
+      },
+      "liveParentComparison": {
+        "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCmdPipeline.mm": {
+          "sha256": "8e663764a00e70ae9b6ede6996da275a9c0aad8a4de632fab8e9ed20e80e1d33",
+          "mode": 420,
+          "parentMatches": false
+        },
+        "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKDescriptorSet.h": {
+          "sha256": "fb7583ab4debcf0e8f6afcaa1abc62b87d80e1b457280a77136d3cf5afaae1f5",
+          "mode": 420,
+          "parentMatches": true
+        },
+        "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKDescriptorSet.mm": {
+          "sha256": "b87caab357dd43ba2c2cd937dcd7cdd0836c6418f90ddc5d2b90e13022257dc4",
+          "mode": 420,
+          "parentMatches": true
+        }
+      }
+    },
+    {
+      "module": "03-owned-replay-chain",
+      "variant": "R-and-Small",
+      "forwardReverseExact": true,
+      "negativeCases": {
+        "changedParent": true,
+        "doubleApply": true,
+        "reverseOnParent": true,
+        "missingFile": true
+      },
+      "liveParentComparison": {
+        "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCommandBuffer.h": {
+          "sha256": "ea6eb8b685fe9a180c2f53faa08b0ca19545a1b764f426c3aac5eadd7b35609a",
+          "mode": 420,
+          "parentMatches": true
+        },
+        "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCommandBuffer.mm": {
+          "sha256": "c66515484dfda8a7d5b05ed45622b03f64e9695eedcbb607d4e71387eb354c74",
+          "mode": 420,
+          "parentMatches": true
+        }
+      }
+    },
+    {
+      "module": "04-compact-cpu-state",
+      "variant": "R-and-Small",
+      "forwardReverseExact": true,
+      "negativeCases": {
+        "changedParent": true,
+        "doubleApply": true,
+        "reverseOnParent": true,
+        "missingFile": true
+      },
+      "liveParentComparison": {
+        "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCmdPipeline.h": {
+          "sha256": "91de07b4f0304ebaae3811b855c3c72cdc481fbedd6f126680977a541a7dcd53",
+          "mode": 420,
+          "parentMatches": true
+        },
+        "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCmdPipeline.mm": {
+          "sha256": "8e663764a00e70ae9b6ede6996da275a9c0aad8a4de632fab8e9ed20e80e1d33",
+          "mode": 420,
+          "parentMatches": true
+        }
+      }
+    },
+    {
+      "module": "04-compact-cpu-state",
+      "variant": "after02",
+      "forwardReverseExact": true,
+      "negativeCases": {
+        "changedParent": true,
+        "doubleApply": true,
+        "reverseOnParent": true,
+        "missingFile": true
+      },
+      "liveParentComparison": {
+        "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCmdPipeline.h": {
+          "sha256": "91de07b4f0304ebaae3811b855c3c72cdc481fbedd6f126680977a541a7dcd53",
+          "mode": 420,
+          "parentMatches": true
+        },
+        "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCmdPipeline.mm": {
+          "sha256": "8e663764a00e70ae9b6ede6996da275a9c0aad8a4de632fab8e9ed20e80e1d33",
+          "mode": 420,
+          "parentMatches": false
+        }
+      }
+    },
+    {
+      "module": "06-success-notify",
+      "variant": "R-and-Small",
+      "forwardReverseExact": true,
+      "negativeCases": {
+        "changedParent": true,
+        "doubleApply": true,
+        "reverseOnParent": true,
+        "missingFile": true
+      },
+      "liveParentComparison": {
+        "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKMetal4Submission.mm": {
+          "sha256": "2e680f300575bdd99816c32252ef62c8ca8ad0398f5cd2543399b915ef8e012f",
+          "mode": 420,
+          "parentMatches": true
+        }
+      }
+    },
+    {
+      "module": "06-success-notify",
+      "variant": "after07",
+      "forwardReverseExact": true,
+      "negativeCases": {
+        "changedParent": true,
+        "doubleApply": true,
+        "reverseOnParent": true,
+        "missingFile": true
+      },
+      "liveParentComparison": {
+        "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKMetal4Submission.mm": {
+          "sha256": "2e680f300575bdd99816c32252ef62c8ca8ad0398f5cd2543399b915ef8e012f",
+          "mode": 420,
+          "parentMatches": false
+        }
+      }
+    },
+    {
+      "module": "07-signal-order-proof",
+      "variant": "R-and-Small",
+      "forwardReverseExact": true,
+      "negativeCases": {
+        "changedParent": true,
+        "doubleApply": true,
+        "reverseOnParent": true,
+        "missingFile": true
+      },
+      "liveParentComparison": {
+        "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKMetal4Submission.mm": {
+          "sha256": "2e680f300575bdd99816c32252ef62c8ca8ad0398f5cd2543399b915ef8e012f",
+          "mode": 420,
+          "parentMatches": true
+        }
+      }
+    },
+    {
+      "module": "07-signal-order-proof",
+      "variant": "after06",
+      "forwardReverseExact": true,
+      "negativeCases": {
+        "changedParent": true,
+        "doubleApply": true,
+        "reverseOnParent": true,
+        "missingFile": true
+      },
+      "liveParentComparison": {
+        "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKMetal4Submission.mm": {
+          "sha256": "2e680f300575bdd99816c32252ef62c8ca8ad0398f5cd2543399b915ef8e012f",
+          "mode": 420,
+          "parentMatches": false
+        }
+      }
+    },
+    {
+      "module": "08a-conservative-rebind",
+      "variant": "R",
+      "forwardReverseExact": true,
+      "negativeCases": {
+        "changedParent": true,
+        "doubleApply": true,
+        "reverseOnParent": true,
+        "missingFile": true
+      },
+      "liveParentComparison": {
+        "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCommandEncoderState.h": {
+          "sha256": "dac7a20c3963887d5f054322a2bf7884d347271768dd0a124649f7d25862dade",
+          "mode": 420,
+          "parentMatches": true
+        },
+        "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCommandEncoderState.mm": {
+          "sha256": "b1013a4a907210de7f527f550758824d1dfcf5d79b05266a984aa2a1e97e62e3",
+          "mode": 420,
+          "parentMatches": false
+        }
+      }
+    },
+    {
+      "module": "08a-conservative-rebind",
+      "variant": "Small",
+      "forwardReverseExact": true,
+      "negativeCases": {
+        "changedParent": true,
+        "doubleApply": true,
+        "reverseOnParent": true,
+        "missingFile": true
+      },
+      "liveParentComparison": {
+        "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCommandEncoderState.h": {
+          "sha256": "dac7a20c3963887d5f054322a2bf7884d347271768dd0a124649f7d25862dade",
+          "mode": 420,
+          "parentMatches": true
+        },
+        "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCommandEncoderState.mm": {
+          "sha256": "b1013a4a907210de7f527f550758824d1dfcf5d79b05266a984aa2a1e97e62e3",
+          "mode": 420,
+          "parentMatches": true
+        }
+      }
+    },
+    {
+      "module": "08b-partial-group-replay",
+      "variant": "R-and-Small",
+      "forwardReverseExact": true,
+      "negativeCases": {
+        "changedParent": true,
+        "doubleApply": true,
+        "reverseOnParent": true,
+        "missingFile": true
+      },
+      "liveParentComparison": {
+        "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKMetal4PreparedResource.h": {
+          "sha256": "d6222a17d4da569b0abd419f1c7e8b41c2f2101c7acf700e770aa02af7afa653",
+          "mode": 420,
+          "parentMatches": true
+        }
+      }
+    },
+    {
+      "module": "08b-partial-group-replay",
+      "variant": "after09",
+      "forwardReverseExact": true,
+      "negativeCases": {
+        "changedParent": true,
+        "doubleApply": true,
+        "reverseOnParent": true,
+        "missingFile": true
+      },
+      "liveParentComparison": {
+        "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKMetal4PreparedResource.h": {
+          "sha256": "d6222a17d4da569b0abd419f1c7e8b41c2f2101c7acf700e770aa02af7afa653",
+          "mode": 420,
+          "parentMatches": false
+        }
+      }
+    },
+    {
+      "module": "09-snapshot-unlocked-retain",
+      "variant": "R-and-Small",
+      "forwardReverseExact": true,
+      "negativeCases": {
+        "changedParent": true,
+        "doubleApply": true,
+        "reverseOnParent": true,
+        "missingFile": true
+      },
+      "liveParentComparison": {
+        "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKMetal4PreparedResource.h": {
+          "sha256": "d6222a17d4da569b0abd419f1c7e8b41c2f2101c7acf700e770aa02af7afa653",
+          "mode": 420,
+          "parentMatches": true
+        }
+      }
+    },
+    {
+      "module": "09-snapshot-unlocked-retain",
+      "variant": "after08b",
+      "forwardReverseExact": true,
+      "negativeCases": {
+        "changedParent": true,
+        "doubleApply": true,
+        "reverseOnParent": true,
+        "missingFile": true
+      },
+      "liveParentComparison": {
+        "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKMetal4PreparedResource.h": {
+          "sha256": "d6222a17d4da569b0abd419f1c7e8b41c2f2101c7acf700e770aa02af7afa653",
+          "mode": 420,
+          "parentMatches": false
+        }
+      }
+    },
+    {
+      "module": "11a-typed-frame-discard",
+      "variant": "R-and-Small",
+      "forwardReverseExact": true,
+      "negativeCases": {
+        "changedParent": true,
+        "doubleApply": true,
+        "reverseOnParent": true,
+        "missingFile": true
+      },
+      "liveParentComparison": {
+        "build/run91-recoil-src-694e9df7/rts/Rendering/GL/StreamBuffer.h": {
+          "sha256": "0be518866c031f0c87e6827ddf3c39625b83fee181e2ded5abc3d66a72ea0640",
+          "mode": 420,
+          "parentMatches": true
+        },
+        "build/run91-recoil-src-694e9df7/rts/Rendering/GL/RenderBuffers.h": {
+          "sha256": "a58bcbf6105628b263bf4aef1f434ef8bdcda2cfa3efb91d57507df798fd2c05",
+          "mode": 420,
+          "parentMatches": true
+        },
+        "artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Rendering/GL/StreamBuffer.h": {
+          "sha256": "0be518866c031f0c87e6827ddf3c39625b83fee181e2ded5abc3d66a72ea0640",
+          "mode": 420,
+          "parentMatches": true
+        },
+        "artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Rendering/GL/RenderBuffers.h": {
+          "sha256": "72a1572ad29bea76f498a5a9518c96727d891233015065a17291c6b571aa5c0d",
+          "mode": 420,
+          "parentMatches": true
+        }
+      }
+    }
+  ],
+  "composition": [
+    {
+      "left": [
+        "02-layout-policy",
+        "R-and-Small"
+      ],
+      "right": [
+        "03-owned-replay-chain",
+        "R-and-Small"
+      ],
+      "status": "disjoint-postimages-commute-and-reverse-exact"
+    },
+    {
+      "left": [
+        "02-layout-policy",
+        "R-and-Small"
+      ],
+      "right": [
+        "04-compact-cpu-state",
+        "R-and-Small"
+      ],
+      "status": "staged-pins-required",
+      "overlap": [
+        "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCmdPipeline.mm"
+      ]
+    },
+    {
+      "left": [
+        "02-layout-policy",
+        "R-and-Small"
+      ],
+      "right": [
+        "04-compact-cpu-state",
+        "after02"
+      ],
+      "status": "staged-pins-required",
+      "overlap": [
+        "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCmdPipeline.mm"
+      ]
+    },
+    {
+      "left": [
+        "02-layout-policy",
+        "R-and-Small"
+      ],
+      "right": [
+        "06-success-notify",
+        "R-and-Small"
+      ],
+      "status": "disjoint-postimages-commute-and-reverse-exact"
+    },
+    {
+      "left": [
+        "02-layout-policy",
+        "R-and-Small"
+      ],
+      "right": [
+        "06-success-notify",
+        "after07"
+      ],
+      "status": "disjoint-postimages-commute-and-reverse-exact"
+    },
+    {
+      "left": [
+        "02-layout-policy",
+        "R-and-Small"
+      ],
+      "right": [
+        "07-signal-order-proof",
+        "R-and-Small"
+      ],
+      "status": "disjoint-postimages-commute-and-reverse-exact"
+    },
+    {
+      "left": [
+        "02-layout-policy",
+        "R-and-Small"
+      ],
+      "right": [
+        "07-signal-order-proof",
+        "after06"
+      ],
+      "status": "disjoint-postimages-commute-and-reverse-exact"
+    },
+    {
+      "left": [
+        "02-layout-policy",
+        "R-and-Small"
+      ],
+      "right": [
+        "08a-conservative-rebind",
+        "R"
+      ],
+      "status": "disjoint-postimages-commute-and-reverse-exact"
+    },
+    {
+      "left": [
+        "02-layout-policy",
+        "R-and-Small"
+      ],
+      "right": [
+        "08a-conservative-rebind",
+        "Small"
+      ],
+      "status": "disjoint-postimages-commute-and-reverse-exact"
+    },
+    {
+      "left": [
+        "02-layout-policy",
+        "R-and-Small"
+      ],
+      "right": [
+        "08b-partial-group-replay",
+        "R-and-Small"
+      ],
+      "status": "disjoint-postimages-commute-and-reverse-exact"
+    },
+    {
+      "left": [
+        "02-layout-policy",
+        "R-and-Small"
+      ],
+      "right": [
+        "08b-partial-group-replay",
+        "after09"
+      ],
+      "status": "disjoint-postimages-commute-and-reverse-exact"
+    },
+    {
+      "left": [
+        "02-layout-policy",
+        "R-and-Small"
+      ],
+      "right": [
+        "09-snapshot-unlocked-retain",
+        "R-and-Small"
+      ],
+      "status": "disjoint-postimages-commute-and-reverse-exact"
+    },
+    {
+      "left": [
+        "02-layout-policy",
+        "R-and-Small"
+      ],
+      "right": [
+        "09-snapshot-unlocked-retain",
+        "after08b"
+      ],
+      "status": "disjoint-postimages-commute-and-reverse-exact"
+    },
+    {
+      "left": [
+        "02-layout-policy",
+        "R-and-Small"
+      ],
+      "right": [
+        "11a-typed-frame-discard",
+        "R-and-Small"
+      ],
+      "status": "disjoint-postimages-commute-and-reverse-exact"
+    },
+    {
+      "left": [
+        "02-layout-policy",
+        "after04"
+      ],
+      "right": [
+        "03-owned-replay-chain",
+        "R-and-Small"
+      ],
+      "status": "disjoint-postimages-commute-and-reverse-exact"
+    },
+    {
+      "left": [
+        "02-layout-policy",
+        "after04"
+      ],
+      "right": [
+        "04-compact-cpu-state",
+        "R-and-Small"
+      ],
+      "status": "staged-pins-required",
+      "overlap": [
+        "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCmdPipeline.mm"
+      ]
+    },
+    {
+      "left": [
+        "02-layout-policy",
+        "after04"
+      ],
+      "right": [
+        "04-compact-cpu-state",
+        "after02"
+      ],
+      "status": "staged-pins-required",
+      "overlap": [
+        "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCmdPipeline.mm"
+      ]
+    },
+    {
+      "left": [
+        "02-layout-policy",
+        "after04"
+      ],
+      "right": [
+        "06-success-notify",
+        "R-and-Small"
+      ],
+      "status": "disjoint-postimages-commute-and-reverse-exact"
+    },
+    {
+      "left": [
+        "02-layout-policy",
+        "after04"
+      ],
+      "right": [
+        "06-success-notify",
+        "after07"
+      ],
+      "status": "disjoint-postimages-commute-and-reverse-exact"
+    },
+    {
+      "left": [
+        "02-layout-policy",
+        "after04"
+      ],
+      "right": [
+        "07-signal-order-proof",
+        "R-and-Small"
+      ],
+      "status": "disjoint-postimages-commute-and-reverse-exact"
+    },
+    {
+      "left": [
+        "02-layout-policy",
+        "after04"
+      ],
+      "right": [
+        "07-signal-order-proof",
+        "after06"
+      ],
+      "status": "disjoint-postimages-commute-and-reverse-exact"
+    },
+    {
+      "left": [
+        "02-layout-policy",
+        "after04"
+      ],
+      "right": [
+        "08a-conservative-rebind",
+        "R"
+      ],
+      "status": "disjoint-postimages-commute-and-reverse-exact"
+    },
+    {
+      "left": [
+        "02-layout-policy",
+        "after04"
+      ],
+      "right": [
+        "08a-conservative-rebind",
+        "Small"
+      ],
+      "status": "disjoint-postimages-commute-and-reverse-exact"
+    },
+    {
+      "left": [
+        "02-layout-policy",
+        "after04"
+      ],
+      "right": [
+        "08b-partial-group-replay",
+        "R-and-Small"
+      ],
+      "status": "disjoint-postimages-commute-and-reverse-exact"
+    },
+    {
+      "left": [
+        "02-layout-policy",
+        "after04"
+      ],
+      "right": [
+        "08b-partial-group-replay",
+        "after09"
+      ],
+      "status": "disjoint-postimages-commute-and-reverse-exact"
+    },
+    {
+      "left": [
+        "02-layout-policy",
+        "after04"
+      ],
+      "right": [
+        "09-snapshot-unlocked-retain",
+        "R-and-Small"
+      ],
+      "status": "disjoint-postimages-commute-and-reverse-exact"
+    },
+    {
+      "left": [
+        "02-layout-policy",
+        "after04"
+      ],
+      "right": [
+        "09-snapshot-unlocked-retain",
+        "after08b"
+      ],
+      "status": "disjoint-postimages-commute-and-reverse-exact"
+    },
+    {
+      "left": [
+        "02-layout-policy",
+        "after04"
+      ],
+      "right": [
+        "11a-typed-frame-discard",
+        "R-and-Small"
+      ],
+      "status": "disjoint-postimages-commute-and-reverse-exact"
+    },
+    {
+      "left": [
+        "03-owned-replay-chain",
+        "R-and-Small"
+      ],
+      "right": [
+        "04-compact-cpu-state",
+        "R-and-Small"
+      ],
+      "status": "disjoint-postimages-commute-and-reverse-exact"
+    },
+    {
+      "left": [
+        "03-owned-replay-chain",
+        "R-and-Small"
+      ],
+      "right": [
+        "04-compact-cpu-state",
+        "after02"
+      ],
+      "status": "disjoint-postimages-commute-and-reverse-exact"
+    },
+    {
+      "left": [
+        "03-owned-replay-chain",
+        "R-and-Small"
+      ],
+      "right": [
+        "06-success-notify",
+        "R-and-Small"
+      ],
+      "status": "disjoint-postimages-commute-and-reverse-exact"
+    },
+    {
+      "left": [
+        "03-owned-replay-chain",
+        "R-and-Small"
+      ],
+      "right": [
+        "06-success-notify",
+        "after07"
+      ],
+      "status": "disjoint-postimages-commute-and-reverse-exact"
+    },
+    {
+      "left": [
+        "03-owned-replay-chain",
+        "R-and-Small"
+      ],
+      "right": [
+        "07-signal-order-proof",
+        "R-and-Small"
+      ],
+      "status": "disjoint-postimages-commute-and-reverse-exact"
+    },
+    {
+      "left": [
+        "03-owned-replay-chain",
+        "R-and-Small"
+      ],
+      "right": [
+        "07-signal-order-proof",
+        "after06"
+      ],
+      "status": "disjoint-postimages-commute-and-reverse-exact"
+    },
+    {
+      "left": [
+        "03-owned-replay-chain",
+        "R-and-Small"
+      ],
+      "right": [
+        "08a-conservative-rebind",
+        "R"
+      ],
+      "status": "disjoint-postimages-commute-and-reverse-exact"
+    },
+    {
+      "left": [
+        "03-owned-replay-chain",
+        "R-and-Small"
+      ],
+      "right": [
+        "08a-conservative-rebind",
+        "Small"
+      ],
+      "status": "disjoint-postimages-commute-and-reverse-exact"
+    },
+    {
+      "left": [
+        "03-owned-replay-chain",
+        "R-and-Small"
+      ],
+      "right": [
+        "08b-partial-group-replay",
+        "R-and-Small"
+      ],
+      "status": "disjoint-postimages-commute-and-reverse-exact"
+    },
+    {
+      "left": [
+        "03-owned-replay-chain",
+        "R-and-Small"
+      ],
+      "right": [
+        "08b-partial-group-replay",
+        "after09"
+      ],
+      "status": "disjoint-postimages-commute-and-reverse-exact"
+    },
+    {
+      "left": [
+        "03-owned-replay-chain",
+        "R-and-Small"
+      ],
+      "right": [
+        "09-snapshot-unlocked-retain",
+        "R-and-Small"
+      ],
+      "status": "disjoint-postimages-commute-and-reverse-exact"
+    },
+    {
+      "left": [
+        "03-owned-replay-chain",
+        "R-and-Small"
+      ],
+      "right": [
+        "09-snapshot-unlocked-retain",
+        "after08b"
+      ],
+      "status": "disjoint-postimages-commute-and-reverse-exact"
+    },
+    {
+      "left": [
+        "03-owned-replay-chain",
+        "R-and-Small"
+      ],
+      "right": [
+        "11a-typed-frame-discard",
+        "R-and-Small"
+      ],
+      "status": "disjoint-postimages-commute-and-reverse-exact"
+    },
+    {
+      "left": [
+        "04-compact-cpu-state",
+        "R-and-Small"
+      ],
+      "right": [
+        "06-success-notify",
+        "R-and-Small"
+      ],
+      "status": "disjoint-postimages-commute-and-reverse-exact"
+    },
+    {
+      "left": [
+        "04-compact-cpu-state",
+        "R-and-Small"
+      ],
+      "right": [
+        "06-success-notify",
+        "after07"
+      ],
+      "status": "disjoint-postimages-commute-and-reverse-exact"
+    },
+    {
+      "left": [
+        "04-compact-cpu-state",
+        "R-and-Small"
+      ],
+      "right": [
+        "07-signal-order-proof",
+        "R-and-Small"
+      ],
+      "status": "disjoint-postimages-commute-and-reverse-exact"
+    },
+    {
+      "left": [
+        "04-compact-cpu-state",
+        "R-and-Small"
+      ],
+      "right": [
+        "07-signal-order-proof",
+        "after06"
+      ],
+      "status": "disjoint-postimages-commute-and-reverse-exact"
+    },
+    {
+      "left": [
+        "04-compact-cpu-state",
+        "R-and-Small"
+      ],
+      "right": [
+        "08a-conservative-rebind",
+        "R"
+      ],
+      "status": "disjoint-postimages-commute-and-reverse-exact"
+    },
+    {
+      "left": [
+        "04-compact-cpu-state",
+        "R-and-Small"
+      ],
+      "right": [
+        "08a-conservative-rebind",
+        "Small"
+      ],
+      "status": "disjoint-postimages-commute-and-reverse-exact"
+    },
+    {
+      "left": [
+        "04-compact-cpu-state",
+        "R-and-Small"
+      ],
+      "right": [
+        "08b-partial-group-replay",
+        "R-and-Small"
+      ],
+      "status": "disjoint-postimages-commute-and-reverse-exact"
+    },
+    {
+      "left": [
+        "04-compact-cpu-state",
+        "R-and-Small"
+      ],
+      "right": [
+        "08b-partial-group-replay",
+        "after09"
+      ],
+      "status": "disjoint-postimages-commute-and-reverse-exact"
+    },
+    {
+      "left": [
+        "04-compact-cpu-state",
+        "R-and-Small"
+      ],
+      "right": [
+        "09-snapshot-unlocked-retain",
+        "R-and-Small"
+      ],
+      "status": "disjoint-postimages-commute-and-reverse-exact"
+    },
+    {
+      "left": [
+        "04-compact-cpu-state",
+        "R-and-Small"
+      ],
+      "right": [
+        "09-snapshot-unlocked-retain",
+        "after08b"
+      ],
+      "status": "disjoint-postimages-commute-and-reverse-exact"
+    },
+    {
+      "left": [
+        "04-compact-cpu-state",
+        "R-and-Small"
+      ],
+      "right": [
+        "11a-typed-frame-discard",
+        "R-and-Small"
+      ],
+      "status": "disjoint-postimages-commute-and-reverse-exact"
+    },
+    {
+      "left": [
+        "04-compact-cpu-state",
+        "after02"
+      ],
+      "right": [
+        "06-success-notify",
+        "R-and-Small"
+      ],
+      "status": "disjoint-postimages-commute-and-reverse-exact"
+    },
+    {
+      "left": [
+        "04-compact-cpu-state",
+        "after02"
+      ],
+      "right": [
+        "06-success-notify",
+        "after07"
+      ],
+      "status": "disjoint-postimages-commute-and-reverse-exact"
+    },
+    {
+      "left": [
+        "04-compact-cpu-state",
+        "after02"
+      ],
+      "right": [
+        "07-signal-order-proof",
+        "R-and-Small"
+      ],
+      "status": "disjoint-postimages-commute-and-reverse-exact"
+    },
+    {
+      "left": [
+        "04-compact-cpu-state",
+        "after02"
+      ],
+      "right": [
+        "07-signal-order-proof",
+        "after06"
+      ],
+      "status": "disjoint-postimages-commute-and-reverse-exact"
+    },
+    {
+      "left": [
+        "04-compact-cpu-state",
+        "after02"
+      ],
+      "right": [
+        "08a-conservative-rebind",
+        "R"
+      ],
+      "status": "disjoint-postimages-commute-and-reverse-exact"
+    },
+    {
+      "left": [
+        "04-compact-cpu-state",
+        "after02"
+      ],
+      "right": [
+        "08a-conservative-rebind",
+        "Small"
+      ],
+      "status": "disjoint-postimages-commute-and-reverse-exact"
+    },
+    {
+      "left": [
+        "04-compact-cpu-state",
+        "after02"
+      ],
+      "right": [
+        "08b-partial-group-replay",
+        "R-and-Small"
+      ],
+      "status": "disjoint-postimages-commute-and-reverse-exact"
+    },
+    {
+      "left": [
+        "04-compact-cpu-state",
+        "after02"
+      ],
+      "right": [
+        "08b-partial-group-replay",
+        "after09"
+      ],
+      "status": "disjoint-postimages-commute-and-reverse-exact"
+    },
+    {
+      "left": [
+        "04-compact-cpu-state",
+        "after02"
+      ],
+      "right": [
+        "09-snapshot-unlocked-retain",
+        "R-and-Small"
+      ],
+      "status": "disjoint-postimages-commute-and-reverse-exact"
+    },
+    {
+      "left": [
+        "04-compact-cpu-state",
+        "after02"
+      ],
+      "right": [
+        "09-snapshot-unlocked-retain",
+        "after08b"
+      ],
+      "status": "disjoint-postimages-commute-and-reverse-exact"
+    },
+    {
+      "left": [
+        "04-compact-cpu-state",
+        "after02"
+      ],
+      "right": [
+        "11a-typed-frame-discard",
+        "R-and-Small"
+      ],
+      "status": "disjoint-postimages-commute-and-reverse-exact"
+    },
+    {
+      "left": [
+        "06-success-notify",
+        "R-and-Small"
+      ],
+      "right": [
+        "07-signal-order-proof",
+        "R-and-Small"
+      ],
+      "status": "staged-pins-required",
+      "overlap": [
+        "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKMetal4Submission.mm"
+      ]
+    },
+    {
+      "left": [
+        "06-success-notify",
+        "R-and-Small"
+      ],
+      "right": [
+        "07-signal-order-proof",
+        "after06"
+      ],
+      "status": "staged-pins-required",
+      "overlap": [
+        "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKMetal4Submission.mm"
+      ]
+    },
+    {
+      "left": [
+        "06-success-notify",
+        "R-and-Small"
+      ],
+      "right": [
+        "08a-conservative-rebind",
+        "R"
+      ],
+      "status": "disjoint-postimages-commute-and-reverse-exact"
+    },
+    {
+      "left": [
+        "06-success-notify",
+        "R-and-Small"
+      ],
+      "right": [
+        "08a-conservative-rebind",
+        "Small"
+      ],
+      "status": "disjoint-postimages-commute-and-reverse-exact"
+    },
+    {
+      "left": [
+        "06-success-notify",
+        "R-and-Small"
+      ],
+      "right": [
+        "08b-partial-group-replay",
+        "R-and-Small"
+      ],
+      "status": "disjoint-postimages-commute-and-reverse-exact"
+    },
+    {
+      "left": [
+        "06-success-notify",
+        "R-and-Small"
+      ],
+      "right": [
+        "08b-partial-group-replay",
+        "after09"
+      ],
+      "status": "disjoint-postimages-commute-and-reverse-exact"
+    },
+    {
+      "left": [
+        "06-success-notify",
+        "R-and-Small"
+      ],
+      "right": [
+        "09-snapshot-unlocked-retain",
+        "R-and-Small"
+      ],
+      "status": "disjoint-postimages-commute-and-reverse-exact"
+    },
+    {
+      "left": [
+        "06-success-notify",
+        "R-and-Small"
+      ],
+      "right": [
+        "09-snapshot-unlocked-retain",
+        "after08b"
+      ],
+      "status": "disjoint-postimages-commute-and-reverse-exact"
+    },
+    {
+      "left": [
+        "06-success-notify",
+        "R-and-Small"
+      ],
+      "right": [
+        "11a-typed-frame-discard",
+        "R-and-Small"
+      ],
+      "status": "disjoint-postimages-commute-and-reverse-exact"
+    },
+    {
+      "left": [
+        "06-success-notify",
+        "after07"
+      ],
+      "right": [
+        "07-signal-order-proof",
+        "R-and-Small"
+      ],
+      "status": "staged-pins-required",
+      "overlap": [
+        "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKMetal4Submission.mm"
+      ]
+    },
+    {
+      "left": [
+        "06-success-notify",
+        "after07"
+      ],
+      "right": [
+        "07-signal-order-proof",
+        "after06"
+      ],
+      "status": "staged-pins-required",
+      "overlap": [
+        "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKMetal4Submission.mm"
+      ]
+    },
+    {
+      "left": [
+        "06-success-notify",
+        "after07"
+      ],
+      "right": [
+        "08a-conservative-rebind",
+        "R"
+      ],
+      "status": "disjoint-postimages-commute-and-reverse-exact"
+    },
+    {
+      "left": [
+        "06-success-notify",
+        "after07"
+      ],
+      "right": [
+        "08a-conservative-rebind",
+        "Small"
+      ],
+      "status": "disjoint-postimages-commute-and-reverse-exact"
+    },
+    {
+      "left": [
+        "06-success-notify",
+        "after07"
+      ],
+      "right": [
+        "08b-partial-group-replay",
+        "R-and-Small"
+      ],
+      "status": "disjoint-postimages-commute-and-reverse-exact"
+    },
+    {
+      "left": [
+        "06-success-notify",
+        "after07"
+      ],
+      "right": [
+        "08b-partial-group-replay",
+        "after09"
+      ],
+      "status": "disjoint-postimages-commute-and-reverse-exact"
+    },
+    {
+      "left": [
+        "06-success-notify",
+        "after07"
+      ],
+      "right": [
+        "09-snapshot-unlocked-retain",
+        "R-and-Small"
+      ],
+      "status": "disjoint-postimages-commute-and-reverse-exact"
+    },
+    {
+      "left": [
+        "06-success-notify",
+        "after07"
+      ],
+      "right": [
+        "09-snapshot-unlocked-retain",
+        "after08b"
+      ],
+      "status": "disjoint-postimages-commute-and-reverse-exact"
+    },
+    {
+      "left": [
+        "06-success-notify",
+        "after07"
+      ],
+      "right": [
+        "11a-typed-frame-discard",
+        "R-and-Small"
+      ],
+      "status": "disjoint-postimages-commute-and-reverse-exact"
+    },
+    {
+      "left": [
+        "07-signal-order-proof",
+        "R-and-Small"
+      ],
+      "right": [
+        "08a-conservative-rebind",
+        "R"
+      ],
+      "status": "disjoint-postimages-commute-and-reverse-exact"
+    },
+    {
+      "left": [
+        "07-signal-order-proof",
+        "R-and-Small"
+      ],
+      "right": [
+        "08a-conservative-rebind",
+        "Small"
+      ],
+      "status": "disjoint-postimages-commute-and-reverse-exact"
+    },
+    {
+      "left": [
+        "07-signal-order-proof",
+        "R-and-Small"
+      ],
+      "right": [
+        "08b-partial-group-replay",
+        "R-and-Small"
+      ],
+      "status": "disjoint-postimages-commute-and-reverse-exact"
+    },
+    {
+      "left": [
+        "07-signal-order-proof",
+        "R-and-Small"
+      ],
+      "right": [
+        "08b-partial-group-replay",
+        "after09"
+      ],
+      "status": "disjoint-postimages-commute-and-reverse-exact"
+    },
+    {
+      "left": [
+        "07-signal-order-proof",
+        "R-and-Small"
+      ],
+      "right": [
+        "09-snapshot-unlocked-retain",
+        "R-and-Small"
+      ],
+      "status": "disjoint-postimages-commute-and-reverse-exact"
+    },
+    {
+      "left": [
+        "07-signal-order-proof",
+        "R-and-Small"
+      ],
+      "right": [
+        "09-snapshot-unlocked-retain",
+        "after08b"
+      ],
+      "status": "disjoint-postimages-commute-and-reverse-exact"
+    },
+    {
+      "left": [
+        "07-signal-order-proof",
+        "R-and-Small"
+      ],
+      "right": [
+        "11a-typed-frame-discard",
+        "R-and-Small"
+      ],
+      "status": "disjoint-postimages-commute-and-reverse-exact"
+    },
+    {
+      "left": [
+        "07-signal-order-proof",
+        "after06"
+      ],
+      "right": [
+        "08a-conservative-rebind",
+        "R"
+      ],
+      "status": "disjoint-postimages-commute-and-reverse-exact"
+    },
+    {
+      "left": [
+        "07-signal-order-proof",
+        "after06"
+      ],
+      "right": [
+        "08a-conservative-rebind",
+        "Small"
+      ],
+      "status": "disjoint-postimages-commute-and-reverse-exact"
+    },
+    {
+      "left": [
+        "07-signal-order-proof",
+        "after06"
+      ],
+      "right": [
+        "08b-partial-group-replay",
+        "R-and-Small"
+      ],
+      "status": "disjoint-postimages-commute-and-reverse-exact"
+    },
+    {
+      "left": [
+        "07-signal-order-proof",
+        "after06"
+      ],
+      "right": [
+        "08b-partial-group-replay",
+        "after09"
+      ],
+      "status": "disjoint-postimages-commute-and-reverse-exact"
+    },
+    {
+      "left": [
+        "07-signal-order-proof",
+        "after06"
+      ],
+      "right": [
+        "09-snapshot-unlocked-retain",
+        "R-and-Small"
+      ],
+      "status": "disjoint-postimages-commute-and-reverse-exact"
+    },
+    {
+      "left": [
+        "07-signal-order-proof",
+        "after06"
+      ],
+      "right": [
+        "09-snapshot-unlocked-retain",
+        "after08b"
+      ],
+      "status": "disjoint-postimages-commute-and-reverse-exact"
+    },
+    {
+      "left": [
+        "07-signal-order-proof",
+        "after06"
+      ],
+      "right": [
+        "11a-typed-frame-discard",
+        "R-and-Small"
+      ],
+      "status": "disjoint-postimages-commute-and-reverse-exact"
+    },
+    {
+      "left": [
+        "08a-conservative-rebind",
+        "R"
+      ],
+      "right": [
+        "08b-partial-group-replay",
+        "R-and-Small"
+      ],
+      "status": "disjoint-postimages-commute-and-reverse-exact"
+    },
+    {
+      "left": [
+        "08a-conservative-rebind",
+        "R"
+      ],
+      "right": [
+        "08b-partial-group-replay",
+        "after09"
+      ],
+      "status": "disjoint-postimages-commute-and-reverse-exact"
+    },
+    {
+      "left": [
+        "08a-conservative-rebind",
+        "R"
+      ],
+      "right": [
+        "09-snapshot-unlocked-retain",
+        "R-and-Small"
+      ],
+      "status": "disjoint-postimages-commute-and-reverse-exact"
+    },
+    {
+      "left": [
+        "08a-conservative-rebind",
+        "R"
+      ],
+      "right": [
+        "09-snapshot-unlocked-retain",
+        "after08b"
+      ],
+      "status": "disjoint-postimages-commute-and-reverse-exact"
+    },
+    {
+      "left": [
+        "08a-conservative-rebind",
+        "R"
+      ],
+      "right": [
+        "11a-typed-frame-discard",
+        "R-and-Small"
+      ],
+      "status": "disjoint-postimages-commute-and-reverse-exact"
+    },
+    {
+      "left": [
+        "08a-conservative-rebind",
+        "Small"
+      ],
+      "right": [
+        "08b-partial-group-replay",
+        "R-and-Small"
+      ],
+      "status": "disjoint-postimages-commute-and-reverse-exact"
+    },
+    {
+      "left": [
+        "08a-conservative-rebind",
+        "Small"
+      ],
+      "right": [
+        "08b-partial-group-replay",
+        "after09"
+      ],
+      "status": "disjoint-postimages-commute-and-reverse-exact"
+    },
+    {
+      "left": [
+        "08a-conservative-rebind",
+        "Small"
+      ],
+      "right": [
+        "09-snapshot-unlocked-retain",
+        "R-and-Small"
+      ],
+      "status": "disjoint-postimages-commute-and-reverse-exact"
+    },
+    {
+      "left": [
+        "08a-conservative-rebind",
+        "Small"
+      ],
+      "right": [
+        "09-snapshot-unlocked-retain",
+        "after08b"
+      ],
+      "status": "disjoint-postimages-commute-and-reverse-exact"
+    },
+    {
+      "left": [
+        "08a-conservative-rebind",
+        "Small"
+      ],
+      "right": [
+        "11a-typed-frame-discard",
+        "R-and-Small"
+      ],
+      "status": "disjoint-postimages-commute-and-reverse-exact"
+    },
+    {
+      "left": [
+        "08b-partial-group-replay",
+        "R-and-Small"
+      ],
+      "right": [
+        "09-snapshot-unlocked-retain",
+        "R-and-Small"
+      ],
+      "status": "staged-pins-required",
+      "overlap": [
+        "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKMetal4PreparedResource.h"
+      ]
+    },
+    {
+      "left": [
+        "08b-partial-group-replay",
+        "R-and-Small"
+      ],
+      "right": [
+        "09-snapshot-unlocked-retain",
+        "after08b"
+      ],
+      "status": "staged-pins-required",
+      "overlap": [
+        "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKMetal4PreparedResource.h"
+      ]
+    },
+    {
+      "left": [
+        "08b-partial-group-replay",
+        "R-and-Small"
+      ],
+      "right": [
+        "11a-typed-frame-discard",
+        "R-and-Small"
+      ],
+      "status": "disjoint-postimages-commute-and-reverse-exact"
+    },
+    {
+      "left": [
+        "08b-partial-group-replay",
+        "after09"
+      ],
+      "right": [
+        "09-snapshot-unlocked-retain",
+        "R-and-Small"
+      ],
+      "status": "staged-pins-required",
+      "overlap": [
+        "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKMetal4PreparedResource.h"
+      ]
+    },
+    {
+      "left": [
+        "08b-partial-group-replay",
+        "after09"
+      ],
+      "right": [
+        "09-snapshot-unlocked-retain",
+        "after08b"
+      ],
+      "status": "staged-pins-required",
+      "overlap": [
+        "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKMetal4PreparedResource.h"
+      ]
+    },
+    {
+      "left": [
+        "08b-partial-group-replay",
+        "after09"
+      ],
+      "right": [
+        "11a-typed-frame-discard",
+        "R-and-Small"
+      ],
+      "status": "disjoint-postimages-commute-and-reverse-exact"
+    },
+    {
+      "left": [
+        "09-snapshot-unlocked-retain",
+        "R-and-Small"
+      ],
+      "right": [
+        "11a-typed-frame-discard",
+        "R-and-Small"
+      ],
+      "status": "disjoint-postimages-commute-and-reverse-exact"
+    },
+    {
+      "left": [
+        "09-snapshot-unlocked-retain",
+        "after08b"
+      ],
+      "right": [
+        "11a-typed-frame-discard",
+        "R-and-Small"
+      ],
+      "status": "disjoint-postimages-commute-and-reverse-exact"
+    }
+  ],
+  "exactStagedRoutes": [
+    {
+      "route": "06-then-07",
+      "sequence": [
+        "06-success-notify:R-and-Small",
+        "07-signal-order-proof:after06"
+      ],
+      "forwardReverseExact": true,
+      "postimages": {
+        "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKMetal4Submission.mm": "47b5570d132e86158cac18379a76805d10bcd150221d8cd8fc87c8101dd7ae82"
+      }
+    },
+    {
+      "route": "07-then-06",
+      "sequence": [
+        "07-signal-order-proof:R-and-Small",
+        "06-success-notify:after07"
+      ],
+      "forwardReverseExact": true,
+      "postimages": {
+        "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKMetal4Submission.mm": "47b5570d132e86158cac18379a76805d10bcd150221d8cd8fc87c8101dd7ae82"
+      }
+    },
+    {
+      "route": "02-then-04",
+      "sequence": [
+        "02-layout-policy:R-and-Small",
+        "04-compact-cpu-state:after02"
+      ],
+      "forwardReverseExact": true,
+      "postimages": {
+        "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCmdPipeline.mm": "8b09d32ae6d360215c2443c2f4a9aff39895f5797de95f7a0c5a95d1caa56377",
+        "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKDescriptorSet.h": "4f5f3b3cde601f493d73445b458f2dd5899c4f3919d454dac6833b9fb77403ee",
+        "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKDescriptorSet.mm": "d6c55de4e7379fa988bbc9c718edd0671f0746ac06900f36e16512984c5ffeff",
+        "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCmdPipeline.h": "db1e37cc82c62139b2f79c84dbd3f2a5da91ed6481d4b3ac3f5bd2892378c273"
+      }
+    },
+    {
+      "route": "04-then-02",
+      "sequence": [
+        "04-compact-cpu-state:R-and-Small",
+        "02-layout-policy:after04"
+      ],
+      "forwardReverseExact": true,
+      "postimages": {
+        "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCmdPipeline.h": "db1e37cc82c62139b2f79c84dbd3f2a5da91ed6481d4b3ac3f5bd2892378c273",
+        "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCmdPipeline.mm": "8b09d32ae6d360215c2443c2f4a9aff39895f5797de95f7a0c5a95d1caa56377",
+        "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKDescriptorSet.h": "4f5f3b3cde601f493d73445b458f2dd5899c4f3919d454dac6833b9fb77403ee",
+        "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKDescriptorSet.mm": "d6c55de4e7379fa988bbc9c718edd0671f0746ac06900f36e16512984c5ffeff"
+      }
+    },
+    {
+      "route": "08b-then-09",
+      "sequence": [
+        "08b-partial-group-replay:R-and-Small",
+        "09-snapshot-unlocked-retain:after08b"
+      ],
+      "forwardReverseExact": true,
+      "postimages": {
+        "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKMetal4PreparedResource.h": "dc87cbeda402b77a665fe276e5b823b4b1ce3ece055a294177b105a0ea9bc1e7"
+      }
+    },
+    {
+      "route": "09-then-08b",
+      "sequence": [
+        "09-snapshot-unlocked-retain:R-and-Small",
+        "08b-partial-group-replay:after09"
+      ],
+      "forwardReverseExact": true,
+      "postimages": {
+        "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKMetal4PreparedResource.h": "dc87cbeda402b77a665fe276e5b823b4b1ce3ece055a294177b105a0ea9bc1e7"
+      }
+    }
+  ],
+  "limits": "Memory-only exact patch validation. Does not authorize activation or prove ABI, GPU correctness or performance."
+}

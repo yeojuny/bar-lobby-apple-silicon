@@ -1,0 +1,11 @@
+# 08b final guard addendum
+
+The prior independent source review remains the historical review of the first partial-replay capsule. This addendum binds the final exact capsule and supersedes its warning about unconditionally repeated derived allocations.
+
+Only the mismatch-path guard and explanatory comments changed: `if (!retained || capture) return Miss`. First observation of a changed combination records it with capture false, allowing the bounded partial rescue. A later snapshot replay observation of the same unrejected combination has capture true and falls back without callbacks or derived allocation. The existing sink then prepares the whole immutable binding list and may publish its existing full snapshot only if all original admission and before==after checks succeed. A subsequent matching replay takes the unchanged full path. This is not necessarily the next draw: the recording-local cache may satisfy intervening draws without calling snapshot replay.
+
+The guard preserves existing rejection: `_rejected` makes capture false, so an intentionally rejected combination does not force recapture and may keep deriving bounded metadata. Successful full capture is also conditional on proofs, caps and stable stamps. No direct/global promotion logic was added. Original fresh retention, partition, slice cursor, exact-entry Miss cleanup and Failed handling stay as reviewed.
+
+Final root CPU receipts report2216 ASan+UBSan checks and three concurrent schedules for08b alone and09+08b. The new schedule explicitly covers first partial, next Miss+capture true, full remember and subsequent allocation-free full replay. Preserved attempts2/3 exercised a repeated observation while expecting the first-observation callback; those fixture preconditions were corrected, with original raw records kept. I read the final fixture and receipts without rerunning tests.
+
+Final combined header SHA256: `dc87cbeda402b77a665fe276e5b823b4b1ce3ece055a294177b105a0ea9bc1e7`. Baseline/after09 and09-after08b stages remain required because the modules share a header. No new source blocker. This is source/CPU qualification only: actual native resource/alias/drawable paths and net CPU/FPS/memory benefit remain unproven. Active source and apps are unchanged.

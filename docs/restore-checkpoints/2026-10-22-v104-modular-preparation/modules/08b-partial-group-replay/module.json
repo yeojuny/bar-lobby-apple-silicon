@@ -1,0 +1,64 @@
+{
+  "inventoryGroup": 8,
+  "title": "Recording-local reuse of unchanged covered binding slices",
+  "implementation": "Unapplied exact source capsule; source design reviewed before code",
+  "designReview": "design-deepening-08b.json",
+  "preserves": [
+    "full-hit path",
+    "native retain/live checks",
+    "set incarnation",
+    "residual preparation",
+    "before/after stable-stamp guard",
+    "immutable global entry until ordinary full capture"
+  ],
+  "limits": "Bounded CPU metadata allocation on partial hits; repeated new combination returns to ordinary full capture. Rejected capture may continue deriving. Fresh resource callbacks and weak proofs remain mandatory. No native ownership is shared. Profit depends on mixed binding churn; no GPU or FPS claim.",
+  "requiredAfterCue": [
+    "Exact parent verification and affected native rebuild",
+    "Actual descriptor lifetime/alias/drawable/query and partial-path fixture",
+    "Matched performance comparison after frozen R/Small work"
+  ],
+  "id": "08b-partial-group-replay",
+  "activation": "awaiting-human-cue",
+  "variants": {
+    "R-and-Small": {
+      "files": [
+        {
+          "target": "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKMetal4PreparedResource.h",
+          "mode": 420,
+          "before": {
+            "path": "payload/d6222a17d4da569b0abd419f1c7e8b41c2f2101c7acf700e770aa02af7afa653",
+            "sha256": "d6222a17d4da569b0abd419f1c7e8b41c2f2101c7acf700e770aa02af7afa653",
+            "bytes": 23696
+          },
+          "after": {
+            "path": "payload/1d6f0d731c505ba6cc0a90924e82bebebdf41acbe9e18e4008ec3747f9c80152",
+            "sha256": "1d6f0d731c505ba6cc0a90924e82bebebdf41acbe9e18e4008ec3747f9c80152",
+            "bytes": 26598
+          }
+        }
+      ],
+      "patchSHA256": "a1d98dc2c4d94a48a342fcbc40a4a699051211af0af0fb861d984b5118942dd9",
+      "reversePatchSHA256": "e61b26e65e0a1a365309bccd4e086ba3ecf211282b58a148965cfa94716b48ed"
+    },
+    "after09": {
+      "files": [
+        {
+          "target": "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKMetal4PreparedResource.h",
+          "mode": 420,
+          "before": {
+            "path": "payload/b7422521cf7427e09c6c261d9180a98c1ad9523603aa734b453a41796c100dc6",
+            "sha256": "b7422521cf7427e09c6c261d9180a98c1ad9523603aa734b453a41796c100dc6",
+            "bytes": 24661
+          },
+          "after": {
+            "path": "payload/dc87cbeda402b77a665fe276e5b823b4b1ce3ece055a294177b105a0ea9bc1e7",
+            "sha256": "dc87cbeda402b77a665fe276e5b823b4b1ce3ece055a294177b105a0ea9bc1e7",
+            "bytes": 27548
+          }
+        }
+      ],
+      "patchSHA256": "2bf05225127204ef179d72dd3a884fd896523aa06dc10acdadb867d373f9e19e",
+      "reversePatchSHA256": "a40c6a7ce3dc78411fbc7c6c2d0e39293465f026bb0dd5c6e9e420cb413a6830"
+    }
+  }
+}

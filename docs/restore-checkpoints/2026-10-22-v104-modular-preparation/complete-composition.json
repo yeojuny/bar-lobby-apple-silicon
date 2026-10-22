@@ -1,0 +1,210 @@
+{
+  "status": "passed-memory-only-composition",
+  "parents": {
+    "R": {
+      "forward": {
+        "route": [
+          "11a-typed-frame-discard:R-and-Small",
+          "08a-conservative-rebind:R",
+          "06-success-notify:R-and-Small",
+          "07-signal-order-proof:after06",
+          "02-layout-policy:R-and-Small",
+          "03-owned-replay-chain:R-and-Small",
+          "04-compact-cpu-state:after02",
+          "08b-partial-group-replay:R-and-Small",
+          "09-snapshot-unlocked-retain:after08b"
+        ],
+        "exactReverse": true,
+        "before": {
+          "build/run91-recoil-src-694e9df7/rts/Rendering/GL/StreamBuffer.h": "0be518866c031f0c87e6827ddf3c39625b83fee181e2ded5abc3d66a72ea0640",
+          "build/run91-recoil-src-694e9df7/rts/Rendering/GL/RenderBuffers.h": "a58bcbf6105628b263bf4aef1f434ef8bdcda2cfa3efb91d57507df798fd2c05",
+          "artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Rendering/GL/StreamBuffer.h": "0be518866c031f0c87e6827ddf3c39625b83fee181e2ded5abc3d66a72ea0640",
+          "artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Rendering/GL/RenderBuffers.h": "72a1572ad29bea76f498a5a9518c96727d891233015065a17291c6b571aa5c0d",
+          "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCommandEncoderState.h": "dac7a20c3963887d5f054322a2bf7884d347271768dd0a124649f7d25862dade",
+          "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCommandEncoderState.mm": "9b28b9a30f6e0d8a975b732dcaf8a49c8e14b32f9ba3157e4f9dce03b14276b9",
+          "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKMetal4Submission.mm": "2e680f300575bdd99816c32252ef62c8ca8ad0398f5cd2543399b915ef8e012f",
+          "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCmdPipeline.mm": "8e663764a00e70ae9b6ede6996da275a9c0aad8a4de632fab8e9ed20e80e1d33",
+          "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKDescriptorSet.h": "fb7583ab4debcf0e8f6afcaa1abc62b87d80e1b457280a77136d3cf5afaae1f5",
+          "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKDescriptorSet.mm": "b87caab357dd43ba2c2cd937dcd7cdd0836c6418f90ddc5d2b90e13022257dc4",
+          "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCommandBuffer.h": "ea6eb8b685fe9a180c2f53faa08b0ca19545a1b764f426c3aac5eadd7b35609a",
+          "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCommandBuffer.mm": "c66515484dfda8a7d5b05ed45622b03f64e9695eedcbb607d4e71387eb354c74",
+          "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCmdPipeline.h": "91de07b4f0304ebaae3811b855c3c72cdc481fbedd6f126680977a541a7dcd53",
+          "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKMetal4PreparedResource.h": "d6222a17d4da569b0abd419f1c7e8b41c2f2101c7acf700e770aa02af7afa653"
+        },
+        "after": {
+          "build/run91-recoil-src-694e9df7/rts/Rendering/GL/StreamBuffer.h": "44914aceb2f395a922dafabc0974fb7583c560365a96934f3bb03e38c4623b16",
+          "build/run91-recoil-src-694e9df7/rts/Rendering/GL/RenderBuffers.h": "232f45c81ad6304b9163023c81cd5822604998d36e34381605c343f4d275116b",
+          "artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Rendering/GL/StreamBuffer.h": "44914aceb2f395a922dafabc0974fb7583c560365a96934f3bb03e38c4623b16",
+          "artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Rendering/GL/RenderBuffers.h": "6ce94352fc10c6584bea499a903af5b9a11ead6582139cfc58277c4476175fc3",
+          "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCommandEncoderState.h": "b3f64f869dec74a7858826cb6217e7401c2c15863145923b51041cff8bcf59fc",
+          "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCommandEncoderState.mm": "cc47e81c569403e8221631cba7da38dd0f19b0c203a139d9c7866819e2bca026",
+          "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKMetal4Submission.mm": "47b5570d132e86158cac18379a76805d10bcd150221d8cd8fc87c8101dd7ae82",
+          "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCmdPipeline.mm": "8b09d32ae6d360215c2443c2f4a9aff39895f5797de95f7a0c5a95d1caa56377",
+          "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKDescriptorSet.h": "4f5f3b3cde601f493d73445b458f2dd5899c4f3919d454dac6833b9fb77403ee",
+          "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKDescriptorSet.mm": "d6c55de4e7379fa988bbc9c718edd0671f0746ac06900f36e16512984c5ffeff",
+          "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCommandBuffer.h": "a23cc321eebd7da11ea912dc09fbe7afa1e51c61a707fd9eab6b790d1a2c797a",
+          "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCommandBuffer.mm": "d02dd270eb5d1ce4e115956a075a5ef54467d083954e7a3d366efa2da7368fa0",
+          "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCmdPipeline.h": "db1e37cc82c62139b2f79c84dbd3f2a5da91ed6481d4b3ac3f5bd2892378c273",
+          "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKMetal4PreparedResource.h": "dc87cbeda402b77a665fe276e5b823b4b1ce3ece055a294177b105a0ea9bc1e7"
+        }
+      },
+      "alternate": {
+        "route": [
+          "09-snapshot-unlocked-retain:R-and-Small",
+          "08b-partial-group-replay:after09",
+          "04-compact-cpu-state:R-and-Small",
+          "03-owned-replay-chain:R-and-Small",
+          "02-layout-policy:after04",
+          "07-signal-order-proof:R-and-Small",
+          "06-success-notify:after07",
+          "08a-conservative-rebind:R",
+          "11a-typed-frame-discard:R-and-Small"
+        ],
+        "exactReverse": true,
+        "before": {
+          "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKMetal4PreparedResource.h": "d6222a17d4da569b0abd419f1c7e8b41c2f2101c7acf700e770aa02af7afa653",
+          "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCmdPipeline.h": "91de07b4f0304ebaae3811b855c3c72cdc481fbedd6f126680977a541a7dcd53",
+          "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCmdPipeline.mm": "8e663764a00e70ae9b6ede6996da275a9c0aad8a4de632fab8e9ed20e80e1d33",
+          "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCommandBuffer.h": "ea6eb8b685fe9a180c2f53faa08b0ca19545a1b764f426c3aac5eadd7b35609a",
+          "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCommandBuffer.mm": "c66515484dfda8a7d5b05ed45622b03f64e9695eedcbb607d4e71387eb354c74",
+          "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKDescriptorSet.h": "fb7583ab4debcf0e8f6afcaa1abc62b87d80e1b457280a77136d3cf5afaae1f5",
+          "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKDescriptorSet.mm": "b87caab357dd43ba2c2cd937dcd7cdd0836c6418f90ddc5d2b90e13022257dc4",
+          "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKMetal4Submission.mm": "2e680f300575bdd99816c32252ef62c8ca8ad0398f5cd2543399b915ef8e012f",
+          "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCommandEncoderState.h": "dac7a20c3963887d5f054322a2bf7884d347271768dd0a124649f7d25862dade",
+          "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCommandEncoderState.mm": "9b28b9a30f6e0d8a975b732dcaf8a49c8e14b32f9ba3157e4f9dce03b14276b9",
+          "build/run91-recoil-src-694e9df7/rts/Rendering/GL/StreamBuffer.h": "0be518866c031f0c87e6827ddf3c39625b83fee181e2ded5abc3d66a72ea0640",
+          "build/run91-recoil-src-694e9df7/rts/Rendering/GL/RenderBuffers.h": "a58bcbf6105628b263bf4aef1f434ef8bdcda2cfa3efb91d57507df798fd2c05",
+          "artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Rendering/GL/StreamBuffer.h": "0be518866c031f0c87e6827ddf3c39625b83fee181e2ded5abc3d66a72ea0640",
+          "artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Rendering/GL/RenderBuffers.h": "72a1572ad29bea76f498a5a9518c96727d891233015065a17291c6b571aa5c0d"
+        },
+        "after": {
+          "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKMetal4PreparedResource.h": "dc87cbeda402b77a665fe276e5b823b4b1ce3ece055a294177b105a0ea9bc1e7",
+          "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCmdPipeline.h": "db1e37cc82c62139b2f79c84dbd3f2a5da91ed6481d4b3ac3f5bd2892378c273",
+          "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCmdPipeline.mm": "8b09d32ae6d360215c2443c2f4a9aff39895f5797de95f7a0c5a95d1caa56377",
+          "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCommandBuffer.h": "a23cc321eebd7da11ea912dc09fbe7afa1e51c61a707fd9eab6b790d1a2c797a",
+          "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCommandBuffer.mm": "d02dd270eb5d1ce4e115956a075a5ef54467d083954e7a3d366efa2da7368fa0",
+          "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKDescriptorSet.h": "4f5f3b3cde601f493d73445b458f2dd5899c4f3919d454dac6833b9fb77403ee",
+          "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKDescriptorSet.mm": "d6c55de4e7379fa988bbc9c718edd0671f0746ac06900f36e16512984c5ffeff",
+          "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKMetal4Submission.mm": "47b5570d132e86158cac18379a76805d10bcd150221d8cd8fc87c8101dd7ae82",
+          "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCommandEncoderState.h": "b3f64f869dec74a7858826cb6217e7401c2c15863145923b51041cff8bcf59fc",
+          "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCommandEncoderState.mm": "cc47e81c569403e8221631cba7da38dd0f19b0c203a139d9c7866819e2bca026",
+          "build/run91-recoil-src-694e9df7/rts/Rendering/GL/StreamBuffer.h": "44914aceb2f395a922dafabc0974fb7583c560365a96934f3bb03e38c4623b16",
+          "build/run91-recoil-src-694e9df7/rts/Rendering/GL/RenderBuffers.h": "232f45c81ad6304b9163023c81cd5822604998d36e34381605c343f4d275116b",
+          "artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Rendering/GL/StreamBuffer.h": "44914aceb2f395a922dafabc0974fb7583c560365a96934f3bb03e38c4623b16",
+          "artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Rendering/GL/RenderBuffers.h": "6ce94352fc10c6584bea499a903af5b9a11ead6582139cfc58277c4476175fc3"
+        }
+      },
+      "orderIndependentBytes": true
+    },
+    "Small": {
+      "forward": {
+        "route": [
+          "11a-typed-frame-discard:R-and-Small",
+          "08a-conservative-rebind:Small",
+          "06-success-notify:R-and-Small",
+          "07-signal-order-proof:after06",
+          "02-layout-policy:R-and-Small",
+          "03-owned-replay-chain:R-and-Small",
+          "04-compact-cpu-state:after02",
+          "08b-partial-group-replay:R-and-Small",
+          "09-snapshot-unlocked-retain:after08b"
+        ],
+        "exactReverse": true,
+        "before": {
+          "build/run91-recoil-src-694e9df7/rts/Rendering/GL/StreamBuffer.h": "0be518866c031f0c87e6827ddf3c39625b83fee181e2ded5abc3d66a72ea0640",
+          "build/run91-recoil-src-694e9df7/rts/Rendering/GL/RenderBuffers.h": "a58bcbf6105628b263bf4aef1f434ef8bdcda2cfa3efb91d57507df798fd2c05",
+          "artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Rendering/GL/StreamBuffer.h": "0be518866c031f0c87e6827ddf3c39625b83fee181e2ded5abc3d66a72ea0640",
+          "artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Rendering/GL/RenderBuffers.h": "72a1572ad29bea76f498a5a9518c96727d891233015065a17291c6b571aa5c0d",
+          "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCommandEncoderState.h": "dac7a20c3963887d5f054322a2bf7884d347271768dd0a124649f7d25862dade",
+          "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCommandEncoderState.mm": "b1013a4a907210de7f527f550758824d1dfcf5d79b05266a984aa2a1e97e62e3",
+          "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKMetal4Submission.mm": "2e680f300575bdd99816c32252ef62c8ca8ad0398f5cd2543399b915ef8e012f",
+          "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCmdPipeline.mm": "8e663764a00e70ae9b6ede6996da275a9c0aad8a4de632fab8e9ed20e80e1d33",
+          "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKDescriptorSet.h": "fb7583ab4debcf0e8f6afcaa1abc62b87d80e1b457280a77136d3cf5afaae1f5",
+          "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKDescriptorSet.mm": "b87caab357dd43ba2c2cd937dcd7cdd0836c6418f90ddc5d2b90e13022257dc4",
+          "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCommandBuffer.h": "ea6eb8b685fe9a180c2f53faa08b0ca19545a1b764f426c3aac5eadd7b35609a",
+          "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCommandBuffer.mm": "c66515484dfda8a7d5b05ed45622b03f64e9695eedcbb607d4e71387eb354c74",
+          "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCmdPipeline.h": "91de07b4f0304ebaae3811b855c3c72cdc481fbedd6f126680977a541a7dcd53",
+          "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKMetal4PreparedResource.h": "d6222a17d4da569b0abd419f1c7e8b41c2f2101c7acf700e770aa02af7afa653"
+        },
+        "after": {
+          "build/run91-recoil-src-694e9df7/rts/Rendering/GL/StreamBuffer.h": "44914aceb2f395a922dafabc0974fb7583c560365a96934f3bb03e38c4623b16",
+          "build/run91-recoil-src-694e9df7/rts/Rendering/GL/RenderBuffers.h": "232f45c81ad6304b9163023c81cd5822604998d36e34381605c343f4d275116b",
+          "artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Rendering/GL/StreamBuffer.h": "44914aceb2f395a922dafabc0974fb7583c560365a96934f3bb03e38c4623b16",
+          "artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Rendering/GL/RenderBuffers.h": "6ce94352fc10c6584bea499a903af5b9a11ead6582139cfc58277c4476175fc3",
+          "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCommandEncoderState.h": "b3f64f869dec74a7858826cb6217e7401c2c15863145923b51041cff8bcf59fc",
+          "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCommandEncoderState.mm": "5bdb0211ecddf113d66b297c6344f15c070022b4b3a9b5caa54ea15ed204cd0b",
+          "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKMetal4Submission.mm": "47b5570d132e86158cac18379a76805d10bcd150221d8cd8fc87c8101dd7ae82",
+          "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCmdPipeline.mm": "8b09d32ae6d360215c2443c2f4a9aff39895f5797de95f7a0c5a95d1caa56377",
+          "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKDescriptorSet.h": "4f5f3b3cde601f493d73445b458f2dd5899c4f3919d454dac6833b9fb77403ee",
+          "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKDescriptorSet.mm": "d6c55de4e7379fa988bbc9c718edd0671f0746ac06900f36e16512984c5ffeff",
+          "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCommandBuffer.h": "a23cc321eebd7da11ea912dc09fbe7afa1e51c61a707fd9eab6b790d1a2c797a",
+          "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCommandBuffer.mm": "d02dd270eb5d1ce4e115956a075a5ef54467d083954e7a3d366efa2da7368fa0",
+          "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCmdPipeline.h": "db1e37cc82c62139b2f79c84dbd3f2a5da91ed6481d4b3ac3f5bd2892378c273",
+          "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKMetal4PreparedResource.h": "dc87cbeda402b77a665fe276e5b823b4b1ce3ece055a294177b105a0ea9bc1e7"
+        }
+      },
+      "alternate": {
+        "route": [
+          "09-snapshot-unlocked-retain:R-and-Small",
+          "08b-partial-group-replay:after09",
+          "04-compact-cpu-state:R-and-Small",
+          "03-owned-replay-chain:R-and-Small",
+          "02-layout-policy:after04",
+          "07-signal-order-proof:R-and-Small",
+          "06-success-notify:after07",
+          "08a-conservative-rebind:Small",
+          "11a-typed-frame-discard:R-and-Small"
+        ],
+        "exactReverse": true,
+        "before": {
+          "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKMetal4PreparedResource.h": "d6222a17d4da569b0abd419f1c7e8b41c2f2101c7acf700e770aa02af7afa653",
+          "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCmdPipeline.h": "91de07b4f0304ebaae3811b855c3c72cdc481fbedd6f126680977a541a7dcd53",
+          "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCmdPipeline.mm": "8e663764a00e70ae9b6ede6996da275a9c0aad8a4de632fab8e9ed20e80e1d33",
+          "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCommandBuffer.h": "ea6eb8b685fe9a180c2f53faa08b0ca19545a1b764f426c3aac5eadd7b35609a",
+          "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCommandBuffer.mm": "c66515484dfda8a7d5b05ed45622b03f64e9695eedcbb607d4e71387eb354c74",
+          "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKDescriptorSet.h": "fb7583ab4debcf0e8f6afcaa1abc62b87d80e1b457280a77136d3cf5afaae1f5",
+          "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKDescriptorSet.mm": "b87caab357dd43ba2c2cd937dcd7cdd0836c6418f90ddc5d2b90e13022257dc4",
+          "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKMetal4Submission.mm": "2e680f300575bdd99816c32252ef62c8ca8ad0398f5cd2543399b915ef8e012f",
+          "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCommandEncoderState.h": "dac7a20c3963887d5f054322a2bf7884d347271768dd0a124649f7d25862dade",
+          "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCommandEncoderState.mm": "b1013a4a907210de7f527f550758824d1dfcf5d79b05266a984aa2a1e97e62e3",
+          "build/run91-recoil-src-694e9df7/rts/Rendering/GL/StreamBuffer.h": "0be518866c031f0c87e6827ddf3c39625b83fee181e2ded5abc3d66a72ea0640",
+          "build/run91-recoil-src-694e9df7/rts/Rendering/GL/RenderBuffers.h": "a58bcbf6105628b263bf4aef1f434ef8bdcda2cfa3efb91d57507df798fd2c05",
+          "artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Rendering/GL/StreamBuffer.h": "0be518866c031f0c87e6827ddf3c39625b83fee181e2ded5abc3d66a72ea0640",
+          "artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Rendering/GL/RenderBuffers.h": "72a1572ad29bea76f498a5a9518c96727d891233015065a17291c6b571aa5c0d"
+        },
+        "after": {
+          "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKMetal4PreparedResource.h": "dc87cbeda402b77a665fe276e5b823b4b1ce3ece055a294177b105a0ea9bc1e7",
+          "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCmdPipeline.h": "db1e37cc82c62139b2f79c84dbd3f2a5da91ed6481d4b3ac3f5bd2892378c273",
+          "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCmdPipeline.mm": "8b09d32ae6d360215c2443c2f4a9aff39895f5797de95f7a0c5a95d1caa56377",
+          "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCommandBuffer.h": "a23cc321eebd7da11ea912dc09fbe7afa1e51c61a707fd9eab6b790d1a2c797a",
+          "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCommandBuffer.mm": "d02dd270eb5d1ce4e115956a075a5ef54467d083954e7a3d366efa2da7368fa0",
+          "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKDescriptorSet.h": "4f5f3b3cde601f493d73445b458f2dd5899c4f3919d454dac6833b9fb77403ee",
+          "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKDescriptorSet.mm": "d6c55de4e7379fa988bbc9c718edd0671f0746ac06900f36e16512984c5ffeff",
+          "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKMetal4Submission.mm": "47b5570d132e86158cac18379a76805d10bcd150221d8cd8fc87c8101dd7ae82",
+          "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCommandEncoderState.h": "b3f64f869dec74a7858826cb6217e7401c2c15863145923b51041cff8bcf59fc",
+          "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCommandEncoderState.mm": "5bdb0211ecddf113d66b297c6344f15c070022b4b3a9b5caa54ea15ed204cd0b",
+          "build/run91-recoil-src-694e9df7/rts/Rendering/GL/StreamBuffer.h": "44914aceb2f395a922dafabc0974fb7583c560365a96934f3bb03e38c4623b16",
+          "build/run91-recoil-src-694e9df7/rts/Rendering/GL/RenderBuffers.h": "232f45c81ad6304b9163023c81cd5822604998d36e34381605c343f4d275116b",
+          "artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Rendering/GL/StreamBuffer.h": "44914aceb2f395a922dafabc0974fb7583c560365a96934f3bb03e38c4623b16",
+          "artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Rendering/GL/RenderBuffers.h": "6ce94352fc10c6584bea499a903af5b9a11ead6582139cfc58277c4476175fc3"
+        }
+      },
+      "orderIndependentBytes": true
+    }
+  },
+  "moduleManifestHashes": {
+    "08b-partial-group-replay": "6ee79959876d62ce9f878e415155aafb407ed18d3e4f7420aae9bd58bfc736b0",
+    "11a-typed-frame-discard": "9335ab6cfad46e0cdf2e164356f72d284438ee3f4d99689a949d1e65e851762f",
+    "02-layout-policy": "df0101b8b8dc6976be56411e1cf82954228552c76a26759d01dda6a3d6629def",
+    "04-compact-cpu-state": "01ac55033cdb14f9a7f5e206e9c2d5bd433b1a4f7ad2c440ff030beae0fe9b80",
+    "06-success-notify": "75923ad444701cba128b291fb8ec166a04f3dad6bf9c2b44ad82e48704ed969f",
+    "03-owned-replay-chain": "fbe2dac235aa914b24e60d08867272fed3ed9fb69e8231c797e2b250c195ef29",
+    "07-signal-order-proof": "24d4106bc2f24e080eb4add2d71770ab079388873a0d26ec5203f775b0b02e1e",
+    "09-snapshot-unlocked-retain": "4cf910b85748584ab40ae11fc94d1c5528d1250dddc8a799c315bd03274368c2",
+    "08a-conservative-rebind": "4f976fe43fc952317c5fc57a28b3808b1b65b3147263ac849aa1da6a160b65a5"
+  },
+  "activeSourceWrites": 0,
+  "productBuilds": 0,
+  "gameSessions": 0,
+  "limits": "Nine prepared modules only,14 distinct target files. Complete bytes and reversal are proved; GPU behavior, performance and safe simultaneous adoption are not."
+}

@@ -1,0 +1,29 @@
+{
+  "module": "02-layout-policy",
+  "compile": [
+    "/usr/bin/clang++",
+    "-std=c++17",
+    "-O1",
+    "-g",
+    "-DMVK_BUILD_METAL4_FOUNDATION=1",
+    "-fsanitize=address,undefined",
+    "-fno-omit-frame-pointer",
+    "-pthread",
+    "-I/Users/yeojun/Desktop/BAR-AppleSilicon-App/build/run66-vulkan-headers-src-20260903/include",
+    "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-modular-preparation-20261022/layout-cpu-attempt1/fixture.cpp",
+    "-o",
+    "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-modular-preparation-20261022/layout-cpu-attempt1/check"
+  ],
+  "compileExit": 0,
+  "sourceSHA256": "130470417df2c9194bcd29142aef4de5c58db1f9e5f90baa4dcc41b5f0ec0c5e",
+  "productBuilds": 0,
+  "activeSourceWrites": 0,
+  "actualGPU": false,
+  "status": "passed-cpu-contracts-only",
+  "runExit": 0,
+  "result": {
+    "status": "passed",
+    "checks": 9798,
+    "actualGPU": false
+  }
+}

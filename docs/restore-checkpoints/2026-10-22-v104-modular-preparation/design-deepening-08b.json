@@ -1,0 +1,44 @@
+{
+  "status": "source-design-reviewed-before-code",
+  "scope": "Only MVKMetal4PreparedGroupSnapshot replay; unchanged covered binding slices in a recording-local proof",
+  "parentSHA256": "d6222a17d4da569b0abd419f1c7e8b41c2f2101c7acf700e770aa02af7afa653",
+  "reviewer": "/root/independent_review",
+  "invariants": [
+    "Stamp valid and same script/stage/set mask/set incarnation before any partial use",
+    "Each kept binding has a nonzero unchanged revision; original covered/resources mapping was validated at remember",
+    "Resource cursor advances over both changed and kept slices; combined covered/residual is the same complete ordinal partition",
+    "All copied resources still pass fresh native retention/live membership/proof checks; errors never become misses",
+    "Original entry remains strongly owned through callbacks and Miss cleanup compares its identity under mutex",
+    "Partial Hit requires retained output and clears capture, preventing residual-only global snapshot publication",
+    "Derived proof uses current before stamp; recording cache remembers only after unchanged final stamp",
+    "The global entry is never replaced by the derived partial proof; only CPU metadata and weak resource proofs are copied",
+    "No survivors, no output consumer, invalid identity and allocation failure fall back to Miss"
+  ],
+  "counterexamples": [
+    "Skipping a changed resource slice reuses the wrong following resources",
+    "Treating revision zero as reusable defeats invalidation",
+    "Leaving capture true after a partial hit can publish an incomplete group plan",
+    "Deleting the current global entry after a replaced old entry misses creates an ABA-style invalidation bug"
+  ],
+  "bounds": {
+    "bindings": 64,
+    "resources": 64,
+    "allocations": "Count positive survivors before up to four bounded allocations; in-flight recordings may each retain one derived CPU proof"
+  },
+  "composition": "baseline/after09 plus 09 after08b, compare both orders byte-exact",
+  "validation": "Whole production header CPU cases for partition/slices/null consumer/weak proof/replacement/failure/OOM/recording-cache stable stamp; full ObjC++ TU syntax via VFS",
+  "activationOpen": [
+    "Actual resource lifetime and partial path GPU fixture",
+    "BAR mixed-churn reach and net allocation-versus-prepare cost",
+    "Performance after frozen R/Small comparison"
+  ],
+  "activeSourceWrites": 0,
+  "productBuilds": 0,
+  "gameSessions": 0,
+  "reviewedRefinement": {
+    "reviewer": "/root/independent_review",
+    "behavior": "First new combination may derive a partial proof; a repeated snapshot observation with capture=true returns Miss into existing whole-group prepare/remember. No direct global promotion added. Rejected capture may still derive repeatedly.",
+    "guard": "if (!retained || capture) return Miss",
+    "originalDesignPreserved": "The original global entry is unchanged by partial replay. The normal full-capture path may replace it only with before==after."
+  }
+}

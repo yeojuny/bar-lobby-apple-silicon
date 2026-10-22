@@ -1,0 +1,328 @@
+{
+  "status": "accepted-prepared-local-package-not-activated",
+  "createdUTC": "2026-10-22T18:21:27.151873+00:00",
+  "blockingFindings": [],
+  "actionableFindings": [],
+  "resolvedFindings": [
+    {
+      "item": "compact completion four historical patch readPins named mutable current paths",
+      "resolution": "Preserved old completion; historical paths moved to retained preimage; current four patch pins added; root dependent hashes refreshed",
+      "correctedCompletionSHA256": "aef4fcae224d1772afb5758971cbd0302755c965a45b4aec4151026c7a65d7fe"
+    }
+  ],
+  "counts": {
+    "originalGroups": 13,
+    "newCapsules": 9,
+    "newCodeGroups": 8,
+    "designOnlyGroups": [
+      5,
+      10,
+      12,
+      13
+    ],
+    "additionalDesignOnly": "11b",
+    "variants": 16,
+    "distinctTargets": 14,
+    "completeParentOrderRoutes": 4,
+    "pairedStagedRoutes": 6,
+    "finalCombinedSyntaxConfigurations": 10,
+    "recordedFrozenPins": 49,
+    "appEntriesEach": 1194,
+    "plansEachDirection": 8,
+    "newGameGrants": 0,
+    "newExecutionReceipts": 0
+  },
+  "syntaxScope": "Five TUs x Foundation0/1; latest combined overlay uses Small08a; R complete combination byte/restore checks separate",
+  "reviewedReportSHA256": "019bb81eb116ef8b302d583e9c0ea4ad29b29c4490d86adaf9db22fb31d16c55",
+  "reviewedCompletionSHA256": "96fd005e63db932ec63afc5ceb51122083e8a7b41d18308c77505d6ab0a8b9a9",
+  "reportSHA256": "ac4b1f7cad2e6fd9132bf571d2d8443047d1e6dcaa1e43bc21f78e7a9c070d3d",
+  "readPins": [
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/README.md",
+      "sha256": "019bb81eb116ef8b302d583e9c0ea4ad29b29c4490d86adaf9db22fb31d16c55",
+      "bytes": 8335
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/QUEUE.json",
+      "sha256": "17484ee556705238ed1547ca6e792d47a6ab52b1ab14f3933ba39b311b92be58",
+      "bytes": 6415
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/patch-validation-final.json",
+      "sha256": "123296bee7028e372d32b17f8a3ec34d45c6d7d3548f93090883167c9bc02367",
+      "bytes": 43202
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/complete-composition.json",
+      "sha256": "60dd496e8b76ba4d79d6454245524a3871beea0900bb5c78cbe8ffc40f627afe",
+      "bytes": 21870
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/frozen-inputs-final.json",
+      "sha256": "023ed209a7d6c63e312e122da29e63d3a0b5718c7c6c73d8599ec1df45f3145e",
+      "bytes": 1358
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/active-input-pins.json",
+      "sha256": "e78050719872bd0ec80158af2bbc5f74b4d551ec9698fb51392fde581cee8954",
+      "bytes": 7401
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/verify-frozen-inputs.py",
+      "sha256": "f9dc6612bbcc8bf5bddc880d1ea5dbe019f024304bf942a26d5fbce0405bd220",
+      "bytes": 4493
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/completion.json",
+      "sha256": "96fd005e63db932ec63afc5ceb51122083e8a7b41d18308c77505d6ab0a8b9a9",
+      "bytes": 3189
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/all-mvk-modules-syntax-final/receipt.json",
+      "sha256": "578ee3022b54bba6d556fae203ad6c30f4a0e04df2de11cd63879149f89a2422",
+      "bytes": 52448
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/all-mvk-modules-syntax-final/overlay.json",
+      "sha256": "b8f6843dcddd775a014fb44994255eadb322a80fca1f4489e5a46b09b1320292",
+      "bytes": 3819
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/independent-sync-source-review.md",
+      "sha256": "6edb3e0dc92624e8199d3582c1f75b6c15d95f51deb3b7314e3833afac554e07",
+      "bytes": 2495
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/independent-sync-source-review.json",
+      "sha256": "aca85df4a77b4dc3fadf7f2c4dfe9273a0f82dff30f62dc297479e88d1373d0b",
+      "bytes": 1335
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/independent-compact-source-review.md",
+      "sha256": "0bdd7362eb40f76ecad87d870b2c045a37a813b74fa4e5782f6d5eb0ba9232b3",
+      "bytes": 2172
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/independent-compact-source-review.json",
+      "sha256": "a2f3ced591d47569368ef30cc896fc0d67d0c027474cbaa277a07c9f2b0fb88a",
+      "bytes": 1073
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/compact-completion.json",
+      "sha256": "aef4fcae224d1772afb5758971cbd0302755c965a45b4aec4151026c7a65d7fe",
+      "bytes": 18963
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/compact-comment-correction/completion.json",
+      "sha256": "4ae3dccaf85065d8b0c1ae48bb53667bfa53ad86cc68dc560df3e73f5d273eaa",
+      "bytes": 3201
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/compact-comment-correction/compact-completion-before-pin-correction.json",
+      "sha256": "962f27afb6c57ea3bdea688f7762540fac5c758f2c95834e0d94478010f22f1e",
+      "bytes": 15754
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/independent-partial-source-addendum.json",
+      "sha256": "89509a1949bcfa7b076532ab61ded60dcfb410a95901369c5794a992f492b493",
+      "bytes": 4415
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/independent-remaining-design-review.json",
+      "sha256": "6797b6d741d44a99fda9bced8488013f4a73d76787f16168f82e3c78a7028491",
+      "bytes": 4371
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/independent-module-review.json",
+      "sha256": "e0c04dc067314e402d9313ba4e96ec9e6fec5160ceb8d2b1c6b57515bf17aef8",
+      "bytes": 15249
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/independent-control-source-review.json",
+      "sha256": "73695e35853f83bb05eb5853645381d110a719fb7e52225be1c0bb7ca1e9a653",
+      "bytes": 10792
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/modules/02-layout-policy/module.json",
+      "sha256": "df0101b8b8dc6976be56411e1cf82954228552c76a26759d01dda6a3d6629def",
+      "bytes": 4950
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/modules/03-owned-replay-chain/module.json",
+      "sha256": "fbe2dac235aa914b24e60d08867272fed3ed9fb69e8231c797e2b250c195ef29",
+      "bytes": 2208
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/modules/04-compact-cpu-state/module.json",
+      "sha256": "01ac55033cdb14f9a7f5e206e9c2d5bd433b1a4f7ad2c440ff030beae0fe9b80",
+      "bytes": 4168
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/modules/06-success-notify/module.json",
+      "sha256": "75923ad444701cba128b291fb8ec166a04f3dad6bf9c2b44ad82e48704ed969f",
+      "bytes": 2863
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/modules/07-signal-order-proof/module.json",
+      "sha256": "24d4106bc2f24e080eb4add2d71770ab079388873a0d26ec5203f775b0b02e1e",
+      "bytes": 3084
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/modules/08a-conservative-rebind/module.json",
+      "sha256": "4f976fe43fc952317c5fc57a28b3808b1b65b3147263ac849aa1da6a160b65a5",
+      "bytes": 4191
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/modules/08b-partial-group-replay/module.json",
+      "sha256": "6ee79959876d62ce9f878e415155aafb407ed18d3e4f7420aae9bd58bfc736b0",
+      "bytes": 2872
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/modules/09-snapshot-unlocked-retain/module.json",
+      "sha256": "4cf910b85748584ab40ae11fc94d1c5528d1250dddc8a799c315bd03274368c2",
+      "bytes": 2509
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/modules/11a-typed-frame-discard/module.json",
+      "sha256": "9335ab6cfad46e0cdf2e164356f72d284438ee3f4d99689a949d1e65e851762f",
+      "bytes": 3806
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/queue/01/module.json",
+      "sha256": "8b157dba8a8e452c547f0fbc8c1dfe923579cd289a11ad262d46f299d44d289c",
+      "bytes": 2641
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/queue/02/module.json",
+      "sha256": "97c1d5ab41f071a4d8573a6d5844f38c756a79629000a7de9535912610396edf",
+      "bytes": 2662
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/queue/03/module.json",
+      "sha256": "c978b514c600466a3f469cd2d6b877485b956980c640eb7f66c0811c564aa334",
+      "bytes": 2803
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/queue/04/module.json",
+      "sha256": "2465669cd67dfd49def74dee27f7fb75f3e698ed66016ca84b3f01723e199605",
+      "bytes": 2940
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/queue/05/module.json",
+      "sha256": "e7743a471f9f99b678e17619dbc209353ee9ddb9e3eb180fc1861d26c0ae5f3b",
+      "bytes": 2715
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/queue/06/module.json",
+      "sha256": "c46469d4413d1305130d0765493b38b28b94308c7d5740802d6a28ac36096e4e",
+      "bytes": 2799
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/queue/07/module.json",
+      "sha256": "06b6bb8ddebad94e06c94f8fd6ba7a358b579ac59e29adefbdcfd52e8b4d17a3",
+      "bytes": 2965
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/queue/08/module.json",
+      "sha256": "091c9bb19e6342c8e8da7e571275d2d12447a48de7c8ce39636e2c41f79bf06a",
+      "bytes": 3196
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/queue/09/module.json",
+      "sha256": "11cb8ae77a30f13ad4af6a65fafd79db70fe26471a11d501e32d2a54cc750164",
+      "bytes": 2913
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/queue/10/module.json",
+      "sha256": "48904755750140c03f405f60256307f34a4a3b472dcb527a35c0a905df3405c9",
+      "bytes": 2674
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/queue/11/module.json",
+      "sha256": "165e277c46246538abd469c6bb73d79882dc2d54d492b05213d657866140e604",
+      "bytes": 2924
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/queue/12/module.json",
+      "sha256": "722fb070600a84ba7490a21a6cc7b3028ec0579b02b3c645a8c7857a209f035c",
+      "bytes": 2836
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/queue/13/module.json",
+      "sha256": "0b4e3b06b54ef182f16e126e7ef0a36be6db8460c7bb6858a9a3fe9e2d1b8c31",
+      "bytes": 2995
+    },
+    {
+      "path": "artifacts/validation/v104-remaining-optimization-inventory-20261021/inventory.json",
+      "sha256": "de10dbebe8418d34de05378ce056d4f4cda3fb2f3e33741592c1110b7dd7e744",
+      "bytes": 20260
+    },
+    {
+      "path": "artifacts/validation/v104-optimization-precedents-20261021/external-assessment.json",
+      "sha256": "7f816ec3a8a99859aa4ed6a4e68f93b24c2a31445c757013b4e10cd50961f50f",
+      "bytes": 101328
+    },
+    {
+      "path": "artifacts/validation/v104-optimization-risk-return-20261021/independent-assessment.json",
+      "sha256": "e1939ee82ad3445d1609f398b0ae7c06cec636ac8c7061de8d44c7037245b05f",
+      "bytes": 52988
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/compact-preparation.md",
+      "sha256": "662426dac139b120e49a1d4e4bd75cc71d522173775574d55ae6ad30abdfad20",
+      "bytes": 3907
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/modules/04-compact-cpu-state/R-and-Small.patch",
+      "sha256": "6702f04c30ae6800a6d3b7dbfeb1268afe11098d9c2c8416caa3e7c704887bd7",
+      "bytes": 2358
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/modules/04-compact-cpu-state/R-and-Small.reverse.patch",
+      "sha256": "06a30794d8fb7f32bae8a719abceaaec79d1d2e7f1d03525ee6cae0334cc563e",
+      "bytes": 2358
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/modules/04-compact-cpu-state/after02.patch",
+      "sha256": "2700914b735545b51dc40bce07ce9ec67fb0144fbc4c46077d3b3c3920f1016c",
+      "bytes": 2358
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/modules/04-compact-cpu-state/after02.reverse.patch",
+      "sha256": "3a6bada08691eb50f3d247399c15927fa4fce319c291a00ba0b4007ae3d79a8a",
+      "bytes": 2358
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/compact-comment-correction/preimage/modules/04-compact-cpu-state/R-and-Small.patch",
+      "sha256": "33666bea1bded2a382a3203dd9d730bb38a75daa498de6335d2e258da832ba95",
+      "bytes": 1845
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/compact-comment-correction/preimage/modules/04-compact-cpu-state/R-and-Small.reverse.patch",
+      "sha256": "f0a1e5c49057325f9941b826ca7ab5451963dce0551a162fd42aa41aef48c84d",
+      "bytes": 1845
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/compact-comment-correction/preimage/modules/04-compact-cpu-state/after02.patch",
+      "sha256": "4e0f5d2613bb8c100226a6c9a442f8884587d48253e7a46a9683f2b92628a1ee",
+      "bytes": 1845
+    },
+    {
+      "path": "artifacts/validation/v104-modular-preparation-20261022/compact-comment-correction/preimage/modules/04-compact-cpu-state/after02.reverse.patch",
+      "sha256": "ea47ec75941cb53c1a57733fac6fd93d383343f92852e883ca8abb5acf0144cb",
+      "bytes": 1845
+    }
+  ],
+  "all13Implemented": false,
+  "activationReady": false,
+  "runtimeOrFPSBenefitEstablished": false,
+  "remotePublicationCertified": false,
+  "reviewerExecution": {
+    "activeProductWrites": 0,
+    "validatorReruns": 0,
+    "newBuildTestGPUAppGameBenchmark": 0,
+    "fullAppHashOSSampling": 0,
+    "newAgentRemoteCleanup": 0,
+    "recordOnlyCorrection": true
+  }
+}

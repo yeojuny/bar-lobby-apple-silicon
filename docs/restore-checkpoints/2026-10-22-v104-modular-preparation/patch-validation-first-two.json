@@ -1,0 +1,112 @@
+{
+  "status": "passed-source-capsule-validation",
+  "activeSourceWrites": 0,
+  "productBuilds": 0,
+  "gameSessions": 0,
+  "variants": [
+    {
+      "module": "08a-conservative-rebind",
+      "variant": "R",
+      "forwardReverseExact": true,
+      "negativeCases": {
+        "changedParent": true,
+        "doubleApply": true,
+        "reverseOnParent": true,
+        "missingFile": true
+      },
+      "liveParentComparison": {
+        "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCommandEncoderState.h": {
+          "sha256": "dac7a20c3963887d5f054322a2bf7884d347271768dd0a124649f7d25862dade",
+          "mode": 420,
+          "parentMatches": true
+        },
+        "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCommandEncoderState.mm": {
+          "sha256": "b1013a4a907210de7f527f550758824d1dfcf5d79b05266a984aa2a1e97e62e3",
+          "mode": 420,
+          "parentMatches": false
+        }
+      }
+    },
+    {
+      "module": "08a-conservative-rebind",
+      "variant": "Small",
+      "forwardReverseExact": true,
+      "negativeCases": {
+        "changedParent": true,
+        "doubleApply": true,
+        "reverseOnParent": true,
+        "missingFile": true
+      },
+      "liveParentComparison": {
+        "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCommandEncoderState.h": {
+          "sha256": "dac7a20c3963887d5f054322a2bf7884d347271768dd0a124649f7d25862dade",
+          "mode": 420,
+          "parentMatches": true
+        },
+        "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCommandEncoderState.mm": {
+          "sha256": "b1013a4a907210de7f527f550758824d1dfcf5d79b05266a984aa2a1e97e62e3",
+          "mode": 420,
+          "parentMatches": true
+        }
+      }
+    },
+    {
+      "module": "11a-typed-frame-discard",
+      "variant": "R-and-Small",
+      "forwardReverseExact": true,
+      "negativeCases": {
+        "changedParent": true,
+        "doubleApply": true,
+        "reverseOnParent": true,
+        "missingFile": true
+      },
+      "liveParentComparison": {
+        "build/run91-recoil-src-694e9df7/rts/Rendering/GL/StreamBuffer.h": {
+          "sha256": "0be518866c031f0c87e6827ddf3c39625b83fee181e2ded5abc3d66a72ea0640",
+          "mode": 420,
+          "parentMatches": true
+        },
+        "build/run91-recoil-src-694e9df7/rts/Rendering/GL/RenderBuffers.h": {
+          "sha256": "a58bcbf6105628b263bf4aef1f434ef8bdcda2cfa3efb91d57507df798fd2c05",
+          "mode": 420,
+          "parentMatches": true
+        },
+        "artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Rendering/GL/StreamBuffer.h": {
+          "sha256": "0be518866c031f0c87e6827ddf3c39625b83fee181e2ded5abc3d66a72ea0640",
+          "mode": 420,
+          "parentMatches": true
+        },
+        "artifacts/runtime/run94-chobby-official-20260704-20260924/source/rts/Rendering/GL/RenderBuffers.h": {
+          "sha256": "72a1572ad29bea76f498a5a9518c96727d891233015065a17291c6b571aa5c0d",
+          "mode": 420,
+          "parentMatches": true
+        }
+      }
+    }
+  ],
+  "composition": [
+    {
+      "left": [
+        "08a-conservative-rebind",
+        "R"
+      ],
+      "right": [
+        "11a-typed-frame-discard",
+        "R-and-Small"
+      ],
+      "status": "disjoint-postimages-commute-and-reverse-exact"
+    },
+    {
+      "left": [
+        "08a-conservative-rebind",
+        "Small"
+      ],
+      "right": [
+        "11a-typed-frame-discard",
+        "R-and-Small"
+      ],
+      "status": "disjoint-postimages-commute-and-reverse-exact"
+    }
+  ],
+  "limits": "Memory-only exact patch validation. Does not authorize activation or prove ABI, GPU correctness or performance."
+}

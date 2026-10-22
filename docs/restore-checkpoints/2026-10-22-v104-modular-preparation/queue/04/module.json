@@ -1,0 +1,44 @@
+{
+  "number": 4,
+  "title": "compact UBO push의 조건부 조기 CPU State 기록 확대",
+  "source": "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCmdPipeline.h",
+  "existingWork": "MVKCmdPushDescriptorSetWithTemplate는 compact capture를 하지만 getMetal4RecordPolicy override가 없어 Deferred.",
+  "missingEvidence": "작업을 기록 단계로 옮길 뿐 총 CPU 일이 줄지 않을 수 있음.",
+  "requiredBoundary": "encoder의 독립 layout 소유권·mapped 최신 입력·fallback 순서/시점 검증 필요.",
+  "risk": {
+    "function": "높음: push/draw/query/fallback 순서와 mapped payload 최신 의미.",
+    "lifetime": "높음: pooled command가 layout을 release/reuse한 후 encoder가 raw layout을 계속 참조하는 반례. 독립 encoder 소유 계약 필요.",
+    "synchronization": "중간~높음: prepared→Deferred 전환/submit adoption 및 실패 경계.",
+    "memory": "조기 encoder/native pack과 장기 layout/native owner를 추가로 보유할 수 있음."
+  },
+  "sourceReferences": [
+    "mvk-pr2845",
+    "mvk-pr2846",
+    "angle-metal",
+    "benbreen-kk-descriptor"
+  ],
+  "status": "source-capsule-prepared-early-native-path-gates-activation",
+  "strategy": "Prepared compact singleton-UBO capture only as State, with independent encoder layout ownership. Command-owned normalized metadata is copied to encoder CPU descriptors; no mapped UBO contents are snapshotted. Native buffer address resolution moves earlier; valid bound resource identity and existing host visibility remain required. Mixed/generic capture stays Deferred.",
+  "acceptance": [
+    "Demonstrate less total or critical-path work, not merely moving work to recording",
+    "Review a lifetime/state table for recorded, unsubmitted, adopted, cancelled and reset commands",
+    "Independent reviewer closes layout reuse and mutable mapped-input counterexamples"
+  ],
+  "tests": [
+    "Existing recording group/ownership fixtures for destroy-after-record, cancel/reset, mixed fallback, query/pass order",
+    "Functional GPU cases after source/build; no broad early-record enable"
+  ],
+  "codeModules": [
+    "04-compact-cpu-state"
+  ],
+  "interactions": [
+    2,
+    3
+  ],
+  "dependencyMeaning": "Interactions require re-review; they are not permission to enable all related changes together.",
+  "designStage": "Exact source capsules where named; broader missing-target/ownership/pass designs remain gated where stated",
+  "codeActivationAutomatic": false,
+  "FPSBenefitEstablished": false,
+  "stopRule": "Any unclosed correctness/lifetime counterexample, changed parent, failed check or unclear measurement stops this module. Preserve failure evidence; no automatic replay.",
+  "rollback": "Prepared source module: exact reverse patch only against its postimage, refresh mtimes and rebuild all affected headers. No-code module: active product remains unchanged; no invented reverse patch."
+}

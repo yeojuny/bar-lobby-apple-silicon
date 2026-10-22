@@ -1,0 +1,3141 @@
+/* Copyright (c) 2026. Licensed under the Apache License, Version 2.0. */
+#include "MVKMetal4Submission.h"
+#include "MVKBackendTimeline.h"
+#include "MVKMetal4ArgumentTable.h"
+#include "MVKMetal4AllocationLifetime.h"
+#include "MVKMetal4PreparedResource.h"
+#include <mutex>
+#include <condition_variable>
+#include <chrono>
+#include <cstring>
+#include <algorithm>
+#include <vector>
+#include <cstdlib>
+#include <map>
+#include <atomic>
+#include <unordered_map>
+#include <limits>
+#include <cinttypes>
+#include <cstdio>
+#include <cmath>
+#include <string>
+#include <cassert>
+#include <utility>
+#include <mach/mach_time.h>
+#import <objc/runtime.h>
+
+struct MVKMetal4DrawableBinding {
+    id<MTLDrawable> drawable;
+    explicit MVKMetal4DrawableBinding(id<MTLDrawable> value) : drawable([value retain]) {}
+    ~MVKMetal4DrawableBinding() { [drawable release]; }
+};
+
+// Immutable metadata is attached before publishing a newly created texture or
+// an acquired drawable. The weak binding avoids texture -> drawable -> texture
+// cycles; registry/submission ownership supplies the actual strong references.
+@interface MVKMetal4TextureOwnership : NSObject {
+@public
+    bool ordinary;
+    uint64_t generation;
+    std::weak_ptr<MVKMetal4DrawableBinding> binding;
+}
+@end
+@implementation MVKMetal4TextureOwnership
+@end
+
+namespace {
+char textureOwnershipKey;
+MVKMetal4TextureOwnership* ordinaryTextureOwnership() {
+    static MVKMetal4TextureOwnership* value = [] {
+        auto* result = [MVKMetal4TextureOwnership new];
+        result->ordinary = true;
+        return result;
+    }();
+    return value;
+}
+struct TextureOwnershipSnapshot {
+    bool ordinary = false;
+    uint64_t generation = 0;
+    std::shared_ptr<MVKMetal4DrawableBinding> binding;
+};
+TextureOwnershipSnapshot textureOwnership(id<MTLTexture> texture) {
+    while (texture) {
+        auto* source = static_cast<MVKMetal4TextureOwnership*>(objc_getAssociatedObject(texture, &textureOwnershipKey));
+        if (source) {
+            if (source->ordinary) { return {true, 0, {}}; }
+            if (auto binding = source->binding.lock()) { return {false, source->generation, std::move(binding)}; }
+        }
+        id<MTLTexture> parent = texture.parentTexture;
+        if (parent == texture) { break; }
+        texture = parent;
+    }
+    return {};
+}
+// Stack-only evidence scope; keeps neither a submission nor a public wrapper alive.
+#if MVK_ENABLE_CUSTOM_DIAGNOSTICS
+struct NativeTimelineSpan {
+    MVKBackendTimeline* timeline;
+    MVKBackendTimelineKind kind;
+    uint64_t entity, related;
+    double start;
+    uint32_t flags = 0;
+    NativeTimelineSpan(MVKBackendTimeline* t, MVKBackendTimelineKind k, uint64_t e, uint64_t r)
+        : timeline(t), kind(k), entity(e), related(r), start(t ? t->clock() : 0) {}
+    ~NativeTimelineSpan() {
+        if (timeline) { timeline->record(kind, start, timeline->clock(), entity, related, 0, flags); }
+    }
+};
+void mergeEncodingStats(MVKMetal4EncodingStats& total, const MVKMetal4EncodingStats& stats);
+struct EncodingStatField { const char* name; uint64_t MVKMetal4EncodingStats::*member; };
+constexpr EncodingStatField encodingStatFields[] = {
+    {"drawCalls", &MVKMetal4EncodingStats::drawCalls},
+    {"indirectDrawCalls", &MVKMetal4EncodingStats::indirectDrawCalls},
+    {"converted", &MVKMetal4EncodingStats::converted},
+    {"provokingVertex", &MVKMetal4EncodingStats::provokingVertex},
+    {"listRestart", &MVKMetal4EncodingStats::listRestart},
+    {"stripRestart", &MVKMetal4EncodingStats::stripRestart},
+    {"fan", &MVKMetal4EncodingStats::fan},
+    {"uint8Indices", &MVKMetal4EncodingStats::uint8Indices},
+    {"restartKernelCalls", &MVKMetal4EncodingStats::restartKernelCalls},
+    {"fusedRestartKernelCalls", &MVKMetal4EncodingStats::fusedRestartKernelCalls},
+    {"batchedRestartDispatches", &MVKMetal4EncodingStats::batchedRestartDispatches},
+    {"batchedRestartDraws", &MVKMetal4EncodingStats::batchedRestartDraws},
+    {"maxInputCountSum", &MVKMetal4EncodingStats::maxInputCountSum},
+    {"maxInputCountMax", &MVKMetal4EncodingStats::maxInputCountMax},
+    {"directInputCountSum", &MVKMetal4EncodingStats::directInputCountSum},
+    {"indirectBoundCountSum", &MVKMetal4EncodingStats::indirectBoundCountSum},
+    {"scratchBytes", &MVKMetal4EncodingStats::scratchBytes},
+    {"renderWasActive", &MVKMetal4EncodingStats::renderWasActive},
+    {"prepassBatches", &MVKMetal4EncodingStats::prepassBatches},
+    {"preconvertedDraws", &MVKMetal4EncodingStats::preconvertedDraws},
+    {"renderPasses", &MVKMetal4EncodingStats::renderPasses},
+    {"prepassHandoffBatches", &MVKMetal4EncodingStats::prepassHandoffBatches},
+    {"prepassLeadingOrdinaryDraws", &MVKMetal4EncodingStats::prepassLeadingOrdinaryDraws},
+    {"prepassDeferredWaits", &MVKMetal4EncodingStats::prepassDeferredWaits},
+    {"prepassHandoffFallbacks", &MVKMetal4EncodingStats::prepassHandoffFallbacks},
+    {"fusedSignalSubmits", &MVKMetal4EncodingStats::fusedSignalSubmits},
+    {"computePasses", &MVKMetal4EncodingStats::computePasses},
+    {"computeBarrierContinuations", &MVKMetal4EncodingStats::computeBarrierContinuations},
+    {"independentCopyRegions", &MVKMetal4EncodingStats::independentCopyRegions},
+    {"clearHelperRestores", &MVKMetal4EncodingStats::clearHelperRestores},
+    {"indirectConversionBatches", &MVKMetal4EncodingStats::indirectConversionBatches},
+    {"indirectBatchedDraws", &MVKMetal4EncodingStats::indirectBatchedDraws},
+    {"indirectBatchFallbacks", &MVKMetal4EncodingStats::indirectBatchFallbacks},
+    {"textureBindingVisits", &MVKMetal4EncodingStats::textureBindingVisits},
+    {"textureCacheEligible", &MVKMetal4EncodingStats::textureCacheEligible},
+    {"textureCacheHits", &MVKMetal4EncodingStats::textureCacheHits},
+    {"textureCacheMisses", &MVKMetal4EncodingStats::textureCacheMisses},
+    {"textureHitResourceSlots", &MVKMetal4EncodingStats::textureHitResourceSlots},
+    {"textureNegativeMemoSkips", &MVKMetal4EncodingStats::textureNegativeMemoSkips},
+    {"textureProofAttempts", &MVKMetal4EncodingStats::textureProofAttempts},
+    {"textureProofReady", &MVKMetal4EncodingStats::textureProofReady},
+    {"textureProofRejected", &MVKMetal4EncodingStats::textureProofRejected},
+    {"directTextureBindings", &MVKMetal4EncodingStats::directTextureBindings},
+    {"indirectGroupChecks", &MVKMetal4EncodingStats::indirectGroupChecks},
+    {"indirectGroupHits", &MVKMetal4EncodingStats::indirectGroupHits},
+    {"indirectGroupPreparations", &MVKMetal4EncodingStats::indirectGroupPreparations},
+    {"invariantNoFlatDraws", &MVKMetal4EncodingStats::invariantNoFlatDraws},
+    {"invariantAdmittedDraws", &MVKMetal4EncodingStats::invariantAdmittedDraws},
+    {"invariantExternalWritesDraws", &MVKMetal4EncodingStats::invariantExternalWritesDraws},
+    {"invariantBuiltinsDraws", &MVKMetal4EncodingStats::invariantBuiltinsDraws},
+    {"invariantLayoutDraws", &MVKMetal4EncodingStats::invariantLayoutDraws},
+    {"invariantProofRejectedDraws", &MVKMetal4EncodingStats::invariantProofRejectedDraws},
+    {"invariantUnsupportedDraws", &MVKMetal4EncodingStats::invariantUnsupportedDraws},
+};
+static_assert(sizeof(MVKMetal4EncodingStats) == sizeof(encodingStatFields) / sizeof(encodingStatFields[0]) * sizeof(uint64_t),
+              "Cost-bin schema must include every encoding counter.");
+#endif
+}
+
+
+static MVKMetal4AllocationLifetimes s_metal4StableBufferLifetimes;
+
+void mvkRegisterMetal4StableBuffer(id<MTLBuffer> buffer) {
+    s_metal4StableBufferLifetimes.add((const void*)buffer);
+}
+
+void mvkUnregisterMetal4StableBuffer(id allocation) {
+    s_metal4StableBufferLifetimes.remove((const void*)allocation);
+}
+
+#if MVK_ENABLE_CUSTOM_DIAGNOSTICS
+bool mvkBackendCostStatsEnabled() {
+    static const bool enabled = [] {
+        const char* value = std::getenv("MVK_CONFIG_BACKEND_COST_STATS");
+        return value && std::strcmp(value, "1") == 0;
+    }();
+    return enabled;
+}
+
+double MVKBackendCostStats::hostSeconds() {
+    static const double scale = [] {
+        mach_timebase_info_data_t info;
+        mach_timebase_info(&info);
+        return double(info.numer) / double(info.denom) * 1e-9;
+    }();
+    return double(mach_absolute_time()) * scale;
+}
+
+MVKBackendCostStats::MVKBackendCostStats(const char* backend) : _backend(backend) {
+    _originHost = hostSeconds();
+    _originUnixMS = std::chrono::duration<double, std::milli>(
+        std::chrono::system_clock::now().time_since_epoch()).count();
+}
+
+void MVKBackendCostStats::recordCPU(double start, double end, bool semaphoreWait) {
+    std::lock_guard<std::mutex> lock(_mutex);
+    if (!std::isfinite(start) || !std::isfinite(end) || start < _originHost || end < start) {
+        ++_data.invalidCPU; return;
+    }
+    double position = start - _originHost;
+    if (position >= maxBins) { ++_data.outsideWindow; return; }
+    auto& bin = _data.bins[size_t(position)];
+    double elapsed = end - start;
+    if (semaphoreWait) { ++bin.waitCount; bin.waitSum += elapsed; }
+    else { ++bin.cpuCount; bin.cpuSum += elapsed; bin.cpuMax = std::max(bin.cpuMax, elapsed); }
+}
+
+void MVKBackendCostStats::recordGPU(double start, double end, double commit, double callback,
+                                   bool tail, bool presentation) {
+    std::lock_guard<std::mutex> lock(_mutex);
+    // GPU properties use host seconds. Reject missing/error/domain-mismatched
+    // samples instead of deriving GPU time from callback wall-clock latency.
+    if (!std::isfinite(start) || !std::isfinite(end) || !std::isfinite(commit) ||
+        !std::isfinite(callback) || start <= 0 || end < start || start < _originHost ||
+        commit < _originHost || callback < commit || end > callback + 0.001 || start < commit - 0.001) {
+        ++_data.invalidGPU; return;
+    }
+    double position = start - _originHost;
+    if (position >= maxBins) { ++_data.outsideWindow; return; }
+    auto& bin = _data.bins[size_t(position)];
+    double elapsed = end - start;
+    if (tail) { ++bin.tailCount; bin.tailSum += elapsed; }
+    else if (presentation) {
+        ++bin.presentCount; bin.presentSum += elapsed;
+        bin.presentMax = std::max(bin.presentMax, elapsed);
+        bin.presentFirstGPU = bin.presentFirstGPU ? std::min(bin.presentFirstGPU, start) : start;
+        bin.presentLastGPU = std::max(bin.presentLastGPU, end);
+        bin.presentQueueDelaySum += std::max(0.0, start - commit);
+        bin.presentFeedbackLagSum += std::max(0.0, callback - end);
+    }
+    else {
+        ++bin.workCount; bin.workSum += elapsed; bin.workMax = std::max(bin.workMax, elapsed);
+        bin.firstGPU = bin.firstGPU ? std::min(bin.firstGPU, start) : start;
+        bin.lastGPU = std::max(bin.lastGPU, end);
+        bin.queueDelaySum += std::max(0.0, start - commit);
+        bin.feedbackLagSum += std::max(0.0, callback - end);
+    }
+}
+
+MVKBackendCostStats::Snapshot MVKBackendCostStats::snapshot() const {
+    std::lock_guard<std::mutex> lock(_mutex);
+    return _data;
+}
+
+void MVKBackendCostStats::recordEncoding(const MVKMetal4EncodingStats& stats, double recordHost) {
+    std::lock_guard<std::mutex> lock(_mutex);
+    if (!std::isfinite(recordHost) || recordHost < _originHost) {
+        ++_data.invalidEncoding; return;
+    }
+    double position = recordHost - _originHost;
+    if (position >= maxBins) { ++_data.outsideWindow; return; }
+    auto& bin = _data.bins[size_t(position)];
+    mergeEncodingStats(bin.encoding, stats);
+    if (bin.encodingCount != UINT64_MAX) { ++bin.encodingCount; }
+    bin.encodingFirstRecordHost = bin.encodingFirstRecordHost ? std::min(bin.encodingFirstRecordHost, recordHost) : recordHost;
+    bin.encodingLastRecordHost = std::max(bin.encodingLastRecordHost, recordHost);
+}
+
+MVKBackendCostStats::~MVKBackendCostStats() {
+    // Last owning reference is released after feedback: no collector/GPU cycles.
+    // One bounded line; sums and envelopes intentionally do not claim GPU busy
+    // union or critical-path time when batches overlap or include dependencies.
+    std::string line;
+    line.reserve(maxBins * 1024 + 4096);
+    char chunk[2048];
+    std::snprintf(chunk, sizeof(chunk), "[mvk-backend-cost] {\"schema\":\"mvk-backend-cost-v3\",\"backend\":\"%s\",\"host_anchor_s\":%.9f,\"unix_anchor_ms\":%.3f,\"bin_seconds\":1,\"max_seconds\":300,\"cpu_scope\":\"vulkan_command_submit_wall_excludes_presentation\",\"gpu_work_scope\":\"vulkan_commands_excludes_presentation_and_tails\",\"gpu_sums_are_critical_path\":false,\"timing_bin_attribution\":\"sample_start_time_full_unclipped_duration\",\"encoding_scope\":\"native_encoding_and_submit_metadata_not_GPU_completed_work\",\"encoding_bin_attribution\":\"stats_delivery_host_time_command_data_at_encoding_end_fusedSignalSubmits_at_precommit\",\"gpu_feedback_lag_scope\":\"callback_entry_not_fence_signal\",\"texture_proof_ready_scope\":\"complete_proof_before_bounded_cache_insertion\",\"invalid_cpu\":%llu,\"invalid_gpu\":%llu,\"invalid_encoding\":%llu,\"outside_window\":%llu,\"bins\":[",
+        _backend, _originHost, _originUnixMS, (unsigned long long)_data.invalidCPU,
+        (unsigned long long)_data.invalidGPU, (unsigned long long)_data.invalidEncoding,
+        (unsigned long long)_data.outsideWindow);
+    line += chunk;
+    bool comma = false;
+    for (size_t i = 0; i < maxBins; ++i) {
+        const auto& b = _data.bins[i];
+        if (!(b.cpuCount || b.waitCount || b.workCount || b.tailCount || b.presentCount || b.encodingCount)) { continue; }
+        // Compact column schema is fixed in this receipt, not a per-frame log.
+        std::snprintf(chunk, sizeof(chunk), "%s[%zu,%llu,%.6f,%.6f,%llu,%.6f,%llu,%.6f,%.6f,%llu,%.6f,%.9f,%.9f,%.6f,%.6f,%llu,%.6f,%.6f,%.9f,%.9f,%.6f,%.6f",
+            comma ? "," : "", i, (unsigned long long)b.cpuCount, b.cpuSum * 1000, b.cpuMax * 1000,
+            (unsigned long long)b.waitCount, b.waitSum * 1000, (unsigned long long)b.workCount,
+            b.workSum * 1000, b.workMax * 1000, (unsigned long long)b.tailCount, b.tailSum * 1000,
+            b.firstGPU, b.lastGPU, b.queueDelaySum * 1000, b.feedbackLagSum * 1000,
+            (unsigned long long)b.presentCount, b.presentSum * 1000, b.presentMax * 1000,
+            b.presentFirstGPU, b.presentLastGPU, b.presentQueueDelaySum * 1000, b.presentFeedbackLagSum * 1000);
+        line += chunk;
+        std::snprintf(chunk, sizeof(chunk), ",%llu,%.9f,%.9f", (unsigned long long)b.encodingCount,
+                      b.encodingFirstRecordHost, b.encodingLastRecordHost);
+        line += chunk;
+        for (const auto& field : encodingStatFields) {
+            std::snprintf(chunk, sizeof(chunk), ",%llu", (unsigned long long)(b.encoding.*field.member));
+            line += chunk;
+        }
+        line += ']';
+        comma = true;
+    }
+    line += "],\"columns\":[\"second\",\"cpu_cmd_count\",\"cpu_cmd_ms\",\"cpu_cmd_max_ms\",\"cpu_wait_count\",\"cpu_wait_ms\",\"gpu_work_count\",\"gpu_work_ms\",\"gpu_work_max_ms\",\"gpu_tail_count\",\"gpu_tail_ms\",\"gpu_first_host_s\",\"gpu_last_host_s\",\"commit_to_gpu_start_ms\",\"gpu_end_to_callback_ms\",\"gpu_present_count\",\"gpu_present_ms\",\"gpu_present_max_ms\",\"gpu_present_first_host_s\",\"gpu_present_last_host_s\",\"present_commit_to_gpu_start_ms\",\"present_gpu_end_to_callback_ms\",\"encoding_record_count\",\"encoding_first_record_host_s\",\"encoding_last_record_host_s\"";
+    for (const auto& field : encodingStatFields) { line += ",\""; line += field.name; line += '"'; }
+    line += "]}";
+    std::fprintf(stderr, "%s\n", line.c_str());
+}
+
+#endif
+bool mvkUseMetal4() {
+    static const bool enabled = [] {
+        const char* value = std::getenv("MVK_CONFIG_USE_METAL4");
+        return value && std::strcmp(value, "1") == 0;
+    }();
+    return enabled;
+}
+
+#if MVK_ENABLE_CUSTOM_DIAGNOSTICS
+namespace {
+bool batchStatsEnabled() {
+    static const bool enabled = [] {
+        const char* value = std::getenv("MVK_CONFIG_METAL4_STATS");
+        return value && std::strcmp(value, "1") == 0;
+    }();
+    return enabled;
+}
+}
+
+bool mvkMetal4QueueStatsEnabled() {
+    static const bool enabled = [] {
+        const char* value = std::getenv("MVK_CONFIG_METAL4_QUEUE_STATS");
+        return value && std::strcmp(value, "1") == 0;
+    }();
+    return enabled;
+}
+
+bool mvkMetal4StatsEnabled() { return batchStatsEnabled() || mvkMetal4QueueStatsEnabled() || mvkBackendCostStatsEnabled(); }
+
+#endif
+namespace {
+bool fail(NSError** out, NSInteger code, NSString* message) {
+    if (out) { *out = [NSError errorWithDomain:@"MVKMetal4Submission" code:code
+                                    userInfo:@{NSLocalizedDescriptionKey: message}]; }
+    return false;
+}
+bool report(NSError** out, NSError* error) {
+    if (out) { *out = [[error retain] autorelease]; }
+    return false;
+}
+enum class Phase { Recording, Ended, Submitted, Retiring, Completed };
+enum class SignalNotification { None, Pending, Succeeded, Failed };
+enum class GPUStorage { InUse, Reclaiming, Reclaimed };
+std::mutex drawableRegistryMutex;
+std::map<id<MTLTexture>, std::shared_ptr<MVKMetal4DrawableBinding>> drawableRegistry;
+// Mutations hold drawableRegistryMutex. Saturation disables memoization rather
+// than allowing a wrapped generation to match an old negative lookup.
+std::atomic<uint64_t> drawableRegistryGeneration{1};
+void advanceDrawableRegistryGeneration() {
+    uint64_t generation = drawableRegistryGeneration.load(std::memory_order_relaxed);
+    if (generation != UINT64_MAX) {
+        drawableRegistryGeneration.store(generation + 1, std::memory_order_release);
+    }
+}
+std::atomic<uint64_t> globalCompletedSubmissions{0};
+#if MVK_ENABLE_CUSTOM_DIAGNOSTICS
+void mergeEncodingStats(MVKMetal4EncodingStats& total, const MVKMetal4EncodingStats& stats);
+void logEncodingStats(const char* kind, const MVKMetal4EncodingStats& stats,
+                      uint64_t ended = 0, uint64_t submitted = 0, uint64_t completed = 0);
+#endif
+std::chrono::steady_clock::time_point deadline(uint64_t milliseconds) {
+    auto now = std::chrono::steady_clock::now();
+    auto room = std::chrono::duration_cast<std::chrono::milliseconds>(
+        std::chrono::steady_clock::time_point::max() - now).count();
+    return milliseconds >= static_cast<uint64_t>(room)
+        ? std::chrono::steady_clock::time_point::max()
+        : now + std::chrono::milliseconds(milliseconds);
+}
+}
+
+extern "C" __attribute__((visibility("default"))) uint64_t mvkGetMetal4GlobalCompletedSubmissionCount() {
+    return globalCompletedSubmissions.load(std::memory_order_relaxed);
+}
+
+struct MVKMetal4DeviceResidency::Storage {
+    struct SetState {
+        id<MTLDevice> device;
+        id<MTLResidencySet> set;
+        std::mutex mutex;
+        std::unordered_map<const void*, size_t> members;
+        std::atomic<bool> dirty{false};
+        SetState(id<MTLDevice> dev, id<MTLResidencySet> value) : device([dev retain]), set([value retain]) {}
+        ~SetState() { [set release]; [device release]; }
+        void add(id<MTLAllocation> allocation) {
+            std::lock_guard<std::mutex> lock(mutex);
+            if (++members[(const void*)allocation] == 1) {
+                [set addAllocation:allocation];
+                dirty.store(true, std::memory_order_release);
+            }
+        }
+        void remove(id<MTLAllocation> allocation) {
+            std::lock_guard<std::mutex> lock(mutex);
+            auto entry = members.find((const void*)allocation);
+            if (entry != members.end() && !--entry->second) {
+                members.erase(entry);
+                [set removeAllocation:allocation];
+                [set commit];
+                dirty.store(false, std::memory_order_release);
+            }
+        }
+        void commit() {
+            if (!dirty.load(std::memory_order_acquire)) { return; }
+            std::lock_guard<std::mutex> lock(mutex);
+            if (dirty.exchange(false, std::memory_order_acq_rel)) { [set commit]; }
+        }
+    };
+    struct Entry {
+        std::shared_ptr<SetState> state;
+        id<MTLAllocation> allocation;
+        Entry(std::shared_ptr<SetState> owner, id<MTLAllocation> value)
+            : state(std::move(owner)), allocation([value retain]) { state->add(allocation); }
+        ~Entry() {
+            state->remove(allocation);
+            // No registry/set lock is held during native object destruction.
+            [allocation release];
+        }
+    };
+    struct Registration { size_t owners; std::shared_ptr<Entry> entry; };
+    std::shared_ptr<SetState> state;
+    mutable std::mutex mutex;
+    std::unordered_map<const void*, Registration> registrations;
+};
+
+MVKMetal4DeviceResidency::MVKMetal4DeviceResidency(std::unique_ptr<Storage> storage)
+    : _storage(std::move(storage)) {}
+MVKMetal4DeviceResidency::~MVKMetal4DeviceResidency() = default;
+
+std::shared_ptr<MVKMetal4DeviceResidency> MVKMetal4DeviceResidency::create(id<MTLDevice> device, NSError** error) {
+    if (error) { *error = nil; }
+    if (!device || ![device supportsFamily:MTLGPUFamilyMetal4]) {
+        fail(error, 1, @"Device residency requires a Metal 4 device."); return {};
+    }
+    auto* descriptor = [MTLResidencySetDescriptor new];
+    descriptor.label = @"MoltenVK Metal 4 allocation owners";
+    descriptor.initialCapacity = 256;
+    id<MTLResidencySet> set = [device newResidencySetWithDescriptor:descriptor error:error];
+    [descriptor release];
+    if (!set) {
+        if (!error || !*error) { fail(error, 2, @"Could not create Metal 4 device residency."); }
+        return {};
+    }
+    auto storage = std::make_unique<Storage>();
+    storage->state = std::make_shared<Storage::SetState>(device, set);
+    [set release];
+    return std::shared_ptr<MVKMetal4DeviceResidency>(new MVKMetal4DeviceResidency(std::move(storage)));
+}
+
+bool MVKMetal4DeviceResidency::registerAllocation(id<MTLAllocation> allocation, NSError** error) {
+    id<MTLDevice> allocationDevice = nil;
+    if ([allocation conformsToProtocol:@protocol(MTLResource)]) { allocationDevice = [(id<MTLResource>)allocation device]; }
+    else if ([allocation conformsToProtocol:@protocol(MTLHeap)]) { allocationDevice = [(id<MTLHeap>)allocation device]; }
+    if (!allocation || allocationDevice != device()) { return fail(error, 3, @"Residency allocation belongs to another device."); }
+    std::lock_guard<std::mutex> lock(_storage->mutex);
+    auto entry = _storage->registrations.find((const void*)allocation);
+    if (entry != _storage->registrations.end()) { ++entry->second.owners; }
+    else {
+        _storage->registrations.emplace((const void*)allocation,
+            Storage::Registration{1, std::make_shared<Storage::Entry>(_storage->state, allocation)});
+    }
+    return true;
+}
+
+void MVKMetal4DeviceResidency::unregisterAllocation(id<MTLAllocation> allocation) {
+    std::shared_ptr<Storage::Entry> retired;
+    {
+        std::lock_guard<std::mutex> lock(_storage->mutex);
+        auto entry = _storage->registrations.find((const void*)allocation);
+        if (entry == _storage->registrations.end()) { return; }
+        if (--entry->second.owners) { return; }
+        retired = std::move(entry->second.entry);
+        _storage->registrations.erase(entry);
+    }
+    // In-flight GPU recordings keep the entry and residency independently.
+    retired.reset();
+}
+
+std::shared_ptr<void> MVKMetal4DeviceResidency::lease(id<MTLResource> resource) const {
+    return leaseWithKind(resource, MVKMetal4ResourceKind::Unknown);
+}
+
+std::shared_ptr<void> MVKMetal4DeviceResidency::leaseWithKind(id<MTLResource> resource, MVKMetal4ResourceKind kind) const {
+    if (!resource || resource.device != device()) { return {}; }
+    auto find = [&](id<MTLAllocation> allocation) -> std::shared_ptr<void> {
+        if (!allocation) { return {}; }
+        std::lock_guard<std::mutex> lock(_storage->mutex);
+        auto entry = _storage->registrations.find((const void*)allocation);
+        return entry == _storage->registrations.end() ? std::shared_ptr<void>{} : entry->second.entry;
+    };
+    if (auto result = find(resource)) { return result; }
+    if (auto result = find(resource.heap)) { return result; }
+    if (kind == MVKMetal4ResourceKind::Texture ||
+        (kind == MVKMetal4ResourceKind::Unknown && [resource conformsToProtocol:@protocol(MTLTexture)])) {
+        id<MTLTexture> texture = (id<MTLTexture>)resource;
+        for (unsigned depth = 0; depth < 64; ++depth) {
+            id<MTLTexture> parent = texture.parentTexture;
+            if (!parent || parent == texture) { break; }
+            if (auto result = find(parent)) { return result; }
+            if (auto result = find(parent.heap)) { return result; }
+            texture = parent;
+        }
+    }
+    return {};
+}
+void MVKMetal4DeviceResidency::commit() { _storage->state->commit(); }
+id<MTLDevice> MVKMetal4DeviceResidency::device() const { return _storage->state->device; }
+id<MTLResidencySet> MVKMetal4DeviceResidency::residencySet() const { return _storage->state->set; }
+
+bool mvkRegisterMetal4Drawable(id<MTLTexture> texture, id<MTLDrawable> drawable, NSError** error) {
+    if (error) { *error = nil; }
+    if (!texture || !drawable) { return fail(error, 3, @"Drawable registration requires a texture and drawable."); }
+    if (textureOwnership(texture).ordinary) {
+        return fail(error, 3, @"A device-created ordinary texture cannot be a CAMetalLayer drawable.");
+    }
+    std::lock_guard<std::mutex> lock(drawableRegistryMutex);
+    auto entry = drawableRegistry.find(texture);
+    if (entry != drawableRegistry.end()) {
+        return entry->second->drawable == drawable || fail(error, 3, @"Texture already belongs to another registered drawable.");
+    }
+    auto binding = std::make_shared<MVKMetal4DrawableBinding>(drawable);
+    auto* source = [MVKMetal4TextureOwnership new];
+    source->binding = binding;
+    drawableRegistry.emplace(texture, binding);
+    advanceDrawableRegistryGeneration();
+    source->generation = drawableRegistryGeneration.load(std::memory_order_relaxed);
+    objc_setAssociatedObject(texture, &textureOwnershipKey, source, OBJC_ASSOCIATION_RETAIN);
+    [source release];
+    return true;
+}
+
+void mvkUnregisterMetal4Drawable(id<MTLTexture> texture, id<MTLDrawable> drawable) {
+    std::shared_ptr<MVKMetal4DrawableBinding> released;
+    {
+        std::lock_guard<std::mutex> lock(drawableRegistryMutex);
+        auto entry = drawableRegistry.find(texture);
+        if (entry != drawableRegistry.end() && entry->second->drawable == drawable) {
+            released = std::move(entry->second);
+            drawableRegistry.erase(entry);
+            advanceDrawableRegistryGeneration();
+        }
+    }
+    released.reset(); // Releasing a drawable may invoke a presented handler.
+}
+
+void mvkMarkMetal4OrdinaryTexture(id<MTLTexture> texture) {
+    if (texture) {
+        objc_setAssociatedObject(texture, &textureOwnershipKey, ordinaryTextureOwnership(), OBJC_ASSOCIATION_RETAIN);
+    }
+}
+
+void mvkInheritMetal4TextureOwnership(id<MTLTexture> texture, id<MTLTexture> parent) {
+    if (!texture || texture == parent) { return; }
+    id source = objc_getAssociatedObject(parent, &textureOwnershipKey);
+    if (source) { objc_setAssociatedObject(texture, &textureOwnershipKey, source, OBJC_ASSOCIATION_RETAIN); }
+}
+
+struct MVKMetal4EventValue {
+    id<MTLEvent> event;
+    uint64_t value;
+    bool internalTimelineSignal = false;
+};
+struct MVKMetal4Presentation {
+    id<MTLDrawable> drawable;
+    double timeSeconds;
+    std::function<void()> beforePresent;
+};
+struct MVKMetal4ObjectIdentity {
+    bool resident = false, texture = false;
+    bool gpuRetained = false, operationRetained = false;
+    uint64_t drawableGeneration = 0;
+};
+using MVKMetal4ObjectIdentityMap = MVKMetal4RecycledIdentityMap<MVKMetal4ObjectIdentity,
+    MVKMetal4ResourcePoolStats::maxHostIdentityBuckets>;
+
+// Queue operations outlive the command allocator when an actual signal observer
+// is still pending. Cache only empty capacity, independently of GPU work packs.
+struct MVKMetal4CompletionStorage {
+    NSMutableArray* retained = nil;
+    size_t retainedHighWater = 0;
+    std::vector<MVKMetal4EventValue> waits, signals;
+    std::vector<id<MTLDrawable>> drawables;
+    std::vector<MVKMetal4Presentation> presentations;
+    uint64_t hostStorageBytes() const {
+        return waits.capacity() * sizeof(MVKMetal4EventValue) + signals.capacity() * sizeof(MVKMetal4EventValue) +
+            drawables.capacity() * sizeof(id<MTLDrawable>) + presentations.capacity() * sizeof(MVKMetal4Presentation);
+    }
+    ~MVKMetal4CompletionStorage() { [retained release]; }
+};
+
+// No queue or submission owner references: idle packs cannot form owner cycles.
+struct MVKMetal4ResourcePack {
+    // Resource packs remain exclusive through their own GPU-retirement gate.
+    // Command memory is separately owned by every primary/tail allocator use.
+    id<MTL4CommandBuffer> buffer = nil;
+    id<MTLResidencySet> residency = nil;
+    bool dynamicResidencyHasAllocations = false;
+    // Marker, cached slabs, and bounded eligible native buffers strongly owned
+    // below. Membership changes only while the pack is exclusive, never in flight.
+    id<MTLResidencySet> stableResidency = nil;
+    bool stableResidencyDirty = false;
+    MVKMetal4StableAllocationCache stableBuffers;
+    id<MTLBuffer> marker = nil;
+    // Exclusive to this pack until actual retirement. Only small immutable
+    // upload slabs are cached; oversized transient uploads are never pooled.
+    std::vector<id<MTLBuffer>> uploadSlabs;
+    struct ArgumentTableGroup {
+        std::unique_ptr<MVKMetal4ArgumentTables> tables;
+        bool computeOnly = false, leased = false;
+    };
+    std::vector<ArgumentTableGroup> argumentTables;
+    // Always empty when idle. Only host capacity is reused; each begin retains
+    // a fresh submission state/control block and weak recording identity.
+    MVKMetal4ObjectIdentityMap objects;
+    NSMutableArray* retained = nil;
+    size_t retainedHighWater = 0;
+    uint64_t hostStorageBytes() const {
+        // Bucket/vector payload accounting only; allocator overhead and opaque
+        // Foundation capacity are not reported as known allocated bytes.
+        return objects.hostStorageBytes() + stableBuffers.hostStorageBytes();
+    }
+    uint64_t idleBytes = 0;
+    void addStableAllocation(id<MTLBuffer> allocation) {
+        [stableResidency addAllocation:allocation];
+        stableResidencyDirty = true;
+    }
+    void commitStableResidency() {
+        if (!stableResidencyDirty) { return; }
+        [stableResidency commit];
+        stableResidencyDirty = false;
+    }
+    bool cacheStableBuffer(id<MTLResource> resource) {
+        const void* key = (const void*)resource;
+        if (stableBuffers.touch(key)) { return true; }
+        // Only explicit, paired allocation-lifetime registration can admit a
+        // native object. Textures, imports, heap aliases and ordinary wrappers
+        // have no token and remain in the submission's dynamic set.
+        auto token = s_metal4StableBufferLifetimes.get(key);
+        if (token.expired() || !stableBuffers.insert(key, std::move(token), resource.allocatedSize)) { return false; }
+        [resource retain];
+        addStableAllocation((id<MTLBuffer>)resource);
+        return true;
+    }
+    void prepareStableBuffersForRecording() {
+        std::vector<id<MTLBuffer>> removed;
+        stableBuffers.beginRecording([&](const void* object) {
+            auto buffer = (id<MTLBuffer>)object;
+            [stableResidency removeAllocation:buffer];
+            stableResidencyDirty = true;
+            removed.push_back(buffer);
+        });
+        // Removing residency can take effect immediately. Only a retired,
+        // exclusive pack enters here, and set removal commits before releases.
+        if (!removed.empty()) {
+            commitStableResidency();
+            for (auto buffer : removed) { [buffer release]; }
+        }
+    }
+    ~MVKMetal4ResourcePack() {
+        [buffer release]; [residency release];
+        [stableResidency release]; [marker release];
+        [retained release];
+        for (auto slab : uploadSlabs) { [slab release]; }
+        for (auto& entry : stableBuffers.entries()) { [(id)entry.first release]; }
+    }
+};
+
+enum class MVKMetal4AllocatorState { Appendable, Sealed, Resetting, DiscardOnly };
+enum class MVKMetal4AllocatorUsePhase { Reserved, Recording, Ended, Released };
+
+// No references back to storage/queues/records. Available entries or live uses
+// own the epoch; metadata is protected solely by the device pool's mutex.
+struct MVKMetal4AllocatorEpoch {
+    id<MTLDevice> device = nil;
+    id<MTL4CommandAllocator> allocator = nil;
+    MVKMetal4AllocatorState state = MVKMetal4AllocatorState::Appendable;
+    uint32_t liveUses = 0, recordings = 0;
+    uint64_t allocatedBytes = 0, resetAllocatedBytes = 0, idleCharge = 0;
+    bool writer = false, available = false;
+    ~MVKMetal4AllocatorEpoch() { [allocator release]; [device release]; }
+};
+
+// Inline, move-only ownership. Reserved rollback differs from cancellation of
+// an actually open native buffer. Owners explicitly dispose that buffer before
+// releasing a Recording use; the destructor is only the final safety net.
+struct MVKMetal4AllocatorUse {
+    std::shared_ptr<MVKMetal4RecordingPoolState> storage;
+    std::shared_ptr<MVKMetal4AllocatorEpoch> epoch;
+    MVKMetal4AllocatorUsePhase phase = MVKMetal4AllocatorUsePhase::Released;
+    bool resetElected = false;
+    MVKMetal4AllocatorUse() = default;
+    MVKMetal4AllocatorUse(std::shared_ptr<MVKMetal4RecordingPoolState> owner,
+                         std::shared_ptr<MVKMetal4AllocatorEpoch> value)
+        : storage(std::move(owner)), epoch(std::move(value)), phase(MVKMetal4AllocatorUsePhase::Reserved) {}
+    MVKMetal4AllocatorUse(const MVKMetal4AllocatorUse&) = delete;
+    MVKMetal4AllocatorUse& operator=(const MVKMetal4AllocatorUse&) = delete;
+    MVKMetal4AllocatorUse(MVKMetal4AllocatorUse&& other) noexcept
+        : storage(std::move(other.storage)), epoch(std::move(other.epoch)),
+          phase(std::exchange(other.phase, MVKMetal4AllocatorUsePhase::Released)),
+          resetElected(std::exchange(other.resetElected, false)) {}
+    MVKMetal4AllocatorUse& operator=(MVKMetal4AllocatorUse&& other) noexcept {
+        if (this != &other) {
+            assert(!epoch); // Every move target is an empty owner/retirement slot.
+            storage = std::move(other.storage); epoch = std::move(other.epoch);
+            phase = std::exchange(other.phase, MVKMetal4AllocatorUsePhase::Released);
+            resetElected = std::exchange(other.resetElected, false);
+        }
+        return *this;
+    }
+    id<MTL4CommandAllocator> allocator() const { return epoch ? epoch->allocator : nil; }
+    void begin(id<MTL4CommandBuffer> buffer);
+    void end(); // Only after actual native endCommandBuffer.
+    void discardOpen(); // Before the owner disposes native buffer/encoders.
+    void release();
+    void finishRelease(); // Outside every pool/group/child lock.
+    ~MVKMetal4AllocatorUse() { release(); }
+};
+
+// Has no queue, submission, command-pool, or callback owner. Outstanding
+// recordings keep device storage alive without keeping a queue alive.
+struct MVKMetal4RecordingPoolState {
+    id<MTLDevice> device = nil;
+    std::shared_ptr<MVKMetal4DeviceResidency> deviceResidency;
+    std::atomic<bool> poisoned{false};
+    std::mutex poolMutex;
+    std::vector<std::unique_ptr<MVKMetal4ResourcePack>> primaryPool, tailPool;
+    // Same eight-entry and measured-byte budget as the existing host cache.
+    // No live retains, callback captures or notification identities enter here.
+    std::vector<std::unique_ptr<MVKMetal4CompletionStorage>> completionPool;
+    std::vector<std::shared_ptr<MVKMetal4AllocatorEpoch>> availableEpochs;
+    MVKMetal4ResourcePoolStats poolStats;
+    ~MVKMetal4RecordingPoolState() {
+        primaryPool.clear(); tailPool.clear(); completionPool.clear(); availableEpochs.clear();
+        [device release];
+    }
+};
+
+struct MVKMetal4SubmissionGroup;
+
+// This is an enqueued-order proof, never a host observation of GPU completion.
+// A queue owned from creation is empty. Only our internal full-prefix pair can
+// close a prefix with opaque writes; stage barriers cannot do that.
+enum class MVKMetal4CounterProof : uint8_t { Closed, Open, Unknown };
+enum class MVKMetal4CounterBoundary : uint8_t { EntryTimestamp, EntryResolve, ResolveAfterWrite };
+
+struct MVKMetal4QueueState {
+    uint64_t timelineID = 0;
+    id<MTLDevice> device = nil;
+    id<MTL4CommandQueue> queue = nil;
+    std::shared_ptr<MVKMetal4DeviceResidency> deviceResidency;
+    // Feedback never takes submitMutex: even immediate feedback cannot deadlock
+    // a thread inside Metal's commit call. stateMutex protects only bookkeeping.
+    std::timed_mutex submitMutex;
+    std::mutex stateMutex;
+    std::condition_variable idle;
+    uint64_t pending = 0, completed = 0;
+#if MVK_ENABLE_CUSTOM_DIAGNOSTICS
+    MVKMetal4QueueEncodingStats encodingStats;
+    std::shared_ptr<MVKBackendCostStats> costStats = mvkBackendCostStatsEnabled()
+        ? std::make_shared<MVKBackendCostStats>("native-metal4") : nullptr;
+#endif
+    NSError* firstError = nil;
+    MVKMetal4CounterProof counterProof = MVKMetal4CounterProof::Closed; // stateMutex; submit order under submitMutex.
+    // Exceptional retention only. firstError stops new submissions, so this
+    // cannot accumulate events from later normal queue churn.
+    NSMutableSet* failedEvents = nil;
+    // One listener per native queue. Slots temporarily own batch -> queue
+    // cycles, broken at retirement or first poison; notification blocks are weak.
+    // A full table falls back to the existing tail, never waits or allocates nodes.
+    static constexpr unsigned notificationCapacity = 64;
+    MTLSharedEventListener* signalListener = nil;
+    std::array<std::shared_ptr<MVKMetal4SubmissionGroup>, notificationCapacity> notificationOwners;
+    uint64_t freeNotificationSlots = UINT64_MAX; // Protected by stateMutex.
+    std::shared_ptr<MVKMetal4RecordingPool> recordingPool;
+    std::shared_ptr<MVKMetal4RecordingPoolState> storage;
+    ~MVKMetal4QueueState() {
+#if MVK_ENABLE_CUSTOM_DIAGNOSTICS
+        if (mvkMetal4QueueStatsEnabled()) {
+            logEncodingStats("mvk-metal4-queue-stats", encodingStats.encoding, encodingStats.endedBatches,
+                             encodingStats.submittedBatches, completed);
+        }
+#endif
+        // Failed queue operations have no normal retirement proof. Keep their
+        // event objects until native queue teardown, without retaining batches
+        // (which own this state and would create a cycle).
+        if (deviceResidency && queue) { [queue removeResidencySet:deviceResidency->residencySet()]; }
+        [firstError release]; [queue release]; [failedEvents release]; [signalListener release];
+        [device release];
+    }
+};
+
+namespace {
+void removeAllocatorAvailableLocked(MVKMetal4RecordingPoolState& storage,
+                                    MVKMetal4AllocatorEpoch& epoch) {
+    if (!epoch.available) { return; }
+    auto& pool = storage.availableEpochs;
+    for (size_t i = 0; i < pool.size(); ++i) {
+        if (pool[i].get() != &epoch) { continue; }
+        // The caller's use/reset owner strongly holds epoch, so erasing this
+        // reference cannot release a native object while poolMutex is held.
+        if (i + 1 != pool.size()) { pool[i] = std::move(pool.back()); }
+        pool.pop_back();
+        storage.poolStats.idleBytes -= epoch.idleCharge;
+        epoch.idleCharge = 0; epoch.available = false;
+        return;
+    }
+    assert(false && "Allocator availability membership must be unique.");
+}
+
+void discardAllocatorLocked(MVKMetal4RecordingPoolState& storage, MVKMetal4AllocatorEpoch& epoch) {
+    removeAllocatorAvailableLocked(storage, epoch);
+    if (epoch.state != MVKMetal4AllocatorState::DiscardOnly) { ++storage.poolStats.allocatorDiscarded; }
+    epoch.state = MVKMetal4AllocatorState::DiscardOnly;
+}
+
+void offerAllocatorLocked(MVKMetal4RecordingPoolState& storage,
+                          const std::shared_ptr<MVKMetal4AllocatorEpoch>& epoch) {
+    assert(!epoch->writer);
+    if (storage.poisoned.load(std::memory_order_acquire)) {
+        discardAllocatorLocked(storage, *epoch); return;
+    }
+    if (epoch->state != MVKMetal4AllocatorState::Appendable) { return; }
+    if (!epoch->available && storage.availableEpochs.size() >= MVKMetal4ResourcePoolStats::maxAvailableAllocatorEpochs) {
+        epoch->state = MVKMetal4AllocatorState::Sealed;
+        if (!epoch->liveUses) { discardAllocatorLocked(storage, *epoch); }
+        return;
+    }
+    // Live epochs cost no idle charge. In particular, an already-available
+    // Appendable epoch must be charged when its last GPU/unsubmitted user leaves.
+    if (!epoch->liveUses && !epoch->idleCharge) {
+        if (epoch->allocatedBytes > MVKMetal4ResourcePoolStats::maxIdleBytes - storage.poolStats.idleBytes) {
+            discardAllocatorLocked(storage, *epoch); return;
+        }
+        epoch->idleCharge = epoch->allocatedBytes;
+        storage.poolStats.idleBytes += epoch->idleCharge;
+    }
+    if (!epoch->available) {
+        epoch->available = true;
+        storage.availableEpochs.push_back(epoch); // Capacity reserved at creation.
+    }
+}
+
+// Caller holds poolMutex and has checked poison. Reserve recording service in
+// the same critical section as the pack and empty completion capacity.
+MVKMetal4AllocatorUse takeAllocatorLocked(const std::shared_ptr<MVKMetal4RecordingPoolState>& storage) {
+    auto& available = storage->availableEpochs;
+    if (available.empty()) { return {}; }
+    size_t selected = available.size() - 1;
+    // Prefer already-quiescent storage instead of extending another epoch's
+    // live command bytes. Keep the common idle-back path and all-busy fallback
+    // LIFO; the existing available limit bounds this metadata-only search.
+    if (available[selected]->liveUses) {
+        for (size_t i = selected; i > 0;) {
+            --i;
+            if (!available[i]->liveUses) { selected = i; break; }
+        }
+    }
+    auto epoch = std::move(available[selected]);
+    if (selected + 1 != available.size()) { available[selected] = std::move(available.back()); }
+    available.pop_back();
+    assert(!epoch->writer && epoch->state == MVKMetal4AllocatorState::Appendable);
+    storage->poolStats.idleBytes -= epoch->idleCharge;
+    epoch->idleCharge = 0; epoch->available = false;
+    epoch->writer = true; ++epoch->liveUses;
+    ++storage->poolStats.allocatorReused;
+    return {storage, std::move(epoch)};
+}
+
+MVKMetal4AllocatorUse createAllocatorUse(const std::shared_ptr<MVKMetal4RecordingPoolState>& storage,
+                                       NSError** error) {
+    // No writer or GPU wait: simultaneous open recordings get different storage.
+    auto epoch = std::make_shared<MVKMetal4AllocatorEpoch>();
+    epoch->device = [storage->device retain];
+    epoch->allocator = [storage->device newCommandAllocator];
+    if (!epoch->allocator) { fail(error, 2, @"Could not allocate Metal 4 command storage."); return {}; }
+    // Also account for cold reservations cancelled before any native begin.
+    // New allocators, like reset allocators, contain no live command bytes.
+    epoch->allocatedBytes = [epoch->allocator allocatedSize];
+    epoch->resetAllocatedBytes = epoch->allocatedBytes;
+    {
+        std::lock_guard<std::mutex> lock(storage->poolMutex);
+        if (storage->poisoned.load(std::memory_order_acquire)) {
+            fail(error, 5, @"Recording storage belongs to a lost device."); return {};
+        }
+        epoch->writer = true; epoch->liveUses = 1;
+        ++storage->poolStats.allocatorCreated;
+    }
+    return {storage, std::move(epoch)};
+}
+
+// No ownership is destroyed under the mutex. Every released use retains its
+// epoch until the outside-lock finish pass, including the one reset election.
+void releaseAllocatorLocked(MVKMetal4AllocatorUse& use) {
+    if (!use.epoch || use.phase == MVKMetal4AllocatorUsePhase::Released) { return; }
+    auto& storage = *use.storage;
+    auto& epoch = *use.epoch;
+    const bool reservedRollback = use.phase == MVKMetal4AllocatorUsePhase::Reserved;
+    if (use.phase == MVKMetal4AllocatorUsePhase::Recording) { discardAllocatorLocked(storage, epoch); }
+    if (use.phase == MVKMetal4AllocatorUsePhase::Recording || use.phase == MVKMetal4AllocatorUsePhase::Reserved) {
+        assert(epoch.writer); epoch.writer = false;
+    }
+    assert(epoch.liveUses); --epoch.liveUses;
+    use.phase = MVKMetal4AllocatorUsePhase::Released;
+    if (epoch.liveUses) {
+        // No native attachment was begun: return its recording service even
+        // while older ended/unsubmitted/GPU users still own the same bytes.
+        if (reservedRollback && epoch.state == MVKMetal4AllocatorState::Appendable) {
+            offerAllocatorLocked(storage, use.epoch);
+        }
+        return;
+    }
+    assert(!epoch.writer);
+    if (storage.poisoned.load(std::memory_order_acquire)) { discardAllocatorLocked(storage, epoch); }
+    // Reclaim ended command bytes at genuine quiescence as well as at the
+    // seal bound. A cold reservation has no ended bytes and needs no reset.
+    if (epoch.state == MVKMetal4AllocatorState::Sealed ||
+        (epoch.state == MVKMetal4AllocatorState::Appendable && epoch.recordings)) {
+        removeAllocatorAvailableLocked(storage, epoch);
+        epoch.state = MVKMetal4AllocatorState::Resetting;
+        use.resetElected = true;
+    } else if (epoch.state == MVKMetal4AllocatorState::Appendable) {
+        offerAllocatorLocked(storage, use.epoch);
+    }
+}
+
+template<class UseAt> void releaseAllocatorUses(const std::shared_ptr<MVKMetal4RecordingPoolState>& storage,
+                                                size_t count, UseAt useAt) {
+    {
+        std::lock_guard<std::mutex> lock(storage->poolMutex);
+        for (size_t i = 0; i < count; ++i) { releaseAllocatorLocked(useAt(i)); }
+    }
+    for (size_t i = 0; i < count; ++i) { useAt(i).finishRelease(); }
+}
+}
+
+void MVKMetal4AllocatorUse::begin(id<MTL4CommandBuffer> buffer) {
+    assert(epoch && phase == MVKMetal4AllocatorUsePhase::Reserved);
+    // If native begin throws/fails partway through, cancellation must not infer
+    // that no recording attachment exists and reoffer its memory.
+    phase = MVKMetal4AllocatorUsePhase::Recording;
+    [buffer beginCommandBufferWithAllocator:epoch->allocator];
+}
+
+void MVKMetal4AllocatorUse::end() {
+    assert(epoch && phase == MVKMetal4AllocatorUsePhase::Recording);
+    uint64_t bytes = [epoch->allocator allocatedSize]; // Still the exclusive writer.
+    std::lock_guard<std::mutex> lock(storage->poolMutex);
+    epoch->allocatedBytes = bytes; ++epoch->recordings;
+    epoch->writer = false; phase = MVKMetal4AllocatorUsePhase::Ended;
+    const uint64_t growth = bytes > epoch->resetAllocatedBytes ? bytes - epoch->resetAllocatedBytes : 0;
+    if (epoch->recordings >= MVKMetal4ResourcePoolStats::maxAllocatorEpochRecordings ||
+        growth >= MVKMetal4ResourcePoolStats::maxAllocatorEpochGrowthBytes) {
+        epoch->state = MVKMetal4AllocatorState::Sealed;
+    }
+    offerAllocatorLocked(*storage, epoch);
+}
+
+void MVKMetal4AllocatorUse::discardOpen() {
+    if (!epoch || phase != MVKMetal4AllocatorUsePhase::Recording) { return; }
+    std::lock_guard<std::mutex> lock(storage->poolMutex);
+    discardAllocatorLocked(*storage, *epoch);
+}
+
+void MVKMetal4AllocatorUse::finishRelease() {
+    if (!epoch) { return; }
+    assert(phase == MVKMetal4AllocatorUsePhase::Released);
+    if (resetElected) {
+        [epoch->allocator reset];
+        uint64_t bytes = [epoch->allocator allocatedSize];
+        {
+            std::lock_guard<std::mutex> lock(storage->poolMutex);
+            assert(!epoch->writer && !epoch->liveUses && epoch->state == MVKMetal4AllocatorState::Resetting);
+            ++storage->poolStats.allocatorResets;
+            epoch->allocatedBytes = bytes; epoch->resetAllocatedBytes = bytes; epoch->recordings = 0;
+            // Poison may overlap an already-elected, zero-user reset, but never
+            // its publication. Retained native heap capacity is reusable memory,
+            // not new growth: offerAllocatorLocked applies the total idle budget.
+            if (storage->poisoned.load(std::memory_order_acquire)) {
+                discardAllocatorLocked(*storage, *epoch);
+            } else {
+                epoch->state = MVKMetal4AllocatorState::Appendable;
+                offerAllocatorLocked(*storage, epoch);
+            }
+        }
+        resetElected = false;
+    }
+    epoch.reset(); storage.reset(); // Native destruction is outside all locks.
+}
+
+void MVKMetal4AllocatorUse::release() {
+    if (!epoch) { return; }
+    {
+        std::lock_guard<std::mutex> lock(storage->poolMutex);
+        releaseAllocatorLocked(*this);
+    }
+    finishRelease();
+}
+
+// Value-owned tail: no additional heap node for its allocator use. Open failure
+// disposes native state before dropping its writer; ended cancellation is safe.
+struct MVKMetal4TailRecording {
+    std::unique_ptr<MVKMetal4ResourcePack> pack;
+    MVKMetal4AllocatorUse allocatorUse;
+    MVKMetal4TailRecording() = default;
+    MVKMetal4TailRecording(const MVKMetal4TailRecording&) = delete;
+    MVKMetal4TailRecording& operator=(const MVKMetal4TailRecording&) = delete;
+    MVKMetal4TailRecording(MVKMetal4TailRecording&&) = default;
+    MVKMetal4TailRecording& operator=(MVKMetal4TailRecording&& other) noexcept {
+        reset(); pack = std::move(other.pack); allocatorUse = std::move(other.allocatorUse); return *this;
+    }
+    explicit operator bool() const { return bool(pack); }
+    void reset() {
+        allocatorUse.discardOpen(); pack.reset(); allocatorUse.release();
+    }
+    ~MVKMetal4TailRecording() { reset(); }
+};
+
+namespace {
+std::unique_ptr<MVKMetal4ResourcePack> acquirePack(const std::shared_ptr<MVKMetal4RecordingPoolState>& storage,
+                                                bool isTail, NSError** error,
+                                                MVKMetal4AllocatorUse& allocatorUse,
+                                                std::unique_ptr<MVKMetal4CompletionStorage>* completionStorage = nullptr) {
+    assert(!allocatorUse.epoch);
+    std::unique_ptr<MVKMetal4ResourcePack> reused;
+    {
+        std::lock_guard<std::mutex> lock(storage->poolMutex);
+        if (storage->poisoned.load(std::memory_order_acquire)) {
+            fail(error, 5, @"Recording storage belongs to a lost device."); return nullptr;
+        }
+        // begin() acquires both kinds of empty capacity with the existing lock.
+        if (!isTail && completionStorage && !storage->completionPool.empty()) {
+            *completionStorage = std::move(storage->completionPool.back()); storage->completionPool.pop_back();
+            storage->poolStats.idleBytes -= (*completionStorage)->hostStorageBytes();
+        }
+        auto& pool = isTail ? storage->tailPool : storage->primaryPool;
+        if (!pool.empty()) {
+            reused = std::move(pool.back()); pool.pop_back();
+            storage->poolStats.idleBytes -= reused->idleBytes;
+            ++(isTail ? storage->poolStats.tailReused : storage->poolStats.primaryReused);
+            if (!isTail && reused->retained) { ++storage->poolStats.hostStorageReused; }
+        }
+        allocatorUse = takeAllocatorLocked(storage);
+    }
+    // Cold creation and every failure unwind remain outside the pool lock.
+    // The caller owns Reserved rollback even if subsequent pack creation fails.
+    if (!allocatorUse.epoch) { allocatorUse = createAllocatorUse(storage, error); }
+    if (!allocatorUse.epoch) { return nullptr; }
+    if (reused) {
+        if (!isTail) { reused->prepareStableBuffersForRecording(); }
+        return reused;
+    }
+    // Pool exhaustion never waits for GPU completion or resets an in-flight pack.
+    auto pack = std::make_unique<MVKMetal4ResourcePack>();
+    if (!isTail) {
+        pack->uploadSlabs.reserve(MVKMetal4ResourcePoolStats::maxUploadSlabsPerPack);
+        pack->argumentTables.reserve(MVKMetal4ResourcePoolStats::maxArgumentTableGroupsPerPack);
+    }
+    pack->buffer = [storage->device newCommandBuffer];
+    pack->marker = [storage->device newBufferWithLength:4 options:MTLResourceStorageModeShared];
+    MTLResidencySetDescriptor* desc = [MTLResidencySetDescriptor new];
+    if (!isTail) {
+        desc.label = @"MoltenVK Metal 4 submission resources";
+        pack->residency = [storage->device newResidencySetWithDescriptor:desc error:error];
+    }
+    if (isTail || pack->residency) {
+        desc.label = isTail ? @"MoltenVK Metal 4 owned retirement storage" : @"MoltenVK Metal 4 owned upload storage";
+        pack->stableResidency = [storage->device newResidencySetWithDescriptor:desc error:error];
+    }
+    [desc release];
+    if (!pack->buffer || !pack->marker || !pack->stableResidency ||
+        (!isTail && !pack->residency)) {
+        if (!error || !*error) { fail(error, 2, @"Could not allocate Metal 4 submission resource pack."); }
+        return nullptr;
+    }
+    pack->addStableAllocation(pack->marker);
+    {
+        std::lock_guard<std::mutex> lock(storage->poolMutex);
+        ++(isTail ? storage->poolStats.tailCreated : storage->poolStats.primaryCreated);
+    }
+    return pack;
+}
+
+// Only terminal GPU retirement or cancellation of an ended, unsubmitted buffer
+// may call this. No callbacks, Objective-C releases or Metal calls under poolMutex.
+void publishIdleStorage(const std::shared_ptr<MVKMetal4RecordingPoolState>& storage,
+                        std::unique_ptr<MVKMetal4ResourcePack> pack, bool isTail,
+                        std::unique_ptr<MVKMetal4CompletionStorage> completion) {
+    std::lock_guard<std::mutex> poolLock(storage->poolMutex);
+    // Failure may arrive during reset/preparation. Publish neither kind of
+    // reusable storage after observed poison; destruction occurs outside locks.
+    if (storage->poisoned.load(std::memory_order_acquire)) { return; }
+    constexpr uint64_t cap = MVKMetal4ResourcePoolStats::maxIdleBytes;
+    if (pack) {
+        auto& pool = isTail ? storage->tailPool : storage->primaryPool;
+        if (pool.size() < MVKMetal4ResourcePoolStats::maxIdlePacksPerKind &&
+            pack->idleBytes <= cap - storage->poolStats.idleBytes) {
+            storage->poolStats.idleBytes += pack->idleBytes;
+            pool.push_back(std::move(pack));
+        }
+    }
+    if (completion) {
+        uint64_t bytes = completion->hostStorageBytes();
+        if (storage->completionPool.size() < MVKMetal4ResourcePoolStats::maxIdlePacksPerKind &&
+            bytes <= cap - storage->poolStats.idleBytes) {
+            storage->poolStats.idleBytes += bytes;
+            storage->completionPool.push_back(std::move(completion));
+        }
+    }
+}
+
+void recyclePack(const std::shared_ptr<MVKMetal4RecordingPoolState>& storage,
+                 std::unique_ptr<MVKMetal4ResourcePack> pack, bool isTail,
+                 std::unique_ptr<MVKMetal4CompletionStorage> completion = nullptr) {
+    if (!pack) {
+        if (completion) { publishIdleStorage(storage, nullptr, false, std::move(completion)); }
+        return;
+    }
+    if (storage->poisoned.load(std::memory_order_acquire)) { return; }
+    uint64_t residencyBytes = 0;
+    if (!isTail) {
+        // This pack's GPU feedback (or ended cancellation) is already proved.
+        // Tables and dynamic residency are independent of shared command memory.
+        for (auto& group : pack->argumentTables) {
+            if (!group.tables->resetForReuse()) { return; }
+            group.leased = false;
+        }
+        if (pack->dynamicResidencyHasAllocations) {
+            [pack->residency removeAllAllocations];
+            [pack->residency commit];
+            pack->dynamicResidencyHasAllocations = false;
+        }
+        residencyBytes = pack->residency.allocatedSize;
+    }
+    uint64_t stableResidencyBytes = pack->stableResidency.allocatedSize;
+    constexpr uint64_t cap = MVKMetal4ResourcePoolStats::maxIdleBytes;
+    if (residencyBytes > cap || stableResidencyBytes > cap - residencyBytes) { return; }
+    // Count the committed set's reported footprint once. It covers the marker
+    // cached slabs and cached native buffers; it may include internal allocations. Adding
+    // those same buffers separately would count their storage a second time.
+    pack->idleBytes = residencyBytes + stableResidencyBytes;
+    if (!isTail) {
+        uint64_t hostBytes = pack->hostStorageBytes();
+        if (hostBytes > cap - pack->idleBytes) { return; }
+        pack->idleBytes += hostBytes;
+        for (auto& group : pack->argumentTables) {
+            uint64_t bytes = sizeof(MVKMetal4ArgumentTables) + group.tables->retainedHostByteCapacity();
+            if (bytes > cap - pack->idleBytes) { return; }
+            pack->idleBytes += bytes;
+        }
+    }
+    publishIdleStorage(storage, std::move(pack), isTail, std::move(completion));
+    // Excess idle capacity is destroyed here, after releasing the pool lock.
+}
+
+void recycleCompletionStorage(const std::shared_ptr<MVKMetal4RecordingPoolState>& storage,
+                              std::unique_ptr<MVKMetal4CompletionStorage> completion) {
+    if (completion) { publishIdleStorage(storage, nullptr, false, std::move(completion)); }
+}
+}
+
+struct MVKMetal4SubmissionState {
+    uint64_t timelineID = 0;
+    // Published only by submit's exclusive adoption claim. Recording storage
+    // does not require a queue; the weak diagnostic link is never an owner.
+    std::shared_ptr<MVKMetal4QueueState> owner;
+    std::shared_ptr<MVKMetal4RecordingPoolState> storage;
+#if MVK_ENABLE_CUSTOM_DIAGNOSTICS
+    std::weak_ptr<MVKMetal4QueueState> diagnosticQueue;
+#endif
+    std::unique_ptr<MVKMetal4ResourcePack> pack;
+    MVKMetal4AllocatorUse allocatorUse;
+    // Borrowed from this record's use, detached before releasing that use.
+    id<MTL4CommandAllocator> allocator = nil;
+    id<MTL4CommandBuffer> buffer = nil;
+    // Borrowed from pack/retained. Metadata describes actual native commands,
+    // not CPU query activation. Eligibility is recomputed at each submission.
+    struct CounterPrefix {
+        id<MTL4CommandBuffer> buffer;
+        MVKMetal4CounterBoundary following;
+        bool writes, timestampBridge;
+    };
+    std::vector<CounterPrefix> counterPrefixes;
+    bool counterBufferWrites = false;
+    bool counterPrefixComplete = false, counterWritesPending = false;
+    bool externalCounterWait = false;
+    bool counterBufferMayHaveWork = false, fullCounterEntryRequired = false;
+    id<MTLResidencySet> residency = nil;
+    NSMutableArray* retained = nil;
+    NSMutableArray* operationRetained = nil;
+    size_t operationRetainedHighWater = 0;
+    std::unique_ptr<MVKMetal4CompletionStorage> completionStorage;
+    using ObjectIdentity = MVKMetal4ObjectIdentity;
+    MVKMetal4ObjectIdentityMap objects;
+    MVKMetal4PreparedGroupCache preparedGroups;
+    MVKMetal4RecordingDependencies dependencies;
+    size_t retainedHighWater = 0;
+    MVKMetal4ResourceRegistrationStats registrationStats;
+    std::vector<std::shared_ptr<void>> deviceResidencyLeases;
+    id<MTLBuffer> uploadArena = nil; // Owned by retained and optionally pack until retirement.
+    NSUInteger uploadArenaCursor = 0;
+    size_t uploadSlabIndex = 0;
+    mutable std::mutex mutex;
+    std::condition_variable done;
+    Phase phase = Phase::Recording;
+    NSError* error = nil;
+    std::vector<std::function<void()>> cleanup;
+    std::vector<std::function<void()>> hostStateActions;
+    std::vector<std::function<void(NSError*)>> errorHandlers, completedHandlers;
+    bool errorHandlersRunning = false;
+    std::vector<MVKMetal4EventValue> waits, signals;
+    std::vector<id<MTLDrawable>> drawables;
+    std::vector<MVKMetal4Presentation> presentations;
+    // Overflow leases retain their native tables until the same GPU retirement,
+    // but never increase the idle cache's bounded table group count.
+    std::vector<MVKMetal4ResourcePack::ArgumentTableGroup> transientArgumentTables;
+#if MVK_ENABLE_CUSTOM_DIAGNOSTICS
+    MVKMetal4EncodingStats encodingStats;
+    bool costPresentation = false; // Set before publication; classification only.
+#endif
+
+    // Caller holds mutex while recording. Retention and residency are distinct:
+    // an object retained for another purpose must still be registered resident.
+    ObjectIdentity& retainUnique(id object) {
+        auto result = objects.try_emplace((const void*)object);
+        if (!result.first->second.gpuRetained) {
+            [retained addObject:object];
+            result.first->second.gpuRetained = true;
+        }
+        if (result.second) { ++registrationStats.retainedObjects; }
+        return result.first->second;
+    }
+    // Recording-only deduplication shares the identity map, but the actual
+    // event/drawable owner is independent of the map and GPU retained array.
+    bool retainOperationUnique(id object) {
+        if (!operationRetained) {
+            if (!completionStorage) { completionStorage = std::make_unique<MVKMetal4CompletionStorage>(); }
+            operationRetained = [[NSMutableArray alloc] initWithCapacity:8];
+            if (!operationRetained) { return false; }
+        }
+        auto result = objects.try_emplace((const void*)object);
+        if (!result.first->second.operationRetained) {
+            [operationRetained addObject:object];
+            result.first->second.operationRetained = true;
+        }
+        if (result.second) { ++registrationStats.retainedObjects; }
+        return true;
+    }
+    ObjectIdentity& addResident(id<MTLResource> resource, bool stableBufferCandidate = true,
+                                MVKMetal4ResourceKind kind = MVKMetal4ResourceKind::Unknown) {
+        auto& identity = retainUnique(resource);
+        if (!identity.resident) {
+            auto lease = storage->deviceResidency ? storage->deviceResidency->leaseWithKind(resource, kind) : std::shared_ptr<void>{};
+            if (lease) {
+                deviceResidencyLeases.push_back(std::move(lease));
+                ++registrationStats.deviceResidencyLeases;
+            } else if (!stableBufferCandidate || !pack->cacheStableBuffer(resource)) {
+                [residency addAllocation:resource];
+                pack->dynamicResidencyHasAllocations = true;
+            }
+            identity.resident = true;
+            ++registrationStats.residentResources;
+        }
+        return identity;
+    }
+    // Explicit owned-storage path only; never infer stable ownership from a
+    // caller's pointer. The pack survives independently until GPU retirement.
+    void addStableResident(id<MTLBuffer> resource) {
+        auto& identity = retainUnique(resource);
+        if (!identity.resident) {
+            identity.resident = true;
+            ++registrationStats.residentResources;
+        }
+    }
+    void forgetIdentities() {
+        objects.clear();
+        preparedGroups.clear();
+        uploadArena = nil; uploadArenaCursor = 0; uploadSlabIndex = 0;
+    }
+    void clearGPUReferences() {
+        retainedHighWater = std::max(retainedHighWater, objects.size());
+        forgetIdentities();
+        deviceResidencyLeases.clear();
+        counterPrefixes.clear();
+        [retained removeAllObjects];
+    }
+    void clearOperationReferences() {
+        operationRetainedHighWater = std::max(operationRetainedHighWater, size_t(operationRetained.count));
+        [operationRetained removeAllObjects];
+        presentations.clear(); // Destroy beforePresent captures before reuse.
+        waits.clear(); signals.clear(); drawables.clear();
+    }
+    template<class T> static void trimEmptyVector(std::vector<T>& values) {
+        if (values.capacity() > MVKMetal4ResourcePoolStats::maxHostVectorEntries) {
+            std::vector<T>().swap(values);
+        }
+    }
+    // Only after GPU storage retirement or ended-unsubmitted cancellation, after
+    // cleanup has run. No live identity, Objective-C retain or callback moves.
+    void cacheEmptyHostStorage(MVKMetal4ResourcePack& destination) {
+        if (objects.bucket_count() > MVKMetal4ResourcePoolStats::maxHostIdentityBuckets) {
+            decltype(objects)().swap(objects);
+        }
+        if (retainedHighWater > MVKMetal4ResourcePoolStats::maxRetainedHostObjects) {
+            [retained release]; retained = nil; retainedHighWater = 0;
+        }
+        destination.objects.swap(objects);
+        destination.retained = retained; retained = nil;
+        destination.retainedHighWater = retainedHighWater; retainedHighWater = 0;
+        if (destination.hostStorageBytes() > MVKMetal4ResourcePoolStats::maxHostStoragePayloadBytes) {
+            decltype(destination.objects)().swap(destination.objects);
+        }
+    }
+    // Queue-operation ownership and callback/vector capacity remain exclusive
+    // to this fresh state until full semantic completion or cancellation.
+    void cacheEmptyCompletionStorage() {
+        if (!completionStorage) { return; }
+        trimEmptyVector(waits); trimEmptyVector(signals);
+        trimEmptyVector(drawables); trimEmptyVector(presentations);
+        if (operationRetainedHighWater > MVKMetal4ResourcePoolStats::maxRetainedHostObjects) {
+            [operationRetained release]; operationRetained = nil; operationRetainedHighWater = 0;
+        }
+        completionStorage->waits.swap(waits); completionStorage->signals.swap(signals);
+        completionStorage->drawables.swap(drawables); completionStorage->presentations.swap(presentations);
+        completionStorage->retained = operationRetained; operationRetained = nil;
+        completionStorage->retainedHighWater = operationRetainedHighWater; operationRetainedHighWater = 0;
+        if (completionStorage->hostStorageBytes() > MVKMetal4ResourcePoolStats::maxHostStoragePayloadBytes) {
+            decltype(completionStorage->waits)().swap(completionStorage->waits);
+            decltype(completionStorage->signals)().swap(completionStorage->signals);
+            decltype(completionStorage->drawables)().swap(completionStorage->drawables);
+            decltype(completionStorage->presentations)().swap(completionStorage->presentations);
+        }
+    }
+
+    ~MVKMetal4SubmissionState() {
+        // Submitted state is retained by Metal's feedback block and, when work
+        // feedback arrives first, its eligible notification owner slot. Neither
+        // releases GPU storage before its feedback/scheduling gate. Queue-operation
+        // retains and semantic callbacks independently survive signal observation.
+        // An unsubmitted batch still owns cleanup obligations (e.g. pool leases).
+        for (auto& action : cleanup) { action(); }
+        cleanup.clear();
+        clearGPUReferences();
+        clearOperationReferences();
+        buffer = nil; allocator = nil; residency = nil;
+        // Recording cancellation is intentionally destroyed, never reset while
+        // an encoder might still be open. Ended cancellation has no GPU owner.
+        if (phase == Phase::Ended) {
+            allocatorUse.release();
+            if (pack) { cacheEmptyHostStorage(*pack); }
+            cacheEmptyCompletionStorage();
+            recyclePack(storage, std::move(pack), false, std::move(completionStorage));
+        } else {
+            // The prepared encoder's owner disposes its encoders before this
+            // state. Explicitly dispose our native buffer before its writer use;
+            // member destruction order must not determine allocator safety.
+            allocatorUse.discardOpen();
+            pack.reset();
+            allocatorUse.release();
+        }
+        [retained release]; retained = nil;
+        [operationRetained release]; operationRetained = nil;
+        [error release];
+    }
+};
+
+// A single queue adoption/feedback owner for an ordered array of independent
+// recordings. Children never own this object. Retired GPU storage and pending
+// signal observation remain separate, just as for the length-one path.
+struct MVKMetal4SubmissionGroup {
+    struct Retirement {
+        std::vector<std::function<void()>> cleanup;
+        std::vector<std::function<void(NSError*)>> errors, completed;
+        std::unique_ptr<MVKMetal4ResourcePack> pack;
+        MVKMetal4AllocatorUse allocatorUse;
+    };
+    std::shared_ptr<MVKMetal4QueueState> owner;
+    std::vector<std::shared_ptr<MVKMetal4SubmissionState>> children;
+    // Preallocated before publication; callbacks only swap existing ownership.
+    std::vector<Retirement> retirement;
+    std::vector<id<MTL4CommandBuffer>> workBuffers;
+    struct WorkRange { size_t first, count; bool fullCounterWait, containsElidedEntry; };
+    // No extra range/event/feedback storage for the ordinary single commit.
+    std::vector<WorkRange> workRanges;
+    std::vector<uint8_t> rangeFeedback;
+#if MVK_ENABLE_CUSTOM_DIAGNOSTICS
+    std::vector<double> rangeCommitHosts;
+#endif
+    size_t remainingRangeFeedback = 0;
+    id<MTLEvent> counterEvent = nil;
+    mutable std::mutex mutex;
+    Phase phase = Phase::Ended;
+    NSError* error = nil;
+    bool workFeedbackDone = false, tailFeedbackDone = false, submitFinished = false;
+    bool errorHandlersRunning = false;
+    GPUStorage gpuStorage = GPUStorage::InUse;
+    SignalNotification signalNotification = SignalNotification::None;
+    uint64_t notificationGeneration = 0;
+    unsigned notificationSlot = MVKMetal4QueueState::notificationCapacity;
+    const MVKMetal4EventValue* notificationSignal = nullptr;
+    MVKMetal4TailRecording tail;
+    uint64_t timelineID = 0;
+#if MVK_ENABLE_CUSTOM_DIAGNOSTICS
+    double workCommitHost = 0, tailCommitHost = 0;
+    bool costPresentation = false;
+#endif
+    ~MVKMetal4SubmissionGroup() { [counterEvent release]; [error release]; }
+};
+
+namespace {
+// Reserve only a mask bit during preparation. The strong owner is published
+// atomically with the whole group's Submitted/pending state.
+struct NotificationSlotReservation {
+    std::shared_ptr<MVKMetal4QueueState> queue;
+    unsigned slot = MVKMetal4QueueState::notificationCapacity;
+    explicit NotificationSlotReservation(std::shared_ptr<MVKMetal4QueueState> owner)
+        : queue(std::move(owner)) {}
+    bool reserve() {
+        std::lock_guard<std::mutex> lock(queue->stateMutex);
+        if (queue->firstError || !queue->signalListener || !queue->freeNotificationSlots) { return false; }
+        slot = __builtin_ctzll(queue->freeNotificationSlots);
+        queue->freeNotificationSlots &= ~(uint64_t{1} << slot);
+        return true;
+    }
+    void release() {
+        if (slot == MVKMetal4QueueState::notificationCapacity) { return; }
+        {
+            std::lock_guard<std::mutex> lock(queue->stateMutex);
+            if (!queue->notificationOwners[slot]) { queue->freeNotificationSlots |= uint64_t{1} << slot; }
+        }
+        slot = MVKMetal4QueueState::notificationCapacity;
+    }
+    ~NotificationSlotReservation() { release(); }
+};
+
+// Every group acquires child mutexes in address order, independent of its work
+// order and destination queue. Storage for these locks is allocated before claim.
+struct SubmissionChildLocks {
+    // Declare each strong owner before its lock so destruction unlocks first.
+    std::shared_ptr<MVKMetal4SubmissionState> single;
+    std::unique_lock<std::mutex> singleHeld;
+    std::vector<std::shared_ptr<MVKMetal4SubmissionState>> ordered;
+    std::vector<std::unique_lock<std::mutex>> held;
+    explicit SubmissionChildLocks(const std::vector<std::shared_ptr<MVKMetal4SubmissionState>>& children) {
+        if (children.size() == 1) { single = children.front(); return; }
+        ordered = children;
+        held.resize(children.size());
+        std::sort(ordered.begin(), ordered.end(), [](const auto& a, const auto& b) {
+            return std::less<MVKMetal4SubmissionState*>{}(a.get(), b.get());
+        });
+    }
+    bool hasDuplicates() const {
+        for (size_t i = 1; i < ordered.size(); ++i) {
+            if (ordered[i - 1] == ordered[i]) { return true; }
+        }
+        return false;
+    }
+    void lock() {
+        if (single) { singleHeld = std::unique_lock<std::mutex>(single->mutex); return; }
+        for (size_t i = 0; i < ordered.size(); ++i) { held[i] = std::unique_lock<std::mutex>(ordered[i]->mutex); }
+    }
+    void unlock() {
+        if (single) { singleHeld.unlock(); return; }
+        for (size_t i = held.size(); i; --i) { held[i - 1].unlock(); }
+    }
+};
+
+// Caller holds the group mutex. Move all first-error handlers before allowing
+// any retirement election; errors wake child waiters without releasing storage.
+bool publishGroupError(const std::shared_ptr<MVKMetal4SubmissionGroup>& group, NSError* error) {
+    if (group->error) { return false; }
+    group->error = [error retain];
+    bool hasHandlers = false;
+    for (size_t i = 0; i < group->children.size(); ++i) {
+        auto& batch = group->children[i];
+        std::lock_guard<std::mutex> lock(batch->mutex);
+        if (!batch->error) { batch->error = [error retain]; }
+        group->retirement[i].errors.swap(batch->errorHandlers);
+        hasHandlers = hasHandlers || !group->retirement[i].errors.empty();
+    }
+    group->errorHandlersRunning = hasHandlers;
+    return hasHandlers;
+}
+
+void notifyGroupWaiters(const std::shared_ptr<MVKMetal4SubmissionGroup>& group) {
+    for (auto& batch : group->children) { batch->done.notify_all(); }
+    group->owner->idle.notify_all();
+}
+
+void runGroupErrorHandlers(const std::shared_ptr<MVKMetal4SubmissionGroup>& group) {
+    for (size_t i = 0; i < group->children.size(); ++i) {
+        auto& handlers = group->retirement[i].errors;
+        for (auto& handler : handlers) { handler(group->children[i]->error); }
+        handlers.clear();
+    }
+    std::lock_guard<std::mutex> lock(group->mutex);
+    group->errorHandlersRunning = false;
+}
+
+// All native work, the one tail (when present), and finished scheduling protect
+// every recording's allocator use. Actual-event observation can retain semantic
+// owners after GPU storage is reclaimed. Mandatory cleanup for ALL children
+// precedes ALL workload completion callbacks, including a final Vulkan fence.
+void retireIfReady(std::shared_ptr<MVKMetal4SubmissionGroup> group) {
+    auto queue = group->owner;
+    std::shared_ptr<MVKMetal4SubmissionGroup> notificationOwner;
+    MVKMetal4TailRecording tail;
+    bool reclaimGPU = false, completeNow = false;
+    {
+        std::lock_guard<std::mutex> lock(group->mutex);
+        if (group->phase != Phase::Submitted || !group->submitFinished ||
+            !group->workFeedbackDone || !group->tailFeedbackDone || group->errorHandlersRunning ||
+            group->gpuStorage == GPUStorage::Reclaiming) { return; }
+        completeNow = group->signalNotification != SignalNotification::Pending;
+        if (!completeNow && group->gpuStorage == GPUStorage::Reclaimed) { return; }
+        if (group->signalNotification != SignalNotification::None) {
+            std::lock_guard<std::mutex> queueLock(queue->stateMutex);
+            if (queue->firstError &&
+                (group->signalNotification != SignalNotification::Failed || !group->error)) { return; }
+            if (completeNow && group->notificationSlot < MVKMetal4QueueState::notificationCapacity) {
+                auto& owner = queue->notificationOwners[group->notificationSlot];
+                if (owner.get() == group.get()) {
+                    notificationOwner = std::move(owner);
+                    queue->freeNotificationSlots |= uint64_t{1} << group->notificationSlot;
+                }
+            }
+            if (completeNow) { group->notificationSlot = MVKMetal4QueueState::notificationCapacity; }
+        }
+        if (completeNow) { group->phase = Phase::Retiring; }
+        if (group->gpuStorage == GPUStorage::InUse) {
+            group->gpuStorage = GPUStorage::Reclaiming;
+            reclaimGPU = true;
+            tail = std::move(group->tail);
+        }
+        for (size_t i = 0; i < group->children.size(); ++i) {
+            auto& batch = group->children[i];
+            auto& retired = group->retirement[i];
+            std::lock_guard<std::mutex> childLock(batch->mutex);
+            if (completeNow) {
+                batch->phase = Phase::Retiring;
+                retired.completed.swap(batch->completedHandlers);
+            }
+            if (reclaimGPU) {
+                retired.cleanup.swap(batch->cleanup);
+                retired.pack = std::move(batch->pack);
+                retired.allocatorUse = std::move(batch->allocatorUse);
+                batch->buffer = nil; batch->allocator = nil; batch->residency = nil;
+            }
+        }
+    }
+    notificationOwner.reset();
+#if MVK_ENABLE_CUSTOM_DIAGNOSTICS
+    auto* timeline = mvkBackendTimeline();
+    const uint64_t groupID = group->timelineID, queueID = queue->timelineID;
+    double phaseStart = timeline ? timeline->clock() : 0;
+    if (timeline && completeNow) {
+        timeline->record(MVKBackendTimelineKind::RetireReady, phaseStart, phaseStart, groupID, queueID);
+    }
+#endif
+    if (reclaimGPU) {
+        for (size_t i = 0; i < group->children.size(); ++i) {
+            auto& batch = group->children[i];
+            auto& cleanup = group->retirement[i].cleanup;
+            for (auto& action : cleanup) { action(); }
+            cleanup.clear();
+            batch->clearGPUReferences();
+            batch->transientArgumentTables.clear();
+        }
+#if MVK_ENABLE_CUSTOM_DIAGNOSTICS
+        if (timeline) {
+            double now = timeline->clock();
+            timeline->record(MVKBackendTimelineKind::MandatoryCleanup, phaseStart, now, groupID, queueID);
+            phaseStart = now;
+        }
+#endif
+    }
+    if (completeNow) {
+        {
+            std::lock_guard<std::mutex> lock(queue->stateMutex);
+            if (queue->firstError) {
+                if (group->counterEvent) { [queue->failedEvents addObject:group->counterEvent]; }
+                for (auto& batch : group->children) {
+                    for (auto& event : batch->waits) { [queue->failedEvents addObject:event.event]; }
+                    for (auto& event : batch->signals) { [queue->failedEvents addObject:event.event]; }
+                }
+            }
+        }
+        for (size_t i = 0; i < group->children.size(); ++i) {
+            auto& batch = group->children[i];
+            batch->clearOperationReferences();
+            auto& handlers = group->retirement[i].completed;
+            for (auto& handler : handlers) { handler(batch->error); }
+            handlers.clear();
+        }
+#if MVK_ENABLE_CUSTOM_DIAGNOSTICS
+        if (timeline) {
+            double now = timeline->clock();
+            timeline->record(MVKBackendTimelineKind::CompletionHandlers, phaseStart, now, groupID, queueID);
+            phaseStart = now;
+        }
+#endif
+    }
+    if (reclaimGPU) {
+        // One pool lock for all uses in this already-proven group. Shared epochs
+        // reset only on their last user; callbacks have already run independently
+        // of unrelated records and of this cache/reset work. No allocations here.
+        const size_t children = group->retirement.size();
+        releaseAllocatorUses(queue->storage, children + (tail ? 1 : 0),
+            [&](size_t i) -> MVKMetal4AllocatorUse& {
+                return i < children ? group->retirement[i].allocatorUse : tail.allocatorUse;
+            });
+        for (size_t i = 0; i < group->children.size(); ++i) {
+            auto& batch = group->children[i];
+            auto& pack = group->retirement[i].pack;
+            if (pack) { batch->cacheEmptyHostStorage(*pack); }
+            if (completeNow) { batch->cacheEmptyCompletionStorage(); }
+            recyclePack(batch->storage, std::move(pack), false,
+                        completeNow ? std::move(batch->completionStorage) : nullptr);
+        }
+        recyclePack(queue->storage, std::move(tail.pack), true);
+        {
+            std::lock_guard<std::mutex> lock(group->mutex);
+            group->gpuStorage = GPUStorage::Reclaimed;
+        }
+#if MVK_ENABLE_CUSTOM_DIAGNOSTICS
+        if (timeline) {
+            timeline->record(MVKBackendTimelineKind::CacheRecycle, phaseStart, timeline->clock(), groupID, queueID);
+        }
+#endif
+    }
+    if (!completeNow) {
+        retireIfReady(group); // Recheck a signal/error arriving during cleanup.
+        return;
+    }
+    if (!reclaimGPU) {
+        for (auto& batch : group->children) {
+            batch->cacheEmptyCompletionStorage();
+            recycleCompletionStorage(batch->storage, std::move(batch->completionStorage));
+        }
+    }
+    for (auto& batch : group->children) {
+        std::lock_guard<std::mutex> lock(batch->mutex);
+        batch->phase = Phase::Completed;
+    }
+    {
+        std::lock_guard<std::mutex> lock(group->mutex);
+        std::lock_guard<std::mutex> queueLock(queue->stateMutex);
+        group->phase = Phase::Completed;
+        --queue->pending; ++queue->completed;
+        globalCompletedSubmissions.fetch_add(1, std::memory_order_relaxed);
+    }
+    notifyGroupWaiters(group);
+}
+
+void recordSignalNotification(const std::shared_ptr<MVKMetal4SubmissionGroup>& group, uint64_t generation) {
+    {
+        std::lock_guard<std::mutex> lock(group->mutex);
+        if (group->phase != Phase::Submitted || group->notificationGeneration != generation ||
+            group->signalNotification != SignalNotification::Pending) { return; }
+        std::lock_guard<std::mutex> queueLock(group->owner->stateMutex);
+        if (group->owner->firstError) { return; }
+        group->signalNotification = SignalNotification::Succeeded;
+    }
+    retireIfReady(group);
+}
+
+// Queue -> group cycles are detached under stateMutex, then errors are published
+// under group -> child locks outside it. GPU feedback remains mandatory.
+void failSignalNotificationOwners(const std::shared_ptr<MVKMetal4QueueState>& queue, NSError* error) {
+    std::array<std::shared_ptr<MVKMetal4SubmissionGroup>, MVKMetal4QueueState::notificationCapacity> failed;
+    NSError* actualError;
+    {
+        std::lock_guard<std::mutex> lock(queue->stateMutex);
+        if (!queue->firstError) { queue->firstError = [error retain]; }
+        queue->counterProof = MVKMetal4CounterProof::Unknown;
+        queue->storage->poisoned.store(true, std::memory_order_release);
+        actualError = [queue->firstError retain];
+        failed.swap(queue->notificationOwners);
+        queue->freeNotificationSlots = UINT64_MAX;
+    }
+    queue->idle.notify_all();
+    for (auto& group : failed) {
+        if (!group) { continue; }
+        bool runErrors = false;
+        {
+            std::lock_guard<std::mutex> lock(group->mutex);
+            if (group->phase != Phase::Submitted || group->signalNotification == SignalNotification::None) { continue; }
+            runErrors = publishGroupError(group, actualError);
+            group->signalNotification = SignalNotification::Failed;
+            group->notificationSlot = MVKMetal4QueueState::notificationCapacity;
+        }
+        notifyGroupWaiters(group);
+        if (runErrors) { runGroupErrorHandlers(group); }
+        retireIfReady(group);
+    }
+    [actualError release];
+}
+
+void recordFeedback(const std::shared_ptr<MVKMetal4SubmissionGroup>& group,
+                    id<MTL4CommitFeedback> feedback, bool isTail, size_t workRange = 0,
+                    uint64_t costQueue = 0, uint32_t costFlags = 0, double costCallback = 0) {
+#if !MVK_ENABLE_CUSTOM_DIAGNOSTICS
+    (void)costQueue; (void)costFlags; (void)costCallback;
+#endif
+#if MVK_ENABLE_CUSTOM_DIAGNOSTICS
+    // Record every delivery before the existing duplicate/phase checks and lock.
+    // Numeric category was copied before publication; no retirement-owned data read.
+    if (auto* capture = mvkBackendCostTimeline()) {
+        capture->feedback(group->timelineID, costQueue, workRange,
+            costFlags | (feedback.error ? MVKCostError : 0u),
+            feedback.GPUStartTime, feedback.GPUEndTime, costCallback);
+    }
+#endif
+    auto queue = group->owner;
+#if MVK_ENABLE_CUSTOM_DIAGNOSTICS
+    auto cost = queue->costStats;
+    auto* timeline = mvkBackendTimeline();
+    double callbackHost = (cost || timeline) ? MVKBackendCostStats::hostSeconds() : 0, commitHost = 0;
+#endif
+    bool runErrors = false;
+    {
+        std::lock_guard<std::mutex> lock(group->mutex);
+        if (group->phase != Phase::Submitted) { return; }
+        if (isTail ? group->tailFeedbackDone : group->rangeFeedback.empty()
+            ? (workRange != 0 || group->workFeedbackDone)
+            : (workRange >= group->rangeFeedback.size() || group->rangeFeedback[workRange])) { return; }
+#if MVK_ENABLE_CUSTOM_DIAGNOSTICS
+        if (cost || timeline) {
+            commitHost = isTail ? group->tailCommitHost : group->rangeCommitHosts.empty()
+                ? group->workCommitHost : group->rangeCommitHosts[workRange];
+        }
+#endif
+        if (feedback.error) {
+            runErrors = publishGroupError(group, feedback.error);
+            std::lock_guard<std::mutex> queueLock(queue->stateMutex);
+            if (!queue->firstError) { queue->firstError = [feedback.error retain]; }
+            queue->counterProof = MVKMetal4CounterProof::Unknown;
+            queue->storage->poisoned.store(true, std::memory_order_release);
+        }
+        if (isTail) { group->tailFeedbackDone = true; }
+        else if (group->rangeFeedback.empty()) { group->workFeedbackDone = true; }
+        else {
+            group->rangeFeedback[workRange] = 1;
+            group->workFeedbackDone = --group->remainingRangeFeedback == 0;
+        }
+    }
+#if MVK_ENABLE_CUSTOM_DIAGNOSTICS
+    if (timeline) {
+        double start = feedback.GPUStartTime, end = feedback.GPUEndTime;
+        bool validGPU = !feedback.error && std::isfinite(start) && std::isfinite(end) &&
+            start > 0 && end >= start && start >= commitHost - 0.001 && end <= callbackHost + 0.001;
+        uint32_t flags = (group->costPresentation ? 1u : 0u) | (feedback.error ? 2u : 0u) |
+                         (validGPU ? 0u : 4u) | (isTail ? 8u : 0u);
+        timeline->record(MVKBackendTimelineKind::CallbackEntry, callbackHost, callbackHost,
+                         group->timelineID, queue->timelineID, 0, flags, commitHost, callbackHost);
+        if (validGPU) {
+            timeline->record(isTail ? MVKBackendTimelineKind::GPUTail : MVKBackendTimelineKind::GPUWork,
+                             start, end, group->timelineID, queue->timelineID, 0, flags, commitHost, callbackHost);
+        }
+    }
+    if (cost) {
+        cost->recordGPU(feedback.error ? 0 : feedback.GPUStartTime, feedback.GPUEndTime,
+                        commitHost, callbackHost, isTail, group->costPresentation);
+    }
+#endif
+    // Success feedback alone changes neither public wait predicate.
+    // Errors must still wake waiters even when no error handler exists.
+    if (feedback.error) { notifyGroupWaiters(group); }
+    if (feedback.error) { failSignalNotificationOwners(queue, feedback.error); }
+    if (runErrors) { runGroupErrorHandlers(group); }
+    retireIfReady(group);
+}
+
+MVKMetal4TailRecording makeRetirementTail(const std::shared_ptr<MVKMetal4QueueState>& queue,
+                                         NSError** error) {
+    MVKMetal4TailRecording tail;
+    tail.pack = acquirePack(queue->storage, true, error, tail.allocatorUse);
+    if (!tail) { return {}; }
+    tail.allocatorUse.begin(tail.pack->buffer);
+    tail.pack->commitStableResidency();
+    // begin clears command-buffer associations, not set membership. Reattach
+    // the persistent marker set on every tail recording, including pool reuse.
+    [tail.pack->buffer useResidencySet:tail.pack->stableResidency];
+    id<MTL4ComputeCommandEncoder> encoder = [tail.pack->buffer computeCommandEncoder];
+    if (!encoder) {
+        // Open cancellation discards this epoch from future writers, preserving
+        // every earlier primary's bytes/leases for adoption retry or execution.
+        fail(error, 2, @"Could not encode event retirement marker."); return {};
+    }
+    [encoder fillBuffer:tail.pack->marker range:NSMakeRange(0, 4) value:0];
+    [encoder endEncoding];
+    [tail.pack->buffer endCommandBuffer];
+    tail.allocatorUse.end();
+    return tail;
+}
+
+// A valid Metal/Vulkan signal strictly increases the value at execution.
+// Shared events expose their current value, allowing an already-invalid request
+// to fail before any queue mutation. This is not a race-proof validation layer:
+// callers must also obey Vulkan's pending-signal/host-signal ordering rules.
+bool validSignalValue(id<MTLEvent> event, uint64_t value) {
+    return value && (![event conformsToProtocol:@protocol(MTLSharedEvent)] ||
+                     value > ((id<MTLSharedEvent>)event).signaledValue);
+}
+
+// The group can use one actual-value notification only when its entire operation
+// list has exactly one MVK internal timeline signal and no input waits/drawables.
+bool eligibleSignalNotification(MVKMetal4SubmissionGroup& group) {
+    group.notificationSignal = nullptr;
+    for (auto& batch : group.children) {
+        if (!batch->waits.empty() || !batch->drawables.empty() || !batch->presentations.empty()) { return false; }
+        for (auto& signal : batch->signals) {
+            if (group.notificationSignal || !signal.internalTimelineSignal ||
+                ![signal.event conformsToProtocol:@protocol(MTLSharedEvent)]) { return false; }
+            group.notificationSignal = &signal;
+        }
+    }
+    return group.notificationSignal != nullptr;
+}
+
+// Registration happens before publication/queue mutation. The callback owns
+// only a weak reference to this fresh group, so abandoned registrations cannot
+// observe or complete a later retry of the same ended children.
+bool registerSignalNotification(const std::shared_ptr<MVKMetal4SubmissionGroup>& group, uint64_t generation) {
+    std::weak_ptr<MVKMetal4SubmissionGroup> weakGroup = group;
+    auto& signal = *group->notificationSignal;
+    @try {
+        [(id<MTLSharedEvent>)signal.event notifyListener:group->owner->signalListener atValue:signal.value
+            block:^(id<MTLSharedEvent>, uint64_t) {
+                @autoreleasepool {
+                    if (auto owner = weakGroup.lock()) { recordSignalNotification(owner, generation); }
+                }
+            }];
+        return true;
+    } @catch (NSException* exception) { (void)exception; return false; }
+}
+
+// Check the actual event values again immediately before publication, and reject
+// signals within this ordered group that do not strictly increase one event.
+// Values remain immutable after each recording's end(). Invalid concurrent host
+// advancement is still excluded by the same Metal/Vulkan caller contract.
+bool validGroupSignals(const MVKMetal4SubmissionGroup& group, NSError** error) {
+    for (size_t i = 0; i < group.children.size(); ++i) {
+        auto& signals = group.children[i]->signals;
+        for (size_t j = 0; j < signals.size(); ++j) {
+            auto& signal = signals[j];
+            if (!validSignalValue(signal.event, signal.value)) {
+                return fail(error, 3, @"An event signal must increase its current value at submission.");
+            }
+            for (size_t before = 0; before <= i; ++before) {
+                auto& prior = group.children[before]->signals;
+                size_t count = before == i ? j : prior.size();
+                for (size_t k = 0; k < count; ++k) {
+                    if (prior[k].event == signal.event && prior[k].value >= signal.value) {
+                        return fail(error, 3, @"Ordered group signals must strictly increase each event.");
+                    }
+                }
+            }
+        }
+    }
+    return true;
+}
+
+// The submit lock is held. All children are exclusively claimed before this
+// function; publication takes group -> sorted child -> queue locks. Poison sees
+// the complete strong notification owner and Submitted state, or no group.
+bool publishPreparedSubmission(const std::shared_ptr<MVKMetal4SubmissionGroup>& group,
+                               SubmissionChildLocks& children,
+                               MVKMetal4TailRecording tail,
+                               bool notificationRegistered, NotificationSlotReservation& reservation,
+                               NSError** error) {
+    std::lock_guard<std::mutex> groupLock(group->mutex);
+    children.lock();
+    struct UnlockChildren { SubmissionChildLocks& locks; ~UnlockChildren() { locks.unlock(); } } unlock{children};
+    auto queue = group->owner;
+    for (auto& batch : group->children) {
+        if (batch->phase != Phase::Ended || batch->owner != queue) {
+            return fail(error, 3, @"Only an exclusively claimed, ended group may be committed.");
+        }
+    }
+    if (!validGroupSignals(*group, error)) { return false; }
+    std::lock_guard<std::mutex> queueLock(queue->stateMutex);
+    if (queue->firstError) { return report(error, queue->firstError); }
+    if (queue->storage->poisoned.load(std::memory_order_acquire)) {
+        return fail(error, 5, @"Recording storage was invalidated before queue adoption.");
+    }
+    if (notificationRegistered) {
+        if (reservation.slot >= MVKMetal4QueueState::notificationCapacity ||
+            queue->notificationOwners[reservation.slot] ||
+            (queue->freeNotificationSlots & (uint64_t{1} << reservation.slot))) {
+            return fail(error, 3, @"No reserved slot for native signal notification.");
+        }
+        group->signalNotification = SignalNotification::Pending;
+        group->notificationSlot = reservation.slot;
+        queue->notificationOwners[reservation.slot] = group;
+        reservation.slot = MVKMetal4QueueState::notificationCapacity;
+    }
+    group->tail = std::move(tail);
+    group->tailFeedbackDone = !group->tail;
+    group->phase = Phase::Submitted;
+    for (auto& batch : group->children) { batch->phase = Phase::Submitted; }
+    ++queue->pending;
+#if MVK_ENABLE_CUSTOM_DIAGNOSTICS
+    if (mvkMetal4QueueStatsEnabled() && queue->encodingStats.submittedBatches != UINT64_MAX) {
+        ++queue->encodingStats.submittedBatches;
+    }
+#endif
+    return true;
+}
+
+bool addEvent(const std::shared_ptr<MVKMetal4SubmissionState>& batch,
+              id<MTLEvent> event, uint64_t value, bool signal, NSError** error,
+              bool internalTimelineSignal = false, bool internalSemaphoreWait = false) {
+    if (error) { *error = nil; }
+    std::lock_guard<std::mutex> lock(batch->mutex);
+    if (batch->phase != Phase::Recording || !event ||
+        (event.device && event.device != batch->storage->device)) {
+        return fail(error, 3, @"Events must be registered while recording and be usable on this device.");
+    }
+    if (signal && !validSignalValue(event, value)) {
+        return fail(error, 3, @"An event signal must increase its current value.");
+    }
+    if (!batch->retainOperationUnique(event)) {
+        return fail(error, 2, @"Could not allocate Metal 4 event ownership storage.");
+    }
+    (signal ? batch->signals : batch->waits).push_back({ event, value, signal && internalTimelineSignal });
+    if (!signal && !internalSemaphoreWait) { batch->externalCounterWait = true; }
+    return true;
+}
+}
+
+MVKMetal4Submission::MVKMetal4Submission(std::shared_ptr<MVKMetal4SubmissionState> state)
+    : _state(std::move(state)) {}
+MVKMetal4Submission::~MVKMetal4Submission() = default;
+MVKMetal4Queue::MVKMetal4Queue(std::shared_ptr<MVKMetal4QueueState> state)
+    : _state(std::move(state)) {}
+MVKMetal4Queue::~MVKMetal4Queue() = default;
+
+MVKMetal4RecordingPool::MVKMetal4RecordingPool(std::shared_ptr<MVKMetal4RecordingPoolState> state)
+    : _state(std::move(state)) {}
+MVKMetal4RecordingPool::~MVKMetal4RecordingPool() = default;
+
+std::shared_ptr<MVKMetal4RecordingPool> MVKMetal4RecordingPool::create(id<MTLDevice> device,
+        NSError** error, std::shared_ptr<MVKMetal4DeviceResidency> residency) {
+    if (error) { *error = nil; }
+    if (!device || ![device supportsFamily:MTLGPUFamilyMetal4] ||
+        (residency && residency->device() != device)) {
+        fail(error, 3, @"Recording storage requires a Metal 4 device and matching residency."); return nullptr;
+    }
+    auto state = std::make_shared<MVKMetal4RecordingPoolState>();
+    state->device = [device retain];
+    state->deviceResidency = std::move(residency);
+    // Terminal feedback may publish empty capacity without allocating nodes.
+    state->primaryPool.reserve(MVKMetal4ResourcePoolStats::maxIdlePacksPerKind);
+    state->tailPool.reserve(MVKMetal4ResourcePoolStats::maxIdlePacksPerKind);
+    state->completionPool.reserve(MVKMetal4ResourcePoolStats::maxIdlePacksPerKind);
+    state->availableEpochs.reserve(MVKMetal4ResourcePoolStats::maxAvailableAllocatorEpochs);
+    return std::shared_ptr<MVKMetal4RecordingPool>(new MVKMetal4RecordingPool(std::move(state)));
+}
+
+std::unique_ptr<MVKMetal4Queue> MVKMetal4Queue::create(id<MTLDevice> device, NSError** error,
+                                                  std::shared_ptr<MVKMetal4DeviceResidency> residency,
+                                                  std::shared_ptr<MVKMetal4RecordingPool> recordingPool) {
+    if (error) { *error = nil; }
+    if (@available(macOS 26.0, iOS 26.0, *)) {
+        if (!device || ![device supportsFamily:MTLGPUFamilyMetal4]) {
+            fail(error, 1, @"The device does not support Metal 4."); return nullptr;
+        }
+        if (residency && residency->device() != device) {
+            fail(error, 3, @"The residency set belongs to another device."); return nullptr;
+        }
+        auto state = std::make_shared<MVKMetal4QueueState>();
+#if MVK_ENABLE_CUSTOM_DIAGNOSTICS
+        if (auto* timeline = mvkBackendTimeline()) { state->timelineID = timeline->nextID(); }
+#endif
+        if (!recordingPool) { recordingPool = MVKMetal4RecordingPool::create(device, error, residency); }
+        if (!recordingPool) { return nullptr; }
+        if (recordingPool->_state->device != device || recordingPool->_state->deviceResidency != residency) {
+            fail(error, 3, @"Queue and recording pool must use the same device and residency owner."); return nullptr;
+        }
+        state->storage = recordingPool->_state;
+        state->recordingPool = std::move(recordingPool);
+        state->device = [device retain];
+        state->failedEvents = [NSMutableSet new];
+        // Listener failure only disables the optimization; the native queue
+        // remains usable through its existing retirement-tail path.
+        @try { state->signalListener = [MTLSharedEventListener new]; }
+        @catch (NSException* exception) { (void)exception; }
+        MTL4CommandQueueDescriptor* desc = [MTL4CommandQueueDescriptor new];
+        desc.label = @"MoltenVK BAR Metal 4";
+        state->queue = [device newMTL4CommandQueueWithDescriptor:desc error:error];
+        [desc release];
+        if (!state->queue || !state->failedEvents) {
+            if (!error || !*error) { fail(error, 2, @"Could not create a Metal 4 command queue."); }
+            return nullptr;
+        }
+        state->deviceResidency = std::move(residency);
+        if (state->deviceResidency) { [state->queue addResidencySet:state->deviceResidency->residencySet()]; }
+        return std::unique_ptr<MVKMetal4Queue>(new MVKMetal4Queue(std::move(state)));
+    }
+    fail(error, 1, @"Metal 4 requires macOS 26 or iOS 26."); return nullptr;
+}
+
+std::shared_ptr<MVKMetal4Submission> MVKMetal4Queue::begin(NSError** error, bool presentation) {
+    if (error) { *error = nil; }
+    {
+        std::lock_guard<std::mutex> lock(_state->stateMutex);
+        if (_state->firstError) { report(error, _state->firstError); return nullptr; }
+    }
+    auto batch = _state->recordingPool->begin(error, presentation);
+#if MVK_ENABLE_CUSTOM_DIAGNOSTICS
+    if (batch) { batch->_state->diagnosticQueue = _state; }
+#endif
+    return batch;
+}
+
+std::shared_ptr<MVKMetal4RecordingPool> MVKMetal4Queue::recordingPool() const { return _state->recordingPool; }
+
+bool MVKMetal4Queue::counterEntryNeedsFullWait() const {
+    std::lock_guard<std::mutex> lock(_state->stateMutex);
+    return _state->counterProof != MVKMetal4CounterProof::Closed || _state->firstError ||
+        _state->storage->poisoned.load(std::memory_order_acquire);
+}
+
+std::shared_ptr<MVKMetal4Submission> MVKMetal4RecordingPool::begin(NSError** error, bool presentation) {
+#if !MVK_ENABLE_CUSTOM_DIAGNOSTICS
+    (void)presentation;
+#endif
+    if (error) { *error = nil; }
+    auto state = std::make_shared<MVKMetal4SubmissionState>();
+#if MVK_ENABLE_CUSTOM_DIAGNOSTICS
+    if (auto* timeline = mvkBackendTimeline()) { state->timelineID = timeline->nextID(); }
+    state->costPresentation = presentation;
+#endif
+    state->storage = _state;
+    state->pack = acquirePack(_state, false, error, state->allocatorUse, &state->completionStorage);
+    if (!state->pack) { return nullptr; }
+    state->allocator = state->allocatorUse.allocator();
+    state->buffer = state->pack->buffer;
+    state->residency = state->pack->residency;
+    // Move only empty capacity. Callbacks, state and weak-token identity remain
+    // fresh; resident/drawable identities were cleared before the pack retired.
+    state->objects.swap(state->pack->objects);
+    if (state->completionStorage) {
+        auto& storage = *state->completionStorage;
+        state->waits.swap(storage.waits); state->signals.swap(storage.signals);
+        state->drawables.swap(storage.drawables); state->presentations.swap(storage.presentations);
+        state->operationRetained = storage.retained; storage.retained = nil;
+        state->operationRetainedHighWater = storage.retainedHighWater; storage.retainedHighWater = 0;
+    }
+    state->retained = state->pack->retained; state->pack->retained = nil;
+    state->retainedHighWater = state->pack->retainedHighWater; state->pack->retainedHighWater = 0;
+    if (!state->retained) { state->retained = [[NSMutableArray alloc] initWithCapacity:32]; }
+    if (!state->allocator || !state->buffer || !state->residency || !state->retained) {
+        if (!error || !*error) { fail(error, 2, @"Could not allocate Metal 4 submission storage."); }
+        return nullptr;
+    }
+    state->allocatorUse.begin(state->buffer);
+    return std::shared_ptr<MVKMetal4Submission>(new MVKMetal4Submission(std::move(state)));
+}
+
+id<MTL4CommandBuffer> MVKMetal4Submission::commandBuffer() const {
+    std::lock_guard<std::mutex> lock(_state->mutex);
+    // A borrowed raw buffer may receive commands we cannot inspect. Only a
+    // never-borrowed, internally untouched initial buffer is proved empty.
+    _state->counterBufferMayHaveWork = true;
+    return _state->phase == Phase::Recording && !_state->error ? _state->buffer : nil;
+}
+
+void MVKMetal4Submission::requireFullCounterEntry() {
+    std::lock_guard<std::mutex> lock(_state->mutex);
+    if (_state->phase == Phase::Recording && !_state->counterPrefixComplete) {
+        _state->fullCounterEntryRequired = true;
+    }
+}
+
+bool MVKMetal4Submission::splitForCounterCompletionLocked(bool timestampEntry, NSError** error) {
+    auto boundary = timestampEntry ? MVKMetal4CounterBoundary::EntryTimestamp
+        : _state->counterWritesPending ? MVKMetal4CounterBoundary::ResolveAfterWrite
+                                      : MVKMetal4CounterBoundary::EntryResolve;
+    const bool emptyEntry = !_state->counterBufferMayHaveWork && _state->counterPrefixes.empty();
+    if (emptyEntry) {
+        // Keep the queue boundary as metadata before this existing buffer;
+        // allocating/committing an empty predecessor contributes no ordering.
+        _state->counterPrefixes.push_back({nil, boundary, false, false});
+    } else {
+        auto next = [_state->storage->device newCommandBuffer];
+        if (!next) { return fail(error, 2, @"Could not allocate a counter completion recording."); }
+        _state->retainUnique(next);
+        [next release];
+        _state->counterPrefixes.push_back({_state->buffer, boundary, _state->counterBufferWrites, false});
+        // Every segment retains the same exclusive allocator and resource pack.
+        [_state->buffer useResidencySet:_state->residency];
+        [_state->buffer useResidencySet:_state->pack->stableResidency];
+        [_state->buffer endCommandBuffer];
+        _state->buffer = next;
+        [next beginCommandBufferWithAllocator:_state->allocator];
+    }
+    _state->counterBufferWrites = false;
+    auto encoder = [_state->buffer computeCommandEncoder];
+    if (!encoder) {
+        NSError* failure = nil;
+        fail(&failure, 2, @"Could not encode the counter completion wait consumer.");
+        _state->error = [failure retain];
+        return report(error, failure);
+    }
+    // When prior opaque writes already have a submitted full-prefix proof,
+    // this real Blit waits for preceding queue stages. The same-buffer timestamp
+    // then waits for the marker, without serializing all its later stage work.
+    // An unproven opaque write still requires the existing queue event.
+    // A generic/imported wait already known at recording time forces the full
+    // event path. Do not also encode an entry-only stage bridge in that case.
+    // A later wait or an earlier queue write can still force fallback at submit.
+    const bool timestampBridge = timestampEntry && !_state->externalCounterWait && !_state->fullCounterEntryRequired;
+    if (timestampBridge) {
+        [encoder barrierAfterQueueStages:MTLStageAll beforeStages:MTLStageBlit
+                       visibilityOptions:MTL4VisibilityOptionNone];
+    }
+    [encoder fillBuffer:_state->pack->marker range:NSMakeRange(0, sizeof(uint32_t)) value:0];
+    [encoder endEncoding];
+    _state->counterPrefixes.back().timestampBridge = timestampBridge;
+    _state->counterPrefixComplete = true;
+    _state->counterWritesPending = false;
+    _state->counterBufferMayHaveWork = true;
+    return true;
+}
+
+bool MVKMetal4Submission::writeTimestamp(id<MTL4CounterHeap> heap, NSUInteger index, NSError** error) {
+    if (error) { *error = nil; }
+    std::lock_guard<std::mutex> lock(_state->mutex);
+    if (_state->error) { return report(error, _state->error); }
+    if (_state->phase != Phase::Recording || !heap) {
+        return fail(error, 3, @"Timestamps require an ended-encoder recording and a counter heap.");
+    }
+    if (!_state->counterPrefixComplete && !splitForCounterCompletionLocked(true, error)) { return false; }
+    _state->retainUnique(heap);
+    // This API waits for all earlier work IN THIS COMMAND BUFFER, including
+    // earlier counter writes and resolves. Submission chooses a proven entry
+    // marker bridge or the existing full event for other buffers.
+    [_state->buffer writeTimestampIntoHeap:heap atIndex:index];
+    _state->counterBufferWrites = true;
+    _state->counterWritesPending = true;
+    return true;
+}
+
+bool MVKMetal4Submission::resolveCounterHeap(id<MTL4CounterHeap> heap, NSRange range,
+                                            MTL4BufferRange destination, NSError** error, bool resultsAlreadyComplete) {
+    if (error) { *error = nil; }
+    std::lock_guard<std::mutex> lock(_state->mutex);
+    if (_state->error) { return report(error, _state->error); }
+    if (_state->phase != Phase::Recording || !heap) {
+        return fail(error, 3, @"Counter resolves require an ended-encoder recording and a counter heap.");
+    }
+    if (!resultsAlreadyComplete && (!_state->counterPrefixComplete || _state->counterWritesPending) &&
+        !splitForCounterCompletionLocked(false, error)) { return false; }
+    _state->retainUnique(heap);
+    // Queue signal/wait completes every preceding opaque write. Adjacent reads
+    // share that proof until a new timestamp is recorded; no synthetic D/B write.
+    [_state->buffer resolveCounterHeap:heap withRange:range intoBuffer:destination waitFence:nil updateFence:nil];
+    // This narrow host-completion fact covers only this range. It must not
+    // close the queue proof, clear other pending writes, or cover a later T.
+    _state->counterBufferMayHaveWork = true;
+    return true;
+}
+
+uint64_t MVKMetal4Submission::diagnosticIdentity() const { return _state->timelineID; }
+
+MVKMetal4RecordingDependencies& MVKMetal4Submission::dependencyScopes() {
+    return _state->dependencies;
+}
+
+bool MVKMetal4Submission::hasSignalTailCompletionCoverage() const {
+    std::lock_guard<std::mutex> lock(_state->mutex);
+    return _state->phase == Phase::Recording && !_state->signals.empty() &&
+        _state->waits.empty() && _state->drawables.empty() && _state->presentations.empty();
+}
+
+id<MTLBuffer> MVKMetal4Submission::completionMarker(NSError** error) {
+    if (error) { *error = nil; }
+    std::lock_guard<std::mutex> lock(_state->mutex);
+    if (_state->phase != Phase::Recording || !_state->pack) {
+        fail(error, 3, @"Completion storage requires a recording submission."); return nil;
+    }
+    id<MTLBuffer> marker = _state->pack->marker;
+    _state->addStableResident(marker);
+    return marker;
+}
+
+bool MVKMetal4Submission::retainObject(id object, NSError** error) {
+    if (error) { *error = nil; }
+    std::lock_guard<std::mutex> lock(_state->mutex);
+    if (_state->phase != Phase::Recording || !object) {
+        return fail(error, 3, @"Objects can only be retained by a recording submission; nil is invalid.");
+    }
+    _state->retainUnique(object);
+    return true;
+}
+
+bool MVKMetal4Submission::addResource(id<MTLResource> resource, NSError** error) {
+    return addResourceWithKind(resource, MVKMetal4ResourceKind::Unknown, error);
+}
+
+bool MVKMetal4Submission::addBufferResource(id<MTLBuffer> resource, NSError** error) {
+    return addResourceWithKind(resource, MVKMetal4ResourceKind::NonTexture, error);
+}
+
+bool MVKMetal4Submission::addTextureResource(id<MTLTexture> resource, NSError** error) {
+    return addResourceWithKind(resource, MVKMetal4ResourceKind::Texture, error);
+}
+
+bool MVKMetal4Submission::addResourceWithKind(id<MTLResource> resource, MVKMetal4ResourceKind kind, NSError** error) {
+    if (error) { *error = nil; }
+    std::lock_guard<std::mutex> lock(_state->mutex);
+    if (_state->phase != Phase::Recording || !resource) {
+        return fail(error, 3, @"Resources must belong to the recording submission's device.");
+    }
+    auto found = _state->objects.find((const void*)resource);
+    MVKMetal4SubmissionState::ObjectIdentity* identity;
+    if (found != _state->objects.end() && found->second.resident) {
+        identity = &found->second;
+        // Residency already owns this exact object, so its device/type cannot
+        // change or its address be reused while this batch is recording.
+        if (!identity->texture) { return true; }
+        if (!identity->drawableGeneration) { return true; } // Proven ordinary texture.
+        uint64_t generation = drawableRegistrationGeneration((id<MTLTexture>)resource);
+        if (generation != UINT64_MAX && identity->drawableGeneration == generation) { return true; }
+    } else {
+        if (resource.device != _state->storage->device) {
+            return fail(error, 3, @"Resources must belong to the recording submission's device.");
+        }
+        bool isTexture = kind == MVKMetal4ResourceKind::Texture ||
+            (kind == MVKMetal4ResourceKind::Unknown && [resource conformsToProtocol:@protocol(MTLTexture)]);
+        identity = &_state->addResident(resource, !isTexture,
+            isTexture ? MVKMetal4ResourceKind::Texture : MVKMetal4ResourceKind::NonTexture);
+        identity->texture = isTexture;
+    }
+    if (identity->texture) {
+        auto ownership = textureOwnership((id<MTLTexture>)resource);
+        if (ownership.ordinary) {
+            identity->drawableGeneration = 0;
+            return true;
+        }
+        // Acquisition metadata names the exact drawable. Keep its snapshot
+        // until operation completion, independently of later image acquisition.
+        auto keepDrawable = [&](id<MTLDrawable> drawable) {
+            if (std::find(_state->drawables.begin(), _state->drawables.end(), drawable) != _state->drawables.end()) { return true; }
+            if (!_state->retainOperationUnique(drawable)) {
+                return fail(error, 2, @"Could not allocate Metal 4 drawable ownership storage.");
+            }
+            _state->drawables.push_back(drawable);
+            return true;
+        };
+        if (ownership.binding) {
+            identity->drawableGeneration = ownership.generation;
+            return keepDrawable(ownership.binding->drawable);
+        }
+        // Only unknown/external textures retain reverse-registry discovery.
+        std::lock_guard<std::mutex> registryLock(drawableRegistryMutex);
+        ++_state->registrationStats.drawableRegistryLookups;
+        // Store before retaining the drawable, which may rehash objects.
+        identity->drawableGeneration = drawableRegistryGeneration.load(std::memory_order_relaxed);
+        id<MTLTexture> texture = (id<MTLTexture>)resource;
+        while (texture) {
+            auto entry = drawableRegistry.find(texture);
+            if (entry != drawableRegistry.end()) {
+                return keepDrawable(entry->second->drawable);
+            }
+            id<MTLTexture> parent = texture.parentTexture;
+            if (parent == texture) { break; }
+            texture = parent;
+        }
+    }
+    return true;
+}
+
+uint64_t MVKMetal4Submission::drawableRegistrationGeneration(id<MTLTexture> texture) {
+    while (texture) {
+        auto* source = static_cast<MVKMetal4TextureOwnership*>(objc_getAssociatedObject(texture, &textureOwnershipKey));
+        if (source) {
+            if (source->ordinary) { return 0; }
+            // Reading an incarnation needs no temporary drawable ownership or
+            // release callback. addResource takes the strong snapshot on miss.
+            if (!source->binding.expired()) { return source->generation; }
+        }
+        id<MTLTexture> parent = texture.parentTexture;
+        if (parent == texture) { break; }
+        texture = parent;
+    }
+    return drawableRegistryGeneration.load(std::memory_order_acquire);
+}
+
+uint64_t MVKMetal4Submission::drawableRegistryEpoch() {
+    return drawableRegistryGeneration.load(std::memory_order_acquire);
+}
+
+MVKMetal4ResourceRegistrationStats MVKMetal4Submission::resourceRegistrationStats() const {
+    std::lock_guard<std::mutex> lock(_state->mutex);
+    return _state->registrationStats;
+}
+
+MVKMetal4ArgumentTables* MVKMetal4Submission::acquireArgumentTables(NSUInteger bufferCount,
+        NSUInteger textureCount, NSUInteger samplerCount, bool computeOnly, NSError** error) {
+    if (error) { *error = nil; }
+    std::lock_guard<std::mutex> lock(_state->mutex);
+    if (_state->phase != Phase::Recording || !_state->pack) {
+        fail(error, 3, @"Argument table leases require a recording submission."); return nullptr;
+    }
+    for (auto& group : _state->pack->argumentTables) {
+        const auto& limits = group.tables->getLimits();
+        if (group.leased || group.computeOnly != computeOnly ||
+            limits.bufferCount != bufferCount || limits.textureCount != textureCount ||
+            limits.samplerCount != samplerCount) { continue; }
+        group.leased = true;
+        std::lock_guard<std::mutex> poolLock(_state->storage->poolMutex);
+        ++_state->storage->poolStats.argumentTableGroupsReused;
+        return group.tables.get();
+    }
+    auto tables = std::make_unique<MVKMetal4ArgumentTables>();
+    MVKMetal4ArgumentTables::Limits limits {bufferCount, textureCount, samplerCount};
+    bool initialized = computeOnly ? tables->initializeCompute(_state->storage->device, limits, error)
+                                   : tables->initialize(_state->storage->device, limits, error);
+    if (!initialized) { return nullptr; }
+    auto* result = tables.get();
+    if (_state->pack->argumentTables.size() < MVKMetal4ResourcePoolStats::maxArgumentTableGroupsPerPack) {
+        _state->pack->argumentTables.push_back({std::move(tables), computeOnly, true});
+    } else {
+        _state->transientArgumentTables.push_back({std::move(tables), computeOnly, true});
+    }
+    {
+        std::lock_guard<std::mutex> poolLock(_state->storage->poolMutex);
+        ++_state->storage->poolStats.argumentTableGroupsCreated;
+    }
+    return result;
+}
+
+bool MVKMetal4Submission::releaseArgumentTables(MVKMetal4ArgumentTables* tables, NSError** error) {
+    if (error) { *error = nil; }
+    std::lock_guard<std::mutex> lock(_state->mutex);
+    if (_state->phase != Phase::Recording || !_state->pack || !tables) {
+        return fail(error, 3, @"Primary argument table return requires a recording submission and owned lease.");
+    }
+    for (auto& group : _state->pack->argumentTables) {
+        if (group.tables.get() != tables) { continue; }
+        if (!group.leased || group.computeOnly) {
+            return fail(error, 3, @"Only an active primary argument table lease may be returned.");
+        }
+        // CPU encoding has ended; already encoded work uses snapshots. Keep the
+        // wrapper and all immutable upload cache entries owned by this batch.
+        if (!tables->resetBindingsForNextEncoder(error)) { return false; }
+        group.leased = false;
+        return true;
+    }
+    for (auto& group : _state->transientArgumentTables) {
+        if (group.tables.get() != tables) { continue; }
+        if (!group.leased || group.computeOnly) {
+            return fail(error, 3, @"Only an active primary argument table lease may be returned.");
+        }
+        // Bounded-pool overflow is deliberately not scanned by acquire. Track a
+        // single return without releasing or reusing this in-flight wrapper.
+        group.leased = false;
+        return true;
+    }
+    return fail(error, 3, @"Argument table lease is not owned by this submission.");
+}
+
+bool MVKMetal4Submission::addWaitEvent(id<MTLEvent> event, uint64_t value, NSError** error,
+                                      bool internalSemaphoreWait) {
+    return addEvent(_state, event, value, false, error, false, internalSemaphoreWait);
+}
+
+bool MVKMetal4Submission::addSignalEvent(id<MTLEvent> event, uint64_t value, NSError** error,
+                                       bool internalTimelineSignal) {
+    return addEvent(_state, event, value, true, error, internalTimelineSignal);
+}
+
+bool MVKMetal4Submission::addPresentation(id<MTLDrawable> drawable, double timeSeconds,
+                                         std::function<void()> beforePresent, NSError** error) {
+    if (error) { *error = nil; }
+    std::lock_guard<std::mutex> lock(_state->mutex);
+    if (_state->phase != Phase::Recording || !drawable || !beforePresent || timeSeconds < 0) {
+        return fail(error, 3, @"Presentation requires a drawable and preparation callback while recording.");
+    }
+    for (auto& presentation : _state->presentations) {
+        if (presentation.drawable == drawable) { return fail(error, 3, @"A drawable may be presented only once per submission."); }
+    }
+    if (!_state->retainOperationUnique(drawable)) {
+        return fail(error, 2, @"Could not allocate Metal 4 presentation ownership storage.");
+    }
+    if (std::find(_state->drawables.begin(), _state->drawables.end(), drawable) == _state->drawables.end()) {
+        _state->drawables.push_back(drawable);
+    }
+    _state->presentations.push_back({drawable, timeSeconds, std::move(beforePresent)});
+    return true;
+}
+
+bool MVKMetal4Submission::deferRelease(std::function<void()> cleanup, NSError** error) {
+    if (error) { *error = nil; }
+    std::lock_guard<std::mutex> lock(_state->mutex);
+    if (_state->phase != Phase::Recording || !cleanup) {
+        return fail(error, 3, @"Cleanup must be registered while recording.");
+    }
+    _state->cleanup.emplace_back(std::move(cleanup));
+    return true;
+}
+
+bool MVKMetal4Submission::addErrorHandler(std::function<void(NSError*)> handler, NSError** error) {
+    if (error) { *error = nil; }
+    std::lock_guard<std::mutex> lock(_state->mutex);
+    if (_state->phase != Phase::Recording || !handler) {
+        return fail(error, 3, @"Error handlers must be registered while recording.");
+    }
+    _state->errorHandlers.emplace_back(std::move(handler));
+    return true;
+}
+
+bool MVKMetal4Submission::addCompletedHandler(std::function<void(NSError*)> handler, NSError** error) {
+    if (error) { *error = nil; }
+    std::lock_guard<std::mutex> lock(_state->mutex);
+    if (_state->phase != Phase::Recording || !handler) {
+        return fail(error, 3, @"Completion handlers must be registered while recording.");
+    }
+    _state->completedHandlers.emplace_back(std::move(handler));
+    return true;
+}
+
+id<MTLBuffer> MVKMetal4Submission::uploadBytes(const void* bytes, NSUInteger length, NSError** error) {
+    if (error) { *error = nil; }
+    if (!bytes || !length) { fail(error, 3, @"Inline uploads require nonempty data."); return nil; }
+    id<MTLBuffer> buffer = [_state->storage->device newBufferWithBytes:bytes length:length
+                                                        options:MTLResourceStorageModeShared];
+    if (!buffer) { fail(error, 2, @"Could not allocate Metal 4 upload storage."); return nil; }
+    bool added = addResource(buffer, error);
+    [buffer release];
+    return added ? buffer : nil;
+}
+
+MVKMetal4Upload MVKMetal4Submission::uploadBytesRange(const void* bytes, NSUInteger length, NSError** error) {
+    if (error) { *error = nil; }
+    std::lock_guard<std::mutex> lock(_state->mutex);
+    if (_state->phase != Phase::Recording || !bytes || !length) {
+        fail(error, 3, @"Upload slices require nonempty data and a recording submission."); return {};
+    }
+    return uploadBytesRangeLocked(bytes, length, error);
+}
+
+MVKMetal4Upload MVKMetal4Submission::uploadBytesRangeWithPrimitiveInputs(const void* bytes, NSUInteger length,
+        id pipelineObject, id<MTLBuffer> arguments, id<MTLBuffer> indices, NSError** error) {
+    if (error) { *error = nil; }
+    std::lock_guard<std::mutex> lock(_state->mutex);
+    if (_state->phase != Phase::Recording || !bytes || !length || !pipelineObject || !arguments) {
+        fail(error, 3, @"Primitive inputs require nonempty parameters and owned objects in a recording submission."); return {};
+    }
+    // Validate every input before uploading or retaining anything. These are
+    // directly owned buffers, never indirect descriptors or drawable textures.
+    id<MTLBuffer> buffers[] = {arguments, indices};
+    bool alreadyResident[] = {false, false};
+    for (size_t i = 0; i < 2; ++i) {
+        id<MTLBuffer> buffer = buffers[i];
+        if (!buffer) { continue; }
+        if (i && buffer == arguments) { continue; } // Validated/registered by the first slot.
+        auto found = _state->objects.find((const void*)buffer);
+        if (found != _state->objects.end() && found->second.resident && !found->second.texture) {
+            alreadyResident[i] = true; continue;
+        }
+        if (![buffer conformsToProtocol:@protocol(MTLBuffer)] || buffer.device != _state->storage->device) {
+            fail(error, 3, @"Primitive input buffers must belong to the recording submission's device."); return {};
+        }
+    }
+    auto upload = uploadBytesRangeLocked(bytes, length, error);
+    if (!upload.buffer) { return {}; }
+    _state->retainUnique(pipelineObject);
+    // The upload may rehash objects, so keep only the proved boolean membership,
+    // never an iterator. The same recording lock preserves retention/residency.
+    for (size_t i = 0; i < 2; ++i) {
+        if (buffers[i] && !alreadyResident[i] && (!i || buffers[i] != arguments)) {
+            _state->addResident(buffers[i]);
+        }
+    }
+    return upload;
+}
+
+MVKMetal4Upload MVKMetal4Submission::uploadBytesRangeLocked(const void* bytes, NSUInteger length, NSError** error) {
+    constexpr NSUInteger alignment = 256, slabLength = 64 * 1024;
+    NSUInteger limit = _state->storage->device.maxBufferLength;
+    if (length > limit || length > std::numeric_limits<NSUInteger>::max() - (alignment - 1)) {
+        fail(error, 2, @"Upload slice exceeds the device buffer length limit."); return {};
+    }
+    NSUInteger roundedLength = (length + alignment - 1) & ~(alignment - 1);
+    if (roundedLength > slabLength) {
+        // Do not grow reusable slabs to large transient upload sizes.
+        id<MTLBuffer> buffer = [_state->storage->device newBufferWithBytes:bytes length:length options:MTLResourceStorageModeShared];
+        if (!buffer) { fail(error, 2, @"Could not allocate a dedicated upload slice."); return {}; }
+        _state->addResident(buffer, false);
+        [buffer release];
+        return {buffer, 0};
+    }
+    if (!_state->uploadArena || _state->uploadArenaCursor > _state->uploadArena.length ||
+        roundedLength > _state->uploadArena.length - _state->uploadArenaCursor) {
+        NSUInteger capacity = std::min(slabLength, limit);
+        if (roundedLength > capacity) {
+            fail(error, 2, @"Aligned upload slice exceeds the device buffer length limit."); return {};
+        }
+        id<MTLBuffer> buffer = nil;
+        bool reused = _state->uploadSlabIndex < _state->pack->uploadSlabs.size();
+        bool stableOwned = reused;
+        if (reused) {
+            buffer = _state->pack->uploadSlabs[_state->uploadSlabIndex];
+        } else {
+            buffer = [_state->storage->device newBufferWithLength:capacity options:MTLResourceStorageModeShared];
+            if (!buffer || !buffer.contents) {
+                [buffer release]; fail(error, 2, @"Could not allocate shared upload slab storage."); return {};
+            }
+            if (_state->pack->uploadSlabs.size() < MVKMetal4ResourcePoolStats::maxUploadSlabsPerPack) {
+                _state->pack->uploadSlabs.push_back([buffer retain]);
+                _state->pack->addStableAllocation(buffer);
+                stableOwned = true;
+            }
+        }
+        ++_state->uploadSlabIndex;
+        if (stableOwned) { _state->addStableResident(buffer); }
+        else { _state->addResident(buffer, false); } // Uncached overflow remains dynamic.
+        _state->uploadArena = buffer;
+        _state->uploadArenaCursor = 0;
+        if (!reused) { [buffer release]; }
+        {
+            std::lock_guard<std::mutex> poolLock(_state->storage->poolMutex);
+            ++(reused ? _state->storage->poolStats.uploadSlabsReused : _state->storage->poolStats.uploadSlabsCreated);
+        }
+    }
+    MVKMetal4Upload upload {_state->uploadArena, _state->uploadArenaCursor};
+    memcpy(static_cast<uint8_t*>(upload.buffer.contents) + upload.offset, bytes, length);
+    _state->uploadArenaCursor += roundedLength;
+    return upload;
+}
+
+std::weak_ptr<void> MVKMetal4Submission::recordingToken() const { return _state; }
+
+bool MVKMetal4Submission::matchesRecordingToken(const std::weak_ptr<void>& token) const {
+    return !_state.owner_before(token) && !token.owner_before(_state);
+}
+
+MVKMetal4PreparedGroupCache& MVKMetal4Submission::preparedGroupCache() {
+    return _state->preparedGroups;
+}
+
+#if MVK_ENABLE_CUSTOM_DIAGNOSTICS
+namespace {
+void mergeEncodingStats(MVKMetal4EncodingStats& total, const MVKMetal4EncodingStats& stats) {
+    auto add = [](uint64_t& destination, uint64_t value) {
+        destination += std::min(value, UINT64_MAX - destination);
+    };
+    add(total.drawCalls, stats.drawCalls);
+    add(total.indirectDrawCalls, stats.indirectDrawCalls);
+    add(total.converted, stats.converted);
+    add(total.provokingVertex, stats.provokingVertex);
+    add(total.listRestart, stats.listRestart);
+    add(total.stripRestart, stats.stripRestart);
+    add(total.fan, stats.fan);
+    add(total.uint8Indices, stats.uint8Indices);
+    add(total.restartKernelCalls, stats.restartKernelCalls);
+    add(total.fusedRestartKernelCalls, stats.fusedRestartKernelCalls);
+    add(total.batchedRestartDispatches, stats.batchedRestartDispatches);
+    add(total.batchedRestartDraws, stats.batchedRestartDraws);
+    add(total.maxInputCountSum, stats.maxInputCountSum);
+    total.maxInputCountMax = std::max(total.maxInputCountMax, stats.maxInputCountMax);
+    add(total.directInputCountSum, stats.directInputCountSum);
+    add(total.indirectBoundCountSum, stats.indirectBoundCountSum);
+    add(total.scratchBytes, stats.scratchBytes);
+    add(total.renderWasActive, stats.renderWasActive);
+    add(total.prepassBatches, stats.prepassBatches);
+    add(total.prepassHandoffBatches, stats.prepassHandoffBatches);
+    add(total.prepassLeadingOrdinaryDraws, stats.prepassLeadingOrdinaryDraws);
+    add(total.prepassDeferredWaits, stats.prepassDeferredWaits);
+    add(total.prepassHandoffFallbacks, stats.prepassHandoffFallbacks);
+    add(total.fusedSignalSubmits, stats.fusedSignalSubmits);
+    add(total.preconvertedDraws, stats.preconvertedDraws);
+    add(total.renderPasses, stats.renderPasses);
+    add(total.computePasses, stats.computePasses);
+    add(total.computeBarrierContinuations, stats.computeBarrierContinuations);
+    add(total.independentCopyRegions, stats.independentCopyRegions);
+    add(total.clearHelperRestores, stats.clearHelperRestores);
+    add(total.indirectConversionBatches, stats.indirectConversionBatches);
+    add(total.indirectBatchedDraws, stats.indirectBatchedDraws);
+    add(total.indirectBatchFallbacks, stats.indirectBatchFallbacks);
+    add(total.textureBindingVisits, stats.textureBindingVisits);
+    add(total.textureCacheEligible, stats.textureCacheEligible);
+    add(total.textureCacheHits, stats.textureCacheHits);
+    add(total.textureCacheMisses, stats.textureCacheMisses);
+    add(total.textureHitResourceSlots, stats.textureHitResourceSlots);
+    add(total.textureNegativeMemoSkips, stats.textureNegativeMemoSkips);
+    add(total.textureProofAttempts, stats.textureProofAttempts);
+    add(total.textureProofReady, stats.textureProofReady);
+    add(total.textureProofRejected, stats.textureProofRejected);
+    add(total.directTextureBindings, stats.directTextureBindings);
+    add(total.indirectGroupChecks, stats.indirectGroupChecks);
+    add(total.indirectGroupHits, stats.indirectGroupHits);
+    add(total.indirectGroupPreparations, stats.indirectGroupPreparations);
+    add(total.invariantNoFlatDraws, stats.invariantNoFlatDraws);
+    add(total.invariantAdmittedDraws, stats.invariantAdmittedDraws);
+    add(total.invariantExternalWritesDraws, stats.invariantExternalWritesDraws);
+    add(total.invariantBuiltinsDraws, stats.invariantBuiltinsDraws);
+    add(total.invariantLayoutDraws, stats.invariantLayoutDraws);
+    add(total.invariantProofRejectedDraws, stats.invariantProofRejectedDraws);
+    add(total.invariantUnsupportedDraws, stats.invariantUnsupportedDraws);
+}
+void logEncodingStats(const char* kind, const MVKMetal4EncodingStats& stats,
+                      uint64_t ended, uint64_t submitted, uint64_t completed) {
+        std::fprintf(stderr, "[%s] drawCalls=%" PRIu64 " indirectDrawCalls=%" PRIu64
+                     " converted=%" PRIu64 " provokingVertex=%" PRIu64 " listRestart=%" PRIu64
+                     " stripRestart=%" PRIu64 " fan=%" PRIu64 " uint8Indices=%" PRIu64
+                     " restartKernelCalls=%" PRIu64 " fusedRestartKernelCalls=%" PRIu64
+                     " batchedRestartDispatches=%" PRIu64 " batchedRestartDraws=%" PRIu64
+                     " maxInputCountSum=%" PRIu64 " maxInputCountMax=%" PRIu64
+                     " directInputCountSum=%" PRIu64 " indirectBoundCountSum=%" PRIu64
+                     " scratchBytes=%" PRIu64 " renderWasActive=%" PRIu64
+                     " prepassBatches=%" PRIu64 " preconvertedDraws=%" PRIu64 " renderPasses=%" PRIu64
+                     " prepassHandoffBatches=%" PRIu64 " prepassLeadingOrdinaryDraws=%" PRIu64
+                     " prepassDeferredWaits=%" PRIu64 " prepassHandoffFallbacks=%" PRIu64
+                     " fusedSignalSubmits=%" PRIu64
+                     " computePasses=%" PRIu64 " computeBarrierContinuations=%" PRIu64
+                     " independentCopyRegions=%" PRIu64 " clearHelperRestores=%" PRIu64
+                     " indirectConversionBatches=%" PRIu64 " indirectBatchedDraws=%" PRIu64
+                     " indirectBatchFallbacks=%" PRIu64 " endedBatches=%" PRIu64
+                     " submittedBatches=%" PRIu64 " completedBatches=%" PRIu64,
+                     kind,
+                     stats.drawCalls, stats.indirectDrawCalls, stats.converted, stats.provokingVertex,
+                     stats.listRestart, stats.stripRestart, stats.fan, stats.uint8Indices, stats.restartKernelCalls,
+                     stats.fusedRestartKernelCalls, stats.batchedRestartDispatches, stats.batchedRestartDraws,
+                     stats.maxInputCountSum, stats.maxInputCountMax, stats.directInputCountSum,
+                     stats.indirectBoundCountSum, stats.scratchBytes, stats.renderWasActive,
+                     stats.prepassBatches, stats.preconvertedDraws, stats.renderPasses,
+                     stats.prepassHandoffBatches, stats.prepassLeadingOrdinaryDraws,
+                     stats.prepassDeferredWaits, stats.prepassHandoffFallbacks,
+                     stats.fusedSignalSubmits,
+                     stats.computePasses, stats.computeBarrierContinuations,
+                     stats.independentCopyRegions, stats.clearHelperRestores, stats.indirectConversionBatches,
+                     stats.indirectBatchedDraws, stats.indirectBatchFallbacks, ended, submitted, completed);
+        // Retain the established optional text format; backend-cost-only mode
+        // does not enter this path. New counters also appear in cost-bin JSON.
+        for (size_t i = 33; i < sizeof(encodingStatFields) / sizeof(encodingStatFields[0]); ++i) {
+            const auto& field = encodingStatFields[i];
+            std::fprintf(stderr, " %s=%" PRIu64, field.name, stats.*field.member);
+        }
+        std::fputc('\n', stderr);
+}
+}
+
+#endif
+void MVKMetal4Submission::addEncodingStats(const MVKMetal4EncodingStats& stats) {
+#if !MVK_ENABLE_CUSTOM_DIAGNOSTICS
+    (void)stats;
+#endif
+#if MVK_ENABLE_CUSTOM_DIAGNOSTICS
+    if (!mvkMetal4StatsEnabled()) { return; }
+    auto diagnosticQueue = _state->diagnosticQueue.lock();
+    auto cost = diagnosticQueue ? diagnosticQueue->costStats : nullptr;
+    const double recordHost = cost ? MVKBackendCostStats::hostSeconds() : 0;
+    {
+        std::lock_guard<std::mutex> lock(_state->mutex);
+        if (_state->phase != Phase::Recording) { return; }
+        mergeEncodingStats(_state->encodingStats, stats);
+    }
+    // One collector lock after the encoding-local counters have been produced.
+    // Never acquire a collector lock or read a clock in a draw/binding loop.
+    if (cost) { cost->recordEncoding(stats, recordHost); }
+#endif
+}
+
+bool MVKMetal4Submission::deferUntilSubmit(std::function<void()> action, NSError** error) {
+    if (error) { *error = nil; }
+    std::lock_guard<std::mutex> lock(_state->mutex);
+    if (_state->phase != Phase::Recording || !action) {
+        return fail(error, 3, @"Host state must be staged while recording.");
+    }
+    _state->hostStateActions.push_back(std::move(action));
+    return true;
+}
+
+bool MVKMetal4Submission::end(NSError** error) {
+    if (error) { *error = nil; }
+#if MVK_ENABLE_CUSTOM_DIAGNOSTICS
+    const bool logStats = batchStatsEnabled();
+    const bool queueStats = mvkMetal4QueueStatsEnabled();
+    MVKMetal4EncodingStats stats;
+#endif
+    {
+        std::lock_guard<std::mutex> lock(_state->mutex);
+        if (_state->phase != Phase::Recording) { return fail(error, 3, @"Submission already ended."); }
+        if (_state->error) { return report(error, _state->error); }
+        if (_state->pack->dynamicResidencyHasAllocations) {
+            [_state->residency commit];
+            [_state->buffer useResidencySet:_state->residency];
+        }
+        _state->pack->commitStableResidency();
+        // begin clears prior associations. Apply every used set for this recording;
+        // stable membership survives retirement and contains only owned uploads
+        // and explicitly eligible native buffers. Textures, imports, oversized
+        // uploads and uncached overflow retain the dynamic path.
+        [_state->buffer useResidencySet:_state->pack->stableResidency];
+        [_state->buffer endCommandBuffer];
+        // Immutable CPU preparation plans serve recording only. Ending drops
+        // those weak-resource metadata lists, not native retention/residency.
+        _state->preparedGroups.clear();
+        _state->allocatorUse.end();
+        _state->phase = Phase::Ended;
+#if MVK_ENABLE_CUSTOM_DIAGNOSTICS
+        if (logStats || queueStats) { stats = _state->encodingStats; }
+        if (queueStats) {
+            if (auto queue = _state->diagnosticQueue.lock()) {
+                std::lock_guard<std::mutex> queueLock(queue->stateMutex);
+                auto& total = queue->encodingStats;
+                mergeEncodingStats(total.encoding, stats);
+                if (total.endedBatches != UINT64_MAX) { ++total.endedBatches; }
+            }
+        }
+#endif
+    }
+#if MVK_ENABLE_CUSTOM_DIAGNOSTICS
+    if (logStats) {
+        // Queue-only diagnostics never take the per-batch I/O path.
+        logEncodingStats("mvk-metal4-stats", stats, 1);
+    }
+#endif
+    return true;
+}
+
+bool MVKMetal4Queue::submit(const std::shared_ptr<MVKMetal4Submission>& submission, NSError** error,
+                          uint64_t costTask, uint64_t costQueue) {
+    return submit(std::vector<std::shared_ptr<MVKMetal4Submission>>{submission}, error, costTask, costQueue);
+}
+
+bool MVKMetal4Queue::submit(const std::vector<std::shared_ptr<MVKMetal4Submission>>& submissions,
+                          NSError** error, uint64_t costTask, uint64_t costQueue) {
+#if !MVK_ENABLE_CUSTOM_DIAGNOSTICS
+    (void)costTask; (void)costQueue;
+#endif
+    if (error) { *error = nil; }
+    if (submissions.empty()) { return fail(error, 3, @"A native submission group must contain a recording."); }
+    auto queue = _state;
+    auto group = std::make_shared<MVKMetal4SubmissionGroup>();
+    group->owner = queue;
+    group->children.reserve(submissions.size());
+    for (auto& submission : submissions) {
+        if (!submission || submission->_state->storage != queue->storage) {
+            return fail(error, 3, @"All group recordings and the queue must share device recording storage.");
+        }
+        group->children.push_back(submission->_state);
+#if MVK_ENABLE_CUSTOM_DIAGNOSTICS
+        group->costPresentation = group->costPresentation || submission->_state->costPresentation;
+#endif
+    }
+    group->retirement.resize(submissions.size());
+    group->workBuffers.reserve(submissions.size());
+#if MVK_ENABLE_CUSTOM_DIAGNOSTICS
+    group->timelineID = group->children.back()->timelineID;
+    auto* costTimeline = mvkBackendCostTimeline();
+    if (costTimeline) { group->timelineID = costTimeline->nextID(); }
+#endif
+    SubmissionChildLocks childLocks(group->children);
+    if (childLocks.hasDuplicates()) {
+        return fail(error, 3, @"A native submission group cannot contain duplicate recordings.");
+    }
+#if MVK_ENABLE_CUSTOM_DIAGNOSTICS
+    auto* timeline = mvkBackendTimeline();
+    NativeTimelineSpan submitSpan(timeline, MVKBackendTimelineKind::NativeSubmit, group->timelineID, queue->timelineID);
+    submitSpan.flags = 2;
+    double lockStart = timeline ? timeline->clock() : 0;
+#endif
+    std::unique_lock<std::timed_mutex> submitLock(queue->submitMutex);
+#if MVK_ENABLE_CUSTOM_DIAGNOSTICS
+    if (timeline) { timeline->record(MVKBackendTimelineKind::SubmitLock, lockStart, timeline->clock(), group->timelineID, queue->timelineID); }
+#endif
+    MVKMetal4CounterProof counterProof;
+    {
+        std::lock_guard<std::mutex> lock(queue->stateMutex);
+        if (queue->firstError) { return report(error, queue->firstError); }
+        counterProof = queue->counterProof;
+    }
+    childLocks.lock();
+    for (auto& batch : group->children) {
+        if (batch->phase != Phase::Ended || batch->owner ||
+            batch->storage->poisoned.load(std::memory_order_acquire)) {
+            childLocks.unlock();
+            return fail(error, 3, @"Every recording must be available for atomic queue adoption.");
+        }
+        // Known Vulkan semaphore and drawable waits do not insert opaque counter
+        // writes into this owned queue. Preserve (never strengthen) its existing
+        // proof; every actual native timestamp below still opens it. Generic or
+        // imported events retain the conservative boundary. Native MTL4 queues
+        // are not exposed through the legacy MTLCommandQueue interop accessors.
+        if (batch->externalCounterWait) {
+            counterProof = MVKMetal4CounterProof::Unknown;
+        }
+    }
+    size_t rangeStart = 0;
+    bool fullCounterWait = false;
+    bool hasCounterBoundary = false, containsElidedEntry = false;
+    for (auto& batch : group->children) {
+        // A read-only counter recording can consume the existing opaque-write
+        // completion proof directly. Do not extend this to a recording with a
+        // later timestamp: that same-buffer timestamp may rely on its resolve
+        // entry's full wait to cover stage work in an earlier native buffer.
+        const bool readOnlyCounters = !batch->counterBufferWrites &&
+            std::none_of(batch->counterPrefixes.begin(), batch->counterPrefixes.end(),
+                         [](const auto& prefix) { return prefix.writes; });
+        for (const auto& prefix : batch->counterPrefixes) {
+            if (prefix.buffer) { group->workBuffers.push_back(prefix.buffer); }
+            if (prefix.writes) { counterProof = MVKMetal4CounterProof::Open; }
+            hasCounterBoundary = true;
+            const bool reusableEntry =
+                (prefix.following == MVKMetal4CounterBoundary::EntryTimestamp && prefix.timestampBridge) ||
+                (prefix.following == MVKMetal4CounterBoundary::EntryResolve && readOnlyCounters);
+            const bool needsWait = !reusableEntry || counterProof != MVKMetal4CounterProof::Closed;
+            if (needsWait) {
+                if (group->workBuffers.size() != rangeStart) {
+                    group->workRanges.push_back({rangeStart, group->workBuffers.size() - rangeStart,
+                                                fullCounterWait, containsElidedEntry});
+                }
+                rangeStart = group->workBuffers.size();
+                fullCounterWait = true;
+                containsElidedEntry = false;
+                counterProof = MVKMetal4CounterProof::Closed;
+            } else {
+                // No queue operation separates these buffers. Commit them as
+                // one ordered array with one feedback/retirement dependency.
+                containsElidedEntry = true;
+            }
+        }
+        group->workBuffers.push_back(batch->buffer);
+        if (batch->counterBufferWrites) { counterProof = MVKMetal4CounterProof::Open; }
+    }
+    if (hasCounterBoundary) {
+        group->workRanges.push_back({rangeStart, group->workBuffers.size() - rangeStart,
+                                    fullCounterWait, containsElidedEntry});
+        group->remainingRangeFeedback = group->workRanges.size();
+        group->rangeFeedback.resize(group->workRanges.size(), 0);
+#if MVK_ENABLE_CUSTOM_DIAGNOSTICS
+        if (queue->costStats || timeline) {
+            group->rangeCommitHosts.resize(group->workRanges.size(), 0);
+        }
+#endif
+    }
+    for (auto& batch : group->children) { batch->owner = queue; }
+    childLocks.unlock();
+    struct AdoptionClaim {
+        const std::shared_ptr<MVKMetal4SubmissionGroup>& group;
+        SubmissionChildLocks& children;
+        ~AdoptionClaim() {
+            children.lock();
+            for (auto& batch : group->children) {
+                if (batch->phase == Phase::Ended) { batch->owner.reset(); }
+            }
+            children.unlock();
+        }
+    } adoption{group, childLocks};
+#if MVK_ENABLE_CUSTOM_DIAGNOSTICS
+    auto costCategory = [&group](size_t rangeIndex) -> uint32_t {
+        const size_t first = group->workRanges.empty() ? 0 : group->workRanges[rangeIndex].first;
+        const size_t count = group->workRanges.empty() ? group->workBuffers.size() : group->workRanges[rangeIndex].count;
+        bool work = false, present = false;
+        for (size_t i = first; i < first + count; ++i) {
+            for (auto& child : group->children) {
+                bool belongs = child->buffer == group->workBuffers[i];
+                for (const auto& prefix : child->counterPrefixes) { belongs = belongs || prefix.buffer == group->workBuffers[i]; }
+                if (belongs) { (child->costPresentation ? present : work) = true; }
+            }
+        }
+        return work && present ? MVKCostMixed : present ? MVKCostPresent : 0u;
+    };
+#endif
+    struct CommitOptions {
+        MTL4CommitOptions* work = [MTL4CommitOptions new];
+        MTL4CommitOptions* tail = nil;
+        std::vector<MTL4CommitOptions*> following;
+        ~CommitOptions() {
+            for (auto option : following) { [option release]; }
+            [work release]; [tail release];
+        }
+    } options;
+    if (!options.work) { return fail(error, 2, @"Could not allocate commit options."); }
+    if (!group->workRanges.empty()) {
+        group->counterEvent = [queue->device newEvent];
+        if (!group->counterEvent) { return fail(error, 2, @"Could not allocate counter completion event."); }
+        options.following.reserve(group->workRanges.size() - 1);
+        for (size_t i = 1; i < group->workRanges.size(); ++i) {
+            auto option = [MTL4CommitOptions new];
+            if (!option) { return fail(error, 2, @"Could not allocate counter completion options."); }
+            options.following.push_back(option);
+#if MVK_ENABLE_CUSTOM_DIAGNOSTICS
+            const uint32_t costFlags = costTimeline ? costCategory(i) : 0;
+#endif
+            [option addFeedbackHandler:^(id<MTL4CommitFeedback> feedback) {
+#if MVK_ENABLE_CUSTOM_DIAGNOSTICS
+                double entry = costTimeline ? costTimeline->clock() : 0;
+                @autoreleasepool { recordFeedback(group, feedback, false, i, costQueue, costFlags, entry); }
+#else
+                @autoreleasepool { recordFeedback(group, feedback, false, i); }
+#endif
+            }];
+        }
+    }
+    if (!validGroupSignals(*group, error)) { return false; }
+    bool needsSignalRetirement = false;
+    for (auto& batch : group->children) {
+        needsSignalRetirement = needsSignalRetirement || !batch->signals.empty() || !batch->presentations.empty();
+    }
+    NotificationSlotReservation notification(queue);
+    if (eligibleSignalNotification(*group) && notification.reserve()) { group->notificationGeneration = 1; }
+    bool notificationRegistered = group->notificationGeneration &&
+                                  registerSignalNotification(group, group->notificationGeneration);
+    if (!notificationRegistered) { notification.release(); }
+    MVKMetal4TailRecording tail;
+    if (needsSignalRetirement && !notificationRegistered) {
+#if MVK_ENABLE_CUSTOM_DIAGNOSTICS
+        NativeTimelineSpan tailSetup(timeline, MVKBackendTimelineKind::TailSetup, group->timelineID, queue->timelineID);
+#endif
+        options.tail = [MTL4CommitOptions new];
+        if (!options.tail) { return fail(error, 2, @"Could not allocate event retirement options."); }
+        // Native end makes an epoch available for another CPU record, so a tail
+        // acquires its own exclusive writer instead of borrowing a child's raw
+        // allocator (which another thread may already be recording into).
+        tail = makeRetirementTail(queue, error);
+        if (!tail) { return false; }
+    }
+#if MVK_ENABLE_CUSTOM_DIAGNOSTICS
+    const uint32_t firstCostFlags = costTimeline ? costCategory(0) : 0;
+#endif
+    [options.work addFeedbackHandler:^(id<MTL4CommitFeedback> feedback) {
+#if MVK_ENABLE_CUSTOM_DIAGNOSTICS
+        double entry = costTimeline ? costTimeline->clock() : 0;
+        @autoreleasepool { recordFeedback(group, feedback, false, 0, costQueue, firstCostFlags, entry); }
+#else
+        @autoreleasepool { recordFeedback(group, feedback, false); }
+#endif
+    }];
+    [options.tail addFeedbackHandler:^(id<MTL4CommitFeedback> feedback) {
+#if MVK_ENABLE_CUSTOM_DIAGNOSTICS
+        double entry = costTimeline ? costTimeline->clock() : 0;
+        @autoreleasepool { recordFeedback(group, feedback, true, 0, costQueue, MVKCostTail, entry); }
+#else
+        @autoreleasepool { recordFeedback(group, feedback, true); }
+#endif
+    }];
+    if (!publishPreparedSubmission(group, childLocks, std::move(tail), notificationRegistered, notification, error)) {
+        return false;
+    }
+    // Adoption publishes host journals in Vulkan order before queue operations.
+    // Early feedback is unable to retire any pack while submitFinished is false.
+    for (auto& batch : group->children) {
+        auto actions = std::move(batch->hostStateActions);
+        for (auto& action : actions) { action(); }
+        actions.clear();
+    }
+    for (auto& batch : group->children) {
+        for (auto& event : batch->waits) { [queue->queue waitForEvent:event.event value:event.value]; }
+        for (auto drawable : batch->drawables) { [queue->queue waitForDrawable:drawable]; }
+    }
+#if MVK_ENABLE_CUSTOM_DIAGNOSTICS
+    if (queue->costStats || timeline) {
+        std::lock_guard<std::mutex> lock(group->mutex);
+        group->workCommitHost = MVKBackendCostStats::hostSeconds();
+    }
+#endif
+    if (queue->deviceResidency) { queue->deviceResidency->commit(); }
+#if MVK_ENABLE_CUSTOM_DIAGNOSTICS
+    double commitStart = timeline ? timeline->clock() : 0;
+#endif
+    if (group->workRanges.empty()) {
+#if MVK_ENABLE_CUSTOM_DIAGNOSTICS
+        MVKBackendCostCommitScope costCommit(costTimeline, group->timelineID, costQueue, 0, firstCostFlags, costTask);
+#endif
+        [queue->queue commit:group->workBuffers.data() count:group->workBuffers.size() options:options.work];
+    } else {
+        for (size_t i = 0; i < group->workRanges.size(); ++i) {
+            // Only full counter boundaries separate commits. A timestamp entry
+            // uses its stage bridge; read-only resolves reuse the earlier full
+            // opaque-write proof without a new bridge or GPU command.
+            const auto& range = group->workRanges[i];
+            bool fullWait = range.fullCounterWait;
+            if (!fullWait && range.containsElidedEntry) {
+                std::lock_guard<std::mutex> lock(queue->stateMutex);
+                fullWait = queue->firstError || queue->storage->poisoned.load(std::memory_order_acquire);
+            }
+            if (fullWait) {
+                // A late error may restore a wait before the first merged range.
+                // Keep values positive and increasing, including that boundary.
+                [queue->queue signalEvent:group->counterEvent value:i + 1];
+                [queue->queue waitForEvent:group->counterEvent value:i + 1];
+            }
+#if MVK_ENABLE_CUSTOM_DIAGNOSTICS
+            if (queue->costStats || timeline) {
+                std::lock_guard<std::mutex> lock(group->mutex);
+                group->rangeCommitHosts[i] = MVKBackendCostStats::hostSeconds();
+            }
+#endif
+            auto option = i ? options.following[i - 1] : options.work;
+#if MVK_ENABLE_CUSTOM_DIAGNOSTICS
+            const uint32_t rangeFlags = costTimeline ? costCategory(i) : 0;
+            MVKBackendCostCommitScope costCommit(costTimeline, group->timelineID, costQueue, i, rangeFlags, costTask);
+#endif
+            [queue->queue commit:group->workBuffers.data() + range.first count:range.count options:option];
+        }
+    }
+#if MVK_ENABLE_CUSTOM_DIAGNOSTICS
+    double signalStart = timeline ? timeline->clock() : 0;
+    if (timeline) { timeline->record(MVKBackendTimelineKind::WorkCommit, commitStart, signalStart, group->timelineID, queue->timelineID); }
+    size_t signalCount = 0;
+#endif
+    for (auto& batch : group->children) {
+        for (auto& event : batch->signals) {
+            [queue->queue signalEvent:event.event value:event.value];
+#if MVK_ENABLE_CUSTOM_DIAGNOSTICS
+            ++signalCount;
+#endif
+        }
+        for (auto& presentation : batch->presentations) {
+            [queue->queue signalDrawable:presentation.drawable];
+            presentation.beforePresent();
+            if (presentation.timeSeconds) { [presentation.drawable presentAtTime:presentation.timeSeconds]; }
+            else { [presentation.drawable present]; }
+        }
+    }
+    if (group->tail) {
+        for (auto& batch : group->children) {
+            for (auto& event : batch->signals) { [queue->queue waitForEvent:event.event value:event.value]; }
+        }
+        id<MTL4CommandBuffer> tailBuffer = group->tail.pack->buffer;
+#if MVK_ENABLE_CUSTOM_DIAGNOSTICS
+        if (queue->costStats || timeline) {
+            std::lock_guard<std::mutex> lock(group->mutex);
+            group->tailCommitHost = MVKBackendCostStats::hostSeconds();
+        }
+#endif
+#if MVK_ENABLE_CUSTOM_DIAGNOSTICS
+        double tailStart = timeline ? timeline->clock() : 0;
+        if (timeline) { timeline->record(MVKBackendTimelineKind::SignalPresent, signalStart, tailStart,
+                                        group->timelineID, queue->timelineID, signalCount, group->costPresentation ? 1 : 0); }
+#endif
+        {
+#if MVK_ENABLE_CUSTOM_DIAGNOSTICS
+            MVKBackendCostCommitScope costCommit(costTimeline, group->timelineID, costQueue, 0, MVKCostTail, costTask);
+#endif
+        [queue->queue commit:&tailBuffer count:1 options:options.tail];
+        }
+#if MVK_ENABLE_CUSTOM_DIAGNOSTICS
+        if (timeline) { timeline->record(MVKBackendTimelineKind::TailCommit, tailStart, timeline->clock(), group->timelineID, queue->timelineID); }
+#endif
+    }
+#if MVK_ENABLE_CUSTOM_DIAGNOSTICS
+    else if (timeline) {
+        timeline->record(MVKBackendTimelineKind::SignalPresent, signalStart, timeline->clock(), group->timelineID, queue->timelineID);
+    }
+#endif
+    {
+        // Publish only after actual queue operations. Inline/asynchronous error
+        // feedback cannot be overwritten by the optimistic preparation state.
+        std::lock_guard<std::mutex> lock(queue->stateMutex);
+        queue->counterProof = queue->firstError || queue->storage->poisoned.load(std::memory_order_acquire)
+            ? MVKMetal4CounterProof::Unknown : counterProof;
+    }
+    submitLock.unlock();
+    {
+        std::lock_guard<std::mutex> lock(group->mutex);
+        group->submitFinished = true;
+    }
+    retireIfReady(group);
+#if MVK_ENABLE_CUSTOM_DIAGNOSTICS
+    submitSpan.flags = 0;
+#endif
+    return true;
+}
+
+bool MVKMetal4Submission::wait(uint64_t timeoutMilliseconds, NSError** error) const {
+    if (error) { *error = nil; }
+    std::unique_lock<std::mutex> lock(_state->mutex);
+    if (_state->phase == Phase::Recording || _state->phase == Phase::Ended) {
+        return fail(error, 3, @"Cannot wait for a submission that has not been committed.");
+    }
+    if (!_state->done.wait_until(lock, deadline(timeoutMilliseconds), [&] { return _state->phase == Phase::Completed || _state->error; })) {
+        return fail(error, 4, @"Timed out waiting for Metal 4; in-flight storage remains retained.");
+    }
+    return _state->error ? report(error, _state->error) : true;
+}
+
+bool MVKMetal4Submission::completed() const {
+    std::lock_guard<std::mutex> lock(_state->mutex);
+    return _state->phase == Phase::Completed;
+}
+
+bool MVKMetal4Queue::waitIdle(uint64_t timeoutMilliseconds, NSError** error) const {
+    if (error) { *error = nil; }
+    const auto until = deadline(timeoutMilliseconds);
+    std::unique_lock<std::timed_mutex> submitLock(_state->submitMutex, std::defer_lock);
+    if (!submitLock.try_lock_until(until)) {
+        return fail(error, 4, @"Timed out waiting for Metal 4 queue serialization; submitted work remains retained.");
+    }
+    std::unique_lock<std::mutex> lock(_state->stateMutex);
+    if (!_state->idle.wait_until(lock, until, [&] { return _state->pending == 0 || _state->firstError; })) {
+        return fail(error, 4, @"Timed out waiting for the Metal 4 queue; submitted work remains retained.");
+    }
+    return _state->firstError ? report(error, _state->firstError) : true;
+}
+
+uint64_t MVKMetal4Queue::completedSubmissionCount() const {
+    std::lock_guard<std::mutex> lock(_state->stateMutex);
+    return _state->completed;
+}
+
+MVKMetal4ResourcePoolStats MVKMetal4Queue::resourcePoolStats() const {
+    return _state->recordingPool->resourcePoolStats();
+}
+
+MVKMetal4ResourcePoolStats MVKMetal4RecordingPool::resourcePoolStats() const {
+    std::lock_guard<std::mutex> lock(_state->poolMutex);
+    auto stats = _state->poolStats;
+    stats.primaryIdle = _state->primaryPool.size();
+    stats.tailIdle = _state->tailPool.size();
+    stats.allocatorAvailable = _state->availableEpochs.size();
+    for (auto& pack : _state->primaryPool) {
+        stats.argumentTableGroupsIdle += pack->argumentTables.size();
+        stats.hostStorageIdleBytes += pack->hostStorageBytes();
+        stats.retainedObjectSlotsIdle += pack->retainedHighWater;
+    }
+    for (auto& storage : _state->completionPool) {
+        stats.hostStorageIdleBytes += storage->hostStorageBytes();
+        stats.retainedObjectSlotsIdle += storage->retainedHighWater;
+    }
+    return stats;
+}
+
+MVKMetal4QueueEncodingStats MVKMetal4Queue::encodingStats() const {
+#if MVK_ENABLE_CUSTOM_DIAGNOSTICS
+    std::lock_guard<std::mutex> lock(_state->stateMutex);
+    auto stats = _state->encodingStats;
+    stats.completedBatches = _state->completed;
+    return stats;
+#else
+    return {};
+#endif
+}
+
+std::shared_ptr<MVKBackendCostStats> MVKMetal4Queue::costStats() const {
+#if MVK_ENABLE_CUSTOM_DIAGNOSTICS
+    return _state->costStats;
+#else
+    return {};
+#endif
+}
+
+void MVKMetal4Queue::notifyDeviceLost() {
+    NSError* error = [NSError errorWithDomain:@"MVKMetal4Submission" code:5
+        userInfo:@{NSLocalizedDescriptionKey: @"The Vulkan device lost a native submission; GPU storage remains retained until feedback."}];
+    failSignalNotificationOwners(_state, error);
+}

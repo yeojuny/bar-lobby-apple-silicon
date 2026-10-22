@@ -1,0 +1,68 @@
+{
+  "scope": "Identical frozen R and Small Submission.mm; no public header or allocator change",
+  "sourceBaselineSHA256": "2e680f300575bdd99816c32252ef62c8ca8ad0398f5cd2543399b915ef8e012f",
+  "designReportSHA256": "05099202a4696095160ed6310e283e3f1c124e9007d919e28cf54a533d2d9e86",
+  "preserves": [
+    "diagnostics compile/runtime policy",
+    "Q/R allocator ownership",
+    "group/child/queue lock order",
+    "GPU and signal retirement gates",
+    "first-error/poison paths",
+    "event operation ownership"
+  ],
+  "requiredAfterCue": [
+    "source-derived CPU cases and foundation ON/OFF syntax",
+    "related actual queue/error/signal GPU cases",
+    "one active build and isolated signed app before performance"
+  ],
+  "limits": "Prepared evidence only; no active changes, native acceptance, time, memory or FPS benefit claimed.",
+  "inventoryGroup": 7,
+  "title": "Submit-local immutable signal-order proof",
+  "proof": "Noncopyable exact fresh group identity, failed factory clears, optional absence falls back",
+  "alwaysRecheck": "Current value on every signal before publication",
+  "immutabilityLimit": "Legal Ended API mutation is rejected; arbitrary private synthetic vector mutation violates the contract.",
+  "id": "07-signal-order-proof",
+  "activation": "awaiting-human-cue",
+  "variants": {
+    "R-and-Small": {
+      "files": [
+        {
+          "target": "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKMetal4Submission.mm",
+          "mode": 420,
+          "before": {
+            "path": "payload/2e680f300575bdd99816c32252ef62c8ca8ad0398f5cd2543399b915ef8e012f",
+            "sha256": "2e680f300575bdd99816c32252ef62c8ca8ad0398f5cd2543399b915ef8e012f",
+            "bytes": 157542
+          },
+          "after": {
+            "path": "payload/a18a87e375b48e30426fc5baf030e5e915bb8bd4f5ccf1750d4f5af883e70cec",
+            "sha256": "a18a87e375b48e30426fc5baf030e5e915bb8bd4f5ccf1750d4f5af883e70cec",
+            "bytes": 159214
+          }
+        }
+      ],
+      "patchSHA256": "24dab1ba07cbb8daba6c53e91b9cd675cbdfe98dfa70efa36b3aafc459a09cff",
+      "reversePatchSHA256": "25d72474a0a1d2a3defc3820d55178fdc6ea1dc0bfdad6b9de82233cd20d7141"
+    },
+    "after06": {
+      "files": [
+        {
+          "target": "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKMetal4Submission.mm",
+          "mode": 420,
+          "before": {
+            "path": "payload/be4b1e3601c3a2ba5abe4b122458bf8d81f0f95a9b8a3e00f19524464f3c576c",
+            "sha256": "be4b1e3601c3a2ba5abe4b122458bf8d81f0f95a9b8a3e00f19524464f3c576c",
+            "bytes": 157708
+          },
+          "after": {
+            "path": "payload/47b5570d132e86158cac18379a76805d10bcd150221d8cd8fc87c8101dd7ae82",
+            "sha256": "47b5570d132e86158cac18379a76805d10bcd150221d8cd8fc87c8101dd7ae82",
+            "bytes": 159380
+          }
+        }
+      ],
+      "patchSHA256": "51d872ea34d7d9e2842596d9fec4d4dee604572629742590fd7e46a8d8cd9fa7",
+      "reversePatchSHA256": "8f6243896c97e755071fbc94536cc57b75e2b4b7ebfcc0599ee1189716a86b04"
+    }
+  }
+}

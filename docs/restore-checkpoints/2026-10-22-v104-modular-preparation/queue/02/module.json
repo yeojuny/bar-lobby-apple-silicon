@@ -1,0 +1,39 @@
+{
+  "number": 2,
+  "title": "layout 조기 기록 적격성 분류를 생성 때 저장",
+  "source": "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCmdPipeline.mm",
+  "existingWork": "MVKCmdBindDescriptorSetsStatic::getMetal4RecordPolicy가 binding flags/type를 매번 순회.",
+  "missingEvidence": "BAR push-template가 먼저 Deferred로 전환하면 이후 이 분류는 호출되지 않음. 실제 도달 범위 우선 확인.",
+  "requiredBoundary": "정확한 기존 허용 조건만 보관하고 현재 set/layout 검사는 보존.",
+  "risk": {
+    "function": "낮음~중간: 모든 Vulkan binding flags 거부와 정확한 buffer type 허용을 그대로 저장. 빈/descriptorCount0 layout 의미도 그대로.",
+    "lifetime": "소유 layout 내부 bit만 사용; raw layout 주소 cache 금지. 현재 set/layout null 확인 유지.",
+    "synchronization": "불변 생성 metadata면 새 lock 불필요.",
+    "memory": "기존 Flag 저장공간에 실제로 맞는지 확인해야 함. M3/미도달 layout도 생성 계산을 부담할 수 있음."
+  },
+  "sourceReferences": [
+    "angle-layout"
+  ],
+  "status": "source-capsule-prepared-reachability-gates-activation",
+  "strategy": "If repeated pre-Deferred queries are established, store the exact current flags/type predicate as immutable layout-owned metadata at construction. No address-keyed global cache and no early-push expansion to manufacture reach.",
+  "acceptance": [
+    "Existing BAR prefix shows repeated layout policy classification before the first Deferred; otherwise close as no useful change",
+    "All binding flags, type exclusions, zero descriptors and empty layouts match the original predicate"
+  ],
+  "tests": [
+    "Existing recording-group policy cases with original predicate as oracle",
+    "Foundation ON/OFF and M3 unaffected behavior"
+  ],
+  "codeModules": [
+    "02-layout-policy"
+  ],
+  "interactions": [
+    4
+  ],
+  "dependencyMeaning": "Interactions require re-review; they are not permission to enable all related changes together.",
+  "designStage": "Exact source capsules where named; broader missing-target/ownership/pass designs remain gated where stated",
+  "codeActivationAutomatic": false,
+  "FPSBenefitEstablished": false,
+  "stopRule": "Any unclosed correctness/lifetime counterexample, changed parent, failed check or unclear measurement stops this module. Preserve failure evidence; no automatic replay.",
+  "rollback": "Prepared source module: exact reverse patch only against its postimage, refresh mtimes and rebuild all affected headers. No-code module: active product remains unchanged; no invented reverse patch."
+}

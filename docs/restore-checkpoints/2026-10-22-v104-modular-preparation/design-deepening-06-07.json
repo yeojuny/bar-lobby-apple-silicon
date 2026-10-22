@@ -1,0 +1,118 @@
+{
+  "status": "detailed-design-ready-for-root-design-review-before-code-generation",
+  "createdUTC": "2026-10-22T17:12:32.139811+00:00",
+  "readPins": [
+    {
+      "path": "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKMetal4Submission.h",
+      "sha256": "b16b79f45cebe2ed69e8c0e8c5d8ba5ee4921a0156d7cbd70ca812da57bb18ce",
+      "bytes": 26924
+    },
+    {
+      "path": "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKMetal4Submission.mm",
+      "sha256": "2e680f300575bdd99816c32252ef62c8ca8ad0398f5cd2543399b915ef8e012f",
+      "bytes": 157542
+    },
+    {
+      "path": "tools/tests/metal4-recording-group.mm",
+      "sha256": "54df47796481c12037d6f07fdd56233669e378bb1cc29211c5c013c31db7ed9d",
+      "bytes": 70145
+    },
+    {
+      "path": "tools/tests/metal4-counter-completion-cpu.mm",
+      "sha256": "35b3df0ac47e75f90a7155963ae81b69ea3ffe04f9c23eaeb55d7de03d359dc8",
+      "bytes": 77906
+    },
+    {
+      "path": "tools/tests/metal4-recording-ownership.mm",
+      "sha256": "2d45797b19d83f0463aa10b16893f0d3d65509c95e0a16337e16366651a3e2fb",
+      "bytes": 12525
+    },
+    {
+      "path": "tools/tests/metal4-r49-lifetime-native.mm",
+      "sha256": "9c99cdb8c9ac4b87e5b13c06fa85a3237ecfaf90f71865f7c8254e987dae54b4",
+      "bytes": 127677
+    },
+    {
+      "path": "artifacts/validation/v104-remaining-optimization-inventory-20261021/inventory.json",
+      "sha256": "de10dbebe8418d34de05378ce056d4f4cda3fb2f3e33741592c1110b7dd7e744",
+      "bytes": 20260
+    },
+    {
+      "path": "artifacts/validation/v104-optimization-risk-return-20261021/independent-assessment.json",
+      "sha256": "e1939ee82ad3445d1609f398b0ae7c06cec636ac8c7061de8d44c7037245b05f",
+      "bytes": 52988
+    }
+  ],
+  "reportSHA256": "05099202a4696095160ed6310e283e3f1c124e9007d919e28cf54a533d2d9e86",
+  "modules": {
+    "06-pre-retirement-notify": {
+      "exactSmallSourcePatchFeasible": true,
+      "location": "MVKMetal4Submission.mm recordFeedback final pre-retire notify",
+      "proposedChange": "Keep notifyGroupWaiters only on feedback.error; retain every other final/error/poison notification and retirement call/order.",
+      "newFields": 0,
+      "proof": "Success changes only group feedback bits; child waits use Completed/error and queue idle uses pending0/firstError. Their publishing paths retain required notify.",
+      "disallowed": "runErrors-only notify, final notify removal, notify_one, changing retirement predicates",
+      "sourceOnlyNotEstablished": [
+        "real sleeping waiter progress",
+        "native delivery scheduling/exit behavior",
+        "time/FPS savings"
+      ],
+      "minimumFutureCases": [
+        "work/tail/finish permutations with sleeping child+idle",
+        "Pending signal GPU-only reclaim then semantic observer completion",
+        "multi-range/duplicate/out-of-range",
+        "error with no handlers and unfinished tail",
+        "blocked error handler wakes before completion",
+        "poison/success/error races exactly-once"
+      ]
+    },
+    "07-immutable-signal-order": {
+      "exactSmallSourcePatchFeasible": true,
+      "locations": [
+        "validGroupSignals",
+        "first submit precheck",
+        "publishPreparedSubmission"
+      ],
+      "newPublicHeaderOrGroupFieldsRequired": false,
+      "proposedProof": "Submit-local default-invalid noncopyable GroupSignalOrderProof, constructible by successful full-check factory only, scoped to one strongly held fresh group; optional publish proof defaults to full check.",
+      "alwaysRevalidate": "validSignalValue for every signal immediately before publication; original per-signal current-before-pair error order",
+      "immutability": "Ended API phase + exclusive owner claim + unchanged group order + strong child/operation event retention; no vector movement before publish",
+      "directCaller": "manualPublication currently bypasses first precheck; absent/wrong-group proof retains complete original checks",
+      "disallowed": [
+        "bare global proof",
+        "event-address memo",
+        "same count as proof",
+        "skipping current value",
+        "reordering first-check error precedence",
+        "capturing proof in callback/pool"
+      ],
+      "minimumFutureCases": [
+        "zero/one/multi/mixed event repeated order oracle",
+        "current-value advance after proof before publish",
+        "invalid direct publication/wrong-group/default proof",
+        "failed factory clears previous proof",
+        "allocation/notification preparation retry fresh group",
+        "ended mutation refusal and child phase/owner guards",
+        "test-only second pair skip, equal live checks"
+      ],
+      "sourceOnlyNotEstablished": [
+        "compiled implementation correctness",
+        "native callback/event ordering under actual hardware",
+        "actual multi-signal distribution and net savings"
+      ]
+    }
+  },
+  "sharedConstraints": [
+    "R/Small share Submission but retain parent full hashes",
+    "06/07 source-file overlap requires sequential composition pins",
+    "no change to Q/R allocator, group locks, GPUStorage/SignalNotification gates or diagnostics policy",
+    "source prep not adoption or runtime readiness"
+  ],
+  "executionCounts": {
+    "activeSourceFixtureBuildAppRunnerEdits": 0,
+    "CPUOrGPUOrBuildOrBenchmarkRuns": 0,
+    "newAgentsOrChats": 0,
+    "OSServiceOrRemoteOperations": 0
+  },
+  "designReviewRequiredBeforeCode": true
+}

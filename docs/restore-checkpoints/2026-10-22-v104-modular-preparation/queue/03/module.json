@@ -1,0 +1,40 @@
+{
+  "number": 3,
+  "title": "prepared fallback 명령 목록의 vector 수집을 연결 목록으로 대체",
+  "source": "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCommandBuffer.mm",
+  "existingWork": "_metal4PreparedReplay vector의 포인터 수집/원 prefix 복원 순회가 남아 있음. capacity 재사용은 이미 있음.",
+  "missingEvidence": "복사·순회를 줄일 수 있어도 lifetime bookkeeping과 추가 분기가 늘 수 있음.",
+  "requiredBoundary": "보유 node가 async pool에 조기 반환되지 않도록 하고 prefix/suffix/취소/reset 순서를 유지.",
+  "risk": {
+    "function": "중간: 원 prefix/suffix 순서, tail, timestamp activation fallback이 틀리면 재생이 달라짐.",
+    "lifetime": "높음: 보유 node를 async pool에 먼저 반환하면 _next가 변경·재사용됨. adoption/취소/reset까지 소유해야 함.",
+    "synchronization": "중간~높음: async drain/반환과 recorder의 경계.",
+    "memory": "head/tail 자체는 작지만 중복 보유·cycle·잘못된 lifetime은 메모리 증가 가능."
+  },
+  "sourceReferences": [
+    "angle-metal",
+    "mvk-pr2845"
+  ],
+  "status": "source-capsule-prepared-prefix-evidence-gates-activation",
+  "strategy": "Prepared an exclusively owned replay head/tail chain. The existing _next belongs to replay only after completed encoding and before detached pool return. It is never concurrently owned by replay and the async pool. Restore splices prefix/suffix in O(1); no new field in every command.",
+  "acceptance": [
+    "Meaningful long-prefix collection/fallback cost established",
+    "Explicit state table owns every command from capture to adoption, cancel, reset or fallback; exactly one pool return"
+  ],
+  "tests": [
+    "Existing recording-ownership cases: empty/single/long prefix, suffix restoration, cancellation, secondary and simultaneous use",
+    "Delayed pool return and original command order oracle; no cycles or duplicate release"
+  ],
+  "codeModules": [
+    "03-owned-replay-chain"
+  ],
+  "interactions": [
+    4
+  ],
+  "dependencyMeaning": "Interactions require re-review; they are not permission to enable all related changes together.",
+  "designStage": "Exact source capsules where named; broader missing-target/ownership/pass designs remain gated where stated",
+  "codeActivationAutomatic": false,
+  "FPSBenefitEstablished": false,
+  "stopRule": "Any unclosed correctness/lifetime counterexample, changed parent, failed check or unclear measurement stops this module. Preserve failure evidence; no automatic replay.",
+  "rollback": "Prepared source module: exact reverse patch only against its postimage, refresh mtimes and rebuild all affected headers. No-code module: active product remains unchanged; no invented reverse patch."
+}

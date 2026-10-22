@@ -1,0 +1,70 @@
+--- a/build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKMetal4PreparedResource.h
++++ b/build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKMetal4PreparedResource.h
+@@ -328,56 +328,10 @@
+             if (_observed.sameDescriptors(stamp)) { capture = !_rejected; }
+             else { _observed = stamp; _rejected = false; }
+         }
+-        if (!entry) { return Result::Miss; }
+-        std::shared_ptr<const Entry> partial;
+-        if (!entry->matchesBindings(stamp, revision)) {
+-            // A partial hit is usable only by a caller that consumes residuals.
+-            if (!retained) { return Result::Miss; }
+-            std::array<bool, kMaxBindings> keep{};
+-            size_t keptBindings = 0, keptResources = 0;
+-            for (size_t i = 0; i < entry->covered.size(); ++i) {
+-                const auto& binding = entry->covered[i];
+-                keep[i] = binding.revision && binding.revision == revision(binding.set, binding.binding);
+-                if (keep[i]) { ++keptBindings; keptResources += binding.resourceCount; }
+-            }
+-            if (!keptBindings) { return Result::Miss; }
+-            try {
+-                auto selected = std::make_shared<Entry>();
+-                selected->stamp = stamp;
+-                selected->drawableIndependent = true;
+-                selected->resources.reserve(keptResources);
+-                selected->covered.reserve(keptBindings);
+-                selected->residual.reserve(entry->residual.size() + entry->covered.size() - keptBindings);
+-                selected->residual.assign(entry->residual.begin(), entry->residual.end());
+-                size_t cursor = 0;
+-                for (size_t i = 0; i < entry->covered.size(); ++i) {
+-                    const auto& binding = entry->covered[i];
+-                    if (keep[i]) {
+-                        selected->covered.push_back(binding);
+-                        selected->resources.insert(selected->resources.end(),
+-                            entry->resources.begin() + cursor,
+-                            entry->resources.begin() + cursor + binding.resourceCount);
+-                    } else { selected->residual.push_back(binding.ordinal); }
+-                    // Even changed bindings occupy a slice in the original entry.
+-                    cursor += binding.resourceCount;
+-                }
+-                std::sort(selected->residual.begin(), selected->residual.end());
+-                for (const auto& resource : selected->resources) {
+-                    if (resource.kind == MVKMetal4PreparedBindingSnapshots::Kind::Texture &&
+-                        !resource.drawableIndependent) { selected->drawableIndependent = false; }
+-                }
+-                partial = std::move(selected);
+-            } catch (const std::bad_alloc&) {
+-                // Optional metadata reuse must leave the original cache intact.
+-                return Result::Miss;
+-            }
+-        }
+-        // Keep the original entry alive for identity-checked invalidation. The
+-        // derived proof is recording-local and never replaces the global entry.
+-        const auto& replayEntry = partial ? partial : entry;
++        if (!entry || !entry->matchesBindings(stamp, revision)) { return Result::Miss; }
+         // Do not hold the pipeline cache mutex while acquiring resource locks.
+         // The immutable CPU entry survives concurrent cache replacement.
+-        for (const auto& resource : replayEntry->resources) {
++        for (const auto& resource : entry->resources) {
+             auto result = retain(resource);
+             if (result != Result::Hit) {
+                 if (result == Result::Miss) {
+@@ -390,7 +344,7 @@
+         capture = false;
+         // Publish only the immutable CPU entry actually validated and retained
+         // by this replay. A cache replacement cannot substitute another proof.
+-        if (retained) { *retained = replayEntry; }
++        if (retained) { *retained = entry; }
+         return Result::Hit;
+     }
+     void reject(const MVKMetal4PreparedGroupStamp& stamp) {

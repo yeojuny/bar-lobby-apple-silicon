@@ -1,0 +1,40 @@
+{
+  "number": 12,
+  "title": "MSAA 내부 분할의 중간 resolve 생략",
+  "source": "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKRenderPass.mm",
+  "existingWork": "중간 조각/최종 조각을 encoder 생성 전에 구분하는 계획이 미구현.",
+  "missingEvidence": "현재 AA Off 비교의 창 조건만으로 offscreen sample 수를 알 수 없고 절감 빈도·비용 미확정.",
+  "requiredBoundary": "마지막 draw 없는 종료에서도 최종 resolve 보장, memoryless/private backing/visibility/query/alias 예외 유지.",
+  "risk": {
+    "function": "매우높음: 마지막 draw 없는 종료에서도 최종 resolve가 필요. storeAction만 Store로 변경하는 안은 과거Metal검증 실패와 동일 반례.",
+    "lifetime": "매우높음: memoryless/Private backing, resolve 대상의 동시읽기/alias, depth/stencil sample 수명.",
+    "synchronization": "높음: query/visibility/timestamp와 중간/최종 fragment 판정 순서.",
+    "memory": "모든pass를 store후 별도resolve로 만들면 unbroken pass에도 추가encoder/StoreLoad를 부과."
+  },
+  "sourceReferences": [
+    "sample-msaa",
+    "angle-metal",
+    "vkd3d-command"
+  ],
+  "status": "pass-ownership-proof-gated-no-code",
+  "strategy": "Only for a proven repeated internal MSAA split, pre-classify fragments and the final consumer before encoder creation. Resolve exactly when required, including final termination without another draw. Unknown/memoryless/alias/visibility cases retain existing resolves. No unconditional extra Store/Load or final encoder.",
+  "acceptance": [
+    "A concrete group11 split with multisampled offscreen attachments is observed",
+    "Intermediate consumers, memoryless/private lifetime and final resolve ownership are explicit",
+    "AA Off window setting is not proof all offscreen attachments are single-sample"
+  ],
+  "tests": [
+    "Existing suspend-resolve and visibility recycle CPU/native cases",
+    "No-final-draw, depth/stencil, alias/readback, memoryless and one-unbroken-pass regressions"
+  ],
+  "interactions": [
+    11,
+    13
+  ],
+  "dependencyMeaning": "Interactions require re-review; they are not permission to enable all related changes together.",
+  "designStage": "Exact source capsules where named; broader missing-target/ownership/pass designs remain gated where stated",
+  "codeActivationAutomatic": false,
+  "FPSBenefitEstablished": false,
+  "stopRule": "Any unclosed correctness/lifetime counterexample, changed parent, failed check or unclear measurement stops this module. Preserve failure evidence; no automatic replay.",
+  "rollback": "Prepared source module: exact reverse patch only against its postimage, refresh mtimes and rebuild all affected headers. No-code module: active product remains unchanged; no invented reverse patch."
+}

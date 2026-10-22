@@ -1,0 +1,177 @@
+{
+  "schemaVersion": 1,
+  "status": "prepared-not-activated",
+  "scope": "All original13 work groups; nine new source capsules across eight groups, original1 already implemented as Small; four groups and broader11b have detailed design boundaries without source code.",
+  "selectedParent": "R; Small remains unpromoted",
+  "runtimeDefaults": "diagnosticsOFF allocator32; current protected R/Small apps untouched",
+  "humanCueRequiredForActivation": true,
+  "beforeFirstActivation": [
+    "Finish the separately authorized frozen R/Small forward8/reverse8 or obtain explicit superseding direction",
+    "Choose/pin the exact parent source; never fuzzy-apply or package a mismatched raw library",
+    "Confirm no other source/build/storage job or benchmark overlaps",
+    "Recheck independent review and exact payload/patch hashes"
+  ],
+  "firstCodeModuleOrder": [
+    "11a-typed-frame-discard",
+    "08a-conservative-rebind",
+    "06-success-notify",
+    "07-signal-order-proof",
+    "02-layout-policy",
+    "03-owned-replay-chain",
+    "04-compact-cpu-state",
+    "08b-partial-group-replay",
+    "09-snapshot-unlocked-retain"
+  ],
+  "sameFileComposition": {
+    "06-then-07": [
+      "06-success-notify:R-and-Small",
+      "07-signal-order-proof:after06"
+    ],
+    "07-then-06": [
+      "07-signal-order-proof:R-and-Small",
+      "06-success-notify:after07"
+    ],
+    "02-then-04": [
+      "02-layout-policy:R-and-Small",
+      "04-compact-cpu-state:after02"
+    ],
+    "04-then-02": [
+      "04-compact-cpu-state:R-and-Small",
+      "02-layout-policy:after04"
+    ],
+    "08b-then-09": [
+      "08b-partial-group-replay:R-and-Small",
+      "09-snapshot-unlocked-retain:after08b"
+    ],
+    "09-then-08b": [
+      "09-snapshot-unlocked-retain:R-and-Small",
+      "08b-partial-group-replay:after09"
+    ],
+    "rule": "Exact staged full-file hashes only; never apply two baseline patches with fuzz."
+  },
+  "equivalentCompositionPairs": [
+    [
+      "06-then-07",
+      "07-then-06"
+    ],
+    [
+      "02-then-04",
+      "04-then-02"
+    ],
+    [
+      "08b-then-09",
+      "09-then-08b"
+    ]
+  ],
+  "perCodeModuleSequence": [
+    "verify inputs",
+    "apply exact forward patch in single active lane",
+    "related CPU/syntax checks",
+    "incremental build with correct header timestamps",
+    "bounded functional GPU checks",
+    "isolated signed app/closure and actual runtime identity",
+    "separately authorized like-for-like performance comparison",
+    "review outcome; hold/revert/adopt explicitly"
+  ],
+  "remainingDesignQueue": [
+    5,
+    10,
+    "11b",
+    12,
+    13
+  ],
+  "remainingDesignMeaning": "5/10/12/13 have no justified exact transform yet;11b is broader pass merging beyond prepared11a. Detailed state tables/counterexamples in remaining-design-boundaries.json.",
+  "noCodeGateBehavior": "Record why a group is not yet useful/safe; continue independent groups. A cue is not permission to fabricate evidence or delete waits.",
+  "items": [
+    {
+      "number": 1,
+      "title": "proof/snapshot 임시 배열의 할당·복사 축소",
+      "status": "implemented-Small-awaiting-qualified-performance",
+      "file": "queue/01/module.json"
+    },
+    {
+      "number": 2,
+      "title": "layout 조기 기록 적격성 분류를 생성 때 저장",
+      "status": "source-capsule-prepared-reachability-gates-activation",
+      "file": "queue/02/module.json"
+    },
+    {
+      "number": 3,
+      "title": "prepared fallback 명령 목록의 vector 수집을 연결 목록으로 대체",
+      "status": "source-capsule-prepared-prefix-evidence-gates-activation",
+      "file": "queue/03/module.json"
+    },
+    {
+      "number": 4,
+      "title": "compact UBO push의 조건부 조기 CPU State 기록 확대",
+      "status": "source-capsule-prepared-early-native-path-gates-activation",
+      "file": "queue/04/module.json"
+    },
+    {
+      "number": 5,
+      "title": "primitive 변환이 없는 패스의 lookahead 순회 생략",
+      "status": "negative-pass-proof-gated-no-code",
+      "file": "queue/05/module.json"
+    },
+    {
+      "number": 6,
+      "title": "성공 feedback의 완료 전 예비 깨우기 축소",
+      "status": "source-capsule-prepared-terminal-predicates-reviewed",
+      "file": "queue/06/module.json"
+    },
+    {
+      "number": 7,
+      "title": "동일 제출 그룹의 불변 signal 순서 재검사 재사용",
+      "status": "source-capsule-prepared-immutable-proof-reviewed",
+      "file": "queue/07/module.json"
+    },
+    {
+      "number": 8,
+      "title": "기록 간 CPU snapshot의 부분 재사용 확대",
+      "status": "08a-and-08b-source-capsules-prepared-runtime-and-benefit-open",
+      "file": "queue/08/module.json"
+    },
+    {
+      "number": 9,
+      "title": "per-binding snapshot replay 잠금 범위 축소",
+      "status": "source-capsule-prepared-contention-gates-activation",
+      "file": "queue/09/module.json"
+    },
+    {
+      "number": 10,
+      "title": "allocator 성장·풀·idle 예산의 추가 조정",
+      "status": "policy-evidence-gated-no-new-tuning",
+      "file": "queue/10/module.json"
+    },
+    {
+      "number": 11,
+      "title": "불필요한 render pass 종료·재시작 감소",
+      "status": "11a-patch-ready-general-pass-merging-gated",
+      "file": "queue/11/module.json"
+    },
+    {
+      "number": 12,
+      "title": "MSAA 내부 분할의 중간 resolve 생략",
+      "status": "pass-ownership-proof-gated-no-code",
+      "file": "queue/12/module.json"
+    },
+    {
+      "number": 13,
+      "title": "E3 범위를 넘는 barrier·GPU 완료 대기 중복 축소",
+      "status": "dependency-edge-proof-gated-no-code",
+      "file": "queue/13/module.json"
+    }
+  ],
+  "inputHashes": {
+    "artifacts/validation/v104-remaining-optimization-inventory-20261021/inventory.json": "de10dbebe8418d34de05378ce056d4f4cda3fb2f3e33741592c1110b7dd7e744",
+    "artifacts/validation/v104-optimization-precedents-20261021/external-assessment.json": "7f816ec3a8a99859aa4ed6a4e68f93b24c2a31445c757013b4e10cd50961f50f",
+    "artifacts/validation/v104-optimization-risk-return-20261021/independent-assessment.json": "e1939ee82ad3445d1609f398b0ae7c06cec636ac8c7061de8d44c7037245b05f"
+  },
+  "notIncluded": [
+    "new product feature toggles",
+    "new collector suite",
+    "old-app/payload retirement",
+    "stable Release/Homebrew/default branch change",
+    "foreign projects"
+  ]
+}

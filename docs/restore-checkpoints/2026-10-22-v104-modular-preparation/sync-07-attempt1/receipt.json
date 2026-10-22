@@ -1,0 +1,140 @@
+{
+  "createdUTC": "2026-10-22T17:54:12.000056+00:00",
+  "stage": "07",
+  "binding": {
+    "module": "07-signal-order-proof",
+    "variant": "R-and-Small",
+    "role": "after",
+    "manifestSHA256": "24d4106bc2f24e080eb4add2d71770ab079388873a0d26ec5203f775b0b02e1e",
+    "source": {
+      "path": "payload/a18a87e375b48e30426fc5baf030e5e915bb8bd4f5ccf1750d4f5af883e70cec",
+      "sha256": "a18a87e375b48e30426fc5baf030e5e915bb8bd4f5ccf1750d4f5af883e70cec",
+      "bytes": 159214
+    }
+  },
+  "validatorSHA256": "ad458614e73807bacbfadc75f8eb381297ef60c01a6b5b73fa0df93d758f9e4b",
+  "fixtureSHA256": "52a39f71c95d4b8297953a113499f5da02bca45d26d7913fd495a4a936223fa9",
+  "productionExtractSHA256": "90b05d245f7d1e409b8c66df67a08bb29f5e3949992e4e65a9dad5ca78f0c272",
+  "originalSignalValidatorSHA256": "87ba2e7a858be38b204c9cea8a50dd637db0964224135f85a7230ece2e74c926",
+  "segments": [
+    {
+      "marker": "struct MVKMetal4SubmissionGroup {",
+      "sha256": "dbc9fc7a591df881a6cb1ee895daf12be043b20dfebed77e2cf78127c5b4670c"
+    },
+    {
+      "marker": "struct NotificationSlotReservation {",
+      "sha256": "08a751b49a03116a1b6fd2efd8956837469c8713f1a33ecce0f5e3245866a538"
+    },
+    {
+      "marker": "struct SubmissionChildLocks {",
+      "sha256": "1d9463cc21b4402f4818f811be1df6fb2dbc34de45b4ed3bd573a20aa1e9d782"
+    },
+    {
+      "marker": "bool publishGroupError(",
+      "sha256": "e050b3703a4fcf1c32d6c5682e3c1d7912f9b601ba54a6b4d0a1800b9dbd47fb"
+    },
+    {
+      "marker": "void notifyGroupWaiters(",
+      "sha256": "4375f9e9b7f30bfbe58877b0f12bf27ef61752e6786b6da1e10af84280432d0c"
+    },
+    {
+      "marker": "void runGroupErrorHandlers(",
+      "sha256": "a031c223ed1506c8c02fc38f6d53c2d3d4bc2927beecd43a6a634c059a4bfea7"
+    },
+    {
+      "marker": "void retireIfReady(",
+      "sha256": "f6d67208bea3af1a15076a18aed6abd07eed38d2c3ff606f733c614142dd34e5"
+    },
+    {
+      "marker": "void recordSignalNotification(",
+      "sha256": "28f6aa1c052e329e97389003d6f6f29de8a7dd104cd9bdb0b047d617de2574cd"
+    },
+    {
+      "marker": "void failSignalNotificationOwners(",
+      "sha256": "9d4d3896cda282728f0740da17af038e969b7209d2ca860687ba5d709e31f2f1"
+    },
+    {
+      "marker": "void recordFeedback(",
+      "sha256": "0ab7035ffa461f205bdaad4d33802c051b78987684a940c052d40d69f6d137a4"
+    },
+    {
+      "marker": "bool validSignalValue(",
+      "sha256": "ed15ac021b108b38caee526ef359c4098a48773b6da8f43c59befaed1091ff99"
+    },
+    {
+      "marker": "class GroupSignalOrderProof",
+      "sha256": "7af38d5dbb8ca296dce5b1ead696fd873228a73f3055d8efbc413adbe9085889"
+    },
+    {
+      "marker": "bool validGroupSignals/test-only-pair-observation",
+      "sha256": "6fb3465b23bae8aad90c711f9043e3b7d4a61f675996a3b6a8e3f69d0294eebb"
+    },
+    {
+      "marker": "bool validateAndProveGroupSignals",
+      "sha256": "903f27ea9c642c8696aadcaa609b0cdea1cf70bc57a8d1f8f65a284dd7b7796c"
+    },
+    {
+      "marker": "bool publishPreparedSubmission(",
+      "sha256": "3237e2aa9a479970f8f5673d206953c9102bfccc1751f0aa6d350620b58c5cff"
+    },
+    {
+      "marker": "bool addEvent(",
+      "sha256": "ba1b484bb552a38bf99759973f22a75ddbec827f0cea841b5d646b7a0cc80d92"
+    },
+    {
+      "marker": "bool MVKMetal4Submission::wait(",
+      "sha256": "c8c8c85b3f539bbc7448bc27cb67b163b6b77ada02abba23d4abc195ccae7c1e"
+    },
+    {
+      "marker": "bool MVKMetal4Queue::waitIdle(",
+      "sha256": "a69459de42f10a23fbc81a6bed31ef6d92e9e05b2bc71961b16b7ffc800d5c05"
+    }
+  ],
+  "testOnlyInstrumentation": [
+    "pair-loop counter in extracted validator",
+    "mock event getter current-value reads",
+    "mock CV notify count/wait-entry observation"
+  ],
+  "mockBoundaries": [
+    "Storage/cache/allocator retirement effects",
+    "Metal event and commit feedback objects",
+    "queue/group setup; NSError helper creation; deadline helper"
+  ],
+  "actualProductionBodies": [
+    "group/child lock structure",
+    "feedback, signal and error state transitions",
+    "retirement gates and callbacks",
+    "publication guards",
+    "event registration phase rejection",
+    "public child and idle wait predicates"
+  ],
+  "command": [
+    "/usr/bin/clang++",
+    "-std=c++17",
+    "-O1",
+    "-g",
+    "-fblocks",
+    "-fno-omit-frame-pointer",
+    "-fsanitize=address,undefined",
+    "-DMVK_ENABLE_CUSTOM_DIAGNOSTICS=0",
+    "-DSYNC_HAS_PROOF=1",
+    "-DSYNC_NOTIFY_REDUCED=0",
+    "-I",
+    "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-modular-preparation-20261022/sync-07-attempt1",
+    "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-modular-preparation-20261022/sync-07-attempt1/sync-fixture.mm",
+    "-framework",
+    "Foundation",
+    "-framework",
+    "Metal",
+    "-pthread",
+    "-o",
+    "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-modular-preparation-20261022/sync-07-attempt1/sync-cpu"
+  ],
+  "compileExitCode": 0,
+  "activeSourceWrites": 0,
+  "GPUOrAppRuns": 0,
+  "limits": "CPU mock boundaries do not prove native device ordering, driver errors, runtime progress or FPS benefit.",
+  "runExitCode": 0,
+  "runOutputSHA256": "4452f5789b8f04ae012968b3ae4295379cb69a1b94f79109f4e387e2bee62273",
+  "passed": true
+}

@@ -1,0 +1,95 @@
+{
+  "inventoryGroup": 4,
+  "title": "Captured singleton UBO push as early CPU State",
+  "designReportSHA256": "05bb748996d4f7f0015f4a7bdafe8d43dc823b17e9b6f0cbc3a016cc7716ae52",
+  "module02OriginalManifest": {
+    "path": "payload/fb05a67911a4c1637e449ab41561f60d6a5f79bdc8ef635d5f37d3ca14a6b403",
+    "sha256": "fb05a67911a4c1637e449ab41561f60d6a5f79bdc8ef635d5f37d3ca14a6b403",
+    "bytes": 2790
+  },
+  "preserves": [
+    "Generic and mixed push stay Deferred",
+    "Foundation OFF and Metal3 behavior",
+    "Mapped bytes read at execution",
+    "Query activation/fallback and native ownership gates"
+  ],
+  "requiredAfterCue": [
+    "Header-dependent build",
+    "Actual early path Vulkan case with regular SSBO set0 and compact UBO set1",
+    "Native latest mapped content, cancel, timestamp fallback and M3 checks",
+    "BAR reach and controlled performance before benefit/adoption claim"
+  ],
+  "limits": "CPU/syntax preparation only; existing compact Vulkan case first uses Deferred ordinary push and does not exercise this new early path.",
+  "id": "04-compact-cpu-state",
+  "activation": "awaiting-human-cue",
+  "variants": {
+    "R-and-Small": {
+      "files": [
+        {
+          "target": "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCmdPipeline.h",
+          "mode": 420,
+          "before": {
+            "path": "payload/91de07b4f0304ebaae3811b855c3c72cdc481fbedd6f126680977a541a7dcd53",
+            "sha256": "91de07b4f0304ebaae3811b855c3c72cdc481fbedd6f126680977a541a7dcd53",
+            "bytes": 12593
+          },
+          "after": {
+            "path": "payload/db1e37cc82c62139b2f79c84dbd3f2a5da91ed6481d4b3ac3f5bd2892378c273",
+            "sha256": "db1e37cc82c62139b2f79c84dbd3f2a5da91ed6481d4b3ac3f5bd2892378c273",
+            "bytes": 12844
+          }
+        },
+        {
+          "target": "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCmdPipeline.mm",
+          "mode": 420,
+          "before": {
+            "path": "payload/8e663764a00e70ae9b6ede6996da275a9c0aad8a4de632fab8e9ed20e80e1d33",
+            "sha256": "8e663764a00e70ae9b6ede6996da275a9c0aad8a4de632fab8e9ed20e80e1d33",
+            "bytes": 27403
+          },
+          "after": {
+            "path": "payload/fef1cbb17036c19c7ef7a8193ae3ebb1b07657428339a1992aef213ab3b0aec1",
+            "sha256": "fef1cbb17036c19c7ef7a8193ae3ebb1b07657428339a1992aef213ab3b0aec1",
+            "bytes": 27653
+          }
+        }
+      ],
+      "patchSHA256": "6702f04c30ae6800a6d3b7dbfeb1268afe11098d9c2c8416caa3e7c704887bd7",
+      "reversePatchSHA256": "06a30794d8fb7f32bae8a719abceaaec79d1d2e7f1d03525ee6cae0334cc563e"
+    },
+    "after02": {
+      "files": [
+        {
+          "target": "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCmdPipeline.h",
+          "mode": 420,
+          "before": {
+            "path": "payload/91de07b4f0304ebaae3811b855c3c72cdc481fbedd6f126680977a541a7dcd53",
+            "sha256": "91de07b4f0304ebaae3811b855c3c72cdc481fbedd6f126680977a541a7dcd53",
+            "bytes": 12593
+          },
+          "after": {
+            "path": "payload/db1e37cc82c62139b2f79c84dbd3f2a5da91ed6481d4b3ac3f5bd2892378c273",
+            "sha256": "db1e37cc82c62139b2f79c84dbd3f2a5da91ed6481d4b3ac3f5bd2892378c273",
+            "bytes": 12844
+          }
+        },
+        {
+          "target": "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCmdPipeline.mm",
+          "mode": 420,
+          "before": {
+            "path": "payload/04fe43b293cb515e9ff5e56424ee2546a2011d12153d57aeea4bf7b728268954",
+            "sha256": "04fe43b293cb515e9ff5e56424ee2546a2011d12153d57aeea4bf7b728268954",
+            "bytes": 26953
+          },
+          "after": {
+            "path": "payload/8b09d32ae6d360215c2443c2f4a9aff39895f5797de95f7a0c5a95d1caa56377",
+            "sha256": "8b09d32ae6d360215c2443c2f4a9aff39895f5797de95f7a0c5a95d1caa56377",
+            "bytes": 27203
+          }
+        }
+      ],
+      "patchSHA256": "2700914b735545b51dc40bce07ce9ec67fb0144fbc4c46077d3b3c3920f1016c",
+      "reversePatchSHA256": "3a6bada08691eb50f3d247399c15927fa4fce319c291a00ba0b4007ae3d79a8a"
+    }
+  }
+}

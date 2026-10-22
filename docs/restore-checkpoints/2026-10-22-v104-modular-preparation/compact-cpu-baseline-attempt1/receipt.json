@@ -1,0 +1,121 @@
+{
+  "createdUTC": "2026-10-22T18:06:55.835939+00:00",
+  "variant": "R-and-Small",
+  "moduleSHA256": "c3f64eed9e4d9ad50a9849b846d20df7f98538d34a5f963db9977bffef505d38",
+  "readPins": [
+    {
+      "target": "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCmdPipeline.h",
+      "role": "before",
+      "path": "payload/91de07b4f0304ebaae3811b855c3c72cdc481fbedd6f126680977a541a7dcd53",
+      "sha256": "91de07b4f0304ebaae3811b855c3c72cdc481fbedd6f126680977a541a7dcd53",
+      "bytes": 12593
+    },
+    {
+      "target": "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCmdPipeline.h",
+      "role": "after",
+      "path": "payload/db1e37cc82c62139b2f79c84dbd3f2a5da91ed6481d4b3ac3f5bd2892378c273",
+      "sha256": "db1e37cc82c62139b2f79c84dbd3f2a5da91ed6481d4b3ac3f5bd2892378c273",
+      "bytes": 12844
+    },
+    {
+      "target": "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCmdPipeline.mm",
+      "role": "before",
+      "path": "payload/8e663764a00e70ae9b6ede6996da275a9c0aad8a4de632fab8e9ed20e80e1d33",
+      "sha256": "8e663764a00e70ae9b6ede6996da275a9c0aad8a4de632fab8e9ed20e80e1d33",
+      "bytes": 27403
+    },
+    {
+      "target": "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCmdPipeline.mm",
+      "role": "after",
+      "path": "payload/046d7a3e2c04957b47f85583c9cde03468280be0594e721d4614c70ad6d7c42a",
+      "sha256": "046d7a3e2c04957b47f85583c9cde03468280be0594e721d4614c70ad6d7c42a",
+      "bytes": 27609
+    },
+    {
+      "path": "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCommandBuffer.mm",
+      "sha256": "c66515484dfda8a7d5b05ed45622b03f64e9695eedcbb607d4e71387eb354c74",
+      "bytes": 111540
+    },
+    {
+      "path": "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/Commands/MVKCommandEncoderState.mm",
+      "sha256": "b1013a4a907210de7f527f550758824d1dfcf5d79b05266a984aa2a1e97e62e3",
+      "bytes": 159087
+    },
+    {
+      "path": "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKDescriptorSet.mm",
+      "sha256": "b87caab357dd43ba2c2cd937dcd7cdd0836c6418f90ddc5d2b90e13022257dc4",
+      "bytes": 99509
+    }
+  ],
+  "fixtureSHA256": "3d41eb5c66ff75f150a1c7fa33ce37545bcb3b7375f9b8e8abbb2e9aa9179f51",
+  "validatorSHA256": "309e92948b9ae7ba5122be4561761912c54256e33e3179d67b686714b73255af",
+  "sourceExtractSHA256": "e3d8d178d8e7b45917bdf9bdf2a72a40bec624897a63f15e699f4fb6f77dddb0",
+  "originalBufferCaseSHA256": "1dc4ea8032670454af5f6bf32a89049aaf8bc3802c8ac4c5dfa86cc5b49d7967",
+  "segments": [
+    {
+      "marker": "before exact compact class and methods; type-pool mock only",
+      "sha256": "ccd1b9d31a5c630171e79b0c73bed750a31fc15f11af3b633b740d6918cb6647"
+    },
+    {
+      "marker": "after exact compact class and methods; type-pool mock only",
+      "sha256": "eac7bdb5f9fd9f812712af848d11f4430946eda0a4d476342cc40f8421962303"
+    },
+    {
+      "marker": "exact OneID2Meta case with explicit UBO-only dispatch wrapper",
+      "sha256": "293ea4a8956c59267aebca4e390b7581f2f3a51f572229ed60aa8d34a8ab7bfe"
+    },
+    {
+      "marker": "exact mvkPushDescriptorSet",
+      "sha256": "ffb02190b0b336a5831a839df59d9d5db334e0d30627f36034644dbadf3b2b42"
+    },
+    {
+      "marker": "void MVKVulkanCommonEncoderState::ensurePushDescriptorSize(",
+      "sha256": "40467f7f5f3b0e62bfaffb2bdfa90c4d5a0140a6f7e32d302ef6457ef0458993"
+    },
+    {
+      "marker": "void MVKCommandEncoderState::pushDescriptorSet(VkPipelineBindPoint",
+      "sha256": "e4be96dbdadb9bddca68b33dcc7f00cd730e7ce2d3e83ee77c2f7e8f9ce74062"
+    },
+    {
+      "marker": "exact control/transfer and encoder retain; native begin mock",
+      "sha256": "a2e8e7457b11ea15d68968ad91c71ac63866533c9d86a8470e1f5ae3227b3830"
+    }
+  ],
+  "mockBoundaries": [
+    "Native buffer/layout/template wrappers and GPU encoder",
+    "Other CPU descriptor layouts/generic fallback",
+    "Native begin allocation, pause and clear; actual timestamp list-transfer body extracted",
+    "Query-like unknown command uses production Deferred control but no actual query pool"
+  ],
+  "activeSourceWrites": 0,
+  "productBuilds": 0,
+  "actualGPU": false,
+  "runs": [
+    {
+      "foundation": 0,
+      "command": [
+        "/usr/bin/clang++",
+        "-std=c++17",
+        "-O1",
+        "-g",
+        "-fsanitize=address,undefined",
+        "-fno-omit-frame-pointer",
+        "-DMVK_BUILD_METAL4_FOUNDATION=0",
+        "-DMVK_ENABLE_CUSTOM_DIAGNOSTICS=0",
+        "-I/Users/yeojun/Desktop/BAR-AppleSilicon-App/build/run66-vulkan-headers-src-20260903/include",
+        "-I/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-modular-preparation-20261022/compact-cpu-baseline-attempt1",
+        "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-modular-preparation-20261022/compact-cpu-baseline-attempt1/compact-fixture.mm",
+        "-framework",
+        "Foundation",
+        "-o",
+        "/Users/yeojun/Desktop/BAR-AppleSilicon-App/artifacts/validation/v104-modular-preparation-20261022/compact-cpu-baseline-attempt1/foundation0"
+      ],
+      "compileExit": 0,
+      "runExit": -6,
+      "outputSHA256": "aa5e11b9cd010f6f9039ee8753545ccde0d0b69261a2c5441e051a2a9a2ea4ec",
+      "passed": false
+    }
+  ],
+  "limits": "CPU shell proves copied descriptor/state/control contracts only. Real mapped GPU reads, query activation, native cancellation and BAR early reach remain unverified.",
+  "status": "failed"
+}

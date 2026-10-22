@@ -1,0 +1,13 @@
+--- a/build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKMetal4Submission.mm
++++ b/build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKMetal4Submission.mm
+@@ -1750,9 +1750,7 @@
+                         commitHost, callbackHost, isTail, group->costPresentation);
+     }
+ #endif
+-    // Success feedback alone changes neither public wait predicate.
+-    // Errors must still wake waiters even when no error handler exists.
+-    if (feedback.error) { notifyGroupWaiters(group); }
++    notifyGroupWaiters(group);
+     if (feedback.error) { failSignalNotificationOwners(queue, feedback.error); }
+     if (runErrors) { runGroupErrorHandlers(group); }
+     retireIfReady(group);

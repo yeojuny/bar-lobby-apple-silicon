@@ -1,0 +1,39 @@
+{
+  "number": 10,
+  "title": "allocator 성장·풀·idle 예산의 추가 조정",
+  "source": "build/run66-moltenvk-src-20260903/MoltenVK/MoltenVK/GPUObjects/MVKMetal4Submission.h",
+  "existingWork": "현재32 recordings/2MiB growth/available8/idle64MiB. Q reset/R idle-first는 완료.",
+  "missingEvidence": "기록 수64는 이미 시험했으므로 신규 후보로 세지 않음. 추가 growth/pool 조정의 churn·메모리 근거 부족.",
+  "requiredBoundary": "완료·writer·미제출 owner 경계를 유지하며 한 정책씩 비교. 기존 stats 사용 가능하며 새 collector 구축을 선행하지 않음.",
+  "risk": {
+    "function": "중간: count/growth/budget 한 조건씩, fallback·OOM 보존.",
+    "lifetime": "높음: writer와 모든 GPU/미제출 user 종료 이전 reset 금지.",
+    "synchronization": "높음: Resetting outside-lock reset/reoffer/cancel/poison 계약 불변.",
+    "memory": "높음: pool 확대는 idle와 in-flight peak 증가 가능; reset이 native backing을 반드시 반환하는 것도 아님."
+  },
+  "sourceReferences": [
+    "angle-allocator",
+    "sample-command_buffer_usage",
+    "benbreen-kk-uploader"
+  ],
+  "status": "policy-evidence-gated-no-new-tuning",
+  "strategy": "Keep recordings32/growth2MiB/available8/idle64MiB as the parent. Use existing counters and one isolated policy value per experiment if churn or memory pressure identifies a cause. Preserve Q/R quiescent reset and idle-first state machines; 64 was already tested.",
+  "acceptance": [
+    "A named churn/memory-pressure condition and a single justified alternative value are recorded",
+    "No change to writer, unsubmitted owner, GPU completion, reset/reoffer/cancel/poison contracts"
+  ],
+  "tests": [
+    "Existing allocator lifecycle/OOM/cancel tests",
+    "Paired throughput and peak retained-memory observation; do not infer physical reclaim from budget size"
+  ],
+  "interactions": [
+    11,
+    13
+  ],
+  "dependencyMeaning": "Interactions require re-review; they are not permission to enable all related changes together.",
+  "designStage": "Exact source capsules where named; broader missing-target/ownership/pass designs remain gated where stated",
+  "codeActivationAutomatic": false,
+  "FPSBenefitEstablished": false,
+  "stopRule": "Any unclosed correctness/lifetime counterexample, changed parent, failed check or unclear measurement stops this module. Preserve failure evidence; no automatic replay.",
+  "rollback": "Prepared source module: exact reverse patch only against its postimage, refresh mtimes and rebuild all affected headers. No-code module: active product remains unchanged; no invented reverse patch."
+}
