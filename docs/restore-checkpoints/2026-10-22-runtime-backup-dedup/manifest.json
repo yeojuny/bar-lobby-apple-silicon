@@ -1,0 +1,1310 @@
+{
+  "branch": "restore/backups-dedup-20261022",
+  "categories": {
+    "early-vulkan-headers": {
+      "files": 46,
+      "groups": 17,
+      "logicalBytes": 125029305
+    },
+    "r92-build-objects": {
+      "files": 14,
+      "groups": 2,
+      "logicalBytes": 29725920
+    },
+    "release-launcher-assets": {
+      "files": 40,
+      "groups": 11,
+      "logicalBytes": 177552776
+    }
+  },
+  "groups": [
+    {
+      "canonical": {
+        "bytes": 2439664,
+        "mode": 420,
+        "path": "backups/runtime/r92-config-string-integration-20261009/builds/mvk/_deps/spirv-cross-build/CMakeFiles/spirv-cross-msl.dir/spirv_msl.cpp.o",
+        "sha256": "3917eef2a1c6210763ad7c7c1e82514be760ab94325ad4b67779409d1da8fdcc"
+      },
+      "category": "r92-build-objects",
+      "id": "G000",
+      "payload": {
+        "bytes": 2439664,
+        "gitBlobSHA1": "e8c028cd1974bd1fb4c0852da97e10b4eb4789ce",
+        "gitMode": "100644",
+        "path": "docs/restore-checkpoints/2026-10-22-runtime-backup-dedup/payloads/3917eef2a1c6210763ad7c7c1e82514be760ab94325ad4b67779409d1da8fdcc-spirv_msl.cpp.o",
+        "sha256": "3917eef2a1c6210763ad7c7c1e82514be760ab94325ad4b67779409d1da8fdcc"
+      },
+      "retiredCopies": [
+        {
+          "bytes": 2439664,
+          "mode": 420,
+          "mtime_ns": 1791656366136220635,
+          "path": "backups/runtime/r92-timestamp-resolve-reuse-app-20261010/builds/mvk/_deps/spirv-cross-build/CMakeFiles/spirv-cross-msl.dir/spirv_msl.cpp.o",
+          "sha256": "3917eef2a1c6210763ad7c7c1e82514be760ab94325ad4b67779409d1da8fdcc"
+        },
+        {
+          "bytes": 2439664,
+          "mode": 420,
+          "mtime_ns": 1791005954032479937,
+          "path": "backups/runtime/r92-runtime-correctness-20261008/builds/mvk/_deps/spirv-cross-build/CMakeFiles/spirv-cross-msl.dir/spirv_msl.cpp.o",
+          "sha256": "3917eef2a1c6210763ad7c7c1e82514be760ab94325ad4b67779409d1da8fdcc"
+        },
+        {
+          "bytes": 2439664,
+          "mode": 420,
+          "mtime_ns": 1791605333794009744,
+          "path": "backups/runtime/r92-timestamp-entry-20261010/builds/mvk/_deps/spirv-cross-build/CMakeFiles/spirv-cross-msl.dir/spirv_msl.cpp.o",
+          "sha256": "3917eef2a1c6210763ad7c7c1e82514be760ab94325ad4b67779409d1da8fdcc"
+        },
+        {
+          "bytes": 2439664,
+          "mode": 420,
+          "mtime_ns": 1791591143543448876,
+          "path": "backups/runtime/r92-cost-epoch-20261009/builds/mvk/_deps/spirv-cross-build/CMakeFiles/spirv-cross-msl.dir/spirv_msl.cpp.o",
+          "sha256": "3917eef2a1c6210763ad7c7c1e82514be760ab94325ad4b67779409d1da8fdcc"
+        },
+        {
+          "bytes": 2439664,
+          "mode": 420,
+          "mtime_ns": 1791652681596335530,
+          "path": "backups/runtime/r92-timestamp-submit-reduction-app-20261010/builds/mvk/_deps/spirv-cross-build/CMakeFiles/spirv-cross-msl.dir/spirv_msl.cpp.o",
+          "sha256": "3917eef2a1c6210763ad7c7c1e82514be760ab94325ad4b67779409d1da8fdcc"
+        },
+        {
+          "bytes": 2439664,
+          "mode": 420,
+          "mtime_ns": 1791573898123966146,
+          "path": "backups/runtime/r92-cost-instrumentation-20261009/builds/mvk/_deps/spirv-cross-build/CMakeFiles/spirv-cross-msl.dir/spirv_msl.cpp.o",
+          "sha256": "3917eef2a1c6210763ad7c7c1e82514be760ab94325ad4b67779409d1da8fdcc"
+        },
+        {
+          "bytes": 2439664,
+          "mode": 420,
+          "mtime_ns": 1791590686272405564,
+          "path": "backups/runtime/r92-cost-instrumentation-fixed-20261009/builds/mvk/_deps/spirv-cross-build/CMakeFiles/spirv-cross-msl.dir/spirv_msl.cpp.o",
+          "sha256": "3917eef2a1c6210763ad7c7c1e82514be760ab94325ad4b67779409d1da8fdcc"
+        }
+      ]
+    },
+    {
+      "canonical": {
+        "bytes": 1806896,
+        "mode": 420,
+        "path": "backups/runtime/r92-config-string-integration-20261009/builds/mvk/_deps/spirv-cross-build/CMakeFiles/spirv-cross-glsl.dir/spirv_glsl.cpp.o",
+        "sha256": "16369732cad7b4dc73cbccbe68e7e6ab1d1c0bb2cf8f4841dd2f58e8bc554462"
+      },
+      "category": "r92-build-objects",
+      "id": "G001",
+      "payload": {
+        "bytes": 1806896,
+        "gitBlobSHA1": "9b6eb884e1c7318b673e5cb0a35dd0c8468c91a3",
+        "gitMode": "100644",
+        "path": "docs/restore-checkpoints/2026-10-22-runtime-backup-dedup/payloads/16369732cad7b4dc73cbccbe68e7e6ab1d1c0bb2cf8f4841dd2f58e8bc554462-spirv_glsl.cpp.o",
+        "sha256": "16369732cad7b4dc73cbccbe68e7e6ab1d1c0bb2cf8f4841dd2f58e8bc554462"
+      },
+      "retiredCopies": [
+        {
+          "bytes": 1806896,
+          "mode": 420,
+          "mtime_ns": 1791656366161866312,
+          "path": "backups/runtime/r92-timestamp-resolve-reuse-app-20261010/builds/mvk/_deps/spirv-cross-build/CMakeFiles/spirv-cross-glsl.dir/spirv_glsl.cpp.o",
+          "sha256": "16369732cad7b4dc73cbccbe68e7e6ab1d1c0bb2cf8f4841dd2f58e8bc554462"
+        },
+        {
+          "bytes": 1806896,
+          "mode": 420,
+          "mtime_ns": 1791005953698224210,
+          "path": "backups/runtime/r92-runtime-correctness-20261008/builds/mvk/_deps/spirv-cross-build/CMakeFiles/spirv-cross-glsl.dir/spirv_glsl.cpp.o",
+          "sha256": "16369732cad7b4dc73cbccbe68e7e6ab1d1c0bb2cf8f4841dd2f58e8bc554462"
+        },
+        {
+          "bytes": 1806896,
+          "mode": 420,
+          "mtime_ns": 1791605333770251219,
+          "path": "backups/runtime/r92-timestamp-entry-20261010/builds/mvk/_deps/spirv-cross-build/CMakeFiles/spirv-cross-glsl.dir/spirv_glsl.cpp.o",
+          "sha256": "16369732cad7b4dc73cbccbe68e7e6ab1d1c0bb2cf8f4841dd2f58e8bc554462"
+        },
+        {
+          "bytes": 1806896,
+          "mode": 420,
+          "mtime_ns": 1791591143505677317,
+          "path": "backups/runtime/r92-cost-epoch-20261009/builds/mvk/_deps/spirv-cross-build/CMakeFiles/spirv-cross-glsl.dir/spirv_glsl.cpp.o",
+          "sha256": "16369732cad7b4dc73cbccbe68e7e6ab1d1c0bb2cf8f4841dd2f58e8bc554462"
+        },
+        {
+          "bytes": 1806896,
+          "mode": 420,
+          "mtime_ns": 1791652681585728887,
+          "path": "backups/runtime/r92-timestamp-submit-reduction-app-20261010/builds/mvk/_deps/spirv-cross-build/CMakeFiles/spirv-cross-glsl.dir/spirv_glsl.cpp.o",
+          "sha256": "16369732cad7b4dc73cbccbe68e7e6ab1d1c0bb2cf8f4841dd2f58e8bc554462"
+        },
+        {
+          "bytes": 1806896,
+          "mode": 420,
+          "mtime_ns": 1791573898096339050,
+          "path": "backups/runtime/r92-cost-instrumentation-20261009/builds/mvk/_deps/spirv-cross-build/CMakeFiles/spirv-cross-glsl.dir/spirv_glsl.cpp.o",
+          "sha256": "16369732cad7b4dc73cbccbe68e7e6ab1d1c0bb2cf8f4841dd2f58e8bc554462"
+        },
+        {
+          "bytes": 1806896,
+          "mode": 420,
+          "mtime_ns": 1791590686239094330,
+          "path": "backups/runtime/r92-cost-instrumentation-fixed-20261009/builds/mvk/_deps/spirv-cross-build/CMakeFiles/spirv-cross-glsl.dir/spirv_glsl.cpp.o",
+          "sha256": "16369732cad7b4dc73cbccbe68e7e6ab1d1c0bb2cf8f4841dd2f58e8bc554462"
+        }
+      ]
+    },
+    {
+      "canonical": {
+        "bytes": 1098745,
+        "mode": 420,
+        "path": "backups/runtime/run56-20260721-before-approved-pr2775/active-moltenvk-pr2746/include/vulkan/vulkan_hash.hpp",
+        "sha256": "f225e0fb261fd9c3c567dd596e764d598e64fbc14eb29b7ef383e5b4b10e3da5"
+      },
+      "category": "early-vulkan-headers",
+      "id": "G066",
+      "payload": {
+        "bytes": 1098745,
+        "gitBlobSHA1": "eeff29351e23e9cd1a93dab298a0e18275626c28",
+        "gitMode": "100644",
+        "path": "docs/restore-checkpoints/2026-10-22-runtime-backup-dedup/payloads/f225e0fb261fd9c3c567dd596e764d598e64fbc14eb29b7ef383e5b4b10e3da5-vulkan_hash.hpp",
+        "sha256": "f225e0fb261fd9c3c567dd596e764d598e64fbc14eb29b7ef383e5b4b10e3da5"
+      },
+      "retiredCopies": [
+        {
+          "bytes": 1098745,
+          "mode": 420,
+          "mtime_ns": 1784583840000000000,
+          "path": "backups/runtime/run56-20260721-before-approved-pr2775/candidate-moltenvk-pr2746/include/vulkan/vulkan_hash.hpp",
+          "sha256": "f225e0fb261fd9c3c567dd596e764d598e64fbc14eb29b7ef383e5b4b10e3da5"
+        },
+        {
+          "bytes": 1098745,
+          "mode": 420,
+          "mtime_ns": 1784583840000000000,
+          "path": "backups/runtime/run56-20260721-before-approved-pr2775/staged-moltenvk-pr2746/include/vulkan/vulkan_hash.hpp",
+          "sha256": "f225e0fb261fd9c3c567dd596e764d598e64fbc14eb29b7ef383e5b4b10e3da5"
+        },
+        {
+          "bytes": 1098745,
+          "mode": 420,
+          "mtime_ns": 1783272589504628512,
+          "path": "backups/runtime/run56-20260721-before-runtime-refresh/candidate-runtime/moltenvk-pr2746/include/vulkan/vulkan_hash.hpp",
+          "sha256": "f225e0fb261fd9c3c567dd596e764d598e64fbc14eb29b7ef383e5b4b10e3da5"
+        },
+        {
+          "bytes": 1098745,
+          "mode": 420,
+          "mtime_ns": 1783272589504628512,
+          "path": "backups/runtime/run56-20260721-before-runtime-refresh/BAR.app-runtime/moltenvk-pr2746/include/vulkan/vulkan_hash.hpp",
+          "sha256": "f225e0fb261fd9c3c567dd596e764d598e64fbc14eb29b7ef383e5b4b10e3da5"
+        },
+        {
+          "bytes": 1098745,
+          "mode": 420,
+          "mtime_ns": 1784583840000000000,
+          "path": "backups/runtime/run58-20260823-before-runtime-refresh/candidate/moltenvk-pr2746/include/vulkan/vulkan_hash.hpp",
+          "sha256": "f225e0fb261fd9c3c567dd596e764d598e64fbc14eb29b7ef383e5b4b10e3da5"
+        },
+        {
+          "bytes": 1098745,
+          "mode": 420,
+          "mtime_ns": 1784583840000000000,
+          "path": "backups/runtime/run58-20260823-before-runtime-refresh/active/moltenvk-pr2746/include/vulkan/vulkan_hash.hpp",
+          "sha256": "f225e0fb261fd9c3c567dd596e764d598e64fbc14eb29b7ef383e5b4b10e3da5"
+        }
+      ]
+    },
+    {
+      "canonical": {
+        "bytes": 1223000,
+        "mode": 420,
+        "path": "backups/runtime/run56-20260721-before-approved-pr2775/active-moltenvk-pr2746/include/vulkan/vulkan.hpp",
+        "sha256": "1b381bb1c00c36006ea5d8cb4cce6435702c6e30be784b3420d2edaf1911b1e1"
+      },
+      "category": "early-vulkan-headers",
+      "id": "G067",
+      "payload": {
+        "bytes": 1223000,
+        "gitBlobSHA1": "98a5fb3f243bb02354ee3bb3c0bb871ae29edc89",
+        "gitMode": "100644",
+        "path": "docs/restore-checkpoints/2026-10-22-runtime-backup-dedup/payloads/1b381bb1c00c36006ea5d8cb4cce6435702c6e30be784b3420d2edaf1911b1e1-vulkan.hpp",
+        "sha256": "1b381bb1c00c36006ea5d8cb4cce6435702c6e30be784b3420d2edaf1911b1e1"
+      },
+      "retiredCopies": [
+        {
+          "bytes": 1223000,
+          "mode": 420,
+          "mtime_ns": 1784583840000000000,
+          "path": "backups/runtime/run56-20260721-before-approved-pr2775/candidate-moltenvk-pr2746/include/vulkan/vulkan.hpp",
+          "sha256": "1b381bb1c00c36006ea5d8cb4cce6435702c6e30be784b3420d2edaf1911b1e1"
+        },
+        {
+          "bytes": 1223000,
+          "mode": 420,
+          "mtime_ns": 1784583840000000000,
+          "path": "backups/runtime/run56-20260721-before-approved-pr2775/staged-moltenvk-pr2746/include/vulkan/vulkan.hpp",
+          "sha256": "1b381bb1c00c36006ea5d8cb4cce6435702c6e30be784b3420d2edaf1911b1e1"
+        },
+        {
+          "bytes": 1223000,
+          "mode": 420,
+          "mtime_ns": 1784583840000000000,
+          "path": "backups/runtime/run58-20260823-before-runtime-refresh/candidate/moltenvk-pr2746/include/vulkan/vulkan.hpp",
+          "sha256": "1b381bb1c00c36006ea5d8cb4cce6435702c6e30be784b3420d2edaf1911b1e1"
+        },
+        {
+          "bytes": 1223000,
+          "mode": 420,
+          "mtime_ns": 1784583840000000000,
+          "path": "backups/runtime/run58-20260823-before-runtime-refresh/active/moltenvk-pr2746/include/vulkan/vulkan.hpp",
+          "sha256": "1b381bb1c00c36006ea5d8cb4cce6435702c6e30be784b3420d2edaf1911b1e1"
+        }
+      ]
+    },
+    {
+      "canonical": {
+        "bytes": 2287170,
+        "mode": 420,
+        "path": "backups/runtime/run56-20260721-before-approved-pr2775/active-moltenvk-pr2746/include/vulkan/vulkan_funcs.hpp",
+        "sha256": "6beb302c8f8ab26afc4056718f63087f3829f65467a0628ee142844043992136"
+      },
+      "category": "early-vulkan-headers",
+      "id": "G068",
+      "payload": {
+        "bytes": 2287170,
+        "gitBlobSHA1": "5f7c8d1b51fcaa3608753c1ea4815f2c99688853",
+        "gitMode": "100644",
+        "path": "docs/restore-checkpoints/2026-10-22-runtime-backup-dedup/payloads/6beb302c8f8ab26afc4056718f63087f3829f65467a0628ee142844043992136-vulkan_funcs.hpp",
+        "sha256": "6beb302c8f8ab26afc4056718f63087f3829f65467a0628ee142844043992136"
+      },
+      "retiredCopies": [
+        {
+          "bytes": 2287170,
+          "mode": 420,
+          "mtime_ns": 1784583840000000000,
+          "path": "backups/runtime/run56-20260721-before-approved-pr2775/candidate-moltenvk-pr2746/include/vulkan/vulkan_funcs.hpp",
+          "sha256": "6beb302c8f8ab26afc4056718f63087f3829f65467a0628ee142844043992136"
+        },
+        {
+          "bytes": 2287170,
+          "mode": 420,
+          "mtime_ns": 1784583840000000000,
+          "path": "backups/runtime/run56-20260721-before-approved-pr2775/staged-moltenvk-pr2746/include/vulkan/vulkan_funcs.hpp",
+          "sha256": "6beb302c8f8ab26afc4056718f63087f3829f65467a0628ee142844043992136"
+        },
+        {
+          "bytes": 2287170,
+          "mode": 420,
+          "mtime_ns": 1784583840000000000,
+          "path": "backups/runtime/run58-20260823-before-runtime-refresh/candidate/moltenvk-pr2746/include/vulkan/vulkan_funcs.hpp",
+          "sha256": "6beb302c8f8ab26afc4056718f63087f3829f65467a0628ee142844043992136"
+        },
+        {
+          "bytes": 2287170,
+          "mode": 420,
+          "mtime_ns": 1784583840000000000,
+          "path": "backups/runtime/run58-20260823-before-runtime-refresh/active/moltenvk-pr2746/include/vulkan/vulkan_funcs.hpp",
+          "sha256": "6beb302c8f8ab26afc4056718f63087f3829f65467a0628ee142844043992136"
+        }
+      ]
+    },
+    {
+      "canonical": {
+        "bytes": 8886873,
+        "mode": 420,
+        "path": "backups/runtime/run56-20260721-before-approved-pr2775/active-moltenvk-pr2746/include/vulkan/vulkan_structs.hpp",
+        "sha256": "03d0b7a96fb43ac05b98d829054de685eb148a2facce2e284a4c13fedb997ef4"
+      },
+      "category": "early-vulkan-headers",
+      "id": "G069",
+      "payload": {
+        "bytes": 8886873,
+        "gitBlobSHA1": "3560b169b3119935baba4ca69c860d9097de8901",
+        "gitMode": "100644",
+        "path": "docs/restore-checkpoints/2026-10-22-runtime-backup-dedup/payloads/03d0b7a96fb43ac05b98d829054de685eb148a2facce2e284a4c13fedb997ef4-vulkan_structs.hpp",
+        "sha256": "03d0b7a96fb43ac05b98d829054de685eb148a2facce2e284a4c13fedb997ef4"
+      },
+      "retiredCopies": [
+        {
+          "bytes": 8886873,
+          "mode": 420,
+          "mtime_ns": 1784583840000000000,
+          "path": "backups/runtime/run56-20260721-before-approved-pr2775/candidate-moltenvk-pr2746/include/vulkan/vulkan_structs.hpp",
+          "sha256": "03d0b7a96fb43ac05b98d829054de685eb148a2facce2e284a4c13fedb997ef4"
+        },
+        {
+          "bytes": 8886873,
+          "mode": 420,
+          "mtime_ns": 1784583840000000000,
+          "path": "backups/runtime/run56-20260721-before-approved-pr2775/staged-moltenvk-pr2746/include/vulkan/vulkan_structs.hpp",
+          "sha256": "03d0b7a96fb43ac05b98d829054de685eb148a2facce2e284a4c13fedb997ef4"
+        },
+        {
+          "bytes": 8886873,
+          "mode": 420,
+          "mtime_ns": 1783272589534875343,
+          "path": "backups/runtime/run56-20260721-before-runtime-refresh/candidate-runtime/moltenvk-pr2746/include/vulkan/vulkan_structs.hpp",
+          "sha256": "03d0b7a96fb43ac05b98d829054de685eb148a2facce2e284a4c13fedb997ef4"
+        },
+        {
+          "bytes": 8886873,
+          "mode": 420,
+          "mtime_ns": 1783272589534875343,
+          "path": "backups/runtime/run56-20260721-before-runtime-refresh/BAR.app-runtime/moltenvk-pr2746/include/vulkan/vulkan_structs.hpp",
+          "sha256": "03d0b7a96fb43ac05b98d829054de685eb148a2facce2e284a4c13fedb997ef4"
+        },
+        {
+          "bytes": 8886873,
+          "mode": 420,
+          "mtime_ns": 1784583840000000000,
+          "path": "backups/runtime/run58-20260823-before-runtime-refresh/candidate/moltenvk-pr2746/include/vulkan/vulkan_structs.hpp",
+          "sha256": "03d0b7a96fb43ac05b98d829054de685eb148a2facce2e284a4c13fedb997ef4"
+        },
+        {
+          "bytes": 8886873,
+          "mode": 420,
+          "mtime_ns": 1784583840000000000,
+          "path": "backups/runtime/run58-20260823-before-runtime-refresh/active/moltenvk-pr2746/include/vulkan/vulkan_structs.hpp",
+          "sha256": "03d0b7a96fb43ac05b98d829054de685eb148a2facce2e284a4c13fedb997ef4"
+        }
+      ]
+    },
+    {
+      "canonical": {
+        "bytes": 1355514,
+        "mode": 420,
+        "path": "backups/runtime/run56-20260721-before-approved-pr2775/active-moltenvk-pr2746/include/vulkan/vulkan_core.h",
+        "sha256": "a7ac0d7e35e77f642c175af5d36729cfdae2d626d2aaa9145c030a42bd44edc6"
+      },
+      "category": "early-vulkan-headers",
+      "id": "G070",
+      "payload": {
+        "bytes": 1355514,
+        "gitBlobSHA1": "64b8803d81b6173f3b7de70bb18f2a44f547a5d1",
+        "gitMode": "100644",
+        "path": "docs/restore-checkpoints/2026-10-22-runtime-backup-dedup/payloads/a7ac0d7e35e77f642c175af5d36729cfdae2d626d2aaa9145c030a42bd44edc6-vulkan_core.h",
+        "sha256": "a7ac0d7e35e77f642c175af5d36729cfdae2d626d2aaa9145c030a42bd44edc6"
+      },
+      "retiredCopies": [
+        {
+          "bytes": 1355514,
+          "mode": 420,
+          "mtime_ns": 1784583840000000000,
+          "path": "backups/runtime/run56-20260721-before-approved-pr2775/candidate-moltenvk-pr2746/include/vulkan/vulkan_core.h",
+          "sha256": "a7ac0d7e35e77f642c175af5d36729cfdae2d626d2aaa9145c030a42bd44edc6"
+        },
+        {
+          "bytes": 1355514,
+          "mode": 420,
+          "mtime_ns": 1784583840000000000,
+          "path": "backups/runtime/run56-20260721-before-approved-pr2775/staged-moltenvk-pr2746/include/vulkan/vulkan_core.h",
+          "sha256": "a7ac0d7e35e77f642c175af5d36729cfdae2d626d2aaa9145c030a42bd44edc6"
+        },
+        {
+          "bytes": 1355514,
+          "mode": 420,
+          "mtime_ns": 1784583840000000000,
+          "path": "backups/runtime/run58-20260823-before-runtime-refresh/candidate/moltenvk-pr2746/include/vulkan/vulkan_core.h",
+          "sha256": "a7ac0d7e35e77f642c175af5d36729cfdae2d626d2aaa9145c030a42bd44edc6"
+        },
+        {
+          "bytes": 1355514,
+          "mode": 420,
+          "mtime_ns": 1784583840000000000,
+          "path": "backups/runtime/run58-20260823-before-runtime-refresh/active/moltenvk-pr2746/include/vulkan/vulkan_core.h",
+          "sha256": "a7ac0d7e35e77f642c175af5d36729cfdae2d626d2aaa9145c030a42bd44edc6"
+        }
+      ]
+    },
+    {
+      "canonical": {
+        "bytes": 1882478,
+        "mode": 420,
+        "path": "backups/runtime/run56-20260721-before-approved-pr2775/active-moltenvk-pr2746/include/vulkan/vulkan_raii.hpp",
+        "sha256": "5336b82c63b6229ff9d05229df44817c9b8533b0e63da5aed435f18399222f1b"
+      },
+      "category": "early-vulkan-headers",
+      "id": "G071",
+      "payload": {
+        "bytes": 1882478,
+        "gitBlobSHA1": "933b6f2b816a966ebae55d67d709affbbf5f08b1",
+        "gitMode": "100644",
+        "path": "docs/restore-checkpoints/2026-10-22-runtime-backup-dedup/payloads/5336b82c63b6229ff9d05229df44817c9b8533b0e63da5aed435f18399222f1b-vulkan_raii.hpp",
+        "sha256": "5336b82c63b6229ff9d05229df44817c9b8533b0e63da5aed435f18399222f1b"
+      },
+      "retiredCopies": [
+        {
+          "bytes": 1882478,
+          "mode": 420,
+          "mtime_ns": 1784583840000000000,
+          "path": "backups/runtime/run56-20260721-before-approved-pr2775/candidate-moltenvk-pr2746/include/vulkan/vulkan_raii.hpp",
+          "sha256": "5336b82c63b6229ff9d05229df44817c9b8533b0e63da5aed435f18399222f1b"
+        },
+        {
+          "bytes": 1882478,
+          "mode": 420,
+          "mtime_ns": 1784583840000000000,
+          "path": "backups/runtime/run56-20260721-before-approved-pr2775/staged-moltenvk-pr2746/include/vulkan/vulkan_raii.hpp",
+          "sha256": "5336b82c63b6229ff9d05229df44817c9b8533b0e63da5aed435f18399222f1b"
+        },
+        {
+          "bytes": 1882478,
+          "mode": 420,
+          "mtime_ns": 1784583840000000000,
+          "path": "backups/runtime/run58-20260823-before-runtime-refresh/candidate/moltenvk-pr2746/include/vulkan/vulkan_raii.hpp",
+          "sha256": "5336b82c63b6229ff9d05229df44817c9b8533b0e63da5aed435f18399222f1b"
+        },
+        {
+          "bytes": 1882478,
+          "mode": 420,
+          "mtime_ns": 1784583840000000000,
+          "path": "backups/runtime/run58-20260823-before-runtime-refresh/active/moltenvk-pr2746/include/vulkan/vulkan_raii.hpp",
+          "sha256": "5336b82c63b6229ff9d05229df44817c9b8533b0e63da5aed435f18399222f1b"
+        }
+      ]
+    },
+    {
+      "canonical": {
+        "bytes": 1758311,
+        "mode": 420,
+        "path": "backups/runtime/run56-20260721-before-approved-pr2775/active-moltenvk-pr2746/include/vulkan/vulkan_handles.hpp",
+        "sha256": "1bfbf0d70d5f6a0a623f5803e3d25fc6ec98095e8ea459c087d2ae28d2ff8cd9"
+      },
+      "category": "early-vulkan-headers",
+      "id": "G072",
+      "payload": {
+        "bytes": 1758311,
+        "gitBlobSHA1": "0c5bbf38a253d7099b39f71c8e1228c4f05e3d0a",
+        "gitMode": "100644",
+        "path": "docs/restore-checkpoints/2026-10-22-runtime-backup-dedup/payloads/1bfbf0d70d5f6a0a623f5803e3d25fc6ec98095e8ea459c087d2ae28d2ff8cd9-vulkan_handles.hpp",
+        "sha256": "1bfbf0d70d5f6a0a623f5803e3d25fc6ec98095e8ea459c087d2ae28d2ff8cd9"
+      },
+      "retiredCopies": [
+        {
+          "bytes": 1758311,
+          "mode": 420,
+          "mtime_ns": 1784583840000000000,
+          "path": "backups/runtime/run56-20260721-before-approved-pr2775/candidate-moltenvk-pr2746/include/vulkan/vulkan_handles.hpp",
+          "sha256": "1bfbf0d70d5f6a0a623f5803e3d25fc6ec98095e8ea459c087d2ae28d2ff8cd9"
+        },
+        {
+          "bytes": 1758311,
+          "mode": 420,
+          "mtime_ns": 1784583840000000000,
+          "path": "backups/runtime/run56-20260721-before-approved-pr2775/staged-moltenvk-pr2746/include/vulkan/vulkan_handles.hpp",
+          "sha256": "1bfbf0d70d5f6a0a623f5803e3d25fc6ec98095e8ea459c087d2ae28d2ff8cd9"
+        },
+        {
+          "bytes": 1758311,
+          "mode": 420,
+          "mtime_ns": 1784583840000000000,
+          "path": "backups/runtime/run58-20260823-before-runtime-refresh/candidate/moltenvk-pr2746/include/vulkan/vulkan_handles.hpp",
+          "sha256": "1bfbf0d70d5f6a0a623f5803e3d25fc6ec98095e8ea459c087d2ae28d2ff8cd9"
+        },
+        {
+          "bytes": 1758311,
+          "mode": 420,
+          "mtime_ns": 1784583840000000000,
+          "path": "backups/runtime/run58-20260823-before-runtime-refresh/active/moltenvk-pr2746/include/vulkan/vulkan_handles.hpp",
+          "sha256": "1bfbf0d70d5f6a0a623f5803e3d25fc6ec98095e8ea459c087d2ae28d2ff8cd9"
+        }
+      ]
+    },
+    {
+      "canonical": {
+        "bytes": 1217114,
+        "mode": 420,
+        "path": "backups/runtime/run56-20260721-before-runtime-refresh/BAR.app-runtime/moltenvk-pr2746/include/vulkan/vulkan.hpp",
+        "sha256": "839d1f45927a564871222daba2447e176eeff932784e6b2689dec25d9b2ad729"
+      },
+      "category": "early-vulkan-headers",
+      "id": "G073",
+      "payload": {
+        "bytes": 1217114,
+        "gitBlobSHA1": "6c7020590a45cf5d702e643ecc425be2cca013b3",
+        "gitMode": "100644",
+        "path": "docs/restore-checkpoints/2026-10-22-runtime-backup-dedup/payloads/839d1f45927a564871222daba2447e176eeff932784e6b2689dec25d9b2ad729-vulkan.hpp",
+        "sha256": "839d1f45927a564871222daba2447e176eeff932784e6b2689dec25d9b2ad729"
+      },
+      "retiredCopies": [
+        {
+          "bytes": 1217114,
+          "mode": 420,
+          "mtime_ns": 1783272589508772767,
+          "path": "backups/runtime/run56-20260721-before-runtime-refresh/candidate-runtime/moltenvk-pr2746/include/vulkan/vulkan.hpp",
+          "sha256": "839d1f45927a564871222daba2447e176eeff932784e6b2689dec25d9b2ad729"
+        }
+      ]
+    },
+    {
+      "canonical": {
+        "bytes": 2281187,
+        "mode": 420,
+        "path": "backups/runtime/run55-20260705-before-runtime-refresh/app-runtime/moltenvk-pr2746/include/vulkan/vulkan_funcs.hpp",
+        "sha256": "d0fcfa8215ef7b6633968c7b223ebb04a35d342af19241ce31d92f5004ee77d2"
+      },
+      "category": "early-vulkan-headers",
+      "id": "G074",
+      "payload": {
+        "bytes": 2281187,
+        "gitBlobSHA1": "b43d51ae2600423656a582ef8c98e1cbe381559e",
+        "gitMode": "100644",
+        "path": "docs/restore-checkpoints/2026-10-22-runtime-backup-dedup/payloads/d0fcfa8215ef7b6633968c7b223ebb04a35d342af19241ce31d92f5004ee77d2-vulkan_funcs.hpp",
+        "sha256": "d0fcfa8215ef7b6633968c7b223ebb04a35d342af19241ce31d92f5004ee77d2"
+      },
+      "retiredCopies": [
+        {
+          "bytes": 2281187,
+          "mode": 420,
+          "mtime_ns": 1783272589517476404,
+          "path": "backups/runtime/run56-20260721-before-runtime-refresh/candidate-runtime/moltenvk-pr2746/include/vulkan/vulkan_funcs.hpp",
+          "sha256": "d0fcfa8215ef7b6633968c7b223ebb04a35d342af19241ce31d92f5004ee77d2"
+        },
+        {
+          "bytes": 2281187,
+          "mode": 420,
+          "mtime_ns": 1783272589517476404,
+          "path": "backups/runtime/run56-20260721-before-runtime-refresh/BAR.app-runtime/moltenvk-pr2746/include/vulkan/vulkan_funcs.hpp",
+          "sha256": "d0fcfa8215ef7b6633968c7b223ebb04a35d342af19241ce31d92f5004ee77d2"
+        },
+        {
+          "bytes": 2281187,
+          "mode": 420,
+          "mtime_ns": 1782573816032122280,
+          "path": "backups/runtime/run55-20260705-before-runtime-refresh/candidate-runtime/moltenvk-pr2746/include/vulkan/vulkan_funcs.hpp",
+          "sha256": "d0fcfa8215ef7b6633968c7b223ebb04a35d342af19241ce31d92f5004ee77d2"
+        }
+      ]
+    },
+    {
+      "canonical": {
+        "bytes": 1353021,
+        "mode": 420,
+        "path": "backups/runtime/run56-20260721-before-runtime-refresh/BAR.app-runtime/moltenvk-pr2746/include/vulkan/vulkan_core.h",
+        "sha256": "682de8fb5d47f9839d62732975e8c7d54f8d2e8c178d79977d698e34ebc64da9"
+      },
+      "category": "early-vulkan-headers",
+      "id": "G075",
+      "payload": {
+        "bytes": 1353021,
+        "gitBlobSHA1": "913006e238b36ecfd3d96dd7a5b4aac1dbedd1d6",
+        "gitMode": "100644",
+        "path": "docs/restore-checkpoints/2026-10-22-runtime-backup-dedup/payloads/682de8fb5d47f9839d62732975e8c7d54f8d2e8c178d79977d698e34ebc64da9-vulkan_core.h",
+        "sha256": "682de8fb5d47f9839d62732975e8c7d54f8d2e8c178d79977d698e34ebc64da9"
+      },
+      "retiredCopies": [
+        {
+          "bytes": 1353021,
+          "mode": 420,
+          "mtime_ns": 1783272589537324179,
+          "path": "backups/runtime/run56-20260721-before-runtime-refresh/candidate-runtime/moltenvk-pr2746/include/vulkan/vulkan_core.h",
+          "sha256": "682de8fb5d47f9839d62732975e8c7d54f8d2e8c178d79977d698e34ebc64da9"
+        }
+      ]
+    },
+    {
+      "canonical": {
+        "bytes": 1874758,
+        "mode": 420,
+        "path": "backups/runtime/run55-20260705-before-runtime-refresh/app-runtime/moltenvk-pr2746/include/vulkan/vulkan_raii.hpp",
+        "sha256": "dfeab55cafc27992cb6d88dd9ce266b565206ed19a7dc1b8f1d5dddf3c0396f1"
+      },
+      "category": "early-vulkan-headers",
+      "id": "G076",
+      "payload": {
+        "bytes": 1874758,
+        "gitBlobSHA1": "553305661f7cfd78ac73b817f3be49704a26a965",
+        "gitMode": "100644",
+        "path": "docs/restore-checkpoints/2026-10-22-runtime-backup-dedup/payloads/dfeab55cafc27992cb6d88dd9ce266b565206ed19a7dc1b8f1d5dddf3c0396f1-vulkan_raii.hpp",
+        "sha256": "dfeab55cafc27992cb6d88dd9ce266b565206ed19a7dc1b8f1d5dddf3c0396f1"
+      },
+      "retiredCopies": [
+        {
+          "bytes": 1874758,
+          "mode": 420,
+          "mtime_ns": 1783272589539832641,
+          "path": "backups/runtime/run56-20260721-before-runtime-refresh/candidate-runtime/moltenvk-pr2746/include/vulkan/vulkan_raii.hpp",
+          "sha256": "dfeab55cafc27992cb6d88dd9ce266b565206ed19a7dc1b8f1d5dddf3c0396f1"
+        },
+        {
+          "bytes": 1874758,
+          "mode": 420,
+          "mtime_ns": 1783272589539832641,
+          "path": "backups/runtime/run56-20260721-before-runtime-refresh/BAR.app-runtime/moltenvk-pr2746/include/vulkan/vulkan_raii.hpp",
+          "sha256": "dfeab55cafc27992cb6d88dd9ce266b565206ed19a7dc1b8f1d5dddf3c0396f1"
+        },
+        {
+          "bytes": 1874758,
+          "mode": 420,
+          "mtime_ns": 1782573816051895190,
+          "path": "backups/runtime/run55-20260705-before-runtime-refresh/candidate-runtime/moltenvk-pr2746/include/vulkan/vulkan_raii.hpp",
+          "sha256": "dfeab55cafc27992cb6d88dd9ce266b565206ed19a7dc1b8f1d5dddf3c0396f1"
+        }
+      ]
+    },
+    {
+      "canonical": {
+        "bytes": 1753283,
+        "mode": 420,
+        "path": "backups/runtime/run56-20260721-before-runtime-refresh/BAR.app-runtime/moltenvk-pr2746/include/vulkan/vulkan_handles.hpp",
+        "sha256": "833e1857e81fd3d554643a283b91c5ab880cf06adaae4924da77d0bf41a8c56b"
+      },
+      "category": "early-vulkan-headers",
+      "id": "G077",
+      "payload": {
+        "bytes": 1753283,
+        "gitBlobSHA1": "3b7203f8f76e81ab3439735a6401fa08cc26e594",
+        "gitMode": "100644",
+        "path": "docs/restore-checkpoints/2026-10-22-runtime-backup-dedup/payloads/833e1857e81fd3d554643a283b91c5ab880cf06adaae4924da77d0bf41a8c56b-vulkan_handles.hpp",
+        "sha256": "833e1857e81fd3d554643a283b91c5ab880cf06adaae4924da77d0bf41a8c56b"
+      },
+      "retiredCopies": [
+        {
+          "bytes": 1753283,
+          "mode": 420,
+          "mtime_ns": 1783272589545264565,
+          "path": "backups/runtime/run56-20260721-before-runtime-refresh/candidate-runtime/moltenvk-pr2746/include/vulkan/vulkan_handles.hpp",
+          "sha256": "833e1857e81fd3d554643a283b91c5ab880cf06adaae4924da77d0bf41a8c56b"
+        }
+      ]
+    },
+    {
+      "canonical": {
+        "bytes": 20115518,
+        "mode": 420,
+        "path": "backups/engine/lobby-engine-upgrade-20261016/launcher-source/out/bar-lobby-darwin-arm64/LICENSES.chromium.html",
+        "sha256": "3375e2a9bd7bc631738fde10be6548a76efe8cf5e4b8826b8140ba8b0c4d6353"
+      },
+      "category": "release-launcher-assets",
+      "id": "G078",
+      "payload": {
+        "bytes": 20115518,
+        "gitBlobSHA1": "cb23185d8d135585712f05038802620c892bcea1",
+        "gitMode": "100644",
+        "path": "docs/restore-checkpoints/2026-10-22-runtime-backup-dedup/payloads/3375e2a9bd7bc631738fde10be6548a76efe8cf5e4b8826b8140ba8b0c4d6353-LICENSES.chromium.html",
+        "sha256": "3375e2a9bd7bc631738fde10be6548a76efe8cf5e4b8826b8140ba8b0c4d6353"
+      },
+      "retiredCopies": [
+        {
+          "bytes": 20115518,
+          "mode": 420,
+          "mtime_ns": 1792097061101687274,
+          "path": "backups/runtime/release-candidate-20261015/launcher-before-startup-fix/out/bar-lobby-darwin-arm64/LICENSES.chromium.html",
+          "sha256": "3375e2a9bd7bc631738fde10be6548a76efe8cf5e4b8826b8140ba8b0c4d6353"
+        },
+        {
+          "bytes": 20115518,
+          "mode": 420,
+          "mtime_ns": 1792099725473751503,
+          "path": "backups/runtime/release-candidate-20261015/launcher-before-helper-fix/out/bar-lobby-darwin-arm64/LICENSES.chromium.html",
+          "sha256": "3375e2a9bd7bc631738fde10be6548a76efe8cf5e4b8826b8140ba8b0c4d6353"
+        },
+        {
+          "bytes": 20115518,
+          "mode": 420,
+          "mtime_ns": 1792096447602199144,
+          "path": "backups/runtime/release-candidate-20261015/launcher-first-shipping-frontend/out/bar-lobby-darwin-arm64/LICENSES.chromium.html",
+          "sha256": "3375e2a9bd7bc631738fde10be6548a76efe8cf5e4b8826b8140ba8b0c4d6353"
+        }
+      ]
+    },
+    {
+      "canonical": {
+        "bytes": 2710000,
+        "mode": 420,
+        "path": "backups/engine/lobby-engine-upgrade-20261016/launcher-source/src/renderer/assets/audio/music/Matteo_Dell_Acqua-Game_of_Chicken.ogg",
+        "sha256": "2498a2d1b301708edd0b23e51f05fb1a676ed1f6ed596aef060ac6959f19c187"
+      },
+      "category": "release-launcher-assets",
+      "id": "G079",
+      "payload": {
+        "bytes": 2710000,
+        "gitBlobSHA1": "cad20a2fece6a22026080719bd32a3e726ba561f",
+        "gitMode": "100644",
+        "path": "docs/restore-checkpoints/2026-10-22-runtime-backup-dedup/payloads/2498a2d1b301708edd0b23e51f05fb1a676ed1f6ed596aef060ac6959f19c187-Matteo_Dell_Acqua-Game_of_Chicken.ogg",
+        "sha256": "2498a2d1b301708edd0b23e51f05fb1a676ed1f6ed596aef060ac6959f19c187"
+      },
+      "retiredCopies": [
+        {
+          "bytes": 2710000,
+          "mode": 420,
+          "mtime_ns": 1792097058661224487,
+          "path": "backups/runtime/release-candidate-20261015/launcher-before-startup-fix/.vite/renderer/main_window/assets/Matteo_Dell_Acqua-Game_of_Chicken-CQxv4JWk.ogg",
+          "sha256": "2498a2d1b301708edd0b23e51f05fb1a676ed1f6ed596aef060ac6959f19c187"
+        },
+        {
+          "bytes": 2710000,
+          "mode": 420,
+          "mtime_ns": 1792099722530376456,
+          "path": "backups/runtime/release-candidate-20261015/launcher-before-helper-fix/.vite/renderer/main_window/assets/Matteo_Dell_Acqua-Game_of_Chicken-CQxv4JWk.ogg",
+          "sha256": "2498a2d1b301708edd0b23e51f05fb1a676ed1f6ed596aef060ac6959f19c187"
+        },
+        {
+          "bytes": 2710000,
+          "mode": 420,
+          "mtime_ns": 1787705508981821635,
+          "path": "backups/runtime/release-candidate-20261015/launcher-generated-before-release/.vite/renderer/main_window/assets/Matteo_Dell_Acqua-Game_of_Chicken-CQxv4JWk.ogg",
+          "sha256": "2498a2d1b301708edd0b23e51f05fb1a676ed1f6ed596aef060ac6959f19c187"
+        },
+        {
+          "bytes": 2710000,
+          "mode": 420,
+          "mtime_ns": 1792096434249065440,
+          "path": "backups/runtime/release-candidate-20261015/launcher-first-shipping-frontend/.vite/renderer/main_window/assets/Matteo_Dell_Acqua-Game_of_Chicken-CQxv4JWk.ogg",
+          "sha256": "2498a2d1b301708edd0b23e51f05fb1a676ed1f6ed596aef060ac6959f19c187"
+        }
+      ]
+    },
+    {
+      "canonical": {
+        "bytes": 3030085,
+        "mode": 420,
+        "path": "backups/engine/lobby-engine-upgrade-20261016/launcher-source/src/renderer/assets/audio/music/Ryan_Krause-New_Order.ogg",
+        "sha256": "650282c068e3b49408898a27eaaa9a7fcc25c2076c51d7a2771d4afb81433eec"
+      },
+      "category": "release-launcher-assets",
+      "id": "G080",
+      "payload": {
+        "bytes": 3030085,
+        "gitBlobSHA1": "9ce8c71d0874d1ac7d2486fee6062365d952f909",
+        "gitMode": "100644",
+        "path": "docs/restore-checkpoints/2026-10-22-runtime-backup-dedup/payloads/650282c068e3b49408898a27eaaa9a7fcc25c2076c51d7a2771d4afb81433eec-Ryan_Krause-New_Order.ogg",
+        "sha256": "650282c068e3b49408898a27eaaa9a7fcc25c2076c51d7a2771d4afb81433eec"
+      },
+      "retiredCopies": [
+        {
+          "bytes": 3030085,
+          "mode": 420,
+          "mtime_ns": 1792097058661235154,
+          "path": "backups/runtime/release-candidate-20261015/launcher-before-startup-fix/.vite/renderer/main_window/assets/Ryan_Krause-New_Order-B7fVbW6K.ogg",
+          "sha256": "650282c068e3b49408898a27eaaa9a7fcc25c2076c51d7a2771d4afb81433eec"
+        },
+        {
+          "bytes": 3030085,
+          "mode": 420,
+          "mtime_ns": 1792099722525224643,
+          "path": "backups/runtime/release-candidate-20261015/launcher-before-helper-fix/.vite/renderer/main_window/assets/Ryan_Krause-New_Order-B7fVbW6K.ogg",
+          "sha256": "650282c068e3b49408898a27eaaa9a7fcc25c2076c51d7a2771d4afb81433eec"
+        },
+        {
+          "bytes": 3030085,
+          "mode": 420,
+          "mtime_ns": 1787705508981908136,
+          "path": "backups/runtime/release-candidate-20261015/launcher-generated-before-release/.vite/renderer/main_window/assets/Ryan_Krause-New_Order-B7fVbW6K.ogg",
+          "sha256": "650282c068e3b49408898a27eaaa9a7fcc25c2076c51d7a2771d4afb81433eec"
+        },
+        {
+          "bytes": 3030085,
+          "mode": 420,
+          "mtime_ns": 1792096434249844942,
+          "path": "backups/runtime/release-candidate-20261015/launcher-first-shipping-frontend/.vite/renderer/main_window/assets/Ryan_Krause-New_Order-B7fVbW6K.ogg",
+          "sha256": "650282c068e3b49408898a27eaaa9a7fcc25c2076c51d7a2771d4afb81433eec"
+        }
+      ]
+    },
+    {
+      "canonical": {
+        "bytes": 1844451,
+        "mode": 420,
+        "path": "backups/engine/lobby-engine-upgrade-20261016/launcher-source/src/renderer/assets/audio/music/Ryan_Krause-The_Architect.ogg",
+        "sha256": "2062a39585deeeccd3ca98628a1e905c9b04221cb27efa57cab775c40da4f094"
+      },
+      "category": "release-launcher-assets",
+      "id": "G081",
+      "payload": {
+        "bytes": 1844451,
+        "gitBlobSHA1": "1990eb65b94a7a1d2d25a33cd836be2ced55902b",
+        "gitMode": "100644",
+        "path": "docs/restore-checkpoints/2026-10-22-runtime-backup-dedup/payloads/2062a39585deeeccd3ca98628a1e905c9b04221cb27efa57cab775c40da4f094-Ryan_Krause-The_Architect.ogg",
+        "sha256": "2062a39585deeeccd3ca98628a1e905c9b04221cb27efa57cab775c40da4f094"
+      },
+      "retiredCopies": [
+        {
+          "bytes": 1844451,
+          "mode": 420,
+          "mtime_ns": 1792097058658188894,
+          "path": "backups/runtime/release-candidate-20261015/launcher-before-startup-fix/.vite/renderer/main_window/assets/Ryan_Krause-The_Architect-Ch3j-6Ih.ogg",
+          "sha256": "2062a39585deeeccd3ca98628a1e905c9b04221cb27efa57cab775c40da4f094"
+        },
+        {
+          "bytes": 1844451,
+          "mode": 420,
+          "mtime_ns": 1792099722520769500,
+          "path": "backups/runtime/release-candidate-20261015/launcher-before-helper-fix/.vite/renderer/main_window/assets/Ryan_Krause-The_Architect-Ch3j-6Ih.ogg",
+          "sha256": "2062a39585deeeccd3ca98628a1e905c9b04221cb27efa57cab775c40da4f094"
+        },
+        {
+          "bytes": 1844451,
+          "mode": 420,
+          "mtime_ns": 1787705508980091632,
+          "path": "backups/runtime/release-candidate-20261015/launcher-generated-before-release/.vite/renderer/main_window/assets/Ryan_Krause-The_Architect-Ch3j-6Ih.ogg",
+          "sha256": "2062a39585deeeccd3ca98628a1e905c9b04221cb27efa57cab775c40da4f094"
+        },
+        {
+          "bytes": 1844451,
+          "mode": 420,
+          "mtime_ns": 1792096434248674688,
+          "path": "backups/runtime/release-candidate-20261015/launcher-first-shipping-frontend/.vite/renderer/main_window/assets/Ryan_Krause-The_Architect-Ch3j-6Ih.ogg",
+          "sha256": "2062a39585deeeccd3ca98628a1e905c9b04221cb27efa57cab775c40da4f094"
+        }
+      ]
+    },
+    {
+      "canonical": {
+        "bytes": 4255458,
+        "mode": 420,
+        "path": "backups/engine/lobby-engine-upgrade-20261016/launcher-source/src/renderer/assets/audio/music/Ryan_Krause-Friend_Or_Foe.ogg",
+        "sha256": "aeeff15344c2d2d486d450dbe5d6f598faddf662b44421fdcc528a95c1eb8588"
+      },
+      "category": "release-launcher-assets",
+      "id": "G082",
+      "payload": {
+        "bytes": 4255458,
+        "gitBlobSHA1": "6e6d7c234d038cba290e37aaaeab60b2d200c329",
+        "gitMode": "100644",
+        "path": "docs/restore-checkpoints/2026-10-22-runtime-backup-dedup/payloads/aeeff15344c2d2d486d450dbe5d6f598faddf662b44421fdcc528a95c1eb8588-Ryan_Krause-Friend_Or_Foe.ogg",
+        "sha256": "aeeff15344c2d2d486d450dbe5d6f598faddf662b44421fdcc528a95c1eb8588"
+      },
+      "retiredCopies": [
+        {
+          "bytes": 4255458,
+          "mode": 420,
+          "mtime_ns": 1792097058666973756,
+          "path": "backups/runtime/release-candidate-20261015/launcher-before-startup-fix/.vite/renderer/main_window/assets/Ryan_Krause-Friend_Or_Foe-CkjqHNiF.ogg",
+          "sha256": "aeeff15344c2d2d486d450dbe5d6f598faddf662b44421fdcc528a95c1eb8588"
+        },
+        {
+          "bytes": 4255458,
+          "mode": 420,
+          "mtime_ns": 1792099722542285129,
+          "path": "backups/runtime/release-candidate-20261015/launcher-before-helper-fix/.vite/renderer/main_window/assets/Ryan_Krause-Friend_Or_Foe-CkjqHNiF.ogg",
+          "sha256": "aeeff15344c2d2d486d450dbe5d6f598faddf662b44421fdcc528a95c1eb8588"
+        },
+        {
+          "bytes": 4255458,
+          "mode": 420,
+          "mtime_ns": 1787705508990645361,
+          "path": "backups/runtime/release-candidate-20261015/launcher-generated-before-release/.vite/renderer/main_window/assets/Ryan_Krause-Friend_Or_Foe-CkjqHNiF.ogg",
+          "sha256": "aeeff15344c2d2d486d450dbe5d6f598faddf662b44421fdcc528a95c1eb8588"
+        },
+        {
+          "bytes": 4255458,
+          "mode": 420,
+          "mtime_ns": 1792096434255086628,
+          "path": "backups/runtime/release-candidate-20261015/launcher-first-shipping-frontend/.vite/renderer/main_window/assets/Ryan_Krause-Friend_Or_Foe-CkjqHNiF.ogg",
+          "sha256": "aeeff15344c2d2d486d450dbe5d6f598faddf662b44421fdcc528a95c1eb8588"
+        }
+      ]
+    },
+    {
+      "canonical": {
+        "bytes": 5014779,
+        "mode": 420,
+        "path": "backups/engine/lobby-engine-upgrade-20261016/launcher-source/src/renderer/assets/audio/music/Matteo_Dell_Acqua-From_the_Ashes.ogg",
+        "sha256": "4ef6c3e71fe078ee4da41aa2eaeab2dbead09829471e0b00c0980414730b5aee"
+      },
+      "category": "release-launcher-assets",
+      "id": "G083",
+      "payload": {
+        "bytes": 5014779,
+        "gitBlobSHA1": "19934e1e7c4488245fb9bfbcfcc3643b02b9a351",
+        "gitMode": "100644",
+        "path": "docs/restore-checkpoints/2026-10-22-runtime-backup-dedup/payloads/4ef6c3e71fe078ee4da41aa2eaeab2dbead09829471e0b00c0980414730b5aee-Matteo_Dell_Acqua-From_the_Ashes.ogg",
+        "sha256": "4ef6c3e71fe078ee4da41aa2eaeab2dbead09829471e0b00c0980414730b5aee"
+      },
+      "retiredCopies": [
+        {
+          "bytes": 5014779,
+          "mode": 420,
+          "mtime_ns": 1792097058668867137,
+          "path": "backups/runtime/release-candidate-20261015/launcher-before-startup-fix/.vite/renderer/main_window/assets/Matteo_Dell_Acqua-From_the_Ashes-BAVdXUYL.ogg",
+          "sha256": "4ef6c3e71fe078ee4da41aa2eaeab2dbead09829471e0b00c0980414730b5aee"
+        },
+        {
+          "bytes": 5014779,
+          "mode": 420,
+          "mtime_ns": 1792099722543900803,
+          "path": "backups/runtime/release-candidate-20261015/launcher-before-helper-fix/.vite/renderer/main_window/assets/Matteo_Dell_Acqua-From_the_Ashes-BAVdXUYL.ogg",
+          "sha256": "4ef6c3e71fe078ee4da41aa2eaeab2dbead09829471e0b00c0980414730b5aee"
+        },
+        {
+          "bytes": 5014779,
+          "mode": 420,
+          "mtime_ns": 1787705508990767944,
+          "path": "backups/runtime/release-candidate-20261015/launcher-generated-before-release/.vite/renderer/main_window/assets/Matteo_Dell_Acqua-From_the_Ashes-BAVdXUYL.ogg",
+          "sha256": "4ef6c3e71fe078ee4da41aa2eaeab2dbead09829471e0b00c0980414730b5aee"
+        },
+        {
+          "bytes": 5014779,
+          "mode": 420,
+          "mtime_ns": 1792096434256823385,
+          "path": "backups/runtime/release-candidate-20261015/launcher-first-shipping-frontend/.vite/renderer/main_window/assets/Matteo_Dell_Acqua-From_the_Ashes-BAVdXUYL.ogg",
+          "sha256": "4ef6c3e71fe078ee4da41aa2eaeab2dbead09829471e0b00c0980414730b5aee"
+        }
+      ]
+    },
+    {
+      "canonical": {
+        "bytes": 2826306,
+        "mode": 420,
+        "path": "backups/engine/lobby-engine-upgrade-20261016/launcher-source/src/renderer/assets/audio/music/Ryan_Krause-Divergents.ogg",
+        "sha256": "3cc8b837aef8bf7a8e1b081ccfdf72fdb583a712c995628c8ad20ed49017c1a8"
+      },
+      "category": "release-launcher-assets",
+      "id": "G084",
+      "payload": {
+        "bytes": 2826306,
+        "gitBlobSHA1": "d7be5c857dc2720c4abdb6a6043455c6ab23c88b",
+        "gitMode": "100644",
+        "path": "docs/restore-checkpoints/2026-10-22-runtime-backup-dedup/payloads/3cc8b837aef8bf7a8e1b081ccfdf72fdb583a712c995628c8ad20ed49017c1a8-Ryan_Krause-Divergents.ogg",
+        "sha256": "3cc8b837aef8bf7a8e1b081ccfdf72fdb583a712c995628c8ad20ed49017c1a8"
+      },
+      "retiredCopies": [
+        {
+          "bytes": 2826306,
+          "mode": 420,
+          "mtime_ns": 1792097058658549395,
+          "path": "backups/runtime/release-candidate-20261015/launcher-before-startup-fix/.vite/renderer/main_window/assets/Ryan_Krause-Divergents-DLSHhG7D.ogg",
+          "sha256": "3cc8b837aef8bf7a8e1b081ccfdf72fdb583a712c995628c8ad20ed49017c1a8"
+        },
+        {
+          "bytes": 2826306,
+          "mode": 420,
+          "mtime_ns": 1792099722530032579,
+          "path": "backups/runtime/release-candidate-20261015/launcher-before-helper-fix/.vite/renderer/main_window/assets/Ryan_Krause-Divergents-DLSHhG7D.ogg",
+          "sha256": "3cc8b837aef8bf7a8e1b081ccfdf72fdb583a712c995628c8ad20ed49017c1a8"
+        },
+        {
+          "bytes": 2826306,
+          "mode": 420,
+          "mtime_ns": 1787705508981854052,
+          "path": "backups/runtime/release-candidate-20261015/launcher-generated-before-release/.vite/renderer/main_window/assets/Ryan_Krause-Divergents-DLSHhG7D.ogg",
+          "sha256": "3cc8b837aef8bf7a8e1b081ccfdf72fdb583a712c995628c8ad20ed49017c1a8"
+        },
+        {
+          "bytes": 2826306,
+          "mode": 420,
+          "mtime_ns": 1792096434249895401,
+          "path": "backups/runtime/release-candidate-20261015/launcher-first-shipping-frontend/.vite/renderer/main_window/assets/Ryan_Krause-Divergents-DLSHhG7D.ogg",
+          "sha256": "3cc8b837aef8bf7a8e1b081ccfdf72fdb583a712c995628c8ad20ed49017c1a8"
+        }
+      ]
+    },
+    {
+      "canonical": {
+        "bytes": 2610446,
+        "mode": 420,
+        "path": "backups/engine/lobby-engine-upgrade-20261016/launcher-source/src/renderer/assets/audio/music/Ryan_Krause-Confined_Chaos.ogg",
+        "sha256": "f419ea46356c6d21315a41050655fd0c4992c9a1ef4d040c8a39178a0e976609"
+      },
+      "category": "release-launcher-assets",
+      "id": "G085",
+      "payload": {
+        "bytes": 2610446,
+        "gitBlobSHA1": "108e459ab63cfce7c34c9c7b7d14ac7e4873a16a",
+        "gitMode": "100644",
+        "path": "docs/restore-checkpoints/2026-10-22-runtime-backup-dedup/payloads/f419ea46356c6d21315a41050655fd0c4992c9a1ef4d040c8a39178a0e976609-Ryan_Krause-Confined_Chaos.ogg",
+        "sha256": "f419ea46356c6d21315a41050655fd0c4992c9a1ef4d040c8a39178a0e976609"
+      },
+      "retiredCopies": [
+        {
+          "bytes": 2610446,
+          "mode": 420,
+          "mtime_ns": 1792097058658458770,
+          "path": "backups/runtime/release-candidate-20261015/launcher-before-startup-fix/.vite/renderer/main_window/assets/Ryan_Krause-Confined_Chaos--vFJayge.ogg",
+          "sha256": "f419ea46356c6d21315a41050655fd0c4992c9a1ef4d040c8a39178a0e976609"
+        },
+        {
+          "bytes": 2610446,
+          "mode": 420,
+          "mtime_ns": 1792099722523054301,
+          "path": "backups/runtime/release-candidate-20261015/launcher-before-helper-fix/.vite/renderer/main_window/assets/Ryan_Krause-Confined_Chaos--vFJayge.ogg",
+          "sha256": "f419ea46356c6d21315a41050655fd0c4992c9a1ef4d040c8a39178a0e976609"
+        },
+        {
+          "bytes": 2610446,
+          "mode": 420,
+          "mtime_ns": 1787705508980479883,
+          "path": "backups/runtime/release-candidate-20261015/launcher-generated-before-release/.vite/renderer/main_window/assets/Ryan_Krause-Confined_Chaos--vFJayge.ogg",
+          "sha256": "f419ea46356c6d21315a41050655fd0c4992c9a1ef4d040c8a39178a0e976609"
+        },
+        {
+          "bytes": 2610446,
+          "mode": 420,
+          "mtime_ns": 1792096434248858856,
+          "path": "backups/runtime/release-candidate-20261015/launcher-first-shipping-frontend/.vite/renderer/main_window/assets/Ryan_Krause-Confined_Chaos--vFJayge.ogg",
+          "sha256": "f419ea46356c6d21315a41050655fd0c4992c9a1ef4d040c8a39178a0e976609"
+        }
+      ]
+    },
+    {
+      "canonical": {
+        "bytes": 4503944,
+        "mode": 420,
+        "path": "backups/engine/lobby-engine-upgrade-20261016/launcher-source/src/renderer/assets/audio/music/Matteo_Dell_Acqua-fooBAR_Menu_Ver.ogg",
+        "sha256": "323ca21c8d8a1f4083641f3d90aa310fcaec7cbe7ff82eef1b61bce897af526f"
+      },
+      "category": "release-launcher-assets",
+      "id": "G086",
+      "payload": {
+        "bytes": 4503944,
+        "gitBlobSHA1": "8c6a70331303364d1304011c066ae59b9607ca35",
+        "gitMode": "100644",
+        "path": "docs/restore-checkpoints/2026-10-22-runtime-backup-dedup/payloads/323ca21c8d8a1f4083641f3d90aa310fcaec7cbe7ff82eef1b61bce897af526f-Matteo_Dell_Acqua-fooBAR_Menu_Ver.ogg",
+        "sha256": "323ca21c8d8a1f4083641f3d90aa310fcaec7cbe7ff82eef1b61bce897af526f"
+      },
+      "retiredCopies": [
+        {
+          "bytes": 4503944,
+          "mode": 420,
+          "mtime_ns": 1792097058666996381,
+          "path": "backups/runtime/release-candidate-20261015/launcher-before-startup-fix/.vite/renderer/main_window/assets/Matteo_Dell_Acqua-fooBAR_Menu_Ver-BUBvhsAK.ogg",
+          "sha256": "323ca21c8d8a1f4083641f3d90aa310fcaec7cbe7ff82eef1b61bce897af526f"
+        },
+        {
+          "bytes": 4503944,
+          "mode": 420,
+          "mtime_ns": 1792099722541780211,
+          "path": "backups/runtime/release-candidate-20261015/launcher-before-helper-fix/.vite/renderer/main_window/assets/Matteo_Dell_Acqua-fooBAR_Menu_Ver-BUBvhsAK.ogg",
+          "sha256": "323ca21c8d8a1f4083641f3d90aa310fcaec7cbe7ff82eef1b61bce897af526f"
+        },
+        {
+          "bytes": 4503944,
+          "mode": 420,
+          "mtime_ns": 1787705508990698902,
+          "path": "backups/runtime/release-candidate-20261015/launcher-generated-before-release/.vite/renderer/main_window/assets/Matteo_Dell_Acqua-fooBAR_Menu_Ver-BUBvhsAK.ogg",
+          "sha256": "323ca21c8d8a1f4083641f3d90aa310fcaec7cbe7ff82eef1b61bce897af526f"
+        },
+        {
+          "bytes": 4503944,
+          "mode": 420,
+          "mtime_ns": 1792096434255086837,
+          "path": "backups/runtime/release-candidate-20261015/launcher-first-shipping-frontend/.vite/renderer/main_window/assets/Matteo_Dell_Acqua-fooBAR_Menu_Ver-BUBvhsAK.ogg",
+          "sha256": "323ca21c8d8a1f4083641f3d90aa310fcaec7cbe7ff82eef1b61bce897af526f"
+        }
+      ]
+    },
+    {
+      "canonical": {
+        "bytes": 2046407,
+        "mode": 420,
+        "path": "backups/engine/lobby-engine-upgrade-20261016/launcher-source/src/renderer/assets/audio/music/Ryan_Krause-Sanctum.ogg",
+        "sha256": "4888a65f89692a97dcb2edd6bbc82523b505f6226ef7beb19a5c6abc804523d0"
+      },
+      "category": "release-launcher-assets",
+      "id": "G087",
+      "payload": {
+        "bytes": 2046407,
+        "gitBlobSHA1": "9ae19e471b48f9460c0a03d5d5a570dff60a3256",
+        "gitMode": "100644",
+        "path": "docs/restore-checkpoints/2026-10-22-runtime-backup-dedup/payloads/4888a65f89692a97dcb2edd6bbc82523b505f6226ef7beb19a5c6abc804523d0-Ryan_Krause-Sanctum.ogg",
+        "sha256": "4888a65f89692a97dcb2edd6bbc82523b505f6226ef7beb19a5c6abc804523d0"
+      },
+      "retiredCopies": [
+        {
+          "bytes": 2046407,
+          "mode": 420,
+          "mtime_ns": 1792097058658262144,
+          "path": "backups/runtime/release-candidate-20261015/launcher-before-startup-fix/.vite/renderer/main_window/assets/Ryan_Krause-Sanctum-DIgDMcHu.ogg",
+          "sha256": "4888a65f89692a97dcb2edd6bbc82523b505f6226ef7beb19a5c6abc804523d0"
+        },
+        {
+          "bytes": 2046407,
+          "mode": 420,
+          "mtime_ns": 1792099722520945834,
+          "path": "backups/runtime/release-candidate-20261015/launcher-before-helper-fix/.vite/renderer/main_window/assets/Ryan_Krause-Sanctum-DIgDMcHu.ogg",
+          "sha256": "4888a65f89692a97dcb2edd6bbc82523b505f6226ef7beb19a5c6abc804523d0"
+        },
+        {
+          "bytes": 2046407,
+          "mode": 420,
+          "mtime_ns": 1787705508980224632,
+          "path": "backups/runtime/release-candidate-20261015/launcher-generated-before-release/.vite/renderer/main_window/assets/Ryan_Krause-Sanctum-DIgDMcHu.ogg",
+          "sha256": "4888a65f89692a97dcb2edd6bbc82523b505f6226ef7beb19a5c6abc804523d0"
+        },
+        {
+          "bytes": 2046407,
+          "mode": 420,
+          "mtime_ns": 1792096434248719605,
+          "path": "backups/runtime/release-candidate-20261015/launcher-first-shipping-frontend/.vite/renderer/main_window/assets/Ryan_Krause-Sanctum-DIgDMcHu.ogg",
+          "sha256": "4888a65f89692a97dcb2edd6bbc82523b505f6226ef7beb19a5c6abc804523d0"
+        }
+      ]
+    },
+    {
+      "canonical": {
+        "bytes": 1838718,
+        "mode": 420,
+        "path": "backups/engine/lobby-engine-upgrade-20261016/launcher-source/.vite/renderer/main_window/assets/index-DT6cqJau.js",
+        "sha256": "5818db1d46ab48a8e5bbd1584af751b859a3c4ae0f8f5ffde7de3e309cad77a8"
+      },
+      "category": "release-launcher-assets",
+      "id": "G088",
+      "payload": {
+        "bytes": 1838718,
+        "gitBlobSHA1": "aaa08f19931a2839a1f8fb04e8d1f7eee9080a5d",
+        "gitMode": "100644",
+        "path": "docs/restore-checkpoints/2026-10-22-runtime-backup-dedup/payloads/5818db1d46ab48a8e5bbd1584af751b859a3c4ae0f8f5ffde7de3e309cad77a8-index-DT6cqJau.js",
+        "sha256": "5818db1d46ab48a8e5bbd1584af751b859a3c4ae0f8f5ffde7de3e309cad77a8"
+      },
+      "retiredCopies": [
+        {
+          "bytes": 1838718,
+          "mode": 420,
+          "mtime_ns": 1792099722521046668,
+          "path": "backups/runtime/release-candidate-20261015/launcher-before-helper-fix/.vite/renderer/main_window/assets/index-DT6cqJau.js",
+          "sha256": "5818db1d46ab48a8e5bbd1584af751b859a3c4ae0f8f5ffde7de3e309cad77a8"
+        }
+      ]
+    },
+    {
+      "canonical": {
+        "bytes": 1097743,
+        "mode": 420,
+        "path": "backups/runtime/run55-20260705-before-runtime-refresh/app-runtime/moltenvk-pr2746/include/vulkan/vulkan_hash.hpp",
+        "sha256": "aba9ea7039eee141cecf9602be7d0fb74fcbb1bd40dcbab6c372753dd008034c"
+      },
+      "category": "early-vulkan-headers",
+      "id": "G090",
+      "payload": {
+        "bytes": 1097743,
+        "gitBlobSHA1": "3c6b319a412e1ae6c291139cea7340af9e9e4419",
+        "gitMode": "100644",
+        "path": "docs/restore-checkpoints/2026-10-22-runtime-backup-dedup/payloads/aba9ea7039eee141cecf9602be7d0fb74fcbb1bd40dcbab6c372753dd008034c-vulkan_hash.hpp",
+        "sha256": "aba9ea7039eee141cecf9602be7d0fb74fcbb1bd40dcbab6c372753dd008034c"
+      },
+      "retiredCopies": [
+        {
+          "bytes": 1097743,
+          "mode": 420,
+          "mtime_ns": 1782573816020542742,
+          "path": "backups/runtime/run55-20260705-before-runtime-refresh/candidate-runtime/moltenvk-pr2746/include/vulkan/vulkan_hash.hpp",
+          "sha256": "aba9ea7039eee141cecf9602be7d0fb74fcbb1bd40dcbab6c372753dd008034c"
+        }
+      ]
+    },
+    {
+      "canonical": {
+        "bytes": 1216426,
+        "mode": 420,
+        "path": "backups/runtime/run55-20260705-before-runtime-refresh/app-runtime/moltenvk-pr2746/include/vulkan/vulkan.hpp",
+        "sha256": "87c040ca098d2638660eb7f85e5144cd7637fe7f93ab3b20b9b42400390aa899"
+      },
+      "category": "early-vulkan-headers",
+      "id": "G091",
+      "payload": {
+        "bytes": 1216426,
+        "gitBlobSHA1": "3241b7f242aae4707e4e6772534bf0b8bcf08aeb",
+        "gitMode": "100644",
+        "path": "docs/restore-checkpoints/2026-10-22-runtime-backup-dedup/payloads/87c040ca098d2638660eb7f85e5144cd7637fe7f93ab3b20b9b42400390aa899-vulkan.hpp",
+        "sha256": "87c040ca098d2638660eb7f85e5144cd7637fe7f93ab3b20b9b42400390aa899"
+      },
+      "retiredCopies": [
+        {
+          "bytes": 1216426,
+          "mode": 420,
+          "mtime_ns": 1782573816024365504,
+          "path": "backups/runtime/run55-20260705-before-runtime-refresh/candidate-runtime/moltenvk-pr2746/include/vulkan/vulkan.hpp",
+          "sha256": "87c040ca098d2638660eb7f85e5144cd7637fe7f93ab3b20b9b42400390aa899"
+        }
+      ]
+    },
+    {
+      "canonical": {
+        "bytes": 8879270,
+        "mode": 420,
+        "path": "backups/runtime/run55-20260705-before-runtime-refresh/app-runtime/moltenvk-pr2746/include/vulkan/vulkan_structs.hpp",
+        "sha256": "c019e177b6a00ebf6d8fbc7e9d18b081f1b2826d2b23ab25f81c5220dd7f8915"
+      },
+      "category": "early-vulkan-headers",
+      "id": "G092",
+      "payload": {
+        "bytes": 8879270,
+        "gitBlobSHA1": "63114bf9cf067d0e52d255808e857432fc396f8e",
+        "gitMode": "100644",
+        "path": "docs/restore-checkpoints/2026-10-22-runtime-backup-dedup/payloads/c019e177b6a00ebf6d8fbc7e9d18b081f1b2826d2b23ab25f81c5220dd7f8915-vulkan_structs.hpp",
+        "sha256": "c019e177b6a00ebf6d8fbc7e9d18b081f1b2826d2b23ab25f81c5220dd7f8915"
+      },
+      "retiredCopies": [
+        {
+          "bytes": 8879270,
+          "mode": 420,
+          "mtime_ns": 1782573816045851747,
+          "path": "backups/runtime/run55-20260705-before-runtime-refresh/candidate-runtime/moltenvk-pr2746/include/vulkan/vulkan_structs.hpp",
+          "sha256": "c019e177b6a00ebf6d8fbc7e9d18b081f1b2826d2b23ab25f81c5220dd7f8915"
+        }
+      ]
+    },
+    {
+      "canonical": {
+        "bytes": 1351842,
+        "mode": 420,
+        "path": "backups/runtime/run55-20260705-before-runtime-refresh/app-runtime/moltenvk-pr2746/include/vulkan/vulkan_core.h",
+        "sha256": "ba593c093dfd634f691e11099378847ce9b6a5cd0002835cf809239945753b58"
+      },
+      "category": "early-vulkan-headers",
+      "id": "G093",
+      "payload": {
+        "bytes": 1351842,
+        "gitBlobSHA1": "ebcfbfe7bc575f5ffac9aed3a391eba43586d0ce",
+        "gitMode": "100644",
+        "path": "docs/restore-checkpoints/2026-10-22-runtime-backup-dedup/payloads/ba593c093dfd634f691e11099378847ce9b6a5cd0002835cf809239945753b58-vulkan_core.h",
+        "sha256": "ba593c093dfd634f691e11099378847ce9b6a5cd0002835cf809239945753b58"
+      },
+      "retiredCopies": [
+        {
+          "bytes": 1351842,
+          "mode": 420,
+          "mtime_ns": 1782573816050548989,
+          "path": "backups/runtime/run55-20260705-before-runtime-refresh/candidate-runtime/moltenvk-pr2746/include/vulkan/vulkan_core.h",
+          "sha256": "ba593c093dfd634f691e11099378847ce9b6a5cd0002835cf809239945753b58"
+        }
+      ]
+    },
+    {
+      "canonical": {
+        "bytes": 1753171,
+        "mode": 420,
+        "path": "backups/runtime/run55-20260705-before-runtime-refresh/app-runtime/moltenvk-pr2746/include/vulkan/vulkan_handles.hpp",
+        "sha256": "f7f5c1313e6250b3d53a097492e02ead1c7fb58fd57b47a1d97776c2957b080e"
+      },
+      "category": "early-vulkan-headers",
+      "id": "G094",
+      "payload": {
+        "bytes": 1753171,
+        "gitBlobSHA1": "91128a22e9cdd5941dd261b1b01fee02a267e134",
+        "gitMode": "100644",
+        "path": "docs/restore-checkpoints/2026-10-22-runtime-backup-dedup/payloads/f7f5c1313e6250b3d53a097492e02ead1c7fb58fd57b47a1d97776c2957b080e-vulkan_handles.hpp",
+        "sha256": "f7f5c1313e6250b3d53a097492e02ead1c7fb58fd57b47a1d97776c2957b080e"
+      },
+      "retiredCopies": [
+        {
+          "bytes": 1753171,
+          "mode": 420,
+          "mtime_ns": 1782573816057683084,
+          "path": "backups/runtime/run55-20260705-before-runtime-refresh/candidate-runtime/moltenvk-pr2746/include/vulkan/vulkan_handles.hpp",
+          "sha256": "f7f5c1313e6250b3d53a097492e02ead1c7fb58fd57b47a1d97776c2957b080e"
+        }
+      ]
+    }
+  ],
+  "limits": [
+    "Only these 100 regular duplicate files; no directory or app retirement.",
+    "Restores these selected bytes/modes, not all previously retired historical files.",
+    "Old sparse backup recipes require explicit materialization before use.",
+    "No new product build, gameplay, GPU, benchmark or clean historical rebuild qualification.",
+    "System provenance attributes are not copied or synthesized."
+  ],
+  "path": "docs/restore-checkpoints/2026-10-22-runtime-backup-dedup",
+  "preserved": [
+    "All backups/engine and backups/apps files",
+    "Current source/builds and all app bundles",
+    "All tests, replay/failure evidence, Markdown and patches",
+    "The private source-map pair",
+    "One or more local canonical copies per exact byte group"
+  ],
+  "repository": "yeojuny/bar-lobby-apple-silicon",
+  "schema": 1,
+  "status": "prepared-not-yet-deleted"
+}
